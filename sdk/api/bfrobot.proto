@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+// option optimize_for = CODE_SIZE;
+option cc_enable_arenas = true;
+
+package bftrader.bfrobot;
+
+import "bftrader.proto";
+
+//
+// 机器人服务，实现进程外策略
+// 策略底层由一个robot来驱动，采用单线程实现
+// robot负责和gateway和hisdata通信，隐藏rpc实现以兼容进程内策略
+// eg:
+// main{
+//  Robot robot;
+//  Strategy strategy(robot);
+//  robot.run(strategy){
+//     BfRobotService service(strategy);
+//	   service.run();
+//  }
+// }
+// ...
+// Strategy(robot){
+//    OnTick{robot.GetTick}
+//    OnError{...}
+//    OnLog{...} //robot回调写日志信息
+//    ...
+// }
+// BfRobotService.OnTick {strategy.OnTick}
+// BfRobotService.OnError {strategy.OnError}
+// BfRobotService.OnTick {strategy.OnTick}
+// ...
+// Robot.GetTick {BfHisData.GetTick}
+// Robot.GetBar {BfHisData.GetBar}
+// Robot.SendOrder {BfGateway.SendOrder}
+// Robot.CancelOrder {BfGateway.CancelOrder}
+//
+
+service BfRobotService{
+	// 行情回报
+	rpc OnTick(BfTickData) returns (BfVoid) {}
+	
+	// 命令/回报错误
+	rpc OnError(BfErrorData) returns (BfVoid) {}
+	
+	// 日志回调，目前没有使用
+	// 官网端日志统一在gateway的ui里面显示：交易日志和系统日志
+	// robot端日志，通过strategy::onlog来输出，如警告 调试=
+	rpc OnLog(BfLogData) returns (BfVoid) {}
+	
+	// 成交回报
+	rpc OnTrade(BfTradeData) returns (BfVoid) {}
+	
+	// 委托回报
+	rpc OnOrder(BfOrderData) returns (BfVoid) {}
+	
+	// 合约信息回报，目前没有使用，请使用BfGateway.GetContractList
+	rpc OnContract(BfContractData) returns (BfVoid) {}
+	
+	// 持仓回报
+	rpc OnPosition(BfPositionData) returns (BfVoid) {}
+	
+	// 账号信息回报
+	rpc OnAccount(BfAccountData) returns (BfVoid) {}
+}

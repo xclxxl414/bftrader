@@ -1,0 +1,5 @@
+build-*/
+*.pro.user
+*.bak
+*.pyc
+*.pyo
