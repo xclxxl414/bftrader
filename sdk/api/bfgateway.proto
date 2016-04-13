@@ -9,44 +9,44 @@ import "bftrader.proto";
 
 // 网关服务
 service BfGatewayService{
-	
+    
     // 策略间交换数据服务,不需要connect
     // 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
     rpc SetKv(BfKvData) returns (BfVoid){}
     rpc GetKv(BfKvData) returns (BfKvData){}
     
-	// 获取可交易合约信息,不需要connect
-	rpc GetContract(BfGetContractReq) returns (BfContractData) {}
-	rpc GetContractList(BfVoid) returns (stream BfContractData) {}
+    // 获取可交易合约信息,不需要connect
+    rpc GetContract(BfGetContractReq) returns (BfContractData) {}
+    rpc GetContractList(BfVoid) returns (stream BfContractData) {}
 
-	// 建立连接
-	//
-	// 策略间是完全隔离的，gateway在connect时候分配robot线程
-	// robot对象，将robot对象移动到robot线程，并记录<peer,robotobj>
-	// map<peer,robotobj> 用于分离rpc命令,servercontext::get_peer
-	// map<reqid,robotobj> 用于分离请求的回报
-	// map<orderid,robotobj> 用于分离委托推送
+    // 建立连接
+    //
+    // 策略间是完全隔离的，gateway在connect时候分配robot线程
+    // robot对象，将robot对象移动到robot线程，并记录<peer,robotobj>
+    // map<peer,robotobj> 用于分离rpc命令,servercontext::get_peer
+    // map<reqid,robotobj> 用于分离请求的回报
+    // map<orderid,robotobj> 用于分离委托推送
     // map<orderref,orderid> 分离撮合平台委托回报比如CTP
     // map<sysid,orderid> 分离交易所委托回报
-	// map<tradeid,robotobj> 用于分离成交推送
-	// map<symbol,robotobjlist> 用于分离行情推送
-	rpc Connect(BfConnectReq) returns (BfVoid) {}
-	
-	// 订阅行情
-	rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}
-	
-	// 发单
-	rpc SendOrder(BfOrderReq) returns (BfOrderResponse) {}
-	
-	// 撤单
-	rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
-	
-	// 查询账户信息
-	rpc QueryAccount(BfVoid) returns (BfVoid) {}
-	
-	// 查询持仓信息
-	rpc QueryPosition(BfVoid) returns (BfVoid) {}
-		
-	// 关闭连接
-	rpc Close(BfVoid) returns (BfVoid) {}
+    // map<tradeid,robotobj> 用于分离成交推送
+    // map<symbol,robotobjlist> 用于分离行情推送
+    rpc Connect(BfConnectReq) returns (BfVoid) {}
+    
+    // 订阅行情
+    rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}
+    
+    // 发单
+    rpc SendOrder(BfOrderReq) returns (BfOrderResponse) {}
+    
+    // 撤单
+    rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
+    
+    // 查询账户信息
+    rpc QueryAccount(BfVoid) returns (BfVoid) {}
+    
+    // 查询持仓信息
+    rpc QueryPosition(BfVoid) returns (BfVoid) {}
+        
+    // 关闭连接
+    rpc Close(BfVoid) returns (BfVoid) {}
 }

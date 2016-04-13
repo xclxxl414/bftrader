@@ -9,73 +9,73 @@ package bftrader;
 
 // 方向常量
 enum BfDirection{
-	DIRECTION_UNKNOWN = 0;	// 未知
-	DIRECTION_NONE = 1;		// 无方向
-	DIRECTION_LONG = 2;		// 多
-	DIRECTION_SHORT = 3;	// 空
-	DIRECTION_NET = 4;		// 净
-	DIRECTION_SELL = 5;		// 卖出
+    DIRECTION_UNKNOWN = 0;  // 未知
+    DIRECTION_NONE = 1;     // 无方向
+    DIRECTION_LONG = 2;     // 多
+    DIRECTION_SHORT = 3;    // 空
+    DIRECTION_NET = 4;      // 净
+    DIRECTION_SELL = 5;     // 卖出
 }
 
 // 开平常量
 enum BfOffset{
-	OFFSET_UNKNOWN = 0;			// 未知
-	OFFSET_NONE = 1;			// 无开平
-	OFFSET_OPEN = 2;			// 开仓
-	OFFSET_CLOSE = 3;			// 平仓
-	OFFSET_CLOSETODAY = 4;		// 平今
-	OFFSET_CLOSEYESTERDAY = 5;	// 平昨
+    OFFSET_UNKNOWN = 0;         // 未知
+    OFFSET_NONE = 1;            // 无开平
+    OFFSET_OPEN = 2;            // 开仓
+    OFFSET_CLOSE = 3;           // 平仓
+    OFFSET_CLOSETODAY = 4;      // 平今
+    OFFSET_CLOSEYESTERDAY = 5;  // 平昨
 }
 
 // 状态常量
 enum BfStatus{
-	STATUS_UNKNOWN = 0;			// 未知
-	STATUS_NOTTRADED = 1;		// 未成交
-	STATUS_PARTTRADED = 2;		// 部分成交
-	STATUS_ALLTRADED = 3;		// 全部成交
-	STATUS_CANCELLED = 4;		// 已撤销
+    STATUS_UNKNOWN = 0;         // 未知
+    STATUS_NOTTRADED = 1;       // 未成交
+    STATUS_PARTTRADED = 2;      // 部分成交
+    STATUS_ALLTRADED = 3;       // 全部成交
+    STATUS_CANCELLED = 4;       // 已撤销
 }
 
 // 合约类型常量
 enum BfProduct{
-	PRODUCT_UNKNOWN = 0;		// 未知
-	PRODUCT_NONE = 1;			// ''
-	PRODUCT_EQUITY = 2;			// 股票
-	PRODUCT_FUTURES = 3;		// 期货
-	PRODUCT_OPTION = 4;			// 期权
-	PRODUCT_INDEX = 5;			// 指数
-	PRODUCT_COMBINATION = 6;	// 组合
-	PRODUCT_FOREX = 7;			// 外汇
-	PRODUCT_SPOT = 8;			// 现货
-	PRODUCT_DEFER = 9;			// 延期
+    PRODUCT_UNKNOWN = 0;        // 未知
+    PRODUCT_NONE = 1;           // ''
+    PRODUCT_EQUITY = 2;         // 股票
+    PRODUCT_FUTURES = 3;        // 期货
+    PRODUCT_OPTION = 4;         // 期权
+    PRODUCT_INDEX = 5;          // 指数
+    PRODUCT_COMBINATION = 6;    // 组合
+    PRODUCT_FOREX = 7;          // 外汇
+    PRODUCT_SPOT = 8;           // 现货
+    PRODUCT_DEFER = 9;          // 延期
 }
 
 // 价格类型常量
 enum BfPriceType{
-	PRICETYPE_UNKONWN = 0;		// 未知
-	PRICETYPE_LIMITPRICE = 1;	// 限价
-	PRICETYPE_MARKETPRICE = 2;	// 市价
-	PRICETYPE_FAK = 3;			// FAK
-	PRICETYPE_FOK = 4;			// FOK
+    PRICETYPE_UNKONWN = 0;      // 未知
+    PRICETYPE_LIMITPRICE = 1;   // 限价
+    PRICETYPE_MARKETPRICE = 2;  // 市价
+    PRICETYPE_FAK = 3;          // FAK
+    PRICETYPE_FOK = 4;          // FOK
 }
 
 // 交易所类型
 enum BfExchange{
-	EXCHANGE_UNKNOWN = 0;		// UNKNOWN,未知交易所
-	EXCHANGE_SSE = 1;			// SSE,上交所
-	EXCHANGE_SZSE = 2;			// SZSE,深交所
-	EXCHANGE_CFFEX = 3;			// CFFEX,中金所
-	EXCHANGE_SHFE = 4;			// SHFE,上期所
-	EXCHANGE_CZCE = 5;			// CZCE,郑商所
-	EXCHANGE_DCE = 6;			// DCE,大商所
-	EXCHANGE_SGE = 7;			// SGE,上金所
+    EXCHANGE_UNKNOWN = 0;       // UNKNOWN,未知交易所
+    EXCHANGE_SSE = 1;           // SSE,上交所
+    EXCHANGE_SZSE = 2;          // SZSE,深交所
+    EXCHANGE_CFFEX = 3;         // CFFEX,中金所
+    EXCHANGE_SHFE = 4;          // SHFE,上期所
+    EXCHANGE_CZCE = 5;          // CZCE,郑商所
+    EXCHANGE_DCE = 6;           // DCE,大商所
+    EXCHANGE_SGE = 7;           // SGE,上金所
 }
 
 // Bar周期类型
 enum BfPeriod{
-	PERIOD_UNKNOWN = 0;			// 未知
-	PERIOD_M1 = 1;				// 1分钟
-	PERIOD_D1 = 2;				// 1天
+    PERIOD_UNKNOWN = 0;         // 未知
+    PERIOD_M1 = 1;              // 1分钟
+    PERIOD_D1 = 2;              // 1天
 }
 
 //============================
@@ -87,12 +87,12 @@ message BfVoid{
 //============================
 // 常规行情数据类
 message BfDailyInfo{
-    double openPrice = 1;		// 今日开盘价
-    double highPrice = 2;		// 今日最高价
-    double lowPrice = 3;		// 今日最低价
-    double preClosePrice = 4;	// 昨日收盘价
-    double upperLimit = 5;		// 涨停价
-    double lowerLimit = 6;		// 跌停价
+    double openPrice = 1;       // 今日开盘价
+    double highPrice = 2;       // 今日最高价
+    double lowPrice = 3;        // 今日最低价
+    double preClosePrice = 4;   // 昨日收盘价
+    double upperLimit = 5;      // 涨停价
+    double lowerLimit = 6;      // 跌停价
 }
 
 // x档行情
@@ -105,171 +105,171 @@ message BfBidAskInfo{
 
 // OHLC
 message BfOHLCInfo{
-	double openPrice = 1;		// 开盘价
-	double highPrice = 2;		// 最高价
-	double lowPrice = 3;		// 最低价
-	double closePrice = 4;		// 收盘价
+    double openPrice = 1;       // 开盘价
+    double highPrice = 2;       // 最高价
+    double lowPrice = 3;        // 最低价
+    double closePrice = 4;      // 收盘价
 }
     
 // Tick行情数据类
 message BfTickData{
 
-	// 代码相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-	// 成交数据
-    string date = 3;		    // 日期 20151009
-    string time = 4;		    // 时间 11:20:56.5
-    double lastPrice = 5;	    // 最新成交价
-    int32 volume = 6;		    // 今天总成交量
+    // 代码相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    // 成交数据
+    string date = 3;            // 日期 20151009
+    string time = 4;            // 时间 11:20:56.5
+    double lastPrice = 5;       // 最新成交价
+    int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 今天总持仓量
-    int32 lastVolume = 8;	    // 最新成交量，本笔增减
+    int32 lastVolume = 8;       // 最新成交量，本笔增减
     double lastOpenInterest = 9;// 最新持仓量，本笔增减
 
     // x档行情
-	repeated BfBidAskInfo bidaskInfo = 10;	
+    repeated BfBidAskInfo bidaskInfo = 10;  
 }
 
 // 1分钟的tick集合
 message BfTickPackData{
-	// 代码相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-	string date = 3;			// 日期 20151009
-	string time = 4;			// 时间 11:20:56
+    // 代码相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    string date = 3;            // 日期 20151009
+    string time = 4;            // 时间 11:20:56
 
-	// 常规行情
-	BfDailyInfo dailyInfo = 5;	
+    // 常规行情
+    BfDailyInfo dailyInfo = 5;  
 
-	// Tick集合
-	repeated BfTickData ticks = 6;
+    // Tick集合
+    repeated BfTickData ticks = 6;
 }
 
 // Bar行情数据类
 message BfBarData{
 
-	// 代码相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-	// 成交数据
-	string date = 3;			// 日期 20151009
-	string time = 4;			// 时间 11:20:56
-	int32 volume = 5;			// 今天总成交量
-	double openInterest = 6;	// 持仓量
-    int32 lastVolume = 7;	    // 最新成交量，本笔增减
+    // 代码相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    // 成交数据
+    string date = 3;            // 日期 20151009
+    string time = 4;            // 时间 11:20:56
+    int32 volume = 5;           // 今天总成交量
+    double openInterest = 6;    // 持仓量
+    int32 lastVolume = 7;       // 最新成交量，本笔增减
     double lastOpenInterest = 8;// 最新持仓量，本笔增减
     
     // OHLC
     BfOHLCInfo ohlcInfo = 9; 
 
-    // 周期	
-	BfPeriod period = 10;		
+    // 周期   
+    BfPeriod period = 10;       
 
     // 常规行情
-	BfDailyInfo dailyInfo = 11;	
+    BfDailyInfo dailyInfo = 11; 
 }
 
 // 成交数据类
 message BfTradeData{
-	
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
+    
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
 
-	string tradeID = 3;			// 成交编号,是本地自己分配的
-	string orderID = 4;			// 订单编号,是本地自己分配的
-	
-	// 成交相关
-	BfDirection direction = 5;	// 成交方向
-	BfOffset offset =  6;		// 成交开平仓
-	double price = 7;			// 成交价格
-	int32 volume = 8;			// 成交数量
-	string tradeTime = 9;		// 成交时间
+    string tradeID = 3;         // 成交编号,是本地自己分配的
+    string orderID = 4;         // 订单编号,是本地自己分配的
+    
+    // 成交相关
+    BfDirection direction = 5;  // 成交方向
+    BfOffset offset =  6;       // 成交开平仓
+    double price = 7;           // 成交价格
+    int32 volume = 8;           // 成交数量
+    string tradeTime = 9;       // 成交时间
 }
 
 // 订单数据类
 message BfOrderData{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-	string orderID = 3;			// 订单编号,是本地自己分配的
-	
-	// 报单相关
-	BfDirection direction = 4;	// 报单方向
-	BfOffset offset = 5;		// 报单开平仓
-	double price = 6;			// 报单价格
-	int32 totalVolume = 7;		// 报单总数量
-	int32 tradedVolume = 8;		// 报单成交数量
-	BfStatus status = 9;		// 报单状态
-	
-	string orderTime = 10;		// 发单时间
-	string cancelTime = 11;		// 撤单时间
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    string orderID = 3;         // 订单编号,是本地自己分配的
+    
+    // 报单相关
+    BfDirection direction = 4;  // 报单方向
+    BfOffset offset = 5;        // 报单开平仓
+    double price = 6;           // 报单价格
+    int32 totalVolume = 7;      // 报单总数量
+    int32 tradedVolume = 8;     // 报单成交数量
+    BfStatus status = 9;        // 报单状态
+    
+    string orderTime = 10;      // 发单时间
+    string cancelTime = 11;     // 撤单时间
 }
 
 // 持仓数据类
 message BfPositionData{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
 
-	// 持仓相关
-	BfDirection direction = 3;	// 持仓方向
-	int32 position = 4;			// 持仓量
-	int32 frozen = 5;			// 冻结数量
-	double price = 6;			// 持仓均价
-	
+    // 持仓相关
+    BfDirection direction = 3;  // 持仓方向
+    int32 position = 4;         // 持仓量
+    int32 frozen = 5;           // 冻结数量
+    double price = 6;           // 持仓均价
+    
     // 昨持仓
-	int32 ydPosition = 7;		
+    int32 ydPosition = 7;       
 }
 
 // 账户数据类
 message BfAccountData{
 
-	// 账号代码相关
-	string accountID = 1;		// 账户代码
-	
-	// 数值相关
-	double preBalance = 2;		// 昨日账户结算净值
-	double balance = 3;			// 账户净值
-	double available = 4;		// 可用资金
-	double commission = 5;		// 今日手续费
-	double margin = 6;			// 保证金占用
-	double closeProfit = 7;		// 平仓盈亏
-	double positionProfit = 8;	// 持仓盈亏
+    // 账号代码相关
+    string accountID = 1;       // 账户代码
+    
+    // 数值相关
+    double preBalance = 2;      // 昨日账户结算净值
+    double balance = 3;         // 账户净值
+    double available = 4;       // 可用资金
+    double commission = 5;      // 今日手续费
+    double margin = 6;          // 保证金占用
+    double closeProfit = 7;     // 平仓盈亏
+    double positionProfit = 8;  // 持仓盈亏
 }
 
 // 错误数据类
 message BfErrorData{
 
-	string errorID = 1;			// 错误代码
-	string errorMsg = 2;		// 错误信息
-	string additionalInfo = 3;	// 补充信息
+    string errorID = 1;         // 错误代码
+    string errorMsg = 2;        // 错误信息
+    string additionalInfo = 3;  // 补充信息
 }
 
 // 日志数据类
 message BfLogData{
 
-	string logTime = 1;			// 日志生成时间
-	string logContent = 2;		// 日志信息
+    string logTime = 1;         // 日志生成时间
+    string logContent = 2;      // 日志信息
 }
 
 // 合约详细信息类
 message BfContractData{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	string name = 3;			// 合约中文名-utf8
-	
-	BfProduct productClass = 4;	// 合约类型
-	int32 size = 5;				// 合约大小
-	double priceTick = 6;		// 合约最小价格TICK
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    string name = 3;            // 合约中文名-utf8
+    
+    BfProduct productClass = 4; // 合约类型
+    int32 size = 5;             // 合约大小
+    double priceTick = 6;       // 合约最小价格TICK
 }
 
 // K/V数据交换传入传出的数据类
@@ -283,86 +283,86 @@ message BfKvData{
 // 订阅行情时传入的对象类
 message BfSubscribeReq{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码	
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码    
 }
 
 // 发单时传入的对象类
 message BfOrderReq{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-	double price = 3;			// 价格
-	int32 volume = 4;			// 数量
-	BfPriceType priceType = 5;	// 价格类型
-	BfDirection direction = 6;	// 买卖
-	BfOffset offset = 7;		// 开平
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    double price = 3;           // 价格
+    int32 volume = 4;           // 数量
+    BfPriceType priceType = 5;  // 价格类型
+    BfDirection direction = 6;  // 买卖
+    BfOffset offset = 7;        // 开平
     
     string reason = 8;          // 理由备忘
 }
 
 // 发单本地返回的对象类
 message BfOrderResponse{
-    string orderID = 1;			// 报单号,是本地自己分配的
+    string orderID = 1;         // 报单号,是本地自己分配的
 }
 
 // 撤单时传入的对象类
 message BfCancelOrderReq{
 
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
-	
-    string orderID = 3;			// 报单号,是本地自己分配的
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    string orderID = 3;         // 报单号,是本地自己分配的
     
     string reason = 4;          // 理由备忘
 }
 
 // 连接时传入的对象类
 message BfConnectReq{
-	
-	// Robot相关
-	string name = 1;			// 策略名,用于日志分析和ui显示
-	int32 endpoint = 2;		    // 机器人服务端口，OnTick...
-	
-	// 回测相关
-	string fromDay = 3;			// 开始日期	
-	string fromTime = 4;		// 开始时间
-	string toDay = 5;			// 截止日期
-	string toTime = 6;			// 截止时间
+    
+    // Robot相关
+    string name = 1;            // 策略名,用于日志分析和ui显示
+    int32 endpoint = 2;         // 机器人服务端口，OnTick...
+    
+    // 回测相关
+    string fromDay = 3;         // 开始日期 
+    string fromTime = 4;        // 开始时间
+    string toDay = 5;           // 截止日期
+    string toTime = 6;          // 截止时间
 }
 
 // 获取合约信息传入的对象类
 message BfGetContractReq{
-	// 代码编号相关
-	string symbol = 1;			// 合约代码
-	string exchange = 2;		// 交易所代码
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
 }
 
 //============================
 
 // 获取历史Tick数据的对象类（1分钟整存整取）
 message BfGetTickPackReq{
-	// 代码编号相关
-	string symbol = 1;				// 合约代码
-	string exchange = 2;			// 交易所代码
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
 
-	string toDate = 3;				// 截止日期
-	string toTime = 4;				// 截止时间
-	int32 count = 5;				// 获取条数
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
+    int32 count = 5;                // 获取条数
 }
 
 // 获取历史Bar数据的对象类
 message BfGetBarReq{
-	// 代码编号相关
-	string symbol = 1;				// 合约代码
-	string exchange = 2;			// 交易所代码
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
 
-	BfPeriod period = 3;			// 周期
-	string toDate = 4;				// 截止日期
-	string toTime = 5;				// 截止时间
-	int32 count = 6;				// 获取条数
+    BfPeriod period = 3;            // 周期
+    string toDate = 4;              // 截止日期
+    string toTime = 5;              // 截止时间
+    int32 count = 6;                // 获取条数
 }
