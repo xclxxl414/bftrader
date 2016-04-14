@@ -5,7 +5,7 @@ import time
 import bftrader_pb2
 import bfrobot_pb2
 import bfgateway_pb2
-import bfhisdata_pb2
+import bfdatafeed_pb2
 
 from grpc.beta import implementations
 
@@ -18,8 +18,8 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         print "init robot"
         self.gateway_channel = implementations.insecure_channel('localhost', 50051)
         self.gateway = bfgateway_pb2.beta_create_BfGatewayService_stub(self.gateway_channel)
-        self.hisdata_channel = implementations.insecure_channel('localhost', 50052)
-        self.hisdata = bfhisdata_pb2.beta_create_BfHisDataService_stub(self.hisdata_channel)
+        self.datafeed_channel = implementations.insecure_channel('localhost', 50052)
+        self.datafeed = bfdatafeed_pb2.beta_create_BfDatafeedService_stub(self.datafeed_channel)
         self._robot = bfrobot_pb2.beta_create_BfRobotService_server(self)
         self._robot.add_insecure_port('[::]:50053')
         

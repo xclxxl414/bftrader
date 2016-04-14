@@ -3,13 +3,13 @@
 import time
 
 import bftrader_pb2
-import bfhisdata_pb2
+import bfdatafeed_pb2
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
-class HisData(bfhisdata_pb2.BetaBfHisDataServiceServicer):
+class Datafeed(bfdatafeed_pb2.BetaBfDatafeedServiceServicer):
     def __init__(self):
-        print "init hisdata"
+        print "init datafeed"
     
     def InsertTickPack(self, request, context):
         print "InsertTickPack"
@@ -25,16 +25,16 @@ class HisData(bfhisdata_pb2.BetaBfHisDataServiceServicer):
     
     
 def run():
-    hisdata = bfhisdata_pb2.beta_create_BfHisDataService_server(HisData())
-    hisdata.add_insecure_port('[::]:50052')
-    hisdata.start()
-    print "start hisdata"
+    datafeed = bfdatafeed_pb2.beta_create_BfDatafeedService_server(Datafeed())
+    datafeed.add_insecure_port('[::]:50052')
+    datafeed.start()
+    print "start datafeed"
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
-        print "stop hisdata"
-        hisdata.stop(0)
+        print "stop datafeed"
+        datafeed.stop(0)
 
 if __name__ == '__main__':
     run()

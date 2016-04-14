@@ -3,12 +3,12 @@ syntax = "proto3";
 // option optimize_for = CODE_SIZE;
 option cc_enable_arenas = true;
 
-package bftrader.bfhisdata;
+package bftrader.bfdatafeed;
 
 import "bftrader.proto";
 
 // 历史数据服务
-service BfHisDataService{
+service BfDatafeedService{
 
     // 保存tick，1分钟一打包，(todo:改成req，增加key需要的参数，ticks直接发bytes)
     rpc InsertTickPack(BfTickPackData) returns (BfVoid) {}

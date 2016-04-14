@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    hisdata \
-    mpctp \
-    btest \
+    datafeed \
+    ctpnow \
+    backtest \
     tools
