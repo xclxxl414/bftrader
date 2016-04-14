@@ -6,11 +6,12 @@
 https://www.visualstudio.com/downloads/download-visual-studio-vs
 
 2. 安装调试器 windbg
-https://github.com/sunwangme/vnsdk/tools
+http://pan.baidu.com/s/1jHT5F8a
 
 3 安装python27-x86 和activeperl512-x86
 http://www.activestate.com/activeperl/
 http://www.activestate.com/activepython/
+http://pan.baidu.com/s/1jHT5F8a
 
 4 下载qtbase和qttools代码
 http://download.qt.io/official_releases/qt/5.6/5.6.0/submodules/
