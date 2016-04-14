@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS = \
     ctpcheck \
     ctpdemo \
-    grpcdemo
+    grpcdemo \
+    qtdemo

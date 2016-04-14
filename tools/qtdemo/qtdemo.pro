@@ -1,0 +1,40 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-10-22T12:46:33
+#
+#-------------------------------------------------
+
+QT       += core core_private gui widgets
+
+TARGET = qtdemo
+TEMPLATE = app
+
+include(../../bftrader.pri)
+
+SOURCES += main.cpp\
+        ui/mainwindow.cpp \
+    profile.cpp \
+    servicemgr.cpp \
+    ctpmgr.cpp \
+    leveldbbackend.cpp \
+    pushservice.cpp \
+    rpcservice.cpp
+
+HEADERS  += ui/mainwindow.h \
+    profile.h \
+    servicemgr.h \
+    ctpmgr.h \
+    leveldbbackend.h \
+    pushservice.h \
+    rpcservice.h
+
+FORMS    += ui/mainwindow.ui
+
+include(../../utils/utils.pri)
+include(../../third_party/breakpad.pri)
+include(../../third_party/mhook.pri)
+include(../../third_party/ctp.pri)
+include(../../third_party/leveldb.pri)
+
+RESOURCES += \
+    systray.qrc
