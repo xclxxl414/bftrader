@@ -1,7 +1,8 @@
 #include "mdsm.h"
 #include <QDir>
 #include "ThostFtdcMdApi.h"
-#include "utils.h"
+#include "file_utils.h"
+#include "encode_utils.h"
 #include "ctpcmd.h"
 #include <QMap>
 #include "ringbuffer.h"

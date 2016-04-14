@@ -30,7 +30,7 @@ HEADERS  += ui/mainwindow.h \
 
 FORMS    += ui/mainwindow.ui
 
-include(../../utils/utils.pri)
+include(../../base/base.pri)
 include(../../third_party/breakpad.pri)
 include(../../third_party/mhook.pri)
 include(../../third_party/ctp.pri)

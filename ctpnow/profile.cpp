@@ -3,8 +3,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QFIle>
-#include "utils.h"
+#include <QFile>
+#include "file_utils.h"
 #include <QCoreApplication>
 
 Profile::Profile(QObject* parent)

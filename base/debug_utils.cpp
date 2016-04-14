@@ -1,24 +1,6 @@
-#include "utils.h"
+#include "debug_utils.h"
 
-#include <QFile>
-#include <QDataStream>
-#include <QDir>
-#include <QTextCodec>
 #include <windows.h>
-
-void mkDir(QString local_file)
-{
-    QFileInfo info(local_file);
-    QString dirPath = info.absoluteDir().path();
-    QDir dir;
-    dir.mkpath(dirPath);
-}
-
-QString gbk2utf16(char* gbk){
-    QTextCodec* codec = QTextCodec::codecForName("gb18030");
-    QString utf16 = codec->toUnicode(gbk);
-    return utf16;
-}
 
 namespace base {
 namespace debug {

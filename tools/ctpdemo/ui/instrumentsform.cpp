@@ -2,7 +2,7 @@
 #include "ui_instrumentsform.h"
 #include "ThostFtdcUserApiStruct.h"
 #include <leveldb/db.h>
-#include "utils.h"
+#include "encode_utils.h"
 
 InstrumentsForm::InstrumentsForm(QWidget* parent)
     : QWidget(parent)

@@ -1,6 +1,7 @@
 #include "logger.h"
 #include "CrashHandler.h"
-#include "utils.h"
+#include "debug_utils.h"
+#include "file_utils.h"
 #include <windows.h>
 #include "mhook-lib/mhook.h"
 

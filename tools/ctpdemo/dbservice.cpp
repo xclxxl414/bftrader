@@ -2,7 +2,7 @@
 #include "ThostFtdcUserApiStruct.h"
 #include "ctp_utils.h"
 #include "profile.h"
-#include "utils.h"
+#include "file_utils.h"
 #include "servicemgr.h"
 #include "logger.h"
 #include <QThread>

@@ -1,10 +1,5 @@
 #pragma once
 
-#include <QString>
-
-void mkDir(QString local_file);
-QString gbk2utf16(char* gbk);
-
 namespace base {
 namespace debug {
 

@@ -55,11 +55,11 @@ FORMS    += ui/mainwindow.ui \
     ui/instrumentsform.ui \
     ui/ringbufferform.ui
 
+include(../../base/base.pri)
 include(../../third_party/ctp.pri)
 include(../../third_party/leveldb.pri)
 include(../../third_party/breakpad.pri)
 include(../../third_party/mhook.pri)
-include(../../utils/utils.pri)
 
 RESOURCES += \
     systray.qrc

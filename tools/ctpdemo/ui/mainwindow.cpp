@@ -3,7 +3,7 @@
 #include "configdialog.h"
 #include "logindialog.h"
 
-#include "utils.h"
+#include "debug_utils.h"
 #include "mdsm.h"
 #include <QThread>
 #include "tdsm.h"

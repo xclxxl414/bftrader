@@ -5,7 +5,7 @@
 #include "servicemgr.h"
 #include "logger.h"
 #include "profile.h"
-#include "utils.h"
+#include "file_utils.h"
 #include "ThostFtdcTraderApi.h"
 #include "ThostFtdcMdApi.h"
 

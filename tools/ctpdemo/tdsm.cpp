@@ -1,7 +1,8 @@
 #include "TdSm.h"
 #include <QDir>
 #include "ThostFtdcTraderApi.h"
-#include "utils.h"
+#include "file_utils.h"
+#include "encode_utils.h"
 #include "ctpcmd.h"
 #include "servicemgr.h"
 #include "ctpcmdmgr.h"
