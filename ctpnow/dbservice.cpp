@@ -1,4 +1,4 @@
-#include "leveldbbackend.h"
+#include "dbservice.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
 #include "leveldb/comparator.h"
@@ -9,12 +9,12 @@
 #include "ThostFtdcTraderApi.h"
 #include "ThostFtdcMdApi.h"
 
-LeveldbBackend::LeveldbBackend(QObject *parent) : QObject(parent)
+DbService::DbService(QObject *parent) : QObject(parent)
 {
 
 }
 
-void LeveldbBackend::init(){
+void DbService::init(){
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -22,7 +22,7 @@ void LeveldbBackend::init(){
     leveldb::BytewiseComparator();
 }
 
-void LeveldbBackend::shutdown(){
+void DbService::shutdown(){
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -30,7 +30,7 @@ void LeveldbBackend::shutdown(){
     delete leveldb::Env::Default();
 }
 
-void LeveldbBackend::dbOpen(){
+void DbService::dbOpen(){
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -57,7 +57,7 @@ void LeveldbBackend::dbOpen(){
     db_ = db;
 }
 
-void LeveldbBackend::dbClose(){
+void DbService::dbClose(){
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -69,7 +69,7 @@ void LeveldbBackend::dbClose(){
     db_ = nullptr;
 }
 
-void LeveldbBackend::dbInit(){
+void DbService::dbInit(){
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 

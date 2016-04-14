@@ -16,17 +16,17 @@ SOURCES += main.cpp\
     profile.cpp \
     servicemgr.cpp \
     ctpmgr.cpp \
-    leveldbbackend.cpp \
     pushservice.cpp \
-    rpcservice.cpp
+    rpcservice.cpp \
+    dbservice.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
     servicemgr.h \
     ctpmgr.h \
-    leveldbbackend.h \
     pushservice.h \
-    rpcservice.h
+    rpcservice.h \
+    dbservice.h
 
 FORMS    += ui/mainwindow.ui
 

@@ -7,7 +7,7 @@ class QThread;
 class Logger;
 class Profile;
 class CtpMgr;
-class LeveldbBackend;
+class DbService;
 class RpcService;
 class PushService;
 
@@ -20,11 +20,13 @@ public:
 
 public:
     enum ThreadType {
-        EXTERNAL,
-        UI,
-        DB,
-        IO,
-        CTP
+        EXTERNAL,   // threadpool
+        UI,         // ui
+        DB,         // database
+        IO,         // file
+        PUSH,       // network-->
+        RPC,        // network<--
+        LOGIC       // logic,eg.ctpmgr
     };
     QThread* getThread(ThreadType p);
     bool isCurrentOn(ThreadType p);
@@ -33,17 +35,22 @@ public:
     Logger* logger();
     Profile* profile();
     CtpMgr* ctpMgr();
-    LeveldbBackend* leveldbBackend();
+    DbService* dbService();
     RpcService* rpcService();
     PushService* pushService();
 
 private slots:
     void dbThreadStarted();
     void ioThreadStarted();
-    void ctpThreadStarted();
+    void pushThreadStarted();
+    void rpcThreadStarted();
+    void logicThreadStarted();
+
     void dbThreadFinished();
     void ioThreadFinished();
-    void ctpThreadFinished();
+    void pushThreadFinished();
+    void rpcThreadFinished();
+    void logicThreadFinished();
 
 private:
     void check();
@@ -52,12 +59,14 @@ private:
     QThread* ui_thread_ = nullptr;
     QThread* db_thread_ = nullptr;
     QThread* io_thread_ = nullptr;
-    QThread* ctp_thread_ = nullptr;
+    QThread* push_thread_ = nullptr;
+    QThread* rpc_thread_ = nullptr;
+    QThread* logic_thread_ = nullptr;
 
     Logger* logger_ = nullptr;
     Profile* profile_ = nullptr;
     CtpMgr* ctpMgr_ = nullptr;
-    LeveldbBackend* leveldbBackend_ = nullptr;
+    DbService* dbService_ = nullptr;
     RpcService* rpcService_ = nullptr;
     PushService* pushService_ = nullptr;
 

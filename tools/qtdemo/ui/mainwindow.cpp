@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <functional>
 #include "ctpmgr.h"
-#include "leveldbbackend.h"
+#include "dbservice.h"
 #include "runextensions.h"
 #include <QtConcurrentRun>
 
@@ -212,16 +212,16 @@ void MainWindow::on_actionCtpVersion_triggered()
 
 void MainWindow::on_actionDbOpen_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->leveldbBackend(), "dbOpen", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbOpen", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionDbInit_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->leveldbBackend(), "dbInit", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbInit", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionDbClose_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->leveldbBackend(), "dbClose", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }
 

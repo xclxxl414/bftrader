@@ -12,12 +12,12 @@ RpcService::RpcService(QObject *parent) : QObject(parent)
 
 void RpcService::init(){
     g_sm->logger()->info(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::IO);
+    g_sm->checkCurrentOn(ServiceMgr::RPC);
 
 }
 
 void RpcService::shutdown(){
     g_sm->logger()->info(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::IO);
+    g_sm->checkCurrentOn(ServiceMgr::RPC);
 
 }

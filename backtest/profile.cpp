@@ -3,7 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QFIle>
+#include <QFile>
 #include "file_utils.h"
 #include <QCoreApplication>
 

@@ -1,16 +1,15 @@
-#ifndef LEVELDBBACKEND_H
-#define LEVELDBBACKEND_H
+#pragma once
 
 #include <QObject>
 
 namespace leveldb{
 class DB;
 }
-class LeveldbBackend : public QObject
+class DbService : public QObject
 {
     Q_OBJECT
 public:
-    explicit LeveldbBackend(QObject *parent = 0);
+    explicit DbService(QObject *parent = 0);
     void init();
     void shutdown();
 
@@ -24,4 +23,3 @@ private:
     leveldb::DB* db_ = nullptr;
 };
 
-#endif // LEVELDBBACKEND_H

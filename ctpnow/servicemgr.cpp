@@ -3,7 +3,7 @@
 #include "logger.h"
 #include <QThread>
 #include "ctpmgr.h"
-#include "leveldbbackend.h"
+#include "dbservice.h"
 #include "rpcservice.h"
 #include "pushservice.h"
 #include <QThreadPool>
@@ -28,82 +28,109 @@ void ServiceMgr::init()
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
     ui_thread_ = QThread::currentThread();
-
     io_thread_ = new QThread;
-
     db_thread_ = new QThread;
-
-    ctp_thread_ = new QThread;
+    push_thread_ = new QThread;
+    rpc_thread_ = new QThread;
+    logic_thread_ = new QThread;
 
     logger_ = new Logger;
     profile_ = new Profile;
-    ctpMgr_ = new CtpMgr;
-    ctpMgr_->moveToThread(ctp_thread_);
-    leveldbBackend_ = new LeveldbBackend;
-    leveldbBackend_->moveToThread(db_thread_);
+    dbService_ = new DbService;
+    dbService_->moveToThread(db_thread_);
     rpcService_ = new RpcService;
-    rpcService_->moveToThread(io_thread_);
+    rpcService_->moveToThread(rpc_thread_);
     pushService_ = new PushService;
-    pushService_->moveToThread(io_thread_);
+    pushService_->moveToThread(push_thread_);
+    ctpMgr_ = new CtpMgr;
+    ctpMgr_->moveToThread(logic_thread_);
 
+    // ui objects
     logger_->init();
     profile_->init();
 
     QObject::connect(io_thread_, &QThread::started, this, &ServiceMgr::ioThreadStarted, Qt::DirectConnection);
-    QObject::connect(ctp_thread_, &QThread::started, this, &ServiceMgr::ctpThreadStarted, Qt::DirectConnection);
     QObject::connect(db_thread_, &QThread::started, this, &ServiceMgr::dbThreadStarted, Qt::DirectConnection);
+    QObject::connect(push_thread_, &QThread::started, this, &ServiceMgr::pushThreadStarted, Qt::DirectConnection);
+    QObject::connect(rpc_thread_, &QThread::started, this, &ServiceMgr::rpcThreadStarted, Qt::DirectConnection);
+    QObject::connect(logic_thread_, &QThread::started, this, &ServiceMgr::logicThreadStarted, Qt::DirectConnection);
     QObject::connect(io_thread_, &QThread::finished, this, &ServiceMgr::ioThreadFinished, Qt::DirectConnection);
-    QObject::connect(ctp_thread_, &QThread::finished, this, &ServiceMgr::ctpThreadFinished, Qt::DirectConnection);
     QObject::connect(db_thread_, &QThread::finished, this, &ServiceMgr::dbThreadFinished, Qt::DirectConnection);
+    QObject::connect(push_thread_, &QThread::finished, this, &ServiceMgr::pushThreadFinished, Qt::DirectConnection);
+    QObject::connect(rpc_thread_, &QThread::finished, this, &ServiceMgr::rpcThreadFinished, Qt::DirectConnection);
+    QObject::connect(logic_thread_, &QThread::finished, this, &ServiceMgr::logicThreadFinished, Qt::DirectConnection);
     io_thread_->start();
     db_thread_->start();
-    ctp_thread_->start();
+    push_thread_->start();
+    rpc_thread_->start();
+    logic_thread_->start();
 }
 
 void ServiceMgr::ioThreadStarted()
 {
     checkCurrentOn(IO);
-
-    rpcService_->init();
-    pushService_->init();
 }
 
 void ServiceMgr::ioThreadFinished()
 {
     checkCurrentOn(IO);
-
-    rpcService_->shutdown();
-    rpcService_->moveToThread(ui_thread_);
-
-    pushService_->shutdown();
-    pushService_->moveToThread(ui_thread_);
 }
 
 void ServiceMgr::dbThreadStarted()
 {
     checkCurrentOn(DB);
 
-    leveldbBackend_->init();
+    dbService_->init();
 }
 
 void ServiceMgr::dbThreadFinished()
 {
     checkCurrentOn(DB);
 
-    leveldbBackend_->shutdown();
-    leveldbBackend_->moveToThread(ui_thread_);
+    dbService_->shutdown();
+    dbService_->moveToThread(ui_thread_);
 }
 
-void ServiceMgr::ctpThreadStarted()
+void ServiceMgr::pushThreadStarted()
 {
-    checkCurrentOn(CTP);
+    checkCurrentOn(PUSH);
+
+    pushService_->init();
+}
+
+void ServiceMgr::pushThreadFinished()
+{
+    checkCurrentOn(PUSH);
+
+    pushService_->shutdown();
+    pushService_->moveToThread(ui_thread_);
+}
+
+void ServiceMgr::rpcThreadStarted()
+{
+    checkCurrentOn(RPC);
+
+    rpcService_->init();
+}
+
+void ServiceMgr::rpcThreadFinished()
+{
+    checkCurrentOn(RPC);
+
+    rpcService_->shutdown();
+    rpcService_->moveToThread(ui_thread_);
+}
+
+void ServiceMgr::logicThreadStarted()
+{
+    checkCurrentOn(LOGIC);
 
     ctpMgr_->init();
 }
 
-void ServiceMgr::ctpThreadFinished()
+void ServiceMgr::logicThreadFinished()
 {
-    checkCurrentOn(CTP);
+    checkCurrentOn(LOGIC);
 
     ctpMgr_->shutdown();
     ctpMgr_->moveToThread(ui_thread_);
@@ -115,10 +142,10 @@ CtpMgr* ServiceMgr::ctpMgr(){
     return this->ctpMgr_;
 }
 
-LeveldbBackend* ServiceMgr::leveldbBackend(){
+DbService* ServiceMgr::dbService(){
     check();
 
-    return this->leveldbBackend_;
+    return this->dbService_;
 }
 
 RpcService* ServiceMgr::rpcService()
@@ -144,10 +171,20 @@ void ServiceMgr::shutdown()
 
     QThreadPool::globalInstance()->waitForDone();
 
-    ctp_thread_->quit();
-    ctp_thread_->wait();
-    delete ctp_thread_;
-    ctp_thread_ = nullptr;
+    logic_thread_->quit();
+    logic_thread_->wait();
+    delete logic_thread_;
+    logic_thread_ = nullptr;
+
+    rpc_thread_->quit();
+    rpc_thread_->wait();
+    delete rpc_thread_;
+    rpc_thread_ = nullptr;
+
+    push_thread_->quit();
+    push_thread_->wait();
+    delete push_thread_;
+    push_thread_ = nullptr;
 
     db_thread_->quit();
     db_thread_->wait();
@@ -162,17 +199,17 @@ void ServiceMgr::shutdown()
     profile_->shutdown();
     logger_->shutdown();
 
-    delete pushService_;
-    pushService_ = nullptr;
+    delete ctpMgr_;
+    ctpMgr_ = nullptr;
 
     delete rpcService_;
     rpcService_ = nullptr;
 
-    delete leveldbBackend_;
-    leveldbBackend_ = nullptr;
+    delete pushService_;
+    pushService_ = nullptr;
 
-    delete ctpMgr_;
-    ctpMgr_ = nullptr;
+    delete dbService_;
+    dbService_ = nullptr;
 
     delete profile_;
     profile_ = nullptr;
@@ -218,8 +255,14 @@ QThread* ServiceMgr::getThread(ThreadType p)
     if (p == ServiceMgr::DB) {
         return this->db_thread_;
     }
-    if (p == ServiceMgr::CTP) {
-        return this->ctp_thread_;
+    if (p == ServiceMgr::PUSH) {
+        return this->push_thread_;
+    }
+    if (p == ServiceMgr::RPC) {
+        return this->rpc_thread_;
+    }
+    if (p == ServiceMgr::LOGIC) {
+        return this->logic_thread_;
     }
 
     qFatal("getThread");
@@ -243,12 +286,22 @@ bool ServiceMgr::isCurrentOn(ServiceMgr::ThreadType p)
         return true;
     }
 
-    if (p == ServiceMgr::CTP && cur == ctp_thread_) {
+    if (p == ServiceMgr::PUSH && cur == push_thread_) {
+        return true;
+    }
+
+    if (p == ServiceMgr::RPC && cur == rpc_thread_) {
+        return true;
+    }
+
+    if (p == ServiceMgr::LOGIC && cur == logic_thread_) {
         return true;
     }
 
     if (p == ServiceMgr::EXTERNAL) {
-        if (cur != ui_thread_ && cur != db_thread_ && cur != io_thread_ && cur != ctp_thread_) {
+        if (cur != ui_thread_ && cur != db_thread_
+            && cur != io_thread_ && cur != push_thread_
+            && cur != rpc_thread_ && cur != logic_thread_) {
             return true;
         }
     }
