@@ -1,19 +1,40 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-04-08T20:12:15
+# Project created by QtCreator 2015-10-22T12:46:33
 #
 #-------------------------------------------------
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets
+# QT += core_private
 
 TEMPLATE = app
 
+include(../bftrader.pri)
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    ui/mainwindow.cpp \
+    profile.cpp \
+    servicemgr.cpp \
+    ctpmgr.cpp \
+    leveldbbackend.cpp \
+    pushservice.cpp \
+    rpcservice.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += ui/mainwindow.h \
+    profile.h \
+    servicemgr.h \
+    ctpmgr.h \
+    leveldbbackend.h \
+    pushservice.h \
+    rpcservice.h
 
-FORMS    += mainwindow.ui
+FORMS    += ui/mainwindow.ui
+
+include(../utils/utils.pri)
+include(../third_party/breakpad.pri)
+include(../third_party/mhook.pri)
+include(../third_party/ctp.pri)
+include(../third_party/leveldb.pri)
+
+RESOURCES += \
+    systray.qrc

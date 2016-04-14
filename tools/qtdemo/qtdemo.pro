@@ -4,15 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core core_private gui widgets
+QT       += core gui widgets
+# QT += core_private
 
-TARGET = qtdemo
 TEMPLATE = app
 
 include(../../bftrader.pri)
 
 SOURCES += main.cpp\
-        ui/mainwindow.cpp \
+    ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
     ctpmgr.cpp \
