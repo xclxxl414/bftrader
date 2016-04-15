@@ -17,7 +17,7 @@ public:
     static void stopExitMonitor();
 
 signals:
-    void gotInfo(QString msg);
+    void gotInfo(QString when,QString msg);
 
 private:
     QFile log_;

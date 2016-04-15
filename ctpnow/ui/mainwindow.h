@@ -11,6 +11,8 @@ class MainWindow;
 
 class Profile;
 class Logger;
+class LogForm;
+
 template <typename T>
 class QFutureInterface;
 
@@ -22,9 +24,6 @@ public:
     ~MainWindow();
     void init();
     void shutdown();
-
-public slots:
-    void onInfo(QString msg);
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -60,6 +59,7 @@ private:
 
 private:
     Ui::MainWindow* ui;
+    LogForm* logForm_;
 
 private:
     QAction* minimizeAction;

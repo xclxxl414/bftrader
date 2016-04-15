@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     tdsm.cpp \
     ui/configdialog.cpp \
     ui/logindialog.cpp \
-    ringbuffer.cpp
+    ringbuffer.cpp \
+    ui/logform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -36,11 +37,13 @@ HEADERS  += ui/mainwindow.h \
     tdsm.h \
     ui/configdialog.h \
     ui/logindialog.h \
-    ringbuffer.h
+    ringbuffer.h \
+    ui/logform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
-    ui/logindialog.ui
+    ui/logindialog.ui \
+    ui/logform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

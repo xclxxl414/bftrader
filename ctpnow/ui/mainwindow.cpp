@@ -9,6 +9,8 @@
 #include "runextensions.h"
 #include "servicemgr.h"
 #include "ui_mainwindow.h"
+#include "logform.h"
+
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
@@ -31,6 +33,13 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionStart->setEnabled(true);
     ui->actionConfig->setEnabled(true);
     ui->actionStop->setEnabled(false);
+
+    // tabs
+    logForm_ = new LogForm(this);
+    ui->tabWidget->addTab(logForm_,"日志");
+    ui->tabWidget->addTab(new QWidget(this),"合约");
+    ui->tabWidget->addTab(new QWidget(this),"持仓");
+    ui->tabWidget->addTab(new QWidget(this),"委托");
 }
 
 MainWindow::~MainWindow()
@@ -40,19 +49,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    // logger
-    QObject::connect(logger(), &Logger::gotInfo, this, &MainWindow::onInfo);
+    // sub window
+    logForm_->init();
 }
 
 void MainWindow::shutdown()
 {
-}
-
-void MainWindow::onInfo(QString msg)
-{
-    ui->listWidget->addItem(msg);
-    //滚动到最后一行=
-    ui->listWidget->setCurrentRow(ui->listWidget->count() - 1);
+    // sub window
+    logForm_->shutdown();
 }
 
 void MainWindow::on_actionVersion_triggered()

@@ -69,9 +69,10 @@ void MainWindow::shutdown()
 {
 }
 
-void MainWindow::onInfo(QString msg)
+void MainWindow::onInfo(QString when,QString msg)
 {
-    ui->listWidget->addItem(msg);
+    QString log = when + QStringLiteral("==>") + msg + QStringLiteral("\n");
+    ui->listWidget->addItem(log);
     //滚动到最后一行=
     ui->listWidget->setCurrentRow(ui->listWidget->count() - 1);
 }

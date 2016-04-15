@@ -28,7 +28,7 @@ signals:
     void stopCtp();
 
 public slots:
-    void onInfo(QString msg);
+    void onInfo(QString when,QString msg);
     void onGotInstruments(QStringList ids);
     void onGotTick(void* tick,int indexRb, void* rb);
     void resetUI();

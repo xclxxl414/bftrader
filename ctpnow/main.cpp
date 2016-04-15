@@ -2,6 +2,7 @@
 #include "servicemgr.h"
 #include "ui/mainwindow.h"
 #include <QApplication>
+#include <QDesktopWidget>
 
 //qt的插件在退出时候没有释放造成泄漏，改了两个太无聊了不改了=
 #if 0
@@ -82,6 +83,7 @@ int main(int argc, char* argv[])
 
         MainWindow w;
         w.init();
+        w.move((QApplication::desktop()->width() - w.width()) / 2, (QApplication::desktop()->height() - w.height()) / 2);
         w.show();
 
         result = a.exec();

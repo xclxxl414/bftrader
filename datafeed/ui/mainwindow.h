@@ -23,7 +23,7 @@ public:
     void shutdown();
 
 public slots:
-    void onInfo(QString msg);
+    void onInfo(QString when,QString msg);
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
