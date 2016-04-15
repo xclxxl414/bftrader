@@ -135,7 +135,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{528c62d9-4957-4a9b-965d-6b2a29a07310}</object>
-                         <name>TdApi</name>
+                         <name>TdSm</name>
                          <pos>x:360;y:465</pos>
                          <rect>x:-20;y:-10;w:40;h:20</rect>
                          <visual-role>0</visual-role>
@@ -156,7 +156,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{2c26ed27-9367-4a58-b74c-4df967dcc108}</object>
-                         <name>MdApi</name>
+                         <name>MdSm</name>
                          <pos>x:280;y:405</pos>
                          <rect>x:-20;y:-10;w:40;h:20</rect>
                          <visual-role>0</visual-role>
@@ -377,9 +377,66 @@
                       </DDependency>
                      </instance>
                     </item>
+                    <item>
+                     <instance type="DItem">
+                      <DItem>
+                       <base-DObject>
+                        <DObject>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{6a7a138c-bf85-4bd2-8c81-d2262bbc5796}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{ef228632-f712-4d88-aa52-856832901fcf}</object>
+                         <name>ctpsdk</name>
+                         <pos>x:320;y:530</pos>
+                         <rect>x:-25;y:-10;w:50;h:20</rect>
+                         <visual-role>0</visual-role>
+                        </DObject>
+                       </base-DObject>
+                       <shape-editable>false</shape-editable>
+                      </DItem>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DDependency">
+                      <DDependency>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{40692ca3-025b-42cb-ab32-d7038105fcb6}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{26bed8b6-51b4-4381-826a-f0d2d4091d36}</object>
+                         <a>{fd6ea686-99e2-4f41-bdb8-2a1ba30d6c46}</a>
+                         <b>{6a7a138c-bf85-4bd2-8c81-d2262bbc5796}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DDependency>
+                     </instance>
+                    </item>
+                    <item>
+                     <instance type="DDependency">
+                      <DDependency>
+                       <base-DRelation>
+                        <DRelation>
+                         <base-DElement>
+                          <DElement>
+                           <uid>{b71ee5dd-b52d-44d7-85ea-fe64de3e19da}</uid>
+                          </DElement>
+                         </base-DElement>
+                         <object>{0a41926e-896a-4a35-91db-68999009e9a8}</object>
+                         <a>{73e431d6-5d76-4adc-97fb-90453441e24e}</a>
+                         <b>{6a7a138c-bf85-4bd2-8c81-d2262bbc5796}</b>
+                        </DRelation>
+                       </base-DRelation>
+                      </DDependency>
+                     </instance>
+                    </item>
                    </qlist>
                   </elements>
-                  <last-modified>1460630323591</last-modified>
+                  <last-modified>1460698662028</last-modified>
                  </MDiagram>
                 </base-MDiagram>
                </MCanvasDiagram>
@@ -536,7 +593,7 @@
                     <uid>{528c62d9-4957-4a9b-965d-6b2a29a07310}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>TdApi</name>
+                  <name>TdSm</name>
                   <relations>
                    <handles>
                     <handles>
@@ -585,6 +642,28 @@
                         </target>
                        </handle>
                       </item>
+                      <item>
+                       <handle>
+                        <uid>{0a41926e-896a-4a35-91db-68999009e9a8}</uid>
+                        <target>
+                         <instance type="MDependency">
+                          <MDependency>
+                           <base-MRelation>
+                            <MRelation>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{0a41926e-896a-4a35-91db-68999009e9a8}</uid>
+                              </MElement>
+                             </base-MElement>
+                             <a>{528c62d9-4957-4a9b-965d-6b2a29a07310}</a>
+                             <b>{ef228632-f712-4d88-aa52-856832901fcf}</b>
+                            </MRelation>
+                           </base-MRelation>
+                          </MDependency>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
                      </qlist>
                     </handles>
                    </handles>
@@ -609,7 +688,7 @@
                     <uid>{2c26ed27-9367-4a58-b74c-4df967dcc108}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>MdApi</name>
+                  <name>MdSm</name>
                   <relations>
                    <handles>
                     <handles>
@@ -629,6 +708,28 @@
                              </base-MElement>
                              <a>{2c26ed27-9367-4a58-b74c-4df967dcc108}</a>
                              <b>{cb97b57e-f9af-445c-9a00-d45baa0b7099}</b>
+                            </MRelation>
+                           </base-MRelation>
+                          </MDependency>
+                         </instance>
+                        </target>
+                       </handle>
+                      </item>
+                      <item>
+                       <handle>
+                        <uid>{26bed8b6-51b4-4381-826a-f0d2d4091d36}</uid>
+                        <target>
+                         <instance type="MDependency">
+                          <MDependency>
+                           <base-MRelation>
+                            <MRelation>
+                             <base-MElement>
+                              <MElement>
+                               <uid>{26bed8b6-51b4-4381-826a-f0d2d4091d36}</uid>
+                              </MElement>
+                             </base-MElement>
+                             <a>{2c26ed27-9367-4a58-b74c-4df967dcc108}</a>
+                             <b>{ef228632-f712-4d88-aa52-856832901fcf}</b>
                             </MRelation>
                            </base-MRelation>
                           </MDependency>
@@ -900,6 +1001,27 @@
                     </handles>
                    </handles>
                   </relations>
+                 </MObject>
+                </base-MObject>
+               </MItem>
+              </instance>
+             </target>
+            </handle>
+           </item>
+           <item>
+            <handle>
+             <uid>{ef228632-f712-4d88-aa52-856832901fcf}</uid>
+             <target>
+              <instance type="MItem">
+               <MItem>
+                <base-MObject>
+                 <MObject>
+                  <base-MElement>
+                   <MElement>
+                    <uid>{ef228632-f712-4d88-aa52-856832901fcf}</uid>
+                   </MElement>
+                  </base-MElement>
+                  <name>ctpsdk</name>
                  </MObject>
                 </base-MObject>
                </MItem>

@@ -10,6 +10,8 @@
 #include "dbservice.h"
 #include "runextensions.h"
 #include <QtConcurrentRun>
+#include "logindialog.h"
+#include "configdialog.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -24,6 +26,11 @@ MainWindow::MainWindow(QWidget* parent)
     //设置trayicon
     this->createActions();
     this->createTrayIcon();
+
+    // ui actions
+    ui->actionStart->setEnabled(true);
+    ui->actionConfig->setEnabled(true);
+    ui->actionStop->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +62,12 @@ void MainWindow::on_actionVersion_triggered()
 
 void MainWindow::on_actionQuit_triggered()
 {
+    if (g_sm->ctpMgr()->running()) {
+        this->showNormal();
+        logger()->info("请先停止接收数据=");
+        return;
+    }
+
     Logger::stopExitMonitor();
     qApp->quit();
 }
@@ -225,3 +238,39 @@ void MainWindow::on_actionDbClose_triggered()
     QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }
 
+
+void MainWindow::on_actionConfig_triggered()
+{
+    ConfigDialog dlg(this);
+    dlg.load();
+    if (dlg.exec()) {
+        dlg.save();
+    }
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+    // input password
+    LoginDialog dlg;
+    if (!dlg.exec()) {
+        return;
+    }
+    QString password = dlg.getPassword();
+
+    //更新ui,接收数据中不要出现模态对话框=
+    ui->actionStart->setEnabled(false);
+    ui->actionConfig->setEnabled(false);
+    ui->actionStop->setEnabled(true);
+
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "start", Qt::QueuedConnection,Q_ARG(QString,password));
+}
+
+void MainWindow::on_actionStop_triggered()
+{
+    //更新ui
+    ui->actionStart->setEnabled(true);
+    ui->actionConfig->setEnabled(true);
+    ui->actionStop->setEnabled(false);
+
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "stop", Qt::QueuedConnection);
+}

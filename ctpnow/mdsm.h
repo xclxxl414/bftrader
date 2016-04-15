@@ -14,7 +14,7 @@ enum {
     MDSM_STOPPED
 };
 
-//CTP
+// LOGIC
 class MdSm : public QObject {
     Q_OBJECT
 public:
@@ -26,6 +26,7 @@ public:
     void start();
     void stop();
     void info(QString msg);
+    static QString version();
 
     void login(unsigned int delayTick, QString robotId);
     void subscrible(QStringList ids, unsigned int delayTick, QString robotId);

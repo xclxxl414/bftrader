@@ -91,7 +91,7 @@ private:
                     prefix = idPrefixList_.at(i);
                     if (low_id.startsWith(prefix)) {
                         ids_ << id;
-                        //g_sm->dataPump()->putInstrument(pInstrument);
+                        //......
                         break;
                     }
                 }
@@ -200,6 +200,11 @@ void TdSm::stop()
 
     tdapi_->RegisterSpi(nullptr);
     tdapi_->Release();
+
+    tdapi_ = nullptr;
+    delete tdspi_;
+    tdspi_ = nullptr;
+    emit this->statusChanged(TDSM_STOPPED);
 }
 
 void TdSm::info(QString msg)
@@ -207,10 +212,14 @@ void TdSm::info(QString msg)
     g_sm->logger()->info(msg);
 }
 
+QString TdSm::version()
+{
+    return CThostFtdcTraderApi::GetApiVersion();
+}
+
 void TdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    //emit this->runCmd(new CmdTdLogin(userId_,password_,brokerId_),delayTick);
     QTimer::singleShot(delayTick, this, [=] {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
@@ -235,7 +244,19 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
-
+        CThostFtdcUserLogoutField req;
+        memset(&req, 0, sizeof(req));
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
+        int result = tdapi_->ReqUserLogout(&req, ++reqId_);
+        info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId_, result));
+        //  被流控，一秒后重来=
+        if (result == -3) {
+            logout(RESEND_AFTER_MSEC, robotId);
+        } else {
+            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
+            emit requestSent(reqId_, robotId);
+        }
     });
 }
 
@@ -243,6 +264,16 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
-
+        CThostFtdcQryInstrumentField req;
+        memset(&req, 0, sizeof(req));
+        int result = tdapi_->ReqQryInstrument(&req, ++reqId_);
+        info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId_, result));
+        //  被流控，一秒后重来=
+        if (result == -3) {
+            queryInstrument(RESEND_AFTER_MSEC, robotId);
+        } else {
+            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
+            emit requestSent(reqId_, robotId);
+        }
     });
 }

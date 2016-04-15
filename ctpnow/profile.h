@@ -20,6 +20,8 @@ public:
     void put(QString k, QVariant v);
     void commit();
 
+    static QString flowPathMd();
+    static QString flowPathTd();
     static QString dbPath();
     static QString logPath();
     static QString appName();

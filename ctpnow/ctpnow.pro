@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     rpcservice.cpp \
     dbservice.cpp \
     mdsm.cpp \
-    tdsm.cpp
+    tdsm.cpp \
+    ui/configdialog.cpp \
+    ui/logindialog.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -30,9 +32,13 @@ HEADERS  += ui/mainwindow.h \
     rpcservice.h \
     dbservice.h \
     mdsm.h \
-    tdsm.h
+    tdsm.h \
+    ui/configdialog.h \
+    ui/logindialog.h
 
-FORMS    += ui/mainwindow.ui
+FORMS    += ui/mainwindow.ui \
+    ui/configdialog.ui \
+    ui/logindialog.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

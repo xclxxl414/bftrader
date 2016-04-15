@@ -44,6 +44,12 @@ private slots:
     void on_actionDbInit_triggered();
     void on_actionDbClose_triggered();
 
+    void on_actionConfig_triggered();
+
+    void on_actionStart_triggered();
+
+    void on_actionStop_triggered();
+
 private:
     void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();

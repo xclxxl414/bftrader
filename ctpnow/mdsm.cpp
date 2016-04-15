@@ -97,7 +97,7 @@ private:
     void OnRtnDepthMarketData(
         CThostFtdcDepthMarketDataField* pDepthMarketData) override
     {
-        // g_sm->dataPump()->putTick(pDepthMarketData);
+        //......
     }
 
 private:
@@ -179,6 +179,11 @@ void MdSm::stop()
 
     mdapi_->RegisterSpi(nullptr);
     mdapi_->Release();
+
+    mdapi_ = nullptr;
+    delete mdspi_;
+    mdspi_ = nullptr;
+    emit this->statusChanged(MDSM_STOPPED);
 }
 
 void MdSm::info(QString msg)
@@ -186,11 +191,29 @@ void MdSm::info(QString msg)
     g_sm->logger()->info(msg);
 }
 
+QString MdSm::version()
+{
+    return CThostFtdcMdApi::GetApiVersion();
+}
+
 void MdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
-
+        CThostFtdcReqUserLoginField req;
+        memset(&req, 0, sizeof(req));
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
+        strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
+        int result = mdapi_->ReqUserLogin(&req, ++reqId_);
+        info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId_, result));
+        //  被流控，一秒后重来=
+        if (result == -3) {
+            login(RESEND_AFTER_MSEC, robotId);
+        } else {
+            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
+            emit requestSent(reqId_, robotId);
+        }
     });
 }
 
@@ -200,6 +223,17 @@ void MdSm::subscrible(QStringList ids,
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
-
+        QList<std::string> std_ids;
+        char** cids = new char*[ids.length()];
+        for (int i = 0; i < ids.length(); i++) {
+            std_ids.append(ids.at(i).toStdString());
+            cids[i] = (char*)std_ids.at(i).c_str();
+        }
+        int result = mdapi_->SubscribeMarketData(cids, ids.length());
+        delete[] cids;
+        info(QString().sprintf("CmdMdSubscrible,result=%d", result));
+        if (result == -3) {
+            subscrible(ids, RESEND_AFTER_MSEC, robotId);
+        }
     });
 }

@@ -33,6 +33,11 @@
     <property name="title">
      <string>system</string>
     </property>
+    <addaction name="actionConfig"/>
+    <addaction name="separator"/>
+    <addaction name="actionStart"/>
+    <addaction name="actionStop"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
@@ -160,6 +165,21 @@
   <action name="actionExternal">
    <property name="text">
     <string>external</string>
+   </property>
+  </action>
+  <action name="actionConfig">
+   <property name="text">
+    <string>config</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="text">
+    <string>start</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="text">
+    <string>stop</string>
    </property>
   </action>
  </widget>

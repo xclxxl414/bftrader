@@ -17,7 +17,7 @@ enum {
 
 class TdSmSpi;
 
-//CTP
+// LOGIC
 class TdSm : public QObject {
     Q_OBJECT
 public:
@@ -29,6 +29,7 @@ public:
     void start();
     void stop();
     void info(QString msg);
+    static QString version();
 
     void login(unsigned int delayTick, QString robotId);
     void logout(unsigned int delayTick, QString robotId);

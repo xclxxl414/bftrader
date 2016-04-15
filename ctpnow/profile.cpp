@@ -71,6 +71,18 @@ void Profile::commit()
     dirty_ = false;
 }
 
+//居然要传一个/结尾=
+QString Profile::flowPathMd()
+{
+    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+}
+
+//居然要传一个/结尾=
+QString Profile::flowPathTd()
+{
+    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
+}
+
 QString Profile::dbPath(){
     return QDir::home().absoluteFilePath(appName() + QStringLiteral("/data/db"));
 }
