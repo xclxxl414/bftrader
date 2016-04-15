@@ -130,6 +130,7 @@ void CtpMgr::startMdSm()
 {
     // go...
     QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
+    QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
 
     autoLoginMd_ = true;
     mdsm_->start();
@@ -155,6 +156,7 @@ void CtpMgr::startTdSm()
     // go...
     QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::onGotInstruments);
+    QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::gotInstruments);
 
     autoLoginTd_ = true;
     tdsm_->start();

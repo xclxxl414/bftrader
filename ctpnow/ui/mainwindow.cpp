@@ -10,7 +10,11 @@
 #include "servicemgr.h"
 #include "ui_mainwindow.h"
 #include "logform.h"
-
+#include "contractform.h"
+#include "finishedorderform.h"
+#include "pendingorderform.h"
+#include "positionform.h"
+#include "tradeform.h"
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
@@ -36,10 +40,18 @@ MainWindow::MainWindow(QWidget* parent)
 
     // tabs
     logForm_ = new LogForm(this);
+    contractForm_ = new ContractForm(this);
+    positionForm_ = new PositionForm(this);
+    pendingOrderForm_ = new PendingOrderForm(this);
+    finishedOrderForm_ = new FinishedOrderForm(this);
+    tradeForm_ = new TradeForm(this);
+
     ui->tabWidget->addTab(logForm_,"日志");
-    ui->tabWidget->addTab(new QWidget(this),"合约");
-    ui->tabWidget->addTab(new QWidget(this),"持仓");
-    ui->tabWidget->addTab(new QWidget(this),"委托");
+    ui->tabWidget->addTab(contractForm_,"合约");
+    ui->tabWidget->addTab(positionForm_,"持仓");
+    ui->tabWidget->addTab(pendingOrderForm_,"挂单");
+    ui->tabWidget->addTab(finishedOrderForm_,"委托");
+    ui->tabWidget->addTab(tradeForm_,"成交");
 }
 
 MainWindow::~MainWindow()
@@ -51,12 +63,22 @@ void MainWindow::init()
 {
     // sub window
     logForm_->init();
+    contractForm_->init();
+    positionForm_->init();
+    pendingOrderForm_->init();
+    finishedOrderForm_->init();
+    tradeForm_->init();
 }
 
 void MainWindow::shutdown()
 {
     // sub window
     logForm_->shutdown();
+    contractForm_->shutdown();
+    positionForm_->shutdown();
+    pendingOrderForm_->shutdown();
+    finishedOrderForm_->shutdown();
+    tradeForm_->shutdown();
 }
 
 void MainWindow::on_actionVersion_triggered()

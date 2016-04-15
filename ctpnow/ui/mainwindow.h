@@ -12,6 +12,11 @@ class MainWindow;
 class Profile;
 class Logger;
 class LogForm;
+class ContractForm;
+class FinishedOrderForm;
+class PendingOrderForm;
+class PositionForm;
+class TradeForm;
 
 template <typename T>
 class QFutureInterface;
@@ -60,6 +65,11 @@ private:
 private:
     Ui::MainWindow* ui;
     LogForm* logForm_;
+    ContractForm* contractForm_;
+    FinishedOrderForm* finishedOrderForm_;
+    PendingOrderForm* pendingOrderForm_;
+    PositionForm* positionForm_;
+    TradeForm* tradeForm_;
 
 private:
     QAction* minimizeAction;

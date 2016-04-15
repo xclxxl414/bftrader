@@ -24,7 +24,12 @@ SOURCES += main.cpp\
     ui/configdialog.cpp \
     ui/logindialog.cpp \
     ringbuffer.cpp \
-    ui/logform.cpp
+    ui/logform.cpp \
+    ui/positionform.cpp \
+    ui/contractform.cpp \
+    ui/pendingorderform.cpp \
+    ui/finishedorderform.cpp \
+    ui/tradeform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -38,12 +43,22 @@ HEADERS  += ui/mainwindow.h \
     ui/configdialog.h \
     ui/logindialog.h \
     ringbuffer.h \
-    ui/logform.h
+    ui/logform.h \
+    ui/positionform.h \
+    ui/contractform.h \
+    ui/pendingorderform.h \
+    ui/finishedorderform.h \
+    ui/tradeform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
     ui/logindialog.ui \
-    ui/logform.ui
+    ui/logform.ui \
+    ui/positionform.ui \
+    ui/contractform.ui \
+    ui/pendingorderform.ui \
+    ui/finishedorderform.ui \
+    ui/tradeform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

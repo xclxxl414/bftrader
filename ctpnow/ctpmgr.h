@@ -23,6 +23,8 @@ public:
     bool running();
 
 signals:
+    void gotInstruments(QStringList ids);
+    void gotTick(void* tick);
 
 public slots:
     void showVersion();
