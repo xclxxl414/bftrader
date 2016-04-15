@@ -8,11 +8,9 @@ class TdSm;
 class Logger;
 class Profile;
 
-//
-// 1. 完成登录/自动登录/确认账单/查询可交易合约列表=
-// 2. 实现自动订阅(因为策略连gateway时候，gateway并不一定连接了柜台)=
-// 3. 非常策略主动取消订阅，合约的订阅会一直自动订阅下去=
-//
+// 完成登录/自动登录/确认账单/订阅合约=
+// 订阅什么合约由gateway统一确定，策略不管这事=
+// 策略可以让gateway只转发部分合约的行情=
 class CtpMgr : public QObject {
     Q_OBJECT
 public:

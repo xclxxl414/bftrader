@@ -3,6 +3,7 @@
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "logger.h"
+#include "ringbuffer.h"
 #include "servicemgr.h"
 #include <QDir>
 #include <QMap>
@@ -97,7 +98,10 @@ private:
     void OnRtnDepthMarketData(
         CThostFtdcDepthMarketDataField* pDepthMarketData) override
     {
-        //......
+        QString id = pDepthMarketData->InstrumentID;
+        auto rb = getRingBuffer(id);
+        void* newTick = rb->put(pDepthMarketData);
+        emit sm()->gotTick(newTick);
     }
 
 private:
@@ -114,13 +118,54 @@ private:
 
     MdSm* sm() { return sm_; }
 
-    void resetData() { got_ids_.clear(); }
+    void resetData() {
+        got_ids_.clear();
+        freeRingBuffer();
+    }
 
     void info(QString msg) { g_sm->logger()->info(msg); }
+
+    RingBuffer* getRingBuffer(QString id){
+        RingBuffer* rb = rbs_.value(id);
+        if (rb == nullptr) {
+            qFatal("rb == nullptr");
+        }
+
+        return rb;
+    }
+
+    void initRingBuffer(QStringList ids){
+        if (rbs_.count() != 0) {
+            qFatal("rbs_.count() != 0");
+        }
+
+        for (auto id : ids) {
+            RingBuffer* rb = new RingBuffer;
+            rb->init(sizeof(CThostFtdcDepthMarketDataField), ringBufferLen_);
+            rbs_.insert(id, rb);
+        }
+
+        //loadRingBufferFromBackend(ids);
+    }
+
+    void freeRingBuffer(){
+        auto rb_list = rbs_.values();
+        for (int i = 0; i < rb_list.length(); i++) {
+            RingBuffer* rb = rb_list.at(i);
+            rb->free();
+            delete rb;
+        }
+        rbs_.clear();
+    }
 
 private:
     MdSm* sm_;
     QStringList got_ids_;
+
+    QMap<QString, RingBuffer*> rbs_;
+    const int ringBufferLen_ = 256;
+
+    friend MdSm;
 };
 
 ///////////
@@ -234,6 +279,8 @@ void MdSm::subscrible(QStringList ids,
         info(QString().sprintf("CmdMdSubscrible,result=%d", result));
         if (result == -3) {
             subscrible(ids, RESEND_AFTER_MSEC, robotId);
+        }else{
+           mdspi_->initRingBuffer(ids);
         }
     });
 }

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     mdsm.cpp \
     tdsm.cpp \
     ui/configdialog.cpp \
-    ui/logindialog.cpp
+    ui/logindialog.cpp \
+    ringbuffer.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -34,7 +35,8 @@ HEADERS  += ui/mainwindow.h \
     mdsm.h \
     tdsm.h \
     ui/configdialog.h \
-    ui/logindialog.h
+    ui/logindialog.h \
+    ringbuffer.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \

@@ -183,16 +183,19 @@ void CtpMgr::stop()
     mdsm_->stop();
 
     if (tdsm_) {
-        tdsm_->stop();
+        autoLoginTd_ = false;
+        tdsm_->logout(0, "");
+        //tdsm_->stop();
     }
 }
 
 void CtpMgr::onGotInstruments(QStringList ids)
 {
+/*
     //退出td
     autoLoginTd_ = false;
     tdsm_->logout(0, "");
-
+*/
     // 开始订阅=
     mdsm_->subscrible(ids, 0, "");
 }
