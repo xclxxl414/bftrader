@@ -34,10 +34,10 @@ class Gateway(bfgateway_pb2.BetaBfGatewayServiceServicer):
 
     def Connect(self, request, context):
         print "Connect"
-        print request.name,request.endpoint
+        print request.robotId,request.endpoint
         self.robot_channel = implementations.insecure_channel('localhost', request.endpoint)
         self.robot = bfrobot_pb2.beta_create_BfRobotService_stub(self.robot_channel)
-        return _BF_VOID
+        return bftrader_pb2.BfErrorData()
 
     def Subscribe(self, request, context):
         print "Subscribe"

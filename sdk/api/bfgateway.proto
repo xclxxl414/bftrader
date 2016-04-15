@@ -7,18 +7,9 @@ package bftrader.bfgateway;
 
 import "bftrader.proto";
 
-// 网关服务
+// 网关服务，必须先connect然后才可以调用其他api
 service BfGatewayService{
     
-    // 策略间交换数据服务,不需要connect
-    // 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
-    rpc SetKv(BfKvData) returns (BfVoid){}
-    rpc GetKv(BfKvData) returns (BfKvData){}
-    
-    // 获取可交易合约信息,不需要connect
-    rpc GetContract(BfGetContractReq) returns (BfContractData) {}
-    rpc GetContractList(BfVoid) returns (stream BfContractData) {}
-
     // 建立连接
     //
     // 策略间是完全隔离的，gateway在connect时候分配robot线程
@@ -30,7 +21,19 @@ service BfGatewayService{
     // map<sysid,orderid> 分离交易所委托回报
     // map<tradeid,robotobj> 用于分离成交推送
     // map<symbol,robotobjlist> 用于分离行情推送
-    rpc Connect(BfConnectReq) returns (BfVoid) {}
+    // gateway提供界面添加策略，指定名称/robotid，状态:离线/在线
+    // robotid作为主键，将记录持仓 挂单/委托 成交等信息到数据库，便于统计
+    // 策略本身也要维护自己的持仓 挂单 委托 成交
+    rpc Connect(BfConnectReq) returns (BfErrorData) {}
+
+    // 策略间交换数据服务
+    // 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
+    rpc SetKv(BfKvData) returns (BfVoid){}
+    rpc GetKv(BfKvData) returns (BfKvData){}
+    
+    // 获取可交易合约信息
+    rpc GetContract(BfGetContractReq) returns (BfContractData) {}
+    rpc GetContractList(BfVoid) returns (stream BfContractData) {}
     
     // 订阅行情
     rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}

@@ -60,24 +60,24 @@ void protobuf_AddDesc_bfgateway_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\017bfgateway.proto\022\022bftrader.bfgateway\032\016b"
-    "ftrader.proto2\215\005\n\020BfGatewayService\022/\n\005Se"
-    "tKv\022\022.bftrader.BfKvData\032\020.bftrader.BfVoi"
-    "d\"\000\0221\n\005GetKv\022\022.bftrader.BfKvData\032\022.bftra"
-    "der.BfKvData\"\000\022E\n\013GetContract\022\032.bftrader"
-    ".BfGetContractReq\032\030.bftrader.BfContractD"
-    "ata\"\000\022A\n\017GetContractList\022\020.bftrader.BfVo"
-    "id\032\030.bftrader.BfContractData\"\0000\001\0225\n\007Conn"
-    "ect\022\026.bftrader.BfConnectReq\032\020.bftrader.B"
-    "fVoid\"\000\0229\n\tSubscribe\022\030.bftrader.BfSubscr"
-    "ibeReq\032\020.bftrader.BfVoid\"\000\022>\n\tSendOrder\022"
-    "\024.bftrader.BfOrderReq\032\031.bftrader.BfOrder"
-    "Response\"\000\022=\n\013CancelOrder\022\032.bftrader.BfC"
-    "ancelOrderReq\032\020.bftrader.BfVoid\"\000\0224\n\014Que"
-    "ryAccount\022\020.bftrader.BfVoid\032\020.bftrader.B"
-    "fVoid\"\000\0225\n\rQueryPosition\022\020.bftrader.BfVo"
-    "id\032\020.bftrader.BfVoid\"\000\022-\n\005Close\022\020.bftrad"
-    "er.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006prot"
-    "o3", 722);
+    "ftrader.proto2\222\005\n\020BfGatewayService\022:\n\007Co"
+    "nnect\022\026.bftrader.BfConnectReq\032\025.bftrader"
+    ".BfErrorData\"\000\022/\n\005SetKv\022\022.bftrader.BfKvD"
+    "ata\032\020.bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.bftra"
+    "der.BfKvData\032\022.bftrader.BfKvData\"\000\022E\n\013Ge"
+    "tContract\022\032.bftrader.BfGetContractReq\032\030."
+    "bftrader.BfContractData\"\000\022A\n\017GetContract"
+    "List\022\020.bftrader.BfVoid\032\030.bftrader.BfCont"
+    "ractData\"\0000\001\0229\n\tSubscribe\022\030.bftrader.BfS"
+    "ubscribeReq\032\020.bftrader.BfVoid\"\000\022>\n\tSendO"
+    "rder\022\024.bftrader.BfOrderReq\032\031.bftrader.Bf"
+    "OrderResponse\"\000\022=\n\013CancelOrder\022\032.bftrade"
+    "r.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000\0224"
+    "\n\014QueryAccount\022\020.bftrader.BfVoid\032\020.bftra"
+    "der.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrader"
+    ".BfVoid\032\020.bftrader.BfVoid\"\000\022-\n\005Close\022\020.b"
+    "ftrader.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001\001b"
+    "\006proto3", 727);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfgateway_2eproto);

@@ -24,3 +24,10 @@ void CtpMgr::showVersion(){
     g_sm->logger()->info(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());
 }
 
+void CtpMgr::start(){
+
+}
+
+void CtpMgr::stop(){
+
+}

@@ -18,7 +18,9 @@ SOURCES += main.cpp\
     ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
-    dbservice.cpp
+    dbservice.cpp \
+    mdsm.cpp \
+    tdsm.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -26,7 +28,9 @@ HEADERS  += ui/mainwindow.h \
     ctpmgr.h \
     pushservice.h \
     rpcservice.h \
-    dbservice.h
+    dbservice.h \
+    mdsm.h \
+    tdsm.h
 
 FORMS    += ui/mainwindow.ui
 
@@ -38,3 +42,6 @@ include(../third_party/leveldb.pri)
 
 RESOURCES += \
     systray.qrc
+
+DISTFILES += \
+    design.qmodel

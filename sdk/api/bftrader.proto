@@ -179,8 +179,8 @@ message BfTradeData{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
 
-    string tradeID = 3;         // 成交编号,是本地自己分配的
-    string orderID = 4;         // 订单编号,是本地自己分配的
+    string tradeId = 3;         // 成交编号,是本地自己分配的
+    string orderId = 4;         // 订单编号,是本地自己分配的
     
     // 成交相关
     BfDirection direction = 5;  // 成交方向
@@ -197,7 +197,7 @@ message BfOrderData{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    string orderID = 3;         // 订单编号,是本地自己分配的
+    string orderId = 3;         // 订单编号,是本地自己分配的
     
     // 报单相关
     BfDirection direction = 4;  // 报单方向
@@ -232,7 +232,7 @@ message BfPositionData{
 message BfAccountData{
 
     // 账号代码相关
-    string accountID = 1;       // 账户代码
+    string accountId = 1;       // 账户代码
     
     // 数值相关
     double preBalance = 2;      // 昨日账户结算净值
@@ -247,7 +247,7 @@ message BfAccountData{
 // 错误数据类
 message BfErrorData{
 
-    string errorID = 1;         // 错误代码
+    string errorId = 1;         // 错误代码
     string errorMsg = 2;        // 错误信息
     string additionalInfo = 3;  // 补充信息
 }
@@ -306,7 +306,7 @@ message BfOrderReq{
 
 // 发单本地返回的对象类
 message BfOrderResponse{
-    string orderID = 1;         // 报单号,是本地自己分配的
+    string orderId = 1;         // 报单号,是本地自己分配的
 }
 
 // 撤单时传入的对象类
@@ -316,7 +316,7 @@ message BfCancelOrderReq{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    string orderID = 3;         // 报单号,是本地自己分配的
+    string orderId = 3;         // 报单号,是本地自己分配的
     
     string reason = 4;          // 理由备忘
 }
@@ -325,7 +325,7 @@ message BfCancelOrderReq{
 message BfConnectReq{
     
     // Robot相关
-    string name = 1;            // 策略名,用于日志分析和ui显示
+    string robotId = 1;         // 策略名,用于日志分析和ui显示
     int32 endpoint = 2;         // 机器人服务端口，OnTick...
     
     // 回测相关

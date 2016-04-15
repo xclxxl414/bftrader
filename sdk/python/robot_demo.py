@@ -68,7 +68,7 @@ def run():
     robot.start()
 
     print "connect gateway"
-    bfvoid = robot.gateway.Connect(bftrader_pb2.BfConnectReq(name="demo",endpoint=50053,fromDay="",fromTime="",toDay="",toTime=""),_TIMEOUT_SECONDS)
+    bferrordata = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",endpoint=50053),_TIMEOUT_SECONDS)
     bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="rb1610",exchange="SSE"),_TIMEOUT_SECONDS)
     try:
         while True:

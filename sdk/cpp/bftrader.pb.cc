@@ -479,7 +479,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _is_default_instance_));
   BfConnectReq_descriptor_ = file->message_type(19);
   static const int BfConnectReq_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, robotid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, endpoint_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, fromday_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, fromtime_),
@@ -703,13 +703,13 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "ader.BfOHLCInfo\022\"\n\006period\030\n \001(\0162\022.bftrad"
     "er.BfPeriod\022(\n\tdailyInfo\030\013 \001(\0132\025.bftrade"
     "r.BfDailyInfo\"\321\001\n\013BfTradeData\022\016\n\006symbol\030"
-    "\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007tradeID\030\003 \001(\t"
-    "\022\017\n\007orderID\030\004 \001(\t\022(\n\tdirection\030\005 \001(\0162\025.b"
+    "\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007tradeId\030\003 \001(\t"
+    "\022\017\n\007orderId\030\004 \001(\t\022(\n\tdirection\030\005 \001(\0162\025.b"
     "ftrader.BfDirection\022\"\n\006offset\030\006 \001(\0162\022.bf"
     "trader.BfOffset\022\r\n\005price\030\007 \001(\001\022\016\n\006volume"
     "\030\010 \001(\005\022\021\n\ttradeTime\030\t \001(\t\"\223\002\n\013BfOrderDat"
     "a\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007o"
-    "rderID\030\003 \001(\t\022(\n\tdirection\030\004 \001(\0162\025.bftrad"
+    "rderId\030\003 \001(\t\022(\n\tdirection\030\004 \001(\0162\025.bftrad"
     "er.BfDirection\022\"\n\006offset\030\005 \001(\0162\022.bftrade"
     "r.BfOffset\022\r\n\005price\030\006 \001(\001\022\023\n\013totalVolume"
     "\030\007 \001(\005\022\024\n\014tradedVolume\030\010 \001(\005\022\"\n\006status\030\t"
@@ -719,11 +719,11 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "direction\030\003 \001(\0162\025.bftrader.BfDirection\022\020"
     "\n\010position\030\004 \001(\005\022\016\n\006frozen\030\005 \001(\005\022\r\n\005pric"
     "e\030\006 \001(\001\022\022\n\nydPosition\030\007 \001(\005\"\253\001\n\rBfAccoun"
-    "tData\022\021\n\taccountID\030\001 \001(\t\022\022\n\npreBalance\030\002"
+    "tData\022\021\n\taccountId\030\001 \001(\t\022\022\n\npreBalance\030\002"
     " \001(\001\022\017\n\007balance\030\003 \001(\001\022\021\n\tavailable\030\004 \001(\001"
     "\022\022\n\ncommission\030\005 \001(\001\022\016\n\006margin\030\006 \001(\001\022\023\n\013"
     "closeProfit\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001("
-    "\001\"H\n\013BfErrorData\022\017\n\007errorID\030\001 \001(\t\022\020\n\010err"
+    "\001\"H\n\013BfErrorData\022\017\n\007errorId\030\001 \001(\t\022\020\n\010err"
     "orMsg\030\002 \001(\t\022\026\n\016additionalInfo\030\003 \001(\t\"0\n\tB"
     "fLogData\022\017\n\007logTime\030\001 \001(\t\022\022\n\nlogContent\030"
     "\002 \001(\t\"\214\001\n\016BfContractData\022\016\n\006symbol\030\001 \001(\t"
@@ -738,44 +738,44 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "pe\022(\n\tdirection\030\006 \001(\0162\025.bftrader.BfDirec"
     "tion\022\"\n\006offset\030\007 \001(\0162\022.bftrader.BfOffset"
     "\022\016\n\006reason\030\010 \001(\t\"\"\n\017BfOrderResponse\022\017\n\007o"
-    "rderID\030\001 \001(\t\"U\n\020BfCancelOrderReq\022\016\n\006symb"
-    "ol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007orderID\030\003 "
-    "\001(\t\022\016\n\006reason\030\004 \001(\t\"p\n\014BfConnectReq\022\014\n\004n"
-    "ame\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022\017\n\007fromDay\030\003"
-    " \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005toDay\030\005 \001(\t\022\016\n"
-    "\006toTime\030\006 \001(\t\"4\n\020BfGetContractReq\022\016\n\006sym"
-    "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020BfGetTick"
-    "PackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
-    "\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005cou"
-    "nt\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 \001(\t"
-    "\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 \001(\0162\022.bft"
-    "rader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTime"
-    "\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDirection\022\025\n"
-    "\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_NONE\020\001"
-    "\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTION_SHORT\020"
-    "\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTION_SELL\020\005"
-    "*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013OFF"
-    "SET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014OFFSET_CL"
-    "OSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n\025OFFSET_C"
-    "LOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016STATUS_UN"
-    "KNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_"
-    "PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020ST"
-    "ATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022\023\n\017PRODUC"
-    "T_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022\n\016PRODUCT"
-    "_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022\022\n\016PRODUC"
-    "T_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027\n\023PRODUCT"
-    "_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX\020\007\022\020\n\014PRO"
-    "DUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*\177\n\013BfPric"
-    "eType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n\024PRICETYP"
-    "E_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MARKETPRICE\020"
-    "\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETYPE_FOK\020\004*"
-    "\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKNOWN\020\000\022\020\n\014"
-    "EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE\020\002\022\022\n\016EXC"
-    "HANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020\004\022\021\n\rEXCH"
-    "ANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020\n\014EXCHANG"
-    "E_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_UNKNOWN\020\000\022"
-    "\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003\370\001\001b\006prot"
-    "o3", 3922);
+    "rderId\030\001 \001(\t\"U\n\020BfCancelOrderReq\022\016\n\006symb"
+    "ol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007orderId\030\003 "
+    "\001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnectReq\022\017\n\007r"
+    "obotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022\017\n\007fromDa"
+    "y\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005toDay\030\005 \001(\t"
+    "\022\016\n\006toTime\030\006 \001(\t\"4\n\020BfGetContractReq\022\016\n\006"
+    "symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020BfGetT"
+    "ickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
+    " \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005"
+    "count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 "
+    "\001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 \001(\0162\022."
+    "bftrader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toT"
+    "ime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDirection"
+    "\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_NON"
+    "E\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTION_SHO"
+    "RT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTION_SEL"
+    "L\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013"
+    "OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014OFFSET"
+    "_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n\025OFFSE"
+    "T_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016STATUS"
+    "_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STAT"
+    "US_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n"
+    "\020STATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022\023\n\017PRO"
+    "DUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022\n\016PROD"
+    "UCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022\022\n\016PRO"
+    "DUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027\n\023PROD"
+    "UCT_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX\020\007\022\020\n\014"
+    "PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*\177\n\013BfP"
+    "riceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n\024PRICE"
+    "TYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MARKETPRI"
+    "CE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETYPE_FOK"
+    "\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKNOWN\020\000\022"
+    "\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE\020\002\022\022\n\016"
+    "EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020\004\022\021\n\rE"
+    "XCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020\n\014EXCH"
+    "ANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_UNKNOWN"
+    "\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003\370\001\001b\006p"
+    "roto3", 3925);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -5612,8 +5612,8 @@ const ::bftrader::BfDailyInfo& BfBarData::dailyinfo() const {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfTradeData::kSymbolFieldNumber;
 const int BfTradeData::kExchangeFieldNumber;
-const int BfTradeData::kTradeIDFieldNumber;
-const int BfTradeData::kOrderIDFieldNumber;
+const int BfTradeData::kTradeIdFieldNumber;
+const int BfTradeData::kOrderIdFieldNumber;
 const int BfTradeData::kDirectionFieldNumber;
 const int BfTradeData::kOffsetFieldNumber;
 const int BfTradeData::kPriceFieldNumber;
@@ -5769,37 +5769,37 @@ bool BfTradeData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_tradeID;
+        if (input->ExpectTag(26)) goto parse_tradeId;
         break;
       }
 
-      // optional string tradeID = 3;
+      // optional string tradeId = 3;
       case 3: {
         if (tag == 26) {
-         parse_tradeID:
+         parse_tradeId:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_tradeid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->tradeid().data(), this->tradeid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.tradeID"));
+            "bftrader.BfTradeData.tradeId"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_orderID;
+        if (input->ExpectTag(34)) goto parse_orderId;
         break;
       }
 
-      // optional string orderID = 4;
+      // optional string orderId = 4;
       case 4: {
         if (tag == 34) {
-         parse_orderID:
+         parse_orderId:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_orderid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->orderid().data(), this->orderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.orderID"));
+            "bftrader.BfTradeData.orderId"));
         } else {
           goto handle_unusual;
         }
@@ -5930,22 +5930,22 @@ void BfTradeData::SerializeWithCachedSizes(
       2, this->exchange(), output);
   }
 
-  // optional string tradeID = 3;
+  // optional string tradeId = 3;
   if (this->tradeid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradeid().data(), this->tradeid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeID");
+      "bftrader.BfTradeData.tradeId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->tradeid(), output);
   }
 
-  // optional string orderID = 4;
+  // optional string orderId = 4;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.orderID");
+      "bftrader.BfTradeData.orderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->orderid(), output);
   }
@@ -6010,23 +6010,23 @@ void BfTradeData::SerializeWithCachedSizes(
         2, this->exchange(), target);
   }
 
-  // optional string tradeID = 3;
+  // optional string tradeId = 3;
   if (this->tradeid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradeid().data(), this->tradeid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeID");
+      "bftrader.BfTradeData.tradeId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->tradeid(), target);
   }
 
-  // optional string orderID = 4;
+  // optional string orderId = 4;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.orderID");
+      "bftrader.BfTradeData.orderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->orderid(), target);
@@ -6086,14 +6086,14 @@ int BfTradeData::ByteSize() const {
         this->exchange());
   }
 
-  // optional string tradeID = 3;
+  // optional string tradeId = 3;
   if (this->tradeid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->tradeid());
   }
 
-  // optional string orderID = 4;
+  // optional string orderId = 4;
   if (this->orderid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -6366,35 +6366,35 @@ void BfTradeData::clear_exchange() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.exchange)
 }
 
-// optional string tradeID = 3;
+// optional string tradeId = 3;
 void BfTradeData::clear_tradeid() {
   tradeid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfTradeData::tradeid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeId)
   return tradeid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_tradeid(const ::std::string& value) {
   
   tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeId)
 }
  void BfTradeData::set_tradeid(const char* value) {
   
   tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeId)
 }
  void BfTradeData::set_tradeid(const char* value,
     size_t size) {
   
   tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeId)
 }
  ::std::string* BfTradeData::mutable_tradeid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeId)
   return tradeid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfTradeData::release_tradeid() {
@@ -6415,7 +6415,7 @@ void BfTradeData::clear_tradeid() {
   }
   tradeid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tradeid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeId)
 }
  void BfTradeData::unsafe_arena_set_allocated_tradeid(
     ::std::string* tradeid) {
@@ -6427,38 +6427,38 @@ void BfTradeData::clear_tradeid() {
   }
   tradeid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       tradeid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeId)
 }
 
-// optional string orderID = 4;
+// optional string orderId = 4;
 void BfTradeData::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfTradeData::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.orderId)
 }
  void BfTradeData::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.orderId)
 }
  void BfTradeData::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.orderId)
 }
  ::std::string* BfTradeData::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfTradeData::release_orderid() {
@@ -6479,7 +6479,7 @@ void BfTradeData::clear_orderid() {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderId)
 }
  void BfTradeData::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
@@ -6491,7 +6491,7 @@ void BfTradeData::clear_orderid() {
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderId)
 }
 
 // optional .bftrader.BfDirection direction = 5;
@@ -6621,7 +6621,7 @@ void BfTradeData::clear_tradetime() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfOrderData::kSymbolFieldNumber;
 const int BfOrderData::kExchangeFieldNumber;
-const int BfOrderData::kOrderIDFieldNumber;
+const int BfOrderData::kOrderIdFieldNumber;
 const int BfOrderData::kDirectionFieldNumber;
 const int BfOrderData::kOffsetFieldNumber;
 const int BfOrderData::kPriceFieldNumber;
@@ -6782,20 +6782,20 @@ bool BfOrderData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_orderID;
+        if (input->ExpectTag(26)) goto parse_orderId;
         break;
       }
 
-      // optional string orderID = 3;
+      // optional string orderId = 3;
       case 3: {
         if (tag == 26) {
-         parse_orderID:
+         parse_orderId:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_orderid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->orderid().data(), this->orderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.orderID"));
+            "bftrader.BfOrderData.orderId"));
         } else {
           goto handle_unusual;
         }
@@ -6974,12 +6974,12 @@ void BfOrderData::SerializeWithCachedSizes(
       2, this->exchange(), output);
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.orderID");
+      "bftrader.BfOrderData.orderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->orderid(), output);
   }
@@ -7065,12 +7065,12 @@ void BfOrderData::SerializeWithCachedSizes(
         2, this->exchange(), target);
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.orderID");
+      "bftrader.BfOrderData.orderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->orderid(), target);
@@ -7152,7 +7152,7 @@ int BfOrderData::ByteSize() const {
         this->exchange());
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7453,35 +7453,35 @@ void BfOrderData::clear_exchange() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.exchange)
 }
 
-// optional string orderID = 3;
+// optional string orderId = 3;
 void BfOrderData::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfOrderData::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.orderId)
 }
  void BfOrderData::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.orderId)
 }
  void BfOrderData::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.orderId)
 }
  ::std::string* BfOrderData::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfOrderData::release_orderid() {
@@ -7502,7 +7502,7 @@ void BfOrderData::clear_orderid() {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderId)
 }
  void BfOrderData::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
@@ -7514,7 +7514,7 @@ void BfOrderData::clear_orderid() {
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderId)
 }
 
 // optional .bftrader.BfDirection direction = 4;
@@ -8441,7 +8441,7 @@ void BfPositionData::clear_ydposition() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfAccountData::kAccountIDFieldNumber;
+const int BfAccountData::kAccountIdFieldNumber;
 const int BfAccountData::kPreBalanceFieldNumber;
 const int BfAccountData::kBalanceFieldNumber;
 const int BfAccountData::kAvailableFieldNumber;
@@ -8560,7 +8560,7 @@ bool BfAccountData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string accountID = 1;
+      // optional string accountId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
@@ -8568,7 +8568,7 @@ bool BfAccountData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->accountid().data(), this->accountid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfAccountData.accountID"));
+            "bftrader.BfAccountData.accountId"));
         } else {
           goto handle_unusual;
         }
@@ -8705,12 +8705,12 @@ failure:
 void BfAccountData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfAccountData)
-  // optional string accountID = 1;
+  // optional string accountId = 1;
   if (this->accountid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->accountid().data(), this->accountid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfAccountData.accountID");
+      "bftrader.BfAccountData.accountId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->accountid(), output);
   }
@@ -8756,12 +8756,12 @@ void BfAccountData::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfAccountData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfAccountData)
-  // optional string accountID = 1;
+  // optional string accountId = 1;
   if (this->accountid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->accountid().data(), this->accountid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfAccountData.accountID");
+      "bftrader.BfAccountData.accountId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->accountid(), target);
@@ -8809,7 +8809,7 @@ void BfAccountData::SerializeWithCachedSizes(
 int BfAccountData::ByteSize() const {
   int total_size = 0;
 
-  // optional string accountID = 1;
+  // optional string accountId = 1;
   if (this->accountid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -8954,35 +8954,35 @@ void BfAccountData::InternalSwap(BfAccountData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfAccountData
 
-// optional string accountID = 1;
+// optional string accountId = 1;
 void BfAccountData::clear_accountid() {
   accountid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfAccountData::accountid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.accountId)
   return accountid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfAccountData::set_accountid(const ::std::string& value) {
   
   accountid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.accountId)
 }
  void BfAccountData::set_accountid(const char* value) {
   
   accountid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfAccountData.accountId)
 }
  void BfAccountData::set_accountid(const char* value,
     size_t size) {
   
   accountid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfAccountData.accountId)
 }
  ::std::string* BfAccountData::mutable_accountid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfAccountData.accountId)
   return accountid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfAccountData::release_accountid() {
@@ -9003,7 +9003,7 @@ void BfAccountData::clear_accountid() {
   }
   accountid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), accountid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfAccountData.accountId)
 }
  void BfAccountData::unsafe_arena_set_allocated_accountid(
     ::std::string* accountid) {
@@ -9015,7 +9015,7 @@ void BfAccountData::clear_accountid() {
   }
   accountid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       accountid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfAccountData.accountID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfAccountData.accountId)
 }
 
 // optional double preBalance = 2;
@@ -9121,7 +9121,7 @@ void BfAccountData::clear_positionprofit() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfErrorData::kErrorIDFieldNumber;
+const int BfErrorData::kErrorIdFieldNumber;
 const int BfErrorData::kErrorMsgFieldNumber;
 const int BfErrorData::kAdditionalInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -9221,7 +9221,7 @@ bool BfErrorData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string errorID = 1;
+      // optional string errorId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
@@ -9229,7 +9229,7 @@ bool BfErrorData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->errorid().data(), this->errorid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfErrorData.errorID"));
+            "bftrader.BfErrorData.errorId"));
         } else {
           goto handle_unusual;
         }
@@ -9295,12 +9295,12 @@ failure:
 void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfErrorData)
-  // optional string errorID = 1;
+  // optional string errorId = 1;
   if (this->errorid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->errorid().data(), this->errorid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.errorID");
+      "bftrader.BfErrorData.errorId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->errorid(), output);
   }
@@ -9331,12 +9331,12 @@ void BfErrorData::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfErrorData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfErrorData)
-  // optional string errorID = 1;
+  // optional string errorId = 1;
   if (this->errorid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->errorid().data(), this->errorid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.errorID");
+      "bftrader.BfErrorData.errorId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->errorid(), target);
@@ -9371,7 +9371,7 @@ void BfErrorData::SerializeWithCachedSizes(
 int BfErrorData::ByteSize() const {
   int total_size = 0;
 
-  // optional string errorID = 1;
+  // optional string errorId = 1;
   if (this->errorid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -9475,35 +9475,35 @@ void BfErrorData::InternalSwap(BfErrorData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfErrorData
 
-// optional string errorID = 1;
+// optional string errorId = 1;
 void BfErrorData::clear_errorid() {
   errorid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfErrorData::errorid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.errorId)
   return errorid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfErrorData::set_errorid(const ::std::string& value) {
   
   errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.errorId)
 }
  void BfErrorData::set_errorid(const char* value) {
   
   errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.errorId)
 }
  void BfErrorData::set_errorid(const char* value,
     size_t size) {
   
   errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.errorId)
 }
  ::std::string* BfErrorData::mutable_errorid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.errorId)
   return errorid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfErrorData::release_errorid() {
@@ -9524,7 +9524,7 @@ void BfErrorData::clear_errorid() {
   }
   errorid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), errorid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorId)
 }
  void BfErrorData::unsafe_arena_set_allocated_errorid(
     ::std::string* errorid) {
@@ -9536,7 +9536,7 @@ void BfErrorData::clear_errorid() {
   }
   errorid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       errorid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorId)
 }
 
 // optional string errorMsg = 2;
@@ -12522,7 +12522,7 @@ void BfOrderReq::clear_reason() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfOrderResponse::kOrderIDFieldNumber;
+const int BfOrderResponse::kOrderIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfOrderResponse::BfOrderResponse()
@@ -12614,7 +12614,7 @@ bool BfOrderResponse::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string orderID = 1;
+      // optional string orderId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
@@ -12622,7 +12622,7 @@ bool BfOrderResponse::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->orderid().data(), this->orderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderResponse.orderID"));
+            "bftrader.BfOrderResponse.orderId"));
         } else {
           goto handle_unusual;
         }
@@ -12654,12 +12654,12 @@ failure:
 void BfOrderResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfOrderResponse)
-  // optional string orderID = 1;
+  // optional string orderId = 1;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderResponse.orderID");
+      "bftrader.BfOrderResponse.orderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->orderid(), output);
   }
@@ -12670,12 +12670,12 @@ void BfOrderResponse::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfOrderResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfOrderResponse)
-  // optional string orderID = 1;
+  // optional string orderId = 1;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderResponse.orderID");
+      "bftrader.BfOrderResponse.orderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->orderid(), target);
@@ -12688,7 +12688,7 @@ void BfOrderResponse::SerializeWithCachedSizes(
 int BfOrderResponse::ByteSize() const {
   int total_size = 0;
 
-  // optional string orderID = 1;
+  // optional string orderId = 1;
   if (this->orderid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -12770,35 +12770,35 @@ void BfOrderResponse::InternalSwap(BfOrderResponse* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfOrderResponse
 
-// optional string orderID = 1;
+// optional string orderId = 1;
 void BfOrderResponse::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfOrderResponse::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderResponse.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderResponse::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderResponse.orderId)
 }
  void BfOrderResponse::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResponse.orderId)
 }
  void BfOrderResponse::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResponse.orderId)
 }
  ::std::string* BfOrderResponse::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResponse.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfOrderResponse::release_orderid() {
@@ -12819,7 +12819,7 @@ void BfOrderResponse::clear_orderid() {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
 }
  void BfOrderResponse::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
@@ -12831,7 +12831,7 @@ void BfOrderResponse::clear_orderid() {
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -12841,7 +12841,7 @@ void BfOrderResponse::clear_orderid() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfCancelOrderReq::kSymbolFieldNumber;
 const int BfCancelOrderReq::kExchangeFieldNumber;
-const int BfCancelOrderReq::kOrderIDFieldNumber;
+const int BfCancelOrderReq::kOrderIdFieldNumber;
 const int BfCancelOrderReq::kReasonFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -12972,20 +12972,20 @@ bool BfCancelOrderReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_orderID;
+        if (input->ExpectTag(26)) goto parse_orderId;
         break;
       }
 
-      // optional string orderID = 3;
+      // optional string orderId = 3;
       case 3: {
         if (tag == 26) {
-         parse_orderID:
+         parse_orderId:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_orderid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->orderid().data(), this->orderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfCancelOrderReq.orderID"));
+            "bftrader.BfCancelOrderReq.orderId"));
         } else {
           goto handle_unusual;
         }
@@ -13054,12 +13054,12 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
       2, this->exchange(), output);
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.orderID");
+      "bftrader.BfCancelOrderReq.orderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->orderid(), output);
   }
@@ -13102,12 +13102,12 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
         2, this->exchange(), target);
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.orderID");
+      "bftrader.BfCancelOrderReq.orderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->orderid(), target);
@@ -13145,7 +13145,7 @@ int BfCancelOrderReq::ByteSize() const {
         this->exchange());
   }
 
-  // optional string orderID = 3;
+  // optional string orderId = 3;
   if (this->orderid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -13374,35 +13374,35 @@ void BfCancelOrderReq::clear_exchange() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.exchange)
 }
 
-// optional string orderID = 3;
+// optional string orderId = 3;
 void BfCancelOrderReq::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  const ::std::string& BfCancelOrderReq::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfCancelOrderReq::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.orderId)
 }
  void BfCancelOrderReq::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.orderId)
 }
  void BfCancelOrderReq::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.orderId)
 }
  ::std::string* BfCancelOrderReq::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
  ::std::string* BfCancelOrderReq::release_orderid() {
@@ -13423,7 +13423,7 @@ void BfCancelOrderReq::clear_orderid() {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderId)
 }
  void BfCancelOrderReq::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
@@ -13435,7 +13435,7 @@ void BfCancelOrderReq::clear_orderid() {
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderID)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderId)
 }
 
 // optional string reason = 4;
@@ -13507,7 +13507,7 @@ void BfCancelOrderReq::clear_reason() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfConnectReq::kNameFieldNumber;
+const int BfConnectReq::kRobotIdFieldNumber;
 const int BfConnectReq::kEndpointFieldNumber;
 const int BfConnectReq::kFromDayFieldNumber;
 const int BfConnectReq::kFromTimeFieldNumber;
@@ -13545,7 +13545,7 @@ void BfConnectReq::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   endpoint_ = 0;
   fromday_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   fromtime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -13563,7 +13563,7 @@ void BfConnectReq::SharedDtor() {
     return;
   }
 
-  name_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  robotid_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   fromday_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   fromtime_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   today_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
@@ -13600,7 +13600,7 @@ BfConnectReq* BfConnectReq::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfConnectReq::Clear() {
-  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  robotid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   endpoint_ = 0;
   fromday_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   fromtime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
@@ -13618,15 +13618,15 @@ bool BfConnectReq::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string name = 1;
+      // optional string robotId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
+                input, this->mutable_robotid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), this->name().length(),
+            this->robotid().data(), this->robotid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.name"));
+            "bftrader.BfConnectReq.robotId"));
         } else {
           goto handle_unusual;
         }
@@ -13741,14 +13741,14 @@ failure:
 void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfConnectReq)
-  // optional string name = 1;
-  if (this->name().size() > 0) {
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->robotid().data(), this->robotid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.name");
+      "bftrader.BfConnectReq.robotId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->name(), output);
+      1, this->robotid(), output);
   }
 
   // optional int32 endpoint = 2;
@@ -13802,15 +13802,15 @@ void BfConnectReq::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfConnectReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfConnectReq)
-  // optional string name = 1;
-  if (this->name().size() > 0) {
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), this->name().length(),
+      this->robotid().data(), this->robotid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.name");
+      "bftrader.BfConnectReq.robotId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
+        1, this->robotid(), target);
   }
 
   // optional int32 endpoint = 2;
@@ -13869,11 +13869,11 @@ void BfConnectReq::SerializeWithCachedSizes(
 int BfConnectReq::ByteSize() const {
   int total_size = 0;
 
-  // optional string name = 1;
-  if (this->name().size() > 0) {
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->name());
+        this->robotid());
   }
 
   // optional int32 endpoint = 2;
@@ -13931,8 +13931,8 @@ void BfConnectReq::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BfConnectReq::MergeFrom(const BfConnectReq& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.name().size() > 0) {
-    set_name(from.name());
+  if (from.robotid().size() > 0) {
+    set_robotid(from.robotid());
   }
   if (from.endpoint() != 0) {
     set_endpoint(from.endpoint());
@@ -13985,7 +13985,7 @@ void BfConnectReq::UnsafeArenaSwap(BfConnectReq* other) {
   InternalSwap(other);
 }
 void BfConnectReq::InternalSwap(BfConnectReq* other) {
-  name_.Swap(&other->name_);
+  robotid_.Swap(&other->robotid_);
   std::swap(endpoint_, other->endpoint_);
   fromday_.Swap(&other->fromday_);
   fromtime_.Swap(&other->fromtime_);
@@ -14006,68 +14006,68 @@ void BfConnectReq::InternalSwap(BfConnectReq* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfConnectReq
 
-// optional string name = 1;
-void BfConnectReq::clear_name() {
-  name_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+// optional string robotId = 1;
+void BfConnectReq::clear_robotid() {
+  robotid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& BfConnectReq::name() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.name)
-  return name_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfConnectReq::robotid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.robotId)
+  return robotid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_name(const ::std::string& value) {
+ void BfConnectReq::set_robotid(const ::std::string& value) {
   
-  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.name)
+  robotid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.robotId)
 }
- void BfConnectReq::set_name(const char* value) {
+ void BfConnectReq::set_robotid(const char* value) {
   
-  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+  robotid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.name)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.robotId)
 }
- void BfConnectReq::set_name(const char* value,
+ void BfConnectReq::set_robotid(const char* value,
     size_t size) {
   
-  name_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+  robotid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.name)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.robotId)
 }
- ::std::string* BfConnectReq::mutable_name() {
+ ::std::string* BfConnectReq::mutable_robotid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.name)
-  return name_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.robotId)
+  return robotid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfConnectReq::release_name() {
+ ::std::string* BfConnectReq::release_robotid() {
   
-  return name_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  return robotid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfConnectReq::unsafe_arena_release_name() {
+ ::std::string* BfConnectReq::unsafe_arena_release_robotid() {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
-  return name_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  return robotid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void BfConnectReq::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
+ void BfConnectReq::set_allocated_robotid(::std::string* robotid) {
+  if (robotid != NULL) {
     
   } else {
     
   }
-  name_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name,
+  robotid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robotid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.name)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotId)
 }
- void BfConnectReq::unsafe_arena_set_allocated_name(
-    ::std::string* name) {
+ void BfConnectReq::unsafe_arena_set_allocated_robotid(
+    ::std::string* robotid) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (name != NULL) {
+  if (robotid != NULL) {
     
   } else {
     
   }
-  name_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      name, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.name)
+  robotid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      robotid, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotId)
 }
 
 // optional int32 endpoint = 2;
