@@ -25,22 +25,22 @@ public:
     virtual ~TdSm();
 
 public:
-    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd,QString idPrefixList);
+    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList);
     void start();
     void stop();
     void info(QString msg);
 
-    void login(unsigned int delayTick,QString robotId);
-    void logout(unsigned int delayTick,QString robotId);
-    void queryInstrument(unsigned int delayTick,QString robotId);
+    void login(unsigned int delayTick, QString robotId);
+    void logout(unsigned int delayTick, QString robotId);
+    void queryInstrument(unsigned int delayTick, QString robotId);
 
 signals:
     void statusChanged(int state);
     void gotInstruments(QStringList ids);
-    void requestSent(int reqId,QString robotId);
+    void requestSent(int reqId, QString robotId);
 
 private:
-    QString userId_,password_,brokerId_,frontTd_,flowPathTd_,idPrefixList_;
+    QString userId_, password_, brokerId_, frontTd_, flowPathTd_, idPrefixList_;
     CThostFtdcTraderApi* tdapi_ = nullptr;
     TdSmSpi* tdspi_ = nullptr;
     int reqId_ = 1;

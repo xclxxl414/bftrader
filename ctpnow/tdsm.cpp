@@ -1,12 +1,12 @@
 #include "TdSm.h"
-#include <QDir>
 #include "ThostFtdcTraderApi.h"
-#include "file_utils.h"
 #include "encode_utils.h"
-#include "servicemgr.h"
+#include "file_utils.h"
 #include "logger.h"
-#include <leveldb/db.h>
+#include "servicemgr.h"
+#include <QDir>
 #include <QTimer>
+#include <leveldb/db.h>
 
 ///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
@@ -44,22 +44,22 @@ private:
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
-        if (bIsLast){
-           if(isErrorRsp(pRspInfo, nRequestID)) {
-               emit sm()->statusChanged(TDSM_LOGINFAIL);
-           }else{
-               emit sm()->statusChanged(TDSM_LOGINED);
-           }
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                emit sm()->statusChanged(TDSM_LOGINFAIL);
+            } else {
+                emit sm()->statusChanged(TDSM_LOGINED);
+            }
         }
     }
 
     void OnRspUserLogout(CThostFtdcUserLogoutField* pUserLogout, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
-        if (bIsLast){
-            if(isErrorRsp(pRspInfo, nRequestID)){
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGOUTFAIL);
-            }else{
+            } else {
                 emit sm()->statusChanged(TDSM_LOGOUTED);
             }
         }
@@ -68,9 +68,9 @@ private:
     //出现了一次queryinstruments错误，打印详细信息=
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        if (bIsLast){
+        if (bIsLast) {
             info(__FUNCTION__);
-            isErrorRsp(pRspInfo,nRequestID);
+            isErrorRsp(pRspInfo, nRequestID);
         }
     }
 
@@ -207,41 +207,42 @@ void TdSm::info(QString msg)
     g_sm->logger()->info(msg);
 }
 
-void TdSm::login(unsigned int delayTick,QString robotId){
+void TdSm::login(unsigned int delayTick, QString robotId)
+{
     info(__FUNCTION__);
     //emit this->runCmd(new CmdTdLogin(userId_,password_,brokerId_),delayTick);
-    QTimer::singleShot(delayTick,this,[=]{
+    QTimer::singleShot(delayTick, this, [=] {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
         int result = tdapi_->ReqUserLogin(&req, ++reqId_);
-        info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId_,result));
+        info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId_, result));
         //  被流控，一秒后重来=
-        if (result == -3){
-            login(RESEND_AFTER_MSEC,robotId);
-        }else{
+        if (result == -3) {
+            login(RESEND_AFTER_MSEC, robotId);
+        } else {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_,robotId);
+            emit requestSent(reqId_, robotId);
         }
     });
 }
 
 //目前，通过 ReqUserLogout 登出系统的话，会先将现有的连接断开，再重新建立一个新的连接(CTPSDK)
 // logout之后会有一个disconnect/connect...先disableautologin
-void TdSm::logout(unsigned int delayTick,QString robotId)
+void TdSm::logout(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick,this,[=]{
+    QTimer::singleShot(delayTick, this, [=] {
 
     });
 }
 
-void TdSm::queryInstrument(unsigned int delayTick,QString robotId)
+void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick,this,[=]{
+    QTimer::singleShot(delayTick, this, [=] {
 
     });
 }
