@@ -3,11 +3,8 @@
 #include "ThostFtdcTraderApi.h"
 #include "file_utils.h"
 #include "encode_utils.h"
-//#include "ctpcmd.h"
 #include "servicemgr.h"
-//#include "ctpcmdmgr.h"
 #include "logger.h"
-//#include "datapump.h"
 #include <leveldb/db.h>
 #include <QTimer>
 
@@ -37,13 +34,7 @@ private:
         resetData();
         emit sm()->statusChanged(TDSM_DISCONNECTED);
     }
-/*
-    // 这个spi不用被调用=（CTPSDK）
-    void OnHeartBeatWarning(int nTimeLapse) override
-    {
-        info("TdSmSpi::OnHeartBeatWarning");
-    }
-*/
+
     // errorId=3，msg=CTP:不合法的登陆=
     // errorId=7，msg=CTP:还没有初始化=
     // errorId=8,msg=CTP:前置不活跃=
@@ -89,7 +80,7 @@ private:
         QString id;
         QString prefix;
         if (!idPrefixList_.length()) {
-            QString prefixlist = sm()->idPrefixList();
+            QString prefixlist = sm()->idPrefixList_;
             idPrefixList_ = prefixlist.split(";");
         }
         if (!isErrorRsp(pRspInfo, nRequestID) && pInstrument) {
@@ -190,8 +181,6 @@ void TdSm::start()
     QDir dir;
     dir.mkpath(flowPathTd_);
     tdapi_ = CThostFtdcTraderApi::CreateFtdcTraderApi(flowPathTd_.toStdString().c_str());
-    //g_sm->ctpCmdMgr()->setTdApi(tdapi_);
-    //QObject::connect(this, &TdSm::runCmd, g_sm->ctpCmdMgr(), &CtpCmdMgr::onRunCmd);
     tdspi_ = new TdSmSpi(this);
     tdapi_->RegisterSpi(tdspi_);
     tdapi_->RegisterFront((char*)qPrintable(frontTd_));
@@ -213,11 +202,6 @@ void TdSm::stop()
     tdapi_->Release();
 }
 
-QString TdSm::version()
-{
-    return CThostFtdcTraderApi::GetApiVersion();
-}
-
 void TdSm::info(QString msg)
 {
     g_sm->logger()->info(msg);
@@ -236,9 +220,10 @@ void TdSm::login(unsigned int delayTick,QString robotId){
         info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId_,result));
         //  被流控，一秒后重来=
         if (result == -3){
-            login(1000,robotId);
+            login(RESEND_AFTER_MSEC,robotId);
         }else{
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
+            emit requestSent(reqId_,robotId);
         }
     });
 }
@@ -248,7 +233,6 @@ void TdSm::login(unsigned int delayTick,QString robotId){
 void TdSm::logout(unsigned int delayTick,QString robotId)
 {
     info(__FUNCTION__);
-    //emit this->runCmd(new CmdTdLogout(userId(), brokerId()),0);
     QTimer::singleShot(delayTick,this,[=]{
 
     });
@@ -257,7 +241,6 @@ void TdSm::logout(unsigned int delayTick,QString robotId)
 void TdSm::queryInstrument(unsigned int delayTick,QString robotId)
 {
     info(__FUNCTION__);
-    //emit this->runCmd(new CmdTdQueryInstrument(),0);
     QTimer::singleShot(delayTick,this,[=]{
 
     });

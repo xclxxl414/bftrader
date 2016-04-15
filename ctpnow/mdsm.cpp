@@ -3,13 +3,9 @@
 #include "ThostFtdcMdApi.h"
 #include "file_utils.h"
 #include "encode_utils.h"
-//#include "ctpcmd.h"
 #include <QMap>
-//#include "ringbuffer.h"
 #include "servicemgr.h"
-//#include "ctpcmdmgr.h"
 #include "logger.h"
-//#include "datapump.h"
 #include <QTimer>
 
 ///////////
@@ -36,13 +32,7 @@ private:
         resetData();
         emit sm()->statusChanged(MDSM_DISCONNECTED);
     }
-/*
-    // 这个spi不用被调用=（CTPSDK）
-    void OnHeartBeatWarning(int nTimeLapse) override
-    {
-        info(__FUNCTION__);
-    }
-*/
+
     //errorId=7，msg=CTP:还没有初始化=
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
@@ -166,8 +156,6 @@ void MdSm::start()
     QDir dir;
     dir.mkpath(flowPathMd_);
     mdapi_ = CThostFtdcMdApi::CreateFtdcMdApi(flowPathMd_.toStdString().c_str());
-    //g_sm->ctpCmdMgr()->setMdApi(mdapi_);
-    //QObject::connect(this, &MdSm::runCmd, g_sm->ctpCmdMgr(), &CtpCmdMgr::onRunCmd);
     mdspi_ = new MdSmSpi(this);
     mdapi_->RegisterSpi(mdspi_);
     mdapi_->RegisterFront((char*)qPrintable(frontMd_));
@@ -187,11 +175,6 @@ void MdSm::stop()
     mdapi_->Release();
 }
 
-QString MdSm::version()
-{
-    return CThostFtdcMdApi::GetApiVersion();
-}
-
 void MdSm::info(QString msg)
 {
     g_sm->logger()->info(msg);
@@ -199,7 +182,6 @@ void MdSm::info(QString msg)
 
 void MdSm::login(unsigned int delayTick,QString robotId){
     info(__FUNCTION__);
-    //emit this->runCmd(new CmdMdLogin(userId_,password_,brokerId_),delayTick);
     QTimer::singleShot(delayTick,this,[=]{
 
     });
@@ -208,7 +190,6 @@ void MdSm::login(unsigned int delayTick,QString robotId){
 void MdSm::subscrible(QStringList ids,unsigned int delayTick,QString robotId)
 {
     info(__FUNCTION__);
-    //emit this->runCmd(new CmdMdSubscrible(ids),0);
     QTimer::singleShot(delayTick,this,[=]{
 
     });

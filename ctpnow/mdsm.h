@@ -22,30 +22,24 @@ public:
     virtual ~MdSm();
 
 public:
-    static QString version();
     bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath);
     void start();
     void stop();
+    void info(QString msg);
 
     void login(unsigned int delayTick,QString robotId);
     void subscrible(QStringList ids,unsigned int delayTick,QString robotId);
 
 signals:
     void statusChanged(int state);
-    //void runCmd(void* cmd,unsigned int delayTick);
-
-protected:
-    CThostFtdcMdApi* mdapi() { return mdapi_; }
-    QString brokerId() { return brokerId_; }
-    QString userId() { return userId_; }
-    QString password() { return password_; }
-    void info(QString msg);
+    void requestSent(int reqId,QString robotId);
 
 private:
     QString userId_,password_,brokerId_,frontMd_,flowPathMd_;
     CThostFtdcMdApi* mdapi_ = nullptr;
     MdSmSpi* mdspi_ = nullptr;
     int reqId_ = 0;
+    int RESEND_AFTER_MSEC = 1000;
 
     friend MdSmSpi;
 };
