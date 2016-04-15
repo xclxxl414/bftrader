@@ -1,11 +1,11 @@
 #include "servicemgr.h"
-#include "profile.h"
-#include "logger.h"
-#include <QThread>
 #include "ctpmgr.h"
 #include "dbservice.h"
-#include "rpcservice.h"
+#include "logger.h"
+#include "profile.h"
 #include "pushservice.h"
+#include "rpcservice.h"
+#include <QThread>
 #include <QThreadPool>
 
 ServiceMgr* g_sm = nullptr;
@@ -136,13 +136,15 @@ void ServiceMgr::logicThreadFinished()
     ctpMgr_->moveToThread(ui_thread_);
 }
 
-CtpMgr* ServiceMgr::ctpMgr(){
+CtpMgr* ServiceMgr::ctpMgr()
+{
     check();
 
     return this->ctpMgr_;
 }
 
-DbService* ServiceMgr::dbService(){
+DbService* ServiceMgr::dbService()
+{
     check();
 
     return this->dbService_;
@@ -315,4 +317,3 @@ void ServiceMgr::checkCurrentOn(ThreadType p)
         qFatal("checkCurrentOn");
     }
 }
-

@@ -1,9 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCloseEvent>
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -11,7 +11,8 @@ class MainWindow;
 
 class Profile;
 class Logger;
-template <typename T> class QFutureInterface;
+template <typename T>
+class QFutureInterface;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -43,11 +44,8 @@ private slots:
     void on_actionDbOpen_triggered();
     void on_actionDbInit_triggered();
     void on_actionDbClose_triggered();
-
     void on_actionConfig_triggered();
-
     void on_actionStart_triggered();
-
     void on_actionStop_triggered();
 
 private:

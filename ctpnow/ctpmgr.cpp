@@ -1,6 +1,5 @@
 #include "ctpmgr.h"
 #include "logger.h"
-#include "logger.h"
 #include "mdsm.h"
 #include "profile.h"
 #include "servicemgr.h"

@@ -20,13 +20,13 @@ public:
 
 public:
     enum ThreadType {
-        EXTERNAL,   // threadpool
-        UI,         // ui
-        DB,         // database
-        IO,         // file
-        PUSH,       // network-->
-        RPC,        // network<--
-        LOGIC       // logic,eg.ctpmgr
+        EXTERNAL, // threadpool
+        UI, // ui
+        DB, // database
+        IO, // file
+        PUSH, // network-->
+        RPC, // network<--
+        LOGIC // logic,eg.ctpmgr
     };
     QThread* getThread(ThreadType p);
     bool isCurrentOn(ThreadType p);

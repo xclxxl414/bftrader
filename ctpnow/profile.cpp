@@ -1,11 +1,11 @@
 #include "profile.h"
+#include "file_utils.h"
+#include <QCoreApplication>
 #include <QDir>
+#include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <QFile>
-#include "file_utils.h"
-#include <QCoreApplication>
 
 Profile::Profile(QObject* parent)
     : QObject(parent)
@@ -83,15 +83,18 @@ QString Profile::flowPathTd()
     return QDir::home().absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
 }
 
-QString Profile::dbPath(){
+QString Profile::dbPath()
+{
     return QDir::home().absoluteFilePath(appName() + QStringLiteral("/data/db"));
 }
 
-QString Profile::logPath(){
+QString Profile::logPath()
+{
     return QDir::home().absoluteFilePath(appName() + QStringLiteral("/log.txt"));
 }
 
-QString Profile::appName(){
+QString Profile::appName()
+{
     QFileInfo fi(QCoreApplication::applicationFilePath());
 #ifdef _DEBUG
     return fi.baseName() + QStringLiteral("-debug");
