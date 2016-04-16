@@ -169,8 +169,8 @@ private:
 
     // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
     // 1.总成交量为0的：无效=
-    // 2.确定第一个有效tick：交易日期+时间，和当前时间偏离在3分钟之外；=
-    // 3.确定后续tick时候有效：和上一个tick相比，总成交量不变的：无效=
+    // 2.确定第一个有效tick：交易日期+时间，和当前时间偏离在3分钟之外：无效=
+    // 3.确定后续tick是否有效：和上一个tick相比，总成交量不变的：无效=
     bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
     {
         if (curTick->Volume == 0) {
