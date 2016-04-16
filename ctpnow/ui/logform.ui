@@ -15,18 +15,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QTableWidget" name="tableWidget">
-     <column>
-      <property name="text">
-       <string>时间</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>内容</string>
-      </property>
-     </column>
-    </widget>
+    <widget class="QTableWidget" name="tableWidget"/>
    </item>
   </layout>
  </widget>

@@ -178,7 +178,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOHLCInfo, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOHLCInfo, _is_default_instance_));
   BfTickData_descriptor_ = file->message_type(4);
-  static const int BfTickData_offsets_[10] = {
+  static const int BfTickData_offsets_[11] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, exchange_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, date_),
@@ -189,6 +189,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, lastvolume_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, lastopeninterest_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, bidaskinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, dailyinfo_),
   };
   BfTickData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -202,12 +203,11 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickData, _is_default_instance_));
   BfTickPackData_descriptor_ = file->message_type(5);
-  static const int BfTickPackData_offsets_[6] = {
+  static const int BfTickPackData_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, exchange_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, date_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, time_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, dailyinfo_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfTickPackData, ticks_),
   };
   BfTickPackData_reflection_ =
@@ -225,6 +225,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
   static const int BfBarData_offsets_[11] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, exchange_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, period_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, date_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, time_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, volume_),
@@ -232,7 +233,6 @@ void protobuf_AssignDesc_bftrader_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, lastvolume_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, lastopeninterest_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, ohlcinfo_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, period_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, dailyinfo_),
   };
   BfBarData_reflection_ =
@@ -376,7 +376,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, exchange_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, productclass_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, size_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, volumemultiple_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, pricetick_),
   };
   BfContractData_reflection_ =
@@ -685,97 +685,97 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "\001 \001(\001\022\020\n\010askPrice\030\002 \001(\001\022\021\n\tbidVolume\030\003 \001"
     "(\005\022\021\n\taskVolume\030\004 \001(\005\"X\n\nBfOHLCInfo\022\021\n\to"
     "penPrice\030\001 \001(\001\022\021\n\thighPrice\030\002 \001(\001\022\020\n\010low"
-    "Price\030\003 \001(\001\022\022\n\nclosePrice\030\004 \001(\001\"\335\001\n\nBfTi"
+    "Price\030\003 \001(\001\022\022\n\nclosePrice\030\004 \001(\001\"\207\002\n\nBfTi"
     "ckData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t"
     "\022\014\n\004date\030\003 \001(\t\022\014\n\004time\030\004 \001(\t\022\021\n\tlastPric"
     "e\030\005 \001(\001\022\016\n\006volume\030\006 \001(\005\022\024\n\014openInterest\030"
     "\007 \001(\001\022\022\n\nlastVolume\030\010 \001(\005\022\030\n\020lastOpenInt"
     "erest\030\t \001(\001\022*\n\nbidaskInfo\030\n \003(\0132\026.bftrad"
-    "er.BfBidAskInfo\"\235\001\n\016BfTickPackData\022\016\n\006sy"
-    "mbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n\004date\030\003 \001"
-    "(\t\022\014\n\004time\030\004 \001(\t\022(\n\tdailyInfo\030\005 \001(\0132\025.bf"
-    "trader.BfDailyInfo\022#\n\005ticks\030\006 \003(\0132\024.bftr"
-    "ader.BfTickData\"\223\002\n\tBfBarData\022\016\n\006symbol\030"
-    "\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n\004date\030\003 \001(\t\022\014\n"
-    "\004time\030\004 \001(\t\022\016\n\006volume\030\005 \001(\005\022\024\n\014openInter"
-    "est\030\006 \001(\001\022\022\n\nlastVolume\030\007 \001(\005\022\030\n\020lastOpe"
-    "nInterest\030\010 \001(\001\022&\n\010ohlcInfo\030\t \001(\0132\024.bftr"
-    "ader.BfOHLCInfo\022\"\n\006period\030\n \001(\0162\022.bftrad"
-    "er.BfPeriod\022(\n\tdailyInfo\030\013 \001(\0132\025.bftrade"
-    "r.BfDailyInfo\"\321\001\n\013BfTradeData\022\016\n\006symbol\030"
-    "\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007tradeId\030\003 \001(\t"
-    "\022\017\n\007orderId\030\004 \001(\t\022(\n\tdirection\030\005 \001(\0162\025.b"
-    "ftrader.BfDirection\022\"\n\006offset\030\006 \001(\0162\022.bf"
-    "trader.BfOffset\022\r\n\005price\030\007 \001(\001\022\016\n\006volume"
-    "\030\010 \001(\005\022\021\n\ttradeTime\030\t \001(\t\"\223\002\n\013BfOrderDat"
-    "a\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007o"
-    "rderId\030\003 \001(\t\022(\n\tdirection\030\004 \001(\0162\025.bftrad"
-    "er.BfDirection\022\"\n\006offset\030\005 \001(\0162\022.bftrade"
-    "r.BfOffset\022\r\n\005price\030\006 \001(\001\022\023\n\013totalVolume"
-    "\030\007 \001(\005\022\024\n\014tradedVolume\030\010 \001(\005\022\"\n\006status\030\t"
-    " \001(\0162\022.bftrader.BfStatus\022\021\n\torderTime\030\n "
-    "\001(\t\022\022\n\ncancelTime\030\013 \001(\t\"\241\001\n\016BfPositionDa"
-    "ta\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022(\n\t"
-    "direction\030\003 \001(\0162\025.bftrader.BfDirection\022\020"
-    "\n\010position\030\004 \001(\005\022\016\n\006frozen\030\005 \001(\005\022\r\n\005pric"
-    "e\030\006 \001(\001\022\022\n\nydPosition\030\007 \001(\005\"\253\001\n\rBfAccoun"
-    "tData\022\021\n\taccountId\030\001 \001(\t\022\022\n\npreBalance\030\002"
-    " \001(\001\022\017\n\007balance\030\003 \001(\001\022\021\n\tavailable\030\004 \001(\001"
-    "\022\022\n\ncommission\030\005 \001(\001\022\016\n\006margin\030\006 \001(\001\022\023\n\013"
-    "closeProfit\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001("
-    "\001\"H\n\013BfErrorData\022\017\n\007errorId\030\001 \001(\t\022\020\n\010err"
-    "orMsg\030\002 \001(\t\022\026\n\016additionalInfo\030\003 \001(\t\"0\n\tB"
-    "fLogData\022\017\n\007logTime\030\001 \001(\t\022\022\n\nlogContent\030"
-    "\002 \001(\t\"\214\001\n\016BfContractData\022\016\n\006symbol\030\001 \001(\t"
-    "\022\020\n\010exchange\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022)\n\014prod"
-    "uctClass\030\004 \001(\0162\023.bftrader.BfProduct\022\014\n\004s"
-    "ize\030\005 \001(\005\022\021\n\tpriceTick\030\006 \001(\001\"&\n\010BfKvData"
-    "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"2\n\016BfSubscr"
-    "ibeReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t"
-    "\"\325\001\n\nBfOrderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010excha"
-    "nge\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005"
-    "\022(\n\tpriceType\030\005 \001(\0162\025.bftrader.BfPriceTy"
-    "pe\022(\n\tdirection\030\006 \001(\0162\025.bftrader.BfDirec"
-    "tion\022\"\n\006offset\030\007 \001(\0162\022.bftrader.BfOffset"
-    "\022\016\n\006reason\030\010 \001(\t\"\"\n\017BfOrderResponse\022\017\n\007o"
-    "rderId\030\001 \001(\t\"U\n\020BfCancelOrderReq\022\016\n\006symb"
-    "ol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007orderId\030\003 "
-    "\001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnectReq\022\017\n\007r"
-    "obotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022\017\n\007fromDa"
-    "y\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005toDay\030\005 \001(\t"
-    "\022\016\n\006toTime\030\006 \001(\t\"4\n\020BfGetContractReq\022\016\n\006"
-    "symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020BfGetT"
-    "ickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
-    " \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005"
-    "count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 "
-    "\001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 \001(\0162\022."
-    "bftrader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toT"
-    "ime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDirection"
-    "\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_NON"
-    "E\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTION_SHO"
-    "RT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTION_SEL"
-    "L\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013"
-    "OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014OFFSET"
-    "_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n\025OFFSE"
-    "T_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016STATUS"
-    "_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STAT"
-    "US_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n"
-    "\020STATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022\023\n\017PRO"
-    "DUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022\n\016PROD"
-    "UCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022\022\n\016PRO"
-    "DUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027\n\023PROD"
-    "UCT_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX\020\007\022\020\n\014"
-    "PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*\177\n\013BfP"
-    "riceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n\024PRICE"
-    "TYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MARKETPRI"
-    "CE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETYPE_FOK"
-    "\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKNOWN\020\000\022"
-    "\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE\020\002\022\022\n\016"
-    "EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020\004\022\021\n\rE"
-    "XCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020\n\014EXCH"
-    "ANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_UNKNOWN"
-    "\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003\370\001\001b\006p"
-    "roto3", 3925);
+    "er.BfBidAskInfo\022(\n\tdailyInfo\030\013 \001(\0132\025.bft"
+    "rader.BfDailyInfo\"s\n\016BfTickPackData\022\016\n\006s"
+    "ymbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n\004date\030\003 "
+    "\001(\t\022\014\n\004time\030\004 \001(\t\022#\n\005ticks\030\005 \003(\0132\024.bftra"
+    "der.BfTickData\"\223\002\n\tBfBarData\022\016\n\006symbol\030\001"
+    " \001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 \001(\0162\022"
+    ".bftrader.BfPeriod\022\014\n\004date\030\004 \001(\t\022\014\n\004time"
+    "\030\005 \001(\t\022\016\n\006volume\030\006 \001(\005\022\024\n\014openInterest\030\007"
+    " \001(\001\022\022\n\nlastVolume\030\010 \001(\005\022\030\n\020lastOpenInte"
+    "rest\030\t \001(\001\022&\n\010ohlcInfo\030\n \001(\0132\024.bftrader."
+    "BfOHLCInfo\022(\n\tdailyInfo\030\013 \001(\0132\025.bftrader"
+    ".BfDailyInfo\"\321\001\n\013BfTradeData\022\016\n\006symbol\030\001"
+    " \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007tradeId\030\003 \001(\t\022"
+    "\017\n\007orderId\030\004 \001(\t\022(\n\tdirection\030\005 \001(\0162\025.bf"
+    "trader.BfDirection\022\"\n\006offset\030\006 \001(\0162\022.bft"
+    "rader.BfOffset\022\r\n\005price\030\007 \001(\001\022\016\n\006volume\030"
+    "\010 \001(\005\022\021\n\ttradeTime\030\t \001(\t\"\223\002\n\013BfOrderData"
+    "\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007or"
+    "derId\030\003 \001(\t\022(\n\tdirection\030\004 \001(\0162\025.bftrade"
+    "r.BfDirection\022\"\n\006offset\030\005 \001(\0162\022.bftrader"
+    ".BfOffset\022\r\n\005price\030\006 \001(\001\022\023\n\013totalVolume\030"
+    "\007 \001(\005\022\024\n\014tradedVolume\030\010 \001(\005\022\"\n\006status\030\t "
+    "\001(\0162\022.bftrader.BfStatus\022\021\n\torderTime\030\n \001"
+    "(\t\022\022\n\ncancelTime\030\013 \001(\t\"\241\001\n\016BfPositionDat"
+    "a\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022(\n\td"
+    "irection\030\003 \001(\0162\025.bftrader.BfDirection\022\020\n"
+    "\010position\030\004 \001(\005\022\016\n\006frozen\030\005 \001(\005\022\r\n\005price"
+    "\030\006 \001(\001\022\022\n\nydPosition\030\007 \001(\005\"\253\001\n\rBfAccount"
+    "Data\022\021\n\taccountId\030\001 \001(\t\022\022\n\npreBalance\030\002 "
+    "\001(\001\022\017\n\007balance\030\003 \001(\001\022\021\n\tavailable\030\004 \001(\001\022"
+    "\022\n\ncommission\030\005 \001(\001\022\016\n\006margin\030\006 \001(\001\022\023\n\013c"
+    "loseProfit\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001(\001"
+    "\"H\n\013BfErrorData\022\017\n\007errorId\030\001 \001(\t\022\020\n\010erro"
+    "rMsg\030\002 \001(\t\022\026\n\016additionalInfo\030\003 \001(\t\"0\n\tBf"
+    "LogData\022\017\n\007logTime\030\001 \001(\t\022\022\n\nlogContent\030\002"
+    " \001(\t\"\226\001\n\016BfContractData\022\016\n\006symbol\030\001 \001(\t\022"
+    "\020\n\010exchange\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022)\n\014produ"
+    "ctClass\030\004 \001(\0162\023.bftrader.BfProduct\022\026\n\016vo"
+    "lumeMultiple\030\005 \001(\005\022\021\n\tpriceTick\030\006 \001(\001\"&\n"
+    "\010BfKvData\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"2\n"
+    "\016BfSubscribeReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010excha"
+    "nge\030\002 \001(\t\"\325\001\n\nBfOrderReq\022\016\n\006symbol\030\001 \001(\t"
+    "\022\020\n\010exchange\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022\016\n\006vol"
+    "ume\030\004 \001(\005\022(\n\tpriceType\030\005 \001(\0162\025.bftrader."
+    "BfPriceType\022(\n\tdirection\030\006 \001(\0162\025.bftrade"
+    "r.BfDirection\022\"\n\006offset\030\007 \001(\0162\022.bftrader"
+    ".BfOffset\022\016\n\006reason\030\010 \001(\t\"\"\n\017BfOrderResp"
+    "onse\022\017\n\007orderId\030\001 \001(\t\"U\n\020BfCancelOrderRe"
+    "q\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007o"
+    "rderId\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnec"
+    "tReq\022\017\n\007robotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022"
+    "\017\n\007fromDay\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005to"
+    "Day\030\005 \001(\t\022\016\n\006toTime\030\006 \001(\t\"4\n\020BfGetContra"
+    "ctReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\""
+    "c\n\020BfGetTickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010e"
+    "xchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030"
+    "\004 \001(\t\022\r\n\005count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006"
+    "symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period"
+    "\030\003 \001(\0162\022.bftrader.BfPeriod\022\016\n\006toDate\030\004 \001"
+    "(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013Bf"
+    "Direction\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRE"
+    "CTION_NONE\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRE"
+    "CTION_SHORT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRE"
+    "CTION_SELL\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKN"
+    "OWN\020\000\022\017\n\013OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022"
+    "\020\n\014OFFSET_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004"
+    "\022\031\n\025OFFSET_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022"
+    "\022\n\016STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020"
+    "\001\022\025\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTR"
+    "ADED\020\003\022\024\n\020STATUS_CANCELLED\020\004*\323\001\n\tBfProdu"
+    "ct\022\023\n\017PRODUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020"
+    "\001\022\022\n\016PRODUCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES"
+    "\020\003\022\022\n\016PRODUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020"
+    "\005\022\027\n\023PRODUCT_COMBINATION\020\006\022\021\n\rPRODUCT_FO"
+    "REX\020\007\022\020\n\014PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER"
+    "\020\t*\177\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000"
+    "\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_"
+    "MARKETPRICE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRIC"
+    "ETYPE_FOK\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_U"
+    "NKNOWN\020\000\022\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_S"
+    "ZSE\020\002\022\022\n\016EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SH"
+    "FE\020\004\022\021\n\rEXCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020"
+    "\006\022\020\n\014EXCHANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIO"
+    "D_UNKNOWN\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020"
+    "\002B\003\370\001\001b\006proto3", 3934);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -2508,6 +2508,53 @@ void BfOHLCInfo::clear_closeprice() {
 
 // ===================================================================
 
+void BfTickData::_slow_mutable_dailyinfo() {
+  dailyinfo_ = ::google::protobuf::Arena::CreateMessage< ::bftrader::BfDailyInfo >(
+      GetArenaNoVirtual());
+}
+::bftrader::BfDailyInfo* BfTickData::_slow_release_dailyinfo() {
+  if (dailyinfo_ == NULL) {
+    return NULL;
+  } else {
+    ::bftrader::BfDailyInfo* temp = new ::bftrader::BfDailyInfo;
+    temp->MergeFrom(*dailyinfo_);
+    dailyinfo_ = NULL;
+    return temp;
+  }
+}
+::bftrader::BfDailyInfo* BfTickData::unsafe_arena_release_dailyinfo() {
+  
+  ::bftrader::BfDailyInfo* temp = dailyinfo_;
+  dailyinfo_ = NULL;
+  return temp;
+}
+void BfTickData::_slow_set_allocated_dailyinfo(
+    ::google::protobuf::Arena* message_arena, ::bftrader::BfDailyInfo** dailyinfo) {
+    if (message_arena != NULL && 
+        ::google::protobuf::Arena::GetArena(*dailyinfo) == NULL) {
+      message_arena->Own(*dailyinfo);
+    } else if (message_arena !=
+               ::google::protobuf::Arena::GetArena(*dailyinfo)) {
+      ::bftrader::BfDailyInfo* new_dailyinfo = 
+            ::google::protobuf::Arena::CreateMessage< ::bftrader::BfDailyInfo >(
+            message_arena);
+      new_dailyinfo->CopyFrom(**dailyinfo);
+      *dailyinfo = new_dailyinfo;
+    }
+}
+void BfTickData::unsafe_arena_set_allocated_dailyinfo(
+    ::bftrader::BfDailyInfo* dailyinfo) {
+  if (GetArenaNoVirtual() == NULL) {
+    delete dailyinfo_;
+  }
+  dailyinfo_ = dailyinfo;
+  if (dailyinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:bftrader.BfTickData.dailyInfo)
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfTickData::kSymbolFieldNumber;
 const int BfTickData::kExchangeFieldNumber;
@@ -2519,6 +2566,7 @@ const int BfTickData::kOpenInterestFieldNumber;
 const int BfTickData::kLastVolumeFieldNumber;
 const int BfTickData::kLastOpenInterestFieldNumber;
 const int BfTickData::kBidaskInfoFieldNumber;
+const int BfTickData::kDailyInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfTickData::BfTickData()
@@ -2538,6 +2586,7 @@ BfTickData::BfTickData(::google::protobuf::Arena* arena)
 
 void BfTickData::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  dailyinfo_ = const_cast< ::bftrader::BfDailyInfo*>(&::bftrader::BfDailyInfo::default_instance());
 }
 
 BfTickData::BfTickData(const BfTickData& from)
@@ -2561,6 +2610,7 @@ void BfTickData::SharedCtor() {
   openinterest_ = 0;
   lastvolume_ = 0;
   lastopeninterest_ = 0;
+  dailyinfo_ = NULL;
 }
 
 BfTickData::~BfTickData() {
@@ -2578,6 +2628,7 @@ void BfTickData::SharedDtor() {
   date_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   time_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
+    delete dailyinfo_;
   }
 }
 
@@ -2623,6 +2674,8 @@ void BfTickData::Clear() {
   date_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   time_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   lastopeninterest_ = 0;
+  if (GetArenaNoVirtual() == NULL && dailyinfo_ != NULL) delete dailyinfo_;
+  dailyinfo_ = NULL;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -2795,6 +2848,19 @@ bool BfTickData::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(82)) goto parse_loop_bidaskInfo;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(90)) goto parse_dailyInfo;
+        break;
+      }
+
+      // optional .bftrader.BfDailyInfo dailyInfo = 11;
+      case 11: {
+        if (tag == 90) {
+         parse_dailyInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_dailyinfo()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2894,6 +2960,12 @@ void BfTickData::SerializeWithCachedSizes(
       10, this->bidaskinfo(i), output);
   }
 
+  // optional .bftrader.BfDailyInfo dailyInfo = 11;
+  if (this->has_dailyinfo()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      11, *this->dailyinfo_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:bftrader.BfTickData)
 }
 
@@ -2976,6 +3048,13 @@ void BfTickData::SerializeWithCachedSizes(
         10, this->bidaskinfo(i), target);
   }
 
+  // optional .bftrader.BfDailyInfo dailyInfo = 11;
+  if (this->has_dailyinfo()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        11, *this->dailyinfo_, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfTickData)
   return target;
 }
@@ -3040,6 +3119,13 @@ int BfTickData::ByteSize() const {
     total_size += 1 + 8;
   }
 
+  // optional .bftrader.BfDailyInfo dailyInfo = 11;
+  if (this->has_dailyinfo()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->dailyinfo_);
+  }
+
   // repeated .bftrader.BfBidAskInfo bidaskInfo = 10;
   total_size += 1 * this->bidaskinfo_size();
   for (int i = 0; i < this->bidaskinfo_size(); i++) {
@@ -3096,6 +3182,9 @@ void BfTickData::MergeFrom(const BfTickData& from) {
   if (from.lastopeninterest() != 0) {
     set_lastopeninterest(from.lastopeninterest());
   }
+  if (from.has_dailyinfo()) {
+    mutable_dailyinfo()->::bftrader::BfDailyInfo::MergeFrom(from.dailyinfo());
+  }
 }
 
 void BfTickData::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3142,6 +3231,7 @@ void BfTickData::InternalSwap(BfTickData* other) {
   std::swap(lastvolume_, other->lastvolume_);
   std::swap(lastopeninterest_, other->lastopeninterest_);
   bidaskinfo_.UnsafeArenaSwap(&other->bidaskinfo_);
+  std::swap(dailyinfo_, other->dailyinfo_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -3513,48 +3603,43 @@ BfTickData::bidaskinfo() const {
   return bidaskinfo_;
 }
 
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-void BfTickPackData::_slow_mutable_dailyinfo() {
-  dailyinfo_ = ::google::protobuf::Arena::CreateMessage< ::bftrader::BfDailyInfo >(
-      GetArenaNoVirtual());
+// optional .bftrader.BfDailyInfo dailyInfo = 11;
+bool BfTickData::has_dailyinfo() const {
+  return !_is_default_instance_ && dailyinfo_ != NULL;
 }
-::bftrader::BfDailyInfo* BfTickPackData::_slow_release_dailyinfo() {
+void BfTickData::clear_dailyinfo() {
+  if (GetArenaNoVirtual() == NULL && dailyinfo_ != NULL) delete dailyinfo_;
+  dailyinfo_ = NULL;
+}
+const ::bftrader::BfDailyInfo& BfTickData::dailyinfo() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfTickData.dailyInfo)
+  return dailyinfo_ != NULL ? *dailyinfo_ : *default_instance_->dailyinfo_;
+}
+::bftrader::BfDailyInfo* BfTickData::mutable_dailyinfo() {
+  
   if (dailyinfo_ == NULL) {
-    return NULL;
+    _slow_mutable_dailyinfo();
+  }
+  // @@protoc_insertion_point(field_mutable:bftrader.BfTickData.dailyInfo)
+  return dailyinfo_;
+}
+::bftrader::BfDailyInfo* BfTickData::release_dailyinfo() {
+  
+  if (GetArenaNoVirtual() != NULL) {
+    return _slow_release_dailyinfo();
   } else {
-    ::bftrader::BfDailyInfo* temp = new ::bftrader::BfDailyInfo;
-    temp->MergeFrom(*dailyinfo_);
+    ::bftrader::BfDailyInfo* temp = dailyinfo_;
     dailyinfo_ = NULL;
     return temp;
   }
 }
-::bftrader::BfDailyInfo* BfTickPackData::unsafe_arena_release_dailyinfo() {
-  
-  ::bftrader::BfDailyInfo* temp = dailyinfo_;
-  dailyinfo_ = NULL;
-  return temp;
-}
-void BfTickPackData::_slow_set_allocated_dailyinfo(
-    ::google::protobuf::Arena* message_arena, ::bftrader::BfDailyInfo** dailyinfo) {
-    if (message_arena != NULL && 
-        ::google::protobuf::Arena::GetArena(*dailyinfo) == NULL) {
-      message_arena->Own(*dailyinfo);
-    } else if (message_arena !=
-               ::google::protobuf::Arena::GetArena(*dailyinfo)) {
-      ::bftrader::BfDailyInfo* new_dailyinfo = 
-            ::google::protobuf::Arena::CreateMessage< ::bftrader::BfDailyInfo >(
-            message_arena);
-      new_dailyinfo->CopyFrom(**dailyinfo);
-      *dailyinfo = new_dailyinfo;
-    }
-}
-void BfTickPackData::unsafe_arena_set_allocated_dailyinfo(
-    ::bftrader::BfDailyInfo* dailyinfo) {
-  if (GetArenaNoVirtual() == NULL) {
+ void BfTickData::set_allocated_dailyinfo(::bftrader::BfDailyInfo* dailyinfo) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
     delete dailyinfo_;
+  }
+  if (dailyinfo != NULL) {
+    _slow_set_allocated_dailyinfo(message_arena, &dailyinfo);
   }
   dailyinfo_ = dailyinfo;
   if (dailyinfo) {
@@ -3562,14 +3647,18 @@ void BfTickPackData::unsafe_arena_set_allocated_dailyinfo(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:bftrader.BfTickPackData.dailyInfo)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickData.dailyInfo)
 }
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfTickPackData::kSymbolFieldNumber;
 const int BfTickPackData::kExchangeFieldNumber;
 const int BfTickPackData::kDateFieldNumber;
 const int BfTickPackData::kTimeFieldNumber;
-const int BfTickPackData::kDailyInfoFieldNumber;
 const int BfTickPackData::kTicksFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -3590,7 +3679,6 @@ BfTickPackData::BfTickPackData(::google::protobuf::Arena* arena)
 
 void BfTickPackData::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  dailyinfo_ = const_cast< ::bftrader::BfDailyInfo*>(&::bftrader::BfDailyInfo::default_instance());
 }
 
 BfTickPackData::BfTickPackData(const BfTickPackData& from)
@@ -3609,7 +3697,6 @@ void BfTickPackData::SharedCtor() {
   exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   date_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  dailyinfo_ = NULL;
 }
 
 BfTickPackData::~BfTickPackData() {
@@ -3627,7 +3714,6 @@ void BfTickPackData::SharedDtor() {
   date_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   time_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
-    delete dailyinfo_;
   }
 }
 
@@ -3663,8 +3749,6 @@ void BfTickPackData::Clear() {
   exchange_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   date_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   time_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  if (GetArenaNoVirtual() == NULL && dailyinfo_ != NULL) delete dailyinfo_;
-  dailyinfo_ = NULL;
   ticks_.Clear();
 }
 
@@ -3741,26 +3825,13 @@ bool BfTickPackData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_dailyInfo;
+        if (input->ExpectTag(42)) goto parse_ticks;
         break;
       }
 
-      // optional .bftrader.BfDailyInfo dailyInfo = 5;
+      // repeated .bftrader.BfTickData ticks = 5;
       case 5: {
         if (tag == 42) {
-         parse_dailyInfo:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_dailyinfo()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_ticks;
-        break;
-      }
-
-      // repeated .bftrader.BfTickData ticks = 6;
-      case 6: {
-        if (tag == 50) {
          parse_ticks:
           DO_(input->IncrementRecursionDepth());
          parse_loop_ticks:
@@ -3769,7 +3840,7 @@ bool BfTickPackData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_loop_ticks;
+        if (input->ExpectTag(42)) goto parse_loop_ticks;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -3839,16 +3910,10 @@ void BfTickPackData::SerializeWithCachedSizes(
       4, this->time(), output);
   }
 
-  // optional .bftrader.BfDailyInfo dailyInfo = 5;
-  if (this->has_dailyinfo()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, *this->dailyinfo_, output);
-  }
-
-  // repeated .bftrader.BfTickData ticks = 6;
+  // repeated .bftrader.BfTickData ticks = 5;
   for (unsigned int i = 0, n = this->ticks_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->ticks(i), output);
+      5, this->ticks(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfTickPackData)
@@ -3901,18 +3966,11 @@ void BfTickPackData::SerializeWithCachedSizes(
         4, this->time(), target);
   }
 
-  // optional .bftrader.BfDailyInfo dailyInfo = 5;
-  if (this->has_dailyinfo()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, *this->dailyinfo_, target);
-  }
-
-  // repeated .bftrader.BfTickData ticks = 6;
+  // repeated .bftrader.BfTickData ticks = 5;
   for (unsigned int i = 0, n = this->ticks_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        6, this->ticks(i), target);
+        5, this->ticks(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfTickPackData)
@@ -3950,14 +4008,7 @@ int BfTickPackData::ByteSize() const {
         this->time());
   }
 
-  // optional .bftrader.BfDailyInfo dailyInfo = 5;
-  if (this->has_dailyinfo()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->dailyinfo_);
-  }
-
-  // repeated .bftrader.BfTickData ticks = 6;
+  // repeated .bftrader.BfTickData ticks = 5;
   total_size += 1 * this->ticks_size();
   for (int i = 0; i < this->ticks_size(); i++) {
     total_size +=
@@ -3997,9 +4048,6 @@ void BfTickPackData::MergeFrom(const BfTickPackData& from) {
   }
   if (from.time().size() > 0) {
     set_time(from.time());
-  }
-  if (from.has_dailyinfo()) {
-    mutable_dailyinfo()->::bftrader::BfDailyInfo::MergeFrom(from.dailyinfo());
   }
 }
 
@@ -4041,7 +4089,6 @@ void BfTickPackData::InternalSwap(BfTickPackData* other) {
   exchange_.Swap(&other->exchange_);
   date_.Swap(&other->date_);
   time_.Swap(&other->time_);
-  std::swap(dailyinfo_, other->dailyinfo_);
   ticks_.UnsafeArenaSwap(&other->ticks_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -4314,54 +4361,7 @@ void BfTickPackData::clear_time() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickPackData.time)
 }
 
-// optional .bftrader.BfDailyInfo dailyInfo = 5;
-bool BfTickPackData::has_dailyinfo() const {
-  return !_is_default_instance_ && dailyinfo_ != NULL;
-}
-void BfTickPackData::clear_dailyinfo() {
-  if (GetArenaNoVirtual() == NULL && dailyinfo_ != NULL) delete dailyinfo_;
-  dailyinfo_ = NULL;
-}
-const ::bftrader::BfDailyInfo& BfTickPackData::dailyinfo() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickPackData.dailyInfo)
-  return dailyinfo_ != NULL ? *dailyinfo_ : *default_instance_->dailyinfo_;
-}
-::bftrader::BfDailyInfo* BfTickPackData::mutable_dailyinfo() {
-  
-  if (dailyinfo_ == NULL) {
-    _slow_mutable_dailyinfo();
-  }
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTickPackData.dailyInfo)
-  return dailyinfo_;
-}
-::bftrader::BfDailyInfo* BfTickPackData::release_dailyinfo() {
-  
-  if (GetArenaNoVirtual() != NULL) {
-    return _slow_release_dailyinfo();
-  } else {
-    ::bftrader::BfDailyInfo* temp = dailyinfo_;
-    dailyinfo_ = NULL;
-    return temp;
-  }
-}
- void BfTickPackData::set_allocated_dailyinfo(::bftrader::BfDailyInfo* dailyinfo) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete dailyinfo_;
-  }
-  if (dailyinfo != NULL) {
-    _slow_set_allocated_dailyinfo(message_arena, &dailyinfo);
-  }
-  dailyinfo_ = dailyinfo;
-  if (dailyinfo) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickPackData.dailyInfo)
-}
-
-// repeated .bftrader.BfTickData ticks = 6;
+// repeated .bftrader.BfTickData ticks = 5;
 int BfTickPackData::ticks_size() const {
   return ticks_.size();
 }
@@ -4492,6 +4492,7 @@ void BfBarData::unsafe_arena_set_allocated_dailyinfo(
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfBarData::kSymbolFieldNumber;
 const int BfBarData::kExchangeFieldNumber;
+const int BfBarData::kPeriodFieldNumber;
 const int BfBarData::kDateFieldNumber;
 const int BfBarData::kTimeFieldNumber;
 const int BfBarData::kVolumeFieldNumber;
@@ -4499,7 +4500,6 @@ const int BfBarData::kOpenInterestFieldNumber;
 const int BfBarData::kLastVolumeFieldNumber;
 const int BfBarData::kLastOpenInterestFieldNumber;
 const int BfBarData::kOhlcInfoFieldNumber;
-const int BfBarData::kPeriodFieldNumber;
 const int BfBarData::kDailyInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -4537,6 +4537,7 @@ void BfBarData::SharedCtor() {
   _cached_size_ = 0;
   symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  period_ = 0;
   date_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   time_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   volume_ = 0;
@@ -4544,7 +4545,6 @@ void BfBarData::SharedCtor() {
   lastvolume_ = 0;
   lastopeninterest_ = 0;
   ohlcinfo_ = NULL;
-  period_ = 0;
   dailyinfo_ = NULL;
 }
 
@@ -4604,14 +4604,16 @@ void BfBarData::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(openinterest_, lastopeninterest_);
+  ZR_(period_, volume_);
   symbol_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   exchange_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   date_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   time_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  openinterest_ = 0;
+  lastvolume_ = 0;
+  lastopeninterest_ = 0;
   if (GetArenaNoVirtual() == NULL && ohlcinfo_ != NULL) delete ohlcinfo_;
   ohlcinfo_ = NULL;
-  period_ = 0;
   if (GetArenaNoVirtual() == NULL && dailyinfo_ != NULL) delete dailyinfo_;
   dailyinfo_ = NULL;
 
@@ -4659,13 +4661,29 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_date;
+        if (input->ExpectTag(24)) goto parse_period;
         break;
       }
 
-      // optional string date = 3;
+      // optional .bftrader.BfPeriod period = 3;
       case 3: {
-        if (tag == 26) {
+        if (tag == 24) {
+         parse_period:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_period(static_cast< ::bftrader::BfPeriod >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_date;
+        break;
+      }
+
+      // optional string date = 4;
+      case 4: {
+        if (tag == 34) {
          parse_date:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_date()));
@@ -4676,13 +4694,13 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_time;
+        if (input->ExpectTag(42)) goto parse_time;
         break;
       }
 
-      // optional string time = 4;
-      case 4: {
-        if (tag == 34) {
+      // optional string time = 5;
+      case 5: {
+        if (tag == 42) {
          parse_time:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_time()));
@@ -4693,13 +4711,13 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_volume;
+        if (input->ExpectTag(48)) goto parse_volume;
         break;
       }
 
-      // optional int32 volume = 5;
-      case 5: {
-        if (tag == 40) {
+      // optional int32 volume = 6;
+      case 6: {
+        if (tag == 48) {
          parse_volume:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -4708,13 +4726,13 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(49)) goto parse_openInterest;
+        if (input->ExpectTag(57)) goto parse_openInterest;
         break;
       }
 
-      // optional double openInterest = 6;
-      case 6: {
-        if (tag == 49) {
+      // optional double openInterest = 7;
+      case 7: {
+        if (tag == 57) {
          parse_openInterest:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -4723,13 +4741,13 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(56)) goto parse_lastVolume;
+        if (input->ExpectTag(64)) goto parse_lastVolume;
         break;
       }
 
-      // optional int32 lastVolume = 7;
-      case 7: {
-        if (tag == 56) {
+      // optional int32 lastVolume = 8;
+      case 8: {
+        if (tag == 64) {
          parse_lastVolume:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -4738,13 +4756,13 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(65)) goto parse_lastOpenInterest;
+        if (input->ExpectTag(73)) goto parse_lastOpenInterest;
         break;
       }
 
-      // optional double lastOpenInterest = 8;
-      case 8: {
-        if (tag == 65) {
+      // optional double lastOpenInterest = 9;
+      case 9: {
+        if (tag == 73) {
          parse_lastOpenInterest:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -4753,32 +4771,16 @@ bool BfBarData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(74)) goto parse_ohlcInfo;
+        if (input->ExpectTag(82)) goto parse_ohlcInfo;
         break;
       }
 
-      // optional .bftrader.BfOHLCInfo ohlcInfo = 9;
-      case 9: {
-        if (tag == 74) {
+      // optional .bftrader.BfOHLCInfo ohlcInfo = 10;
+      case 10: {
+        if (tag == 82) {
          parse_ohlcInfo:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_ohlcinfo()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(80)) goto parse_period;
-        break;
-      }
-
-      // optional .bftrader.BfPeriod period = 10;
-      case 10: {
-        if (tag == 80) {
-         parse_period:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_period(static_cast< ::bftrader::BfPeriod >(value));
         } else {
           goto handle_unusual;
         }
@@ -4843,56 +4845,56 @@ void BfBarData::SerializeWithCachedSizes(
       2, this->exchange(), output);
   }
 
-  // optional string date = 3;
+  // optional .bftrader.BfPeriod period = 3;
+  if (this->period() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->period(), output);
+  }
+
+  // optional string date = 4;
   if (this->date().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->date().data(), this->date().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bftrader.BfBarData.date");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->date(), output);
+      4, this->date(), output);
   }
 
-  // optional string time = 4;
+  // optional string time = 5;
   if (this->time().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->time().data(), this->time().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bftrader.BfBarData.time");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->time(), output);
+      5, this->time(), output);
   }
 
-  // optional int32 volume = 5;
+  // optional int32 volume = 6;
   if (this->volume() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->volume(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->volume(), output);
   }
 
-  // optional double openInterest = 6;
+  // optional double openInterest = 7;
   if (this->openinterest() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->openinterest(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->openinterest(), output);
   }
 
-  // optional int32 lastVolume = 7;
+  // optional int32 lastVolume = 8;
   if (this->lastvolume() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->lastvolume(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->lastvolume(), output);
   }
 
-  // optional double lastOpenInterest = 8;
+  // optional double lastOpenInterest = 9;
   if (this->lastopeninterest() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->lastopeninterest(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(9, this->lastopeninterest(), output);
   }
 
-  // optional .bftrader.BfOHLCInfo ohlcInfo = 9;
+  // optional .bftrader.BfOHLCInfo ohlcInfo = 10;
   if (this->has_ohlcinfo()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      9, *this->ohlcinfo_, output);
-  }
-
-  // optional .bftrader.BfPeriod period = 10;
-  if (this->period() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      10, this->period(), output);
+      10, *this->ohlcinfo_, output);
   }
 
   // optional .bftrader.BfDailyInfo dailyInfo = 11;
@@ -4929,7 +4931,13 @@ void BfBarData::SerializeWithCachedSizes(
         2, this->exchange(), target);
   }
 
-  // optional string date = 3;
+  // optional .bftrader.BfPeriod period = 3;
+  if (this->period() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->period(), target);
+  }
+
+  // optional string date = 4;
   if (this->date().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->date().data(), this->date().length(),
@@ -4937,10 +4945,10 @@ void BfBarData::SerializeWithCachedSizes(
       "bftrader.BfBarData.date");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->date(), target);
+        4, this->date(), target);
   }
 
-  // optional string time = 4;
+  // optional string time = 5;
   if (this->time().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->time().data(), this->time().length(),
@@ -4948,40 +4956,34 @@ void BfBarData::SerializeWithCachedSizes(
       "bftrader.BfBarData.time");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->time(), target);
+        5, this->time(), target);
   }
 
-  // optional int32 volume = 5;
+  // optional int32 volume = 6;
   if (this->volume() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->volume(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->volume(), target);
   }
 
-  // optional double openInterest = 6;
+  // optional double openInterest = 7;
   if (this->openinterest() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->openinterest(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->openinterest(), target);
   }
 
-  // optional int32 lastVolume = 7;
+  // optional int32 lastVolume = 8;
   if (this->lastvolume() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->lastvolume(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->lastvolume(), target);
   }
 
-  // optional double lastOpenInterest = 8;
+  // optional double lastOpenInterest = 9;
   if (this->lastopeninterest() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->lastopeninterest(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(9, this->lastopeninterest(), target);
   }
 
-  // optional .bftrader.BfOHLCInfo ohlcInfo = 9;
+  // optional .bftrader.BfOHLCInfo ohlcInfo = 10;
   if (this->has_ohlcinfo()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        9, *this->ohlcinfo_, target);
-  }
-
-  // optional .bftrader.BfPeriod period = 10;
-  if (this->period() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      10, this->period(), target);
+        10, *this->ohlcinfo_, target);
   }
 
   // optional .bftrader.BfDailyInfo dailyInfo = 11;
@@ -5012,55 +5014,55 @@ int BfBarData::ByteSize() const {
         this->exchange());
   }
 
-  // optional string date = 3;
+  // optional .bftrader.BfPeriod period = 3;
+  if (this->period() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->period());
+  }
+
+  // optional string date = 4;
   if (this->date().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->date());
   }
 
-  // optional string time = 4;
+  // optional string time = 5;
   if (this->time().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->time());
   }
 
-  // optional int32 volume = 5;
+  // optional int32 volume = 6;
   if (this->volume() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->volume());
   }
 
-  // optional double openInterest = 6;
+  // optional double openInterest = 7;
   if (this->openinterest() != 0) {
     total_size += 1 + 8;
   }
 
-  // optional int32 lastVolume = 7;
+  // optional int32 lastVolume = 8;
   if (this->lastvolume() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->lastvolume());
   }
 
-  // optional double lastOpenInterest = 8;
+  // optional double lastOpenInterest = 9;
   if (this->lastopeninterest() != 0) {
     total_size += 1 + 8;
   }
 
-  // optional .bftrader.BfOHLCInfo ohlcInfo = 9;
+  // optional .bftrader.BfOHLCInfo ohlcInfo = 10;
   if (this->has_ohlcinfo()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->ohlcinfo_);
-  }
-
-  // optional .bftrader.BfPeriod period = 10;
-  if (this->period() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->period());
   }
 
   // optional .bftrader.BfDailyInfo dailyInfo = 11;
@@ -5096,6 +5098,9 @@ void BfBarData::MergeFrom(const BfBarData& from) {
   if (from.exchange().size() > 0) {
     set_exchange(from.exchange());
   }
+  if (from.period() != 0) {
+    set_period(from.period());
+  }
   if (from.date().size() > 0) {
     set_date(from.date());
   }
@@ -5116,9 +5121,6 @@ void BfBarData::MergeFrom(const BfBarData& from) {
   }
   if (from.has_ohlcinfo()) {
     mutable_ohlcinfo()->::bftrader::BfOHLCInfo::MergeFrom(from.ohlcinfo());
-  }
-  if (from.period() != 0) {
-    set_period(from.period());
   }
   if (from.has_dailyinfo()) {
     mutable_dailyinfo()->::bftrader::BfDailyInfo::MergeFrom(from.dailyinfo());
@@ -5161,6 +5163,7 @@ void BfBarData::UnsafeArenaSwap(BfBarData* other) {
 void BfBarData::InternalSwap(BfBarData* other) {
   symbol_.Swap(&other->symbol_);
   exchange_.Swap(&other->exchange_);
+  std::swap(period_, other->period_);
   date_.Swap(&other->date_);
   time_.Swap(&other->time_);
   std::swap(volume_, other->volume_);
@@ -5168,7 +5171,6 @@ void BfBarData::InternalSwap(BfBarData* other) {
   std::swap(lastvolume_, other->lastvolume_);
   std::swap(lastopeninterest_, other->lastopeninterest_);
   std::swap(ohlcinfo_, other->ohlcinfo_);
-  std::swap(period_, other->period_);
   std::swap(dailyinfo_, other->dailyinfo_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -5313,7 +5315,21 @@ void BfBarData::clear_exchange() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.exchange)
 }
 
-// optional string date = 3;
+// optional .bftrader.BfPeriod period = 3;
+void BfBarData::clear_period() {
+  period_ = 0;
+}
+ ::bftrader::BfPeriod BfBarData::period() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfBarData.period)
+  return static_cast< ::bftrader::BfPeriod >(period_);
+}
+ void BfBarData::set_period(::bftrader::BfPeriod value) {
+  
+  period_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfBarData.period)
+}
+
+// optional string date = 4;
 void BfBarData::clear_date() {
   date_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
@@ -5377,7 +5393,7 @@ void BfBarData::clear_date() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.date)
 }
 
-// optional string time = 4;
+// optional string time = 5;
 void BfBarData::clear_time() {
   time_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
@@ -5441,7 +5457,7 @@ void BfBarData::clear_time() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.time)
 }
 
-// optional int32 volume = 5;
+// optional int32 volume = 6;
 void BfBarData::clear_volume() {
   volume_ = 0;
 }
@@ -5455,7 +5471,7 @@ void BfBarData::clear_volume() {
   // @@protoc_insertion_point(field_set:bftrader.BfBarData.volume)
 }
 
-// optional double openInterest = 6;
+// optional double openInterest = 7;
 void BfBarData::clear_openinterest() {
   openinterest_ = 0;
 }
@@ -5469,7 +5485,7 @@ void BfBarData::clear_openinterest() {
   // @@protoc_insertion_point(field_set:bftrader.BfBarData.openInterest)
 }
 
-// optional int32 lastVolume = 7;
+// optional int32 lastVolume = 8;
 void BfBarData::clear_lastvolume() {
   lastvolume_ = 0;
 }
@@ -5483,7 +5499,7 @@ void BfBarData::clear_lastvolume() {
   // @@protoc_insertion_point(field_set:bftrader.BfBarData.lastVolume)
 }
 
-// optional double lastOpenInterest = 8;
+// optional double lastOpenInterest = 9;
 void BfBarData::clear_lastopeninterest() {
   lastopeninterest_ = 0;
 }
@@ -5497,7 +5513,7 @@ void BfBarData::clear_lastopeninterest() {
   // @@protoc_insertion_point(field_set:bftrader.BfBarData.lastOpenInterest)
 }
 
-// optional .bftrader.BfOHLCInfo ohlcInfo = 9;
+// optional .bftrader.BfOHLCInfo ohlcInfo = 10;
 bool BfBarData::has_ohlcinfo() const {
   return !_is_default_instance_ && ohlcinfo_ != NULL;
 }
@@ -5542,20 +5558,6 @@ const ::bftrader::BfOHLCInfo& BfBarData::ohlcinfo() const {
     
   }
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.ohlcInfo)
-}
-
-// optional .bftrader.BfPeriod period = 10;
-void BfBarData::clear_period() {
-  period_ = 0;
-}
- ::bftrader::BfPeriod BfBarData::period() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.period)
-  return static_cast< ::bftrader::BfPeriod >(period_);
-}
- void BfBarData::set_period(::bftrader::BfPeriod value) {
-  
-  period_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.period)
 }
 
 // optional .bftrader.BfDailyInfo dailyInfo = 11;
@@ -10110,7 +10112,7 @@ const int BfContractData::kSymbolFieldNumber;
 const int BfContractData::kExchangeFieldNumber;
 const int BfContractData::kNameFieldNumber;
 const int BfContractData::kProductClassFieldNumber;
-const int BfContractData::kSizeFieldNumber;
+const int BfContractData::kVolumeMultipleFieldNumber;
 const int BfContractData::kPriceTickFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -10148,7 +10150,7 @@ void BfContractData::SharedCtor() {
   exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   productclass_ = 0;
-  size_ = 0;
+  volumemultiple_ = 0;
   pricetick_ = 0;
 }
 
@@ -10287,17 +10289,17 @@ bool BfContractData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_size;
+        if (input->ExpectTag(40)) goto parse_volumeMultiple;
         break;
       }
 
-      // optional int32 size = 5;
+      // optional int32 volumeMultiple = 5;
       case 5: {
         if (tag == 40) {
-         parse_size:
+         parse_volumeMultiple:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &size_)));
+                 input, &volumemultiple_)));
 
         } else {
           goto handle_unusual;
@@ -10381,9 +10383,9 @@ void BfContractData::SerializeWithCachedSizes(
       4, this->productclass(), output);
   }
 
-  // optional int32 size = 5;
-  if (this->size() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->size(), output);
+  // optional int32 volumeMultiple = 5;
+  if (this->volumemultiple() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->volumemultiple(), output);
   }
 
   // optional double priceTick = 6;
@@ -10436,9 +10438,9 @@ void BfContractData::SerializeWithCachedSizes(
       4, this->productclass(), target);
   }
 
-  // optional int32 size = 5;
-  if (this->size() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->size(), target);
+  // optional int32 volumeMultiple = 5;
+  if (this->volumemultiple() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->volumemultiple(), target);
   }
 
   // optional double priceTick = 6;
@@ -10480,11 +10482,11 @@ int BfContractData::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->productclass());
   }
 
-  // optional int32 size = 5;
-  if (this->size() != 0) {
+  // optional int32 volumeMultiple = 5;
+  if (this->volumemultiple() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->size());
+        this->volumemultiple());
   }
 
   // optional double priceTick = 6;
@@ -10524,8 +10526,8 @@ void BfContractData::MergeFrom(const BfContractData& from) {
   if (from.productclass() != 0) {
     set_productclass(from.productclass());
   }
-  if (from.size() != 0) {
-    set_size(from.size());
+  if (from.volumemultiple() != 0) {
+    set_volumemultiple(from.volumemultiple());
   }
   if (from.pricetick() != 0) {
     set_pricetick(from.pricetick());
@@ -10570,7 +10572,7 @@ void BfContractData::InternalSwap(BfContractData* other) {
   exchange_.Swap(&other->exchange_);
   name_.Swap(&other->name_);
   std::swap(productclass_, other->productclass_);
-  std::swap(size_, other->size_);
+  std::swap(volumemultiple_, other->volumemultiple_);
   std::swap(pricetick_, other->pricetick_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -10793,18 +10795,18 @@ void BfContractData::clear_productclass() {
   // @@protoc_insertion_point(field_set:bftrader.BfContractData.productClass)
 }
 
-// optional int32 size = 5;
-void BfContractData::clear_size() {
-  size_ = 0;
+// optional int32 volumeMultiple = 5;
+void BfContractData::clear_volumemultiple() {
+  volumemultiple_ = 0;
 }
- ::google::protobuf::int32 BfContractData::size() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.size)
-  return size_;
+ ::google::protobuf::int32 BfContractData::volumemultiple() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.volumeMultiple)
+  return volumemultiple_;
 }
- void BfContractData::set_size(::google::protobuf::int32 value) {
+ void BfContractData::set_volumemultiple(::google::protobuf::int32 value) {
   
-  size_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.size)
+  volumemultiple_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.volumeMultiple)
 }
 
 // optional double priceTick = 6;

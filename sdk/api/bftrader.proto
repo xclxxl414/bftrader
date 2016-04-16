@@ -120,15 +120,18 @@ message BfTickData{
     
     // 成交数据
     string date = 3;            // 日期 20151009
-    string time = 4;            // 时间 11:20:56.5
+    string time = 4;            // 时间 11:20:56.500
     double lastPrice = 5;       // 最新成交价
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 今天总持仓量
-    int32 lastVolume = 8;       // 最新成交量，本笔增减
-    double lastOpenInterest = 9;// 最新持仓量，本笔增减
+    int32 lastVolume = 8;       // 最新成交量，本笔增减，无法计算时用1代替
+    double lastOpenInterest = 9;// 最新持仓量，本笔增减，无法计算时用1.0代替
 
     // x档行情
     repeated BfBidAskInfo bidaskInfo = 10;  
+
+    // 常规行情
+    BfDailyInfo dailyInfo = 11;  
 }
 
 // 1分钟的tick集合
@@ -138,13 +141,10 @@ message BfTickPackData{
     string exchange = 2;        // 交易所代码
     
     string date = 3;            // 日期 20151009
-    string time = 4;            // 时间 11:20:56
-
-    // 常规行情
-    BfDailyInfo dailyInfo = 5;  
+    string time = 4;            // 时间 11:20:56.500
 
     // Tick集合
-    repeated BfTickData ticks = 6;
+    repeated BfTickData ticks = 5;
 }
 
 // Bar行情数据类
@@ -153,20 +153,20 @@ message BfBarData{
     // 代码相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
-    
-    // 成交数据
-    string date = 3;            // 日期 20151009
-    string time = 4;            // 时间 11:20:56
-    int32 volume = 5;           // 今天总成交量
-    double openInterest = 6;    // 持仓量
-    int32 lastVolume = 7;       // 最新成交量，本笔增减
-    double lastOpenInterest = 8;// 最新持仓量，本笔增减
-    
-    // OHLC
-    BfOHLCInfo ohlcInfo = 9; 
 
     // 周期   
-    BfPeriod period = 10;       
+    BfPeriod period = 3;       
+    
+    // 成交数据
+    string date = 4;            // 日期 20151009
+    string time = 5;            // 时间 11:20:56.500
+    int32 volume = 6;           // 今天总成交量
+    double openInterest = 7;    // 持仓量
+    int32 lastVolume = 8;       // 最新成交量，本笔增减
+    double lastOpenInterest = 9;// 最新持仓量，本笔增减
+    
+    // OHLC
+    BfOHLCInfo ohlcInfo = 10; 
 
     // 常规行情
     BfDailyInfo dailyInfo = 11; 
@@ -268,7 +268,7 @@ message BfContractData{
     string name = 3;            // 合约中文名-utf8
     
     BfProduct productClass = 4; // 合约类型
-    int32 size = 5;             // 合约大小
+    int32 volumeMultiple = 5;   // 合约数量乘数
     double priceTick = 6;       // 合约最小价格TICK
 }
 

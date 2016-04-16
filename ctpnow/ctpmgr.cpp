@@ -120,7 +120,7 @@ bool CtpMgr::initMdSm()
     if (!res) {
         delete mdsm_;
         mdsm_ = nullptr;
-        logger()->info("参数无效，请核对参数=");
+        logger()->info("invalid parameter,check please");
         return false;
     }
     return true;
@@ -146,7 +146,7 @@ bool CtpMgr::initTdSm()
     if (!res) {
         delete tdsm_;
         tdsm_ = nullptr;
-        logger()->info("参数无效，请核对参数=");
+        logger()->info("invalid parameter,check please");
         return false;
     }
     return true;

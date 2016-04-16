@@ -20,8 +20,10 @@ public:
 
 public slots:
     void onGotInstruments(QStringList ids);
-    void onGotTick(void* tick);
     void onTradeClosed();
+
+private:
+    void onGotContract(void* contract);
 
 private:
     Ui::ContractForm *ui;

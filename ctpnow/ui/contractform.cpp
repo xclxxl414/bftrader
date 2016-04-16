@@ -3,6 +3,8 @@
 #include "servicemgr.h"
 #include "ctpmgr.h"
 #include "ThostFtdcUserApiStruct.h"
+#include "encode_utils.h"
+#include "nofocusdelegate.h"
 
 ContractForm::ContractForm(QWidget *parent) :
     QWidget(parent),
@@ -11,13 +13,19 @@ ContractForm::ContractForm(QWidget *parent) :
     ui->setupUi(this);
 
     //设置列=
-    instruments_col_  << "InstrumentID" << "TradingDay" << "UpdateTime" << "UpdateMillisec" <<
-        "LastPrice" << "Volume" << "OpenInterest" <<
-        "BidPrice1" << "BidVolume1" << "AskPrice1" << "AskVolume1";
+    instruments_col_  << "symbol"
+                      << "exchange"
+                      << "name"
+                      << "productClass"
+                      << "volumeMultiple"
+                      << "priceTick";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
     }
+
+    // 调整参数=
+    bfAdjustTableWidget(ui->tableWidget);
 }
 
 ContractForm::~ContractForm()
@@ -27,45 +35,12 @@ ContractForm::~ContractForm()
 
 void ContractForm::init(){
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &ContractForm::onGotTick);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &ContractForm::onGotInstruments);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &ContractForm::onTradeClosed);
 }
 
 void ContractForm::shutdown(){
 
-}
-
-void ContractForm::onGotTick(void* tick)
-{
-    auto mdf = (CThostFtdcDepthMarketDataField*)tick;
-
-    QVariantMap mdItem;
-    mdItem.insert("InstrumentID", mdf->InstrumentID);
-    mdItem.insert("TradingDay", mdf->TradingDay);
-    mdItem.insert("UpdateTime", mdf->UpdateTime);
-    mdItem.insert("UpdateMillisec", mdf->UpdateMillisec);
-    mdItem.insert("LastPrice", mdf->LastPrice);
-    mdItem.insert("Volume", mdf->Volume);
-    mdItem.insert("OpenInterest", mdf->OpenInterest);
-    mdItem.insert("BidPrice1", mdf->BidPrice1);
-    mdItem.insert("BidVolume1", mdf->BidVolume1);
-    mdItem.insert("AskPrice1", mdf->AskPrice1);
-    mdItem.insert("AskVolume1", mdf->AskVolume1);
-
-    //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
-    QString id = mdItem.value("InstrumentID").toString();
-    int row = instruments_row_.value(id);
-    for (int i = 0; i < instruments_col_.count(); i++) {
-        QVariant raw_val = mdItem.value(instruments_col_.at(i));
-        QString str_val = raw_val.toString();
-        if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
-            str_val = QString().sprintf("%6.1f", raw_val.toDouble());
-        }
-
-        QTableWidgetItem* item = new QTableWidgetItem(str_val);
-        ui->tableWidget->setItem(row, i, item);
-    }
 }
 
 void ContractForm::onGotInstruments(QStringList ids)
@@ -81,6 +56,40 @@ void ContractForm::onGotInstruments(QStringList ids)
         instruments_row_[id] = i;
         QTableWidgetItem* item = new QTableWidgetItem(id);
         ui->tableWidget->setItem(i, 0, item);
+    }
+
+    //设置行内容=
+    for (int i = 0; i < sorted_ids.length(); i++) {
+        QString id = sorted_ids.at(i);
+        auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(id);
+        this->onGotContract(contract);
+    }
+}
+
+void ContractForm::onGotContract(void *contract){
+    auto pif = (CThostFtdcInstrumentField*)contract;
+
+    QVariantMap ifItem;
+    ifItem.insert("symbol", pif->InstrumentID);
+    ifItem.insert("exchange", pif->ExchangeID);
+    ifItem.insert("name", gbk2utf16(pif->InstrumentName));
+
+    ifItem.insert("productClass", pif->ProductClass);
+    ifItem.insert("volumeMultiple", pif->VolumeMultiple);
+    ifItem.insert("priceTick", pif->PriceTick);
+
+    //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
+    QString id = ifItem.value("symbol").toString();
+    int row = instruments_row_.value(id);
+    for (int i = 0; i < instruments_col_.count(); i++) {
+        QVariant raw_val = ifItem.value(instruments_col_.at(i));
+        QString str_val = raw_val.toString();
+        if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
+            str_val = QString().sprintf("%6.1f", raw_val.toDouble());
+        }
+
+        QTableWidgetItem* item = new QTableWidgetItem(str_val);
+        ui->tableWidget->setItem(row, i, item);
     }
 }
 

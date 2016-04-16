@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     ui/pendingorderform.cpp \
     ui/finishedorderform.cpp \
     ui/tradeform.cpp \
-    ui/tickform.cpp
+    ui/tickform.cpp \
+    ui/nofocusdelegate.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -50,7 +51,8 @@ HEADERS  += ui/mainwindow.h \
     ui/pendingorderform.h \
     ui/finishedorderform.h \
     ui/tradeform.h \
-    ui/tickform.h
+    ui/tickform.h \
+    ui/nofocusdelegate.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \

@@ -34,7 +34,7 @@ public:
 signals:
     void statusChanged(int state);
     void requestSent(int reqId, QString robotId);
-    void gotTick(void* tick);
+    void gotTick(void* curTick,void* preTick);
     void tradeClosed();
 
 private:

@@ -20,7 +20,7 @@ public:
 
 public slots:
     void onGotInstruments(QStringList ids);
-    void onGotTick(void* tick);
+    void onGotTick(void* curTick,void* preTick);
     void onTradeClosed();
 
 private:

@@ -48,13 +48,13 @@ MainWindow::MainWindow(QWidget* parent)
     tradeForm_ = new TradeForm(this);
     tickForm_ = new TickForm(this);
 
-    ui->tabWidget->addTab(logForm_, "日志");
-    ui->tabWidget->addTab(contractForm_, "合约");
-    ui->tabWidget->addTab(tickForm_,"行情");
-    ui->tabWidget->addTab(positionForm_, "持仓");
-    ui->tabWidget->addTab(pendingOrderForm_, "挂单");
-    ui->tabWidget->addTab(finishedOrderForm_, "委托");
-    ui->tabWidget->addTab(tradeForm_, "成交");
+    ui->tabWidget->addTab(logForm_, "log");
+    ui->tabWidget->addTab(contractForm_, "contract");
+    ui->tabWidget->addTab(tickForm_,"tick");
+    ui->tabWidget->addTab(positionForm_, "position");
+    ui->tabWidget->addTab(pendingOrderForm_, "pendingOrder");
+    ui->tabWidget->addTab(finishedOrderForm_, "finishedOrder");
+    ui->tabWidget->addTab(tradeForm_, "trade");
 }
 
 MainWindow::~MainWindow()
@@ -103,7 +103,7 @@ void MainWindow::on_actionQuit_triggered()
 {
     if (g_sm->ctpMgr()->running()) {
         this->showNormal();
-        logger()->info("请先停止接收数据=");
+        logger()->info("please stop first=");
         return;
     }
 

@@ -104,8 +104,9 @@ private:
         if (!isValidTick(rb, pDepthMarketData)) {
             return;
         }
-        void* newTick = rb->put(pDepthMarketData);
-        emit sm()->gotTick(newTick);
+        auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
+        void* curTick = rb->put(pDepthMarketData);
+        emit sm()->gotTick(curTick,preTick);
     }
 
 private:
@@ -176,16 +177,16 @@ private:
         if (curTick->Volume == 0) {
             return false;
         }
-        auto lastTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
-        if (!lastTick) {
-            QDateTime curDt = QDateTime::currentDateTime();
-            QDateTime tickDt = QDateTime::fromString(QString().sprintf("%s %s.%3d", curTick->TradingDay, curTick->UpdateTime, curTick->UpdateMillisec), "yyyymmdd hh:mm:ss.zzz");
-            qint64 delta = qAbs(curDt.msecsTo(tickDt));
+        auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
+        if (!preTick) {
+            QDateTime curDateTime = QDateTime::currentDateTime();
+            QDateTime tickDateTime = QDateTime::fromString(QString().sprintf("%s %s.%3d", curTick->TradingDay, curTick->UpdateTime, curTick->UpdateMillisec), "yyyymmdd hh:mm:ss.zzz");
+            qint64 delta = qAbs(curDateTime.msecsTo(tickDateTime));
             if (delta >= 3 * 60 * 1000) {
                 return false;
             }
         } else {
-            if (lastTick->Volume == curTick->Volume) {
+            if (preTick->Volume == curTick->Volume) {
                 return false;
             }
         }

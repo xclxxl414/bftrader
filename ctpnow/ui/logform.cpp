@@ -2,12 +2,25 @@
 #include "ui_logform.h"
 #include "servicemgr.h"
 #include "logger.h"
+#include "nofocusdelegate.h"
 
 LogForm::LogForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogForm)
 {
     ui->setupUi(this);
+
+    //设置列=
+    instruments_col_  << "when"
+                      << "message";
+    this->ui->tableWidget->setColumnCount(instruments_col_.length());
+    for (int i = 0; i < instruments_col_.length(); i++) {
+        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
+    }
+
+    // 调整参数=
+    bfAdjustTableWidget(ui->tableWidget);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true); //最后一览自适应宽度=
 }
 
 LogForm::~LogForm()

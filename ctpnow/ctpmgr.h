@@ -24,7 +24,7 @@ public:
 
 signals:
     void gotInstruments(QStringList ids);
-    void gotTick(void* tick);
+    void gotTick(void* curTick,void* preTick);
     void tradeClosed();
 
 public slots:
