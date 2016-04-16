@@ -20,7 +20,6 @@ LogForm::LogForm(QWidget *parent) :
 
     // 调整参数=
     bfAdjustTableWidget(ui->tableWidget);
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true); //最后一览自适应宽度=
 }
 
 LogForm::~LogForm()
