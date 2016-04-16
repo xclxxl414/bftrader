@@ -1,12 +1,12 @@
-#include "contractform.h"
-#include "ui_contractform.h"
+#include "tickform.h"
+#include "ui_tickform.h"
 #include "servicemgr.h"
 #include "ctpmgr.h"
 #include "ThostFtdcUserApiStruct.h"
 
-ContractForm::ContractForm(QWidget *parent) :
+TickForm::TickForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ContractForm)
+    ui(new Ui::TickForm)
 {
     ui->setupUi(this);
 
@@ -20,23 +20,23 @@ ContractForm::ContractForm(QWidget *parent) :
     }
 }
 
-ContractForm::~ContractForm()
+TickForm::~TickForm()
 {
     delete ui;
 }
 
-void ContractForm::init(){
+void TickForm::init(){
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &ContractForm::onGotTick);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &ContractForm::onGotInstruments);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &ContractForm::onTradeClosed);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &TickForm::onGotInstruments);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &TickForm::onTradeClosed);
 }
 
-void ContractForm::shutdown(){
+void TickForm::shutdown(){
 
 }
 
-void ContractForm::onGotTick(void* tick)
+void TickForm::onGotTick(void* tick)
 {
     auto mdf = (CThostFtdcDepthMarketDataField*)tick;
 
@@ -68,7 +68,7 @@ void ContractForm::onGotTick(void* tick)
     }
 }
 
-void ContractForm::onGotInstruments(QStringList ids)
+void TickForm::onGotInstruments(QStringList ids)
 {
     //设置行，按排序后合约来，一个合约一行=
     instruments_row_.clear();
@@ -84,7 +84,7 @@ void ContractForm::onGotInstruments(QStringList ids)
     }
 }
 
-void ContractForm::onTradeClosed(){
+void TickForm::onTradeClosed(){
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);

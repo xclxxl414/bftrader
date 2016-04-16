@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     ui/contractform.cpp \
     ui/pendingorderform.cpp \
     ui/finishedorderform.cpp \
-    ui/tradeform.cpp
+    ui/tradeform.cpp \
+    ui/tickform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -48,7 +49,8 @@ HEADERS  += ui/mainwindow.h \
     ui/contractform.h \
     ui/pendingorderform.h \
     ui/finishedorderform.h \
-    ui/tradeform.h
+    ui/tradeform.h \
+    ui/tickform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -58,7 +60,8 @@ FORMS    += ui/mainwindow.ui \
     ui/contractform.ui \
     ui/pendingorderform.ui \
     ui/finishedorderform.ui \
-    ui/tradeform.ui
+    ui/tradeform.ui \
+    ui/tickform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

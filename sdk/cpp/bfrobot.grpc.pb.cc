@@ -25,6 +25,7 @@ static const char* BfRobotService_method_names[] = {
   "/bftrader.bfrobot.BfRobotService/OnContract",
   "/bftrader.bfrobot.BfRobotService/OnPosition",
   "/bftrader.bfrobot.BfRobotService/OnAccount",
+  "/bftrader.bfrobot.BfRobotService/OnTradeClosed",
 };
 
 std::unique_ptr< BfRobotService::Stub> BfRobotService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -41,6 +42,7 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   , rpcmethod_OnContract_(BfRobotService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnPosition_(BfRobotService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnAccount_(BfRobotService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnTradeClosed_(BfRobotService_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status BfRobotService::Stub::OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) {
@@ -107,6 +109,14 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnAccount_, context, request);
 }
 
+::grpc::Status BfRobotService::Stub::OnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnTradeClosed_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnTradeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnTradeClosed_, context, request);
+}
+
 BfRobotService::Service::Service() {
   (void)BfRobotService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -149,6 +159,11 @@ BfRobotService::Service::Service() {
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfAccountData, ::bftrader::BfVoid>(
           std::mem_fn(&BfRobotService::Service::OnAccount), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfRobotService_method_names[8],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnTradeClosed), this)));
 }
 
 BfRobotService::Service::~Service() {
@@ -204,6 +219,13 @@ BfRobotService::Service::~Service() {
 }
 
 ::grpc::Status BfRobotService::Service::OnAccount(::grpc::ServerContext* context, const ::bftrader::BfAccountData* request, ::bftrader::BfVoid* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfRobotService::Service::OnTradeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;

@@ -35,13 +35,14 @@ signals:
     void statusChanged(int state);
     void requestSent(int reqId, QString robotId);
     void gotTick(void* tick);
+    void tradeClosed();
 
 private:
     QString userId_, password_, brokerId_, frontMd_, flowPathMd_;
     CThostFtdcMdApi* mdapi_ = nullptr;
     MdSmSpi* mdspi_ = nullptr;
     int reqId_ = 0;
-    int RESEND_AFTER_MSEC = 1000;
+    const int retryAfterMsec_ = 1000;
 
     friend MdSmSpi;
 };

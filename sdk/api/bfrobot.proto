@@ -38,4 +38,7 @@ service BfRobotService{
     
     // 账号信息回报
     rpc OnAccount(BfAccountData) returns (BfVoid) {}
+    
+    // 收盘通知
+    rpc OnTradeClosed(BfVoid) returns (BfVoid) {}
 }

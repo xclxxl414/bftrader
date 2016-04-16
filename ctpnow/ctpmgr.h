@@ -18,13 +18,14 @@ public:
     void init();
     void shutdown();
 
-    TdSm* tdsm();
-    MdSm* mdsm();
+    // 可跨线程调用=
     bool running();
+    void* getContract(QString id);
 
 signals:
     void gotInstruments(QStringList ids);
     void gotTick(void* tick);
+    void tradeClosed();
 
 public slots:
     void showVersion();

@@ -7,6 +7,7 @@
 #include <QDir>
 #include <QTimer>
 #include <leveldb/db.h>
+#include <QMap>
 
 ///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
@@ -91,7 +92,11 @@ private:
                     prefix = idPrefixList_.at(i);
                     if (low_id.startsWith(prefix)) {
                         ids_ << id;
-                        //......
+
+                        // 保存一份供查询=
+                        CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
+                        memcpy(contract,pInstrument,sizeof(CThostFtdcInstrumentField));
+                        contracts_[id] = contract;
                         break;
                     }
                 }
@@ -127,6 +132,14 @@ private:
     {
         ids_.clear();
         idPrefixList_.clear();
+
+        // free contracts
+        auto contract_list = contracts_.values();
+        for (int i = 0; i < contract_list.length(); i++) {
+            auto contract = (CThostFtdcInstrumentField*)contract_list.at(i);
+            delete contract;
+        }
+        contracts_.clear();
     }
 
     void info(QString msg)
@@ -134,10 +147,23 @@ private:
         g_sm->logger()->info(msg);
     }
 
+    void* getContract(QString id){
+        auto contract = contracts_.value(id);
+        if (contract == nullptr) {
+            qFatal("contract == nullptr");
+        }
+
+        return contract;
+    }
+
 private:
     TdSm* sm_;
     QStringList ids_;
     QStringList idPrefixList_;
+    QMap<QString, CThostFtdcInstrumentField*> contracts_;
+
+
+    friend TdSm;
 };
 
 ///////////
@@ -230,7 +256,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
         info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId_, result));
         //  被流控，一秒后重来=
         if (result == -3) {
-            login(RESEND_AFTER_MSEC, robotId);
+            login(retryAfterMsec_, robotId);
         } else {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
@@ -252,7 +278,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
         info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId_, result));
         //  被流控，一秒后重来=
         if (result == -3) {
-            logout(RESEND_AFTER_MSEC, robotId);
+            logout(retryAfterMsec_, robotId);
         } else {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
@@ -270,10 +296,14 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
         info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId_, result));
         //  被流控，一秒后重来=
         if (result == -3) {
-            queryInstrument(RESEND_AFTER_MSEC, robotId);
+            queryInstrument(retryAfterMsec_, robotId);
         } else {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
         }
     });
+}
+
+void* TdSm::getContract(QString id){
+    return tdspi_->getContract(id);
 }

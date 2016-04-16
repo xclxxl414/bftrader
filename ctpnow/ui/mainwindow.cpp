@@ -1,20 +1,21 @@
 #include "mainwindow.h"
 #include "configdialog.h"
+#include "contractform.h"
 #include "ctpmgr.h"
 #include "dbservice.h"
 #include "debug_utils.h"
+#include "finishedorderform.h"
+#include "logform.h"
 #include "logger.h"
 #include "logindialog.h"
+#include "pendingorderform.h"
+#include "positionform.h"
 #include "profile.h"
 #include "runextensions.h"
 #include "servicemgr.h"
-#include "ui_mainwindow.h"
-#include "logform.h"
-#include "contractform.h"
-#include "finishedorderform.h"
-#include "pendingorderform.h"
-#include "positionform.h"
+#include "tickform.h"
 #include "tradeform.h"
+#include "ui_mainwindow.h"
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
@@ -45,13 +46,15 @@ MainWindow::MainWindow(QWidget* parent)
     pendingOrderForm_ = new PendingOrderForm(this);
     finishedOrderForm_ = new FinishedOrderForm(this);
     tradeForm_ = new TradeForm(this);
+    tickForm_ = new TickForm(this);
 
-    ui->tabWidget->addTab(logForm_,"日志");
-    ui->tabWidget->addTab(contractForm_,"合约");
-    ui->tabWidget->addTab(positionForm_,"持仓");
-    ui->tabWidget->addTab(pendingOrderForm_,"挂单");
-    ui->tabWidget->addTab(finishedOrderForm_,"委托");
-    ui->tabWidget->addTab(tradeForm_,"成交");
+    ui->tabWidget->addTab(logForm_, "日志");
+    ui->tabWidget->addTab(contractForm_, "合约");
+    ui->tabWidget->addTab(tickForm_,"行情");
+    ui->tabWidget->addTab(positionForm_, "持仓");
+    ui->tabWidget->addTab(pendingOrderForm_, "挂单");
+    ui->tabWidget->addTab(finishedOrderForm_, "委托");
+    ui->tabWidget->addTab(tradeForm_, "成交");
 }
 
 MainWindow::~MainWindow()
@@ -64,10 +67,14 @@ void MainWindow::init()
     // sub window
     logForm_->init();
     contractForm_->init();
+    tickForm_->init();
     positionForm_->init();
     pendingOrderForm_->init();
     finishedOrderForm_->init();
     tradeForm_->init();
+
+    // ctpmgr
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &MainWindow::onTradeClosed);
 }
 
 void MainWindow::shutdown()
@@ -75,10 +82,16 @@ void MainWindow::shutdown()
     // sub window
     logForm_->shutdown();
     contractForm_->shutdown();
+    tickForm_->shutdown();
     positionForm_->shutdown();
     pendingOrderForm_->shutdown();
     finishedOrderForm_->shutdown();
     tradeForm_->shutdown();
+}
+
+void MainWindow::onTradeClosed()
+{
+    logger()->info("onTradeClosed");
 }
 
 void MainWindow::on_actionVersion_triggered()

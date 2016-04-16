@@ -61,6 +61,9 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         print "OnAccount"
         return _BF_VOID
     
+    def OnTradeClosed(self, request, context):
+        print "OnTradeClosed"
+        return _BF_VOID
     
 def run():
     print "start robot"

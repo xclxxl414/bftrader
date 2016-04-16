@@ -34,6 +34,7 @@ public:
     void login(unsigned int delayTick, QString robotId);
     void logout(unsigned int delayTick, QString robotId);
     void queryInstrument(unsigned int delayTick, QString robotId);
+    void* getContract(QString id);
 
 signals:
     void statusChanged(int state);
@@ -45,7 +46,7 @@ private:
     CThostFtdcTraderApi* tdapi_ = nullptr;
     TdSmSpi* tdspi_ = nullptr;
     int reqId_ = 1;
-    int RESEND_AFTER_MSEC = 1000;
+    const int retryAfterMsec_ = 1000;
 
     friend TdSmSpi;
 };

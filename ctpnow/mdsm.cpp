@@ -5,6 +5,7 @@
 #include "logger.h"
 #include "ringbuffer.h"
 #include "servicemgr.h"
+#include <QDateTime>
 #include <QDir>
 #include <QMap>
 #include <QTimer>
@@ -100,6 +101,9 @@ private:
     {
         QString id = pDepthMarketData->InstrumentID;
         auto rb = getRingBuffer(id);
+        if (!isValidTick(rb, pDepthMarketData)) {
+            return;
+        }
         void* newTick = rb->put(pDepthMarketData);
         emit sm()->gotTick(newTick);
     }
@@ -118,14 +122,19 @@ private:
 
     MdSm* sm() { return sm_; }
 
-    void resetData() {
+    void resetData()
+    {
         got_ids_.clear();
         freeRingBuffer();
+
+        // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
+        emit sm()->tradeClosed();
     }
 
     void info(QString msg) { g_sm->logger()->info(msg); }
 
-    RingBuffer* getRingBuffer(QString id){
+    RingBuffer* getRingBuffer(QString id)
+    {
         RingBuffer* rb = rbs_.value(id);
         if (rb == nullptr) {
             qFatal("rb == nullptr");
@@ -134,7 +143,8 @@ private:
         return rb;
     }
 
-    void initRingBuffer(QStringList ids){
+    void initRingBuffer(QStringList ids)
+    {
         if (rbs_.count() != 0) {
             qFatal("rbs_.count() != 0");
         }
@@ -144,11 +154,10 @@ private:
             rb->init(sizeof(CThostFtdcDepthMarketDataField), ringBufferLen_);
             rbs_.insert(id, rb);
         }
-
-        //loadRingBufferFromBackend(ids);
     }
 
-    void freeRingBuffer(){
+    void freeRingBuffer()
+    {
         auto rb_list = rbs_.values();
         for (int i = 0; i < rb_list.length(); i++) {
             RingBuffer* rb = rb_list.at(i);
@@ -156,6 +165,31 @@ private:
             delete rb;
         }
         rbs_.clear();
+    }
+
+    // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
+    // 1.总成交量为0的：无效=
+    // 2.确定第一个有效tick：交易日期+时间，和当前时间偏离在3分钟之外；=
+    // 3.确定后续tick时候有效：和上一个tick相比，总成交量不变的：无效=
+    bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
+    {
+        if (curTick->Volume == 0) {
+            return false;
+        }
+        auto lastTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
+        if (!lastTick) {
+            QDateTime curDt = QDateTime::currentDateTime();
+            QDateTime tickDt = QDateTime::fromString(QString().sprintf("%s %s.%3d", curTick->TradingDay, curTick->UpdateTime, curTick->UpdateMillisec), "yyyymmdd hh:mm:ss.zzz");
+            qint64 delta = qAbs(curDt.msecsTo(tickDt));
+            if (delta >= 3 * 60 * 1000) {
+                return false;
+            }
+        } else {
+            if (lastTick->Volume == curTick->Volume) {
+                return false;
+            }
+        }
+        return true;
     }
 
 private:
@@ -254,7 +288,7 @@ void MdSm::login(unsigned int delayTick, QString robotId)
         info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId_, result));
         //  被流控，一秒后重来=
         if (result == -3) {
-            login(RESEND_AFTER_MSEC, robotId);
+            login(retryAfterMsec_, robotId);
         } else {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
@@ -278,9 +312,9 @@ void MdSm::subscrible(QStringList ids,
         delete[] cids;
         info(QString().sprintf("CmdMdSubscrible,result=%d", result));
         if (result == -3) {
-            subscrible(ids, RESEND_AFTER_MSEC, robotId);
-        }else{
-           mdspi_->initRingBuffer(ids);
+            subscrible(ids, retryAfterMsec_, robotId);
+        } else {
+            mdspi_->initRingBuffer(ids);
         }
     });
 }

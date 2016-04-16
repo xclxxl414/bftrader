@@ -17,6 +17,7 @@ class FinishedOrderForm;
 class PendingOrderForm;
 class PositionForm;
 class TradeForm;
+class TickForm;
 
 template <typename T>
 class QFutureInterface;
@@ -29,6 +30,9 @@ public:
     ~MainWindow();
     void init();
     void shutdown();
+
+public slots:
+    void onTradeClosed();
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -70,6 +74,7 @@ private:
     PendingOrderForm* pendingOrderForm_;
     PositionForm* positionForm_;
     TradeForm* tradeForm_;
+    TickForm* tickForm_;
 
 private:
     QAction* minimizeAction;

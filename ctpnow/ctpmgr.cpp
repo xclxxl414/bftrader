@@ -131,6 +131,7 @@ void CtpMgr::startMdSm()
     // go...
     QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
     QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
+    QObject::connect(mdsm_, &MdSm::tradeClosed, this, &CtpMgr::tradeClosed);
 
     autoLoginMd_ = true;
     mdsm_->start();
@@ -185,19 +186,14 @@ void CtpMgr::stop()
     mdsm_->stop();
 
     if (tdsm_) {
+        //先logout，然后自动退出=
         autoLoginTd_ = false;
         tdsm_->logout(0, "");
-        //tdsm_->stop();
     }
 }
 
 void CtpMgr::onGotInstruments(QStringList ids)
 {
-/*
-    //退出td
-    autoLoginTd_ = false;
-    tdsm_->logout(0, "");
-*/
     // 开始订阅=
     mdsm_->subscrible(ids, 0, "");
 }
@@ -208,6 +204,10 @@ bool CtpMgr::running()
         return true;
     }
     return false;
+}
+
+void *CtpMgr::getContract(QString id){
+    return tdsm_->getContract(id);
 }
 
 Logger* CtpMgr::logger()

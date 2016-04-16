@@ -1,20 +1,20 @@
-#ifndef CONTRACTFORM_H
-#define CONTRACTFORM_H
+#ifndef TICKFORM_H
+#define TICKFORM_H
 
 #include <QWidget>
 #include <QMap>
 
 namespace Ui {
-class ContractForm;
+class TickForm;
 }
 
-class ContractForm : public QWidget
+class TickForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ContractForm(QWidget *parent = 0);
-    ~ContractForm();
+    explicit TickForm(QWidget *parent = 0);
+    ~TickForm();
     void init();
     void shutdown();
 
@@ -24,10 +24,10 @@ public slots:
     void onTradeClosed();
 
 private:
-    Ui::ContractForm *ui;
+    Ui::TickForm *ui;
 
     QMap<QString,int> instruments_row_;
     QStringList instruments_col_;
 };
 
-#endif // CONTRACTFORM_H
+#endif // TICKFORM_H

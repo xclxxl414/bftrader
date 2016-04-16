@@ -60,7 +60,7 @@ void protobuf_AddDesc_bfrobot_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rbfrobot.proto\022\020bftrader.bfrobot\032\016bftra"
-    "der.proto2\312\003\n\016BfRobotService\0222\n\006OnTick\022\024"
+    "der.proto2\201\004\n\016BfRobotService\0222\n\006OnTick\022\024"
     ".bftrader.BfTickData\032\020.bftrader.BfVoid\"\000"
     "\0224\n\007OnError\022\025.bftrader.BfErrorData\032\020.bft"
     "rader.BfVoid\"\000\0220\n\005OnLog\022\023.bftrader.BfLog"
@@ -71,8 +71,9 @@ void protobuf_AddDesc_bfrobot_2eproto() {
     "ContractData\032\020.bftrader.BfVoid\"\000\022:\n\nOnPo"
     "sition\022\030.bftrader.BfPositionData\032\020.bftra"
     "der.BfVoid\"\000\0228\n\tOnAccount\022\027.bftrader.BfA"
-    "ccountData\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006pro"
-    "to3", 523);
+    "ccountData\032\020.bftrader.BfVoid\"\000\0225\n\rOnTrad"
+    "eClosed\022\020.bftrader.BfVoid\032\020.bftrader.BfV"
+    "oid\"\000B\003\370\001\001b\006proto3", 578);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfrobot.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfrobot_2eproto);
