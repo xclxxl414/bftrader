@@ -26,7 +26,7 @@ public:
 
 public:
     static QString version();
-    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd,QString idPrefixList);
+    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList);
     void start();
     void login(unsigned int delayTick);
     void logout();
@@ -36,18 +36,18 @@ public:
 signals:
     void statusChanged(int state);
     void gotInstruments(QStringList ids);
-    void runCmd(void* cmd,unsigned int delayTick);
+    void runCmd(void* cmd, unsigned int delayTick);
 
 protected:
     CThostFtdcTraderApi* tdapi() { return tdapi_; }
-    QString brokerId(){return brokerId_;}
-    QString userId(){return userId_;}
-    QString password(){return password_;}
-    QString idPrefixList(){return idPrefixList_;}
+    QString brokerId() { return brokerId_; }
+    QString userId() { return userId_; }
+    QString password() { return password_; }
+    QString idPrefixList() { return idPrefixList_; }
     void info(QString msg);
 
 private:
-    QString userId_,password_,brokerId_,frontTd_,flowPathTd_,idPrefixList_;
+    QString userId_, password_, brokerId_, frontTd_, flowPathTd_, idPrefixList_;
     CThostFtdcTraderApi* tdapi_ = nullptr;
     TdSmSpi* tdspi_ = nullptr;
 

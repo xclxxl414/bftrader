@@ -7,17 +7,16 @@ namespace Ui {
 class LoginDialog;
 }
 
-class LoginDialog : public QDialog
-{
+class LoginDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit LoginDialog(QWidget *parent = 0);
+    explicit LoginDialog(QWidget* parent = 0);
     ~LoginDialog();
     QString getPassword();
 
 private:
-    Ui::LoginDialog *ui;
+    Ui::LoginDialog* ui;
 };
 
 #endif // LOGINDIALOG_H

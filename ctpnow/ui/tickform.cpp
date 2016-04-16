@@ -1,9 +1,9 @@
 #include "tickform.h"
 #include "ThostFtdcUserApiStruct.h"
 #include "ctpmgr.h"
+#include "nofocusdelegate.h"
 #include "servicemgr.h"
 #include "ui_tickform.h"
-#include "nofocusdelegate.h"
 
 TickForm::TickForm(QWidget* parent)
     : QWidget(parent)

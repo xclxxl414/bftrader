@@ -1,23 +1,26 @@
 #include "ctpcmd.h"
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
-#include "servicemgr.h"
-#include "logger.h"
 #include "ctpcmdmgr.h"
+#include "logger.h"
+#include "servicemgr.h"
 
 ///////////////////
 
 int CtpCmd::g_reqId_ = 1;
 
-CThostFtdcTraderApi* CtpCmd::tdapi(){
+CThostFtdcTraderApi* CtpCmd::tdapi()
+{
     return g_sm->ctpCmdMgr()->tdapi();
 }
 
-CThostFtdcMdApi* CtpCmd::mdapi(){
+CThostFtdcMdApi* CtpCmd::mdapi()
+{
     return g_sm->ctpCmdMgr()->mdapi();
 }
 
-void CtpCmd::info(QString msg){
+void CtpCmd::info(QString msg)
+{
     g_sm->logger()->info(msg);
 }
 
@@ -37,7 +40,7 @@ void CmdMdLogin::run()
 void CmdMdSubscrible::run()
 {
     QList<std::string> std_ids;
-    char** cids = new char* [ids_.length()];
+    char** cids = new char*[ids_.length()];
     for (int i = 0; i < ids_.length(); i++) {
         std_ids.append(ids_.at(i).toStdString());
         cids[i] = (char*)std_ids.at(i).c_str();

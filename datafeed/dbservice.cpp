@@ -1,20 +1,21 @@
 #include "dbservice.h"
+#include "ThostFtdcMdApi.h"
+#include "ThostFtdcTraderApi.h"
+#include "file_utils.h"
+#include "leveldb/comparator.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
-#include "leveldb/comparator.h"
-#include "servicemgr.h"
 #include "logger.h"
 #include "profile.h"
-#include "file_utils.h"
-#include "ThostFtdcTraderApi.h"
-#include "ThostFtdcMdApi.h"
+#include "servicemgr.h"
 
-DbService::DbService(QObject *parent) : QObject(parent)
+DbService::DbService(QObject* parent)
+    : QObject(parent)
 {
-
 }
 
-void DbService::init(){
+void DbService::init()
+{
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -22,7 +23,8 @@ void DbService::init(){
     leveldb::BytewiseComparator();
 }
 
-void DbService::shutdown(){
+void DbService::shutdown()
+{
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
@@ -30,11 +32,12 @@ void DbService::shutdown(){
     delete leveldb::Env::Default();
 }
 
-void DbService::dbOpen(){
+void DbService::dbOpen()
+{
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    if (db_){
+    if (db_) {
         g_sm->logger()->info("opened already");
         return;
     }
@@ -57,11 +60,12 @@ void DbService::dbOpen(){
     db_ = db;
 }
 
-void DbService::dbClose(){
+void DbService::dbClose()
+{
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    if(db_ == nullptr){
+    if (db_ == nullptr) {
         g_sm->logger()->info("not open yet");
         return;
     }
@@ -69,11 +73,12 @@ void DbService::dbClose(){
     db_ = nullptr;
 }
 
-void DbService::dbInit(){
+void DbService::dbInit()
+{
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    if(db_ == nullptr){
+    if (db_ == nullptr) {
         g_sm->logger()->info("not open yet");
         return;
     }

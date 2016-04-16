@@ -29,8 +29,8 @@ public:
     CThostFtdcTraderApi* tdapi();
     CThostFtdcMdApi* mdapi();
     void info(QString msg);
-    void setExpires(unsigned int expires){expires_ = expires;}
-    unsigned int expires(){return expires_;}
+    void setExpires(unsigned int expires) { expires_ = expires; }
+    unsigned int expires() { return expires_; }
 
 public:
     static void setIdSeed(int idSeed) { g_reqId_ = idSeed; }

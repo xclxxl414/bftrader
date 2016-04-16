@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVariantMap>
 #include <QSystemTrayIcon>
+#include <QVariantMap>
 
 namespace Ui {
 class MainWindow;
@@ -28,9 +28,9 @@ signals:
     void stopCtp();
 
 public slots:
-    void onInfo(QString when,QString msg);
+    void onInfo(QString when, QString msg);
     void onGotInstruments(QStringList ids);
-    void onGotTick(void* tick,int indexRb, void* rb);
+    void onGotTick(void* tick, int indexRb, void* rb);
     void resetUI();
 
 private slots:
@@ -54,7 +54,7 @@ private slots:
     void on_actionInstruments_triggered();
 
 private:
-    void closeEvent (QCloseEvent *event) override;
+    void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();
     void createActions();
     Profile* profile();
@@ -62,17 +62,17 @@ private:
 
 private:
     Ui::MainWindow* ui;
-    QMap<QString,int> instruments_row_;
+    QMap<QString, int> instruments_row_;
     QStringList instruments_col_;
 
 private:
-    QAction *minimizeAction;
-    QAction *maximizeAction;
-    QAction *restoreAction;
-    QAction *quitAction;
+    QAction* minimizeAction;
+    QAction* maximizeAction;
+    QAction* restoreAction;
+    QAction* quitAction;
 
-    QSystemTrayIcon *trayIcon;
-    QMenu *trayIconMenu;
+    QSystemTrayIcon* trayIcon;
+    QMenu* trayIconMenu;
     QIcon icon_;
 };
 

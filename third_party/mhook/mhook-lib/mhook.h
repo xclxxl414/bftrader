@@ -24,6 +24,8 @@
 #define _M_IX86_X64
 #endif
 
+#include <windows.h>
+
 BOOL Mhook_SetHook(PVOID *ppSystemFunction, PVOID pHookFunction);
 BOOL Mhook_Unhook(PVOID *ppHookedFunction);
 

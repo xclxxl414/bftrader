@@ -1,13 +1,13 @@
-#include "ui/mainwindow.h"
-#include "servicemgr.h"
-#include <QApplication>
 #include "logger.h"
+#include "servicemgr.h"
+#include "ui/mainwindow.h"
+#include <QApplication>
 
 //qt的插件在退出时候没有释放造成泄漏，改了两个太无聊了不改了=
 #if 0
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
 #include <crtdbg.h> //_CrtSetBreakAlloc
+#include <stdlib.h>
 #endif
 
 int main(int argc, char* argv[])

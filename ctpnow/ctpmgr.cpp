@@ -206,7 +206,8 @@ bool CtpMgr::running()
     return false;
 }
 
-void *CtpMgr::getContract(QString id){
+void* CtpMgr::getContract(QString id)
+{
     return tdsm_->getContract(id);
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-struct TickItem{
+struct TickItem {
     double LastPrice;
     double BidPrice1;
     int BidVolume1;
@@ -10,7 +10,7 @@ struct TickItem{
     double OpenInterest;
 };
 
-struct BarItem{
+struct BarItem {
     double OpenPrice;
     double ClosePrice;
     double HighestPrice;

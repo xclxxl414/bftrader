@@ -7,12 +7,11 @@ namespace Ui {
 class RingBufferForm;
 }
 
-class RingBufferForm : public QWidget
-{
+class RingBufferForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit RingBufferForm(QWidget *parent = 0);
+    explicit RingBufferForm(QWidget* parent = 0);
     ~RingBufferForm();
     void init(QString id);
 
@@ -24,7 +23,7 @@ private slots:
     void on_refreshButton_clicked();
 
 private:
-    Ui::RingBufferForm *ui;
+    Ui::RingBufferForm* ui;
     QStringList instruments_col_;
     QString id_;
 };

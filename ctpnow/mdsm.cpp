@@ -106,7 +106,7 @@ private:
         }
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
         void* curTick = rb->put(pDepthMarketData);
-        emit sm()->gotTick(curTick,preTick);
+        emit sm()->gotTick(curTick, preTick);
     }
 
 private:

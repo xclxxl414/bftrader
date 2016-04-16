@@ -1,6 +1,7 @@
 #include "nofocusdelegate.h"
 
-void bfAdjustTableWidget(QTableWidget* tableWidget){
+void bfAdjustTableWidget(QTableWidget* tableWidget)
+{
     tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft); //设置列左对齐=
     tableWidget->horizontalHeader()->setStretchLastSection(true); //最后一览自适应宽度=
     //tableWidget->horizontalHeader()->setDefaultSectionSize(150); //缺省列宽=

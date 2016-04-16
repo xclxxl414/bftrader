@@ -1,15 +1,14 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <QObject>
 #include <QFile>
 #include <QMutex>
+#include <QObject>
 
-class Logger : public QObject
-{
+class Logger : public QObject {
     Q_OBJECT
 public:
-    explicit Logger(QObject *parent = 0);
+    explicit Logger(QObject* parent = 0);
     void init();
     void shutdown();
     Q_INVOKABLE void info(QString msg);
@@ -17,7 +16,7 @@ public:
     static void stopExitMonitor();
 
 signals:
-    void gotInfo(QString when,QString msg);
+    void gotInfo(QString when, QString msg);
 
 private:
     QFile log_;

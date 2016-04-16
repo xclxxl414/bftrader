@@ -1,7 +1,7 @@
 #include "ctpcmdmgr.h"
-#include "servicemgr.h"
-#include "logger.h"
 #include "ctpcmd.h"
+#include "logger.h"
+#include "servicemgr.h"
 #include <windows.h>
 
 CtpCmdMgr::CtpCmdMgr(QObject* parent)
@@ -42,7 +42,7 @@ void CtpCmdMgr::runNow()
 
     // 检查时间是否到了=
     unsigned long curTick = ::GetTickCount();
-    if(curTick < cmd->expires()){
+    if (curTick < cmd->expires()) {
         return;
     }
 
@@ -61,7 +61,8 @@ void CtpCmdMgr::runNow()
     return;
 }
 
-void CtpCmdMgr::onRunCmd(void *p, unsigned int delayTick){
+void CtpCmdMgr::onRunCmd(void* p, unsigned int delayTick)
+{
     g_sm->checkCurrentOn(ServiceMgr::CTP);
 
     CtpCmd* cmd = (CtpCmd*)p;
@@ -69,12 +70,12 @@ void CtpCmdMgr::onRunCmd(void *p, unsigned int delayTick){
     cmds_.append(cmd);
 }
 
-void CtpCmdMgr::onReset(){
+void CtpCmdMgr::onReset()
+{
     g_sm->checkCurrentOn(ServiceMgr::CTP);
 
-    for(auto cmd : cmds_){
+    for (auto cmd : cmds_) {
         delete cmd;
     }
     cmds_.clear();
 }
-

@@ -1,10 +1,10 @@
 #include "servicemgr.h"
-#include "profile.h"
-#include "logger.h"
 #include "ctpcmdmgr.h"
 #include "ctpmgr.h"
 #include "datapump.h"
 #include "dbservice.h"
+#include "logger.h"
+#include "profile.h"
 #include <QThread>
 
 ServiceMgr* g_sm = nullptr;

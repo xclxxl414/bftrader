@@ -1,19 +1,18 @@
 #ifndef CONTRACTFORM_H
 #define CONTRACTFORM_H
 
-#include <QWidget>
 #include <QMap>
+#include <QWidget>
 
 namespace Ui {
 class ContractForm;
 }
 
-class ContractForm : public QWidget
-{
+class ContractForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ContractForm(QWidget *parent = 0);
+    explicit ContractForm(QWidget* parent = 0);
     ~ContractForm();
     void init();
     void shutdown();
@@ -26,9 +25,9 @@ private:
     void onGotContract(void* contract);
 
 private:
-    Ui::ContractForm *ui;
+    Ui::ContractForm* ui;
 
-    QMap<QString,int> instruments_row_;
+    QMap<QString, int> instruments_row_;
     QStringList instruments_col_;
 };
 

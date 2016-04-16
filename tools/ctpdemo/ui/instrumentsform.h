@@ -1,22 +1,21 @@
 #ifndef INSTRUMENTSFORM_H
 #define INSTRUMENTSFORM_H
 
-#include <QWidget>
 #include <QStringList>
+#include <QWidget>
 
 namespace Ui {
 class InstrumentsForm;
 }
-namespace leveldb{
+namespace leveldb {
 class DB;
 }
 
-class InstrumentsForm : public QWidget
-{
+class InstrumentsForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit InstrumentsForm(QWidget *parent = 0);
+    explicit InstrumentsForm(QWidget* parent = 0);
     ~InstrumentsForm();
 
 public:
@@ -30,7 +29,7 @@ private:
     void onGotInstrument(void* p);
 
 private:
-    Ui::InstrumentsForm *ui;
+    Ui::InstrumentsForm* ui;
     QStringList instruments_col_;
     leveldb::DB* db_ = nullptr;
 };

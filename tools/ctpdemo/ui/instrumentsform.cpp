@@ -1,8 +1,8 @@
 #include "InstrumentsForm.h"
-#include "ui_instrumentsform.h"
 #include "ThostFtdcUserApiStruct.h"
-#include <leveldb/db.h>
 #include "encode_utils.h"
+#include "ui_instrumentsform.h"
+#include <leveldb/db.h>
 
 InstrumentsForm::InstrumentsForm(QWidget* parent)
     : QWidget(parent)
@@ -11,9 +11,15 @@ InstrumentsForm::InstrumentsForm(QWidget* parent)
     ui->setupUi(this);
 
     //设置列=
-    instruments_col_ << "InstrumentID" << "ExchangeID" << "InstrumentName" << "ExchangeInstID" <<
-        "PriceTick" << "CreateDate" << "OpenDate" <<
-        "ExpireDate" << "StartDelivDate";
+    instruments_col_ << "InstrumentID"
+                     << "ExchangeID"
+                     << "InstrumentName"
+                     << "ExchangeInstID"
+                     << "PriceTick"
+                     << "CreateDate"
+                     << "OpenDate"
+                     << "ExpireDate"
+                     << "StartDelivDate";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
@@ -102,4 +108,3 @@ void InstrumentsForm::onGotInstrument(void* p)
         ui->tableWidget->setItem(row, i, item);
     }
 }
-

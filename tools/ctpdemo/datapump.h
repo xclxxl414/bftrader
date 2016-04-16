@@ -1,11 +1,11 @@
 #ifndef DATAPUMP_H
 #define DATAPUMP_H
 
+#include <QList>
+#include <QMap>
 #include <QObject>
 #include <QStringList>
-#include <QMap>
 #include <QThread>
-#include <QList>
 
 class RingBuffer;
 class DbService;

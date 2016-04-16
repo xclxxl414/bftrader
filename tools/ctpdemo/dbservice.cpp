@@ -1,14 +1,14 @@
 #include "dbservice.h"
 #include "ThostFtdcUserApiStruct.h"
 #include "ctp_utils.h"
-#include "profile.h"
 #include "file_utils.h"
-#include "servicemgr.h"
-#include "logger.h"
-#include <QThread>
+#include "leveldb/comparator.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
-#include "leveldb/comparator.h"
+#include "logger.h"
+#include "profile.h"
+#include "servicemgr.h"
+#include <QThread>
 
 //////
 DbService::DbService(QObject* parent)
@@ -83,7 +83,8 @@ leveldb::DB* DbService::getBarDB()
     return bar_db_;
 }
 
-void DbService::openBarDB(){
+void DbService::openBarDB()
+{
     QString path = Profile::barDbPath();
     mkDir(path);
     leveldb::Options options;
@@ -102,11 +103,13 @@ void DbService::openBarDB(){
     bar_db_ = db;
 }
 
-void DbService::closeBarDB(){
+void DbService::closeBarDB()
+{
     delete bar_db_;
 }
 
-void DbService::openTickDB(){
+void DbService::openTickDB()
+{
     QString path = Profile::tickDbPath();
     mkDir(path);
     leveldb::Options options;
@@ -125,11 +128,13 @@ void DbService::openTickDB(){
     tick_db_ = db;
 }
 
-void DbService::closeTickDB(){
+void DbService::closeTickDB()
+{
     delete tick_db_;
 }
 
-void DbService::openInstrumentDB(){
+void DbService::openInstrumentDB()
+{
     QString path = Profile::instrumentDbPath();
     mkDir(path);
     leveldb::Options options;
@@ -148,7 +153,8 @@ void DbService::openInstrumentDB(){
     instrument_db_ = db;
 }
 
-void DbService::closeInstrumentDB(){
+void DbService::closeInstrumentDB()
+{
     delete instrument_db_;
 }
 

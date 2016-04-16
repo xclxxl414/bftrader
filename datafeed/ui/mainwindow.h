@@ -1,9 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QCloseEvent>
 #include <QMainWindow>
 #include <QSystemTrayIcon>
-#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -11,7 +11,8 @@ class MainWindow;
 
 class Profile;
 class Logger;
-template <typename T> class QFutureInterface;
+template <typename T>
+class QFutureInterface;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -23,7 +24,7 @@ public:
     void shutdown();
 
 public slots:
-    void onInfo(QString when,QString msg);
+    void onInfo(QString when, QString msg);
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);

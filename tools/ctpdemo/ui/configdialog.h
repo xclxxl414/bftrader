@@ -7,21 +7,19 @@ namespace Ui {
 class ConfigDialog;
 }
 
-class ConfigDialog : public QDialog
-{
+class ConfigDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit ConfigDialog(QWidget *parent = 0);
+    explicit ConfigDialog(QWidget* parent = 0);
     ~ConfigDialog();
     void load();
     void save();
 
 private slots:
 
-
 private:
-    Ui::ConfigDialog *ui;
+    Ui::ConfigDialog* ui;
 };
 
 #endif // CONFIGDIALOG_H

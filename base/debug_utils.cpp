@@ -5,31 +5,36 @@
 namespace base {
 namespace debug {
 
-Base::Base(Derived* derived)
-    : derived_(derived) {
-}
+    Base::Base(Derived* derived)
+        : derived_(derived)
+    {
+    }
 
-Base::~Base() {
-  derived_->DoSomething();
-}
+    Base::~Base()
+    {
+        derived_->DoSomething();
+    }
 
 #pragma warning(push)
-#pragma warning(disable:4355)
-// Disable warning C4355: 'this' : used in base member initializer list.
-Derived::Derived()
-    : Base(this) {  // C4355
-}
+#pragma warning(disable : 4355)
+    // Disable warning C4355: 'this' : used in base member initializer list.
+    Derived::Derived()
+        : Base(this)
+    { // C4355
+    }
 #pragma warning(pop)
 
-void Derived::DoSomething() {
-}
+    void Derived::DoSomething()
+    {
+    }
 
 #if defined(Q_CC_MSVC)
 #pragma optimize("", off)
 #endif
 
-void Alias(const void* var) {
-}
+    void Alias(const void* var)
+    {
+    }
 
 #if defined(Q_CC_MSVC)
 #pragma optimize("", on)
@@ -44,14 +49,15 @@ void Alias(const void* var) {
 #pragma optimize("", off)
 #endif
 
-StackTrace::StackTrace() {
-  // When walking our own stack, use CaptureStackBackTrace().
-  count_ = CaptureStackBackTrace(0, kMaxTraces, trace_, NULL);
-}
+    StackTrace::StackTrace()
+    {
+        // When walking our own stack, use CaptureStackBackTrace().
+        count_ = CaptureStackBackTrace(0, kMaxTraces, trace_, NULL);
+    }
 
 #if defined(Q_CC_MSVC)
 #pragma optimize("", on)
 #endif
 
-}  // namespace debug
-}  // namespace base
+} // namespace debug
+} // namespace base

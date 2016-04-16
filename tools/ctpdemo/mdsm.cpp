@@ -1,15 +1,15 @@
 #include "mdsm.h"
-#include <QDir>
 #include "ThostFtdcMdApi.h"
-#include "file_utils.h"
-#include "encode_utils.h"
 #include "ctpcmd.h"
-#include <QMap>
+#include "ctpcmdmgr.h"
+#include "datapump.h"
+#include "encode_utils.h"
+#include "file_utils.h"
+#include "logger.h"
 #include "ringbuffer.h"
 #include "servicemgr.h"
-#include "ctpcmdmgr.h"
-#include "logger.h"
-#include "datapump.h"
+#include <QDir>
+#include <QMap>
 
 ///////////
 class MdSmSpi : public CThostFtdcMdSpi {
@@ -35,7 +35,7 @@ private:
         resetData();
         emit sm()->statusChanged(MDSM_DISCONNECTED);
     }
-/*
+    /*
     // 这个spi不用被调用=（CTPSDK）
     void OnHeartBeatWarning(int nTimeLapse) override
     {
@@ -46,12 +46,12 @@ private:
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
-        if (bIsLast){
-           if(isErrorRsp(pRspInfo, nRequestID)) {
-               emit sm()->statusChanged(MDSM_LOGINFAIL);
-           }else{
-               emit sm()->statusChanged(MDSM_LOGINED);
-           }
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                emit sm()->statusChanged(MDSM_LOGINFAIL);
+            } else {
+                emit sm()->statusChanged(MDSM_LOGINED);
+            }
         }
     }
 
@@ -62,9 +62,9 @@ private:
 
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        if (bIsLast){
+        if (bIsLast) {
             info(__FUNCTION__);
-            isErrorRsp(pRspInfo,nRequestID);
+            isErrorRsp(pRspInfo, nRequestID);
         }
     }
 
@@ -212,13 +212,14 @@ void MdSm::info(QString msg)
     g_sm->logger()->info(msg);
 }
 
-void MdSm::login(unsigned int delayTick){
+void MdSm::login(unsigned int delayTick)
+{
     info(__FUNCTION__);
-    emit this->runCmd(new CmdMdLogin(userId_,password_,brokerId_),delayTick);
+    emit this->runCmd(new CmdMdLogin(userId_, password_, brokerId_), delayTick);
 }
 
 void MdSm::subscrible(QStringList ids)
 {
     info(__FUNCTION__);
-    emit this->runCmd(new CmdMdSubscrible(ids),0);
+    emit this->runCmd(new CmdMdSubscrible(ids), 0);
 }

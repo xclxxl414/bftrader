@@ -1,15 +1,15 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "servicemgr.h"
-#include "profile.h"
-#include "logger.h"
-#include "debug_utils.h"
-#include <windows.h>
-#include <functional>
 #include "ctpmgr.h"
 #include "dbservice.h"
+#include "debug_utils.h"
+#include "logger.h"
+#include "profile.h"
 #include "runextensions.h"
+#include "servicemgr.h"
+#include "ui_mainwindow.h"
 #include <QtConcurrentRun>
+#include <functional>
+#include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -41,7 +41,7 @@ void MainWindow::shutdown()
 {
 }
 
-void MainWindow::onInfo(QString when,QString msg)
+void MainWindow::onInfo(QString when, QString msg)
 {
     QString log = when + QStringLiteral("==>") + msg + QStringLiteral("\n");
     ui->listWidget->addItem(log);
@@ -112,8 +112,7 @@ void MainWindow::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
         break;
     case QSystemTrayIcon::MiddleClick:
         break;
-    default:
-        ;
+    default:;
     }
 }
 
@@ -225,4 +224,3 @@ void MainWindow::on_actionDbClose_triggered()
 {
     QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }
-

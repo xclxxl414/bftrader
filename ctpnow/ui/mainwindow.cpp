@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->tabWidget->addTab(logForm_, "log");
     ui->tabWidget->addTab(contractForm_, "contract");
-    ui->tabWidget->addTab(tickForm_,"tick");
+    ui->tabWidget->addTab(tickForm_, "tick");
     ui->tabWidget->addTab(positionForm_, "position");
     ui->tabWidget->addTab(pendingOrderForm_, "pendingOrder");
     ui->tabWidget->addTab(finishedOrderForm_, "finishedOrder");

@@ -31,7 +31,7 @@ public:
 
 signals:
     void statusChanged(int state);
-    void runCmd(void* cmd,unsigned int delayTick);
+    void runCmd(void* cmd, unsigned int delayTick);
 
 protected:
     CThostFtdcMdApi* mdapi() { return mdapi_; }
@@ -41,7 +41,7 @@ protected:
     void info(QString msg);
 
 private:
-    QString userId_,password_,brokerId_,frontMd_,flowPathMd_;
+    QString userId_, password_, brokerId_, frontMd_, flowPathMd_;
     CThostFtdcMdApi* mdapi_ = nullptr;
     MdSmSpi* mdspi_ = nullptr;
 

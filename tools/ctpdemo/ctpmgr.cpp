@@ -1,14 +1,14 @@
 #include "ctpmgr.h"
-#include "ThostFtdcTraderApi.h"
 #include "ThostFtdcMdApi.h"
-#include "mdsm.h"
-#include "tdsm.h"
-#include "servicemgr.h"
-#include "profile.h"
-#include "logger.h"
-#include <QThread>
-#include "datapump.h"
+#include "ThostFtdcTraderApi.h"
 #include "ctpcmdmgr.h"
+#include "datapump.h"
+#include "logger.h"
+#include "mdsm.h"
+#include "profile.h"
+#include "servicemgr.h"
+#include "tdsm.h"
+#include <QThread>
 
 CtpMgr::CtpMgr(QObject* parent)
     : QObject(parent)
@@ -20,8 +20,8 @@ void CtpMgr::init()
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::CTP);
 
-    QObject::connect(this,&CtpMgr::mdDisconnect,g_sm->ctpCmdMgr(),&CtpCmdMgr::onReset);
-    QObject::connect(this,&CtpMgr::mdStopped,g_sm->ctpCmdMgr(),&CtpCmdMgr::onReset);
+    QObject::connect(this, &CtpMgr::mdDisconnect, g_sm->ctpCmdMgr(), &CtpCmdMgr::onReset);
+    QObject::connect(this, &CtpMgr::mdStopped, g_sm->ctpCmdMgr(), &CtpCmdMgr::onReset);
 }
 
 void CtpMgr::shutdown()
@@ -33,7 +33,7 @@ void CtpMgr::shutdown()
 void CtpMgr::onMdSmStateChanged(int state)
 {
     if (state == MDSM_CONNECTED) {
-        if(autoLoginMd_){
+        if (autoLoginMd_) {
             mdsm_->login(1000);
         }
     }
@@ -48,9 +48,9 @@ void CtpMgr::onMdSmStateChanged(int state)
         mdsm_logined_ = true;
         tryStartSubscrible();
     }
-    if (state == MDSM_LOGINFAIL){
+    if (state == MDSM_LOGINFAIL) {
         logger()->info("mdsm login fail,try again 1 minute later");
-        mdsm_->login(60*1000);
+        mdsm_->login(60 * 1000);
     }
     if (state == MDSM_STOPPED) {
         //析构ringbuffer
@@ -73,7 +73,7 @@ void CtpMgr::onMdSmStateChanged(int state)
 void CtpMgr::onTdSmStateChanged(int state)
 {
     if (state == TDSM_CONNECTED) {
-        if(autoLoginTd_){
+        if (autoLoginTd_) {
             tdsm_->login(1000);
         }
     }
@@ -84,15 +84,15 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_logined_ = true;
         tryStartSubscrible();
     }
-    if (state == TDSM_LOGINFAIL){
+    if (state == TDSM_LOGINFAIL) {
         logger()->info("tdsm login fail,try again 1 minute later");
-        tdsm_->login(60*1000);
+        tdsm_->login(60 * 1000);
     }
     if (state == TDSM_LOGOUTED) {
         tdsm_logined_ = false;
         tdsm_->stop();
     }
-    if (state == TDSM_LOGOUTFAIL){
+    if (state == TDSM_LOGOUTFAIL) {
         tdsm_logined_ = false;
         tdsm_->stop();
     }
@@ -151,7 +151,7 @@ bool CtpMgr::initMdSm()
 
 void CtpMgr::startMdSm()
 {
-    // go...
+// go...
 #ifdef USE_CTPJOIN
     mdsm_thread_ = new QThread;
     mdsm_->moveToThread(mdsm_thread_);
@@ -185,7 +185,7 @@ bool CtpMgr::initTdSm()
 
 void CtpMgr::startTdSm()
 {
-    // go...
+// go...
 #ifdef USE_CTPJOIN
     tdsm_thread_ = new QThread;
     tdsm_->moveToThread(tdsm_thread_);
@@ -209,7 +209,7 @@ void CtpMgr::tryStartSubscrible()
         tdsm_->queryInstrument();
     }
     if (tdsm_ == nullptr) {
-        if(!initTdSm()){
+        if (!initTdSm()) {
             qFatal("initTdSm == false");
         }
         startTdSm();

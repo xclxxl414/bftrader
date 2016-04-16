@@ -1,13 +1,13 @@
 #include "TdSm.h"
-#include <QDir>
 #include "ThostFtdcTraderApi.h"
-#include "file_utils.h"
-#include "encode_utils.h"
 #include "ctpcmd.h"
-#include "servicemgr.h"
 #include "ctpcmdmgr.h"
-#include "logger.h"
 #include "datapump.h"
+#include "encode_utils.h"
+#include "file_utils.h"
+#include "logger.h"
+#include "servicemgr.h"
+#include <QDir>
 #include <leveldb/db.h>
 
 ///////////
@@ -36,7 +36,7 @@ private:
         resetData();
         emit sm()->statusChanged(TDSM_DISCONNECTED);
     }
-/*
+    /*
     // 这个spi不用被调用=（CTPSDK）
     void OnHeartBeatWarning(int nTimeLapse) override
     {
@@ -52,22 +52,22 @@ private:
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
-        if (bIsLast){
-           if(isErrorRsp(pRspInfo, nRequestID)) {
-               emit sm()->statusChanged(TDSM_LOGINFAIL);
-           }else{
-               emit sm()->statusChanged(TDSM_LOGINED);
-           }
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                emit sm()->statusChanged(TDSM_LOGINFAIL);
+            } else {
+                emit sm()->statusChanged(TDSM_LOGINED);
+            }
         }
     }
 
     void OnRspUserLogout(CThostFtdcUserLogoutField* pUserLogout, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
-        if (bIsLast){
-            if(isErrorRsp(pRspInfo, nRequestID)){
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGOUTFAIL);
-            }else{
+            } else {
                 emit sm()->statusChanged(TDSM_LOGOUTED);
             }
         }
@@ -76,9 +76,9 @@ private:
     //出现了一次queryinstruments错误，打印详细信息=
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        if (bIsLast){
+        if (bIsLast) {
             info(__FUNCTION__);
-            isErrorRsp(pRspInfo,nRequestID);
+            isErrorRsp(pRspInfo, nRequestID);
         }
     }
 
@@ -238,9 +238,10 @@ void TdSm::info(QString msg)
     g_sm->logger()->info(msg);
 }
 
-void TdSm::login(unsigned int delayTick){
+void TdSm::login(unsigned int delayTick)
+{
     info(__FUNCTION__);
-    emit this->runCmd(new CmdTdLogin(userId_,password_,brokerId_),delayTick);
+    emit this->runCmd(new CmdTdLogin(userId_, password_, brokerId_), delayTick);
 }
 
 //目前，通过 ReqUserLogout 登出系统的话，会先将现有的连接断开，再重新建立一个新的连接(CTPSDK)
@@ -248,11 +249,11 @@ void TdSm::login(unsigned int delayTick){
 void TdSm::logout()
 {
     info(__FUNCTION__);
-    emit this->runCmd(new CmdTdLogout(userId(), brokerId()),0);
+    emit this->runCmd(new CmdTdLogout(userId(), brokerId()), 0);
 }
 
 void TdSm::queryInstrument()
 {
     info(__FUNCTION__);
-    emit this->runCmd(new CmdTdQueryInstrument(),0);
+    emit this->runCmd(new CmdTdQueryInstrument(), 0);
 }

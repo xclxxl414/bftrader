@@ -7,18 +7,17 @@ namespace Ui {
 class PendingOrderForm;
 }
 
-class PendingOrderForm : public QWidget
-{
+class PendingOrderForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit PendingOrderForm(QWidget *parent = 0);
+    explicit PendingOrderForm(QWidget* parent = 0);
     ~PendingOrderForm();
     void init();
     void shutdown();
 
 private:
-    Ui::PendingOrderForm *ui;
+    Ui::PendingOrderForm* ui;
 };
 
 #endif // PENDINGORDERFORM_H

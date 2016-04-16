@@ -1,9 +1,9 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
+#include <QMap>
 #include <QObject>
 #include <QVariant>
-#include <QMap>
 
 class QLevelDB;
 class QLevelDBBatch;

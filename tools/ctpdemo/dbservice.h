@@ -16,7 +16,7 @@ class DB;
 // todo(hege):修改此类为dbservice，订阅ctpmgr的数据，完成三类数据的写盘，并提供读取服务（rpcservice需要）=
 
 // dbthread (可以在多线程上读取和写入=)=
-class DbService : public QObject{
+class DbService : public QObject {
     Q_OBJECT
 public:
     explicit DbService(QObject* parent = 0);
@@ -48,6 +48,5 @@ private:
     leveldb::DB* tick_db_ = nullptr;
     leveldb::DB* bar_db_ = nullptr;
 };
-
 
 #endif // DBSERVICE_H

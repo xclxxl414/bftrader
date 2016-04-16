@@ -4,11 +4,10 @@
 #include <QObject>
 
 //IO
-class RpcService : public QObject
-{
+class RpcService : public QObject {
     Q_OBJECT
 public:
-    explicit RpcService(QObject *parent = 0);
+    explicit RpcService(QObject* parent = 0);
     void init();
     void shutdown();
 

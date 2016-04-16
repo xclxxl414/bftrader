@@ -3,11 +3,10 @@
 
 #include <QObject>
 
-class CtpMgr : public QObject
-{
+class CtpMgr : public QObject {
     Q_OBJECT
 public:
-    explicit CtpMgr(QObject *parent = 0);
+    explicit CtpMgr(QObject* parent = 0);
     void init();
     void shutdown();
 

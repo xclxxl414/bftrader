@@ -4,11 +4,10 @@
 #include <QObject>
 
 //IO
-class PushService : public QObject
-{
+class PushService : public QObject {
     Q_OBJECT
 public:
-    explicit PushService(QObject *parent = 0);
+    explicit PushService(QObject* parent = 0);
     void init();
     void shutdown();
 

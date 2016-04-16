@@ -2,14 +2,13 @@
 
 #include <QObject>
 
-namespace leveldb{
+namespace leveldb {
 class DB;
 }
-class DbService : public QObject
-{
+class DbService : public QObject {
     Q_OBJECT
 public:
-    explicit DbService(QObject *parent = 0);
+    explicit DbService(QObject* parent = 0);
     void init();
     void shutdown();
 
@@ -19,7 +18,7 @@ public slots:
     void dbOpen();
     void dbInit();
     void dbClose();
+
 private:
     leveldb::DB* db_ = nullptr;
 };
-

@@ -1,12 +1,12 @@
 #include "ringbufferform.h"
-#include "ui_ringbufferform.h"
-#include "mdsm.h"
 #include "ThostFtdcUserApiStruct.h"
-#include "ringbuffer.h"
-#include "servicemgr.h"
 #include "ctpmgr.h"
 #include "datapump.h"
 #include "dbservice.h"
+#include "mdsm.h"
+#include "ringbuffer.h"
+#include "servicemgr.h"
+#include "ui_ringbufferform.h"
 
 RingBufferForm::RingBufferForm(QWidget* parent)
     : QWidget(parent)
@@ -15,9 +15,16 @@ RingBufferForm::RingBufferForm(QWidget* parent)
     ui->setupUi(this);
 
     //设置列=
-    instruments_col_ << "TradingDay" << "UpdateTime" << "UpdateMillisec" <<
-        "LastPrice" << "Volume" << "OpenInterest" <<
-        "BidPrice1" << "BidVolume1" <<  "AskPrice1" <<  "AskVolume1";
+    instruments_col_ << "TradingDay"
+                     << "UpdateTime"
+                     << "UpdateMillisec"
+                     << "LastPrice"
+                     << "Volume"
+                     << "OpenInterest"
+                     << "BidPrice1"
+                     << "BidVolume1"
+                     << "AskPrice1"
+                     << "AskVolume1";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
@@ -32,14 +39,14 @@ RingBufferForm::~RingBufferForm()
 void RingBufferForm::init(QString id)
 {
     id_ = id;
-    this->setWindowTitle(QString("ringbuffer-")+id);
+    this->setWindowTitle(QString("ringbuffer-") + id);
     scanTicks();
 }
 
 void RingBufferForm::scanTicks()
 {
     DataPump* datapump = g_sm->dataPump();
-    if(!datapump){
+    if (!datapump) {
         return;
     }
 

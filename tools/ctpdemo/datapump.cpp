@@ -1,17 +1,17 @@
 #include "datapump.h"
-#include "ringbuffer.h"
 #include "ThostFtdcUserApiStruct.h"
-#include "servicemgr.h"
-#include "logger.h"
-#include <windows.h>
-#include <QLoggingCategory>
-#include "ctpmgr.h"
-#include <QDir>
-#include <leveldb/db.h>
-#include "file_utils.h"
-#include "profile.h"
 #include "ctp_utils.h"
+#include "ctpmgr.h"
 #include "dbservice.h"
+#include "file_utils.h"
+#include "logger.h"
+#include "profile.h"
+#include "ringbuffer.h"
+#include "servicemgr.h"
+#include <QDir>
+#include <QLoggingCategory>
+#include <leveldb/db.h>
+#include <windows.h>
 
 DataPump::DataPump(QObject* parent)
     : QObject(parent)
@@ -52,10 +52,11 @@ void DataPump::putTick(void* tick)
 }
 
 // todo(sunwangme):IH在9:15:00时候出现了买一卖一价非常庞大应该是没有初始化的问题，需要处理=
-bool DataPump::shouldSkipTick(void *tick){
+bool DataPump::shouldSkipTick(void* tick)
+{
     // 如果时间无效不保存，如有效区间[09:15:00-15:30:00)[21:00:00-23:30:00) [00:00:00-02:30:00)
     // 交给客户端去做更合理，mdsrv只负责收原始数据=
-    if (0){
+    if (0) {
         char* timeTick = ((CThostFtdcDepthMarketDataField*)tick)->UpdateTime;
         bool valid = false;
 
@@ -93,20 +94,12 @@ bool DataPump::shouldSkipTick(void *tick){
     //收到一个22号的23:29:59的tick但日期却是23号=
     //todo(sunwangme):这么过滤也有问题，因为有可能晚上最后一根是23:29:58,早上发一个23:29:59
     //过来，按当前时间来过滤是最好的=
-    if(1){
+    if (1) {
         CThostFtdcDepthMarketDataField* mdf = (CThostFtdcDepthMarketDataField*)tick;
         QString id = mdf->InstrumentID;
         RingBuffer* rb = getRingBuffer(id);
         CThostFtdcDepthMarketDataField* lastMdf = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
-        if (lastMdf &&
-                (memcmp(mdf->UpdateTime, lastMdf->UpdateTime, sizeof(mdf->UpdateTime) - 1) == 0) &&
-                (mdf->LastPrice == lastMdf->LastPrice) &&
-                (mdf->Volume == lastMdf->Volume) &&
-                (mdf->OpenInterest == lastMdf->OpenInterest) &&
-                (mdf->BidPrice1 == lastMdf->BidPrice1) &&
-                (mdf->BidVolume1 == lastMdf->BidVolume1) &&
-                (mdf->AskPrice1 == lastMdf->AskPrice1) &&
-                (mdf->AskVolume1 == lastMdf->AskVolume1)) {
+        if (lastMdf && (memcmp(mdf->UpdateTime, lastMdf->UpdateTime, sizeof(mdf->UpdateTime) - 1) == 0) && (mdf->LastPrice == lastMdf->LastPrice) && (mdf->Volume == lastMdf->Volume) && (mdf->OpenInterest == lastMdf->OpenInterest) && (mdf->BidPrice1 == lastMdf->BidPrice1) && (mdf->BidVolume1 == lastMdf->BidVolume1) && (mdf->AskPrice1 == lastMdf->AskPrice1) && (mdf->AskVolume1 == lastMdf->AskVolume1)) {
             return true;
         }
     }
@@ -114,13 +107,9 @@ bool DataPump::shouldSkipTick(void *tick){
     // 如果成交量 买一卖一价，买一卖一申报量 都为0，丢弃
     // 白糖会在夜盘之前发一个这样的tick
     // 发现ic会推一个买一卖一为DBL_MAX的东西过来=
-    if(1){
+    if (1) {
         CThostFtdcDepthMarketDataField* mdf = (CThostFtdcDepthMarketDataField*)tick;
-        if ( (mdf->Volume == 0) &&
-             (!qIsFinite(mdf->BidPrice1) || mdf->BidPrice1 == 0.0 || mdf->BidPrice1 == DBL_MAX) &&
-             (mdf->BidVolume1 == 0) &&
-             (!qIsFinite(mdf->AskPrice1) || mdf->AskPrice1 == 0.0 || mdf->AskPrice1 == DBL_MAX) &&
-             (mdf->AskVolume1 == 0) ){
+        if ((mdf->Volume == 0) && (!qIsFinite(mdf->BidPrice1) || mdf->BidPrice1 == 0.0 || mdf->BidPrice1 == DBL_MAX) && (mdf->BidVolume1 == 0) && (!qIsFinite(mdf->AskPrice1) || mdf->AskPrice1 == 0.0 || mdf->AskPrice1 == DBL_MAX) && (mdf->AskVolume1 == 0)) {
             return true;
         }
     }
@@ -228,8 +217,7 @@ void DataPump::fixTickMs(void* tick, int indexRb, RingBuffer* rb)
     preTick = (CThostFtdcDepthMarketDataField*)rb->get(index);
     if (preTick && strcmp(curTick->UpdateTime, preTick->UpdateTime) == 0) {
         curTick->UpdateMillisec = preTick->UpdateMillisec + 1;
-    }
-    else {
+    } else {
         curTick->UpdateMillisec = 0;
     }
 }

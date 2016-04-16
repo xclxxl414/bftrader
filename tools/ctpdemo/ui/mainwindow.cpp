@@ -1,24 +1,24 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "configdialog.h"
 #include "logindialog.h"
+#include "ui_mainwindow.h"
 
-#include "debug_utils.h"
-#include "mdsm.h"
-#include <QThread>
-#include "tdsm.h"
-#include "ctpcmd.h"
-#include <QCloseEvent>
 #include "ThostFtdcUserApiStruct.h"
-#include "ringbufferform.h"
-#include "servicemgr.h"
-#include "profile.h"
-#include "logger.h"
+#include "ctpcmd.h"
 #include "ctpmgr.h"
 #include "datapump.h"
-#include "instrumentsform.h"
-#include <windows.h>
 #include "dbservice.h"
+#include "debug_utils.h"
+#include "instrumentsform.h"
+#include "logger.h"
+#include "mdsm.h"
+#include "profile.h"
+#include "ringbufferform.h"
+#include "servicemgr.h"
+#include "tdsm.h"
+#include <QCloseEvent>
+#include <QThread>
+#include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -37,9 +37,17 @@ MainWindow::MainWindow(QWidget* parent)
     this->createTrayIcon();
 
     //设置列=
-    instruments_col_  << "InstrumentID" << "TradingDay" << "UpdateTime" << "UpdateMillisec" <<
-        "LastPrice" << "Volume" << "OpenInterest" <<
-        "BidPrice1" << "BidVolume1" << "AskPrice1" << "AskVolume1";
+    instruments_col_ << "InstrumentID"
+                     << "TradingDay"
+                     << "UpdateTime"
+                     << "UpdateMillisec"
+                     << "LastPrice"
+                     << "Volume"
+                     << "OpenInterest"
+                     << "BidPrice1"
+                     << "BidVolume1"
+                     << "AskPrice1"
+                     << "AskVolume1";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
@@ -56,8 +64,8 @@ void MainWindow::init()
     // logger
     QObject::connect(logger(), &Logger::gotInfo, this, &MainWindow::onInfo);
     // ctpmgr
-    QObject::connect(this,&MainWindow::startCtp,g_sm->ctpMgr(),&CtpMgr::start);
-    QObject::connect(this,&MainWindow::stopCtp,g_sm->ctpMgr(),&CtpMgr::stop);
+    QObject::connect(this, &MainWindow::startCtp, g_sm->ctpMgr(), &CtpMgr::start);
+    QObject::connect(this, &MainWindow::stopCtp, g_sm->ctpMgr(), &CtpMgr::stop);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &MainWindow::onGotInstruments);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::mdStopped, this, &MainWindow::resetUI);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::mdDisconnect, this, &MainWindow::resetUI);
@@ -69,7 +77,7 @@ void MainWindow::shutdown()
 {
 }
 
-void MainWindow::onInfo(QString when,QString msg)
+void MainWindow::onInfo(QString when, QString msg)
 {
     QString log = when + QStringLiteral("==>") + msg + QStringLiteral("\n");
     ui->listWidget->addItem(log);
@@ -93,7 +101,8 @@ void MainWindow::onGotInstruments(QStringList ids)
     }
 }
 
-void MainWindow::resetUI(){
+void MainWindow::resetUI()
+{
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);
@@ -238,8 +247,7 @@ void MainWindow::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
         break;
     case QSystemTrayIcon::MiddleClick:
         break;
-    default:
-        ;
+    default:;
     }
 }
 
@@ -301,7 +309,7 @@ void MainWindow::on_actionExitProcess_triggered()
 
 void MainWindow::on_actionTerminateProcess_triggered()
 {
-    ::TerminateProcess(::GetCurrentProcess(),1);
+    ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
 //显示详细数据=

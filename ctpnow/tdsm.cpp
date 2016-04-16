@@ -5,9 +5,9 @@
 #include "logger.h"
 #include "servicemgr.h"
 #include <QDir>
+#include <QMap>
 #include <QTimer>
 #include <leveldb/db.h>
-#include <QMap>
 
 ///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
@@ -95,7 +95,7 @@ private:
 
                         // 保存一份供查询=
                         CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
-                        memcpy(contract,pInstrument,sizeof(CThostFtdcInstrumentField));
+                        memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
                         contracts_[id] = contract;
                         break;
                     }
@@ -147,7 +147,8 @@ private:
         g_sm->logger()->info(msg);
     }
 
-    void* getContract(QString id){
+    void* getContract(QString id)
+    {
         auto contract = contracts_.value(id);
         if (contract == nullptr) {
             qFatal("contract == nullptr");
@@ -161,7 +162,6 @@ private:
     QStringList ids_;
     QStringList idPrefixList_;
     QMap<QString, CThostFtdcInstrumentField*> contracts_;
-
 
     friend TdSm;
 };
@@ -304,6 +304,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
     });
 }
 
-void* TdSm::getContract(QString id){
+void* TdSm::getContract(QString id)
+{
     return tdspi_->getContract(id);
 }

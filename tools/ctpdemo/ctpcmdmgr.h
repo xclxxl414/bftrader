@@ -24,7 +24,7 @@ public:
     CThostFtdcTraderApi* tdapi() { return tdapi_; }
 
 public slots:
-    void onRunCmd(void* p,unsigned int delayTick);
+    void onRunCmd(void* p, unsigned int delayTick);
     void onReset();
 
 private:
@@ -50,6 +50,5 @@ private:
     int interval_ = 100;
     int timer_id_ = -1;
 };
-
 
 #endif // CTPCMDMGR_H

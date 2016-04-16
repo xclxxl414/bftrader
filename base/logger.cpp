@@ -2,15 +2,13 @@
 #include "CrashHandler.h"
 #include "debug_utils.h"
 #include "file_utils.h"
-#include <windows.h>
 #include "mhook-lib/mhook.h"
 
-#include <QDir>
 #include <QCoreApplication>
-#include <crtdbg.h>
-#include <windows.h>
-#include <QtGlobal>
+#include <QDir>
 #include <QTime>
+#include <QtGlobal>
+#include <crtdbg.h>
 
 static bool g_stopExitMonitor = false;
 
@@ -112,7 +110,8 @@ Logger::Logger(QObject* parent)
 {
 }
 
-static QString Profile_appName(){
+static QString Profile_appName()
+{
     QFileInfo fi(QCoreApplication::applicationFilePath());
 #ifdef _DEBUG
     return fi.baseName() + QStringLiteral("-debug");
@@ -121,7 +120,8 @@ static QString Profile_appName(){
 #endif
 }
 
-static QString Profile_logPath(){
+static QString Profile_logPath()
+{
     return QDir::home().absoluteFilePath(Profile_appName() + QStringLiteral("/log.txt"));
 }
 
@@ -157,5 +157,5 @@ void Logger::info(QString msg)
     mutex_.unlock();
 
     // dispatch...
-    emit gotInfo(when,msg);
+    emit gotInfo(when, msg);
 }

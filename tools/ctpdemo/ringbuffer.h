@@ -15,7 +15,7 @@ public:
             return;
         }
         buffer_ = new char[item_len * item_count];
-        items_ = new void* [item_count];
+        items_ = new void*[item_count];
         for (int i = 0; i < item_count; i++) {
             items_[i] = 0;
         }

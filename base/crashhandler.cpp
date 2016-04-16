@@ -23,31 +23,31 @@
 
 #include "CrashHandler.h"
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QProcess>
-#include <QtCore/QCoreApplication>
 
 #include <QString>
 #include <iostream>
 
 #include "CrashHandler.h"
+#include <QString>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QProcess>
-#include <QtCore/QCoreApplication>
-#include <QString>
 
 #include <QDebug>
 
 #if defined(Q_OS_MAC)
 
-#include <string.h>
 #include "client/mac/handler/exception_handler.h"
+#include <string.h>
 
 #elif defined(Q_OS_LINUX)
 
+#include "client/linux/handler/exception_handler.h"
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "client/linux/handler/exception_handler.h"
 
 #elif defined(Q_OS_WIN32)
 
@@ -123,8 +123,7 @@ bool launcher(wchar_t* program)
             CREATE_DEFAULT_ERROR_MODE | CREATE_NO_WINDOW | DETACHED_PROCESS,
             0, 0, &si, &pi)) {
         std::cerr << "CreateProcess failed (" << GetLastError() << ").\n";
-    }
-    else {
+    } else {
         if (::PostThreadMessageW(pi.dwThreadId, WM_QUIT, 0, 0)) // Good
             std::cout << "Request to terminate process has been sent!";
 
@@ -315,8 +314,7 @@ bool CrashHandler::writeMinidump()
     bool res = d->pHandler->WriteMinidump();
     if (res) {
         qDebug("BreakpadQt: writeMinidump() successed.");
-    }
-    else {
+    } else {
         qWarning("BreakpadQt: writeMinidump() failed.");
     }
     return res;

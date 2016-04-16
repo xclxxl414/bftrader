@@ -1,24 +1,24 @@
 #include "contractform.h"
-#include "ui_contractform.h"
-#include "servicemgr.h"
-#include "ctpmgr.h"
 #include "ThostFtdcUserApiStruct.h"
+#include "ctpmgr.h"
 #include "encode_utils.h"
 #include "nofocusdelegate.h"
+#include "servicemgr.h"
+#include "ui_contractform.h"
 
-ContractForm::ContractForm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ContractForm)
+ContractForm::ContractForm(QWidget* parent)
+    : QWidget(parent)
+    , ui(new Ui::ContractForm)
 {
     ui->setupUi(this);
 
     //设置列=
-    instruments_col_  << "symbol"
-                      << "exchange"
-                      << "name"
-                      << "productClass"
-                      << "volumeMultiple"
-                      << "priceTick";
+    instruments_col_ << "symbol"
+                     << "exchange"
+                     << "name"
+                     << "productClass"
+                     << "volumeMultiple"
+                     << "priceTick";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
@@ -33,14 +33,15 @@ ContractForm::~ContractForm()
     delete ui;
 }
 
-void ContractForm::init(){
+void ContractForm::init()
+{
     // ctpmgr
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &ContractForm::onGotInstruments);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &ContractForm::onTradeClosed);
 }
 
-void ContractForm::shutdown(){
-
+void ContractForm::shutdown()
+{
 }
 
 void ContractForm::onGotInstruments(QStringList ids)
@@ -66,7 +67,8 @@ void ContractForm::onGotInstruments(QStringList ids)
     }
 }
 
-void ContractForm::onGotContract(void *contract){
+void ContractForm::onGotContract(void* contract)
+{
     auto pif = (CThostFtdcInstrumentField*)contract;
 
     QVariantMap ifItem;
@@ -93,7 +95,8 @@ void ContractForm::onGotContract(void *contract){
     }
 }
 
-void ContractForm::onTradeClosed(){
+void ContractForm::onTradeClosed()
+{
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);
