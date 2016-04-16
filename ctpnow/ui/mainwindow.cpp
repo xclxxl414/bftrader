@@ -103,7 +103,7 @@ void MainWindow::on_actionQuit_triggered()
 {
     if (g_sm->ctpMgr()->running()) {
         this->showNormal();
-        logger()->info("please stop first=");
+        logger()->info("please stop first");
         return;
     }
 
