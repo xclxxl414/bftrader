@@ -7,25 +7,13 @@ package bftrader.bfgateway;
 
 import "bftrader.proto";
 
+//
 // 网关服务，必须先connect然后才可以调用其他api
-service BfGatewayService{
-    
+//
+service BfGatewayService{    
     // 建立连接
-    //
-    // 策略间是完全隔离的，gateway在connect时候分配robot线程
-    // robot对象，将robot对象移动到robot线程，并记录<peer,robotobj>
-    // map<peer,robotobj> 用于分离rpc命令,servercontext::get_peer
-    // map<reqid,robotobj> 用于分离请求的回报
-    // map<orderid,robotobj> 用于分离委托推送
-    // map<orderref,orderid> 分离撮合平台委托回报比如CTP
-    // map<sysid,orderid> 分离交易所委托回报
-    // map<tradeid,robotobj> 用于分离成交推送
-    // map<symbol,robotobjlist> 用于分离行情推送
-    // gateway提供界面添加策略，指定名称/robotid，状态:离线/在线
-    // robotid作为主键，将记录持仓 挂单/委托 成交等信息到数据库，便于统计
-    // 策略本身也要维护自己的持仓 挂单 委托 成交
-    rpc Connect(BfConnectReq) returns (BfErrorData) {}
-
+    rpc Connect(BfConnectReq) returns (BfConnectResp) {}
+    
     // 策略间交换数据服务
     // 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
     rpc SetKv(BfKvData) returns (BfVoid){}
@@ -39,7 +27,7 @@ service BfGatewayService{
     rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}
     
     // 发单
-    rpc SendOrder(BfOrderReq) returns (BfOrderResponse) {}
+    rpc SendOrder(BfOrderReq) returns (BfOrderResp) {}
     
     // 撤单
     rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}

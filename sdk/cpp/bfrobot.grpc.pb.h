@@ -30,6 +30,10 @@ class BfRobotService GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    virtual ::grpc::Status OnExchangeOpened(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnExchangeOpened(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnExchangeOpenedRaw(context, request, cq));
+    }
     virtual ::grpc::Status OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnTickRaw(context, request, cq));
@@ -37,10 +41,6 @@ class BfRobotService GRPC_FINAL {
     virtual ::grpc::Status OnError(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnError(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnErrorRaw(context, request, cq));
-    }
-    virtual ::grpc::Status OnLog(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnLog(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnLogRaw(context, request, cq));
     }
     virtual ::grpc::Status OnTrade(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnTrade(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::grpc::CompletionQueue* cq) {
@@ -50,10 +50,6 @@ class BfRobotService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnOrderRaw(context, request, cq));
     }
-    virtual ::grpc::Status OnContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnContractRaw(context, request, cq));
-    }
     virtual ::grpc::Status OnPosition(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnPosition(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnPositionRaw(context, request, cq));
@@ -62,24 +58,27 @@ class BfRobotService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnAccount(::grpc::ClientContext* context, const ::bftrader::BfAccountData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnAccountRaw(context, request, cq));
     }
-    virtual ::grpc::Status OnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnTradeClosedRaw(context, request, cq));
+    virtual ::grpc::Status OnExchangeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncOnExchangeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncOnExchangeClosedRaw(context, request, cq));
     }
   private:
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnExchangeOpenedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnErrorRaw(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnLogRaw(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnTradeRaw(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnPositionRaw(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfAccountData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnTradeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncOnExchangeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    ::grpc::Status OnExchangeOpened(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnExchangeOpened(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnExchangeOpenedRaw(context, request, cq));
+    }
     ::grpc::Status OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnTickRaw(context, request, cq));
@@ -87,10 +86,6 @@ class BfRobotService GRPC_FINAL {
     ::grpc::Status OnError(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnError(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnErrorRaw(context, request, cq));
-    }
-    ::grpc::Status OnLog(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnLog(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnLogRaw(context, request, cq));
     }
     ::grpc::Status OnTrade(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnTrade(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::grpc::CompletionQueue* cq) {
@@ -100,10 +95,6 @@ class BfRobotService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnOrderRaw(context, request, cq));
     }
-    ::grpc::Status OnContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnContractRaw(context, request, cq));
-    }
     ::grpc::Status OnPosition(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnPosition(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnPositionRaw(context, request, cq));
@@ -112,31 +103,29 @@ class BfRobotService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnAccount(::grpc::ClientContext* context, const ::bftrader::BfAccountData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnAccountRaw(context, request, cq));
     }
-    ::grpc::Status OnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnTradeClosedRaw(context, request, cq));
+    ::grpc::Status OnExchangeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncOnExchangeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncOnExchangeClosedRaw(context, request, cq));
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnExchangeOpenedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnErrorRaw(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnLogRaw(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnTradeRaw(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnPositionRaw(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfAccountData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnTradeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncOnExchangeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    const ::grpc::RpcMethod rpcmethod_OnExchangeOpened_;
     const ::grpc::RpcMethod rpcmethod_OnTick_;
     const ::grpc::RpcMethod rpcmethod_OnError_;
-    const ::grpc::RpcMethod rpcmethod_OnLog_;
     const ::grpc::RpcMethod rpcmethod_OnTrade_;
     const ::grpc::RpcMethod rpcmethod_OnOrder_;
-    const ::grpc::RpcMethod rpcmethod_OnContract_;
     const ::grpc::RpcMethod rpcmethod_OnPosition_;
     const ::grpc::RpcMethod rpcmethod_OnAccount_;
-    const ::grpc::RpcMethod rpcmethod_OnTradeClosed_;
+    const ::grpc::RpcMethod rpcmethod_OnExchangeClosed_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -144,15 +133,34 @@ class BfRobotService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
+    virtual ::grpc::Status OnExchangeOpened(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnError(::grpc::ServerContext* context, const ::bftrader::BfErrorData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnTrade(::grpc::ServerContext* context, const ::bftrader::BfTradeData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status OnContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnPosition(::grpc::ServerContext* context, const ::bftrader::BfPositionData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status OnAccount(::grpc::ServerContext* context, const ::bftrader::BfAccountData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status OnTradeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
+    virtual ::grpc::Status OnExchangeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_OnExchangeOpened : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithAsyncMethod_OnExchangeOpened() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_OnExchangeOpened() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status OnExchangeOpened(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestOnExchangeOpened(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
   class WithAsyncMethod_OnTick : public BaseClass {
@@ -160,7 +168,7 @@ class BfRobotService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_OnTick() {
-      ::grpc::Service::MarkMethodAsync(0);
+      ::grpc::Service::MarkMethodAsync(1);
     }
     ~WithAsyncMethod_OnTick() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -171,7 +179,7 @@ class BfRobotService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOnTick(::grpc::ServerContext* context, ::bftrader::BfTickData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -180,7 +188,7 @@ class BfRobotService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_OnError() {
-      ::grpc::Service::MarkMethodAsync(1);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_OnError() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -191,26 +199,6 @@ class BfRobotService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOnError(::grpc::ServerContext* context, ::bftrader::BfErrorData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_OnLog : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_OnLog() {
-      ::grpc::Service::MarkMethodAsync(2);
-    }
-    ~WithAsyncMethod_OnLog() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestOnLog(::grpc::ServerContext* context, ::bftrader::BfLogData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -255,32 +243,12 @@ class BfRobotService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_OnContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_OnContract() {
-      ::grpc::Service::MarkMethodAsync(5);
-    }
-    ~WithAsyncMethod_OnContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status OnContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestOnContract(::grpc::ServerContext* context, ::bftrader::BfContractData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithAsyncMethod_OnPosition : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_OnPosition() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_OnPosition() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -291,7 +259,7 @@ class BfRobotService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOnPosition(::grpc::ServerContext* context, ::bftrader::BfPositionData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -300,7 +268,7 @@ class BfRobotService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_OnAccount() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_OnAccount() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -311,37 +279,54 @@ class BfRobotService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestOnAccount(::grpc::ServerContext* context, ::bftrader::BfAccountData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_OnTradeClosed : public BaseClass {
+  class WithAsyncMethod_OnExchangeClosed : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithAsyncMethod_OnTradeClosed() {
-      ::grpc::Service::MarkMethodAsync(8);
+    WithAsyncMethod_OnExchangeClosed() {
+      ::grpc::Service::MarkMethodAsync(7);
     }
-    ~WithAsyncMethod_OnTradeClosed() GRPC_OVERRIDE {
+    ~WithAsyncMethod_OnExchangeClosed() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status OnTradeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status OnExchangeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestOnTradeClosed(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    void RequestOnExchangeClosed(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_OnTick<WithAsyncMethod_OnError<WithAsyncMethod_OnLog<WithAsyncMethod_OnTrade<WithAsyncMethod_OnOrder<WithAsyncMethod_OnContract<WithAsyncMethod_OnPosition<WithAsyncMethod_OnAccount<WithAsyncMethod_OnTradeClosed<Service > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_OnExchangeOpened<WithAsyncMethod_OnTick<WithAsyncMethod_OnError<WithAsyncMethod_OnTrade<WithAsyncMethod_OnOrder<WithAsyncMethod_OnPosition<WithAsyncMethod_OnAccount<WithAsyncMethod_OnExchangeClosed<Service > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithGenericMethod_OnExchangeOpened : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithGenericMethod_OnExchangeOpened() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_OnExchangeOpened() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status OnExchangeOpened(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
   template <class BaseClass>
   class WithGenericMethod_OnTick : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_OnTick() {
-      ::grpc::Service::MarkMethodGeneric(0);
+      ::grpc::Service::MarkMethodGeneric(1);
     }
     ~WithGenericMethod_OnTick() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -358,30 +343,13 @@ class BfRobotService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_OnError() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_OnError() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
     ::grpc::Status OnError(::grpc::ServerContext* context, const ::bftrader::BfErrorData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_OnLog : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_OnLog() {
-      ::grpc::Service::MarkMethodGeneric(2);
-    }
-    ~WithGenericMethod_OnLog() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -421,29 +389,12 @@ class BfRobotService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_OnContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_OnContract() {
-      ::grpc::Service::MarkMethodGeneric(5);
-    }
-    ~WithGenericMethod_OnContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status OnContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_OnPosition : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_OnPosition() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_OnPosition() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -460,7 +411,7 @@ class BfRobotService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_OnAccount() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_OnAccount() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -472,18 +423,18 @@ class BfRobotService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_OnTradeClosed : public BaseClass {
+  class WithGenericMethod_OnExchangeClosed : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithGenericMethod_OnTradeClosed() {
-      ::grpc::Service::MarkMethodGeneric(8);
+    WithGenericMethod_OnExchangeClosed() {
+      ::grpc::Service::MarkMethodGeneric(7);
     }
-    ~WithGenericMethod_OnTradeClosed() GRPC_OVERRIDE {
+    ~WithGenericMethod_OnExchangeClosed() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status OnTradeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status OnExchangeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

@@ -20,14 +20,18 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         self.gateway = bfgateway_pb2.beta_create_BfGatewayService_stub(self.gateway_channel)
         self.datafeed_channel = implementations.insecure_channel('localhost', 50052)
         self.datafeed = bfdatafeed_pb2.beta_create_BfDatafeedService_stub(self.datafeed_channel)
-        self._robot = bfrobot_pb2.beta_create_BfRobotService_server(self)
-        self._robot.add_insecure_port('[::]:50053')
+        self._service = bfrobot_pb2.beta_create_BfRobotService_server(self)
+        self._service.add_insecure_port('[::]:50053')
         
     def start(self):
-        self._robot.start()
+        self._service.start()
     
     def stop(self):
-        self._robot.stop(0)
+        self._service.stop(0)
+        
+    def OnExchangeOpened(self, request, context):
+        print "OnExchangeOpened"
+        return _BF_VOID
         
     def OnTick(self, request, context):
         print "OnTick"
@@ -36,11 +40,7 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
     def OnError(self, request, context):
         print "OnError"
         return _BF_VOID
-        
-    def OnLog(self, request, context):
-        print "OnLog"
-        return _BF_VOID
-    
+            
     def OnTrade(self, request, context):
         print "OnTrade"
         return _BF_VOID
@@ -48,11 +48,7 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
     def OnOrder(self, request, context):
         print "OnOrder"
         return _BF_VOID
-        
-    def OnContract(self, request, context):
-        print "OnContract"
-        return _BF_VOID
-    
+            
     def OnPosition(self, request, context):
         print "OnPosition"
         return _BF_VOID
@@ -61,8 +57,8 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         print "OnAccount"
         return _BF_VOID
     
-    def OnTradeClosed(self, request, context):
-        print "OnTradeClosed"
+    def OnExchangeClosed(self, request, context):
+        print "OnExchangeClosed"
         return _BF_VOID
     
 def run():
@@ -71,8 +67,9 @@ def run():
     robot.start()
 
     print "connect gateway"
-    bferrordata = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",endpoint=50053),_TIMEOUT_SECONDS)
-    bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="rb1610",exchange="SSE"),_TIMEOUT_SECONDS)
+    bfconnectresp = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",endpoint=50053),_TIMEOUT_SECONDS)
+    if bfconnectresp.exchangeOpened:
+        bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="rb1610",exchange="SSE"),_TIMEOUT_SECONDS)
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)

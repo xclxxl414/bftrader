@@ -49,12 +49,12 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   , rpcmethod_Close_(BfGatewayService_method_names[10], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status BfGatewayService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfErrorData* response) {
+::grpc::Status BfGatewayService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfConnectResp* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Connect_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfErrorData>* BfGatewayService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfErrorData>(channel_.get(), cq, rpcmethod_Connect_, context, request);
+::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>* BfGatewayService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>(channel_.get(), cq, rpcmethod_Connect_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) {
@@ -97,12 +97,12 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Subscribe_, context, request);
 }
 
-::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::bftrader::BfOrderResponse* response) {
+::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::bftrader::BfOrderResp* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SendOrder_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResponse>* BfGatewayService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResponse>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
+::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>* BfGatewayService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) {
@@ -142,7 +142,7 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfConnectReq, ::bftrader::BfErrorData>(
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfConnectReq, ::bftrader::BfConnectResp>(
           std::mem_fn(&BfGatewayService::Service::Connect), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[1],
@@ -172,7 +172,7 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfOrderReq, ::bftrader::BfOrderResponse>(
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfOrderReq, ::bftrader::BfOrderResp>(
           std::mem_fn(&BfGatewayService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[7],
@@ -199,7 +199,7 @@ BfGatewayService::Service::Service() {
 BfGatewayService::Service::~Service() {
 }
 
-::grpc::Status BfGatewayService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfErrorData* response) {
+::grpc::Status BfGatewayService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -241,7 +241,7 @@ BfGatewayService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResponse* response) {
+::grpc::Status BfGatewayService::Service::SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response) {
   (void) context;
   (void) request;
   (void) response;

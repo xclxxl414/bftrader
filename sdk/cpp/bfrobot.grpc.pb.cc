@@ -17,15 +17,14 @@ namespace bftrader {
 namespace bfrobot {
 
 static const char* BfRobotService_method_names[] = {
+  "/bftrader.bfrobot.BfRobotService/OnExchangeOpened",
   "/bftrader.bfrobot.BfRobotService/OnTick",
   "/bftrader.bfrobot.BfRobotService/OnError",
-  "/bftrader.bfrobot.BfRobotService/OnLog",
   "/bftrader.bfrobot.BfRobotService/OnTrade",
   "/bftrader.bfrobot.BfRobotService/OnOrder",
-  "/bftrader.bfrobot.BfRobotService/OnContract",
   "/bftrader.bfrobot.BfRobotService/OnPosition",
   "/bftrader.bfrobot.BfRobotService/OnAccount",
-  "/bftrader.bfrobot.BfRobotService/OnTradeClosed",
+  "/bftrader.bfrobot.BfRobotService/OnExchangeClosed",
 };
 
 std::unique_ptr< BfRobotService::Stub> BfRobotService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -34,16 +33,23 @@ std::unique_ptr< BfRobotService::Stub> BfRobotService::NewStub(const std::shared
 }
 
 BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_OnTick_(BfRobotService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnError_(BfRobotService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnLog_(BfRobotService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_OnExchangeOpened_(BfRobotService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnTick_(BfRobotService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnError_(BfRobotService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnTrade_(BfRobotService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnOrder_(BfRobotService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnContract_(BfRobotService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnPosition_(BfRobotService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnAccount_(BfRobotService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnTradeClosed_(BfRobotService_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnPosition_(BfRobotService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnAccount_(BfRobotService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnExchangeClosed_(BfRobotService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status BfRobotService::Stub::OnExchangeOpened(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnExchangeOpened_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnExchangeOpenedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnExchangeOpened_, context, request);
+}
 
 ::grpc::Status BfRobotService::Stub::OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnTick_, context, request, response);
@@ -59,14 +65,6 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnErrorRaw(::grpc::ClientContext* context, const ::bftrader::BfErrorData& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnError_, context, request);
-}
-
-::grpc::Status BfRobotService::Stub::OnLog(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnLog_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnLogRaw(::grpc::ClientContext* context, const ::bftrader::BfLogData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnLog_, context, request);
 }
 
 ::grpc::Status BfRobotService::Stub::OnTrade(::grpc::ClientContext* context, const ::bftrader::BfTradeData& request, ::bftrader::BfVoid* response) {
@@ -85,14 +83,6 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnOrder_, context, request);
 }
 
-::grpc::Status BfRobotService::Stub::OnContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnContract_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnContract_, context, request);
-}
-
 ::grpc::Status BfRobotService::Stub::OnPosition(::grpc::ClientContext* context, const ::bftrader::BfPositionData& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnPosition_, context, request, response);
 }
@@ -109,12 +99,12 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnAccount_, context, request);
 }
 
-::grpc::Status BfRobotService::Stub::OnTradeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnTradeClosed_, context, request, response);
+::grpc::Status BfRobotService::Stub::OnExchangeClosed(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnExchangeClosed_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnTradeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnTradeClosed_, context, request);
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnExchangeClosedRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnExchangeClosed_, context, request);
 }
 
 BfRobotService::Service::Service() {
@@ -122,18 +112,18 @@ BfRobotService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfRobotService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfTickData, ::bftrader::BfVoid>(
-          std::mem_fn(&BfRobotService::Service::OnTick), this)));
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnExchangeOpened), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfRobotService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfErrorData, ::bftrader::BfVoid>(
-          std::mem_fn(&BfRobotService::Service::OnError), this)));
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfTickData, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnTick), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfRobotService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfLogData, ::bftrader::BfVoid>(
-          std::mem_fn(&BfRobotService::Service::OnLog), this)));
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfErrorData, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnError), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfRobotService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
@@ -147,26 +137,28 @@ BfRobotService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfRobotService_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfContractData, ::bftrader::BfVoid>(
-          std::mem_fn(&BfRobotService::Service::OnContract), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfRobotService_method_names[6],
-      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfPositionData, ::bftrader::BfVoid>(
           std::mem_fn(&BfRobotService::Service::OnPosition), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfRobotService_method_names[7],
+      BfRobotService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfAccountData, ::bftrader::BfVoid>(
           std::mem_fn(&BfRobotService::Service::OnAccount), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfRobotService_method_names[8],
+      BfRobotService_method_names[7],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfRobotService::Service::OnTradeClosed), this)));
+          std::mem_fn(&BfRobotService::Service::OnExchangeClosed), this)));
 }
 
 BfRobotService::Service::~Service() {
+}
+
+::grpc::Status BfRobotService::Service::OnExchangeOpened(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status BfRobotService::Service::OnTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) {
@@ -177,13 +169,6 @@ BfRobotService::Service::~Service() {
 }
 
 ::grpc::Status BfRobotService::Service::OnError(::grpc::ServerContext* context, const ::bftrader::BfErrorData* request, ::bftrader::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfRobotService::Service::OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -204,13 +189,6 @@ BfRobotService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfRobotService::Service::OnContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
 ::grpc::Status BfRobotService::Service::OnPosition(::grpc::ServerContext* context, const ::bftrader::BfPositionData* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
@@ -225,7 +203,7 @@ BfRobotService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfRobotService::Service::OnTradeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+::grpc::Status BfRobotService::Service::OnExchangeClosed(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;

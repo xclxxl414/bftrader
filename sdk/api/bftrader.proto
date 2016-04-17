@@ -305,7 +305,7 @@ message BfOrderReq{
 }
 
 // 发单本地返回的对象类
-message BfOrderResponse{
+message BfOrderResp{
     string orderId = 1;         // 报单号,是本地自己分配的
 }
 
@@ -333,6 +333,11 @@ message BfConnectReq{
     string fromTime = 4;        // 开始时间
     string toDay = 5;           // 截止日期
     string toTime = 6;          // 截止时间
+}
+
+// 连接时返回的对象类
+message BfConnectResp{
+    bool exchangeOpened = 1;    // 交易所是否连通
 }
 
 // 获取合约信息传入的对象类

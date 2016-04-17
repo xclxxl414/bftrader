@@ -42,6 +42,7 @@ class BfBarData;
 class BfBidAskInfo;
 class BfCancelOrderReq;
 class BfConnectReq;
+class BfConnectResp;
 class BfContractData;
 class BfDailyInfo;
 class BfErrorData;
@@ -53,7 +54,7 @@ class BfLogData;
 class BfOHLCInfo;
 class BfOrderData;
 class BfOrderReq;
-class BfOrderResponse;
+class BfOrderResp;
 class BfPositionData;
 class BfSubscribeReq;
 class BfTickData;
@@ -2728,14 +2729,14 @@ class BfOrderReq : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class BfOrderResponse : public ::google::protobuf::Message {
+class BfOrderResp : public ::google::protobuf::Message {
  public:
-  BfOrderResponse();
-  virtual ~BfOrderResponse();
+  BfOrderResp();
+  virtual ~BfOrderResp();
 
-  BfOrderResponse(const BfOrderResponse& from);
+  BfOrderResp(const BfOrderResp& from);
 
-  inline BfOrderResponse& operator=(const BfOrderResponse& from) {
+  inline BfOrderResp& operator=(const BfOrderResp& from) {
     CopyFrom(from);
     return *this;
   }
@@ -2745,20 +2746,20 @@ class BfOrderResponse : public ::google::protobuf::Message {
     return MaybeArenaPtr();
   }
   static const ::google::protobuf::Descriptor* descriptor();
-  static const BfOrderResponse& default_instance();
+  static const BfOrderResp& default_instance();
 
-  void UnsafeArenaSwap(BfOrderResponse* other);
-  void Swap(BfOrderResponse* other);
+  void UnsafeArenaSwap(BfOrderResp* other);
+  void Swap(BfOrderResp* other);
 
   // implements Message ----------------------------------------------
 
-  inline BfOrderResponse* New() const { return New(NULL); }
+  inline BfOrderResp* New() const { return New(NULL); }
 
-  BfOrderResponse* New(::google::protobuf::Arena* arena) const;
+  BfOrderResp* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfOrderResponse& from);
-  void MergeFrom(const BfOrderResponse& from);
+  void CopyFrom(const BfOrderResp& from);
+  void MergeFrom(const BfOrderResp& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -2773,9 +2774,9 @@ class BfOrderResponse : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(BfOrderResponse* other);
+  void InternalSwap(BfOrderResp* other);
   protected:
-  explicit BfOrderResponse(::google::protobuf::Arena* arena);
+  explicit BfOrderResp(::google::protobuf::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
@@ -2808,7 +2809,7 @@ class BfOrderResponse : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_orderid(
       ::std::string* orderid);
 
-  // @@protoc_insertion_point(class_scope:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(class_scope:bftrader.BfOrderResp)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -2823,7 +2824,7 @@ class BfOrderResponse : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_bftrader_2eproto();
 
   void InitAsDefaultInstance();
-  static BfOrderResponse* default_instance_;
+  static BfOrderResp* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -3134,6 +3135,97 @@ class BfConnectReq : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfConnectReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class BfConnectResp : public ::google::protobuf::Message {
+ public:
+  BfConnectResp();
+  virtual ~BfConnectResp();
+
+  BfConnectResp(const BfConnectResp& from);
+
+  inline BfConnectResp& operator=(const BfConnectResp& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
+  inline void* GetMaybeArenaPointer() const {
+    return MaybeArenaPtr();
+  }
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BfConnectResp& default_instance();
+
+  void UnsafeArenaSwap(BfConnectResp* other);
+  void Swap(BfConnectResp* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BfConnectResp* New() const { return New(NULL); }
+
+  BfConnectResp* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BfConnectResp& from);
+  void MergeFrom(const BfConnectResp& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BfConnectResp* other);
+  protected:
+  explicit BfConnectResp(::google::protobuf::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional bool exchangeOpened = 1;
+  void clear_exchangeopened();
+  static const int kExchangeOpenedFieldNumber = 1;
+  bool exchangeopened() const;
+  void set_exchangeopened(bool value);
+
+  // @@protoc_insertion_point(class_scope:bftrader.BfConnectResp)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  friend class ::google::protobuf::Arena;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool _is_default_instance_;
+  bool exchangeopened_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_bftrader_2eproto();
+  friend void protobuf_AssignDesc_bftrader_2eproto();
+  friend void protobuf_ShutdownFile_bftrader_2eproto();
+
+  void InitAsDefaultInstance();
+  static BfConnectResp* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -7149,50 +7241,50 @@ inline void BfOrderReq::unsafe_arena_set_allocated_reason(
 
 // -------------------------------------------------------------------
 
-// BfOrderResponse
+// BfOrderResp
 
 // optional string orderId = 1;
-inline void BfOrderResponse::clear_orderid() {
+inline void BfOrderResp::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline const ::std::string& BfOrderResponse::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderResponse.orderId)
+inline const ::std::string& BfOrderResp::orderid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderResp.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfOrderResponse::set_orderid(const ::std::string& value) {
+inline void BfOrderResp::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderResp.orderId)
 }
-inline void BfOrderResponse::set_orderid(const char* value) {
+inline void BfOrderResp::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResp.orderId)
 }
-inline void BfOrderResponse::set_orderid(const char* value,
+inline void BfOrderResp::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResp.orderId)
 }
-inline ::std::string* BfOrderResponse::mutable_orderid() {
+inline ::std::string* BfOrderResp::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResp.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline ::std::string* BfOrderResponse::release_orderid() {
+inline ::std::string* BfOrderResp::release_orderid() {
   
   return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline ::std::string* BfOrderResponse::unsafe_arena_release_orderid() {
+inline ::std::string* BfOrderResp::unsafe_arena_release_orderid() {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
-inline void BfOrderResponse::set_allocated_orderid(::std::string* orderid) {
+inline void BfOrderResp::set_allocated_orderid(::std::string* orderid) {
   if (orderid != NULL) {
     
   } else {
@@ -7200,9 +7292,9 @@ inline void BfOrderResponse::set_allocated_orderid(::std::string* orderid) {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
 }
-inline void BfOrderResponse::unsafe_arena_set_allocated_orderid(
+inline void BfOrderResp::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (orderid != NULL) {
@@ -7212,7 +7304,7 @@ inline void BfOrderResponse::unsafe_arena_set_allocated_orderid(
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
 }
 
 // -------------------------------------------------------------------
@@ -7811,6 +7903,24 @@ inline void BfConnectReq::unsafe_arena_set_allocated_totime(
   totime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       totime, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
+}
+
+// -------------------------------------------------------------------
+
+// BfConnectResp
+
+// optional bool exchangeOpened = 1;
+inline void BfConnectResp::clear_exchangeopened() {
+  exchangeopened_ = false;
+}
+inline bool BfConnectResp::exchangeopened() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectResp.exchangeOpened)
+  return exchangeopened_;
+}
+inline void BfConnectResp::set_exchangeopened(bool value) {
+  
+  exchangeopened_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectResp.exchangeOpened)
 }
 
 // -------------------------------------------------------------------
@@ -8508,6 +8618,8 @@ inline void BfGetBarReq::set_count(::google::protobuf::int32 value) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

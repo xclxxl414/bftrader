@@ -60,20 +60,19 @@ void protobuf_AddDesc_bfrobot_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rbfrobot.proto\022\020bftrader.bfrobot\032\016bftra"
-    "der.proto2\201\004\n\016BfRobotService\0222\n\006OnTick\022\024"
-    ".bftrader.BfTickData\032\020.bftrader.BfVoid\"\000"
-    "\0224\n\007OnError\022\025.bftrader.BfErrorData\032\020.bft"
-    "rader.BfVoid\"\000\0220\n\005OnLog\022\023.bftrader.BfLog"
-    "Data\032\020.bftrader.BfVoid\"\000\0224\n\007OnTrade\022\025.bf"
-    "trader.BfTradeData\032\020.bftrader.BfVoid\"\000\0224"
-    "\n\007OnOrder\022\025.bftrader.BfOrderData\032\020.bftra"
-    "der.BfVoid\"\000\022:\n\nOnContract\022\030.bftrader.Bf"
-    "ContractData\032\020.bftrader.BfVoid\"\000\022:\n\nOnPo"
-    "sition\022\030.bftrader.BfPositionData\032\020.bftra"
-    "der.BfVoid\"\000\0228\n\tOnAccount\022\027.bftrader.BfA"
-    "ccountData\032\020.bftrader.BfVoid\"\000\0225\n\rOnTrad"
-    "eClosed\022\020.bftrader.BfVoid\032\020.bftrader.BfV"
-    "oid\"\000B\003\370\001\001b\006proto3", 578);
+    "der.proto2\320\003\n\016BfRobotService\0228\n\020OnExchan"
+    "geOpened\022\020.bftrader.BfVoid\032\020.bftrader.Bf"
+    "Void\"\000\0222\n\006OnTick\022\024.bftrader.BfTickData\032\020"
+    ".bftrader.BfVoid\"\000\0224\n\007OnError\022\025.bftrader"
+    ".BfErrorData\032\020.bftrader.BfVoid\"\000\0224\n\007OnTr"
+    "ade\022\025.bftrader.BfTradeData\032\020.bftrader.Bf"
+    "Void\"\000\0224\n\007OnOrder\022\025.bftrader.BfOrderData"
+    "\032\020.bftrader.BfVoid\"\000\022:\n\nOnPosition\022\030.bft"
+    "rader.BfPositionData\032\020.bftrader.BfVoid\"\000"
+    "\0228\n\tOnAccount\022\027.bftrader.BfAccountData\032\020"
+    ".bftrader.BfVoid\"\000\0228\n\020OnExchangeClosed\022\020"
+    ".bftrader.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001"
+    "\001b\006proto3", 529);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfrobot.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfrobot_2eproto);

@@ -72,15 +72,18 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BfOrderReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfOrderReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* BfOrderResponse_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* BfOrderResp_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  BfOrderResponse_reflection_ = NULL;
+  BfOrderResp_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfCancelOrderReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfCancelOrderReq_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfConnectReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfConnectReq_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfConnectResp_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfConnectResp_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfGetContractReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfGetContractReq_reflection_ = NULL;
@@ -444,21 +447,21 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfOrderReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderReq, _is_default_instance_));
-  BfOrderResponse_descriptor_ = file->message_type(17);
-  static const int BfOrderResponse_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResponse, orderid_),
+  BfOrderResp_descriptor_ = file->message_type(17);
+  static const int BfOrderResp_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResp, orderid_),
   };
-  BfOrderResponse_reflection_ =
+  BfOrderResp_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      BfOrderResponse_descriptor_,
-      BfOrderResponse::default_instance_,
-      BfOrderResponse_offsets_,
+      BfOrderResp_descriptor_,
+      BfOrderResp::default_instance_,
+      BfOrderResp_offsets_,
       -1,
       -1,
       -1,
-      sizeof(BfOrderResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResponse, _is_default_instance_));
+      sizeof(BfOrderResp),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResp, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderResp, _is_default_instance_));
   BfCancelOrderReq_descriptor_ = file->message_type(18);
   static const int BfCancelOrderReq_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, symbol_),
@@ -497,7 +500,22 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfConnectReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, _is_default_instance_));
-  BfGetContractReq_descriptor_ = file->message_type(20);
+  BfConnectResp_descriptor_ = file->message_type(20);
+  static const int BfConnectResp_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, exchangeopened_),
+  };
+  BfConnectResp_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfConnectResp_descriptor_,
+      BfConnectResp::default_instance_,
+      BfConnectResp_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfConnectResp),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, _is_default_instance_));
+  BfGetContractReq_descriptor_ = file->message_type(21);
   static const int BfGetContractReq_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, exchange_),
@@ -513,7 +531,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetContractReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, _is_default_instance_));
-  BfGetTickPackReq_descriptor_ = file->message_type(21);
+  BfGetTickPackReq_descriptor_ = file->message_type(22);
   static const int BfGetTickPackReq_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickPackReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickPackReq, exchange_),
@@ -532,7 +550,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetTickPackReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickPackReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickPackReq, _is_default_instance_));
-  BfGetBarReq_descriptor_ = file->message_type(22);
+  BfGetBarReq_descriptor_ = file->message_type(23);
   static const int BfGetBarReq_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, exchange_),
@@ -606,11 +624,13 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfOrderReq_descriptor_, &BfOrderReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      BfOrderResponse_descriptor_, &BfOrderResponse::default_instance());
+      BfOrderResp_descriptor_, &BfOrderResp::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfCancelOrderReq_descriptor_, &BfCancelOrderReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfConnectReq_descriptor_, &BfConnectReq::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfConnectResp_descriptor_, &BfConnectResp::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfGetContractReq_descriptor_, &BfGetContractReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -656,12 +676,14 @@ void protobuf_ShutdownFile_bftrader_2eproto() {
   delete BfSubscribeReq_reflection_;
   delete BfOrderReq::default_instance_;
   delete BfOrderReq_reflection_;
-  delete BfOrderResponse::default_instance_;
-  delete BfOrderResponse_reflection_;
+  delete BfOrderResp::default_instance_;
+  delete BfOrderResp_reflection_;
   delete BfCancelOrderReq::default_instance_;
   delete BfCancelOrderReq_reflection_;
   delete BfConnectReq::default_instance_;
   delete BfConnectReq_reflection_;
+  delete BfConnectResp::default_instance_;
+  delete BfConnectResp_reflection_;
   delete BfGetContractReq::default_instance_;
   delete BfGetContractReq_reflection_;
   delete BfGetTickPackReq::default_instance_;
@@ -737,45 +759,46 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "ume\030\004 \001(\005\022(\n\tpriceType\030\005 \001(\0162\025.bftrader."
     "BfPriceType\022(\n\tdirection\030\006 \001(\0162\025.bftrade"
     "r.BfDirection\022\"\n\006offset\030\007 \001(\0162\022.bftrader"
-    ".BfOffset\022\016\n\006reason\030\010 \001(\t\"\"\n\017BfOrderResp"
-    "onse\022\017\n\007orderId\030\001 \001(\t\"U\n\020BfCancelOrderRe"
-    "q\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007o"
-    "rderId\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnec"
-    "tReq\022\017\n\007robotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022"
-    "\017\n\007fromDay\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005to"
-    "Day\030\005 \001(\t\022\016\n\006toTime\030\006 \001(\t\"4\n\020BfGetContra"
-    "ctReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\""
-    "c\n\020BfGetTickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010e"
-    "xchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030"
-    "\004 \001(\t\022\r\n\005count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006"
-    "symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period"
-    "\030\003 \001(\0162\022.bftrader.BfPeriod\022\016\n\006toDate\030\004 \001"
-    "(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013Bf"
-    "Direction\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRE"
-    "CTION_NONE\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRE"
-    "CTION_SHORT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRE"
-    "CTION_SELL\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKN"
-    "OWN\020\000\022\017\n\013OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022"
-    "\020\n\014OFFSET_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004"
-    "\022\031\n\025OFFSET_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022"
-    "\022\n\016STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020"
-    "\001\022\025\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTR"
-    "ADED\020\003\022\024\n\020STATUS_CANCELLED\020\004*\323\001\n\tBfProdu"
-    "ct\022\023\n\017PRODUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020"
-    "\001\022\022\n\016PRODUCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES"
-    "\020\003\022\022\n\016PRODUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020"
-    "\005\022\027\n\023PRODUCT_COMBINATION\020\006\022\021\n\rPRODUCT_FO"
-    "REX\020\007\022\020\n\014PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER"
-    "\020\t*\177\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000"
-    "\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_"
-    "MARKETPRICE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRIC"
-    "ETYPE_FOK\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_U"
-    "NKNOWN\020\000\022\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_S"
-    "ZSE\020\002\022\022\n\016EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SH"
-    "FE\020\004\022\021\n\rEXCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020"
-    "\006\022\020\n\014EXCHANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIO"
-    "D_UNKNOWN\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020"
-    "\002B\003\370\001\001b\006proto3", 3934);
+    ".BfOffset\022\016\n\006reason\030\010 \001(\t\"\036\n\013BfOrderResp"
+    "\022\017\n\007orderId\030\001 \001(\t\"U\n\020BfCancelOrderReq\022\016\n"
+    "\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007order"
+    "Id\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnectReq"
+    "\022\017\n\007robotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022\017\n\007f"
+    "romDay\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005toDay\030"
+    "\005 \001(\t\022\016\n\006toTime\030\006 \001(\t\"\'\n\rBfConnectResp\022\026"
+    "\n\016exchangeOpened\030\001 \001(\010\"4\n\020BfGetContractR"
+    "eq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020"
+    "BfGetTickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exch"
+    "ange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001"
+    "(\t\022\r\n\005count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006sym"
+    "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 "
+    "\001(\0162\022.bftrader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022"
+    "\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDir"
+    "ection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTI"
+    "ON_NONE\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTI"
+    "ON_SHORT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTI"
+    "ON_SELL\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN"
+    "\020\000\022\017\n\013OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014"
+    "OFFSET_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n"
+    "\025OFFSET_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016"
+    "STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025"
+    "\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADE"
+    "D\020\003\022\024\n\020STATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022"
+    "\023\n\017PRODUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022"
+    "\n\016PRODUCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022"
+    "\022\n\016PRODUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027"
+    "\n\023PRODUCT_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX"
+    "\020\007\022\020\n\014PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*"
+    "\177\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n"
+    "\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MAR"
+    "KETPRICE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETY"
+    "PE_FOK\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKN"
+    "OWN\020\000\022\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE"
+    "\020\002\022\022\n\016EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020"
+    "\004\022\021\n\rEXCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020"
+    "\n\014EXCHANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_U"
+    "NKNOWN\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003"
+    "\370\001\001b\006proto3", 3971);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -795,9 +818,10 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfKvData::default_instance_ = new BfKvData();
   BfSubscribeReq::default_instance_ = new BfSubscribeReq();
   BfOrderReq::default_instance_ = new BfOrderReq();
-  BfOrderResponse::default_instance_ = new BfOrderResponse();
+  BfOrderResp::default_instance_ = new BfOrderResp();
   BfCancelOrderReq::default_instance_ = new BfCancelOrderReq();
   BfConnectReq::default_instance_ = new BfConnectReq();
+  BfConnectResp::default_instance_ = new BfConnectResp();
   BfGetContractReq::default_instance_ = new BfGetContractReq();
   BfGetTickPackReq::default_instance_ = new BfGetTickPackReq();
   BfGetBarReq::default_instance_ = new BfGetBarReq();
@@ -818,9 +842,10 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfKvData::default_instance_->InitAsDefaultInstance();
   BfSubscribeReq::default_instance_->InitAsDefaultInstance();
   BfOrderReq::default_instance_->InitAsDefaultInstance();
-  BfOrderResponse::default_instance_->InitAsDefaultInstance();
+  BfOrderResp::default_instance_->InitAsDefaultInstance();
   BfCancelOrderReq::default_instance_->InitAsDefaultInstance();
   BfConnectReq::default_instance_->InitAsDefaultInstance();
+  BfConnectResp::default_instance_->InitAsDefaultInstance();
   BfGetContractReq::default_instance_->InitAsDefaultInstance();
   BfGetTickPackReq::default_instance_->InitAsDefaultInstance();
   BfGetBarReq::default_instance_->InitAsDefaultInstance();
@@ -12524,48 +12549,48 @@ void BfOrderReq::clear_reason() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfOrderResponse::kOrderIdFieldNumber;
+const int BfOrderResp::kOrderIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-BfOrderResponse::BfOrderResponse()
+BfOrderResp::BfOrderResp()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(constructor:bftrader.BfOrderResp)
 }
 
-BfOrderResponse::BfOrderResponse(::google::protobuf::Arena* arena)
+BfOrderResp::BfOrderResp(::google::protobuf::Arena* arena)
   : ::google::protobuf::Message(),
   _internal_metadata_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(arena_constructor:bftrader.BfOrderResp)
 }
 
-void BfOrderResponse::InitAsDefaultInstance() {
+void BfOrderResp::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
 
-BfOrderResponse::BfOrderResponse(const BfOrderResponse& from)
+BfOrderResp::BfOrderResp(const BfOrderResp& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfOrderResp)
 }
 
-void BfOrderResponse::SharedCtor() {
+void BfOrderResp::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   orderid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-BfOrderResponse::~BfOrderResponse() {
-  // @@protoc_insertion_point(destructor:bftrader.BfOrderResponse)
+BfOrderResp::~BfOrderResp() {
+  // @@protoc_insertion_point(destructor:bftrader.BfOrderResp)
   SharedDtor();
 }
 
-void BfOrderResponse::SharedDtor() {
+void BfOrderResp::SharedDtor() {
   if (GetArenaNoVirtual() != NULL) {
     return;
   }
@@ -12575,42 +12600,42 @@ void BfOrderResponse::SharedDtor() {
   }
 }
 
-void BfOrderResponse::ArenaDtor(void* object) {
-  BfOrderResponse* _this = reinterpret_cast< BfOrderResponse* >(object);
+void BfOrderResp::ArenaDtor(void* object) {
+  BfOrderResp* _this = reinterpret_cast< BfOrderResp* >(object);
   (void)_this;
 }
-void BfOrderResponse::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+void BfOrderResp::RegisterArenaDtor(::google::protobuf::Arena* arena) {
 }
-void BfOrderResponse::SetCachedSize(int size) const {
+void BfOrderResp::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* BfOrderResponse::descriptor() {
+const ::google::protobuf::Descriptor* BfOrderResp::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return BfOrderResponse_descriptor_;
+  return BfOrderResp_descriptor_;
 }
 
-const BfOrderResponse& BfOrderResponse::default_instance() {
+const BfOrderResp& BfOrderResp::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
   return *default_instance_;
 }
 
-BfOrderResponse* BfOrderResponse::default_instance_ = NULL;
+BfOrderResp* BfOrderResp::default_instance_ = NULL;
 
-BfOrderResponse* BfOrderResponse::New(::google::protobuf::Arena* arena) const {
-  return ::google::protobuf::Arena::CreateMessage<BfOrderResponse>(arena);
+BfOrderResp* BfOrderResp::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<BfOrderResp>(arena);
 }
 
-void BfOrderResponse::Clear() {
+void BfOrderResp::Clear() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
 
-bool BfOrderResponse::MergePartialFromCodedStream(
+bool BfOrderResp::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(parse_start:bftrader.BfOrderResp)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -12624,7 +12649,7 @@ bool BfOrderResponse::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->orderid().data(), this->orderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderResponse.orderId"));
+            "bftrader.BfOrderResp.orderId"));
         } else {
           goto handle_unusual;
         }
@@ -12645,49 +12670,49 @@ bool BfOrderResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(parse_success:bftrader.BfOrderResp)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(parse_failure:bftrader.BfOrderResp)
   return false;
 #undef DO_
 }
 
-void BfOrderResponse::SerializeWithCachedSizes(
+void BfOrderResp::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(serialize_start:bftrader.BfOrderResp)
   // optional string orderId = 1;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderResponse.orderId");
+      "bftrader.BfOrderResp.orderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->orderid(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(serialize_end:bftrader.BfOrderResp)
 }
 
-::google::protobuf::uint8* BfOrderResponse::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* BfOrderResp::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfOrderResp)
   // optional string orderId = 1;
   if (this->orderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->orderid().data(), this->orderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderResponse.orderId");
+      "bftrader.BfOrderResp.orderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->orderid(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfOrderResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfOrderResp)
   return target;
 }
 
-int BfOrderResponse::ByteSize() const {
+int BfOrderResp::ByteSize() const {
   int total_size = 0;
 
   // optional string orderId = 1;
@@ -12703,10 +12728,10 @@ int BfOrderResponse::ByteSize() const {
   return total_size;
 }
 
-void BfOrderResponse::MergeFrom(const ::google::protobuf::Message& from) {
+void BfOrderResp::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const BfOrderResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const BfOrderResponse>(
+  const BfOrderResp* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfOrderResp>(
           &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -12715,105 +12740,105 @@ void BfOrderResponse::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void BfOrderResponse::MergeFrom(const BfOrderResponse& from) {
+void BfOrderResp::MergeFrom(const BfOrderResp& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.orderid().size() > 0) {
     set_orderid(from.orderid());
   }
 }
 
-void BfOrderResponse::CopyFrom(const ::google::protobuf::Message& from) {
+void BfOrderResp::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void BfOrderResponse::CopyFrom(const BfOrderResponse& from) {
+void BfOrderResp::CopyFrom(const BfOrderResp& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool BfOrderResponse::IsInitialized() const {
+bool BfOrderResp::IsInitialized() const {
 
   return true;
 }
 
-void BfOrderResponse::Swap(BfOrderResponse* other) {
+void BfOrderResp::Swap(BfOrderResp* other) {
   if (other == this) return;
   if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
     InternalSwap(other);
   } else {
-    BfOrderResponse temp;
+    BfOrderResp temp;
     temp.MergeFrom(*this);
     CopyFrom(*other);
     other->CopyFrom(temp);
   }
 }
-void BfOrderResponse::UnsafeArenaSwap(BfOrderResponse* other) {
+void BfOrderResp::UnsafeArenaSwap(BfOrderResp* other) {
   if (other == this) return;
   GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
   InternalSwap(other);
 }
-void BfOrderResponse::InternalSwap(BfOrderResponse* other) {
+void BfOrderResp::InternalSwap(BfOrderResp* other) {
   orderid_.Swap(&other->orderid_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata BfOrderResponse::GetMetadata() const {
+::google::protobuf::Metadata BfOrderResp::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = BfOrderResponse_descriptor_;
-  metadata.reflection = BfOrderResponse_reflection_;
+  metadata.descriptor = BfOrderResp_descriptor_;
+  metadata.reflection = BfOrderResp_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// BfOrderResponse
+// BfOrderResp
 
 // optional string orderId = 1;
-void BfOrderResponse::clear_orderid() {
+void BfOrderResp::clear_orderid() {
   orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- const ::std::string& BfOrderResponse::orderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderResponse.orderId)
+ const ::std::string& BfOrderResp::orderid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderResp.orderId)
   return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfOrderResponse::set_orderid(const ::std::string& value) {
+ void BfOrderResp::set_orderid(const ::std::string& value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderResp.orderId)
 }
- void BfOrderResponse::set_orderid(const char* value) {
+ void BfOrderResp::set_orderid(const char* value) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResp.orderId)
 }
- void BfOrderResponse::set_orderid(const char* value,
+ void BfOrderResp::set_orderid(const char* value,
     size_t size) {
   
   orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResp.orderId)
 }
- ::std::string* BfOrderResponse::mutable_orderid() {
+ ::std::string* BfOrderResp::mutable_orderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResp.orderId)
   return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfOrderResponse::release_orderid() {
+ ::std::string* BfOrderResp::release_orderid() {
   
   return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfOrderResponse::unsafe_arena_release_orderid() {
+ ::std::string* BfOrderResp::unsafe_arena_release_orderid() {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
   return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void BfOrderResponse::set_allocated_orderid(::std::string* orderid) {
+ void BfOrderResp::set_allocated_orderid(::std::string* orderid) {
   if (orderid != NULL) {
     
   } else {
@@ -12821,9 +12846,9 @@ void BfOrderResponse::clear_orderid() {
   }
   orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
 }
- void BfOrderResponse::unsafe_arena_set_allocated_orderid(
+ void BfOrderResp::unsafe_arena_set_allocated_orderid(
     ::std::string* orderid) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   if (orderid != NULL) {
@@ -12833,7 +12858,7 @@ void BfOrderResponse::clear_orderid() {
   }
   orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResponse.orderId)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -14340,6 +14365,256 @@ void BfConnectReq::clear_totime() {
   totime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       totime, GetArenaNoVirtual());
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfConnectResp::kExchangeOpenedFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfConnectResp::BfConnectResp()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfConnectResp)
+}
+
+BfConnectResp::BfConnectResp(::google::protobuf::Arena* arena)
+  : ::google::protobuf::Message(),
+  _internal_metadata_(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:bftrader.BfConnectResp)
+}
+
+void BfConnectResp::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfConnectResp::BfConnectResp(const BfConnectResp& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfConnectResp)
+}
+
+void BfConnectResp::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  exchangeopened_ = false;
+}
+
+BfConnectResp::~BfConnectResp() {
+  // @@protoc_insertion_point(destructor:bftrader.BfConnectResp)
+  SharedDtor();
+}
+
+void BfConnectResp::SharedDtor() {
+  if (GetArenaNoVirtual() != NULL) {
+    return;
+  }
+
+  if (this != default_instance_) {
+  }
+}
+
+void BfConnectResp::ArenaDtor(void* object) {
+  BfConnectResp* _this = reinterpret_cast< BfConnectResp* >(object);
+  (void)_this;
+}
+void BfConnectResp::RegisterArenaDtor(::google::protobuf::Arena* arena) {
+}
+void BfConnectResp::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfConnectResp::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfConnectResp_descriptor_;
+}
+
+const BfConnectResp& BfConnectResp::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfConnectResp* BfConnectResp::default_instance_ = NULL;
+
+BfConnectResp* BfConnectResp::New(::google::protobuf::Arena* arena) const {
+  return ::google::protobuf::Arena::CreateMessage<BfConnectResp>(arena);
+}
+
+void BfConnectResp::Clear() {
+  exchangeopened_ = false;
+}
+
+bool BfConnectResp::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfConnectResp)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional bool exchangeOpened = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &exchangeopened_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfConnectResp)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfConnectResp)
+  return false;
+#undef DO_
+}
+
+void BfConnectResp::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfConnectResp)
+  // optional bool exchangeOpened = 1;
+  if (this->exchangeopened() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(1, this->exchangeopened(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfConnectResp)
+}
+
+::google::protobuf::uint8* BfConnectResp::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfConnectResp)
+  // optional bool exchangeOpened = 1;
+  if (this->exchangeopened() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(1, this->exchangeopened(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfConnectResp)
+  return target;
+}
+
+int BfConnectResp::ByteSize() const {
+  int total_size = 0;
+
+  // optional bool exchangeOpened = 1;
+  if (this->exchangeopened() != 0) {
+    total_size += 1 + 1;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfConnectResp::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfConnectResp* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfConnectResp>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfConnectResp::MergeFrom(const BfConnectResp& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.exchangeopened() != 0) {
+    set_exchangeopened(from.exchangeopened());
+  }
+}
+
+void BfConnectResp::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfConnectResp::CopyFrom(const BfConnectResp& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfConnectResp::IsInitialized() const {
+
+  return true;
+}
+
+void BfConnectResp::Swap(BfConnectResp* other) {
+  if (other == this) return;
+  if (GetArenaNoVirtual() == other->GetArenaNoVirtual()) {
+    InternalSwap(other);
+  } else {
+    BfConnectResp temp;
+    temp.MergeFrom(*this);
+    CopyFrom(*other);
+    other->CopyFrom(temp);
+  }
+}
+void BfConnectResp::UnsafeArenaSwap(BfConnectResp* other) {
+  if (other == this) return;
+  GOOGLE_DCHECK(GetArenaNoVirtual() == other->GetArenaNoVirtual());
+  InternalSwap(other);
+}
+void BfConnectResp::InternalSwap(BfConnectResp* other) {
+  std::swap(exchangeopened_, other->exchangeopened_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfConnectResp::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfConnectResp_descriptor_;
+  metadata.reflection = BfConnectResp_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfConnectResp
+
+// optional bool exchangeOpened = 1;
+void BfConnectResp::clear_exchangeopened() {
+  exchangeopened_ = false;
+}
+ bool BfConnectResp::exchangeopened() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectResp.exchangeOpened)
+  return exchangeopened_;
+}
+ void BfConnectResp::set_exchangeopened(bool value) {
+  
+  exchangeopened_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectResp.exchangeOpened)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
