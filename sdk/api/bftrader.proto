@@ -326,13 +326,8 @@ message BfConnectReq{
     
     // Robot相关
     string robotId = 1;         // 策略名,用于日志分析和ui显示
-    int32 endpoint = 2;         // 机器人服务端口，OnTick...
-    
-    // 回测相关
-    string fromDay = 3;         // 开始日期 
-    string fromTime = 4;        // 开始时间
-    string toDay = 5;           // 截止日期
-    string toTime = 6;          // 截止时间
+    string robotIp = 2;         // 机器人服务,"localhost"
+    int32 robotPort = 3;        // 机器人端口,50053    
 }
 
 // 连接时返回的对象类

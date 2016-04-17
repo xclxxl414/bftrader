@@ -19,15 +19,16 @@ public:
     }
     ~RobotClient() {}
 
+    // ref: grpc\test\cpp\interop\interop_client.cc
     void OnTick(const BfTickData& tick)
     {
         BfVoid reply;
         grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(1000);
+        ctx.set_deadline(deadline);
         grpc::Status status = stub_->OnTick(&ctx, tick, &reply);
-        if (status.ok()) {
-            g_sm->logger()->info("stub_->OnTick ok");
-        } else {
-            g_sm->logger()->info("stub_->OnTick fail");
+        if (!status.ok()) {
+            g_sm->logger()->info(QString().sprintf("stub_->OnTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str()));
         }
     }
 
@@ -56,27 +57,28 @@ void PushService::shutdown()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // delete all robotclient
-    for(int i = 0;i<robotClients_.size();i++){
+    for (int i = 0; i < robotClients_.size(); i++) {
         auto robotClient = robotClients_.values().at(i);
         delete robotClient;
     }
     robotClients_.clear();
 }
 
-void PushService::onRobotConnected(QString robotId, qint32 endpoint)
+void PushService::onRobotConnected(QString robotId, QString robotIp,qint32 robotPort)
 {
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString target = QString().sprintf("localhost:%d",endpoint);
+    QString endpoint = QString().sprintf("%s:%d", robotIp.toStdString().c_str(),robotPort);
 
     RobotClient* robotClient = new RobotClient(grpc::CreateChannel(
-        target.toStdString(), grpc::InsecureChannelCredentials()));
+        endpoint.toStdString(), grpc::InsecureChannelCredentials()));
 
     robotClients_[robotId] = robotClient;
 
     //
     // TODO(hege): remove debug
     //
-    BfTickData data;
-    robotClient->OnTick(data);
+    google::protobuf::Arena arena;
+    BfTickData* data = google::protobuf::Arena::CreateMessage<BfTickData>(&arena);
+    robotClient->OnTick(*data);
 }

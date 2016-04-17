@@ -17,7 +17,7 @@ public:
 signals:
 
 public slots:
-    void onRobotConnected(QString robotId,qint32 endpoint);
+    void onRobotConnected(QString robotId,QString robotIp,qint32 robotPort);
 
 private:
     QMap<QString,RobotClient*> robotClients_;

@@ -3052,67 +3052,25 @@ class BfConnectReq : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_robotid(
       ::std::string* robotid);
 
-  // optional int32 endpoint = 2;
-  void clear_endpoint();
-  static const int kEndpointFieldNumber = 2;
-  ::google::protobuf::int32 endpoint() const;
-  void set_endpoint(::google::protobuf::int32 value);
+  // optional string robotIp = 2;
+  void clear_robotip();
+  static const int kRobotIpFieldNumber = 2;
+  const ::std::string& robotip() const;
+  void set_robotip(const ::std::string& value);
+  void set_robotip(const char* value);
+  void set_robotip(const char* value, size_t size);
+  ::std::string* mutable_robotip();
+  ::std::string* release_robotip();
+  void set_allocated_robotip(::std::string* robotip);
+  ::std::string* unsafe_arena_release_robotip();
+  void unsafe_arena_set_allocated_robotip(
+      ::std::string* robotip);
 
-  // optional string fromDay = 3;
-  void clear_fromday();
-  static const int kFromDayFieldNumber = 3;
-  const ::std::string& fromday() const;
-  void set_fromday(const ::std::string& value);
-  void set_fromday(const char* value);
-  void set_fromday(const char* value, size_t size);
-  ::std::string* mutable_fromday();
-  ::std::string* release_fromday();
-  void set_allocated_fromday(::std::string* fromday);
-  ::std::string* unsafe_arena_release_fromday();
-  void unsafe_arena_set_allocated_fromday(
-      ::std::string* fromday);
-
-  // optional string fromTime = 4;
-  void clear_fromtime();
-  static const int kFromTimeFieldNumber = 4;
-  const ::std::string& fromtime() const;
-  void set_fromtime(const ::std::string& value);
-  void set_fromtime(const char* value);
-  void set_fromtime(const char* value, size_t size);
-  ::std::string* mutable_fromtime();
-  ::std::string* release_fromtime();
-  void set_allocated_fromtime(::std::string* fromtime);
-  ::std::string* unsafe_arena_release_fromtime();
-  void unsafe_arena_set_allocated_fromtime(
-      ::std::string* fromtime);
-
-  // optional string toDay = 5;
-  void clear_today();
-  static const int kToDayFieldNumber = 5;
-  const ::std::string& today() const;
-  void set_today(const ::std::string& value);
-  void set_today(const char* value);
-  void set_today(const char* value, size_t size);
-  ::std::string* mutable_today();
-  ::std::string* release_today();
-  void set_allocated_today(::std::string* today);
-  ::std::string* unsafe_arena_release_today();
-  void unsafe_arena_set_allocated_today(
-      ::std::string* today);
-
-  // optional string toTime = 6;
-  void clear_totime();
-  static const int kToTimeFieldNumber = 6;
-  const ::std::string& totime() const;
-  void set_totime(const ::std::string& value);
-  void set_totime(const char* value);
-  void set_totime(const char* value, size_t size);
-  ::std::string* mutable_totime();
-  ::std::string* release_totime();
-  void set_allocated_totime(::std::string* totime);
-  ::std::string* unsafe_arena_release_totime();
-  void unsafe_arena_set_allocated_totime(
-      ::std::string* totime);
+  // optional int32 robotPort = 3;
+  void clear_robotport();
+  static const int kRobotPortFieldNumber = 3;
+  ::google::protobuf::int32 robotport() const;
+  void set_robotport(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:bftrader.BfConnectReq)
  private:
@@ -3123,11 +3081,8 @@ class BfConnectReq : public ::google::protobuf::Message {
   typedef void DestructorSkippable_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr robotid_;
-  ::google::protobuf::internal::ArenaStringPtr fromday_;
-  ::google::protobuf::internal::ArenaStringPtr fromtime_;
-  ::google::protobuf::internal::ArenaStringPtr today_;
-  ::google::protobuf::internal::ArenaStringPtr totime_;
-  ::google::protobuf::int32 endpoint_;
+  ::google::protobuf::internal::ArenaStringPtr robotip_;
+  ::google::protobuf::int32 robotport_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -7635,274 +7590,82 @@ inline void BfConnectReq::unsafe_arena_set_allocated_robotid(
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotId)
 }
 
-// optional int32 endpoint = 2;
-inline void BfConnectReq::clear_endpoint() {
-  endpoint_ = 0;
+// optional string robotIp = 2;
+inline void BfConnectReq::clear_robotip() {
+  robotip_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline ::google::protobuf::int32 BfConnectReq::endpoint() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.endpoint)
-  return endpoint_;
+inline const ::std::string& BfConnectReq::robotip() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.robotIp)
+  return robotip_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_endpoint(::google::protobuf::int32 value) {
+inline void BfConnectReq::set_robotip(const ::std::string& value) {
   
-  endpoint_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.endpoint)
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.robotIp)
 }
-
-// optional string fromDay = 3;
-inline void BfConnectReq::clear_fromday() {
-  fromday_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfConnectReq::fromday() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.fromDay)
-  return fromday_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectReq::set_fromday(const ::std::string& value) {
+inline void BfConnectReq::set_robotip(const char* value) {
   
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.fromDay)
-}
-inline void BfConnectReq::set_fromday(const char* value) {
-  
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.robotIp)
 }
-inline void BfConnectReq::set_fromday(const char* value,
+inline void BfConnectReq::set_robotip(const char* value,
     size_t size) {
   
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.robotIp)
 }
-inline ::std::string* BfConnectReq::mutable_fromday() {
+inline ::std::string* BfConnectReq::mutable_robotip() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.fromDay)
-  return fromday_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.robotIp)
+  return robotip_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline ::std::string* BfConnectReq::release_fromday() {
+inline ::std::string* BfConnectReq::release_robotip() {
   
-  return fromday_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  return robotip_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
-inline ::std::string* BfConnectReq::unsafe_arena_release_fromday() {
+inline ::std::string* BfConnectReq::unsafe_arena_release_robotip() {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
-  return fromday_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  return robotip_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
-inline void BfConnectReq::set_allocated_fromday(::std::string* fromday) {
-  if (fromday != NULL) {
+inline void BfConnectReq::set_allocated_robotip(::std::string* robotip) {
+  if (robotip != NULL) {
     
   } else {
     
   }
-  fromday_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fromday,
+  robotip_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robotip,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotIp)
 }
-inline void BfConnectReq::unsafe_arena_set_allocated_fromday(
-    ::std::string* fromday) {
+inline void BfConnectReq::unsafe_arena_set_allocated_robotip(
+    ::std::string* robotip) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (fromday != NULL) {
+  if (robotip != NULL) {
     
   } else {
     
   }
-  fromday_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      fromday, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromDay)
+  robotip_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      robotip, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotIp)
 }
 
-// optional string fromTime = 4;
-inline void BfConnectReq::clear_fromtime() {
-  fromtime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+// optional int32 robotPort = 3;
+inline void BfConnectReq::clear_robotport() {
+  robotport_ = 0;
 }
-inline const ::std::string& BfConnectReq::fromtime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.fromTime)
-  return fromtime_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::google::protobuf::int32 BfConnectReq::robotport() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.robotPort)
+  return robotport_;
 }
-inline void BfConnectReq::set_fromtime(const ::std::string& value) {
+inline void BfConnectReq::set_robotport(::google::protobuf::int32 value) {
   
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.fromTime)
-}
-inline void BfConnectReq::set_fromtime(const char* value) {
-  
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.fromTime)
-}
-inline void BfConnectReq::set_fromtime(const char* value,
-    size_t size) {
-  
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.fromTime)
-}
-inline ::std::string* BfConnectReq::mutable_fromtime() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.fromTime)
-  return fromtime_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::release_fromtime() {
-  
-  return fromtime_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::unsafe_arena_release_fromtime() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return fromtime_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfConnectReq::set_allocated_fromtime(::std::string* fromtime) {
-  if (fromtime != NULL) {
-    
-  } else {
-    
-  }
-  fromtime_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fromtime,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromTime)
-}
-inline void BfConnectReq::unsafe_arena_set_allocated_fromtime(
-    ::std::string* fromtime) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (fromtime != NULL) {
-    
-  } else {
-    
-  }
-  fromtime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      fromtime, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromTime)
-}
-
-// optional string toDay = 5;
-inline void BfConnectReq::clear_today() {
-  today_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfConnectReq::today() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.toDay)
-  return today_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectReq::set_today(const ::std::string& value) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.toDay)
-}
-inline void BfConnectReq::set_today(const char* value) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.toDay)
-}
-inline void BfConnectReq::set_today(const char* value,
-    size_t size) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.toDay)
-}
-inline ::std::string* BfConnectReq::mutable_today() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.toDay)
-  return today_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::release_today() {
-  
-  return today_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::unsafe_arena_release_today() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return today_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfConnectReq::set_allocated_today(::std::string* today) {
-  if (today != NULL) {
-    
-  } else {
-    
-  }
-  today_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), today,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toDay)
-}
-inline void BfConnectReq::unsafe_arena_set_allocated_today(
-    ::std::string* today) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (today != NULL) {
-    
-  } else {
-    
-  }
-  today_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      today, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toDay)
-}
-
-// optional string toTime = 6;
-inline void BfConnectReq::clear_totime() {
-  totime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfConnectReq::totime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.toTime)
-  return totime_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectReq::set_totime(const ::std::string& value) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.toTime)
-}
-inline void BfConnectReq::set_totime(const char* value) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.toTime)
-}
-inline void BfConnectReq::set_totime(const char* value,
-    size_t size) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.toTime)
-}
-inline ::std::string* BfConnectReq::mutable_totime() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.toTime)
-  return totime_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::release_totime() {
-  
-  return totime_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfConnectReq::unsafe_arena_release_totime() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return totime_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfConnectReq::set_allocated_totime(::std::string* totime) {
-  if (totime != NULL) {
-    
-  } else {
-    
-  }
-  totime_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totime,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
-}
-inline void BfConnectReq::unsafe_arena_set_allocated_totime(
-    ::std::string* totime) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (totime != NULL) {
-    
-  } else {
-    
-  }
-  totime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      totime, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
+  robotport_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.robotPort)
 }
 
 // -------------------------------------------------------------------

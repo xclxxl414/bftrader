@@ -10,7 +10,7 @@ from grpc.beta import implementations
 
 _BF_VOID = bftrader_pb2.BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
-_TIMEOUT_SECONDS = 30
+_TIMEOUT_SECONDS = 1
 
 class Gateway(bfgateway_pb2.BetaBfGatewayServiceServicer):
     def __init__(self):
@@ -34,14 +34,17 @@ class Gateway(bfgateway_pb2.BetaBfGatewayServiceServicer):
 
     def Connect(self, request, context):
         print "Connect"
-        print request.robotId,request.endpoint
-        self.robot_channel = implementations.insecure_channel('localhost', request.endpoint)
+        print request.robotId,request.robotIp,request.robotPort
+        self.robot_channel = implementations.insecure_channel(request.robotIp, request.robotPort)
         self.robot = bfrobot_pb2.beta_create_BfRobotService_stub(self.robot_channel)
         return bftrader_pb2.BfConnectResp(exchangeOpened = True)
 
     def Subscribe(self, request, context):
         print "Subscribe"
         print request.symbol,request.exchange
+        mt =  context.invocation_metadata()
+        for it in mt:
+            print "metadata: %s:%s" % (it[0],it[1])
         bfvoid = self.robot.OnTick(bftrader_pb2.BfTickData(),_TIMEOUT_SECONDS)        
         return _BF_VOID
 

@@ -1,17 +1,17 @@
 #include "rpcservice.h"
 #include "bfgateway.grpc.pb.h"
 #include "logger.h"
+#include "pushservice.h"
 #include "servicemgr.h"
 #include <QThread>
 #include <QtCore/QDebug>
 #include <grpc++/grpc++.h>
-#include "pushservice.h"
 
 using namespace bftrader;
 using namespace bftrader::bfgateway;
 
 //
-// BfGateway
+// Gateway
 //
 
 //
@@ -35,20 +35,39 @@ class Gateway final : public BfGatewayService::Service {
 public:
     Gateway() {}
     virtual ~Gateway() {}
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override {
+    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override
+    {
+        g_sm->logger()->info(__FUNCTION__);
+
         QString peer = context->peer().c_str();
         QString robotId = request->robotid().c_str();
-        int endpoint  = request->endpoint();
+        QString robotIp = request->robotip().c_str();
+        qint32 robotPort = request->robotport();
+        g_sm->logger()->info(QString().sprintf("peer:%s,%s:%s:%d", context->peer().c_str(), request->robotid().c_str(), request->robotip().c_str(), request->robotport()));
+        QMetaObject::invokeMethod(g_sm->pushService(), "onRobotConnected", Qt::QueuedConnection, Q_ARG(QString, robotId), Q_ARG(QString, robotIp), Q_ARG(qint32, robotPort));
 
-        g_sm->logger()->info(QString().sprintf("Gateway::Connect: peer:%s,robotid:%s,endpoint:%d",context->peer().c_str(),request->robotid().c_str(),request->endpoint()));
-        QMetaObject::invokeMethod(g_sm->pushService(),"onRobotConnected",Qt::QueuedConnection, Q_ARG(QString, robotId), Q_ARG(qint32, endpoint));
+        response->set_exchangeopened(true);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override { return grpc::Status::OK; }
-    virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
+    virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) override
+    {
+        g_sm->logger()->info(__FUNCTION__);
+
+        // metadata-key只能是小写的=
+        if (0 == context->client_metadata().count("robotid")) {
+            g_sm->logger()->info("no matadata: robotid");
+        } else {
+            auto its = context->client_metadata().equal_range("robotid");
+            auto it = its.first;
+            grpc::string robotId = grpc::string(it->second.begin(), it->second.end());
+            g_sm->logger()->info(QString().sprintf("metadata: robotid=%s", robotId.c_str()));
+        }
+        return grpc::Status::OK;
+    }
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
@@ -92,7 +111,7 @@ void RpcService::shutdown()
 void RpcService::onGatewayThreadStarted()
 {
     g_sm->logger()->info(__FUNCTION__);
-    if(g_sm->isCurrentOn(ServiceMgr::RPC)){
+    if (g_sm->isCurrentOn(ServiceMgr::RPC)) {
         qFatal("g_sm->CurrentOn(ServiceMgr::RPC)");
     }
 

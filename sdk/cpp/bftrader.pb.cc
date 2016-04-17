@@ -481,13 +481,10 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _is_default_instance_));
   BfConnectReq_descriptor_ = file->message_type(19);
-  static const int BfConnectReq_offsets_[6] = {
+  static const int BfConnectReq_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, robotid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, endpoint_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, fromday_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, fromtime_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, today_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, totime_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, robotip_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, robotport_),
   };
   BfConnectReq_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -762,43 +759,42 @@ void protobuf_AddDesc_bftrader_2eproto() {
     ".BfOffset\022\016\n\006reason\030\010 \001(\t\"\036\n\013BfOrderResp"
     "\022\017\n\007orderId\030\001 \001(\t\"U\n\020BfCancelOrderReq\022\016\n"
     "\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007order"
-    "Id\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"s\n\014BfConnectReq"
-    "\022\017\n\007robotId\030\001 \001(\t\022\020\n\010endpoint\030\002 \001(\005\022\017\n\007f"
-    "romDay\030\003 \001(\t\022\020\n\010fromTime\030\004 \001(\t\022\r\n\005toDay\030"
-    "\005 \001(\t\022\016\n\006toTime\030\006 \001(\t\"\'\n\rBfConnectResp\022\026"
-    "\n\016exchangeOpened\030\001 \001(\010\"4\n\020BfGetContractR"
-    "eq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020"
-    "BfGetTickPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exch"
-    "ange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001"
-    "(\t\022\r\n\005count\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006sym"
-    "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 "
-    "\001(\0162\022.bftrader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022"
-    "\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDir"
-    "ection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTI"
-    "ON_NONE\020\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTI"
-    "ON_SHORT\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTI"
-    "ON_SELL\020\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN"
-    "\020\000\022\017\n\013OFFSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014"
-    "OFFSET_CLOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n"
-    "\025OFFSET_CLOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016"
-    "STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025"
-    "\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADE"
-    "D\020\003\022\024\n\020STATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022"
-    "\023\n\017PRODUCT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022"
-    "\n\016PRODUCT_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022"
-    "\022\n\016PRODUCT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027"
-    "\n\023PRODUCT_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX"
-    "\020\007\022\020\n\014PRODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*"
-    "\177\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n"
-    "\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MAR"
-    "KETPRICE\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETY"
-    "PE_FOK\020\004*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKN"
-    "OWN\020\000\022\020\n\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE"
-    "\020\002\022\022\n\016EXCHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020"
-    "\004\022\021\n\rEXCHANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020"
-    "\n\014EXCHANGE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_U"
-    "NKNOWN\020\000\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003"
-    "\370\001\001b\006proto3", 3971);
+    "Id\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"C\n\014BfConnectReq"
+    "\022\017\n\007robotId\030\001 \001(\t\022\017\n\007robotIp\030\002 \001(\t\022\021\n\tro"
+    "botPort\030\003 \001(\005\"\'\n\rBfConnectResp\022\026\n\016exchan"
+    "geOpened\030\001 \001(\010\"4\n\020BfGetContractReq\022\016\n\006sy"
+    "mbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"c\n\020BfGetTic"
+    "kPackReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001"
+    "(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005co"
+    "unt\030\005 \001(\005\"\202\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 \001("
+    "\t\022\020\n\010exchange\030\002 \001(\t\022\"\n\006period\030\003 \001(\0162\022.bf"
+    "trader.BfPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTim"
+    "e\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\210\001\n\013BfDirection\022\025"
+    "\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_NONE\020"
+    "\001\022\022\n\016DIRECTION_LONG\020\002\022\023\n\017DIRECTION_SHORT"
+    "\020\003\022\021\n\rDIRECTION_NET\020\004\022\022\n\016DIRECTION_SELL\020"
+    "\005*\204\001\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013OF"
+    "FSET_NONE\020\001\022\017\n\013OFFSET_OPEN\020\002\022\020\n\014OFFSET_C"
+    "LOSE\020\003\022\025\n\021OFFSET_CLOSETODAY\020\004\022\031\n\025OFFSET_"
+    "CLOSEYESTERDAY\020\005*w\n\010BfStatus\022\022\n\016STATUS_U"
+    "NKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS"
+    "_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020S"
+    "TATUS_CANCELLED\020\004*\323\001\n\tBfProduct\022\023\n\017PRODU"
+    "CT_UNKNOWN\020\000\022\020\n\014PRODUCT_NONE\020\001\022\022\n\016PRODUC"
+    "T_EQUITY\020\002\022\023\n\017PRODUCT_FUTURES\020\003\022\022\n\016PRODU"
+    "CT_OPTION\020\004\022\021\n\rPRODUCT_INDEX\020\005\022\027\n\023PRODUC"
+    "T_COMBINATION\020\006\022\021\n\rPRODUCT_FOREX\020\007\022\020\n\014PR"
+    "ODUCT_SPOT\020\010\022\021\n\rPRODUCT_DEFER\020\t*\177\n\013BfPri"
+    "ceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n\024PRICETY"
+    "PE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MARKETPRICE"
+    "\020\002\022\021\n\rPRICETYPE_FAK\020\003\022\021\n\rPRICETYPE_FOK\020\004"
+    "*\245\001\n\nBfExchange\022\024\n\020EXCHANGE_UNKNOWN\020\000\022\020\n"
+    "\014EXCHANGE_SSE\020\001\022\021\n\rEXCHANGE_SZSE\020\002\022\022\n\016EX"
+    "CHANGE_CFFEX\020\003\022\021\n\rEXCHANGE_SHFE\020\004\022\021\n\rEXC"
+    "HANGE_CZCE\020\005\022\020\n\014EXCHANGE_DCE\020\006\022\020\n\014EXCHAN"
+    "GE_SGE\020\007*<\n\010BfPeriod\022\022\n\016PERIOD_UNKNOWN\020\000"
+    "\022\r\n\tPERIOD_M1\020\001\022\r\n\tPERIOD_D1\020\002B\003\370\001\001b\006pro"
+    "to3", 3923);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -13535,11 +13531,8 @@ void BfCancelOrderReq::clear_reason() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfConnectReq::kRobotIdFieldNumber;
-const int BfConnectReq::kEndpointFieldNumber;
-const int BfConnectReq::kFromDayFieldNumber;
-const int BfConnectReq::kFromTimeFieldNumber;
-const int BfConnectReq::kToDayFieldNumber;
-const int BfConnectReq::kToTimeFieldNumber;
+const int BfConnectReq::kRobotIpFieldNumber;
+const int BfConnectReq::kRobotPortFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfConnectReq::BfConnectReq()
@@ -13573,11 +13566,8 @@ void BfConnectReq::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   robotid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  endpoint_ = 0;
-  fromday_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  fromtime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  today_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  totime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotport_ = 0;
 }
 
 BfConnectReq::~BfConnectReq() {
@@ -13591,10 +13581,7 @@ void BfConnectReq::SharedDtor() {
   }
 
   robotid_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  fromday_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  fromtime_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  today_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  totime_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  robotip_.Destroy(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
   if (this != default_instance_) {
   }
 }
@@ -13628,11 +13615,8 @@ BfConnectReq* BfConnectReq::New(::google::protobuf::Arena* arena) const {
 
 void BfConnectReq::Clear() {
   robotid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  endpoint_ = 0;
-  fromday_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  fromtime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  today_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-  totime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  robotip_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  robotport_ = 0;
 }
 
 bool BfConnectReq::MergePartialFromCodedStream(
@@ -13657,86 +13641,35 @@ bool BfConnectReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_endpoint;
+        if (input->ExpectTag(18)) goto parse_robotIp;
         break;
       }
 
-      // optional int32 endpoint = 2;
+      // optional string robotIp = 2;
       case 2: {
-        if (tag == 16) {
-         parse_endpoint:
+        if (tag == 18) {
+         parse_robotIp:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_robotip()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->robotip().data(), this->robotip().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfConnectReq.robotIp"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_robotPort;
+        break;
+      }
+
+      // optional int32 robotPort = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_robotPort:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &endpoint_)));
+                 input, &robotport_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_fromDay;
-        break;
-      }
-
-      // optional string fromDay = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_fromDay:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fromday()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->fromday().data(), this->fromday().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.fromDay"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_fromTime;
-        break;
-      }
-
-      // optional string fromTime = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_fromTime:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_fromtime()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->fromtime().data(), this->fromtime().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.fromTime"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_toDay;
-        break;
-      }
-
-      // optional string toDay = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_toDay:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_today()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->today().data(), this->today().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.toDay"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_toTime;
-        break;
-      }
-
-      // optional string toTime = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_toTime:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_totime()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->totime().data(), this->totime().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.toTime"));
         } else {
           goto handle_unusual;
         }
@@ -13778,49 +13711,19 @@ void BfConnectReq::SerializeWithCachedSizes(
       1, this->robotid(), output);
   }
 
-  // optional int32 endpoint = 2;
-  if (this->endpoint() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->endpoint(), output);
+  // optional string robotIp = 2;
+  if (this->robotip().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->robotip().data(), this->robotip().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfConnectReq.robotIp");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->robotip(), output);
   }
 
-  // optional string fromDay = 3;
-  if (this->fromday().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fromday().data(), this->fromday().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.fromDay");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->fromday(), output);
-  }
-
-  // optional string fromTime = 4;
-  if (this->fromtime().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fromtime().data(), this->fromtime().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.fromTime");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->fromtime(), output);
-  }
-
-  // optional string toDay = 5;
-  if (this->today().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->today().data(), this->today().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.toDay");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->today(), output);
-  }
-
-  // optional string toTime = 6;
-  if (this->totime().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->totime().data(), this->totime().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.toTime");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      6, this->totime(), output);
+  // optional int32 robotPort = 3;
+  if (this->robotport() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->robotport(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfConnectReq)
@@ -13840,53 +13743,20 @@ void BfConnectReq::SerializeWithCachedSizes(
         1, this->robotid(), target);
   }
 
-  // optional int32 endpoint = 2;
-  if (this->endpoint() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->endpoint(), target);
-  }
-
-  // optional string fromDay = 3;
-  if (this->fromday().size() > 0) {
+  // optional string robotIp = 2;
+  if (this->robotip().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fromday().data(), this->fromday().length(),
+      this->robotip().data(), this->robotip().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.fromDay");
+      "bftrader.BfConnectReq.robotIp");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->fromday(), target);
+        2, this->robotip(), target);
   }
 
-  // optional string fromTime = 4;
-  if (this->fromtime().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->fromtime().data(), this->fromtime().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.fromTime");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->fromtime(), target);
-  }
-
-  // optional string toDay = 5;
-  if (this->today().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->today().data(), this->today().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.toDay");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->today(), target);
-  }
-
-  // optional string toTime = 6;
-  if (this->totime().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->totime().data(), this->totime().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.toTime");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        6, this->totime(), target);
+  // optional int32 robotPort = 3;
+  if (this->robotport() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->robotport(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfConnectReq)
@@ -13903,39 +13773,18 @@ int BfConnectReq::ByteSize() const {
         this->robotid());
   }
 
-  // optional int32 endpoint = 2;
-  if (this->endpoint() != 0) {
+  // optional string robotIp = 2;
+  if (this->robotip().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->robotip());
+  }
+
+  // optional int32 robotPort = 3;
+  if (this->robotport() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->endpoint());
-  }
-
-  // optional string fromDay = 3;
-  if (this->fromday().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->fromday());
-  }
-
-  // optional string fromTime = 4;
-  if (this->fromtime().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->fromtime());
-  }
-
-  // optional string toDay = 5;
-  if (this->today().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->today());
-  }
-
-  // optional string toTime = 6;
-  if (this->totime().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->totime());
+        this->robotport());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -13961,20 +13810,11 @@ void BfConnectReq::MergeFrom(const BfConnectReq& from) {
   if (from.robotid().size() > 0) {
     set_robotid(from.robotid());
   }
-  if (from.endpoint() != 0) {
-    set_endpoint(from.endpoint());
+  if (from.robotip().size() > 0) {
+    set_robotip(from.robotip());
   }
-  if (from.fromday().size() > 0) {
-    set_fromday(from.fromday());
-  }
-  if (from.fromtime().size() > 0) {
-    set_fromtime(from.fromtime());
-  }
-  if (from.today().size() > 0) {
-    set_today(from.today());
-  }
-  if (from.totime().size() > 0) {
-    set_totime(from.totime());
+  if (from.robotport() != 0) {
+    set_robotport(from.robotport());
   }
 }
 
@@ -14013,11 +13853,8 @@ void BfConnectReq::UnsafeArenaSwap(BfConnectReq* other) {
 }
 void BfConnectReq::InternalSwap(BfConnectReq* other) {
   robotid_.Swap(&other->robotid_);
-  std::swap(endpoint_, other->endpoint_);
-  fromday_.Swap(&other->fromday_);
-  fromtime_.Swap(&other->fromtime_);
-  today_.Swap(&other->today_);
-  totime_.Swap(&other->totime_);
+  robotip_.Swap(&other->robotip_);
+  std::swap(robotport_, other->robotport_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -14097,274 +13934,82 @@ void BfConnectReq::clear_robotid() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotId)
 }
 
-// optional int32 endpoint = 2;
-void BfConnectReq::clear_endpoint() {
-  endpoint_ = 0;
+// optional string robotIp = 2;
+void BfConnectReq::clear_robotip() {
+  robotip_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::google::protobuf::int32 BfConnectReq::endpoint() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.endpoint)
-  return endpoint_;
+ const ::std::string& BfConnectReq::robotip() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.robotIp)
+  return robotip_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_endpoint(::google::protobuf::int32 value) {
+ void BfConnectReq::set_robotip(const ::std::string& value) {
   
-  endpoint_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.endpoint)
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.robotIp)
 }
-
-// optional string fromDay = 3;
-void BfConnectReq::clear_fromday() {
-  fromday_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- const ::std::string& BfConnectReq::fromday() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.fromDay)
-  return fromday_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfConnectReq::set_fromday(const ::std::string& value) {
+ void BfConnectReq::set_robotip(const char* value) {
   
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.fromDay)
-}
- void BfConnectReq::set_fromday(const char* value) {
-  
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.robotIp)
 }
- void BfConnectReq::set_fromday(const char* value,
+ void BfConnectReq::set_robotip(const char* value,
     size_t size) {
   
-  fromday_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
+  robotip_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.robotIp)
 }
- ::std::string* BfConnectReq::mutable_fromday() {
+ ::std::string* BfConnectReq::mutable_robotip() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.fromDay)
-  return fromday_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.robotIp)
+  return robotip_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfConnectReq::release_fromday() {
+ ::std::string* BfConnectReq::release_robotip() {
   
-  return fromday_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  return robotip_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
 }
- ::std::string* BfConnectReq::unsafe_arena_release_fromday() {
+ ::std::string* BfConnectReq::unsafe_arena_release_robotip() {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
   
-  return fromday_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  return robotip_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       GetArenaNoVirtual());
 }
- void BfConnectReq::set_allocated_fromday(::std::string* fromday) {
-  if (fromday != NULL) {
+ void BfConnectReq::set_allocated_robotip(::std::string* robotip) {
+  if (robotip != NULL) {
     
   } else {
     
   }
-  fromday_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fromday,
+  robotip_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robotip,
       GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromDay)
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotIp)
 }
- void BfConnectReq::unsafe_arena_set_allocated_fromday(
-    ::std::string* fromday) {
+ void BfConnectReq::unsafe_arena_set_allocated_robotip(
+    ::std::string* robotip) {
   GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (fromday != NULL) {
+  if (robotip != NULL) {
     
   } else {
     
   }
-  fromday_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      fromday, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromDay)
+  robotip_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      robotip, GetArenaNoVirtual());
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.robotIp)
 }
 
-// optional string fromTime = 4;
-void BfConnectReq::clear_fromtime() {
-  fromtime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+// optional int32 robotPort = 3;
+void BfConnectReq::clear_robotport() {
+  robotport_ = 0;
 }
- const ::std::string& BfConnectReq::fromtime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.fromTime)
-  return fromtime_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ ::google::protobuf::int32 BfConnectReq::robotport() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.robotPort)
+  return robotport_;
 }
- void BfConnectReq::set_fromtime(const ::std::string& value) {
+ void BfConnectReq::set_robotport(::google::protobuf::int32 value) {
   
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.fromTime)
-}
- void BfConnectReq::set_fromtime(const char* value) {
-  
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.fromTime)
-}
- void BfConnectReq::set_fromtime(const char* value,
-    size_t size) {
-  
-  fromtime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.fromTime)
-}
- ::std::string* BfConnectReq::mutable_fromtime() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.fromTime)
-  return fromtime_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::release_fromtime() {
-  
-  return fromtime_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::unsafe_arena_release_fromtime() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return fromtime_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
- void BfConnectReq::set_allocated_fromtime(::std::string* fromtime) {
-  if (fromtime != NULL) {
-    
-  } else {
-    
-  }
-  fromtime_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), fromtime,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromTime)
-}
- void BfConnectReq::unsafe_arena_set_allocated_fromtime(
-    ::std::string* fromtime) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (fromtime != NULL) {
-    
-  } else {
-    
-  }
-  fromtime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      fromtime, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.fromTime)
-}
-
-// optional string toDay = 5;
-void BfConnectReq::clear_today() {
-  today_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- const ::std::string& BfConnectReq::today() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.toDay)
-  return today_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfConnectReq::set_today(const ::std::string& value) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.toDay)
-}
- void BfConnectReq::set_today(const char* value) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.toDay)
-}
- void BfConnectReq::set_today(const char* value,
-    size_t size) {
-  
-  today_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.toDay)
-}
- ::std::string* BfConnectReq::mutable_today() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.toDay)
-  return today_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::release_today() {
-  
-  return today_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::unsafe_arena_release_today() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return today_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
- void BfConnectReq::set_allocated_today(::std::string* today) {
-  if (today != NULL) {
-    
-  } else {
-    
-  }
-  today_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), today,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toDay)
-}
- void BfConnectReq::unsafe_arena_set_allocated_today(
-    ::std::string* today) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (today != NULL) {
-    
-  } else {
-    
-  }
-  today_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      today, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toDay)
-}
-
-// optional string toTime = 6;
-void BfConnectReq::clear_totime() {
-  totime_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- const ::std::string& BfConnectReq::totime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.toTime)
-  return totime_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfConnectReq::set_totime(const ::std::string& value) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.toTime)
-}
- void BfConnectReq::set_totime(const char* value) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.toTime)
-}
- void BfConnectReq::set_totime(const char* value,
-    size_t size) {
-  
-  totime_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.toTime)
-}
- ::std::string* BfConnectReq::mutable_totime() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.toTime)
-  return totime_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::release_totime() {
-  
-  return totime_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
- ::std::string* BfConnectReq::unsafe_arena_release_totime() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return totime_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
- void BfConnectReq::set_allocated_totime(::std::string* totime) {
-  if (totime != NULL) {
-    
-  } else {
-    
-  }
-  totime_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totime,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
-}
- void BfConnectReq::unsafe_arena_set_allocated_totime(
-    ::std::string* totime) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (totime != NULL) {
-    
-  } else {
-    
-  }
-  totime_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      totime, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.toTime)
+  robotport_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.robotPort)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

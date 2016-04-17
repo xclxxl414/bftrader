@@ -11,7 +11,7 @@ from grpc.beta import implementations
 
 _BF_VOID = bftrader_pb2.BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
-_TIMEOUT_SECONDS = 30
+_TIMEOUT_SECONDS = 1
 
 class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
     def __init__(self):
@@ -67,9 +67,10 @@ def run():
     robot.start()
 
     print "connect gateway"
-    bfconnectresp = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",endpoint=50053),_TIMEOUT_SECONDS)
+    bfconnectresp = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",robotIp="localhost",robotPort=50053),_TIMEOUT_SECONDS)
     if bfconnectresp.exchangeOpened:
-        bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="rb1610",exchange="SSE"),_TIMEOUT_SECONDS)
+        mt = [("robotid","demo")]
+        bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="*",exchange="*"),_TIMEOUT_SECONDS,metadata=mt)
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
