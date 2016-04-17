@@ -179,8 +179,11 @@ private:
         }
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
         if (!preTick) {
+            // ActionDay 指当时的日期
+            // TradingDay 是指当时的交易日期，夜盘算下一个交易的=
             QDateTime curDateTime = QDateTime::currentDateTime();
-            QDateTime tickDateTime = QDateTime::fromString(QString().sprintf("%s %s.%3d", curTick->TradingDay, curTick->UpdateTime, curTick->UpdateMillisec), "yyyymmdd hh:mm:ss.zzz");
+            QString tickDateTimeStr = QString().sprintf("%s %s.%03d", curTick->ActionDay, curTick->UpdateTime, curTick->UpdateMillisec);
+            QDateTime tickDateTime = QDateTime::fromString(tickDateTimeStr, "yyyyMMdd hh:mm:ss.zzz");
             qint64 delta = qAbs(curDateTime.msecsTo(tickDateTime));
             if (delta >= 3 * 60 * 1000) {
                 return false;

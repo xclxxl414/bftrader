@@ -69,7 +69,7 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     mdItem.insert("symbol", curMdf->InstrumentID);
     mdItem.insert("exchange", curMdf->ExchangeID);
 
-    mdItem.insert("date", curMdf->TradingDay);
+    mdItem.insert("date", curMdf->ActionDay);
     mdItem.insert("time", QString().sprintf("%s.%3d", curMdf->UpdateTime, curMdf->UpdateMillisec));
     mdItem.insert("lastPrice", curMdf->LastPrice);
     mdItem.insert("volume", curMdf->Volume);

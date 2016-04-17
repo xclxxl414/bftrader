@@ -4,7 +4,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-//开一个vc编译器cmd，执行：windeployqt --dir bftrader --no-angle --no-translations ctpnow.exe
+//开一个vc编译器cmd，执行：windeployqt --dir bftrader --no-angle --no-translations --pdb ctpnow.exe
 
 //qt的插件在退出时候没有释放造成泄漏，改了两个太无聊了不改了=
 #if 0
