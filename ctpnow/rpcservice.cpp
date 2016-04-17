@@ -5,10 +5,19 @@
 #include <QThread>
 #include <QtCore/QDebug>
 #include <grpc++/grpc++.h>
+#include "pushservice.h"
 
 using namespace bftrader;
 using namespace bftrader::bfgateway;
 
+//
+// BfGateway
+//
+
+//
+// 首先实现一个最简单的版本：全广播机制=
+//
+// TODO(hege):实现隔离机制
 // 策略间是完全隔离的，gateway在connect时候分配robot线程
 // robot对象，将robot对象移动到robot线程，并记录<peer,robotobj>
 // map<peer,robotobj> 用于分离rpc命令,servercontext::get_peer
@@ -21,11 +30,20 @@ using namespace bftrader::bfgateway;
 // gateway提供界面添加策略，指定名称/robotid，状态:离线/在线
 // robotid作为主键，将记录持仓 挂单/委托 成交等信息到数据库，便于统计
 // 策略本身也要维护自己的持仓 挂单 委托 成交=
-class BfGateway final : public BfGatewayService::Service {
+//
+class Gateway final : public BfGatewayService::Service {
 public:
-    BfGateway() {}
-    virtual ~BfGateway() {}
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override { return grpc::Status::OK; }
+    Gateway() {}
+    virtual ~Gateway() {}
+    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override {
+        QString peer = context->peer().c_str();
+        QString robotId = request->robotid().c_str();
+        int endpoint  = request->endpoint();
+
+        g_sm->logger()->info(QString().sprintf("Gateway::Connect: peer:%s,robotid:%s,endpoint:%d",context->peer().c_str(),request->robotid().c_str(),request->endpoint()));
+        QMetaObject::invokeMethod(g_sm->pushService(),"onRobotConnected",Qt::QueuedConnection, Q_ARG(QString, robotId), Q_ARG(qint32, endpoint));
+        return grpc::Status::OK;
+    }
     virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override { return grpc::Status::OK; }
@@ -37,6 +55,10 @@ public:
     virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
     virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
 };
+
+//
+// RpcService
+//
 
 RpcService::RpcService(QObject* parent)
     : QObject(parent)
@@ -75,7 +97,7 @@ void RpcService::onGatewayThreadStarted()
     }
 
     std::string server_address("0.0.0.0:50051");
-    BfGateway gateway;
+    Gateway gateway;
 
     grpc::ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
