@@ -76,7 +76,7 @@ void ContractForm::onGotContract(void* contract)
     ifItem.insert("exchange", pif->ExchangeID);
     ifItem.insert("name", gbk2utf16(pif->InstrumentName));
 
-    ifItem.insert("productClass", pif->ProductClass);
+    ifItem.insert("productClass", QString(pif->ProductClass));
     ifItem.insert("volumeMultiple", pif->VolumeMultiple);
     ifItem.insert("priceTick", pif->PriceTick);
 
