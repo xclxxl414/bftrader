@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     ui/finishedorderform.cpp \
     ui/tradeform.cpp \
     ui/tickform.cpp \
-    ui/nofocusdelegate.cpp
+    ui/nofocusdelegate.cpp \
+    ui/accountform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -52,7 +53,8 @@ HEADERS  += ui/mainwindow.h \
     ui/finishedorderform.h \
     ui/tradeform.h \
     ui/tickform.h \
-    ui/nofocusdelegate.h
+    ui/nofocusdelegate.h \
+    ui/accountform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -63,7 +65,8 @@ FORMS    += ui/mainwindow.ui \
     ui/pendingorderform.ui \
     ui/finishedorderform.ui \
     ui/tradeform.ui \
-    ui/tickform.ui
+    ui/tickform.ui \
+    ui/accountform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

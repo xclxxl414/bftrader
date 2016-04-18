@@ -125,13 +125,12 @@ message BfTickData{
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 今天总持仓量
     int32 lastVolume = 8;       // 最新成交量，本笔增减，无法计算时用1代替
-    double lastOpenInterest = 9;// 最新持仓量，本笔增减，无法计算时用1.0代替
 
     // x档行情
-    repeated BfBidAskInfo bidaskInfo = 10;  
+    repeated BfBidAskInfo bidaskInfo = 9;  
 
     // 常规行情
-    BfDailyInfo dailyInfo = 11;  
+    BfDailyInfo dailyInfo = 10;  
 }
 
 // 1分钟的tick集合
@@ -163,13 +162,12 @@ message BfBarData{
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 持仓量
     int32 lastVolume = 8;       // 最新成交量，本笔增减
-    double lastOpenInterest = 9;// 最新持仓量，本笔增减
     
     // OHLC
-    BfOHLCInfo ohlcInfo = 10; 
+    BfOHLCInfo ohlcInfo = 9; 
 
     // 常规行情
-    BfDailyInfo dailyInfo = 11; 
+    BfDailyInfo dailyInfo = 10; 
 }
 
 // 成交数据类
@@ -222,10 +220,7 @@ message BfPositionData{
     BfDirection direction = 3;  // 持仓方向
     int32 position = 4;         // 持仓量
     int32 frozen = 5;           // 冻结数量
-    double price = 6;           // 持仓均价
-    
-    // 昨持仓
-    int32 ydPosition = 7;       
+    double price = 6;           // 持仓均价     
 }
 
 // 账户数据类
@@ -270,6 +265,11 @@ message BfContractData{
     BfProduct productClass = 4; // 合约类型
     int32 volumeMultiple = 5;   // 合约数量乘数
     double priceTick = 6;       // 合约最小价格TICK
+    
+    int32 maxLimit = 7;         // 限价单最大下单量
+    int32 minLimit = 8;         // 限价单最小下单量
+    int32 maxMarket = 9;        // 市价单最大下单量
+    int32 minMartet = 10;       // 市价单最小下单量
 }
 
 // K/V数据交换传入传出的数据类

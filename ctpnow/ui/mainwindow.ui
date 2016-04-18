@@ -15,10 +15,28 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
     <item>
      <widget class="QSplitter" name="splitterTop">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>2</number>
       </property>
       <widget class="QTabWidget" name="tabWidgetMarket">
        <property name="currentIndex">
@@ -28,6 +46,9 @@
       <widget class="QSplitter" name="splitterBottom">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="handleWidth">
+        <number>2</number>
        </property>
        <widget class="QTabWidget" name="tabWidgetLog">
         <property name="currentIndex">
@@ -121,6 +142,14 @@
    </widget>
    <addaction name="menuSystem"/>
    <addaction name="menuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>24</height>
+    </size>
+   </property>
   </widget>
   <action name="actionQuit">
    <property name="text">

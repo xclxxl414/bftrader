@@ -21,7 +21,6 @@ TickForm::TickForm(QWidget* parent)
                      << "volume"
                      << "openInterest"
                      << "lastVolume"
-                     << "lastOpenInterest"
 
                      << "bidPrice"
                      << "askPrice"
@@ -75,7 +74,6 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     mdItem.insert("volume", curMdf->Volume);
     mdItem.insert("openInterest", curMdf->OpenInterest);
     mdItem.insert("lastVolume", preMdf ? curMdf->Volume - preMdf->Volume : 1);
-    mdItem.insert("lastOpenInterest", preMdf ? curMdf->OpenInterest - preMdf->OpenInterest : 1.0);
 
     mdItem.insert("bidPrice", curMdf->BidPrice1);
     mdItem.insert("askPrice", curMdf->AskPrice1);

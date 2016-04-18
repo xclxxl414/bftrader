@@ -16,9 +16,15 @@ ContractForm::ContractForm(QWidget* parent)
     instruments_col_ << "symbol"
                      << "exchange"
                      << "name"
+
                      << "productClass"
                      << "volumeMultiple"
-                     << "priceTick";
+                     << "priceTick"
+
+                     << "maxLimit"
+                     << "minLimit"
+                     << "maxMarket"
+                     << "minMarket";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
@@ -79,6 +85,11 @@ void ContractForm::onGotContract(void* contract)
     ifItem.insert("productClass", QString(pif->ProductClass));
     ifItem.insert("volumeMultiple", pif->VolumeMultiple);
     ifItem.insert("priceTick", pif->PriceTick);
+
+    ifItem.insert("maxLimit", pif->MaxLimitOrderVolume);
+    ifItem.insert("minLimit", pif->MinMarketOrderVolume);
+    ifItem.insert("maxMarket", pif->MaxMarketOrderVolume);
+    ifItem.insert("minMarket", pif->MinMarketOrderVolume);
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     QString id = ifItem.value("symbol").toString();

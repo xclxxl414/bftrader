@@ -10,7 +10,12 @@ PositionForm::PositionForm(QWidget* parent)
 
     //设置列=
     instruments_col_ << "symbol"
-                     << "exchange";
+                     << "exchange"
+
+                     << "direction"
+                     << "position"
+                     << "frozen"
+                     << "price";
     this->ui->tableWidget->setColumnCount(instruments_col_.length());
     for (int i = 0; i < instruments_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));

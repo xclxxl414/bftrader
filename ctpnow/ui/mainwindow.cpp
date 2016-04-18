@@ -19,6 +19,7 @@
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
+#include "accountform.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -55,6 +56,10 @@ MainWindow::MainWindow(QWidget* parent)
     ui->tabWidgetOrder->addTab(pendingOrderForm_, "pendingOrder");
     ui->tabWidgetOrder->addTab(finishedOrderForm_, "finishedOrder");
     ui->tabWidgetOrder->addTab(tradeForm_, "trade");
+
+    // statusbar,隐藏那个竖线=
+    ui->statusBar->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
+    ui->statusBar->addWidget(new AccountForm(this));
 }
 
 MainWindow::~MainWindow()
