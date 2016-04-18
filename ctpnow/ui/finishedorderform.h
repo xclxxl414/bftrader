@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::FinishedOrderForm* ui;
+    QStringList instruments_col_;
 };
 
 #endif // FINISHEDORDERFORM_H

@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::PendingOrderForm* ui;
+    QStringList instruments_col_;
 };
 
 #endif // PENDINGORDERFORM_H

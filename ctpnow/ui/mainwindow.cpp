@@ -48,13 +48,13 @@ MainWindow::MainWindow(QWidget* parent)
     tradeForm_ = new TradeForm(this);
     tickForm_ = new TickForm(this);
 
-    ui->tabWidget->addTab(logForm_, "log");
-    ui->tabWidget->addTab(contractForm_, "contract");
-    ui->tabWidget->addTab(tickForm_, "tick");
-    ui->tabWidget->addTab(positionForm_, "position");
-    ui->tabWidget->addTab(pendingOrderForm_, "pendingOrder");
-    ui->tabWidget->addTab(finishedOrderForm_, "finishedOrder");
-    ui->tabWidget->addTab(tradeForm_, "trade");
+    ui->tabWidgetMarket->addTab(tickForm_, "tick");
+    ui->tabWidgetMarket->addTab(contractForm_, "contract");
+    ui->tabWidgetLog->addTab(logForm_, "log");
+    ui->tabWidgetPosition->addTab(positionForm_, "position");
+    ui->tabWidgetOrder->addTab(pendingOrderForm_, "pendingOrder");
+    ui->tabWidgetOrder->addTab(finishedOrderForm_, "finishedOrder");
+    ui->tabWidgetOrder->addTab(tradeForm_, "trade");
 }
 
 MainWindow::~MainWindow()

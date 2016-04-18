@@ -6,20 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>-1</number>
+     <widget class="QSplitter" name="splitterTop">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
+      <widget class="QTabWidget" name="tabWidgetMarket">
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+      </widget>
+      <widget class="QSplitter" name="splitterBottom">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QTabWidget" name="tabWidgetLog">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidgetPosition">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidgetOrder">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -29,7 +54,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>900</width>
      <height>23</height>
     </rect>
    </property>
@@ -48,9 +73,9 @@
     <property name="title">
      <string>about</string>
     </property>
-    <widget class="QMenu" name="menuTest">
+    <widget class="QMenu" name="menuDeveloperTools">
      <property name="title">
-      <string>test</string>
+      <string>developer tools</string>
      </property>
      <widget class="QMenu" name="menuCtp">
       <property name="title">
@@ -92,7 +117,7 @@
      <addaction name="menuCrash"/>
     </widget>
     <addaction name="actionVersion"/>
-    <addaction name="menuTest"/>
+    <addaction name="menuDeveloperTools"/>
    </widget>
    <addaction name="menuSystem"/>
    <addaction name="menuAbout"/>
@@ -190,26 +215,6 @@
   <action name="actionStop">
    <property name="text">
     <string>stop</string>
-   </property>
-  </action>
-  <action name="actionCtp1">
-   <property name="text">
-    <string>ctp1</string>
-   </property>
-  </action>
-  <action name="actionThread1">
-   <property name="text">
-    <string>thread1</string>
-   </property>
-  </action>
-  <action name="actionDb1">
-   <property name="text">
-    <string>db1</string>
-   </property>
-  </action>
-  <action name="actionCrash1">
-   <property name="text">
-    <string>crash1</string>
    </property>
   </action>
  </widget>

@@ -4,4 +4,5 @@ SUBDIRS = \
     datafeed \
     ctpnow \
     backtest \
-    tools
+    tools \
+    bugreport

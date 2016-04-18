@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
 
         MainWindow w;
         w.init();
-        w.move((QApplication::desktop()->width() - w.width()) / 2, (QApplication::desktop()->height() - w.height()) / 2);
+        w.move((QApplication::desktop()->width() - w.width()) / 2, (QApplication::desktop()->height() - w.height()) / 3);
         w.show();
 
         result = a.exec();
