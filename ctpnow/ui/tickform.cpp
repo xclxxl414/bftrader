@@ -126,3 +126,8 @@ void TickForm::onTradeClosed()
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);
 }
+
+void TickForm::on_pushButtonFit_clicked()
+{
+    bfFitTableWidget(ui->tableWidget);
+}

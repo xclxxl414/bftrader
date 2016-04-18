@@ -25,5 +25,6 @@ public:
 };
 
 void bfAdjustTableWidget(QTableWidget* tableWidget);
+void bfFitTableWidget(QTableWidget* tableWidget);
 
 #endif // NOFOCUSDELEGATE_H

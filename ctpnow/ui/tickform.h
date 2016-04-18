@@ -22,6 +22,9 @@ public slots:
     void onGotTick(void* curTick, void* preTick);
     void onTradeClosed();
 
+private slots:
+    void on_pushButtonFit_clicked();
+
 private:
     Ui::TickForm* ui;
 
