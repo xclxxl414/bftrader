@@ -47,6 +47,7 @@ void CtpMgr::onMdSmStateChanged(int state)
         mdsm_->login(60 * 1000, "");
     }
     if (state == MDSM_STOPPED) {
+        mdsm_logined_ = false;
         delete mdsm_;
         mdsm_ = nullptr;
         mdsm_logined_ = false;
@@ -80,6 +81,7 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_->stop();
     }
     if (state == TDSM_STOPPED) {
+        tdsm_logined_ = false;
         delete tdsm_;
         tdsm_ = nullptr;
         tdsm_logined_ = false;
@@ -179,16 +181,23 @@ void CtpMgr::tryStartSubscrible()
 void CtpMgr::stop()
 {
     // check
-    if (mdsm_ == nullptr) {
-        logger()->info("mdsm_ == nullptr");
+    if (mdsm_ == nullptr && tdsm_ == nullptr) {
+        logger()->info("mdsm_ == nullptr && tdsm_ == nullptr");
         return;
     }
-    mdsm_->stop();
+    if (mdsm_) {
+        autoLoginMd_ = false;
+        mdsm_->stop();
+    }
 
     if (tdsm_) {
-        //先logout，然后自动退出=
         autoLoginTd_ = false;
-        tdsm_->logout(0, "");
+        if (tdsm_logined_) {
+            //先logout，然后自动退出=
+            tdsm_->logout(0, "");
+        } else {
+            tdsm_->stop();
+        }
     }
 }
 
