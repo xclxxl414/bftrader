@@ -18,6 +18,7 @@ class PendingOrderForm;
 class PositionForm;
 class TradeForm;
 class TickForm;
+class AccountForm;
 
 template <typename T>
 class QFutureInterface;
@@ -75,6 +76,7 @@ private:
     PositionForm* positionForm_;
     TradeForm* tradeForm_;
     TickForm* tickForm_;
+    AccountForm* accountForm_;
 
 private:
     QAction* minimizeAction;

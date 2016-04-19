@@ -21,16 +21,20 @@ public:
     // 可跨线程调用=
     bool running();
     void* getContract(QString id);
+    void* getLatestTick(QString id);
+    void* getPreLatestTick(QString id);
 
 signals:
     void gotInstruments(QStringList ids);
     void gotTick(void* curTick, void* preTick);
+    void gotAccount(double balance, double available, double margin, double closeProfit, double positionProfit);
     void tradeClosed();
 
 public slots:
     void showVersion();
     void start(QString password);
     void stop();
+    void queryAccount();
 
 private slots:
     void onGotInstruments(QStringList ids);

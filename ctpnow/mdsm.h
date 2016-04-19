@@ -30,6 +30,8 @@ public:
 
     void login(unsigned int delayTick, QString robotId);
     void subscrible(QStringList ids, unsigned int delayTick, QString robotId);
+    void* getLatestTick(QString id);
+    void* getPreLatestTick(QString id);
 
 signals:
     void statusChanged(int state);

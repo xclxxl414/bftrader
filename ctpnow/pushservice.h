@@ -1,8 +1,8 @@
 #ifndef PUSHSERVICE_H
 #define PUSHSERVICE_H
 
-#include <QObject>
 #include <QMap>
+#include <QObject>
 
 class RobotClient;
 
@@ -17,10 +17,10 @@ public:
 signals:
 
 public slots:
-    void onRobotConnected(QString robotId,QString robotIp,qint32 robotPort);
+    void onRobotConnected(QString robotId, QString robotIp, qint32 robotPort);
 
 private:
-    QMap<QString,RobotClient*> robotClients_;
+    QMap<QString, RobotClient*> robotClients_;
 };
 
 #endif // PUSHSERVICE_H

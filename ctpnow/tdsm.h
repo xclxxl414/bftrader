@@ -35,11 +35,13 @@ public:
     void logout(unsigned int delayTick, QString robotId);
     void queryInstrument(unsigned int delayTick, QString robotId);
     void* getContract(QString id);
+    void queryAccount(unsigned int delayTick, QString robotId);
 
 signals:
     void statusChanged(int state);
     void gotInstruments(QStringList ids);
     void requestSent(int reqId, QString robotId);
+    void gotAccount(double balance, double available, double margin, double closeProfit, double positionProfit);
 
 private:
     QString userId_, password_, brokerId_, frontTd_, flowPathTd_, idPrefixList_;

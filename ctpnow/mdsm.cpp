@@ -1,5 +1,6 @@
 #include "mdsm.h"
 #include "ThostFtdcMdApi.h"
+#include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "logger.h"
@@ -16,6 +17,10 @@ public:
     explicit MdSmSpi(MdSm* sm)
         : sm_(sm)
     {
+    }
+    virtual ~MdSmSpi()
+    {
+        resetData();
     }
 
 private:
@@ -34,6 +39,9 @@ private:
 
         resetData();
         emit sm()->statusChanged(MDSM_DISCONNECTED);
+
+        // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
+        emit sm()->tradeClosed();
     }
 
     // errorId=7，msg=CTP:还没有初始化=
@@ -127,9 +135,6 @@ private:
     {
         got_ids_.clear();
         freeRingBuffer();
-
-        // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
-        emit sm()->tradeClosed();
     }
 
     void info(QString msg) { g_sm->logger()->info(msg); }
@@ -194,6 +199,22 @@ private:
             }
         }
         return true;
+    }
+
+    void* getLatestTick(QString id)
+    {
+        auto rb = getRingBuffer(id);
+        return rb->get(rb->head());
+    }
+
+    void* getPreLatestTick(QString id)
+    {
+        auto rb = getRingBuffer(id);
+        int preIndex = rb->head() - 1;
+        if (preIndex < 0) {
+            preIndex += rb->count();
+        }
+        return rb->get(preIndex);
     }
 
 private:
@@ -267,6 +288,8 @@ void MdSm::stop()
     delete mdspi_;
     mdspi_ = nullptr;
     emit this->statusChanged(MDSM_STOPPED);
+    // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
+    emit this->tradeClosed();
 }
 
 void MdSm::info(QString msg)
@@ -283,6 +306,10 @@ void MdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore MdSm::login");
+            return;
+        }
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
@@ -293,7 +320,7 @@ void MdSm::login(unsigned int delayTick, QString robotId)
         //  被流控，一秒后重来=
         if (result == -3) {
             login(retryAfterMsec_, robotId);
-        } else {
+        } else if (result == 0) {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
         }
@@ -306,6 +333,10 @@ void MdSm::subscrible(QStringList ids,
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore MdSm::login");
+            return;
+        }
         QList<std::string> std_ids;
         char** cids = new char*[ids.length()];
         for (int i = 0; i < ids.length(); i++) {
@@ -317,8 +348,18 @@ void MdSm::subscrible(QStringList ids,
         info(QString().sprintf("CmdMdSubscrible,result=%d", result));
         if (result == -3) {
             subscrible(ids, retryAfterMsec_, robotId);
-        } else {
+        } else if (result == 0) {
             mdspi_->initRingBuffer(ids);
         }
     });
+}
+
+void* MdSm::getLatestTick(QString id)
+{
+    return mdspi_->getLatestTick(id);
+}
+
+void* MdSm::getPreLatestTick(QString id)
+{
+    return mdspi_->getPreLatestTick(id);
 }

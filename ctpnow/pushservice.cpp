@@ -64,11 +64,11 @@ void PushService::shutdown()
     robotClients_.clear();
 }
 
-void PushService::onRobotConnected(QString robotId, QString robotIp,qint32 robotPort)
+void PushService::onRobotConnected(QString robotId, QString robotIp, qint32 robotPort)
 {
     g_sm->logger()->info(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString endpoint = QString().sprintf("%s:%d", robotIp.toStdString().c_str(),robotPort);
+    QString endpoint = QString().sprintf("%s:%d", robotIp.toStdString().c_str(), robotPort);
 
     RobotClient* robotClient = new RobotClient(grpc::CreateChannel(
         endpoint.toStdString(), grpc::InsecureChannelCredentials()));

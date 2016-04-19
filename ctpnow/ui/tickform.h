@@ -2,6 +2,7 @@
 #define TICKFORM_H
 
 #include <QMap>
+#include <QTimer>
 #include <QWidget>
 
 namespace Ui {
@@ -24,9 +25,11 @@ public slots:
 
 private slots:
     void on_pushButtonFit_clicked();
+    void onUpdateTick();
 
 private:
     Ui::TickForm* ui;
+    QTimer* updateTickTimer_ = nullptr;
 
     QMap<QString, int> instruments_row_;
     QStringList instruments_col_;

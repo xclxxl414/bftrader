@@ -30,21 +30,39 @@ void CtpMgr::showVersion()
 
 void CtpMgr::onMdSmStateChanged(int state)
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (!mdsm_) {
+        logger()->info(QString().sprintf("mdsm freed,ingore onMdSmStateChanged:%d", state));
+        return;
+    }
+
     if (state == MDSM_CONNECTED) {
+        mdsm_logined_ = false;
         if (autoLoginMd_) {
             mdsm_->login(1000, "");
+        } else {
+            mdsm_->stop();
         }
     }
     if (state == MDSM_DISCONNECTED) {
         mdsm_logined_ = false;
+        if (!autoLoginMd_) {
+            mdsm_->stop();
+        }
     }
     if (state == MDSM_LOGINED) {
         mdsm_logined_ = true;
         tryStartSubscrible();
     }
+    // todo(hege):1分钟内如果stop了，就这里的定时器有问题，还是需要做一个队列=
     if (state == MDSM_LOGINFAIL) {
-        logger()->info("mdsm login fail,try again 1 minute later");
-        mdsm_->login(60 * 1000, "");
+        if (autoLoginMd_) {
+            logger()->info("mdsm login fail,try again 1 minute later");
+            mdsm_->login(60 * 1000, "");
+        } else {
+            mdsm_->stop();
+        }
     }
     if (state == MDSM_STOPPED) {
         mdsm_logined_ = false;
@@ -56,21 +74,38 @@ void CtpMgr::onMdSmStateChanged(int state)
 
 void CtpMgr::onTdSmStateChanged(int state)
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (!tdsm_) {
+        logger()->info(QString().sprintf("tdsm freed,ingore onTdSmStateChanged:%d", state));
+        return;
+    }
+
     if (state == TDSM_CONNECTED) {
+        tdsm_logined_ = false;
         if (autoLoginTd_) {
             tdsm_->login(1000, "");
+        } else {
+            tdsm_->stop();
         }
     }
     if (state == TDSM_DISCONNECTED) {
         tdsm_logined_ = false;
+        if (!autoLoginTd_) {
+            tdsm_->stop();
+        }
     }
     if (state == TDSM_LOGINED) {
         tdsm_logined_ = true;
         tryStartSubscrible();
     }
     if (state == TDSM_LOGINFAIL) {
-        logger()->info("tdsm login fail,try again 1 minute later");
-        tdsm_->login(60 * 1000, "");
+        if (autoLoginTd_) {
+            logger()->info("tdsm login fail,try again 1 minute later");
+            tdsm_->login(60 * 1000, "");
+        } else {
+            tdsm_->stop();
+        }
     }
     if (state == TDSM_LOGOUTED) {
         tdsm_logined_ = false;
@@ -90,6 +125,8 @@ void CtpMgr::onTdSmStateChanged(int state)
 
 void CtpMgr::start(QString password)
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     // check
     if (mdsm_ != nullptr || tdsm_ != nullptr) {
         logger()->info("mdsm_!= nullptr || tdsm_ != nullptr");
@@ -116,6 +153,8 @@ void CtpMgr::start(QString password)
 
 bool CtpMgr::initMdSm()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     mdsm_ = new MdSm;
     bool res = mdsm_->init(profile()->get("userId").toString(), password_,
         profile()->get("brokerId").toString(), profile()->get("frontMd").toString(), Profile::flowPathMd());
@@ -130,8 +169,10 @@ bool CtpMgr::initMdSm()
 
 void CtpMgr::startMdSm()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     // go...
-    QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
+    QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged, Qt::QueuedConnection);
     QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
     QObject::connect(mdsm_, &MdSm::tradeClosed, this, &CtpMgr::tradeClosed);
 
@@ -141,6 +182,8 @@ void CtpMgr::startMdSm()
 
 bool CtpMgr::initTdSm()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     tdsm_ = new TdSm;
     bool res = tdsm_->init(profile()->get("userId").toString(), password_,
         profile()->get("brokerId").toString(), profile()->get("frontTd").toString(),
@@ -156,10 +199,13 @@ bool CtpMgr::initTdSm()
 
 void CtpMgr::startTdSm()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     // go...
-    QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
+    QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged, Qt::QueuedConnection);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::onGotInstruments);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::gotInstruments);
+    QObject::connect(tdsm_, &TdSm::gotAccount, this, &CtpMgr::gotAccount);
 
     autoLoginTd_ = true;
     tdsm_->start();
@@ -167,6 +213,8 @@ void CtpMgr::startTdSm()
 
 void CtpMgr::tryStartSubscrible()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     if (mdsm_logined_ && tdsm_logined_) {
         tdsm_->queryInstrument(0, "");
     }
@@ -180,6 +228,8 @@ void CtpMgr::tryStartSubscrible()
 
 void CtpMgr::stop()
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     // check
     if (mdsm_ == nullptr && tdsm_ == nullptr) {
         logger()->info("mdsm_ == nullptr && tdsm_ == nullptr");
@@ -203,6 +253,8 @@ void CtpMgr::stop()
 
 void CtpMgr::onGotInstruments(QStringList ids)
 {
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
     // 开始订阅=
     mdsm_->subscrible(ids, 0, "");
 }
@@ -217,7 +269,32 @@ bool CtpMgr::running()
 
 void* CtpMgr::getContract(QString id)
 {
-    return tdsm_->getContract(id);
+    if (tdsm_) {
+        return tdsm_->getContract(id);
+    }
+
+    logger()->info("tdsm_ == nullptr,please login first");
+    return nullptr;
+}
+
+void* CtpMgr::getLatestTick(QString id)
+{
+    if (mdsm_) {
+        return mdsm_->getLatestTick(id);
+    }
+
+    logger()->info("mdsm_ == nullptr,please login first");
+    return nullptr;
+}
+
+void* CtpMgr::getPreLatestTick(QString id)
+{
+    if (mdsm_) {
+        return mdsm_->getPreLatestTick(id);
+    }
+
+    logger()->info("mdsm_ == nullptr,please login first");
+    return nullptr;
 }
 
 Logger* CtpMgr::logger()
@@ -228,4 +305,15 @@ Logger* CtpMgr::logger()
 Profile* CtpMgr::profile()
 {
     return g_sm->profile();
+}
+
+void CtpMgr::queryAccount()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        logger()->info("please login first");
+        return;
+    }
+    tdsm_->queryAccount(0, "");
 }

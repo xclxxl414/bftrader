@@ -1,6 +1,6 @@
 #include "finishedorderform.h"
-#include "ui_finishedorderform.h"
 #include "nofocusdelegate.h"
+#include "ui_finishedorderform.h"
 
 FinishedOrderForm::FinishedOrderForm(QWidget* parent)
     : QWidget(parent)

@@ -1,5 +1,6 @@
 #include "tdsm.h"
 #include "ThostFtdcTraderApi.h"
+#include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "logger.h"
@@ -15,6 +16,10 @@ public:
     explicit TdSmSpi(TdSm* sm)
         : sm_(sm)
     {
+    }
+    virtual ~TdSmSpi()
+    {
+        resetData();
     }
 
 private:
@@ -54,6 +59,8 @@ private:
         }
     }
 
+    // logout不一定有logout的rep的，可能是直接disconnect+connect，所以在connect里面判断一下是否需要auologin，如果不是
+    // 就是手动停止了，stop掉=
     void OnRspUserLogout(CThostFtdcUserLogoutField* pUserLogout, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
@@ -110,6 +117,27 @@ private:
             }
             info(QString().sprintf("total got ids:%d,%s", ids_.length(), ids.toUtf8().constData()));
             emit sm()->gotInstruments(ids_);
+        }
+    }
+
+    ///请求查询资金账户响应
+    void OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                return;
+            } else {
+                double balance = pTradingAccount->Balance;
+                double available = pTradingAccount->Available;
+                double margin = pTradingAccount->Available;
+                if (margin > 0) {
+                    margin = (margin * 100.0) / balance;
+                }
+                double closeProfit = pTradingAccount->CloseProfit;
+                double positionProfit = pTradingAccount->PositionProfit;
+                emit sm()->gotAccount(balance, available, margin, closeProfit, positionProfit);
+            }
         }
     }
 
@@ -247,6 +275,10 @@ void TdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore TdSm::login");
+            return;
+        }
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
@@ -257,7 +289,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
         //  被流控，一秒后重来=
         if (result == -3) {
             login(retryAfterMsec_, robotId);
-        } else {
+        } else if (result == 0) {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
         }
@@ -270,6 +302,10 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore TdSm::logout");
+            return;
+        }
         CThostFtdcUserLogoutField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
@@ -279,7 +315,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
         //  被流控，一秒后重来=
         if (result == -3) {
             logout(retryAfterMsec_, robotId);
-        } else {
+        } else if (result == 0) {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
         }
@@ -290,6 +326,10 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
     QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore TdSm::queryInstrument");
+            return;
+        }
         CThostFtdcQryInstrumentField req;
         memset(&req, 0, sizeof(req));
         int result = tdapi_->ReqQryInstrument(&req, ++reqId_);
@@ -297,7 +337,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
         //  被流控，一秒后重来=
         if (result == -3) {
             queryInstrument(retryAfterMsec_, robotId);
-        } else {
+        } else if (result == 0) {
             //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
             emit requestSent(reqId_, robotId);
         }
@@ -307,4 +347,26 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 void* TdSm::getContract(QString id)
 {
     return tdspi_->getContract(id);
+}
+
+void TdSm::queryAccount(unsigned int delayTick, QString robotId)
+{
+    info(__FUNCTION__);
+    QTimer::singleShot(delayTick, this, [=] {
+        if (!g_sm->ctpMgr()->running()) {
+            info("ctpmgr stop,ignore TdSm::queryAccount");
+            return;
+        }
+        CThostFtdcQryTradingAccountField req;
+        memset(&req, 0, sizeof(req));
+        int result = tdapi_->ReqQryTradingAccount(&req, ++reqId_);
+        info(QString().sprintf("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId_, result));
+        //  被流控，一秒后重来=
+        if (result == -3) {
+            queryAccount(retryAfterMsec_, robotId);
+        } else if (result == 0) {
+            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
+            emit requestSent(reqId_, robotId);
+        }
+    });
 }

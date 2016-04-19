@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "accountform.h"
 #include "configdialog.h"
 #include "contractform.h"
 #include "ctpmgr.h"
@@ -19,7 +20,6 @@
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
-#include "accountform.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -58,8 +58,9 @@ MainWindow::MainWindow(QWidget* parent)
     ui->tabWidgetOrder->addTab(tradeForm_, "trade");
 
     // statusbar,隐藏那个竖线=
+    accountForm_ = new AccountForm(this);
     ui->statusBar->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
-    ui->statusBar->addWidget(new AccountForm(this));
+    ui->statusBar->addWidget(accountForm_);
 }
 
 MainWindow::~MainWindow()
@@ -77,6 +78,7 @@ void MainWindow::init()
     pendingOrderForm_->init();
     finishedOrderForm_->init();
     tradeForm_->init();
+    accountForm_->init();
 
     // ctpmgr
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &MainWindow::onTradeClosed);
@@ -92,6 +94,7 @@ void MainWindow::shutdown()
     pendingOrderForm_->shutdown();
     finishedOrderForm_->shutdown();
     tradeForm_->shutdown();
+    accountForm_->shutdown();
 }
 
 void MainWindow::onTradeClosed()

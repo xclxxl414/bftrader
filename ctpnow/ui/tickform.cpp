@@ -50,13 +50,21 @@ TickForm::~TickForm()
 void TickForm::init()
 {
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
+    // tablewidget更新ui太慢了(是自适应高度和宽度搞的，去掉自适应后好了)，不过改成500毫秒的定时器也不错=
+    //QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &TickForm::onGotInstruments);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &TickForm::onTradeClosed);
+
+    this->updateTickTimer_ = new QTimer(this);
+    this->updateTickTimer_->setInterval(500);
+    QObject::connect(this->updateTickTimer_, &QTimer::timeout, this, &TickForm::onUpdateTick);
 }
 
 void TickForm::shutdown()
 {
+    this->updateTickTimer_->stop();
+    delete this->updateTickTimer_;
+    this->updateTickTimer_ = nullptr;
 }
 
 void TickForm::onGotTick(void* curTick, void* preTick)
@@ -66,8 +74,15 @@ void TickForm::onGotTick(void* curTick, void* preTick)
 
     QVariantMap mdItem;
     mdItem.insert("symbol", curMdf->InstrumentID);
-    mdItem.insert("exchange", curMdf->ExchangeID);
-
+    // tick里面的exchange不一定有=
+    QString exchange = curMdf->ExchangeID;
+    if (exchange.trimmed().length() == 0) {
+        auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(curMdf->InstrumentID);
+        if (contract) {
+            exchange = contract->ExchangeID;
+        }
+    }
+    mdItem.insert("exchange", exchange);
     mdItem.insert("date", curMdf->ActionDay);
     mdItem.insert("time", QString().sprintf("%s.%3d", curMdf->UpdateTime, curMdf->UpdateMillisec));
     mdItem.insert("lastPrice", curMdf->LastPrice);
@@ -116,10 +131,14 @@ void TickForm::onGotInstruments(QStringList ids)
         QTableWidgetItem* item = new QTableWidgetItem(id);
         ui->tableWidget->setItem(i, 0, item);
     }
+
+    this->updateTickTimer_->start();
 }
 
 void TickForm::onTradeClosed()
 {
+    this->updateTickTimer_->stop();
+
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);
@@ -128,4 +147,16 @@ void TickForm::onTradeClosed()
 void TickForm::on_pushButtonFit_clicked()
 {
     bfFitTableWidget(ui->tableWidget);
+}
+
+void TickForm::onUpdateTick()
+{
+    for (int i = 0; i < instruments_row_.size(); i++) {
+        QString id = instruments_row_.key(i);
+        void* curTick = g_sm->ctpMgr()->getLatestTick(id);
+        void* preTick = g_sm->ctpMgr()->getPreLatestTick(id);
+        if (curTick) {
+            onGotTick(curTick, preTick);
+        }
+    }
 }

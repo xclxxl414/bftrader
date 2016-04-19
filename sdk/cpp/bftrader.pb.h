@@ -820,16 +820,10 @@ class BfTickData : public ::google::protobuf::Message {
   ::google::protobuf::int32 lastvolume() const;
   void set_lastvolume(::google::protobuf::int32 value);
 
-  // optional double lastOpenInterest = 9;
-  void clear_lastopeninterest();
-  static const int kLastOpenInterestFieldNumber = 9;
-  double lastopeninterest() const;
-  void set_lastopeninterest(double value);
-
-  // repeated .bftrader.BfBidAskInfo bidaskInfo = 10;
+  // repeated .bftrader.BfBidAskInfo bidaskInfo = 9;
   int bidaskinfo_size() const;
   void clear_bidaskinfo();
-  static const int kBidaskInfoFieldNumber = 10;
+  static const int kBidaskInfoFieldNumber = 9;
   const ::bftrader::BfBidAskInfo& bidaskinfo(int index) const;
   ::bftrader::BfBidAskInfo* mutable_bidaskinfo(int index);
   ::bftrader::BfBidAskInfo* add_bidaskinfo();
@@ -838,10 +832,10 @@ class BfTickData : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::bftrader::BfBidAskInfo >&
       bidaskinfo() const;
 
-  // optional .bftrader.BfDailyInfo dailyInfo = 11;
+  // optional .bftrader.BfDailyInfo dailyInfo = 10;
   bool has_dailyinfo() const;
   void clear_dailyinfo();
-  static const int kDailyInfoFieldNumber = 11;
+  static const int kDailyInfoFieldNumber = 10;
   private:
   void _slow_mutable_dailyinfo();
   void _slow_set_allocated_dailyinfo(
@@ -872,7 +866,6 @@ class BfTickData : public ::google::protobuf::Message {
   double openinterest_;
   ::google::protobuf::int32 volume_;
   ::google::protobuf::int32 lastvolume_;
-  double lastopeninterest_;
   ::google::protobuf::RepeatedPtrField< ::bftrader::BfBidAskInfo > bidaskinfo_;
   ::bftrader::BfDailyInfo* dailyinfo_;
   mutable int _cached_size_;
@@ -1188,16 +1181,10 @@ class BfBarData : public ::google::protobuf::Message {
   ::google::protobuf::int32 lastvolume() const;
   void set_lastvolume(::google::protobuf::int32 value);
 
-  // optional double lastOpenInterest = 9;
-  void clear_lastopeninterest();
-  static const int kLastOpenInterestFieldNumber = 9;
-  double lastopeninterest() const;
-  void set_lastopeninterest(double value);
-
-  // optional .bftrader.BfOHLCInfo ohlcInfo = 10;
+  // optional .bftrader.BfOHLCInfo ohlcInfo = 9;
   bool has_ohlcinfo() const;
   void clear_ohlcinfo();
-  static const int kOhlcInfoFieldNumber = 10;
+  static const int kOhlcInfoFieldNumber = 9;
   private:
   void _slow_mutable_ohlcinfo();
   void _slow_set_allocated_ohlcinfo(
@@ -1212,10 +1199,10 @@ class BfBarData : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_ohlcinfo(
       ::bftrader::BfOHLCInfo* ohlcinfo);
 
-  // optional .bftrader.BfDailyInfo dailyInfo = 11;
+  // optional .bftrader.BfDailyInfo dailyInfo = 10;
   bool has_dailyinfo() const;
   void clear_dailyinfo();
-  static const int kDailyInfoFieldNumber = 11;
+  static const int kDailyInfoFieldNumber = 10;
   private:
   void _slow_mutable_dailyinfo();
   void _slow_set_allocated_dailyinfo(
@@ -1245,7 +1232,6 @@ class BfBarData : public ::google::protobuf::Message {
   ::google::protobuf::int32 volume_;
   ::google::protobuf::internal::ArenaStringPtr time_;
   double openinterest_;
-  double lastopeninterest_;
   ::bftrader::BfOHLCInfo* ohlcinfo_;
   ::bftrader::BfDailyInfo* dailyinfo_;
   ::google::protobuf::int32 lastvolume_;
@@ -1765,12 +1751,6 @@ class BfPositionData : public ::google::protobuf::Message {
   double price() const;
   void set_price(double value);
 
-  // optional int32 ydPosition = 7;
-  void clear_ydposition();
-  static const int kYdPositionFieldNumber = 7;
-  ::google::protobuf::int32 ydposition() const;
-  void set_ydposition(::google::protobuf::int32 value);
-
   // @@protoc_insertion_point(class_scope:bftrader.BfPositionData)
  private:
 
@@ -1785,7 +1765,6 @@ class BfPositionData : public ::google::protobuf::Message {
   ::google::protobuf::int32 position_;
   double price_;
   ::google::protobuf::int32 frozen_;
-  ::google::protobuf::int32 ydposition_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -2313,6 +2292,30 @@ class BfContractData : public ::google::protobuf::Message {
   double pricetick() const;
   void set_pricetick(double value);
 
+  // optional int32 maxLimit = 7;
+  void clear_maxlimit();
+  static const int kMaxLimitFieldNumber = 7;
+  ::google::protobuf::int32 maxlimit() const;
+  void set_maxlimit(::google::protobuf::int32 value);
+
+  // optional int32 minLimit = 8;
+  void clear_minlimit();
+  static const int kMinLimitFieldNumber = 8;
+  ::google::protobuf::int32 minlimit() const;
+  void set_minlimit(::google::protobuf::int32 value);
+
+  // optional int32 maxMarket = 9;
+  void clear_maxmarket();
+  static const int kMaxMarketFieldNumber = 9;
+  ::google::protobuf::int32 maxmarket() const;
+  void set_maxmarket(::google::protobuf::int32 value);
+
+  // optional int32 minMartet = 10;
+  void clear_minmartet();
+  static const int kMinMartetFieldNumber = 10;
+  ::google::protobuf::int32 minmartet() const;
+  void set_minmartet(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:bftrader.BfContractData)
  private:
 
@@ -2327,6 +2330,10 @@ class BfContractData : public ::google::protobuf::Message {
   int productclass_;
   ::google::protobuf::int32 volumemultiple_;
   double pricetick_;
+  ::google::protobuf::int32 maxlimit_;
+  ::google::protobuf::int32 minlimit_;
+  ::google::protobuf::int32 maxmarket_;
+  ::google::protobuf::int32 minmartet_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -4137,21 +4144,7 @@ inline void BfTickData::set_lastvolume(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:bftrader.BfTickData.lastVolume)
 }
 
-// optional double lastOpenInterest = 9;
-inline void BfTickData::clear_lastopeninterest() {
-  lastopeninterest_ = 0;
-}
-inline double BfTickData::lastopeninterest() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.lastOpenInterest)
-  return lastopeninterest_;
-}
-inline void BfTickData::set_lastopeninterest(double value) {
-  
-  lastopeninterest_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.lastOpenInterest)
-}
-
-// repeated .bftrader.BfBidAskInfo bidaskInfo = 10;
+// repeated .bftrader.BfBidAskInfo bidaskInfo = 9;
 inline int BfTickData::bidaskinfo_size() const {
   return bidaskinfo_.size();
 }
@@ -4181,7 +4174,7 @@ BfTickData::bidaskinfo() const {
   return bidaskinfo_;
 }
 
-// optional .bftrader.BfDailyInfo dailyInfo = 11;
+// optional .bftrader.BfDailyInfo dailyInfo = 10;
 inline bool BfTickData::has_dailyinfo() const {
   return !_is_default_instance_ && dailyinfo_ != NULL;
 }
@@ -4834,21 +4827,7 @@ inline void BfBarData::set_lastvolume(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:bftrader.BfBarData.lastVolume)
 }
 
-// optional double lastOpenInterest = 9;
-inline void BfBarData::clear_lastopeninterest() {
-  lastopeninterest_ = 0;
-}
-inline double BfBarData::lastopeninterest() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.lastOpenInterest)
-  return lastopeninterest_;
-}
-inline void BfBarData::set_lastopeninterest(double value) {
-  
-  lastopeninterest_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.lastOpenInterest)
-}
-
-// optional .bftrader.BfOHLCInfo ohlcInfo = 10;
+// optional .bftrader.BfOHLCInfo ohlcInfo = 9;
 inline bool BfBarData::has_ohlcinfo() const {
   return !_is_default_instance_ && ohlcinfo_ != NULL;
 }
@@ -4895,7 +4874,7 @@ inline  void BfBarData::set_allocated_ohlcinfo(::bftrader::BfOHLCInfo* ohlcinfo)
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.ohlcInfo)
 }
 
-// optional .bftrader.BfDailyInfo dailyInfo = 11;
+// optional .bftrader.BfDailyInfo dailyInfo = 10;
 inline bool BfBarData::has_dailyinfo() const {
   return !_is_default_instance_ && dailyinfo_ != NULL;
 }
@@ -5918,20 +5897,6 @@ inline void BfPositionData::set_price(double value) {
   // @@protoc_insertion_point(field_set:bftrader.BfPositionData.price)
 }
 
-// optional int32 ydPosition = 7;
-inline void BfPositionData::clear_ydposition() {
-  ydposition_ = 0;
-}
-inline ::google::protobuf::int32 BfPositionData::ydposition() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.ydPosition)
-  return ydposition_;
-}
-inline void BfPositionData::set_ydposition(::google::protobuf::int32 value) {
-  
-  ydposition_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.ydPosition)
-}
-
 // -------------------------------------------------------------------
 
 // BfAccountData
@@ -6662,6 +6627,62 @@ inline void BfContractData::set_pricetick(double value) {
   
   pricetick_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfContractData.priceTick)
+}
+
+// optional int32 maxLimit = 7;
+inline void BfContractData::clear_maxlimit() {
+  maxlimit_ = 0;
+}
+inline ::google::protobuf::int32 BfContractData::maxlimit() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.maxLimit)
+  return maxlimit_;
+}
+inline void BfContractData::set_maxlimit(::google::protobuf::int32 value) {
+  
+  maxlimit_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxLimit)
+}
+
+// optional int32 minLimit = 8;
+inline void BfContractData::clear_minlimit() {
+  minlimit_ = 0;
+}
+inline ::google::protobuf::int32 BfContractData::minlimit() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minLimit)
+  return minlimit_;
+}
+inline void BfContractData::set_minlimit(::google::protobuf::int32 value) {
+  
+  minlimit_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minLimit)
+}
+
+// optional int32 maxMarket = 9;
+inline void BfContractData::clear_maxmarket() {
+  maxmarket_ = 0;
+}
+inline ::google::protobuf::int32 BfContractData::maxmarket() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.maxMarket)
+  return maxmarket_;
+}
+inline void BfContractData::set_maxmarket(::google::protobuf::int32 value) {
+  
+  maxmarket_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxMarket)
+}
+
+// optional int32 minMartet = 10;
+inline void BfContractData::clear_minmartet() {
+  minmartet_ = 0;
+}
+inline ::google::protobuf::int32 BfContractData::minmartet() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMartet)
+  return minmartet_;
+}
+inline void BfContractData::set_minmartet(::google::protobuf::int32 value) {
+  
+  minmartet_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMartet)
 }
 
 // -------------------------------------------------------------------

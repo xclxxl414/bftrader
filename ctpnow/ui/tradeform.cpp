@@ -1,6 +1,6 @@
 #include "tradeform.h"
-#include "ui_tradeform.h"
 #include "nofocusdelegate.h"
+#include "ui_tradeform.h"
 
 TradeForm::TradeForm(QWidget* parent)
     : QWidget(parent)
