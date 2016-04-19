@@ -18,6 +18,9 @@ void CtpMgr::init()
 void CtpMgr::shutdown()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    freeContracts();
+    freeRingBuffer();
 }
 
 void CtpMgr::showVersion()
@@ -56,6 +59,7 @@ void CtpMgr::onMdSmStateChanged(int state)
         tryStartSubscrible();
     }
     // todo(hege):1分钟内如果stop了，就这里的定时器有问题，还是需要做一个队列=
+    // 先在lambda里面判断running=
     if (state == MDSM_LOGINFAIL) {
         if (autoLoginMd_) {
             logger()->info("mdsm login fail,try again 1 minute later");
@@ -99,6 +103,8 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_logined_ = true;
         tryStartSubscrible();
     }
+    // todo(hege):1分钟内如果stop了，就这里的定时器有问题，还是需要做一个队列=
+    // 先在lambda里面判断running=
     if (state == TDSM_LOGINFAIL) {
         if (autoLoginTd_) {
             logger()->info("tdsm login fail,try again 1 minute later");
@@ -172,9 +178,9 @@ void CtpMgr::startMdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged, Qt::QueuedConnection);
+    // 最好为Qt::QueuedConnection，因为stop里面会删除sm，如果queue，中间队列里面有信号再来访问sm:-(
+    QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
     QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
-    QObject::connect(mdsm_, &MdSm::tradeClosed, this, &CtpMgr::tradeClosed);
 
     autoLoginMd_ = true;
     mdsm_->start();
@@ -202,7 +208,8 @@ void CtpMgr::startTdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged, Qt::QueuedConnection);
+    // 最好为Qt::QueuedConnection，因为stop里面会删除sm，如果queue，中间队列里面有信号再来访问sm:-(
+    QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::onGotInstruments);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::gotInstruments);
     QObject::connect(tdsm_, &TdSm::gotAccount, this, &CtpMgr::gotAccount);
@@ -216,7 +223,10 @@ void CtpMgr::tryStartSubscrible()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (mdsm_logined_ && tdsm_logined_) {
-        tdsm_->queryInstrument(0, "");
+        emit this->tradeWillBegin();
+        tdsm_->resetData();
+        mdsm_->resetData();
+        tdsm_->queryInstrument(1000, "");
     }
     if (tdsm_ == nullptr) {
         if (!initTdSm()) {
@@ -267,34 +277,20 @@ bool CtpMgr::running()
     return false;
 }
 
-void* CtpMgr::getContract(QString id)
-{
-    if (tdsm_) {
-        return tdsm_->getContract(id);
-    }
-
-    logger()->info("tdsm_ == nullptr,please login first");
-    return nullptr;
-}
-
 void* CtpMgr::getLatestTick(QString id)
 {
-    if (mdsm_) {
-        return mdsm_->getLatestTick(id);
-    }
-
-    logger()->info("mdsm_ == nullptr,please login first");
-    return nullptr;
+    auto rb = getRingBuffer(id);
+    return rb->get(rb->head());
 }
 
 void* CtpMgr::getPreLatestTick(QString id)
 {
-    if (mdsm_) {
-        return mdsm_->getPreLatestTick(id);
+    auto rb = getRingBuffer(id);
+    int preIndex = rb->head() - 1;
+    if (preIndex < 0) {
+        preIndex += rb->count();
     }
-
-    logger()->info("mdsm_ == nullptr,please login first");
-    return nullptr;
+    return rb->get(preIndex);
 }
 
 Logger* CtpMgr::logger()
@@ -312,8 +308,71 @@ void CtpMgr::queryAccount()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("please login first");
+        logger()->info("CtpMgr::queryAccount,please login first");
         return;
     }
     tdsm_->queryAccount(0, "");
+}
+
+void CtpMgr::freeContracts()
+{
+    auto contract_list = contracts_.values();
+    for (int i = 0; i < contract_list.length(); i++) {
+        auto contract = contract_list.at(i);
+        delete contract;
+    }
+    contracts_.clear();
+}
+
+void* CtpMgr::getContract(QString id)
+{
+    auto contract = contracts_.value(id);
+    if (contract == nullptr) {
+        qFatal("contract == nullptr");
+    }
+
+    return contract;
+}
+
+void CtpMgr::insertContract(QString id, void* contract)
+{
+    auto oldVal = contracts_.value(id);
+    if (oldVal != nullptr) {
+        qFatal("oldVal != nullptr");
+    }
+    contracts_[id] = contract;
+}
+
+RingBuffer* CtpMgr::getRingBuffer(QString id)
+{
+    RingBuffer* rb = rbs_.value(id);
+    if (rb == nullptr) {
+        qFatal("rb == nullptr");
+    }
+
+    return rb;
+}
+
+void CtpMgr::initRingBuffer(int itemLen, QStringList ids)
+{
+    if (rbs_.count() != 0) {
+        qFatal("rbs_.count() != 0");
+    }
+
+    for (auto id : ids) {
+        RingBuffer* rb = new RingBuffer;
+        rb->init(itemLen, ringBufferLen_);
+        rbs_.insert(id, rb);
+    }
+}
+
+void CtpMgr::freeRingBuffer()
+{
+    auto rb_list = rbs_.values();
+    for (int i = 0; i < rb_list.length(); i++) {
+        RingBuffer* rb = rb_list.at(i);
+        rb->free();
+        delete rb;
+    }
+    rbs_.clear();
 }

@@ -43,7 +43,7 @@ void ContractForm::init()
 {
     // ctpmgr
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &ContractForm::onGotInstruments);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &ContractForm::onTradeClosed);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &ContractForm::onTradeWillBegin);
 }
 
 void ContractForm::shutdown()
@@ -106,7 +106,7 @@ void ContractForm::onGotContract(void* contract)
     }
 }
 
-void ContractForm::onTradeClosed()
+void ContractForm::onTradeWillBegin()
 {
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();

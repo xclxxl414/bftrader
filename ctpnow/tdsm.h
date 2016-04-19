@@ -30,11 +30,11 @@ public:
     void stop();
     void info(QString msg);
     static QString version();
+    void resetData();
 
     void login(unsigned int delayTick, QString robotId);
     void logout(unsigned int delayTick, QString robotId);
     void queryInstrument(unsigned int delayTick, QString robotId);
-    void* getContract(QString id);
     void queryAccount(unsigned int delayTick, QString robotId);
 
 signals:

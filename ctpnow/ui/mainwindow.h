@@ -33,7 +33,7 @@ public:
     void shutdown();
 
 public slots:
-    void onTradeClosed();
+    void onTradeWillBegin();
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);

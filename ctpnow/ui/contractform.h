@@ -17,9 +17,9 @@ public:
     void init();
     void shutdown();
 
-public slots:
+private slots:
     void onGotInstruments(QStringList ids);
-    void onTradeClosed();
+    void onTradeWillBegin();
 
 private:
     void onGotContract(void* contract);

@@ -4,7 +4,6 @@
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "logger.h"
-#include "ringbuffer.h"
 #include "servicemgr.h"
 #include <QDateTime>
 #include <QDir>
@@ -17,10 +16,6 @@ public:
     explicit MdSmSpi(MdSm* sm)
         : sm_(sm)
     {
-    }
-    virtual ~MdSmSpi()
-    {
-        resetData();
     }
 
 private:
@@ -37,11 +32,7 @@ private:
         info(QString().sprintf("MdSmSpi::OnFrontDisconnected,nReason=0x%x",
             nReason));
 
-        resetData();
         emit sm()->statusChanged(MDSM_DISCONNECTED);
-
-        // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
-        emit sm()->tradeClosed();
     }
 
     // errorId=7，msg=CTP:还没有初始化=
@@ -108,7 +99,7 @@ private:
         CThostFtdcDepthMarketDataField* pDepthMarketData) override
     {
         QString id = pDepthMarketData->InstrumentID;
-        auto rb = getRingBuffer(id);
+        auto rb = g_sm->ctpMgr()->getRingBuffer(id);
         if (!isValidTick(rb, pDepthMarketData)) {
             return;
         }
@@ -134,44 +125,10 @@ private:
     void resetData()
     {
         got_ids_.clear();
-        freeRingBuffer();
+        g_sm->ctpMgr()->freeRingBuffer();
     }
 
     void info(QString msg) { g_sm->logger()->info(msg); }
-
-    RingBuffer* getRingBuffer(QString id)
-    {
-        RingBuffer* rb = rbs_.value(id);
-        if (rb == nullptr) {
-            qFatal("rb == nullptr");
-        }
-
-        return rb;
-    }
-
-    void initRingBuffer(QStringList ids)
-    {
-        if (rbs_.count() != 0) {
-            qFatal("rbs_.count() != 0");
-        }
-
-        for (auto id : ids) {
-            RingBuffer* rb = new RingBuffer;
-            rb->init(sizeof(CThostFtdcDepthMarketDataField), ringBufferLen_);
-            rbs_.insert(id, rb);
-        }
-    }
-
-    void freeRingBuffer()
-    {
-        auto rb_list = rbs_.values();
-        for (int i = 0; i < rb_list.length(); i++) {
-            RingBuffer* rb = rb_list.at(i);
-            rb->free();
-            delete rb;
-        }
-        rbs_.clear();
-    }
 
     // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
     // 1.总成交量为0的：无效=
@@ -201,28 +158,9 @@ private:
         return true;
     }
 
-    void* getLatestTick(QString id)
-    {
-        auto rb = getRingBuffer(id);
-        return rb->get(rb->head());
-    }
-
-    void* getPreLatestTick(QString id)
-    {
-        auto rb = getRingBuffer(id);
-        int preIndex = rb->head() - 1;
-        if (preIndex < 0) {
-            preIndex += rb->count();
-        }
-        return rb->get(preIndex);
-    }
-
 private:
     MdSm* sm_;
     QStringList got_ids_;
-
-    QMap<QString, RingBuffer*> rbs_;
-    const int ringBufferLen_ = 256;
 
     friend MdSm;
 };
@@ -281,15 +219,13 @@ void MdSm::stop()
         return;
     }
 
-    mdapi_->RegisterSpi(nullptr);
-    mdapi_->Release();
+    this->mdapi_->RegisterSpi(nullptr);
+    this->mdapi_->Release();
 
-    mdapi_ = nullptr;
-    delete mdspi_;
-    mdspi_ = nullptr;
+    this->mdapi_ = nullptr;
+    delete this->mdspi_;
+    this->mdspi_ = nullptr;
     emit this->statusChanged(MDSM_STOPPED);
-    // 发一个收盘信号，便于最后一分钟的数据写盘，做数据收盘处理等等=
-    emit this->tradeClosed();
 }
 
 void MdSm::info(QString msg)
@@ -300,6 +236,11 @@ void MdSm::info(QString msg)
 QString MdSm::version()
 {
     return CThostFtdcMdApi::GetApiVersion();
+}
+
+void MdSm::resetData()
+{
+    this->mdspi_->resetData();
 }
 
 void MdSm::login(unsigned int delayTick, QString robotId)
@@ -349,17 +290,7 @@ void MdSm::subscrible(QStringList ids,
         if (result == -3) {
             subscrible(ids, retryAfterMsec_, robotId);
         } else if (result == 0) {
-            mdspi_->initRingBuffer(ids);
+            g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids);
         }
     });
-}
-
-void* MdSm::getLatestTick(QString id)
-{
-    return mdspi_->getLatestTick(id);
-}
-
-void* MdSm::getPreLatestTick(QString id)
-{
-    return mdspi_->getPreLatestTick(id);
 }

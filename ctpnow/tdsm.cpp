@@ -17,10 +17,6 @@ public:
         : sm_(sm)
     {
     }
-    virtual ~TdSmSpi()
-    {
-        resetData();
-    }
 
 private:
     void OnFrontConnected() override
@@ -37,7 +33,6 @@ private:
     {
         info(QString().sprintf("TdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason));
 
-        resetData();
         emit sm()->statusChanged(TDSM_DISCONNECTED);
     }
 
@@ -103,7 +98,7 @@ private:
                         // 保存一份供查询=
                         CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
                         memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
-                        contracts_[id] = contract;
+                        g_sm->ctpMgr()->insertContract(id, contract);
                         break;
                     }
                 }
@@ -160,14 +155,7 @@ private:
     {
         ids_.clear();
         idPrefixList_.clear();
-
-        // free contracts
-        auto contract_list = contracts_.values();
-        for (int i = 0; i < contract_list.length(); i++) {
-            auto contract = (CThostFtdcInstrumentField*)contract_list.at(i);
-            delete contract;
-        }
-        contracts_.clear();
+        g_sm->ctpMgr()->freeContracts();
     }
 
     void info(QString msg)
@@ -175,21 +163,10 @@ private:
         g_sm->logger()->info(msg);
     }
 
-    void* getContract(QString id)
-    {
-        auto contract = contracts_.value(id);
-        if (contract == nullptr) {
-            qFatal("contract == nullptr");
-        }
-
-        return contract;
-    }
-
 private:
     TdSm* sm_;
     QStringList ids_;
     QStringList idPrefixList_;
-    QMap<QString, CThostFtdcInstrumentField*> contracts_;
 
     friend TdSm;
 };
@@ -252,12 +229,12 @@ void TdSm::stop()
         return;
     }
 
-    tdapi_->RegisterSpi(nullptr);
-    tdapi_->Release();
+    this->tdapi_->RegisterSpi(nullptr);
+    this->tdapi_->Release();
 
-    tdapi_ = nullptr;
-    delete tdspi_;
-    tdspi_ = nullptr;
+    this->tdapi_ = nullptr;
+    delete this->tdspi_;
+    this->tdspi_ = nullptr;
     emit this->statusChanged(TDSM_STOPPED);
 }
 
@@ -269,6 +246,11 @@ void TdSm::info(QString msg)
 QString TdSm::version()
 {
     return CThostFtdcTraderApi::GetApiVersion();
+}
+
+void TdSm::resetData()
+{
+    this->tdspi_->resetData();
 }
 
 void TdSm::login(unsigned int delayTick, QString robotId)
@@ -342,11 +324,6 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
             emit requestSent(reqId_, robotId);
         }
     });
-}
-
-void* TdSm::getContract(QString id)
-{
-    return tdspi_->getContract(id);
 }
 
 void TdSm::queryAccount(unsigned int delayTick, QString robotId)

@@ -81,7 +81,7 @@ void MainWindow::init()
     accountForm_->init();
 
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &MainWindow::onTradeClosed);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &MainWindow::onTradeWillBegin);
 }
 
 void MainWindow::shutdown()
@@ -97,9 +97,9 @@ void MainWindow::shutdown()
     accountForm_->shutdown();
 }
 
-void MainWindow::onTradeClosed()
+void MainWindow::onTradeWillBegin()
 {
-    logger()->info("onTradeClosed");
+    logger()->info(__FUNCTION__);
 }
 
 void MainWindow::on_actionVersion_triggered()

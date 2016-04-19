@@ -30,14 +30,12 @@ public:
 
     void login(unsigned int delayTick, QString robotId);
     void subscrible(QStringList ids, unsigned int delayTick, QString robotId);
-    void* getLatestTick(QString id);
-    void* getPreLatestTick(QString id);
+    void resetData();
 
 signals:
     void statusChanged(int state);
     void requestSent(int reqId, QString robotId);
     void gotTick(void* curTick, void* preTick);
-    void tradeClosed();
 
 private:
     QString userId_, password_, brokerId_, frontMd_, flowPathMd_;

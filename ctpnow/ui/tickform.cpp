@@ -53,7 +53,7 @@ void TickForm::init()
     // tablewidget更新ui太慢了(是自适应高度和宽度搞的，去掉自适应后好了)，不过改成500毫秒的定时器也不错=
     //QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &TickForm::onGotInstruments);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeClosed, this, &TickForm::onTradeClosed);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &TickForm::onTradeWillBegin);
 
     this->updateTickTimer_ = new QTimer(this);
     this->updateTickTimer_->setInterval(500);
@@ -135,7 +135,7 @@ void TickForm::onGotInstruments(QStringList ids)
     this->updateTickTimer_->start();
 }
 
-void TickForm::onTradeClosed()
+void TickForm::onTradeWillBegin()
 {
     this->updateTickTimer_->stop();
 

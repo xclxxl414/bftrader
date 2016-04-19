@@ -18,14 +18,12 @@ public:
     void init();
     void shutdown();
 
-public slots:
+private slots:
     void onGotInstruments(QStringList ids);
     void onGotTick(void* curTick, void* preTick);
-    void onTradeClosed();
-
-private slots:
-    void on_pushButtonFit_clicked();
+    void onTradeWillBegin();
     void onUpdateTick();
+    void on_pushButtonFit_clicked();
 
 private:
     Ui::TickForm* ui;
