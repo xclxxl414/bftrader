@@ -47,8 +47,6 @@ private:
     QString userId_, password_, brokerId_, frontTd_, flowPathTd_, idPrefixList_;
     CThostFtdcTraderApi* tdapi_ = nullptr;
     TdSmSpi* tdspi_ = nullptr;
-    int reqId_ = 1;
-    const int retryAfterMsec_ = 1000;
 
     friend TdSmSpi;
 };

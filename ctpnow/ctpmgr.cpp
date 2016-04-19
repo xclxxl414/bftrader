@@ -4,6 +4,7 @@
 #include "profile.h"
 #include "servicemgr.h"
 #include "tdsm.h"
+#include <windows.h>
 
 CtpMgr::CtpMgr(QObject* parent)
     : QObject(parent)
@@ -13,11 +14,20 @@ CtpMgr::CtpMgr(QObject* parent)
 void CtpMgr::init()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    cmdRunnerTimer_ = new QTimer;
+    cmdRunnerTimer_->setInterval(100);
+    QObject::connect(cmdRunnerTimer_, &QTimer::timeout, this, &CtpMgr::onRunCmdInterval);
+    cmdRunnerTimer_->start();
 }
 
 void CtpMgr::shutdown()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    cmdRunnerTimer_->stop();
+    delete cmdRunnerTimer_;
+    cmdRunnerTimer_ = nullptr;
 
     freeContracts();
     freeRingBuffer();
@@ -58,8 +68,6 @@ void CtpMgr::onMdSmStateChanged(int state)
         mdsm_logined_ = true;
         tryStartSubscrible();
     }
-    // todo(hege):1分钟内如果stop了，就这里的定时器有问题，还是需要做一个队列=
-    // 先在lambda里面判断running=
     if (state == MDSM_LOGINFAIL) {
         if (autoLoginMd_) {
             logger()->info("mdsm login fail,try again 1 minute later");
@@ -94,6 +102,7 @@ void CtpMgr::onTdSmStateChanged(int state)
         }
     }
     if (state == TDSM_DISCONNECTED) {
+        resetCmds();
         tdsm_logined_ = false;
         if (!autoLoginTd_) {
             tdsm_->stop();
@@ -103,8 +112,6 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_logined_ = true;
         tryStartSubscrible();
     }
-    // todo(hege):1分钟内如果stop了，就这里的定时器有问题，还是需要做一个队列=
-    // 先在lambda里面判断running=
     if (state == TDSM_LOGINFAIL) {
         if (autoLoginTd_) {
             logger()->info("tdsm login fail,try again 1 minute later");
@@ -122,6 +129,7 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_->stop();
     }
     if (state == TDSM_STOPPED) {
+        resetCmds();
         tdsm_logined_ = false;
         delete tdsm_;
         tdsm_ = nullptr;
@@ -178,7 +186,6 @@ void CtpMgr::startMdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    // 最好为Qt::QueuedConnection，因为stop里面会删除sm，如果queue，中间队列里面有信号再来访问sm:-(
     QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
     QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
 
@@ -208,7 +215,6 @@ void CtpMgr::startTdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    // 最好为Qt::QueuedConnection，因为stop里面会删除sm，如果queue，中间队列里面有信号再来访问sm:-(
     QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::onGotInstruments);
     QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::gotInstruments);
@@ -375,4 +381,62 @@ void CtpMgr::freeRingBuffer()
         delete rb;
     }
     rbs_.clear();
+}
+
+void CtpMgr::onRunCmdInterval()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (cmds_.length() == 0) {
+        return;
+    }
+
+    CtpCmd* cmd = cmds_.head();
+
+    // 检查时间是否到了=
+    quint32 curTick = ::GetTickCount();
+    if (curTick < cmd->expires) {
+        return;
+    }
+
+    // 流控了就一秒后重试=
+    if (cmd->fn(++reqId_, cmd->robotId) == -3) {
+        cmd->expires = curTick + 1000;
+        g_sm->logger()->info(QString().sprintf("发包太快，reqId=%d", reqId_));
+        return;
+    }
+
+    // 消费掉这个cmd=
+    cmds_.dequeue();
+    delete cmd;
+}
+
+void CtpMgr::runCmd(CtpCmd* cmd)
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (cmd->delayTick == 0) {
+        int result = cmd->fn(++reqId_, cmd->robotId);
+        if (result == -3) {
+            g_sm->logger()->info(QString().sprintf("发包太快，reqId=%d", reqId_));
+            cmd->expires = ::GetTickCount() + 1000;
+            cmds_.append(cmd);
+        } else {
+            delete cmd;
+        }
+    } else {
+        cmd->expires = ::GetTickCount() + cmd->delayTick;
+        cmds_.append(cmd);
+    }
+}
+void CtpMgr::resetCmds()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    logger()->info(__FUNCTION__);
+
+    for (auto cmd : cmds_) {
+        delete cmd;
+    }
+    cmds_.clear();
 }

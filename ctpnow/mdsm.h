@@ -41,8 +41,6 @@ private:
     QString userId_, password_, brokerId_, frontMd_, flowPathMd_;
     CThostFtdcMdApi* mdapi_ = nullptr;
     MdSmSpi* mdspi_ = nullptr;
-    int reqId_ = 0;
-    const int retryAfterMsec_ = 1000;
 
     friend MdSmSpi;
 };

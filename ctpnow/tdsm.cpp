@@ -6,9 +6,6 @@
 #include "logger.h"
 #include "servicemgr.h"
 #include <QDir>
-#include <QMap>
-#include <QTimer>
-#include <leveldb/db.h>
 
 ///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
@@ -153,6 +150,8 @@ private:
 
     void resetData()
     {
+        g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
         ids_.clear();
         idPrefixList_.clear();
         g_sm->ctpMgr()->freeContracts();
@@ -256,26 +255,26 @@ void TdSm::resetData()
 void TdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore TdSm::login");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
-        int result = tdapi_->ReqUserLogin(&req, ++reqId_);
-        info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId_, result));
-        //  被流控，一秒后重来=
-        if (result == -3) {
-            login(retryAfterMsec_, robotId);
-        } else if (result == 0) {
-            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_, robotId);
+        int result = tdapi_->ReqUserLogin(&req, reqId);
+        info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit requestSent(reqId, robotId);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }
 
 //目前，通过 ReqUserLogout 登出系统的话，会先将现有的连接断开，再重新建立一个新的连接(CTPSDK)
@@ -283,67 +282,67 @@ void TdSm::login(unsigned int delayTick, QString robotId)
 void TdSm::logout(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore TdSm::logout");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcUserLogoutField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
-        int result = tdapi_->ReqUserLogout(&req, ++reqId_);
-        info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId_, result));
-        //  被流控，一秒后重来=
-        if (result == -3) {
-            logout(retryAfterMsec_, robotId);
-        } else if (result == 0) {
-            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_, robotId);
+        int result = tdapi_->ReqUserLogout(&req, reqId);
+        info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit requestSent(reqId, robotId);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }
 
 void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore TdSm::queryInstrument");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryInstrumentField req;
         memset(&req, 0, sizeof(req));
-        int result = tdapi_->ReqQryInstrument(&req, ++reqId_);
-        info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId_, result));
-        //  被流控，一秒后重来=
-        if (result == -3) {
-            queryInstrument(retryAfterMsec_, robotId);
-        } else if (result == 0) {
-            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_, robotId);
+        int result = tdapi_->ReqQryInstrument(&req, reqId);
+        info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit requestSent(reqId, robotId);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }
 
 void TdSm::queryAccount(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore TdSm::queryAccount");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryTradingAccountField req;
         memset(&req, 0, sizeof(req));
-        int result = tdapi_->ReqQryTradingAccount(&req, ++reqId_);
-        info(QString().sprintf("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId_, result));
-        //  被流控，一秒后重来=
-        if (result == -3) {
-            queryAccount(retryAfterMsec_, robotId);
-        } else if (result == 0) {
-            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_, robotId);
+        int result = tdapi_->ReqQryTradingAccount(&req, reqId);
+        info(QString().sprintf("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit requestSent(reqId, robotId);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }

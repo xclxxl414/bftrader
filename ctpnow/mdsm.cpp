@@ -7,8 +7,6 @@
 #include "servicemgr.h"
 #include <QDateTime>
 #include <QDir>
-#include <QMap>
-#include <QTimer>
 
 ///////////
 class MdSmSpi : public CThostFtdcMdSpi {
@@ -124,6 +122,8 @@ private:
 
     void resetData()
     {
+        g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
         got_ids_.clear();
         g_sm->ctpMgr()->freeRingBuffer();
     }
@@ -246,26 +246,26 @@ void MdSm::resetData()
 void MdSm::login(unsigned int delayTick, QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore MdSm::login");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
-        int result = mdapi_->ReqUserLogin(&req, ++reqId_);
-        info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId_, result));
-        //  被流控，一秒后重来=
-        if (result == -3) {
-            login(retryAfterMsec_, robotId);
-        } else if (result == 0) {
-            //发单成功，发信号，<reqId,robotId>，便于上层跟踪=
-            emit requestSent(reqId_, robotId);
+        int result = mdapi_->ReqUserLogin(&req, reqId);
+        info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit requestSent(reqId, robotId);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }
 
 void MdSm::subscrible(QStringList ids,
@@ -273,11 +273,9 @@ void MdSm::subscrible(QStringList ids,
     QString robotId)
 {
     info(__FUNCTION__);
-    QTimer::singleShot(delayTick, this, [=] {
-        if (!g_sm->ctpMgr()->running()) {
-            info("ctpmgr stop,ignore MdSm::login");
-            return;
-        }
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+        (void)reqId;
         QList<std::string> std_ids;
         char** cids = new char*[ids.length()];
         for (int i = 0; i < ids.length(); i++) {
@@ -287,10 +285,15 @@ void MdSm::subscrible(QStringList ids,
         int result = mdapi_->SubscribeMarketData(cids, ids.length());
         delete[] cids;
         info(QString().sprintf("CmdMdSubscrible,result=%d", result));
-        if (result == -3) {
-            subscrible(ids, retryAfterMsec_, robotId);
-        } else if (result == 0) {
+        if (result == 0) {
             g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids);
         }
-    });
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
 }
