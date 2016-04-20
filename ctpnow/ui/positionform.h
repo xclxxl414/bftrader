@@ -1,6 +1,7 @@
 #ifndef POSITIONFORM_H
 #define POSITIONFORM_H
 
+#include "ctpmgr.h"
 #include <QWidget>
 
 namespace Ui {
@@ -15,6 +16,11 @@ public:
     ~PositionForm();
     void init();
     void shutdown();
+
+private slots:
+    void onGotPosition(const BfPositionData& pos);
+
+    void on_pushButtonQueryPosition_clicked();
 
 private:
     Ui::PositionForm* ui;

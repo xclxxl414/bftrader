@@ -122,8 +122,8 @@ void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
 
     // 更新界面=
     table_row_.clear();
-    this->ui->tableWidget->clearContents();
-    this->ui->tableWidget->setRowCount(orders_.size());
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(orders_.size());
     QStringList keys = orders_.keys();
     keys.sort();
     for (int i = 0; i < keys.length(); i++) {

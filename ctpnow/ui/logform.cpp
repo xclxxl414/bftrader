@@ -49,4 +49,6 @@ void LogForm::onInfo(QString when, QString msg)
 
     item = new QTableWidgetItem(msg);
     ui->tableWidget->setItem(row, 1, item);
+
+    ui->tableWidget->scrollToBottom();
 }

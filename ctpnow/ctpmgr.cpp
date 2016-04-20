@@ -21,9 +21,11 @@ void CtpMgr::init()
     cmdRunnerTimer_->start();
 
     // qRegisterMetaType
+    qRegisterMetaType<BfAccountData>("BfAccountData");
+    qRegisterMetaType<BfPositionData>("BfPositionData");
     qRegisterMetaType<BfOrderReq>("BfOrderReq");
     qRegisterMetaType<BfOrderData>("BfOrderData");
-    qRegisterMetaType<BfAccountData>("BfAccountData");
+    qRegisterMetaType<BfTradeData>("BfTradeData");
 }
 
 void CtpMgr::shutdown()
@@ -323,6 +325,17 @@ void CtpMgr::queryAccount()
         return;
     }
     tdsm_->queryAccount(0, "");
+}
+
+void CtpMgr::queryPosition()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        logger()->info("CtpMgr::queryPosition,please login first");
+        return;
+    }
+    tdsm_->queryPosition(0, "");
 }
 
 void CtpMgr::freeContracts()

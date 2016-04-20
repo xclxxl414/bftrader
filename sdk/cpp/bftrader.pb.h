@@ -66,12 +66,13 @@ enum BfDirection {
   DIRECTION_UNKNOWN = 0,
   DIRECTION_LONG = 1,
   DIRECTION_SHORT = 2,
+  DIRECTION_NET = 3,
   BfDirection_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfDirection_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool BfDirection_IsValid(int value);
 const BfDirection BfDirection_MIN = DIRECTION_UNKNOWN;
-const BfDirection BfDirection_MAX = DIRECTION_SHORT;
+const BfDirection BfDirection_MAX = DIRECTION_NET;
 const int BfDirection_ARRAYSIZE = BfDirection_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* BfDirection_descriptor();

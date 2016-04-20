@@ -1,6 +1,7 @@
 #ifndef TRADEFORM_H
 #define TRADEFORM_H
 
+#include "ctpmgr.h"
 #include <QWidget>
 
 namespace Ui {
@@ -15,6 +16,9 @@ public:
     ~TradeForm();
     void init();
     void shutdown();
+
+private slots:
+    void onGotTrade(const BfTradeData& trade);
 
 private:
     Ui::TradeForm* ui;

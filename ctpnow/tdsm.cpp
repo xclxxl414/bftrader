@@ -82,12 +82,29 @@ BfOffset translateOffset(char offset)
     return OFFSET_UNKNOWN;
 }
 
+// 方向类型映射=
 BfDirection translateDirection(char direction)
 {
     switch (direction) {
     case THOST_FTDC_D_Buy:
         return DIRECTION_LONG;
     case THOST_FTDC_D_Sell:
+        return DIRECTION_SHORT;
+    default:
+        g_sm->logger()->info("invalid direction");
+    }
+    return DIRECTION_UNKNOWN;
+}
+
+// 持仓类型映射=
+BfDirection translatePosDirection(char direction)
+{
+    switch (direction) {
+    case THOST_FTDC_PD_Net:
+        return DIRECTION_NET;
+    case THOST_FTDC_PD_Long:
+        return DIRECTION_LONG;
+    case THOST_FTDC_PD_Short:
         return DIRECTION_SHORT;
     default:
         g_sm->logger()->info("invalid direction");
@@ -250,6 +267,36 @@ private:
         }
     }
 
+    // 请求查询投资者持仓响应=
+    void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* pInvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (!isErrorRsp(pRspInfo, nRequestID) && pInvestorPosition) {
+            BfPositionData pos;
+
+            // 保存代码=
+            pos.set_symbol(pInvestorPosition->InstrumentID);
+            pos.set_direction(translatePosDirection(pInvestorPosition->PosiDirection));
+
+            // 冻结=
+            if (pos.direction() == DIRECTION_LONG || pos.direction() == DIRECTION_NET) {
+                pos.set_frozen(pInvestorPosition->LongFrozen);
+            } else if (pos.direction() == DIRECTION_SHORT) {
+                pos.set_frozen(pInvestorPosition->ShortFrozen);
+            }
+
+            // 持仓量=
+            pos.set_position(pInvestorPosition->Position);
+
+            // 均价=
+            if (pos.position() > 0) {
+                pos.set_price(pInvestorPosition->PositionCost / pos.position());
+            }
+
+            emit g_sm->ctpMgr()->gotPosition(pos);
+        }
+    }
+
     // 投资者结算结果确认响应=
     void OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField* pSettlementInfoConfirm, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
@@ -263,6 +310,7 @@ private:
     }
 
     // 报单录入请求响应=
+    // 发单错误（柜台）=
     void OnRspOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
@@ -270,6 +318,50 @@ private:
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 int orderId = QString(pInputOrder->OrderRef).toInt();
                 info(QString().sprintf("OnRspOrderInsert: orderId = %d", orderId));
+                return;
+            } else {
+            }
+        }
+    }
+    // 报单操作请求响应=
+    // 撤单错误（柜台）=
+    void OnRspOrderAction(CThostFtdcInputOrderActionField* pInputOrderAction, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                int orderId = QString(pInputOrderAction->OrderRef).toInt();
+                info(QString().sprintf("OnRspOrderAction: orderId = %d", orderId));
+                return;
+            } else {
+            }
+        }
+    }
+
+    // 报单录入错误回报=
+    // 发单错误回报（交易所）=
+    void OnErrRtnOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo) override
+    {
+        info(__FUNCTION__);
+        if (true) {
+            if (isErrorRsp(pRspInfo, 0)) {
+                int orderId = QString(pInputOrder->OrderRef).toInt();
+                info(QString().sprintf("OnErrRtnOrderInsert: orderId = %d", orderId));
+                return;
+            } else {
+            }
+        }
+    }
+
+    // 报单操作错误回报=
+    // 撤单错误回报（交易所）=
+    void OnErrRtnOrderAction(CThostFtdcOrderActionField* pOrderAction, CThostFtdcRspInfoField* pRspInfo) override
+    {
+        info(__FUNCTION__);
+        if (true) {
+            if (isErrorRsp(pRspInfo, 0)) {
+                int orderId = QString(pOrderAction->OrderRef).toInt();
+                info(QString().sprintf("OnErrRtnOrderAction: orderId = %d", orderId));
                 return;
             } else {
             }
@@ -309,6 +401,25 @@ private:
     virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
     {
         info(__FUNCTION__);
+
+        int orderId = QString(pTrade->OrderRef).toInt();
+        int tradeId = QString(pTrade->TradeID).toInt();
+
+        BfTradeData trade;
+        // 保存代码和报单号=
+        trade.set_exchange(pTrade->ExchangeID);
+        trade.set_symbol(pTrade->InstrumentID);
+        trade.set_orderid(QString::number(orderId).toStdString());
+        trade.set_tradeid(QString::number(tradeId).toStdString());
+        trade.set_direction(translateDirection(pTrade->Direction)); //方向=
+        trade.set_offset(translateOffset(pTrade->OffsetFlag)); //开平=
+
+        //价格、报单量等数值=
+        trade.set_price(pTrade->Price);
+        trade.set_volume(pTrade->Volume);
+        trade.set_tradetime(pTrade->TradeTime);
+
+        emit g_sm->ctpMgr()->gotTrade(trade);
     }
 
 private:
@@ -547,6 +658,30 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
         int result = tdapi_->ReqSettlementInfoConfirm(&req, reqId);
         info(QString().sprintf("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+        }
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
+}
+
+void TdSm::queryPosition(unsigned int delayTick, QString robotId)
+{
+    info(__FUNCTION__);
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+        CThostFtdcQryInvestorPositionField req;
+        memset(&req, 0, sizeof(req));
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
+        int result = tdapi_->ReqQryInvestorPosition(&req, reqId);
+        info(QString().sprintf("CmdTdReqQryInvestorPosition,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }

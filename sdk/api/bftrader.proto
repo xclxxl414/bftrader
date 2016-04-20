@@ -12,6 +12,7 @@ enum BfDirection{
     DIRECTION_UNKNOWN = 0;  // 未知
     DIRECTION_LONG = 1;     // 多
     DIRECTION_SHORT = 2;    // 空
+    DIRECTION_NET = 3;      // 净
 }
 
 // 开平常量

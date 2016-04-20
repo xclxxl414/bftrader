@@ -41,6 +41,7 @@ public:
     void queryAccount(unsigned int delayTick, QString robotId);
     void reqSettlementInfoConfirm(unsigned int delayTick, QString robotId);
     void sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& orderReq);
+    void queryPosition(unsigned int delayTick, QString robotId);
 
 signals:
     void statusChanged(int state);

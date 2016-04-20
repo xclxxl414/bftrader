@@ -160,6 +160,26 @@
         </widget>
        </item>
        <item>
+        <widget class="QComboBox" name="comboBoxDirection">
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>long</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>short</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
         <widget class="QComboBox" name="comboBoxOffset">
          <property name="maximumSize">
           <size>
@@ -185,26 +205,6 @@
          <item>
           <property name="text">
            <string>closeyesterday</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBoxDirection">
-         <property name="maximumSize">
-          <size>
-           <width>80</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <item>
-          <property name="text">
-           <string>long</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>short</string>
           </property>
          </item>
         </widget>

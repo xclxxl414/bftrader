@@ -56,7 +56,9 @@ signals:
     void gotInstruments(QStringList ids);
     void gotTick(void* curTick, void* preTick);
     void gotAccount(const BfAccountData& account);
-    void gotOrder(const BfOrderData& account);
+    void gotOrder(const BfOrderData& order);
+    void gotTrade(const BfTradeData& trade);
+    void gotPosition(const BfPositionData& pos);
 
 public slots:
     void showVersion();
@@ -65,6 +67,7 @@ public slots:
     void stop();
     void queryAccount();
     void sendOrder(const BfOrderReq& req);
+    void queryPosition();
 
 private slots:
     void onGotInstruments(QStringList ids);
