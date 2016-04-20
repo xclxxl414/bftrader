@@ -35,27 +35,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButtonClose">
-       <property name="text">
-        <string>close</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonCloseAll">
-       <property name="text">
-        <string>closeAll</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonQueryPosition">
-       <property name="text">
-        <string>queryPosition</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -67,6 +46,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonQueryPosition">
+       <property name="text">
+        <string>queryPosition</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -21,6 +21,7 @@ public:
 
 private slots:
     void onGotOrder(const BfOrderData& data);
+    void on_pushButtonCancelOrder_clicked();
 
 private:
     Ui::PendingOrderForm* ui;

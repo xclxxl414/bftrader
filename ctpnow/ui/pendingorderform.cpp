@@ -162,3 +162,8 @@ void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
         }
     }
 }
+
+void PendingOrderForm::on_pushButtonCancelOrder_clicked()
+{
+    //
+}
