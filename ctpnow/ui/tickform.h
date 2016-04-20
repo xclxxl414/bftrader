@@ -23,7 +23,6 @@ private slots:
     void onGotTick(void* curTick, void* preTick);
     void onTradeWillBegin();
     void onUpdateTick();
-    void on_pushButtonFit_clicked();
 
 private:
     Ui::TickForm* ui;

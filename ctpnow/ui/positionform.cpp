@@ -1,5 +1,5 @@
 #include "positionform.h"
-#include "nofocusdelegate.h"
+#include "tablewidget_helper.h"
 #include "ui_positionform.h"
 
 PositionForm::PositionForm(QWidget* parent)

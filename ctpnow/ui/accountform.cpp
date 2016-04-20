@@ -30,16 +30,16 @@ QString AccountForm::formatDouble(double val)
     return QString().sprintf("%6.1f", val);
 }
 
-void AccountForm::onGotAccount(double balance, double available, double margin, double closeProfit, double positionProfit)
+void AccountForm::onGotAccount(double balance, double available, double frozenMargin, double closeProfit, double positionProfit)
 {
     ui->lineEditBalance->setText(formatDouble(balance));
     ui->lineEditAvailable->setText(formatDouble(available));
-    ui->lineEditMargin->setText(formatDouble(margin));
+    ui->lineEditFrozenMargin->setText(formatDouble(frozenMargin) + "%");
     ui->lineEditCloseProfit->setText(formatDouble(closeProfit));
     ui->lineEditPositionProfit->setText(formatDouble(positionProfit));
 }
 
-void AccountForm::on_pushButtonRefresh_clicked()
+void AccountForm::on_pushButtonQueryAccount_clicked()
 {
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
 }

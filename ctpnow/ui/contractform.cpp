@@ -2,8 +2,8 @@
 #include "ThostFtdcUserApiStruct.h"
 #include "ctpmgr.h"
 #include "encode_utils.h"
-#include "nofocusdelegate.h"
 #include "servicemgr.h"
+#include "tablewidget_helper.h"
 #include "ui_contractform.h"
 
 ContractForm::ContractForm(QWidget* parent)

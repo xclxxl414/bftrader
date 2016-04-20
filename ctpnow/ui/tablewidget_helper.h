@@ -1,5 +1,4 @@
-#ifndef NOFOCUSDELEGATE_H
-#define NOFOCUSDELEGATE_H
+#pragma once
 
 #include <QHeaderView>
 #include <QStyledItemDelegate>
@@ -26,5 +25,3 @@ public:
 
 void bfAdjustTableWidget(QTableWidget* tableWidget);
 void bfFitTableWidget(QTableWidget* tableWidget);
-
-#endif // NOFOCUSDELEGATE_H

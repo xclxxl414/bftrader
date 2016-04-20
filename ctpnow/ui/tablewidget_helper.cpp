@@ -1,4 +1,4 @@
-#include "nofocusdelegate.h"
+#include "tablewidget_helper.h"
 
 void bfAdjustTableWidget(QTableWidget* tableWidget)
 {

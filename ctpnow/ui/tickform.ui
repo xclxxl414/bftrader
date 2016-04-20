@@ -36,6 +36,9 @@
     <layout class="QHBoxLayout" name="horizontalLayoutBottomALl">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayoutBottom">
+       <property name="spacing">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLineEdit" name="lineEditSymbol">
          <property name="maximumSize">
@@ -173,19 +176,6 @@
          </item>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonSendOrder">
-         <property name="maximumSize">
-          <size>
-           <width>80</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>sendOrder</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
@@ -202,15 +192,15 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonFit">
+      <widget class="QPushButton" name="pushButtonSendOrder">
        <property name="maximumSize">
         <size>
-         <width>40</width>
+         <width>80</width>
          <height>16777215</height>
         </size>
        </property>
        <property name="text">
-        <string>fit</string>
+        <string>sendOrder</string>
        </property>
       </widget>
      </item>

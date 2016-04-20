@@ -1,8 +1,8 @@
 #include "tickform.h"
 #include "ThostFtdcUserApiStruct.h"
 #include "ctpmgr.h"
-#include "nofocusdelegate.h"
 #include "servicemgr.h"
+#include "tablewidget_helper.h"
 #include "ui_tickform.h"
 
 TickForm::TickForm(QWidget* parent)
@@ -142,11 +142,6 @@ void TickForm::onTradeWillBegin()
     instruments_row_.clear();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(0);
-}
-
-void TickForm::on_pushButtonFit_clicked()
-{
-    bfFitTableWidget(ui->tableWidget);
 }
 
 void TickForm::onUpdateTick()

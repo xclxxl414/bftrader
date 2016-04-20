@@ -134,16 +134,6 @@ bool launcher(wchar_t* program)
 
 bool launcher(const char* program, const char* path)
 {
-    // TODO launcher
-    //	if(!GlobalHandlerPrivate::reporter_.isEmpty()) {
-    //		QProcess::startDetached(GlobalHandlerPrivate::reporter_);	// very likely we will die there
-    //	}
-
-    //LINUX and WIN Ref : http://www.cplusplus.com/forum/lounge/17684/
-
-    //FOR LINUX and MAC
-    //        char* programPath = "/bin/bash";
-
     //Cout is not visible in qtcreator output window..may be QtC.. bug or I don't know
     //Visible on terminal output
     std::cout << "CrashReporter: " << program
@@ -165,11 +155,6 @@ bool launcher(const char* program, const char* path)
         exit(1);
     }
     default: /* Parent process */
-        //Don't hand app
-        //If required kill parent like below
-        //kill it
-        //int parent = getppid();
-        //kill(parent, SIGKILL);
         return false;
     }
 
@@ -195,12 +180,6 @@ bool DumpCallback(const char* _dump_dir, const char* _minidump_id, void* context
     Q_UNUSED(assertion);
     Q_UNUSED(exinfo);
 #endif
-//qDebug("BreakpadQt crash");
-
-/*
-        NO STACK USE, NO HEAP USE THERE !!!
-        Creating QString's, using qDebug, etc. - everything is crash-unfriendly.
-        */
 
 #if defined(Q_OS_LINUX)
     const char* path = CrashHandlerPrivate::pHandler->minidump_descriptor().path();
@@ -210,20 +189,24 @@ bool DumpCallback(const char* _dump_dir, const char* _minidump_id, void* context
     const size_t cSize = strlen(CrashHandlerPrivate::reporter_) + 1;
     wchar_t* program = new wchar_t[cSize];
     mbstowcs(program, CrashHandlerPrivate::reporter_, cSize);
-
+    wchar_t* dpath = new wchar_t[MAX_PATH * 10];
+    wcscpy(dpath, _dump_dir);
+    wcscat(dpath, L"/");
+    wcscat(dpath, _minidump_id);
+    wcscat(dpath, L".dmp");
     wchar_t* wpath = new wchar_t[MAX_PATH * 10];
-
     wcscpy(wpath, program);
-
     wcscat(wpath, L" ");
-    wcscat(wpath, _dump_dir);
-    wcscat(wpath, L"/");
-    wcscat(wpath, _minidump_id);
-    wcscat(wpath, L".dmp");
+    wcscat(wpath, dpath);
 
-    //wcstombs(path,wpath, sizeof(path) );
+    qputenv("bfcrashreport_apppath", QCoreApplication::applicationFilePath().toUtf8());
+    qputenv("bfcrashreport_dumppath", QString::fromWCharArray(dpath).toUtf8());
+    qputenv("bfcrashreport_website", QString("https://github.com/sunwangme/bftrader/issues").toUtf8());
 
     launcher(wpath);
+    delete[] program;
+    delete[] wpath;
+    delete[] dpath;
 #elif defined(Q_OS_MAC)
 
     char* path;

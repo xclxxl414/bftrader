@@ -31,8 +31,8 @@ SOURCES += main.cpp\
     ui/finishedorderform.cpp \
     ui/tradeform.cpp \
     ui/tickform.cpp \
-    ui/nofocusdelegate.cpp \
-    ui/accountform.cpp
+    ui/accountform.cpp \
+    ui/tablewidget_helper.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -53,8 +53,8 @@ HEADERS  += ui/mainwindow.h \
     ui/finishedorderform.h \
     ui/tradeform.h \
     ui/tickform.h \
-    ui/nofocusdelegate.h \
-    ui/accountform.h
+    ui/accountform.h \
+    ui/tablewidget_helper.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \

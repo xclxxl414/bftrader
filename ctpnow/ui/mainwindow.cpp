@@ -60,7 +60,8 @@ MainWindow::MainWindow(QWidget* parent)
     // statusbar,隐藏那个竖线=
     accountForm_ = new AccountForm(this);
     ui->statusBar->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
-    ui->statusBar->addWidget(accountForm_);
+    ui->statusBar->setSizeGripEnabled(false);
+    ui->statusBar->addWidget(accountForm_, 1);
 }
 
 MainWindow::~MainWindow()

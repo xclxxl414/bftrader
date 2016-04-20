@@ -1,7 +1,7 @@
 #include "logform.h"
 #include "logger.h"
-#include "nofocusdelegate.h"
 #include "servicemgr.h"
+#include "tablewidget_helper.h"
 #include "ui_logform.h"
 
 LogForm::LogForm(QWidget* parent)

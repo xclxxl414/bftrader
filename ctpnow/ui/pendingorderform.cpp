@@ -1,5 +1,5 @@
 #include "pendingorderform.h"
-#include "nofocusdelegate.h"
+#include "tablewidget_helper.h"
 #include "ui_pendingorderform.h"
 
 PendingOrderForm::PendingOrderForm(QWidget* parent)

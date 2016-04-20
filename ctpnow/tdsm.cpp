@@ -112,7 +112,7 @@ private:
         }
     }
 
-    ///请求查询资金账户响应
+    // 请求查询资金账户响应
     void OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
@@ -122,13 +122,13 @@ private:
             } else {
                 double balance = pTradingAccount->Balance;
                 double available = pTradingAccount->Available;
-                double margin = pTradingAccount->Available;
-                if (margin > 0) {
-                    margin = (margin * 100.0) / balance;
+                double frozenMargin = pTradingAccount->FrozenMargin;
+                if (frozenMargin > 0) {
+                    frozenMargin = (frozenMargin * 100.0) / balance;
                 }
                 double closeProfit = pTradingAccount->CloseProfit;
                 double positionProfit = pTradingAccount->PositionProfit;
-                emit sm()->gotAccount(balance, available, margin, closeProfit, positionProfit);
+                emit sm()->gotAccount(balance, available, frozenMargin, closeProfit, positionProfit);
             }
         }
     }

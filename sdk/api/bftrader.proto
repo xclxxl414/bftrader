@@ -234,7 +234,7 @@ message BfAccountData{
     double balance = 3;         // 账户净值
     double available = 4;       // 可用资金
     double commission = 5;      // 今日手续费
-    double margin = 6;          // 保证金占用
+    double frozenMargin = 6;    // 保证金占用
     double closeProfit = 7;     // 平仓盈亏
     double positionProfit = 8;  // 持仓盈亏
 }

@@ -66,7 +66,7 @@ void Logger::startExitMonitor()
     UINT existing_flags = SetErrorMode(new_flags);
     SetErrorMode(existing_flags | new_flags);
 #endif
-
+    /*
 #ifdef Q_OS_WIN64
     QString reporter = "C:/Program Files (x86)/Windows Kits/8.0/Debuggers/x64/windbg.exe";
 #else
@@ -77,6 +77,9 @@ void Logger::startExitMonitor()
         reporter = "c:/windows/system32/notepad.exe";
         params = "";
     }
+*/
+    QString reporter = QDir::cleanPath(qApp->applicationDirPath() + QLatin1String("/bugreport.exe"));
+    QString params = "";
     CrashManager::CrashHandler::instance()->Init(qApp->applicationDirPath(), reporter, params);
 
     atexit(myExit);
