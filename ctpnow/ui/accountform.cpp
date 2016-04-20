@@ -2,6 +2,8 @@
 #include "ctpmgr.h"
 #include "servicemgr.h"
 #include "ui_accountform.h"
+#include <QUrl>
+#include <QDesktopServices>
 
 AccountForm::AccountForm(QWidget* parent)
     : QWidget(parent)
@@ -42,4 +44,10 @@ void AccountForm::onGotAccount(double balance, double available, double frozenMa
 void AccountForm::on_pushButtonQueryAccount_clicked()
 {
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
+}
+
+void AccountForm::on_pushButtonFeedback_clicked()
+{
+    QUrl url("https://github.com/sunwangme/bftrader/issues");
+    QDesktopServices::openUrl(url);
 }

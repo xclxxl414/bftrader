@@ -19,6 +19,7 @@ public:
 private slots:
     void onGotAccount(double balance, double available, double frozenMargin, double closeProfit, double positionProfit);
     void on_pushButtonQueryAccount_clicked();
+    void on_pushButtonFeedback_clicked();
 
 private:
     QString formatDouble(double val);

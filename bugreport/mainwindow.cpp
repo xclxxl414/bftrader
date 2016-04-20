@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileInfo>
+#include <QDesktopServices>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -26,4 +28,15 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_pushButtonClose_clicked()
+{
+    this->close();
+}
+
+void MainWindow::on_pushButtonFeedback_clicked()
+{
+    QUrl url(ui->lineEditWebSite->text());
+    QDesktopServices::openUrl(url);
 }
