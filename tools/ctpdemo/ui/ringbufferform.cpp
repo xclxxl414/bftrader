@@ -15,19 +15,19 @@ RingBufferForm::RingBufferForm(QWidget* parent)
     ui->setupUi(this);
 
     //设置列=
-    instruments_col_ << "TradingDay"
-                     << "UpdateTime"
-                     << "UpdateMillisec"
-                     << "LastPrice"
-                     << "Volume"
-                     << "OpenInterest"
-                     << "BidPrice1"
-                     << "BidVolume1"
-                     << "AskPrice1"
-                     << "AskVolume1";
-    this->ui->tableWidget->setColumnCount(instruments_col_.length());
-    for (int i = 0; i < instruments_col_.length(); i++) {
-        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(instruments_col_.at(i)));
+    table_col_ << "TradingDay"
+               << "UpdateTime"
+               << "UpdateMillisec"
+               << "LastPrice"
+               << "Volume"
+               << "OpenInterest"
+               << "BidPrice1"
+               << "BidVolume1"
+               << "AskPrice1"
+               << "AskVolume1";
+    this->ui->tableWidget->setColumnCount(table_col_.length());
+    for (int i = 0; i < table_col_.length(); i++) {
+        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
     }
 }
 
@@ -93,8 +93,8 @@ void RingBufferForm::onGotTick(void* tick)
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);
-    for (int i = 0; i < instruments_col_.count(); i++) {
-        QVariant raw_val = mdItem.value(instruments_col_.at(i));
+    for (int i = 0; i < table_col_.count(); i++) {
+        QVariant raw_val = mdItem.value(table_col_.at(i));
         QString str_val = raw_val.toString();
         if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
             str_val = QString().sprintf("%6.1f", raw_val.toDouble());

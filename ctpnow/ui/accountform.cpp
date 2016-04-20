@@ -2,8 +2,8 @@
 #include "ctpmgr.h"
 #include "servicemgr.h"
 #include "ui_accountform.h"
-#include <QUrl>
 #include <QDesktopServices>
+#include <QUrl>
 
 AccountForm::AccountForm(QWidget* parent)
     : QWidget(parent)
@@ -32,13 +32,13 @@ QString AccountForm::formatDouble(double val)
     return QString().sprintf("%6.1f", val);
 }
 
-void AccountForm::onGotAccount(double balance, double available, double frozenMargin, double closeProfit, double positionProfit)
+void AccountForm::onGotAccount(const BfAccountData& account)
 {
-    ui->lineEditBalance->setText(formatDouble(balance));
-    ui->lineEditAvailable->setText(formatDouble(available));
-    ui->lineEditFrozenMargin->setText(formatDouble(frozenMargin) + "%");
-    ui->lineEditCloseProfit->setText(formatDouble(closeProfit));
-    ui->lineEditPositionProfit->setText(formatDouble(positionProfit));
+    ui->lineEditBalance->setText(formatDouble(account.balance()));
+    ui->lineEditAvailable->setText(formatDouble(account.available()));
+    ui->lineEditFrozenMargin->setText(formatDouble(account.frozenmargin()) + "%");
+    ui->lineEditCloseProfit->setText(formatDouble(account.closeprofit()));
+    ui->lineEditPositionProfit->setText(formatDouble(account.positionprofit()));
 }
 
 void AccountForm::on_pushButtonQueryAccount_clicked()

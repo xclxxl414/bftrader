@@ -19,6 +19,11 @@ void CtpMgr::init()
     cmdRunnerTimer_->setInterval(100);
     QObject::connect(cmdRunnerTimer_, &QTimer::timeout, this, &CtpMgr::onRunCmdInterval);
     cmdRunnerTimer_->start();
+
+    // qRegisterMetaType
+    qRegisterMetaType<BfOrderReq>("BfOrderReq");
+    qRegisterMetaType<BfOrderData>("BfOrderData");
+    qRegisterMetaType<BfAccountData>("BfAccountData");
 }
 
 void CtpMgr::shutdown()
@@ -187,7 +192,6 @@ void CtpMgr::startMdSm()
 
     // go...
     QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
-    QObject::connect(mdsm_, &MdSm::gotTick, this, &CtpMgr::gotTick);
 
     autoLoginMd_ = true;
     mdsm_->start();
@@ -216,9 +220,7 @@ void CtpMgr::startTdSm()
 
     // go...
     QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
-    QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::onGotInstruments);
-    QObject::connect(tdsm_, &TdSm::gotInstruments, this, &CtpMgr::gotInstruments);
-    QObject::connect(tdsm_, &TdSm::gotAccount, this, &CtpMgr::gotAccount);
+    QObject::connect(this, &CtpMgr::gotInstruments, this, &CtpMgr::onGotInstruments);
 
     autoLoginTd_ = true;
     tdsm_->start();
@@ -271,8 +273,11 @@ void CtpMgr::onGotInstruments(QStringList ids)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    // 开始订阅=
+    // mdapi开始订阅=
     mdsm_->subscrible(ids, 0, "");
+
+    // tdapi开始确认账单=
+    tdsm_->reqSettlementInfoConfirm(0, "");
 }
 
 bool CtpMgr::running()
@@ -433,10 +438,24 @@ void CtpMgr::resetCmds()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    logger()->info(__FUNCTION__);
+    if (cmds_.length()) {
+        logger()->info(__FUNCTION__);
 
-    for (auto cmd : cmds_) {
-        delete cmd;
+        for (auto cmd : cmds_) {
+            delete cmd;
+        }
+        cmds_.clear();
     }
-    cmds_.clear();
+}
+
+void CtpMgr::sendOrder(const BfOrderReq& req)
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        logger()->info("CtpMgr::sendOrder,please login first");
+        return;
+    }
+
+    tdsm_->sendOrder(0, "", req);
 }

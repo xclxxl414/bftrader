@@ -8,6 +8,112 @@
 #include <QDir>
 
 ///////////
+namespace {
+char translatePriceType(BfPriceType priceType)
+{
+    switch (priceType) {
+    case PRICETYPE_LIMITPRICE:
+        return THOST_FTDC_OPT_LimitPrice;
+    case PRICETYPE_MARKETPRICE:
+        return THOST_FTDC_OPT_AnyPrice;
+    default:
+        qFatal("invalid BfPriceType");
+    }
+    return '0';
+}
+
+char translateOffset(BfOffset offset)
+{
+    switch (offset) {
+    case OFFSET_OPEN:
+        return THOST_FTDC_OF_Open;
+    case OFFSET_CLOSE:
+        return THOST_FTDC_OF_Close;
+    case OFFSET_CLOSETODAY:
+        return THOST_FTDC_OF_CloseToday;
+    case OFFSET_CLOSEYESTERDAY:
+        return THOST_FTDC_OF_CloseYesterday;
+    default:
+        qFatal("invalid offset");
+    }
+    return '0';
+}
+
+char translateDirection(BfDirection direction)
+{
+    switch (direction) {
+    case DIRECTION_LONG:
+        return THOST_FTDC_D_Buy;
+    case DIRECTION_SHORT:
+        return THOST_FTDC_D_Sell;
+    default:
+        qFatal("invalid direction");
+    }
+    return '0';
+}
+
+BfPriceType translatePriceType(char priceType)
+{
+    switch (priceType) {
+    case THOST_FTDC_OPT_LimitPrice:
+        return PRICETYPE_LIMITPRICE;
+    case THOST_FTDC_OPT_AnyPrice:
+        return PRICETYPE_MARKETPRICE;
+    default:
+        qFatal("invalid BfPriceType");
+    }
+    return PRICETYPE_UNKONWN;
+}
+
+BfOffset translateOffset(char offset)
+{
+    switch (offset) {
+    case THOST_FTDC_OF_Open:
+        return OFFSET_OPEN;
+    case THOST_FTDC_OF_Close:
+        return OFFSET_CLOSE;
+    case THOST_FTDC_OF_CloseToday:
+        return OFFSET_CLOSETODAY;
+    case THOST_FTDC_OF_CloseYesterday:
+        return OFFSET_CLOSEYESTERDAY;
+    default:
+        g_sm->logger()->info("invalid offset");
+    }
+    return OFFSET_UNKNOWN;
+}
+
+BfDirection translateDirection(char direction)
+{
+    switch (direction) {
+    case THOST_FTDC_D_Buy:
+        return DIRECTION_LONG;
+    case THOST_FTDC_D_Sell:
+        return DIRECTION_SHORT;
+    default:
+        g_sm->logger()->info("invalid direction");
+    }
+    return DIRECTION_UNKNOWN;
+}
+
+BfStatus translateStatus(char status)
+{
+    switch (status) {
+    case THOST_FTDC_OST_AllTraded:
+        return STATUS_ALLTRADED;
+    case THOST_FTDC_OST_PartTradedQueueing:
+        return STATUS_PARTTRADED;
+    case THOST_FTDC_OST_NoTradeQueueing:
+        return STATUS_NOTTRADED;
+    case THOST_FTDC_OST_Canceled:
+        return STATUS_CANCELLED;
+    default:
+        g_sm->logger()->info("invalid status");
+    }
+    return STATUS_UNKNOWN;
+}
+}
+
+///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
 public:
     explicit TdSmSpi(TdSm* sm)
@@ -46,6 +152,7 @@ private:
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGINFAIL);
             } else {
+
                 emit sm()->statusChanged(TDSM_LOGINED);
             }
         }
@@ -108,11 +215,11 @@ private:
                 ids = ids + id + ";";
             }
             info(QString().sprintf("total got ids:%d,%s", ids_.length(), ids.toUtf8().constData()));
-            emit sm()->gotInstruments(ids_);
+            emit g_sm->ctpMgr()->gotInstruments(ids_);
         }
     }
 
-    // 请求查询资金账户响应
+    // 请求查询资金账户响应=
     void OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         info(__FUNCTION__);
@@ -120,17 +227,88 @@ private:
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 return;
             } else {
-                double balance = pTradingAccount->Balance;
-                double available = pTradingAccount->Available;
+                BfAccountData account;
+                //账户代码=
+                account.set_accountid(pTradingAccount->AccountID);
+                //数值相关=
+                account.set_prebalance(pTradingAccount->PreBalance);
+                double balance = pTradingAccount->PreBalance - pTradingAccount->PreCredit - pTradingAccount->PreMortgage + pTradingAccount->Mortgage - pTradingAccount->Withdraw + pTradingAccount->Deposit + pTradingAccount->CloseProfit + pTradingAccount->PositionProfit + pTradingAccount->CashIn - pTradingAccount->Commission;
+                account.set_balance(balance);
+                account.set_balance(pTradingAccount->Balance);
+                account.set_available(pTradingAccount->Available);
+                account.set_commission(pTradingAccount->Commission);
                 double frozenMargin = pTradingAccount->FrozenMargin;
-                if (frozenMargin > 0) {
+                if ((frozenMargin > 0) && (balance > 0)) {
                     frozenMargin = (frozenMargin * 100.0) / balance;
                 }
-                double closeProfit = pTradingAccount->CloseProfit;
-                double positionProfit = pTradingAccount->PositionProfit;
-                emit sm()->gotAccount(balance, available, frozenMargin, closeProfit, positionProfit);
+                account.set_frozenmargin(frozenMargin);
+                account.set_closeprofit(pTradingAccount->CloseProfit);
+                account.set_positionprofit(pTradingAccount->PositionProfit);
+
+                emit g_sm->ctpMgr()->gotAccount(account);
             }
         }
+    }
+
+    // 投资者结算结果确认响应=
+    void OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField* pSettlementInfoConfirm, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                return;
+            } else {
+            }
+        }
+    }
+
+    // 报单录入请求响应=
+    void OnRspOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID)) {
+                int orderId = QString(pInputOrder->OrderRef).toInt();
+                info(QString().sprintf("OnRspOrderInsert: orderId = %d", orderId));
+                return;
+            } else {
+            }
+        }
+    }
+
+    // 报单通知=
+    virtual void OnRtnOrder(CThostFtdcOrderField* pOrder)
+    {
+        info(__FUNCTION__);
+
+        int orderId = QString(pOrder->OrderRef).toInt();
+        orderRef_ = qMax(orderId, orderRef_);
+
+        info(QString().sprintf("OnRtnOrder: orderId = %d", orderId));
+
+        BfOrderData order;
+        // 保存代码和报单号=
+        order.set_exchange(pOrder->ExchangeID);
+        order.set_symbol(pOrder->InstrumentID);
+        order.set_orderid(QString::number(orderId).toStdString());
+        order.set_direction(translateDirection(pOrder->Direction)); //方向=
+        order.set_offset(translateOffset(pOrder->CombOffsetFlag[0])); //开平=
+        order.set_status(translateStatus(pOrder->OrderStatus)); //状态=
+
+        //价格、报单量等数值=
+        order.set_price(pOrder->LimitPrice);
+        order.set_totalvolume(pOrder->VolumeTotalOriginal);
+        order.set_tradedvolume(pOrder->VolumeTraded);
+        order.set_ordertime(pOrder->InsertTime);
+        order.set_canceltime(pOrder->CancelTime);
+
+        emit g_sm->ctpMgr()->gotOrder(order);
+    }
+
+    // 成交通知=
+    virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
+    {
+        info(__FUNCTION__);
     }
 
 private:
@@ -162,10 +340,19 @@ private:
         g_sm->logger()->info(msg);
     }
 
+    int getOrderRef()
+    {
+        orderRef_++;
+        return orderRef_;
+    }
+
 private:
     TdSm* sm_;
     QStringList ids_;
     QStringList idPrefixList_;
+    int orderRef_ = 0;
+    int frontId_ = 0;
+    int sessionId_ = 0;
 
     friend TdSm;
 };
@@ -265,7 +452,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqUserLogin(&req, reqId);
         info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
-            emit requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
         return result;
     };
@@ -291,7 +478,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqUserLogout(&req, reqId);
         info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
-            emit requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
         return result;
     };
@@ -313,7 +500,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqQryInstrument(&req, reqId);
         info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
-            emit requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
         return result;
     };
@@ -332,10 +519,79 @@ void TdSm::queryAccount(unsigned int delayTick, QString robotId)
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryTradingAccountField req;
         memset(&req, 0, sizeof(req));
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
         int result = tdapi_->ReqQryTradingAccount(&req, reqId);
         info(QString().sprintf("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
-            emit requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+        }
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
+}
+
+void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
+{
+    info(__FUNCTION__);
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+        CThostFtdcSettlementInfoConfirmField req;
+        memset(&req, 0, sizeof(req));
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
+        int result = tdapi_->ReqSettlementInfoConfirm(&req, reqId);
+        info(QString().sprintf("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result));
+        if (result == 0) {
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+        }
+        return result;
+    };
+
+    CtpCmd* cmd = new CtpCmd;
+    cmd->fn = fn;
+    cmd->delayTick = delayTick;
+    cmd->robotId = robotId;
+    g_sm->ctpMgr()->runCmd(cmd);
+}
+
+void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& orderReq)
+{
+    info(__FUNCTION__);
+
+    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+        CThostFtdcInputOrderField req;
+        memset(&req, 0, sizeof(req));
+        int orderRef = tdspi_->getOrderRef();
+        strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
+        strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
+        strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
+        strncpy(req.OrderRef, QString::number(orderRef).toStdString().c_str(), sizeof(req.OrderRef) - 1);
+        strncpy(req.InstrumentID, orderReq.symbol().c_str(), sizeof(req.InstrumentID) - 1);
+
+        req.Direction = translateDirection(orderReq.direction());
+        req.CombOffsetFlag[0] = translateOffset(orderReq.offset());
+        req.OrderPriceType = translatePriceType(orderReq.pricetype());
+        req.LimitPrice = orderReq.price();
+        req.VolumeTotalOriginal = orderReq.volume();
+
+        req.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation; // 投机单=
+        req.ContingentCondition = THOST_FTDC_CC_Immediately; // 立即发单=
+        req.ForceCloseReason = THOST_FTDC_FCC_NotForceClose; // 非强平=
+        req.IsAutoSuspend = 0; // 非自动挂起=
+        req.TimeCondition = THOST_FTDC_TC_GFD; // 今日有效=
+        req.VolumeCondition = THOST_FTDC_VC_AV; // 任意成交量=
+        req.MinVolume = 1; // 最小成交量为1=
+
+        int result = tdapi_->ReqOrderInsert(&req, reqId);
+        info(QString().sprintf("CmdTdReqOrderInsert,orderRef=%d,reqId=%d,result=%d", orderRef, reqId, result));
+        if (result == 0) {
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
         return result;
     };

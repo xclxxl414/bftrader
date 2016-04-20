@@ -1,6 +1,7 @@
 #ifndef ACCOUNTFORM_H
 #define ACCOUNTFORM_H
 
+#include "ctpmgr.h"
 #include <QWidget>
 
 namespace Ui {
@@ -17,7 +18,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotAccount(double balance, double available, double frozenMargin, double closeProfit, double positionProfit);
+    void onGotAccount(const BfAccountData& account);
     void on_pushButtonQueryAccount_clicked();
     void on_pushButtonFeedback_clicked();
 

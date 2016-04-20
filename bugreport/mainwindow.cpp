@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QFileInfo>
 #include <QDesktopServices>
+#include <QFileInfo>
 #include <QUrl>
 
 MainWindow::MainWindow(QWidget* parent)

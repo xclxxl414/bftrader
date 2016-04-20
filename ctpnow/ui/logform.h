@@ -22,7 +22,7 @@ public slots:
 private:
     Ui::LogForm* ui;
 
-    QStringList instruments_col_;
+    QStringList table_col_;
 };
 
 #endif // LOGFORM_H

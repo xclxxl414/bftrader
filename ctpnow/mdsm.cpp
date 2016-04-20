@@ -103,7 +103,7 @@ private:
         }
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
         void* curTick = rb->put(pDepthMarketData);
-        emit sm()->gotTick(curTick, preTick);
+        emit g_sm->ctpMgr()->gotTick(curTick, preTick);
     }
 
 private:
@@ -256,7 +256,7 @@ void MdSm::login(unsigned int delayTick, QString robotId)
         int result = mdapi_->ReqUserLogin(&req, reqId);
         info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId, result));
         if (result == 0) {
-            emit requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
         return result;
     };

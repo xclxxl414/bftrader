@@ -64,17 +64,14 @@ class BfVoid;
 
 enum BfDirection {
   DIRECTION_UNKNOWN = 0,
-  DIRECTION_NONE = 1,
-  DIRECTION_LONG = 2,
-  DIRECTION_SHORT = 3,
-  DIRECTION_NET = 4,
-  DIRECTION_SELL = 5,
+  DIRECTION_LONG = 1,
+  DIRECTION_SHORT = 2,
   BfDirection_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfDirection_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool BfDirection_IsValid(int value);
 const BfDirection BfDirection_MIN = DIRECTION_UNKNOWN;
-const BfDirection BfDirection_MAX = DIRECTION_SELL;
+const BfDirection BfDirection_MAX = DIRECTION_SHORT;
 const int BfDirection_ARRAYSIZE = BfDirection_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* BfDirection_descriptor();
@@ -89,11 +86,10 @@ inline bool BfDirection_Parse(
 }
 enum BfOffset {
   OFFSET_UNKNOWN = 0,
-  OFFSET_NONE = 1,
-  OFFSET_OPEN = 2,
-  OFFSET_CLOSE = 3,
-  OFFSET_CLOSETODAY = 4,
-  OFFSET_CLOSEYESTERDAY = 5,
+  OFFSET_OPEN = 1,
+  OFFSET_CLOSE = 2,
+  OFFSET_CLOSETODAY = 3,
+  OFFSET_CLOSEYESTERDAY = 4,
   BfOffset_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfOffset_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -138,21 +134,14 @@ inline bool BfStatus_Parse(
 }
 enum BfProduct {
   PRODUCT_UNKNOWN = 0,
-  PRODUCT_NONE = 1,
-  PRODUCT_EQUITY = 2,
-  PRODUCT_FUTURES = 3,
-  PRODUCT_OPTION = 4,
-  PRODUCT_INDEX = 5,
-  PRODUCT_COMBINATION = 6,
-  PRODUCT_FOREX = 7,
-  PRODUCT_SPOT = 8,
-  PRODUCT_DEFER = 9,
+  PRODUCT_EQUITY = 1,
+  PRODUCT_FUTURES = 2,
   BfProduct_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfProduct_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool BfProduct_IsValid(int value);
 const BfProduct BfProduct_MIN = PRODUCT_UNKNOWN;
-const BfProduct BfProduct_MAX = PRODUCT_DEFER;
+const BfProduct BfProduct_MAX = PRODUCT_FUTURES;
 const int BfProduct_ARRAYSIZE = BfProduct_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* BfProduct_descriptor();
@@ -169,14 +158,12 @@ enum BfPriceType {
   PRICETYPE_UNKONWN = 0,
   PRICETYPE_LIMITPRICE = 1,
   PRICETYPE_MARKETPRICE = 2,
-  PRICETYPE_FAK = 3,
-  PRICETYPE_FOK = 4,
   BfPriceType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfPriceType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool BfPriceType_IsValid(int value);
 const BfPriceType BfPriceType_MIN = PRICETYPE_UNKONWN;
-const BfPriceType BfPriceType_MAX = PRICETYPE_FOK;
+const BfPriceType BfPriceType_MAX = PRICETYPE_MARKETPRICE;
 const int BfPriceType_ARRAYSIZE = BfPriceType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* BfPriceType_descriptor();
@@ -1879,11 +1866,11 @@ class BfAccountData : public ::google::protobuf::Message {
   double commission() const;
   void set_commission(double value);
 
-  // optional double margin = 6;
-  void clear_margin();
-  static const int kMarginFieldNumber = 6;
-  double margin() const;
-  void set_margin(double value);
+  // optional double frozenMargin = 6;
+  void clear_frozenmargin();
+  static const int kFrozenMarginFieldNumber = 6;
+  double frozenmargin() const;
+  void set_frozenmargin(double value);
 
   // optional double closeProfit = 7;
   void clear_closeprofit();
@@ -1910,7 +1897,7 @@ class BfAccountData : public ::google::protobuf::Message {
   double balance_;
   double available_;
   double commission_;
-  double margin_;
+  double frozenmargin_;
   double closeprofit_;
   double positionprofit_;
   mutable int _cached_size_;
@@ -6021,18 +6008,18 @@ inline void BfAccountData::set_commission(double value) {
   // @@protoc_insertion_point(field_set:bftrader.BfAccountData.commission)
 }
 
-// optional double margin = 6;
-inline void BfAccountData::clear_margin() {
-  margin_ = 0;
+// optional double frozenMargin = 6;
+inline void BfAccountData::clear_frozenmargin() {
+  frozenmargin_ = 0;
 }
-inline double BfAccountData::margin() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.margin)
-  return margin_;
+inline double BfAccountData::frozenmargin() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.frozenMargin)
+  return frozenmargin_;
 }
-inline void BfAccountData::set_margin(double value) {
+inline void BfAccountData::set_frozenmargin(double value) {
   
-  margin_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.margin)
+  frozenmargin_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.frozenMargin)
 }
 
 // optional double closeProfit = 7;

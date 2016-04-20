@@ -1,13 +1,17 @@
 #ifndef CTPMGR_H
 #define CTPMGR_H
 
+#include "bftrader.pb.h"
 #include "ringbuffer.h"
+
 #include <QMap>
 #include <QObject>
 #include <QQueue>
 #include <QStringList>
 #include <QTimer>
 #include <functional>
+
+using namespace bftrader;
 
 class MdSm;
 class TdSm;
@@ -47,17 +51,20 @@ public:
     void* getPreLatestTick(QString id);
 
 signals:
+    void requestSent(int reqId, QString robotId);
+    void tradeWillBegin();
     void gotInstruments(QStringList ids);
     void gotTick(void* curTick, void* preTick);
-    void gotAccount(double balance, double available, double margin, double closeProfit, double positionProfit);
-    void tradeWillBegin();
+    void gotAccount(const BfAccountData& account);
+    void gotOrder(const BfOrderData& account);
 
 public slots:
     void showVersion();
+    void runCmd(CtpCmd* cmd);
     void start(QString password);
     void stop();
     void queryAccount();
-    void runCmd(CtpCmd* cmd);
+    void sendOrder(const BfOrderReq& req);
 
 private slots:
     void onGotInstruments(QStringList ids);

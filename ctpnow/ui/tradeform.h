@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::TradeForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
 };
 
 #endif // TRADEFORM_H

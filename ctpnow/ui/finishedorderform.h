@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "ctpmgr.h"
+
 namespace Ui {
 class FinishedOrderForm;
 }
@@ -16,9 +18,15 @@ public:
     void init();
     void shutdown();
 
+private slots:
+    void onGotOrder(const BfOrderData& data);
+
 private:
     Ui::FinishedOrderForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
+    QMap<QString, int> table_row_;
+
+    QMap<QString, BfOrderData> orders_;
 };
 
 #endif // FINISHEDORDERFORM_H

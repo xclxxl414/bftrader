@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bftrader.proto',
   package='bftrader',
   syntax='proto3',
-  serialized_pb=_b('\n\x0e\x62\x66trader.proto\x12\x08\x62\x66trader\"\x08\n\x06\x42\x66Void\"\x84\x01\n\x0b\x42\x66\x44\x61ilyInfo\x12\x11\n\topenPrice\x18\x01 \x01(\x01\x12\x11\n\thighPrice\x18\x02 \x01(\x01\x12\x10\n\x08lowPrice\x18\x03 \x01(\x01\x12\x15\n\rpreClosePrice\x18\x04 \x01(\x01\x12\x12\n\nupperLimit\x18\x05 \x01(\x01\x12\x12\n\nlowerLimit\x18\x06 \x01(\x01\"X\n\x0c\x42\x66\x42idAskInfo\x12\x10\n\x08\x62idPrice\x18\x01 \x01(\x01\x12\x10\n\x08\x61skPrice\x18\x02 \x01(\x01\x12\x11\n\tbidVolume\x18\x03 \x01(\x05\x12\x11\n\taskVolume\x18\x04 \x01(\x05\"X\n\nBfOHLCInfo\x12\x11\n\topenPrice\x18\x01 \x01(\x01\x12\x11\n\thighPrice\x18\x02 \x01(\x01\x12\x10\n\x08lowPrice\x18\x03 \x01(\x01\x12\x12\n\nclosePrice\x18\x04 \x01(\x01\"\xed\x01\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12*\n\nbidaskInfo\x18\t \x03(\x0b\x32\x16.bftrader.BfBidAskInfo\x12(\n\tdailyInfo\x18\n \x01(\x0b\x32\x15.bftrader.BfDailyInfo\"s\n\x0e\x42\x66TickPackData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12#\n\x05ticks\x18\x05 \x03(\x0b\x32\x14.bftrader.BfTickData\"\xf9\x01\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\"\n\x06period\x18\x03 \x01(\x0e\x32\x12.bftrader.BfPeriod\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t\x12\x0c\n\x04time\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12&\n\x08ohlcInfo\x18\t \x01(\x0b\x32\x14.bftrader.BfOHLCInfo\x12(\n\tdailyInfo\x18\n \x01(\x0b\x32\x15.bftrader.BfDailyInfo\"\xd1\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x0f\n\x07orderId\x18\x04 \x01(\t\x12(\n\tdirection\x18\x05 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x06 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeTime\x18\t \x01(\t\"\x93\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07orderId\x18\x03 \x01(\t\x12(\n\tdirection\x18\x04 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x05 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12\"\n\x06status\x18\t \x01(\x0e\x32\x12.bftrader.BfStatus\x12\x11\n\torderTime\x18\n \x01(\t\x12\x12\n\ncancelTime\x18\x0b \x01(\t\"\x8d\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\"\xab\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x0e\n\x06margin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"H\n\x0b\x42\x66\x45rrorData\x12\x0f\n\x07\x65rrorId\x18\x01 \x01(\t\x12\x10\n\x08\x65rrorMsg\x18\x02 \x01(\t\x12\x16\n\x0e\x61\x64\x64itionalInfo\x18\x03 \x01(\t\"0\n\tBfLogData\x12\x0f\n\x07logTime\x18\x01 \x01(\t\x12\x12\n\nlogContent\x18\x02 \x01(\t\"\xe0\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12)\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x13.bftrader.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMartet\x18\n \x01(\x05\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"2\n\x0e\x42\x66SubscribeReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\"\xd5\x01\n\nBfOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12(\n\tpriceType\x18\x05 \x01(\x0e\x32\x15.bftrader.BfPriceType\x12(\n\tdirection\x18\x06 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x07 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\x0e\n\x06reason\x18\x08 \x01(\t\"\x1e\n\x0b\x42\x66OrderResp\x12\x0f\n\x07orderId\x18\x01 \x01(\t\"U\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07orderId\x18\x03 \x01(\t\x12\x0e\n\x06reason\x18\x04 \x01(\t\"C\n\x0c\x42\x66\x43onnectReq\x12\x0f\n\x07robotId\x18\x01 \x01(\t\x12\x0f\n\x07robotIp\x18\x02 \x01(\t\x12\x11\n\trobotPort\x18\x03 \x01(\x05\"\'\n\rBfConnectResp\x12\x16\n\x0e\x65xchangeOpened\x18\x01 \x01(\x08\"4\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\"c\n\x10\x42\x66GetTickPackReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x82\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\"\n\x06period\x18\x03 \x01(\x0e\x32\x12.bftrader.BfPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05*\x88\x01\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_NONE\x10\x01\x12\x12\n\x0e\x44IRECTION_LONG\x10\x02\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x03\x12\x11\n\rDIRECTION_NET\x10\x04\x12\x12\n\x0e\x44IRECTION_SELL\x10\x05*\x84\x01\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_NONE\x10\x01\x12\x0f\n\x0bOFFSET_OPEN\x10\x02\x12\x10\n\x0cOFFSET_CLOSE\x10\x03\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x04\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x05*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*\xd3\x01\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x10\n\x0cPRODUCT_NONE\x10\x01\x12\x12\n\x0ePRODUCT_EQUITY\x10\x02\x12\x13\n\x0fPRODUCT_FUTURES\x10\x03\x12\x12\n\x0ePRODUCT_OPTION\x10\x04\x12\x11\n\rPRODUCT_INDEX\x10\x05\x12\x17\n\x13PRODUCT_COMBINATION\x10\x06\x12\x11\n\rPRODUCT_FOREX\x10\x07\x12\x10\n\x0cPRODUCT_SPOT\x10\x08\x12\x11\n\rPRODUCT_DEFER\x10\t*\x7f\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02\x12\x11\n\rPRICETYPE_FAK\x10\x03\x12\x11\n\rPRICETYPE_FOK\x10\x04*\xa5\x01\n\nBfExchange\x12\x14\n\x10\x45XCHANGE_UNKNOWN\x10\x00\x12\x10\n\x0c\x45XCHANGE_SSE\x10\x01\x12\x11\n\rEXCHANGE_SZSE\x10\x02\x12\x12\n\x0e\x45XCHANGE_CFFEX\x10\x03\x12\x11\n\rEXCHANGE_SHFE\x10\x04\x12\x11\n\rEXCHANGE_CZCE\x10\x05\x12\x10\n\x0c\x45XCHANGE_DCE\x10\x06\x12\x10\n\x0c\x45XCHANGE_SGE\x10\x07*<\n\x08\x42\x66Period\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\r\n\tPERIOD_M1\x10\x01\x12\r\n\tPERIOD_D1\x10\x02\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0e\x62\x66trader.proto\x12\x08\x62\x66trader\"\x08\n\x06\x42\x66Void\"\x84\x01\n\x0b\x42\x66\x44\x61ilyInfo\x12\x11\n\topenPrice\x18\x01 \x01(\x01\x12\x11\n\thighPrice\x18\x02 \x01(\x01\x12\x10\n\x08lowPrice\x18\x03 \x01(\x01\x12\x15\n\rpreClosePrice\x18\x04 \x01(\x01\x12\x12\n\nupperLimit\x18\x05 \x01(\x01\x12\x12\n\nlowerLimit\x18\x06 \x01(\x01\"X\n\x0c\x42\x66\x42idAskInfo\x12\x10\n\x08\x62idPrice\x18\x01 \x01(\x01\x12\x10\n\x08\x61skPrice\x18\x02 \x01(\x01\x12\x11\n\tbidVolume\x18\x03 \x01(\x05\x12\x11\n\taskVolume\x18\x04 \x01(\x05\"X\n\nBfOHLCInfo\x12\x11\n\topenPrice\x18\x01 \x01(\x01\x12\x11\n\thighPrice\x18\x02 \x01(\x01\x12\x10\n\x08lowPrice\x18\x03 \x01(\x01\x12\x12\n\nclosePrice\x18\x04 \x01(\x01\"\xed\x01\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12*\n\nbidaskInfo\x18\t \x03(\x0b\x32\x16.bftrader.BfBidAskInfo\x12(\n\tdailyInfo\x18\n \x01(\x0b\x32\x15.bftrader.BfDailyInfo\"s\n\x0e\x42\x66TickPackData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12#\n\x05ticks\x18\x05 \x03(\x0b\x32\x14.bftrader.BfTickData\"\xf9\x01\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\"\n\x06period\x18\x03 \x01(\x0e\x32\x12.bftrader.BfPeriod\x12\x0c\n\x04\x64\x61te\x18\x04 \x01(\t\x12\x0c\n\x04time\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12&\n\x08ohlcInfo\x18\t \x01(\x0b\x32\x14.bftrader.BfOHLCInfo\x12(\n\tdailyInfo\x18\n \x01(\x0b\x32\x15.bftrader.BfDailyInfo\"\xd1\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x0f\n\x07orderId\x18\x04 \x01(\t\x12(\n\tdirection\x18\x05 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x06 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeTime\x18\t \x01(\t\"\x93\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07orderId\x18\x03 \x01(\t\x12(\n\tdirection\x18\x04 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x05 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12\"\n\x06status\x18\t \x01(\x0e\x32\x12.bftrader.BfStatus\x12\x11\n\torderTime\x18\n \x01(\t\x12\x12\n\ncancelTime\x18\x0b \x01(\t\"\x8d\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\"\xb1\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x14\n\x0c\x66rozenMargin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"H\n\x0b\x42\x66\x45rrorData\x12\x0f\n\x07\x65rrorId\x18\x01 \x01(\t\x12\x10\n\x08\x65rrorMsg\x18\x02 \x01(\t\x12\x16\n\x0e\x61\x64\x64itionalInfo\x18\x03 \x01(\t\"0\n\tBfLogData\x12\x0f\n\x07logTime\x18\x01 \x01(\t\x12\x12\n\nlogContent\x18\x02 \x01(\t\"\xe0\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12)\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x13.bftrader.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMartet\x18\n \x01(\x05\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"2\n\x0e\x42\x66SubscribeReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\"\xd5\x01\n\nBfOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12(\n\tpriceType\x18\x05 \x01(\x0e\x32\x15.bftrader.BfPriceType\x12(\n\tdirection\x18\x06 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x07 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\x0e\n\x06reason\x18\x08 \x01(\t\"\x1e\n\x0b\x42\x66OrderResp\x12\x0f\n\x07orderId\x18\x01 \x01(\t\"U\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07orderId\x18\x03 \x01(\t\x12\x0e\n\x06reason\x18\x04 \x01(\t\"C\n\x0c\x42\x66\x43onnectReq\x12\x0f\n\x07robotId\x18\x01 \x01(\t\x12\x0f\n\x07robotIp\x18\x02 \x01(\t\x12\x11\n\trobotPort\x18\x03 \x01(\x05\"\'\n\rBfConnectResp\x12\x16\n\x0e\x65xchangeOpened\x18\x01 \x01(\x08\"4\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\"c\n\x10\x42\x66GetTickPackReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x82\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\"\n\x06period\x18\x03 \x01(\x0e\x32\x12.bftrader.BfPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05*M\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_LONG\x10\x01\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x02*s\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_OPEN\x10\x01\x12\x10\n\x0cOFFSET_CLOSE\x10\x02\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x03\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x04*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*I\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x12\n\x0ePRODUCT_EQUITY\x10\x01\x12\x13\n\x0fPRODUCT_FUTURES\x10\x02*Y\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02*\xa5\x01\n\nBfExchange\x12\x14\n\x10\x45XCHANGE_UNKNOWN\x10\x00\x12\x10\n\x0c\x45XCHANGE_SSE\x10\x01\x12\x11\n\rEXCHANGE_SZSE\x10\x02\x12\x12\n\x0e\x45XCHANGE_CFFEX\x10\x03\x12\x11\n\rEXCHANGE_SHFE\x10\x04\x12\x11\n\rEXCHANGE_CZCE\x10\x05\x12\x10\n\x0c\x45XCHANGE_DCE\x10\x06\x12\x10\n\x0c\x45XCHANGE_SGE\x10\x07*<\n\x08\x42\x66Period\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\r\n\tPERIOD_M1\x10\x01\x12\r\n\tPERIOD_D1\x10\x02\x42\x03\xf8\x01\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -35,30 +35,18 @@ _BFDIRECTION = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DIRECTION_NONE', index=1, number=1,
+      name='DIRECTION_LONG', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DIRECTION_LONG', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_SHORT', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_NET', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_SELL', index=5, number=5,
+      name='DIRECTION_SHORT', index=2, number=2,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=2947,
-  serialized_end=3083,
+  serialized_start=2952,
+  serialized_end=3029,
 )
 _sym_db.RegisterEnumDescriptor(_BFDIRECTION)
 
@@ -74,30 +62,26 @@ _BFOFFSET = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='OFFSET_NONE', index=1, number=1,
+      name='OFFSET_OPEN', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='OFFSET_OPEN', index=2, number=2,
+      name='OFFSET_CLOSE', index=2, number=2,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='OFFSET_CLOSE', index=3, number=3,
+      name='OFFSET_CLOSETODAY', index=3, number=3,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='OFFSET_CLOSETODAY', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='OFFSET_CLOSEYESTERDAY', index=5, number=5,
+      name='OFFSET_CLOSEYESTERDAY', index=4, number=4,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=3086,
-  serialized_end=3218,
+  serialized_start=3031,
+  serialized_end=3146,
 )
 _sym_db.RegisterEnumDescriptor(_BFOFFSET)
 
@@ -131,8 +115,8 @@ _BFSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3220,
-  serialized_end=3339,
+  serialized_start=3148,
+  serialized_end=3267,
 )
 _sym_db.RegisterEnumDescriptor(_BFSTATUS)
 
@@ -148,46 +132,18 @@ _BFPRODUCT = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PRODUCT_NONE', index=1, number=1,
+      name='PRODUCT_EQUITY', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PRODUCT_EQUITY', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_FUTURES', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_OPTION', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_INDEX', index=5, number=5,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_COMBINATION', index=6, number=6,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_FOREX', index=7, number=7,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_SPOT', index=8, number=8,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRODUCT_DEFER', index=9, number=9,
+      name='PRODUCT_FUTURES', index=2, number=2,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=3342,
-  serialized_end=3553,
+  serialized_start=3269,
+  serialized_end=3342,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRODUCT)
 
@@ -210,19 +166,11 @@ _BFPRICETYPE = _descriptor.EnumDescriptor(
       name='PRICETYPE_MARKETPRICE', index=2, number=2,
       options=None,
       type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRICETYPE_FAK', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='PRICETYPE_FOK', index=4, number=4,
-      options=None,
-      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=3555,
-  serialized_end=3682,
+  serialized_start=3344,
+  serialized_end=3433,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRICETYPE)
 
@@ -268,8 +216,8 @@ _BFEXCHANGE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3685,
-  serialized_end=3850,
+  serialized_start=3436,
+  serialized_end=3601,
 )
 _sym_db.RegisterEnumDescriptor(_BFEXCHANGE)
 
@@ -295,44 +243,31 @@ _BFPERIOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3852,
-  serialized_end=3912,
+  serialized_start=3603,
+  serialized_end=3663,
 )
 _sym_db.RegisterEnumDescriptor(_BFPERIOD)
 
 BfPeriod = enum_type_wrapper.EnumTypeWrapper(_BFPERIOD)
 DIRECTION_UNKNOWN = 0
-DIRECTION_NONE = 1
-DIRECTION_LONG = 2
-DIRECTION_SHORT = 3
-DIRECTION_NET = 4
-DIRECTION_SELL = 5
+DIRECTION_LONG = 1
+DIRECTION_SHORT = 2
 OFFSET_UNKNOWN = 0
-OFFSET_NONE = 1
-OFFSET_OPEN = 2
-OFFSET_CLOSE = 3
-OFFSET_CLOSETODAY = 4
-OFFSET_CLOSEYESTERDAY = 5
+OFFSET_OPEN = 1
+OFFSET_CLOSE = 2
+OFFSET_CLOSETODAY = 3
+OFFSET_CLOSEYESTERDAY = 4
 STATUS_UNKNOWN = 0
 STATUS_NOTTRADED = 1
 STATUS_PARTTRADED = 2
 STATUS_ALLTRADED = 3
 STATUS_CANCELLED = 4
 PRODUCT_UNKNOWN = 0
-PRODUCT_NONE = 1
-PRODUCT_EQUITY = 2
-PRODUCT_FUTURES = 3
-PRODUCT_OPTION = 4
-PRODUCT_INDEX = 5
-PRODUCT_COMBINATION = 6
-PRODUCT_FOREX = 7
-PRODUCT_SPOT = 8
-PRODUCT_DEFER = 9
+PRODUCT_EQUITY = 1
+PRODUCT_FUTURES = 2
 PRICETYPE_UNKONWN = 0
 PRICETYPE_LIMITPRICE = 1
 PRICETYPE_MARKETPRICE = 2
-PRICETYPE_FAK = 3
-PRICETYPE_FOK = 4
 EXCHANGE_UNKNOWN = 0
 EXCHANGE_SSE = 1
 EXCHANGE_SZSE = 2
@@ -1085,7 +1020,7 @@ _BFACCOUNTDATA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='margin', full_name='bftrader.BfAccountData.margin', index=5,
+      name='frozenMargin', full_name='bftrader.BfAccountData.frozenMargin', index=5,
       number=6, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -1118,7 +1053,7 @@ _BFACCOUNTDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1597,
-  serialized_end=1768,
+  serialized_end=1774,
 )
 
 
@@ -1162,8 +1097,8 @@ _BFERRORDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1770,
-  serialized_end=1842,
+  serialized_start=1776,
+  serialized_end=1848,
 )
 
 
@@ -1200,8 +1135,8 @@ _BFLOGDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1844,
-  serialized_end=1892,
+  serialized_start=1850,
+  serialized_end=1898,
 )
 
 
@@ -1294,8 +1229,8 @@ _BFCONTRACTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1895,
-  serialized_end=2119,
+  serialized_start=1901,
+  serialized_end=2125,
 )
 
 
@@ -1332,8 +1267,8 @@ _BFKVDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2121,
-  serialized_end=2159,
+  serialized_start=2127,
+  serialized_end=2165,
 )
 
 
@@ -1370,8 +1305,8 @@ _BFSUBSCRIBEREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2161,
-  serialized_end=2211,
+  serialized_start=2167,
+  serialized_end=2217,
 )
 
 
@@ -1450,8 +1385,8 @@ _BFORDERREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2214,
-  serialized_end=2427,
+  serialized_start=2220,
+  serialized_end=2433,
 )
 
 
@@ -1481,8 +1416,8 @@ _BFORDERRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2429,
-  serialized_end=2459,
+  serialized_start=2435,
+  serialized_end=2465,
 )
 
 
@@ -1533,8 +1468,8 @@ _BFCANCELORDERREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2461,
-  serialized_end=2546,
+  serialized_start=2467,
+  serialized_end=2552,
 )
 
 
@@ -1578,8 +1513,8 @@ _BFCONNECTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2548,
-  serialized_end=2615,
+  serialized_start=2554,
+  serialized_end=2621,
 )
 
 
@@ -1609,8 +1544,8 @@ _BFCONNECTRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2617,
-  serialized_end=2656,
+  serialized_start=2623,
+  serialized_end=2662,
 )
 
 
@@ -1647,8 +1582,8 @@ _BFGETCONTRACTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2658,
-  serialized_end=2710,
+  serialized_start=2664,
+  serialized_end=2716,
 )
 
 
@@ -1706,8 +1641,8 @@ _BFGETTICKPACKREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2712,
-  serialized_end=2811,
+  serialized_start=2718,
+  serialized_end=2817,
 )
 
 
@@ -1772,8 +1707,8 @@ _BFGETBARREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2814,
-  serialized_end=2944,
+  serialized_start=2820,
+  serialized_end=2950,
 )
 
 _BFTICKDATA.fields_by_name['bidaskInfo'].message_type = _BFBIDASKINFO

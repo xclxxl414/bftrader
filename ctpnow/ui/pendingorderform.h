@@ -1,7 +1,10 @@
 #ifndef PENDINGORDERFORM_H
 #define PENDINGORDERFORM_H
 
+#include <QMap>
 #include <QWidget>
+
+#include "ctpmgr.h"
 
 namespace Ui {
 class PendingOrderForm;
@@ -16,9 +19,15 @@ public:
     void init();
     void shutdown();
 
+private slots:
+    void onGotOrder(const BfOrderData& data);
+
 private:
     Ui::PendingOrderForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
+    QMap<QString, int> table_row_;
+
+    QMap<QString, BfOrderData> orders_;
 };
 
 #endif // PENDINGORDERFORM_H

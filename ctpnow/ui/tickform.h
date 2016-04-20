@@ -24,12 +24,15 @@ private slots:
     void onTradeWillBegin();
     void onUpdateTick();
 
+    void on_pushButtonSendOrder_clicked();
+    void on_tableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::TickForm* ui;
     QTimer* updateTickTimer_ = nullptr;
 
-    QMap<QString, int> instruments_row_;
-    QStringList instruments_col_;
+    QMap<QString, int> table_row_;
+    QStringList table_col_;
 };
 
 #endif // TICKFORM_H

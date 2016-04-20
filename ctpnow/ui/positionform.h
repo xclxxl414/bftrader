@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::PositionForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
 };
 
 #endif // POSITIONFORM_H

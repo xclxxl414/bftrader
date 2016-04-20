@@ -84,28 +84,58 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEditPrice">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxPrice">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
-           <width>80</width>
+           <width>100</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="placeholderText">
-          <string>price</string>
+         <property name="readOnly">
+          <bool>false</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::UpDownArrows</enum>
+         </property>
+         <property name="decimals">
+          <number>3</number>
+         </property>
+         <property name="maximum">
+          <double>999999.989999999990687</double>
+         </property>
+         <property name="singleStep">
+          <double>1.000000000000000</double>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEditVolume">
+        <widget class="QSpinBox" name="spinBoxVolume">
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>80</width>
            <height>16777215</height>
           </size>
          </property>
-         <property name="placeholderText">
-          <string>volume</string>
+         <property name="readOnly">
+          <bool>false</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
          </property>
         </widget>
        </item>

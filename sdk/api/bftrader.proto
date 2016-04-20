@@ -10,21 +10,17 @@ package bftrader;
 // 方向常量
 enum BfDirection{
     DIRECTION_UNKNOWN = 0;  // 未知
-    DIRECTION_NONE = 1;     // 无方向
-    DIRECTION_LONG = 2;     // 多
-    DIRECTION_SHORT = 3;    // 空
-    DIRECTION_NET = 4;      // 净
-    DIRECTION_SELL = 5;     // 卖出
+    DIRECTION_LONG = 1;     // 多
+    DIRECTION_SHORT = 2;    // 空
 }
 
 // 开平常量
 enum BfOffset{
     OFFSET_UNKNOWN = 0;         // 未知
-    OFFSET_NONE = 1;            // 无开平
-    OFFSET_OPEN = 2;            // 开仓
-    OFFSET_CLOSE = 3;           // 平仓
-    OFFSET_CLOSETODAY = 4;      // 平今
-    OFFSET_CLOSEYESTERDAY = 5;  // 平昨
+    OFFSET_OPEN = 1;            // 开仓
+    OFFSET_CLOSE = 2;           // 平仓
+    OFFSET_CLOSETODAY = 3;      // 平今
+    OFFSET_CLOSEYESTERDAY = 4;  // 平昨
 }
 
 // 状态常量
@@ -39,15 +35,8 @@ enum BfStatus{
 // 合约类型常量
 enum BfProduct{
     PRODUCT_UNKNOWN = 0;        // 未知
-    PRODUCT_NONE = 1;           // ''
-    PRODUCT_EQUITY = 2;         // 股票
-    PRODUCT_FUTURES = 3;        // 期货
-    PRODUCT_OPTION = 4;         // 期权
-    PRODUCT_INDEX = 5;          // 指数
-    PRODUCT_COMBINATION = 6;    // 组合
-    PRODUCT_FOREX = 7;          // 外汇
-    PRODUCT_SPOT = 8;           // 现货
-    PRODUCT_DEFER = 9;          // 延期
+    PRODUCT_EQUITY = 1;         // 股票
+    PRODUCT_FUTURES = 2;        // 期货
 }
 
 // 价格类型常量
@@ -55,8 +44,6 @@ enum BfPriceType{
     PRICETYPE_UNKONWN = 0;      // 未知
     PRICETYPE_LIMITPRICE = 1;   // 限价
     PRICETYPE_MARKETPRICE = 2;  // 市价
-    PRICETYPE_FAK = 3;          // FAK
-    PRICETYPE_FOK = 4;          // FOK
 }
 
 // 交易所类型

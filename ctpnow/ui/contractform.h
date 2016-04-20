@@ -27,8 +27,8 @@ private:
 private:
     Ui::ContractForm* ui;
 
-    QMap<QString, int> instruments_row_;
-    QStringList instruments_col_;
+    QMap<QString, int> table_row_;
+    QStringList table_col_;
 };
 
 #endif // CONTRACTFORM_H

@@ -34,8 +34,6 @@ public:
 
 signals:
     void statusChanged(int state);
-    void requestSent(int reqId, QString robotId);
-    void gotTick(void* curTick, void* preTick);
 
 private:
     QString userId_, password_, brokerId_, frontMd_, flowPathMd_;

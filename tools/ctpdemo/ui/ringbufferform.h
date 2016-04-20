@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::RingBufferForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
     QString id_;
 };
 

@@ -30,7 +30,7 @@ private:
 
 private:
     Ui::InstrumentsForm* ui;
-    QStringList instruments_col_;
+    QStringList table_col_;
     leveldb::DB* db_ = nullptr;
 };
 
