@@ -18,14 +18,15 @@ TickForm::TickForm(QWidget* parent)
                      << "date"
                      << "time"
                      << "lastPrice"
-                     << "volume"
-                     << "openInterest"
-                     << "lastVolume"
 
                      << "bidPrice"
                      << "askPrice"
                      << "bidVolume"
                      << "askVolume"
+
+                     << "volume"
+                     << "openInterest"
+                     << "lastVolume"
 
                      << "openPrice"
                      << "highPrice"
