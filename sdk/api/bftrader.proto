@@ -165,8 +165,8 @@ message BfTradeData{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
 
-    string tradeId = 3;         // 成交编号,是本地自己分配的
-    string orderId = 4;         // 订单编号,是本地自己分配的
+    int32 tradeId = 3;          // 成交编号,是本地自己分配的
+    int32 orderId = 4;          // 订单编号,是本地自己分配的
     
     // 成交相关
     BfDirection direction = 5;  // 成交方向
@@ -183,7 +183,7 @@ message BfOrderData{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    string orderId = 3;         // 订单编号,是本地自己分配的
+    int32 orderId = 3;          // 订单编号,是本地自己分配的
     
     // 报单相关
     BfDirection direction = 4;  // 报单方向
@@ -195,6 +195,9 @@ message BfOrderData{
     
     string orderTime = 10;      // 发单时间
     string cancelTime = 11;     // 撤单时间
+    
+    int32 frontID = 12;         // 前置机号,Ctp/Lts
+    int32 sessionID =  13;      // 会话号,Ctp/Lts 
 }
 
 // 持仓数据类
@@ -208,7 +211,8 @@ message BfPositionData{
     BfDirection direction = 3;  // 持仓方向
     int32 position = 4;         // 持仓量
     int32 frozen = 5;           // 冻结数量
-    double price = 6;           // 持仓均价     
+    double price = 6;           // 持仓均价
+    int32 ydPosition = 7;       // 昨持仓
 }
 
 // 账户数据类
@@ -289,12 +293,11 @@ message BfOrderReq{
     BfDirection direction = 6;  // 买卖
     BfOffset offset = 7;        // 开平
     
-    string reason = 8;          // 理由备忘
 }
 
 // 发单本地返回的对象类
 message BfOrderResp{
-    string orderId = 1;         // 报单号,是本地自己分配的
+    int32 orderId = 1;          // 报单号,是本地自己分配的
 }
 
 // 撤单时传入的对象类
@@ -304,9 +307,9 @@ message BfCancelOrderReq{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    string orderId = 3;         // 报单号,是本地自己分配的
-    
-    string reason = 4;          // 理由备忘
+    int32 orderId = 3;          // 报单号,是本地自己分配的
+    int32 frontID = 4;          // 前置机号,Ctp/Lts
+    int32 sessionID = 5;        // 会话号,Ctp/Lts 
 }
 
 // 连接时传入的对象类

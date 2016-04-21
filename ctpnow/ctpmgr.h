@@ -68,6 +68,7 @@ public slots:
     void queryAccount();
     void sendOrder(const BfOrderReq& req);
     void queryPosition();
+    void cancelOrder(const BfCancelOrderReq& req);
 
 private slots:
     void onGotInstruments(QStringList ids);

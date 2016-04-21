@@ -26,6 +26,7 @@ void CtpMgr::init()
     qRegisterMetaType<BfOrderReq>("BfOrderReq");
     qRegisterMetaType<BfOrderData>("BfOrderData");
     qRegisterMetaType<BfTradeData>("BfTradeData");
+    qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
 }
 
 void CtpMgr::shutdown()
@@ -471,4 +472,16 @@ void CtpMgr::sendOrder(const BfOrderReq& req)
     }
 
     tdsm_->sendOrder(0, "", req);
+}
+
+void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        logger()->info("CtpMgr::cancelOrder,please login first");
+        return;
+    }
+
+    tdsm_->cancelOrder(0, "", req);
 }

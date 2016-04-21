@@ -106,8 +106,8 @@ void TradeForm::shutdown()
 void TradeForm::onGotTrade(const BfTradeData& trade)
 {
     QVariantMap vItem;
-    vItem.insert("tradeId", trade.tradeid().c_str());
-    vItem.insert("orderId", trade.orderid().c_str());
+    vItem.insert("tradeId", trade.tradeid());
+    vItem.insert("orderId", trade.orderid());
     vItem.insert("symbol", trade.symbol().c_str());
     vItem.insert("exchange", trade.exchange().c_str());
 

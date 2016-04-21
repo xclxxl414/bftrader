@@ -1327,33 +1327,17 @@ class BfTradeData : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_exchange(
       ::std::string* exchange);
 
-  // optional string tradeId = 3;
+  // optional int32 tradeId = 3;
   void clear_tradeid();
   static const int kTradeIdFieldNumber = 3;
-  const ::std::string& tradeid() const;
-  void set_tradeid(const ::std::string& value);
-  void set_tradeid(const char* value);
-  void set_tradeid(const char* value, size_t size);
-  ::std::string* mutable_tradeid();
-  ::std::string* release_tradeid();
-  void set_allocated_tradeid(::std::string* tradeid);
-  ::std::string* unsafe_arena_release_tradeid();
-  void unsafe_arena_set_allocated_tradeid(
-      ::std::string* tradeid);
+  ::google::protobuf::int32 tradeid() const;
+  void set_tradeid(::google::protobuf::int32 value);
 
-  // optional string orderId = 4;
+  // optional int32 orderId = 4;
   void clear_orderid();
   static const int kOrderIdFieldNumber = 4;
-  const ::std::string& orderid() const;
-  void set_orderid(const ::std::string& value);
-  void set_orderid(const char* value);
-  void set_orderid(const char* value, size_t size);
-  ::std::string* mutable_orderid();
-  ::std::string* release_orderid();
-  void set_allocated_orderid(::std::string* orderid);
-  ::std::string* unsafe_arena_release_orderid();
-  void unsafe_arena_set_allocated_orderid(
-      ::std::string* orderid);
+  ::google::protobuf::int32 orderid() const;
+  void set_orderid(::google::protobuf::int32 value);
 
   // optional .bftrader.BfDirection direction = 5;
   void clear_direction();
@@ -1403,8 +1387,8 @@ class BfTradeData : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr symbol_;
   ::google::protobuf::internal::ArenaStringPtr exchange_;
-  ::google::protobuf::internal::ArenaStringPtr tradeid_;
-  ::google::protobuf::internal::ArenaStringPtr orderid_;
+  ::google::protobuf::int32 tradeid_;
+  ::google::protobuf::int32 orderid_;
   int direction_;
   int offset_;
   double price_;
@@ -1514,19 +1498,11 @@ class BfOrderData : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_exchange(
       ::std::string* exchange);
 
-  // optional string orderId = 3;
+  // optional int32 orderId = 3;
   void clear_orderid();
   static const int kOrderIdFieldNumber = 3;
-  const ::std::string& orderid() const;
-  void set_orderid(const ::std::string& value);
-  void set_orderid(const char* value);
-  void set_orderid(const char* value, size_t size);
-  ::std::string* mutable_orderid();
-  ::std::string* release_orderid();
-  void set_allocated_orderid(::std::string* orderid);
-  ::std::string* unsafe_arena_release_orderid();
-  void unsafe_arena_set_allocated_orderid(
-      ::std::string* orderid);
+  ::google::protobuf::int32 orderid() const;
+  void set_orderid(::google::protobuf::int32 value);
 
   // optional .bftrader.BfDirection direction = 4;
   void clear_direction();
@@ -1592,6 +1568,18 @@ class BfOrderData : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_canceltime(
       ::std::string* canceltime);
 
+  // optional int32 frontID = 12;
+  void clear_frontid();
+  static const int kFrontIDFieldNumber = 12;
+  ::google::protobuf::int32 frontid() const;
+  void set_frontid(::google::protobuf::int32 value);
+
+  // optional int32 sessionID = 13;
+  void clear_sessionid();
+  static const int kSessionIDFieldNumber = 13;
+  ::google::protobuf::int32 sessionid() const;
+  void set_sessionid(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:bftrader.BfOrderData)
  private:
 
@@ -1602,15 +1590,17 @@ class BfOrderData : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr symbol_;
   ::google::protobuf::internal::ArenaStringPtr exchange_;
-  ::google::protobuf::internal::ArenaStringPtr orderid_;
+  ::google::protobuf::int32 orderid_;
   int direction_;
-  int offset_;
   double price_;
+  int offset_;
   ::google::protobuf::int32 totalvolume_;
   ::google::protobuf::int32 tradedvolume_;
+  int status_;
   ::google::protobuf::internal::ArenaStringPtr ordertime_;
   ::google::protobuf::internal::ArenaStringPtr canceltime_;
-  int status_;
+  ::google::protobuf::int32 frontid_;
+  ::google::protobuf::int32 sessionid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -1739,6 +1729,12 @@ class BfPositionData : public ::google::protobuf::Message {
   double price() const;
   void set_price(double value);
 
+  // optional int32 ydPosition = 7;
+  void clear_ydposition();
+  static const int kYdPositionFieldNumber = 7;
+  ::google::protobuf::int32 ydposition() const;
+  void set_ydposition(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:bftrader.BfPositionData)
  private:
 
@@ -1753,6 +1749,7 @@ class BfPositionData : public ::google::protobuf::Message {
   ::google::protobuf::int32 position_;
   double price_;
   ::google::protobuf::int32 frozen_;
+  ::google::protobuf::int32 ydposition_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -2684,20 +2681,6 @@ class BfOrderReq : public ::google::protobuf::Message {
   ::bftrader::BfOffset offset() const;
   void set_offset(::bftrader::BfOffset value);
 
-  // optional string reason = 8;
-  void clear_reason();
-  static const int kReasonFieldNumber = 8;
-  const ::std::string& reason() const;
-  void set_reason(const ::std::string& value);
-  void set_reason(const char* value);
-  void set_reason(const char* value, size_t size);
-  ::std::string* mutable_reason();
-  ::std::string* release_reason();
-  void set_allocated_reason(::std::string* reason);
-  ::std::string* unsafe_arena_release_reason();
-  void unsafe_arena_set_allocated_reason(
-      ::std::string* reason);
-
   // @@protoc_insertion_point(class_scope:bftrader.BfOrderReq)
  private:
 
@@ -2713,7 +2696,6 @@ class BfOrderReq : public ::google::protobuf::Message {
   int pricetype_;
   int direction_;
   int offset_;
-  ::google::protobuf::internal::ArenaStringPtr reason_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -2790,19 +2772,11 @@ class BfOrderResp : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string orderId = 1;
+  // optional int32 orderId = 1;
   void clear_orderid();
   static const int kOrderIdFieldNumber = 1;
-  const ::std::string& orderid() const;
-  void set_orderid(const ::std::string& value);
-  void set_orderid(const char* value);
-  void set_orderid(const char* value, size_t size);
-  ::std::string* mutable_orderid();
-  ::std::string* release_orderid();
-  void set_allocated_orderid(::std::string* orderid);
-  ::std::string* unsafe_arena_release_orderid();
-  void unsafe_arena_set_allocated_orderid(
-      ::std::string* orderid);
+  ::google::protobuf::int32 orderid() const;
+  void set_orderid(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:bftrader.BfOrderResp)
  private:
@@ -2812,7 +2786,7 @@ class BfOrderResp : public ::google::protobuf::Message {
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr orderid_;
+  ::google::protobuf::int32 orderid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -2917,33 +2891,23 @@ class BfCancelOrderReq : public ::google::protobuf::Message {
   void unsafe_arena_set_allocated_exchange(
       ::std::string* exchange);
 
-  // optional string orderId = 3;
+  // optional int32 orderId = 3;
   void clear_orderid();
   static const int kOrderIdFieldNumber = 3;
-  const ::std::string& orderid() const;
-  void set_orderid(const ::std::string& value);
-  void set_orderid(const char* value);
-  void set_orderid(const char* value, size_t size);
-  ::std::string* mutable_orderid();
-  ::std::string* release_orderid();
-  void set_allocated_orderid(::std::string* orderid);
-  ::std::string* unsafe_arena_release_orderid();
-  void unsafe_arena_set_allocated_orderid(
-      ::std::string* orderid);
+  ::google::protobuf::int32 orderid() const;
+  void set_orderid(::google::protobuf::int32 value);
 
-  // optional string reason = 4;
-  void clear_reason();
-  static const int kReasonFieldNumber = 4;
-  const ::std::string& reason() const;
-  void set_reason(const ::std::string& value);
-  void set_reason(const char* value);
-  void set_reason(const char* value, size_t size);
-  ::std::string* mutable_reason();
-  ::std::string* release_reason();
-  void set_allocated_reason(::std::string* reason);
-  ::std::string* unsafe_arena_release_reason();
-  void unsafe_arena_set_allocated_reason(
-      ::std::string* reason);
+  // optional int32 frontID = 4;
+  void clear_frontid();
+  static const int kFrontIDFieldNumber = 4;
+  ::google::protobuf::int32 frontid() const;
+  void set_frontid(::google::protobuf::int32 value);
+
+  // optional int32 sessionID = 5;
+  void clear_sessionid();
+  static const int kSessionIDFieldNumber = 5;
+  ::google::protobuf::int32 sessionid() const;
+  void set_sessionid(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:bftrader.BfCancelOrderReq)
  private:
@@ -2955,8 +2919,9 @@ class BfCancelOrderReq : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr symbol_;
   ::google::protobuf::internal::ArenaStringPtr exchange_;
-  ::google::protobuf::internal::ArenaStringPtr orderid_;
-  ::google::protobuf::internal::ArenaStringPtr reason_;
+  ::google::protobuf::int32 orderid_;
+  ::google::protobuf::int32 frontid_;
+  ::google::protobuf::int32 sessionid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -5041,132 +5006,32 @@ inline void BfTradeData::unsafe_arena_set_allocated_exchange(
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.exchange)
 }
 
-// optional string tradeId = 3;
+// optional int32 tradeId = 3;
 inline void BfTradeData::clear_tradeid() {
-  tradeid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  tradeid_ = 0;
 }
-inline const ::std::string& BfTradeData::tradeid() const {
+inline ::google::protobuf::int32 BfTradeData::tradeid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeId)
-  return tradeid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return tradeid_;
 }
-inline void BfTradeData::set_tradeid(const ::std::string& value) {
+inline void BfTradeData::set_tradeid(::google::protobuf::int32 value) {
   
-  tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  tradeid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeId)
 }
-inline void BfTradeData::set_tradeid(const char* value) {
-  
-  tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeId)
-}
-inline void BfTradeData::set_tradeid(const char* value,
-    size_t size) {
-  
-  tradeid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeId)
-}
-inline ::std::string* BfTradeData::mutable_tradeid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeId)
-  return tradeid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfTradeData::release_tradeid() {
-  
-  return tradeid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfTradeData::unsafe_arena_release_tradeid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return tradeid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfTradeData::set_allocated_tradeid(::std::string* tradeid) {
-  if (tradeid != NULL) {
-    
-  } else {
-    
-  }
-  tradeid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tradeid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeId)
-}
-inline void BfTradeData::unsafe_arena_set_allocated_tradeid(
-    ::std::string* tradeid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (tradeid != NULL) {
-    
-  } else {
-    
-  }
-  tradeid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      tradeid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeId)
-}
 
-// optional string orderId = 4;
+// optional int32 orderId = 4;
 inline void BfTradeData::clear_orderid() {
-  orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  orderid_ = 0;
 }
-inline const ::std::string& BfTradeData::orderid() const {
+inline ::google::protobuf::int32 BfTradeData::orderid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfTradeData.orderId)
-  return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return orderid_;
 }
-inline void BfTradeData::set_orderid(const ::std::string& value) {
+inline void BfTradeData::set_orderid(::google::protobuf::int32 value) {
   
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  orderid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfTradeData.orderId)
-}
-inline void BfTradeData::set_orderid(const char* value) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.orderId)
-}
-inline void BfTradeData::set_orderid(const char* value,
-    size_t size) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.orderId)
-}
-inline ::std::string* BfTradeData::mutable_orderid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.orderId)
-  return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfTradeData::release_orderid() {
-  
-  return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfTradeData::unsafe_arena_release_orderid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfTradeData::set_allocated_orderid(::std::string* orderid) {
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderId)
-}
-inline void BfTradeData::unsafe_arena_set_allocated_orderid(
-    ::std::string* orderid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.orderId)
 }
 
 // optional .bftrader.BfDirection direction = 5;
@@ -5421,68 +5286,18 @@ inline void BfOrderData::unsafe_arena_set_allocated_exchange(
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.exchange)
 }
 
-// optional string orderId = 3;
+// optional int32 orderId = 3;
 inline void BfOrderData::clear_orderid() {
-  orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  orderid_ = 0;
 }
-inline const ::std::string& BfOrderData::orderid() const {
+inline ::google::protobuf::int32 BfOrderData::orderid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfOrderData.orderId)
-  return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return orderid_;
 }
-inline void BfOrderData::set_orderid(const ::std::string& value) {
+inline void BfOrderData::set_orderid(::google::protobuf::int32 value) {
   
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  orderid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfOrderData.orderId)
-}
-inline void BfOrderData::set_orderid(const char* value) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.orderId)
-}
-inline void BfOrderData::set_orderid(const char* value,
-    size_t size) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.orderId)
-}
-inline ::std::string* BfOrderData::mutable_orderid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.orderId)
-  return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderData::release_orderid() {
-  
-  return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderData::unsafe_arena_release_orderid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfOrderData::set_allocated_orderid(::std::string* orderid) {
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderId)
-}
-inline void BfOrderData::unsafe_arena_set_allocated_orderid(
-    ::std::string* orderid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.orderId)
 }
 
 // optional .bftrader.BfDirection direction = 4;
@@ -5697,6 +5512,34 @@ inline void BfOrderData::unsafe_arena_set_allocated_canceltime(
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.cancelTime)
 }
 
+// optional int32 frontID = 12;
+inline void BfOrderData::clear_frontid() {
+  frontid_ = 0;
+}
+inline ::google::protobuf::int32 BfOrderData::frontid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.frontID)
+  return frontid_;
+}
+inline void BfOrderData::set_frontid(::google::protobuf::int32 value) {
+  
+  frontid_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.frontID)
+}
+
+// optional int32 sessionID = 13;
+inline void BfOrderData::clear_sessionid() {
+  sessionid_ = 0;
+}
+inline ::google::protobuf::int32 BfOrderData::sessionid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.sessionID)
+  return sessionid_;
+}
+inline void BfOrderData::set_sessionid(::google::protobuf::int32 value) {
+  
+  sessionid_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.sessionID)
+}
+
 // -------------------------------------------------------------------
 
 // BfPositionData
@@ -5883,6 +5726,20 @@ inline void BfPositionData::set_price(double value) {
   
   price_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfPositionData.price)
+}
+
+// optional int32 ydPosition = 7;
+inline void BfPositionData::clear_ydposition() {
+  ydposition_ = 0;
+}
+inline ::google::protobuf::int32 BfPositionData::ydposition() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.ydPosition)
+  return ydposition_;
+}
+inline void BfPositionData::set_ydposition(::google::protobuf::int32 value) {
+  
+  ydposition_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.ydPosition)
 }
 
 // -------------------------------------------------------------------
@@ -7139,136 +6996,22 @@ inline void BfOrderReq::set_offset(::bftrader::BfOffset value) {
   // @@protoc_insertion_point(field_set:bftrader.BfOrderReq.offset)
 }
 
-// optional string reason = 8;
-inline void BfOrderReq::clear_reason() {
-  reason_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfOrderReq::reason() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderReq.reason)
-  return reason_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfOrderReq::set_reason(const ::std::string& value) {
-  
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderReq.reason)
-}
-inline void BfOrderReq::set_reason(const char* value) {
-  
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderReq.reason)
-}
-inline void BfOrderReq::set_reason(const char* value,
-    size_t size) {
-  
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderReq.reason)
-}
-inline ::std::string* BfOrderReq::mutable_reason() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderReq.reason)
-  return reason_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderReq::release_reason() {
-  
-  return reason_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderReq::unsafe_arena_release_reason() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return reason_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfOrderReq::set_allocated_reason(::std::string* reason) {
-  if (reason != NULL) {
-    
-  } else {
-    
-  }
-  reason_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), reason,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderReq.reason)
-}
-inline void BfOrderReq::unsafe_arena_set_allocated_reason(
-    ::std::string* reason) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (reason != NULL) {
-    
-  } else {
-    
-  }
-  reason_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      reason, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderReq.reason)
-}
-
 // -------------------------------------------------------------------
 
 // BfOrderResp
 
-// optional string orderId = 1;
+// optional int32 orderId = 1;
 inline void BfOrderResp::clear_orderid() {
-  orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  orderid_ = 0;
 }
-inline const ::std::string& BfOrderResp::orderid() const {
+inline ::google::protobuf::int32 BfOrderResp::orderid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfOrderResp.orderId)
-  return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return orderid_;
 }
-inline void BfOrderResp::set_orderid(const ::std::string& value) {
+inline void BfOrderResp::set_orderid(::google::protobuf::int32 value) {
   
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  orderid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfOrderResp.orderId)
-}
-inline void BfOrderResp::set_orderid(const char* value) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderResp.orderId)
-}
-inline void BfOrderResp::set_orderid(const char* value,
-    size_t size) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderResp.orderId)
-}
-inline ::std::string* BfOrderResp::mutable_orderid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderResp.orderId)
-  return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderResp::release_orderid() {
-  
-  return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfOrderResp::unsafe_arena_release_orderid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfOrderResp::set_allocated_orderid(::std::string* orderid) {
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
-}
-inline void BfOrderResp::unsafe_arena_set_allocated_orderid(
-    ::std::string* orderid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderResp.orderId)
 }
 
 // -------------------------------------------------------------------
@@ -7403,132 +7146,46 @@ inline void BfCancelOrderReq::unsafe_arena_set_allocated_exchange(
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.exchange)
 }
 
-// optional string orderId = 3;
+// optional int32 orderId = 3;
 inline void BfCancelOrderReq::clear_orderid() {
-  orderid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  orderid_ = 0;
 }
-inline const ::std::string& BfCancelOrderReq::orderid() const {
+inline ::google::protobuf::int32 BfCancelOrderReq::orderid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.orderId)
-  return orderid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return orderid_;
 }
-inline void BfCancelOrderReq::set_orderid(const ::std::string& value) {
+inline void BfCancelOrderReq::set_orderid(::google::protobuf::int32 value) {
   
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  orderid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.orderId)
 }
-inline void BfCancelOrderReq::set_orderid(const char* value) {
+
+// optional int32 frontID = 4;
+inline void BfCancelOrderReq::clear_frontid() {
+  frontid_ = 0;
+}
+inline ::google::protobuf::int32 BfCancelOrderReq::frontid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.frontID)
+  return frontid_;
+}
+inline void BfCancelOrderReq::set_frontid(::google::protobuf::int32 value) {
   
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.orderId)
-}
-inline void BfCancelOrderReq::set_orderid(const char* value,
-    size_t size) {
-  
-  orderid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.orderId)
-}
-inline ::std::string* BfCancelOrderReq::mutable_orderid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.orderId)
-  return orderid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfCancelOrderReq::release_orderid() {
-  
-  return orderid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfCancelOrderReq::unsafe_arena_release_orderid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return orderid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfCancelOrderReq::set_allocated_orderid(::std::string* orderid) {
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), orderid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderId)
-}
-inline void BfCancelOrderReq::unsafe_arena_set_allocated_orderid(
-    ::std::string* orderid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (orderid != NULL) {
-    
-  } else {
-    
-  }
-  orderid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      orderid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.orderId)
+  frontid_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.frontID)
 }
 
-// optional string reason = 4;
-inline void BfCancelOrderReq::clear_reason() {
-  reason_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+// optional int32 sessionID = 5;
+inline void BfCancelOrderReq::clear_sessionid() {
+  sessionid_ = 0;
 }
-inline const ::std::string& BfCancelOrderReq::reason() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.reason)
-  return reason_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::google::protobuf::int32 BfCancelOrderReq::sessionid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.sessionID)
+  return sessionid_;
 }
-inline void BfCancelOrderReq::set_reason(const ::std::string& value) {
+inline void BfCancelOrderReq::set_sessionid(::google::protobuf::int32 value) {
   
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.reason)
-}
-inline void BfCancelOrderReq::set_reason(const char* value) {
-  
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.reason)
-}
-inline void BfCancelOrderReq::set_reason(const char* value,
-    size_t size) {
-  
-  reason_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.reason)
-}
-inline ::std::string* BfCancelOrderReq::mutable_reason() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.reason)
-  return reason_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfCancelOrderReq::release_reason() {
-  
-  return reason_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfCancelOrderReq::unsafe_arena_release_reason() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return reason_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfCancelOrderReq::set_allocated_reason(::std::string* reason) {
-  if (reason != NULL) {
-    
-  } else {
-    
-  }
-  reason_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), reason,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.reason)
-}
-inline void BfCancelOrderReq::unsafe_arena_set_allocated_reason(
-    ::std::string* reason) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (reason != NULL) {
-    
-  } else {
-    
-  }
-  reason_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      reason, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.reason)
+  sessionid_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.sessionID)
 }
 
 // -------------------------------------------------------------------

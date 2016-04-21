@@ -81,7 +81,10 @@ FinishedOrderForm::FinishedOrderForm(QWidget* parent)
                << "status"
 
                << "orderTime"
-               << "cancelTime";
+               << "cancelTime"
+
+               << "frontId"
+               << "sessionId";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -109,7 +112,7 @@ void FinishedOrderForm::shutdown()
 void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
 {
     // 全部成交或者撤销的=
-    QString orderId = QString::fromStdString(newOrder.orderid());
+    QString orderId = QString::number(newOrder.orderid());
     if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
         orders_[orderId] = newOrder;
     }
@@ -129,7 +132,7 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
 
     for (auto order : orders_) {
         QVariantMap vItem;
-        vItem.insert("orderId", order.orderid().c_str());
+        vItem.insert("orderId", order.orderid());
         vItem.insert("symbol", order.symbol().c_str());
         vItem.insert("exchange", order.exchange().c_str());
         vItem.insert("direction", formatDirection(order.direction()));
@@ -140,6 +143,8 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
         vItem.insert("status", formatStatus(order.status()));
         vItem.insert("orderTime", order.ordertime().c_str());
         vItem.insert("cancelTime", order.canceltime().c_str());
+        vItem.insert("frontId",order.frontid());
+        vItem.insert("sessionId",order.sessionid());
 
         //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
         QString id = vItem.value("orderId").toString();

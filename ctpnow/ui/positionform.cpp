@@ -77,6 +77,7 @@ PositionForm::PositionForm(QWidget* parent)
 
                << "direction"
                << "position"
+               << "ydPosition"
                << "frozen"
                << "price";
     this->ui->tableWidget->setColumnCount(table_col_.length());
@@ -111,6 +112,7 @@ void PositionForm::onGotPosition(const BfPositionData& pos)
     auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(symbol);
     if (contract) {
         exchange = contract->ExchangeID;
+        volumeMultiple = contract->VolumeMultiple;
     }
 
     QVariantMap vItem;
@@ -118,6 +120,7 @@ void PositionForm::onGotPosition(const BfPositionData& pos)
     vItem.insert("exchange", exchange);
     vItem.insert("direction", formatDirection(pos.direction()));
     vItem.insert("position", pos.position());
+    vItem.insert("ydPosition",pos.ydposition());
     vItem.insert("frozen", pos.frozen());
     vItem.insert("price", pos.price() / volumeMultiple);
 
