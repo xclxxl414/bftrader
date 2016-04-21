@@ -235,8 +235,8 @@ void CtpMgr::tryStartSubscrible()
 
     if (mdsm_logined_ && tdsm_logined_) {
         emit this->tradeWillBegin();
-        tdsm_->resetData();
-        mdsm_->resetData();
+        //tdsm_->resetData();
+        //mdsm_->resetData();
         tdsm_->queryInstrument(1000, "");
     }
     if (tdsm_ == nullptr) {
@@ -307,6 +307,14 @@ void* CtpMgr::getPreLatestTick(QString id)
     return rb->get(preIndex);
 }
 
+void CtpMgr::resetData()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    tdsm_->resetData();
+    mdsm_->resetData();
+}
+
 Logger* CtpMgr::logger()
 {
     return g_sm->logger();
@@ -349,10 +357,12 @@ void CtpMgr::freeContracts()
     contracts_.clear();
 }
 
+// todo(hege): 网络异常还是有crash=
 void* CtpMgr::getContract(QString id)
 {
     auto contract = contracts_.value(id);
     if (contract == nullptr) {
+        //logger()->info("contract == nullptr");
         qFatal("contract == nullptr");
     }
 
@@ -368,10 +378,12 @@ void CtpMgr::insertContract(QString id, void* contract)
     contracts_[id] = contract;
 }
 
+// todo(hege): 网络异常还是有crash=
 RingBuffer* CtpMgr::getRingBuffer(QString id)
 {
     RingBuffer* rb = rbs_.value(id);
     if (rb == nullptr) {
+        //logger()->info("rb == nullptr");
         qFatal("rb == nullptr");
     }
 
@@ -484,4 +496,15 @@ void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
     }
 
     tdsm_->cancelOrder(0, "", req);
+}
+
+void CtpMgr::queryOrders()
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        logger()->info("CtpMgr::queryOrders,please login first");
+        return;
+    }
+    tdsm_->queryOrders(0, "");
 }

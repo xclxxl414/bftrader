@@ -69,22 +69,22 @@ PendingOrderForm::PendingOrderForm(QWidget* parent)
     ui->setupUi(this);
 
     //设置列=
-    table_col_ << "orderId"
-               << "symbol"
-               << "exchange"
+    table_col_ //<< "frontId"
+        //<< "sessionId"
+        << "orderId"
+        << "symbol"
+        << "exchange"
 
-               << "direction"
-               << "offset"
-               << "price"
-               << "totalVolume"
-               << "tradedVolume"
-               << "status"
+        << "direction"
+        << "offset"
+        << "price"
+        << "totalVolume"
+        << "tradedVolume"
+        << "status"
 
-               << "orderTime"
-               << "cancelTime"
-
-               << "frontId"
-               << "sessionId";
+        << "insertDate"
+        << "insertTime"
+        << "cancelTime";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -112,15 +112,13 @@ void PendingOrderForm::shutdown()
 void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
 {
     // 全部成交或者撤销的，剔除=
-    QString orderId = QString::number(newOrder.orderid());
-    if (orders_.contains(orderId)) {
-        if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
-            orders_.remove(orderId);
-        } else {
-            orders_[orderId] = newOrder;
+    QString newKey = QString().sprintf("%d.%d.%d", newOrder.frontid(), newOrder.sessionid(), newOrder.orderid());
+    if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
+        if (orders_.contains(newKey)) {
+            orders_.remove(newKey);
         }
     } else {
-        orders_[orderId] = newOrder;
+        orders_[newKey] = newOrder;
     }
 
     // 更新界面=
@@ -138,7 +136,10 @@ void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
 
     for (auto order : orders_) {
         QVariantMap vItem;
-        vItem.insert("orderId", order.orderid());
+        //vItem.insert("frontId",order.frontid());
+        //vItem.insert("sessionId",order.sessionid());
+        QString key = QString().sprintf("%d.%d.%d", order.frontid(), order.sessionid(), order.orderid());
+        vItem.insert("orderId", key);
         vItem.insert("symbol", order.symbol().c_str());
         vItem.insert("exchange", order.exchange().c_str());
         vItem.insert("direction", formatDirection(order.direction()));
@@ -147,10 +148,9 @@ void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
         vItem.insert("totalVolume", order.totalvolume());
         vItem.insert("tradedVolume", order.tradedvolume());
         vItem.insert("status", formatStatus(order.status()));
-        vItem.insert("orderTime", order.ordertime().c_str());
+        vItem.insert("insertDate", order.insertdate().c_str());
+        vItem.insert("insertTime", order.inserttime().c_str());
         vItem.insert("cancelTime", order.canceltime().c_str());
-        vItem.insert("frontId",order.frontid());
-        vItem.insert("sessionId",order.sessionid());
 
         //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
         QString id = vItem.value("orderId").toString();
@@ -168,11 +168,11 @@ void PendingOrderForm::onGotOrder(const BfOrderData& newOrder)
     }
 }
 
-void PendingOrderForm::on_pushButtonCancelOrder_clicked()
+void PendingOrderForm::on_pushButtonCancelOrders_clicked()
 {
     for (auto order : orders_) {
         BfCancelOrderReq req;
-        req.set_symbol( order.symbol());
+        req.set_symbol(order.symbol());
         req.set_exchange(order.exchange());
         req.set_orderid(order.orderid());
         req.set_frontid(order.frontid());
@@ -180,4 +180,9 @@ void PendingOrderForm::on_pushButtonCancelOrder_clicked()
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
     }
+}
+
+void PendingOrderForm::on_pushButtonQueryOrders_clicked()
+{
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryOrders", Qt::QueuedConnection);
 }

@@ -106,6 +106,10 @@ void PositionForm::shutdown()
 
 void PositionForm::onGotPosition(const BfPositionData& pos)
 {
+    if (pos.position() == 0 && pos.frozen() == 0) {
+        return;
+    }
+
     QString symbol = QString::fromStdString(pos.symbol());
     QString exchange = QString::fromStdString(pos.exchange());
     int volumeMultiple = 1;
@@ -120,7 +124,7 @@ void PositionForm::onGotPosition(const BfPositionData& pos)
     vItem.insert("exchange", exchange);
     vItem.insert("direction", formatDirection(pos.direction()));
     vItem.insert("position", pos.position());
-    vItem.insert("ydPosition",pos.ydposition());
+    vItem.insert("ydPosition", pos.ydposition());
     vItem.insert("frozen", pos.frozen());
     vItem.insert("price", pos.price() / volumeMultiple);
 

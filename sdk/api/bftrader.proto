@@ -173,7 +173,8 @@ message BfTradeData{
     BfOffset offset =  6;       // 成交开平仓
     double price = 7;           // 成交价格
     int32 volume = 8;           // 成交数量
-    string tradeTime = 9;       // 成交时间
+    string tradeDate = 9;       // 成交日期
+    string tradeTime = 10;      // 成交时间
 }
 
 // 订单数据类
@@ -193,11 +194,12 @@ message BfOrderData{
     int32 tradedVolume = 8;     // 报单成交数量
     BfStatus status = 9;        // 报单状态
     
-    string orderTime = 10;      // 发单时间
-    string cancelTime = 11;     // 撤单时间
+    string insertDate = 10;     // 发单日期
+    string insertTime = 11;     // 发单时间
+    string cancelTime = 12;     // 撤单时间
     
-    int32 frontID = 12;         // 前置机号,Ctp/Lts
-    int32 sessionID =  13;      // 会话号,Ctp/Lts 
+    int32 frontID = 13;         // 前置机号,Ctp/Lts
+    int32 sessionID =  14;      // 会话号,Ctp/Lts 
 }
 
 // 持仓数据类
@@ -291,8 +293,7 @@ message BfOrderReq{
     int32 volume = 4;           // 数量
     BfPriceType priceType = 5;  // 价格类型
     BfDirection direction = 6;  // 买卖
-    BfOffset offset = 7;        // 开平
-    
+    BfOffset offset = 7;        // 开平    
 }
 
 // 发单本地返回的对象类

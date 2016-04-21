@@ -28,7 +28,7 @@ struct CtpCmd {
 
 // 1.完成登录/自动登录/确认账单/订阅合约=
 // 2.订阅什么合约由gateway统一确定，策略不管这事=
-// 3.在queryInstrument之前，重新初始化后界面/重新初始化内存，1秒后开始查询就可以了，这样就不会有问题了=
+// 3.在queryInstrument之前重新初始化后界面，1秒后重新初始化内存+开始查询就可以了，这样就不会有问题了=
 //   onGotInstruments后开始刷新界面，queryInstrument+login都延迟一秒，用途之一就是这个=
 class CtpMgr : public QObject {
     Q_OBJECT
@@ -49,6 +49,7 @@ public:
     RingBuffer* getRingBuffer(QString id);
     void* getLatestTick(QString id);
     void* getPreLatestTick(QString id);
+    void resetData();
 
 signals:
     void requestSent(int reqId, QString robotId);
@@ -69,6 +70,7 @@ public slots:
     void sendOrder(const BfOrderReq& req);
     void queryPosition();
     void cancelOrder(const BfCancelOrderReq& req);
+    void queryOrders();
 
 private slots:
     void onGotInstruments(QStringList ids);

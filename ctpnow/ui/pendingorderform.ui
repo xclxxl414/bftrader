@@ -48,9 +48,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonCancelOrder">
+      <widget class="QPushButton" name="pushButtonQueryOrders">
        <property name="text">
-        <string>cancelOrder</string>
+        <string>queryOrders</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCancelOrders">
+       <property name="text">
+        <string>cancelOrders</string>
        </property>
       </widget>
      </item>

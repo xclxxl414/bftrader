@@ -43,6 +43,7 @@ public:
     void sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& orderReq);
     void queryPosition(unsigned int delayTick, QString robotId);
     void cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& orderReq);
+    void queryOrders(unsigned int delayTick, QString robotId);
 
 signals:
     void statusChanged(int state);
