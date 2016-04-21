@@ -34,5 +34,5 @@ void ConfigDialog::load()
     ui->brokerId->setText(profile->get("brokerId", "").toString());
     ui->frontMd->setText(profile->get("frontMd", "").toString());
     ui->frontTd->setText(profile->get("frontTd", "").toString());
-    ui->idPrefixList->setText(profile->get("idPrefixList", "if;ih;ic;sr").toString());
+    ui->idPrefixList->setText(profile->get("idPrefixList", "if;ih;ic;sr;rb;pp").toString());
 }
