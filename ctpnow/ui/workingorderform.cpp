@@ -1,70 +1,12 @@
-#include "finishedorderform.h"
+#include "workingorderform.h"
+#include "ctp_utils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_finishedorderform.h"
+#include "ui_pendingorderform.h"
 
-namespace {
-
-QString formatDirection(BfDirection direction)
-{
-    switch (direction) {
-    case DIRECTION_LONG:
-        return "long";
-    case DIRECTION_SHORT:
-        return "short";
-    case DIRECTION_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid directioni");
-    }
-
-    return "unknown";
-}
-
-QString formatOffset(BfOffset offset)
-{
-    switch (offset) {
-    case OFFSET_CLOSE:
-        return "close";
-    case OFFSET_CLOSETODAY:
-        return "closetoday";
-    case OFFSET_CLOSEYESTERDAY:
-        return "closeyesterday";
-    case OFFSET_OPEN:
-        return "open";
-    case OFFSET_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid offset");
-    }
-
-    return "unknown";
-}
-
-QString formatStatus(BfStatus status)
-{
-    switch (status) {
-    case STATUS_ALLTRADED:
-        return "alltraded";
-    case STATUS_CANCELLED:
-        return "cancelled";
-    case STATUS_NOTTRADED:
-        return "nottraced";
-    case STATUS_PARTTRADED:
-        return "parttraded";
-    case STATUS_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid status");
-    }
-
-    return "unknown";
-}
-}
-
-FinishedOrderForm::FinishedOrderForm(QWidget* parent)
+WorkingOrderForm::WorkingOrderForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::FinishedOrderForm)
+    , ui(new Ui::PendingOrderForm)
 {
     ui->setupUi(this);
 
@@ -83,7 +25,7 @@ FinishedOrderForm::FinishedOrderForm(QWidget* parent)
                << "insertTime"
                << "cancelTime"
 
-               << "bfOrderId"
+               << "byOrderId"
                << "sysOrderId";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
@@ -94,33 +36,37 @@ FinishedOrderForm::FinishedOrderForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-FinishedOrderForm::~FinishedOrderForm()
+WorkingOrderForm::~WorkingOrderForm()
 {
     delete ui;
 }
 
-void FinishedOrderForm::init()
+void WorkingOrderForm::init()
 {
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &FinishedOrderForm::onGotOrder);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &WorkingOrderForm::onGotOrder);
 }
 
-void FinishedOrderForm::shutdown()
+void WorkingOrderForm::shutdown()
 {
 }
 
-void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
+void WorkingOrderForm::onGotOrder(const BfOrderData& newOrder)
 {
-    // 全部成交或者撤销的=
+    // 全部成交或者撤销的，剔除=
     QString newKey = newOrder.bforderid().c_str();
     if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
+        if (orders_.contains(newKey)) {
+            orders_.remove(newKey);
+        }
+    } else {
         orders_[newKey] = newOrder;
     }
 
     // 更新界面=
     table_row_.clear();
-    this->ui->tableWidget->clearContents();
-    this->ui->tableWidget->setRowCount(orders_.size());
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(orders_.size());
     QStringList keys = orders_.keys();
     keys.sort();
     for (int i = 0; i < keys.length(); i++) {
@@ -135,12 +81,12 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
         vItem.insert("symbol", order.symbol().c_str());
         vItem.insert("exchange", order.exchange().c_str());
 
-        vItem.insert("direction", formatDirection(order.direction()));
-        vItem.insert("offset", formatOffset(order.offset()));
+        vItem.insert("direction", CtpUtils::formatDirection(order.direction()));
+        vItem.insert("offset", CtpUtils::formatOffset(order.offset()));
         vItem.insert("price", order.price());
         vItem.insert("totalVolume", order.totalvolume());
         vItem.insert("tradedVolume", order.tradedvolume());
-        vItem.insert("status", formatStatus(order.status()));
+        vItem.insert("status", CtpUtils::formatStatus(order.status()));
 
         vItem.insert("insertDate", order.insertdate().c_str());
         vItem.insert("insertTime", order.inserttime().c_str());
@@ -163,4 +109,22 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
             ui->tableWidget->setItem(row, i, item);
         }
     }
+}
+
+void WorkingOrderForm::on_pushButtonCancelOrders_clicked()
+{
+    for (auto order : orders_) {
+        BfCancelOrderReq req;
+        req.set_symbol(order.symbol());
+        req.set_exchange(order.exchange());
+        req.set_bforderid(order.bforderid());
+        req.set_sysorderid(order.sysorderid());
+
+        QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
+    }
+}
+
+void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
+{
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryOrders", Qt::QueuedConnection);
 }

@@ -14,7 +14,7 @@ class Logger;
 class LogForm;
 class ContractForm;
 class FinishedOrderForm;
-class PendingOrderForm;
+class WorkingOrderForm;
 class PositionForm;
 class TradeForm;
 class TickForm;
@@ -72,7 +72,7 @@ private:
     LogForm* logForm_;
     ContractForm* contractForm_;
     FinishedOrderForm* finishedOrderForm_;
-    PendingOrderForm* pendingOrderForm_;
+    WorkingOrderForm* workingOrderForm_;
     PositionForm* positionForm_;
     TradeForm* tradeForm_;
     TickForm* tickForm_;

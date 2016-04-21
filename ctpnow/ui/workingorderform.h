@@ -10,12 +10,12 @@ namespace Ui {
 class PendingOrderForm;
 }
 
-class PendingOrderForm : public QWidget {
+class WorkingOrderForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit PendingOrderForm(QWidget* parent = 0);
-    ~PendingOrderForm();
+    explicit WorkingOrderForm(QWidget* parent = 0);
+    ~WorkingOrderForm();
     void init();
     void shutdown();
 

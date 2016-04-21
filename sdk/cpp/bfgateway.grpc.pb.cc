@@ -97,12 +97,12 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Subscribe_, context, request);
 }
 
-::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::bftrader::BfOrderResp* response) {
+::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SendOrder_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>* BfGatewayService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
+::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>* BfGatewayService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) {
@@ -172,7 +172,7 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfOrderReq, ::bftrader::BfOrderResp>(
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfSendOrderReq, ::bftrader::BfSendOrderResp>(
           std::mem_fn(&BfGatewayService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[7],
@@ -241,7 +241,7 @@ BfGatewayService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response) {
+::grpc::Status BfGatewayService::Service::SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) {
   (void) context;
   (void) request;
   (void) response;

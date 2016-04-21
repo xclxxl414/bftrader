@@ -1,5 +1,5 @@
 #include "contractform.h"
-#include "ThostFtdcUserApiStruct.h"
+#include "ctp_utils.h"
 #include "ctpmgr.h"
 #include "encode_utils.h"
 #include "servicemgr.h"
@@ -68,34 +68,35 @@ void ContractForm::onGotInstruments(QStringList ids)
     //设置行内容=
     for (int i = 0; i < sorted_ids.length(); i++) {
         QString id = sorted_ids.at(i);
-        auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(id);
-        this->onGotContract(contract);
+        void* contract = g_sm->ctpMgr()->getContract(id);
+        onGotContract(contract);
     }
 }
 
 void ContractForm::onGotContract(void* contract)
 {
-    auto pif = (CThostFtdcInstrumentField*)contract;
+    BfContractData bfItem;
+    CtpUtils::translateContract(contract, bfItem);
 
-    QVariantMap ifItem;
-    ifItem.insert("symbol", pif->InstrumentID);
-    ifItem.insert("exchange", pif->ExchangeID);
-    ifItem.insert("name", gbk2utf16(pif->InstrumentName));
+    QVariantMap vItem;
+    vItem.insert("symbol", bfItem.symbol().c_str());
+    vItem.insert("exchange", bfItem.exchange().c_str());
+    vItem.insert("name", gbk2utf16(bfItem.name().c_str()));
 
-    ifItem.insert("productClass", QString(pif->ProductClass));
-    ifItem.insert("volumeMultiple", pif->VolumeMultiple);
-    ifItem.insert("priceTick", pif->PriceTick);
+    vItem.insert("productClass", CtpUtils::formatProduct(bfItem.productclass()));
+    vItem.insert("volumeMultiple", bfItem.volumemultiple());
+    vItem.insert("priceTick", bfItem.pricetick());
 
-    ifItem.insert("maxLimit", pif->MaxLimitOrderVolume);
-    ifItem.insert("minLimit", pif->MinMarketOrderVolume);
-    ifItem.insert("maxMarket", pif->MaxMarketOrderVolume);
-    ifItem.insert("minMarket", pif->MinMarketOrderVolume);
+    vItem.insert("maxLimit", bfItem.maxlimit());
+    vItem.insert("minLimit", bfItem.minlimit());
+    vItem.insert("maxMarket", bfItem.maxmarket());
+    vItem.insert("minMarket", bfItem.minmartet());
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
-    QString id = ifItem.value("symbol").toString();
+    QString id = vItem.value("symbol").toString();
     int row = table_row_.value(id);
     for (int i = 0; i < table_col_.count(); i++) {
-        QVariant raw_val = ifItem.value(table_col_.at(i));
+        QVariant raw_val = vItem.value(table_col_.at(i));
         QString str_val = raw_val.toString();
         if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
             str_val = QString().sprintf("%6.1f", raw_val.toDouble());

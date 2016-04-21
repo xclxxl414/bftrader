@@ -60,14 +60,14 @@ void protobuf_AddDesc_bfdatafeed_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\020bfdatafeed.proto\022\023bftrader.bfdatafeed\032"
-    "\016bftrader.proto2\214\002\n\021BfDatafeedService\022>\n"
-    "\016InsertTickPack\022\030.bftrader.BfTickPackDat"
-    "a\032\020.bftrader.BfVoid\"\000\0224\n\tInsertBar\022\023.bft"
-    "rader.BfBarData\032\020.bftrader.BfVoid\"\000\022G\n\013G"
-    "etTickPack\022\032.bftrader.BfGetTickPackReq\032\030"
-    ".bftrader.BfTickPackData\"\0000\001\0228\n\006GetBar\022\025"
-    ".bftrader.BfGetBarReq\032\023.bftrader.BfBarDa"
-    "ta\"\0000\001B\003\370\001\001b\006proto3", 339);
+    "\016bftrader.proto2\374\001\n\021BfDatafeedService\0226\n"
+    "\nInsertTick\022\024.bftrader.BfTickData\032\020.bftr"
+    "ader.BfVoid\"\000\0224\n\tInsertBar\022\023.bftrader.Bf"
+    "BarData\032\020.bftrader.BfVoid\"\000\022\?\n\013GetTickPa"
+    "ck\022\026.bftrader.BfGetTickReq\032\024.bftrader.Bf"
+    "TickData\"\0000\001\0228\n\006GetBar\022\025.bftrader.BfGetB"
+    "arReq\032\023.bftrader.BfBarData\"\0000\001B\003\370\001\001b\006pro"
+    "to3", 323);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfdatafeed.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfdatafeed_2eproto);

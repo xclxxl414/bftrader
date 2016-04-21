@@ -27,12 +27,13 @@ SOURCES += main.cpp\
     ui/logform.cpp \
     ui/positionform.cpp \
     ui/contractform.cpp \
-    ui/pendingorderform.cpp \
     ui/finishedorderform.cpp \
     ui/tradeform.cpp \
     ui/tickform.cpp \
     ui/accountform.cpp \
-    ui/tablewidget_helper.cpp
+    ui/tablewidget_helper.cpp \
+    ui/workingorderform.cpp \
+    ctp_utils.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -49,12 +50,13 @@ HEADERS  += ui/mainwindow.h \
     ui/logform.h \
     ui/positionform.h \
     ui/contractform.h \
-    ui/pendingorderform.h \
     ui/finishedorderform.h \
     ui/tradeform.h \
     ui/tickform.h \
     ui/accountform.h \
-    ui/tablewidget_helper.h
+    ui/tablewidget_helper.h \
+    ui/workingorderform.h \
+    ctp_utils.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -62,11 +64,11 @@ FORMS    += ui/mainwindow.ui \
     ui/logform.ui \
     ui/positionform.ui \
     ui/contractform.ui \
-    ui/pendingorderform.ui \
     ui/finishedorderform.ui \
     ui/tradeform.ui \
     ui/tickform.ui \
-    ui/accountform.ui
+    ui/accountform.ui \
+    ui/workingorderform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

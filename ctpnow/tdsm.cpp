@@ -1,134 +1,12 @@
 #include "tdsm.h"
 #include "ThostFtdcTraderApi.h"
+#include "ctp_utils.h"
 #include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "logger.h"
 #include "servicemgr.h"
 #include <QDir>
-
-///////////
-namespace {
-char translatePriceType(BfPriceType priceType)
-{
-    switch (priceType) {
-    case PRICETYPE_LIMITPRICE:
-        return THOST_FTDC_OPT_LimitPrice;
-    case PRICETYPE_MARKETPRICE:
-        return THOST_FTDC_OPT_AnyPrice;
-    default:
-        qFatal("invalid BfPriceType");
-    }
-    return '0';
-}
-
-char translateOffset(BfOffset offset)
-{
-    switch (offset) {
-    case OFFSET_OPEN:
-        return THOST_FTDC_OF_Open;
-    case OFFSET_CLOSE:
-        return THOST_FTDC_OF_Close;
-    case OFFSET_CLOSETODAY:
-        return THOST_FTDC_OF_CloseToday;
-    case OFFSET_CLOSEYESTERDAY:
-        return THOST_FTDC_OF_CloseYesterday;
-    default:
-        qFatal("invalid offset");
-    }
-    return '0';
-}
-
-char translateDirection(BfDirection direction)
-{
-    switch (direction) {
-    case DIRECTION_LONG:
-        return THOST_FTDC_D_Buy;
-    case DIRECTION_SHORT:
-        return THOST_FTDC_D_Sell;
-    default:
-        qFatal("invalid direction");
-    }
-    return '0';
-}
-
-BfPriceType translatePriceType(char priceType)
-{
-    switch (priceType) {
-    case THOST_FTDC_OPT_LimitPrice:
-        return PRICETYPE_LIMITPRICE;
-    case THOST_FTDC_OPT_AnyPrice:
-        return PRICETYPE_MARKETPRICE;
-    default:
-        qFatal("invalid BfPriceType");
-    }
-    return PRICETYPE_UNKONWN;
-}
-
-BfOffset translateOffset(char offset)
-{
-    switch (offset) {
-    case THOST_FTDC_OF_Open:
-        return OFFSET_OPEN;
-    case THOST_FTDC_OF_Close:
-        return OFFSET_CLOSE;
-    case THOST_FTDC_OF_CloseToday:
-        return OFFSET_CLOSETODAY;
-    case THOST_FTDC_OF_CloseYesterday:
-        return OFFSET_CLOSEYESTERDAY;
-    default:
-        g_sm->logger()->info("invalid offset");
-    }
-    return OFFSET_UNKNOWN;
-}
-
-// 方向类型映射=
-BfDirection translateDirection(char direction)
-{
-    switch (direction) {
-    case THOST_FTDC_D_Buy:
-        return DIRECTION_LONG;
-    case THOST_FTDC_D_Sell:
-        return DIRECTION_SHORT;
-    default:
-        g_sm->logger()->info("invalid direction");
-    }
-    return DIRECTION_UNKNOWN;
-}
-
-// 持仓类型映射=
-BfDirection translatePosiDirection(char direction)
-{
-    switch (direction) {
-    case THOST_FTDC_PD_Net:
-        return DIRECTION_NET;
-    case THOST_FTDC_PD_Long:
-        return DIRECTION_LONG;
-    case THOST_FTDC_PD_Short:
-        return DIRECTION_SHORT;
-    default:
-        g_sm->logger()->info("invalid direction");
-    }
-    return DIRECTION_UNKNOWN;
-}
-
-BfStatus translateStatus(char status)
-{
-    switch (status) {
-    case THOST_FTDC_OST_AllTraded:
-        return STATUS_ALLTRADED;
-    case THOST_FTDC_OST_PartTradedQueueing:
-        return STATUS_PARTTRADED;
-    case THOST_FTDC_OST_NoTradeQueueing:
-        return STATUS_NOTTRADED;
-    case THOST_FTDC_OST_Canceled:
-        return STATUS_CANCELLED;
-    default:
-        g_sm->logger()->info("invalid status");
-    }
-    return STATUS_UNKNOWN;
-}
-}
 
 ///////////
 class TdSmSpi : public CThostFtdcTraderSpi {
@@ -169,6 +47,7 @@ private:
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGINFAIL);
             } else {
+                orderRef_ = 0;
                 frontId_ = pRspUserLogin->FrontID;
                 sessionId_ = pRspUserLogin->SessionID;
 
@@ -277,7 +156,7 @@ private:
 
             // 保存代码=
             pos.set_symbol(pInvestorPosition->InstrumentID);
-            pos.set_direction(translatePosiDirection(pInvestorPosition->PosiDirection));
+            pos.set_direction(CtpUtils::translatePosiDirection(pInvestorPosition->PosiDirection));
 
             // 冻结=
             if (pos.direction() == DIRECTION_LONG || pos.direction() == DIRECTION_NET) {
@@ -319,16 +198,18 @@ private:
     virtual void OnRspQryOrder(CThostFtdcOrderField* pOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (!isErrorRsp(pRspInfo, nRequestID) && pOrder) {
-            int orderId = QString(pOrder->OrderRef).toInt();
+            int orderRef = QString(pOrder->OrderRef).toInt();
+            QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
 
             BfOrderData order;
             // 保存代码和报单号=
             order.set_exchange(pOrder->ExchangeID);
             order.set_symbol(pOrder->InstrumentID);
-            order.set_orderid(orderId);
-            order.set_direction(translateDirection(pOrder->Direction)); //方向=
-            order.set_offset(translateOffset(pOrder->CombOffsetFlag[0])); //开平=
-            order.set_status(translateStatus(pOrder->OrderStatus)); //状态=
+            order.set_bforderid(bfOrderId.toStdString());
+            order.set_sysorderid(pOrder->OrderSysID);
+            order.set_direction(CtpUtils::translateDirection(pOrder->Direction)); //方向=
+            order.set_offset(CtpUtils::translateOffset(pOrder->CombOffsetFlag[0])); //开平=
+            order.set_status(CtpUtils::translateStatus(pOrder->OrderStatus)); //状态=
 
             //价格、报单量等数值=
             order.set_price(pOrder->LimitPrice);
@@ -337,10 +218,6 @@ private:
             order.set_insertdate(pOrder->InsertDate);
             order.set_inserttime(pOrder->InsertTime);
             order.set_canceltime(pOrder->CancelTime);
-
-            // ctp/lts
-            order.set_frontid(pOrder->FrontID);
-            order.set_sessionid(pOrder->SessionID);
 
             emit g_sm->ctpMgr()->gotOrder(order);
         }
@@ -357,24 +234,9 @@ private:
         info(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID) && pInputOrder) {
-                int orderId = QString(pInputOrder->OrderRef).toInt();
-                QString key = QString().sprintf("%d.%d.%d", frontId_, sessionId_, orderId);
-                info(QString().sprintf("OnRspOrderInsert: orderId = %d", key.toStdString().c_str()));
-                return;
-            } else {
-            }
-        }
-    }
-    // 报单操作请求响应=
-    // 撤单错误（柜台）=
-    void OnRspOrderAction(CThostFtdcInputOrderActionField* pInputOrderAction, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
-    {
-        info(__FUNCTION__);
-        if (bIsLast) {
-            if (isErrorRsp(pRspInfo, nRequestID) && pInputOrderAction) {
-                int orderId = QString(pInputOrderAction->OrderRef).toInt();
-                QString key = QString().sprintf("%d.%d.%d", pInputOrderAction->FrontID, pInputOrderAction->SessionID, orderId);
-                info(QString().sprintf("OnRspOrderAction: orderId = %d", key.toStdString().c_str()));
+                int orderRef = QString(pInputOrder->OrderRef).toInt();
+                QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
+                info(QString().sprintf("OnRspOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str()));
                 return;
             } else {
             }
@@ -388,9 +250,25 @@ private:
         info(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pInputOrder) {
-                int orderId = QString(pInputOrder->OrderRef).toInt();
-                QString key = QString().sprintf("%d.%d.%d", frontId_, sessionId_, orderId);
-                info(QString().sprintf("OnErrRtnOrderInsert: orderId = %d", key.toStdString().c_str()));
+                int orderRef = QString(pInputOrder->OrderRef).toInt();
+                QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
+                info(QString().sprintf("OnErrRtnOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str()));
+                return;
+            } else {
+            }
+        }
+    }
+
+    // 报单操作请求响应=
+    // 撤单错误（柜台）=
+    void OnRspOrderAction(CThostFtdcInputOrderActionField* pInputOrderAction, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
+    {
+        info(__FUNCTION__);
+        if (bIsLast) {
+            if (isErrorRsp(pRspInfo, nRequestID) && pInputOrderAction) {
+                int orderRef = QString(pInputOrderAction->OrderRef).toInt();
+                QString bfOrderId = CtpUtils::formatBfOrderId(pInputOrderAction->FrontID, pInputOrderAction->SessionID, orderRef);
+                info(QString().sprintf("OnRspOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str()));
                 return;
             } else {
             }
@@ -404,9 +282,9 @@ private:
         info(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pOrderAction) {
-                int orderId = QString(pOrderAction->OrderRef).toInt();
-                QString key = QString().sprintf("%d.%d.%d", pOrderAction->FrontID, pOrderAction->SessionID, orderId);
-                info(QString().sprintf("OnErrRtnOrderAction: orderId = %d", key.toStdString().c_str()));
+                int orderRef = QString(pOrderAction->OrderRef).toInt();
+                QString bfOrderId = CtpUtils::formatBfOrderId(pOrderAction->FrontID, pOrderAction->SessionID, orderRef);
+                info(QString().sprintf("OnErrRtnOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str()));
                 return;
             } else {
             }
@@ -418,20 +296,21 @@ private:
     {
         info(__FUNCTION__);
 
-        int orderId = QString(pOrder->OrderRef).toInt();
-        orderId_ = qMax(orderId, orderId_);
+        int orderRef = QString(pOrder->OrderRef).toInt();
+        orderRef_ = qMax(orderRef, orderRef_);
 
-        QString key = QString().sprintf("%d.%d.%d", pOrder->FrontID, pOrder->SessionID, orderId);
-        info(QString().sprintf("OnRtnOrder: orderId = %d", key.toStdString().c_str()));
+        QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
+        info(QString().sprintf("OnRtnOrder: bfOrderId = %s,sysOrderId=%s", bfOrderId.toStdString().c_str(), pOrder->OrderSysID));
 
         BfOrderData order;
         // 保存代码和报单号=
         order.set_exchange(pOrder->ExchangeID);
         order.set_symbol(pOrder->InstrumentID);
-        order.set_orderid(orderId);
-        order.set_direction(translateDirection(pOrder->Direction)); //方向=
-        order.set_offset(translateOffset(pOrder->CombOffsetFlag[0])); //开平=
-        order.set_status(translateStatus(pOrder->OrderStatus)); //状态=
+        order.set_bforderid(bfOrderId.toStdString());
+        order.set_sysorderid(pOrder->OrderSysID);
+        order.set_direction(CtpUtils::translateDirection(pOrder->Direction)); //方向=
+        order.set_offset(CtpUtils::translateOffset(pOrder->CombOffsetFlag[0])); //开平=
+        order.set_status(CtpUtils::translateStatus(pOrder->OrderStatus)); //状态=
 
         //价格、报单量等数值=
         order.set_price(pOrder->LimitPrice);
@@ -441,10 +320,6 @@ private:
         order.set_inserttime(pOrder->InsertTime);
         order.set_canceltime(pOrder->CancelTime);
 
-        // ctp/lts
-        order.set_frontid(pOrder->FrontID);
-        order.set_sessionid(pOrder->SessionID);
-
         emit g_sm->ctpMgr()->gotOrder(order);
     }
 
@@ -453,17 +328,15 @@ private:
     {
         info(__FUNCTION__);
 
-        int orderId = QString(pTrade->OrderRef).toInt();
-        int tradeId = QString(pTrade->TradeID).toInt();
-
         BfTradeData trade;
+
         // 保存代码和报单号=
         trade.set_exchange(pTrade->ExchangeID);
         trade.set_symbol(pTrade->InstrumentID);
-        trade.set_orderid(orderId);
-        trade.set_tradeid(tradeId);
-        trade.set_direction(translateDirection(pTrade->Direction)); //方向=
-        trade.set_offset(translateOffset(pTrade->OffsetFlag)); //开平=
+        trade.set_sysorderid(pTrade->OrderSysID); //这里没有bfOrderId
+        trade.set_tradeid(pTrade->TradeID);
+        trade.set_direction(CtpUtils::translateDirection(pTrade->Direction)); //方向=
+        trade.set_offset(CtpUtils::translateOffset(pTrade->OffsetFlag)); //开平=
 
         //价格、报单量等数值=
         trade.set_price(pTrade->Price);
@@ -495,9 +368,6 @@ private:
 
         ids_.clear();
         idPrefixList_.clear();
-        //orderId_ = 0;
-        //frontId_ = 0;
-        //sessionId_ = 0;
         g_sm->ctpMgr()->freeContracts();
     }
 
@@ -506,10 +376,10 @@ private:
         g_sm->logger()->info(msg);
     }
 
-    int getOrderId()
+    int getOrderRef()
     {
-        orderId_++;
-        return orderId_;
+        orderRef_++;
+        return orderRef_;
     }
 
     int getFrontId() { return frontId_; }
@@ -519,7 +389,7 @@ private:
     TdSm* sm_;
     QStringList ids_;
     QStringList idPrefixList_;
-    int orderId_ = 0;
+    int orderRef_ = 0;
     int frontId_ = 0;
     int sessionId_ = 0;
 
@@ -768,7 +638,7 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& orderReq)
+void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& bfReq)
 {
     info(__FUNCTION__);
 
@@ -776,18 +646,17 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& 
         CThostFtdcInputOrderField req;
         memset(&req, 0, sizeof(req));
 
-        int orderId = tdspi_->getOrderId();
+        int orderRef = tdspi_->getOrderRef();
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
-        //strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
-        strncpy(req.OrderRef, QString::number(orderId).toStdString().c_str(), sizeof(req.OrderRef) - 1);
-        strncpy(req.InstrumentID, orderReq.symbol().c_str(), sizeof(req.InstrumentID) - 1);
+        strncpy(req.OrderRef, QString::number(orderRef).toStdString().c_str(), sizeof(req.OrderRef) - 1);
+        strncpy(req.InstrumentID, bfReq.symbol().c_str(), sizeof(req.InstrumentID) - 1);
 
-        req.Direction = translateDirection(orderReq.direction());
-        req.CombOffsetFlag[0] = translateOffset(orderReq.offset());
-        req.OrderPriceType = translatePriceType(orderReq.pricetype());
-        req.LimitPrice = orderReq.price();
-        req.VolumeTotalOriginal = orderReq.volume();
+        req.Direction = CtpUtils::translateDirection(bfReq.direction());
+        req.CombOffsetFlag[0] = CtpUtils::translateOffset(bfReq.offset());
+        req.OrderPriceType = CtpUtils::translatePriceType(bfReq.pricetype());
+        req.LimitPrice = bfReq.price();
+        req.VolumeTotalOriginal = bfReq.volume();
 
         req.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation; // 投机单=
         req.ContingentCondition = THOST_FTDC_CC_Immediately; // 立即发单=
@@ -798,8 +667,8 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& 
         req.MinVolume = 1; // 最小成交量为1=
 
         int result = tdapi_->ReqOrderInsert(&req, reqId);
-        QString key = QString().sprintf("%d.%d.%d", tdspi_->getFrontId(), tdspi_->getSessionId(), orderId);
-        info(QString().sprintf("CmdTdReqOrderInsert,orderId=%d,reqId=%d,result=%d", key.toStdString().c_str(), reqId, result));
+        QString bfOrderId = CtpUtils::formatBfOrderId(tdspi_->getFrontId(), tdspi_->getSessionId(), orderRef);
+        info(QString().sprintf("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result));
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -813,7 +682,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& 
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& cancelReq)
+void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& bfReq)
 {
     info(__FUNCTION__);
 
@@ -821,22 +690,25 @@ void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOr
         CThostFtdcInputOrderActionField req;
         memset(&req, 0, sizeof(req));
 
-        int orderId = cancelReq.orderid();
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
-        //strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
 
-        strncpy(req.InstrumentID, cancelReq.symbol().c_str(), sizeof(req.InstrumentID) - 1);
-        strncpy(req.ExchangeID, cancelReq.exchange().c_str(), sizeof(req.InstrumentID) - 1);
-        strncpy(req.OrderRef, QString::number(orderId).toStdString().c_str(), sizeof(req.OrderRef) - 1);
-        req.FrontID = cancelReq.frontid();
-        req.SessionID = cancelReq.sessionid();
+        strncpy(req.InstrumentID, bfReq.symbol().c_str(), sizeof(req.InstrumentID) - 1);
+        strncpy(req.ExchangeID, bfReq.exchange().c_str(), sizeof(req.InstrumentID) - 1);
+
+        // frontid+sessionid+orderref || exchangeid + ordersysid
+        QString bfOrderId = bfReq.bforderid().c_str();
+        int frontId, sessionId, orderRef;
+        CtpUtils::translateBfOrderId(bfOrderId, frontId, sessionId, orderRef);
+
+        strncpy(req.OrderRef, QString::number(orderRef).toStdString().c_str(), sizeof(req.OrderRef) - 1);
+        req.FrontID = frontId;
+        req.SessionID = sessionId;
 
         req.ActionFlag = THOST_FTDC_AF_Delete;
 
         int result = tdapi_->ReqOrderAction(&req, reqId);
-        QString key = QString().sprintf("%d.%d.%d", cancelReq.frontid(), cancelReq.sessionid(), orderId);
-        info(QString().sprintf("CmdTdReqOrderAction,orderId=%d,reqId=%d,result=%d", key.toStdString().c_str(), reqId, result));
+        info(QString().sprintf("CmdTdReqOrderAction,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result));
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }

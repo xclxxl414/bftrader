@@ -60,7 +60,7 @@ void protobuf_AddDesc_bfgateway_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\017bfgateway.proto\022\022bftrader.bfgateway\032\016b"
-    "ftrader.proto2\220\005\n\020BfGatewayService\022<\n\007Co"
+    "ftrader.proto2\230\005\n\020BfGatewayService\022<\n\007Co"
     "nnect\022\026.bftrader.BfConnectReq\032\027.bftrader"
     ".BfConnectResp\"\000\022/\n\005SetKv\022\022.bftrader.BfK"
     "vData\032\020.bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.bft"
@@ -69,15 +69,15 @@ void protobuf_AddDesc_bfgateway_2eproto() {
     "\030.bftrader.BfContractData\"\000\022A\n\017GetContra"
     "ctList\022\020.bftrader.BfVoid\032\030.bftrader.BfCo"
     "ntractData\"\0000\001\0229\n\tSubscribe\022\030.bftrader.B"
-    "fSubscribeReq\032\020.bftrader.BfVoid\"\000\022:\n\tSen"
-    "dOrder\022\024.bftrader.BfOrderReq\032\025.bftrader."
-    "BfOrderResp\"\000\022=\n\013CancelOrder\022\032.bftrader."
-    "BfCancelOrderReq\032\020.bftrader.BfVoid\"\000\0224\n\014"
-    "QueryAccount\022\020.bftrader.BfVoid\032\020.bftrade"
-    "r.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrader.B"
-    "fVoid\032\020.bftrader.BfVoid\"\000\022-\n\005Close\022\020.bft"
-    "rader.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006p"
-    "roto3", 725);
+    "fSubscribeReq\032\020.bftrader.BfVoid\"\000\022B\n\tSen"
+    "dOrder\022\030.bftrader.BfSendOrderReq\032\031.bftra"
+    "der.BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.b"
+    "ftrader.BfCancelOrderReq\032\020.bftrader.BfVo"
+    "id\"\000\0224\n\014QueryAccount\022\020.bftrader.BfVoid\032\020"
+    ".bftrader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bf"
+    "trader.BfVoid\032\020.bftrader.BfVoid\"\000\022-\n\005Clo"
+    "se\022\020.bftrader.BfVoid\032\020.bftrader.BfVoid\"\000"
+    "B\003\370\001\001b\006proto3", 733);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfgateway_2eproto);

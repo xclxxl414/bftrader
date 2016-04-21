@@ -56,9 +56,9 @@ class BfGatewayService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncSubscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncSubscribeRaw(context, request, cq));
     }
-    virtual ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::bftrader::BfOrderResp* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfOrderResp>>(AsyncSendOrderRaw(context, request, cq));
+    virtual ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
     }
     virtual ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
@@ -84,7 +84,7 @@ class BfGatewayService GRPC_FINAL {
     virtual ::grpc::ClientReaderInterface< ::bftrader::BfContractData>* GetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>* AsyncGetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncSubscribeRaw(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncQueryAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncQueryPositionRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
@@ -119,9 +119,9 @@ class BfGatewayService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncSubscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncSubscribeRaw(context, request, cq));
     }
-    ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::bftrader::BfOrderResp* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>>(AsyncSendOrderRaw(context, request, cq));
+    ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
     }
     ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
@@ -149,7 +149,7 @@ class BfGatewayService GRPC_FINAL {
     ::grpc::ClientReader< ::bftrader::BfContractData>* GetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) GRPC_OVERRIDE;
     ::grpc::ClientAsyncReader< ::bftrader::BfContractData>* AsyncGetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncSubscribeRaw(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncQueryAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncQueryPositionRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
@@ -178,7 +178,7 @@ class BfGatewayService GRPC_FINAL {
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response);
     virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer);
     virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response);
+    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response);
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
@@ -316,11 +316,11 @@ class BfGatewayService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSendOrder(::grpc::ServerContext* context, ::bftrader::BfOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfOrderResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestSendOrder(::grpc::ServerContext* context, ::bftrader::BfSendOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfSendOrderResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -519,7 +519,7 @@ class BfGatewayService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderReq* request, ::bftrader::BfOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

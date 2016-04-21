@@ -40,7 +40,7 @@ public:
     void queryInstrument(unsigned int delayTick, QString robotId);
     void queryAccount(unsigned int delayTick, QString robotId);
     void reqSettlementInfoConfirm(unsigned int delayTick, QString robotId);
-    void sendOrder(unsigned int delayTick, QString robotId, const BfOrderReq& orderReq);
+    void sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& orderReq);
     void queryPosition(unsigned int delayTick, QString robotId);
     void cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& orderReq);
     void queryOrders(unsigned int delayTick, QString robotId);

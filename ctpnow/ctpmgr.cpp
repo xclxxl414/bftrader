@@ -23,9 +23,9 @@ void CtpMgr::init()
     // qRegisterMetaType
     qRegisterMetaType<BfAccountData>("BfAccountData");
     qRegisterMetaType<BfPositionData>("BfPositionData");
-    qRegisterMetaType<BfOrderReq>("BfOrderReq");
     qRegisterMetaType<BfOrderData>("BfOrderData");
     qRegisterMetaType<BfTradeData>("BfTradeData");
+    qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
 }
 
@@ -357,12 +357,10 @@ void CtpMgr::freeContracts()
     contracts_.clear();
 }
 
-// todo(hege): 网络异常还是有crash=
 void* CtpMgr::getContract(QString id)
 {
     auto contract = contracts_.value(id);
     if (contract == nullptr) {
-        //logger()->info("contract == nullptr");
         qFatal("contract == nullptr");
     }
 
@@ -378,12 +376,10 @@ void CtpMgr::insertContract(QString id, void* contract)
     contracts_[id] = contract;
 }
 
-// todo(hege): 网络异常还是有crash=
 RingBuffer* CtpMgr::getRingBuffer(QString id)
 {
     RingBuffer* rb = rbs_.value(id);
     if (rb == nullptr) {
-        //logger()->info("rb == nullptr");
         qFatal("rb == nullptr");
     }
 
@@ -474,7 +470,7 @@ void CtpMgr::resetCmds()
     }
 }
 
-void CtpMgr::sendOrder(const BfOrderReq& req)
+void CtpMgr::sendOrder(const BfSendOrderReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 

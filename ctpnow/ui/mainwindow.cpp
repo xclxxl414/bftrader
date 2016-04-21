@@ -9,7 +9,6 @@
 #include "logform.h"
 #include "logger.h"
 #include "logindialog.h"
-#include "pendingorderform.h"
 #include "positionform.h"
 #include "profile.h"
 #include "runextensions.h"
@@ -17,6 +16,7 @@
 #include "tickform.h"
 #include "tradeform.h"
 #include "ui_mainwindow.h"
+#include "workingorderform.h"
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget* parent)
     logForm_ = new LogForm(this);
     contractForm_ = new ContractForm(this);
     positionForm_ = new PositionForm(this);
-    pendingOrderForm_ = new PendingOrderForm(this);
+    workingOrderForm_ = new WorkingOrderForm(this);
     finishedOrderForm_ = new FinishedOrderForm(this);
     tradeForm_ = new TradeForm(this);
     tickForm_ = new TickForm(this);
@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
     ui->tabWidgetLog->addTab(logForm_, "log");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
-    ui->tabWidgetOrder->addTab(pendingOrderForm_, "pendingOrder");
+    ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetOrder->addTab(finishedOrderForm_, "finishedOrder");
     ui->tabWidgetOrder->addTab(tradeForm_, "trade");
 
@@ -76,7 +76,7 @@ void MainWindow::init()
     contractForm_->init();
     tickForm_->init();
     positionForm_->init();
-    pendingOrderForm_->init();
+    workingOrderForm_->init();
     finishedOrderForm_->init();
     tradeForm_->init();
     accountForm_->init();
@@ -92,7 +92,7 @@ void MainWindow::shutdown()
     contractForm_->shutdown();
     tickForm_->shutdown();
     positionForm_->shutdown();
-    pendingOrderForm_->shutdown();
+    workingOrderForm_->shutdown();
     finishedOrderForm_->shutdown();
     tradeForm_->shutdown();
     accountForm_->shutdown();

@@ -2,4 +2,4 @@
 
 #include <QString>
 
-QString gbk2utf16(char* gbk);
+QString gbk2utf16(const char* gbk);

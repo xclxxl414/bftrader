@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfdatafeed.proto',
   package='bftrader.bfdatafeed',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\x8c\x02\n\x11\x42\x66\x44\x61tafeedService\x12>\n\x0eInsertTickPack\x12\x18.bftrader.BfTickPackData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12G\n\x0bGetTickPack\x12\x1a.bftrader.BfGetTickPackReq\x1a\x18.bftrader.BfTickPackData\"\x00\x30\x01\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\xfc\x01\n\x11\x42\x66\x44\x61tafeedService\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12?\n\x0bGetTickPack\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x42\x03\xf8\x01\x01\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -40,7 +40,7 @@ class BetaBfDatafeedServiceServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def InsertTickPack(self, request, context):
+  def InsertTick(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
   def InsertBar(self, request, context):
@@ -56,9 +56,9 @@ class BetaBfDatafeedServiceStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def InsertTickPack(self, request, timeout):
+  def InsertTick(self, request, timeout):
     raise NotImplementedError()
-  InsertTickPack.future = None
+  InsertTick.future = None
   @abc.abstractmethod
   def InsertBar(self, request, timeout):
     raise NotImplementedError()
@@ -81,21 +81,21 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
   import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetBar'): bftrader_pb2.BfGetBarReq.FromString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfGetTickPackReq.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfGetTickReq.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfBarData.FromString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTickPack'): bftrader_pb2.BfTickPackData.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfTickData.FromString,
   }
   response_serializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetBar'): bftrader_pb2.BfBarData.SerializeToString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfTickPackData.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfTickData.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTickPack'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetBar'): face_utilities.unary_stream_inline(servicer.GetBar),
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): face_utilities.unary_stream_inline(servicer.GetTickPack),
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): face_utilities.unary_unary_inline(servicer.InsertBar),
-    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTickPack'): face_utilities.unary_unary_inline(servicer.InsertTickPack),
+    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): face_utilities.unary_unary_inline(servicer.InsertTick),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -111,21 +111,21 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
   import bftrader_pb2
   request_serializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetBar'): bftrader_pb2.BfGetBarReq.SerializeToString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfGetTickPackReq.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfGetTickReq.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfBarData.SerializeToString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTickPack'): bftrader_pb2.BfTickPackData.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfTickData.SerializeToString,
   }
   response_deserializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'GetBar'): bftrader_pb2.BfBarData.FromString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfTickPackData.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'GetTickPack'): bftrader_pb2.BfTickData.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTickPack'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfVoid.FromString,
   }
   cardinalities = {
     'GetBar': cardinality.Cardinality.UNARY_STREAM,
     'GetTickPack': cardinality.Cardinality.UNARY_STREAM,
     'InsertBar': cardinality.Cardinality.UNARY_UNARY,
-    'InsertTickPack': cardinality.Cardinality.UNARY_UNARY,
+    'InsertTick': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
   return beta_implementations.dynamic_stub(channel, 'bftrader.bfdatafeed.BfDatafeedService', cardinalities, options=stub_options)

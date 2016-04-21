@@ -30,19 +30,19 @@ class BfDatafeedService GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status InsertTickPack(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertTickPack(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertTickPackRaw(context, request, cq));
+    virtual ::grpc::Status InsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertTickRaw(context, request, cq));
     }
     virtual ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickPackData>> GetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request) {
-      return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickPackData>>(GetTickPackRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickData>> GetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickData>>(GetTickPackRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickPackData>> AsyncGetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickPackData>>(AsyncGetTickPackRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>> AsyncGetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>>(AsyncGetTickPackRaw(context, request, cq, tag));
     }
     std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfBarData>> GetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfBarData>>(GetBarRaw(context, request));
@@ -51,29 +51,29 @@ class BfDatafeedService GRPC_FINAL {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfBarData>>(AsyncGetBarRaw(context, request, cq, tag));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderInterface< ::bftrader::BfTickPackData>* GetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickPackData>* AsyncGetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientReaderInterface< ::bftrader::BfTickData>* GetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>* AsyncGetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientReaderInterface< ::bftrader::BfBarData>* GetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfBarData>* AsyncGetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status InsertTickPack(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertTickPack(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertTickPackRaw(context, request, cq));
+    ::grpc::Status InsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertTickRaw(context, request, cq));
     }
     ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickPackData>> GetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request) {
-      return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickPackData>>(GetTickPackRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickData>> GetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickData>>(GetTickPackRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickPackData>> AsyncGetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickPackData>>(AsyncGetTickPackRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickData>> AsyncGetTickPack(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickData>>(AsyncGetTickPackRaw(context, request, cq, tag));
     }
     std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfBarData>> GetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfBarData>>(GetBarRaw(context, request));
@@ -84,13 +84,13 @@ class BfDatafeedService GRPC_FINAL {
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfTickPackData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientReader< ::bftrader::BfTickPackData>* GetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncReader< ::bftrader::BfTickPackData>* AsyncGetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickPackReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientReader< ::bftrader::BfTickData>* GetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReader< ::bftrader::BfTickData>* AsyncGetTickPackRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
     ::grpc::ClientReader< ::bftrader::BfBarData>* GetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) GRPC_OVERRIDE;
     ::grpc::ClientAsyncReader< ::bftrader::BfBarData>* AsyncGetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    const ::grpc::RpcMethod rpcmethod_InsertTickPack_;
+    const ::grpc::RpcMethod rpcmethod_InsertTick_;
     const ::grpc::RpcMethod rpcmethod_InsertBar_;
     const ::grpc::RpcMethod rpcmethod_GetTickPack_;
     const ::grpc::RpcMethod rpcmethod_GetBar_;
@@ -101,28 +101,28 @@ class BfDatafeedService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status InsertTickPack(::grpc::ServerContext* context, const ::bftrader::BfTickPackData* request, ::bftrader::BfVoid* response);
+    virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickPackReq* request, ::grpc::ServerWriter< ::bftrader::BfTickPackData>* writer);
+    virtual ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer);
     virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer);
   };
   template <class BaseClass>
-  class WithAsyncMethod_InsertTickPack : public BaseClass {
+  class WithAsyncMethod_InsertTick : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithAsyncMethod_InsertTickPack() {
+    WithAsyncMethod_InsertTick() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_InsertTickPack() GRPC_OVERRIDE {
+    ~WithAsyncMethod_InsertTick() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertTickPack(::grpc::ServerContext* context, const ::bftrader::BfTickPackData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestInsertTickPack(::grpc::ServerContext* context, ::bftrader::BfTickPackData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestInsertTick(::grpc::ServerContext* context, ::bftrader::BfTickData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -158,11 +158,11 @@ class BfDatafeedService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickPackReq* request, ::grpc::ServerWriter< ::bftrader::BfTickPackData>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetTickPack(::grpc::ServerContext* context, ::bftrader::BfGetTickPackReq* request, ::grpc::ServerAsyncWriter< ::bftrader::BfTickPackData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetTickPack(::grpc::ServerContext* context, ::bftrader::BfGetTickReq* request, ::grpc::ServerAsyncWriter< ::bftrader::BfTickData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncServerStreaming(2, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
@@ -186,20 +186,20 @@ class BfDatafeedService GRPC_FINAL {
       ::grpc::Service::RequestAsyncServerStreaming(3, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_InsertTickPack<WithAsyncMethod_InsertBar<WithAsyncMethod_GetTickPack<WithAsyncMethod_GetBar<Service > > > > AsyncService;
+  typedef WithAsyncMethod_InsertTick<WithAsyncMethod_InsertBar<WithAsyncMethod_GetTickPack<WithAsyncMethod_GetBar<Service > > > > AsyncService;
   template <class BaseClass>
-  class WithGenericMethod_InsertTickPack : public BaseClass {
+  class WithGenericMethod_InsertTick : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithGenericMethod_InsertTickPack() {
+    WithGenericMethod_InsertTick() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_InsertTickPack() GRPC_OVERRIDE {
+    ~WithGenericMethod_InsertTick() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertTickPack(::grpc::ServerContext* context, const ::bftrader::BfTickPackData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -233,7 +233,7 @@ class BfDatafeedService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickPackReq* request, ::grpc::ServerWriter< ::bftrader::BfTickPackData>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetTickPack(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

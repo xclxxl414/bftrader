@@ -1,6 +1,4 @@
 #include "dbservice.h"
-#include "ThostFtdcMdApi.h"
-#include "ThostFtdcTraderApi.h"
 #include "file_utils.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
@@ -82,7 +80,7 @@ void DbService::dbInit()
         g_sm->logger()->info("not open yet");
         return;
     }
-
+    /*
     CThostFtdcInstrumentField* idItem = new (CThostFtdcInstrumentField);
     memset(idItem, 0, sizeof(CThostFtdcInstrumentField));
     QString key;
@@ -93,4 +91,5 @@ void DbService::dbInit()
     key = QStringLiteral("instrument=");
     db_->Put(options, key.toStdString(), val);
     delete idItem;
+*/
 }

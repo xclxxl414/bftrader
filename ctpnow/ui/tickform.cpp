@@ -1,5 +1,5 @@
 #include "tickform.h"
-#include "ThostFtdcUserApiStruct.h"
+#include "ctp_utils.h"
 #include "ctpmgr.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
@@ -15,14 +15,14 @@ TickForm::TickForm(QWidget* parent)
     table_col_ << "symbol"
                << "exchange"
 
-               << "date"
-               << "time"
+               << "actionDate"
+               << "tickTime"
                << "lastPrice"
 
-               << "bidPrice"
-               << "askPrice"
-               << "bidVolume"
-               << "askVolume"
+               << "bidPrice1"
+               << "askPrice1"
+               << "bidVolume1"
+               << "askVolume1"
 
                << "volume"
                << "openInterest"
@@ -70,44 +70,44 @@ void TickForm::shutdown()
 
 void TickForm::onGotTick(void* curTick, void* preTick)
 {
-    auto curMdf = (CThostFtdcDepthMarketDataField*)curTick;
-    auto preMdf = (CThostFtdcDepthMarketDataField*)preTick;
+    BfTickData bfTick;
+    CtpUtils::translateTick(curTick, preTick, bfTick);
 
-    QVariantMap mdItem;
-    mdItem.insert("symbol", curMdf->InstrumentID);
+    QVariantMap vItem;
+    vItem.insert("symbol", bfTick.symbol().c_str());
     // tick里面的exchange不一定有=
-    QString exchange = curMdf->ExchangeID;
+    QString exchange = bfTick.exchange().c_str();
     if (exchange.trimmed().length() == 0) {
-        auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(curMdf->InstrumentID);
+        void* contract = g_sm->ctpMgr()->getContract(bfTick.symbol().c_str());
         if (contract) {
-            exchange = contract->ExchangeID;
+            exchange = CtpUtils::getExchangeFromContract(contract);
         }
     }
-    mdItem.insert("exchange", exchange);
-    mdItem.insert("date", curMdf->ActionDay);
-    mdItem.insert("time", QString().sprintf("%s.%3d", curMdf->UpdateTime, curMdf->UpdateMillisec));
-    mdItem.insert("lastPrice", curMdf->LastPrice);
-    mdItem.insert("volume", curMdf->Volume);
-    mdItem.insert("openInterest", curMdf->OpenInterest);
-    mdItem.insert("lastVolume", preMdf ? curMdf->Volume - preMdf->Volume : 1);
+    vItem.insert("exchange", exchange);
+    vItem.insert("actionDate", bfTick.actiondate().c_str());
+    vItem.insert("tickTime", bfTick.ticktime().c_str());
+    vItem.insert("lastPrice", bfTick.lastprice());
+    vItem.insert("volume", bfTick.volume());
+    vItem.insert("openInterest", bfTick.openinterest());
+    vItem.insert("lastVolume", bfTick.lastvolume());
 
-    mdItem.insert("bidPrice", curMdf->BidPrice1);
-    mdItem.insert("askPrice", curMdf->AskPrice1);
-    mdItem.insert("bidVolume", curMdf->BidVolume1);
-    mdItem.insert("askVolume", curMdf->AskVolume1);
+    vItem.insert("bidPrice1", bfTick.bidprice1());
+    vItem.insert("askPrice1", bfTick.askprice1());
+    vItem.insert("bidVolume1", bfTick.bidvolume1());
+    vItem.insert("askVolume1", bfTick.askvolume1());
 
-    mdItem.insert("openPrice", curMdf->OpenPrice);
-    mdItem.insert("highPrice", curMdf->HighestPrice);
-    mdItem.insert("lowPrice", curMdf->LowestPrice);
-    mdItem.insert("preClosePrice", curMdf->PreClosePrice);
-    mdItem.insert("upperLimit", curMdf->UpperLimitPrice);
-    mdItem.insert("lowerLimit", curMdf->LowerLimitPrice);
+    vItem.insert("openPrice", bfTick.openprice());
+    vItem.insert("highPrice", bfTick.highprice());
+    vItem.insert("lowPrice", bfTick.lowprice());
+    vItem.insert("preClosePrice", bfTick.precloseprice());
+    vItem.insert("upperLimit", bfTick.upperlimit());
+    vItem.insert("lowerLimit", bfTick.lowerlimit());
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
-    QString id = mdItem.value("symbol").toString();
+    QString id = vItem.value("symbol").toString();
     int row = table_row_.value(id);
     for (int i = 0; i < table_col_.count(); i++) {
-        QVariant raw_val = mdItem.value(table_col_.at(i));
+        QVariant raw_val = vItem.value(table_col_.at(i));
         QString str_val = raw_val.toString();
         if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
             str_val = QString().sprintf("%6.3f", raw_val.toDouble());
@@ -133,9 +133,9 @@ void TickForm::onGotInstruments(QStringList ids)
         ui->tableWidget->setItem(i, table_col_.indexOf("symbol"), item);
 
         //设置exchange
-        auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(id);
+        void* contract = g_sm->ctpMgr()->getContract(id);
         if (contract) {
-            QString exchange = contract->ExchangeID;
+            QString exchange = CtpUtils::getExchangeFromContract(contract);
             QTableWidgetItem* item = new QTableWidgetItem(exchange);
             ui->tableWidget->setItem(i, table_col_.indexOf("exchange"), item);
         }
@@ -175,7 +175,7 @@ void TickForm::on_pushButtonSendOrder_clicked()
     BfOffset offset = (BfOffset)(ui->comboBoxOffset->currentIndex() + 1);
     BfPriceType priceType = (BfPriceType)(ui->comboBoxPriceType->currentIndex() + 1);
 
-    BfOrderReq req;
+    BfSendOrderReq req;
     req.set_symbol(symbol.toStdString());
     req.set_exchange(exchange.toStdString());
     req.set_price(price);
@@ -184,7 +184,7 @@ void TickForm::on_pushButtonSendOrder_clicked()
     req.set_offset(offset);
     req.set_pricetype(priceType);
 
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfOrderReq, req));
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
 }
 
 void TickForm::on_tableWidget_cellDoubleClicked(int row, int column)
@@ -208,14 +208,16 @@ void TickForm::on_tableWidget_cellDoubleClicked(int row, int column)
     ui->doubleSpinBoxPrice->setMaximum(upperLimit);
     ui->doubleSpinBoxPrice->setMinimum(lowerLimit);
 
-    auto contract = (CThostFtdcInstrumentField*)g_sm->ctpMgr()->getContract(symbol);
+    void* contract = g_sm->ctpMgr()->getContract(symbol);
     if (contract) {
-        ui->doubleSpinBoxPrice->setSingleStep(contract->PriceTick);
+        BfContractData bfContract;
+        CtpUtils::translateContract(contract, bfContract);
+        ui->doubleSpinBoxPrice->setSingleStep(bfContract.pricetick());
 
         // 设置volume
-        ui->spinBoxVolume->setValue(contract->MinLimitOrderVolume);
-        ui->spinBoxVolume->setMaximum(contract->MaxLimitOrderVolume);
-        ui->spinBoxVolume->setMinimum(contract->MinLimitOrderVolume);
-        ui->spinBoxVolume->setSingleStep(contract->MinLimitOrderVolume);
+        ui->spinBoxVolume->setValue(bfContract.minlimit());
+        ui->spinBoxVolume->setMaximum(bfContract.maxlimit());
+        ui->spinBoxVolume->setMinimum(bfContract.minlimit());
+        ui->spinBoxVolume->setSingleStep(bfContract.minlimit());
     }
 }

@@ -27,7 +27,7 @@ service BfGatewayService{
     rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}
     
     // 发单
-    rpc SendOrder(BfOrderReq) returns (BfOrderResp) {}
+    rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}
     
     // 撤单
     rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}

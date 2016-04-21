@@ -73,31 +73,6 @@ message BfVoid{
 }
 
 //============================
-// 常规行情数据类
-message BfDailyInfo{
-    double openPrice = 1;       // 今日开盘价
-    double highPrice = 2;       // 今日最高价
-    double lowPrice = 3;        // 今日最低价
-    double preClosePrice = 4;   // 昨日收盘价
-    double upperLimit = 5;      // 涨停价
-    double lowerLimit = 6;      // 跌停价
-}
-
-// x档行情
-message BfBidAskInfo{
-    double bidPrice = 1;        // 买价
-    double askPrice = 2;        // 卖价
-    int32 bidVolume = 3;        // 买量
-    int32 askVolume = 4;        // 卖量
-}
-
-// OHLC
-message BfOHLCInfo{
-    double openPrice = 1;       // 开盘价
-    double highPrice = 2;       // 最高价
-    double lowPrice = 3;        // 最低价
-    double closePrice = 4;      // 收盘价
-}
     
 // Tick行情数据类
 message BfTickData{
@@ -107,31 +82,26 @@ message BfTickData{
     string exchange = 2;        // 交易所代码
     
     // 成交数据
-    string date = 3;            // 日期 20151009
-    string time = 4;            // 时间 11:20:56.500
+    string actionDate = 3;      // 日期 yyyyMMdd
+    string tickTime = 4;        // 时间 hh:mm:ss.zzz,其他时间都是hh::mm::ss
     double lastPrice = 5;       // 最新成交价
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 今天总持仓量
-    int32 lastVolume = 8;       // 最新成交量，本笔增减，无法计算时用1代替
-
-    // x档行情
-    repeated BfBidAskInfo bidaskInfo = 9;  
+    int32 lastVolume = 8;       // 本笔成交量，无法计算时用1代替
 
     // 常规行情
-    BfDailyInfo dailyInfo = 10;  
-}
+    double openPrice = 9;       // 今日开盘价
+    double highPrice = 10;      // 今日最高价
+    double lowPrice = 11;       // 今日最低价
+    double preClosePrice = 12;  // 昨日收盘价
+    double upperLimit = 13;     // 涨停价
+    double lowerLimit = 14;     // 跌停价
 
-// 1分钟的tick集合
-message BfTickPackData{
-    // 代码相关
-    string symbol = 1;          // 合约代码
-    string exchange = 2;        // 交易所代码
-    
-    string date = 3;            // 日期 20151009
-    string time = 4;            // 时间 11:20:56.500
-
-    // Tick集合
-    repeated BfTickData ticks = 5;
+    // x档行情
+    double bidPrice1 = 15;      // 买价
+    double askPrice1 = 16;      // 卖价
+    int32 bidVolume1 = 17;      // 买量
+    int32 askVolume1 = 18;      // 卖量  
 }
 
 // Bar行情数据类
@@ -146,35 +116,36 @@ message BfBarData{
     
     // 成交数据
     string date = 4;            // 日期 20151009
-    string time = 5;            // 时间 11:20:56.500
+    string time = 5;            // 时间 11:20:56
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 持仓量
-    int32 lastVolume = 8;       // 最新成交量，本笔增减
+    int32 lastVolume = 8;       // 本bar成交量，本笔增减
     
     // OHLC
-    BfOHLCInfo ohlcInfo = 9; 
-
-    // 常规行情
-    BfDailyInfo dailyInfo = 10; 
+    double openPrice = 9;       // 开盘价
+    double highPrice = 10;      // 最高价
+    double lowPrice = 11;       // 最低价
+    double closePrice = 12;     // 收盘价 
 }
 
-// 成交数据类
+// 成交数据类，根据byOrderId或者sysOrderId可以找到Order
 message BfTradeData{
     
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
 
-    int32 tradeId = 3;          // 成交编号,是本地自己分配的
-    int32 orderId = 4;          // 订单编号,是本地自己分配的
+    string tradeId = 3;         // 成交编号
+    string bfOrderId = 4;       // 订单编号,是本地自己分配的
+    string sysOrderId = 5;      // 订单编号
     
     // 成交相关
-    BfDirection direction = 5;  // 成交方向
-    BfOffset offset =  6;       // 成交开平仓
-    double price = 7;           // 成交价格
-    int32 volume = 8;           // 成交数量
-    string tradeDate = 9;       // 成交日期
-    string tradeTime = 10;      // 成交时间
+    BfDirection direction = 6;  // 成交方向
+    BfOffset offset =  7;       // 成交开平仓
+    double price = 8;           // 成交价格
+    int32 volume = 9;           // 成交数量
+    string tradeDate = 10;      // 成交日期
+    string tradeTime = 11;      // 成交时间
 }
 
 // 订单数据类
@@ -184,22 +155,20 @@ message BfOrderData{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    int32 orderId = 3;          // 订单编号,是本地自己分配的
+    string bfOrderId = 3;       // 订单编号,是本地自己分配的
+    string sysOrderId = 4;      // 订单编号
     
     // 报单相关
-    BfDirection direction = 4;  // 报单方向
-    BfOffset offset = 5;        // 报单开平仓
-    double price = 6;           // 报单价格
-    int32 totalVolume = 7;      // 报单总数量
-    int32 tradedVolume = 8;     // 报单成交数量
-    BfStatus status = 9;        // 报单状态
+    BfDirection direction = 5;  // 报单方向
+    BfOffset offset = 6;        // 报单开平仓
+    double price = 7;           // 报单价格
+    int32 totalVolume = 8;      // 报单总数量
+    int32 tradedVolume = 9;     // 报单成交数量
+    BfStatus status = 10;       // 报单状态
     
-    string insertDate = 10;     // 发单日期
-    string insertTime = 11;     // 发单时间
-    string cancelTime = 12;     // 撤单时间
-    
-    int32 frontID = 13;         // 前置机号,Ctp/Lts
-    int32 sessionID =  14;      // 会话号,Ctp/Lts 
+    string insertDate = 11;     // 发单日期
+    string insertTime = 12;     // 发单时间
+    string cancelTime = 13;     // 撤单时间
 }
 
 // 持仓数据类
@@ -254,7 +223,7 @@ message BfContractData{
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
-    string name = 3;            // 合约中文名-utf8
+    string name = 3;            // 合约中文名(gbk)
     
     BfProduct productClass = 4; // 合约类型
     int32 volumeMultiple = 5;   // 合约数量乘数
@@ -283,7 +252,7 @@ message BfSubscribeReq{
 }
 
 // 发单时传入的对象类
-message BfOrderReq{
+message BfSendOrderReq{
 
     // 代码编号相关
     string symbol = 1;          // 合约代码
@@ -297,20 +266,19 @@ message BfOrderReq{
 }
 
 // 发单本地返回的对象类
-message BfOrderResp{
-    int32 orderId = 1;          // 报单号,是本地自己分配的
+message BfSendOrderResp{
+    string bfOrderId = 1;       // 报单号,是本地自己分配的
 }
 
-// 撤单时传入的对象类
+// 撤单时传入的对象类,bfOrderId/sysOrderId随便填一个都行=
 message BfCancelOrderReq{
 
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    int32 orderId = 3;          // 报单号,是本地自己分配的
-    int32 frontID = 4;          // 前置机号,Ctp/Lts
-    int32 sessionID = 5;        // 会话号,Ctp/Lts 
+    string bfOrderId = 3;       // 报单号,是本地自己分配的
+    string sysOrderId = 4;      // 报单号
 }
 
 // 连接时传入的对象类
@@ -337,7 +305,7 @@ message BfGetContractReq{
 //============================
 
 // 获取历史Tick数据的对象类（1分钟整存整取）
-message BfGetTickPackReq{
+message BfGetTickReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码
     string exchange = 2;            // 交易所代码

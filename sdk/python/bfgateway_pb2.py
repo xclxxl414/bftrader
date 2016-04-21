@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfgateway.proto',
   package='bftrader.bfgateway',
   syntax='proto3',
-  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\x12\x62\x66trader.bfgateway\x1a\x0e\x62\x66trader.proto2\x90\x05\n\x10\x42\x66GatewayService\x12<\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x17.bftrader.BfConnectResp\"\x00\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x45\n\x0bGetContract\x12\x1a.bftrader.BfGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x12\x41\n\x0fGetContractList\x12\x10.bftrader.BfVoid\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12\x39\n\tSubscribe\x12\x18.bftrader.BfSubscribeReq\x1a\x10.bftrader.BfVoid\"\x00\x12:\n\tSendOrder\x12\x14.bftrader.BfOrderReq\x1a\x15.bftrader.BfOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x0cQueryAccount\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x35\n\rQueryPosition\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12-\n\x05\x43lose\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\x12\x62\x66trader.bfgateway\x1a\x0e\x62\x66trader.proto2\x98\x05\n\x10\x42\x66GatewayService\x12<\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x17.bftrader.BfConnectResp\"\x00\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x45\n\x0bGetContract\x12\x1a.bftrader.BfGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x12\x41\n\x0fGetContractList\x12\x10.bftrader.BfVoid\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12\x39\n\tSubscribe\x12\x18.bftrader.BfSubscribeReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x0cQueryAccount\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x35\n\rQueryPosition\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12-\n\x05\x43lose\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -152,7 +152,7 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
     ('bftrader.bfgateway.BfGatewayService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryAccount'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryPosition'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfOrderReq.FromString,
+    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfSendOrderReq.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'SetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'Subscribe'): bftrader_pb2.BfSubscribeReq.FromString,
   }
@@ -165,7 +165,7 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
     ('bftrader.bfgateway.BfGatewayService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryAccount'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryPosition'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfOrderResp.SerializeToString,
+    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfSendOrderResp.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'SetKv'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'Subscribe'): bftrader_pb2.BfVoid.SerializeToString,
   }
@@ -217,7 +217,7 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
     ('bftrader.bfgateway.BfGatewayService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryAccount'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryPosition'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfOrderReq.SerializeToString,
+    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfSendOrderReq.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'SetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'Subscribe'): bftrader_pb2.BfSubscribeReq.SerializeToString,
   }
@@ -230,7 +230,7 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
     ('bftrader.bfgateway.BfGatewayService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryAccount'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'QueryPosition'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfOrderResp.FromString,
+    ('bftrader.bfgateway.BfGatewayService', 'SendOrder'): bftrader_pb2.BfSendOrderResp.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'SetKv'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'Subscribe'): bftrader_pb2.BfVoid.FromString,
   }
