@@ -118,7 +118,7 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     }
 }
 
-void TickForm::onGotInstruments(QStringList ids)
+void TickForm::onGotInstruments(QStringList ids, QStringList idsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();

@@ -31,7 +31,6 @@ public:
     bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList);
     void start();
     void stop();
-    void info(QString msg);
     static QString version();
     void resetData();
 

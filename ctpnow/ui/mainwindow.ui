@@ -132,10 +132,18 @@
       <addaction name="actionExitProcess"/>
       <addaction name="actionTerminateProcess"/>
      </widget>
+     <widget class="QMenu" name="menuNetwork">
+      <property name="title">
+       <string>network</string>
+      </property>
+      <addaction name="actionRpcStart"/>
+      <addaction name="actionRpcStop"/>
+     </widget>
      <addaction name="menuCtp"/>
      <addaction name="menuThread"/>
      <addaction name="menuDb"/>
      <addaction name="menuCrash"/>
+     <addaction name="menuNetwork"/>
     </widget>
     <addaction name="actionVersion"/>
     <addaction name="menuDeveloperTools"/>
@@ -237,6 +245,16 @@
   <action name="actionStop">
    <property name="text">
     <string>stop</string>
+   </property>
+  </action>
+  <action name="actionRpcStart">
+   <property name="text">
+    <string>rpcstart</string>
+   </property>
+  </action>
+  <action name="actionRpcStop">
+   <property name="text">
+    <string>rpcStop</string>
    </property>
   </action>
  </widget>

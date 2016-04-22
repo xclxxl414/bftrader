@@ -1,18 +1,18 @@
-#ifndef LOGFORM_H
-#define LOGFORM_H
+#ifndef DEBUGFORM_H
+#define DEBUGFORM_H
 
 #include <QWidget>
 
 namespace Ui {
-class LogForm;
+class DebugForm;
 }
 
-class LogForm : public QWidget {
+class DebugForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit LogForm(QWidget* parent = 0);
-    ~LogForm();
+    explicit DebugForm(QWidget* parent = 0);
+    ~DebugForm();
     void init();
     void shutdown();
 
@@ -20,9 +20,9 @@ public slots:
     void onInfo(QString when, QString msg);
 
 private:
-    Ui::LogForm* ui;
+    Ui::DebugForm* ui;
 
     QStringList table_col_;
 };
 
-#endif // LOGFORM_H
+#endif // DEBUGFORM_H

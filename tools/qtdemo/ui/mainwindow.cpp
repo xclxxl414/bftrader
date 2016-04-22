@@ -34,7 +34,8 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     // logger
-    QObject::connect(logger(), &Logger::gotInfo, this, &MainWindow::onInfo);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onInfo);
+    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onInfo);
 }
 
 void MainWindow::shutdown()
@@ -51,7 +52,7 @@ void MainWindow::onInfo(QString when, QString msg)
 
 void MainWindow::on_actionVersion_triggered()
 {
-    logger()->info(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -119,11 +120,6 @@ void MainWindow::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
 Profile* MainWindow::profile()
 {
     return g_sm->profile();
-}
-
-Logger* MainWindow::logger()
-{
-    return g_sm->logger();
 }
 
 void MainWindow::on_actionInvalidParamCrash_triggered()
@@ -194,13 +190,13 @@ void MainWindow::on_actionExternal_triggered()
 void MainWindow::runOnExternal()
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    logger()->info(__FUNCTION__);
+    BfInfo(__FUNCTION__);
 }
 
 void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    logger()->info(__FUNCTION__);
+    BfInfo(__FUNCTION__);
 
     future.reportFinished();
 }

@@ -55,9 +55,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonCancelOrders">
+      <widget class="QPushButton" name="pushButtonCancelAll">
        <property name="text">
-        <string>cancelOrders</string>
+        <string>cancelAll</string>
        </property>
       </widget>
      </item>

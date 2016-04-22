@@ -1,6 +1,5 @@
 #include "rpcservice.h"
 #include "bfgateway.grpc.pb.h"
-#include "logger.h"
 #include "pushservice.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -37,13 +36,13 @@ public:
     virtual ~Gateway() {}
     virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override
     {
-        g_sm->logger()->info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
 
         QString peer = context->peer().c_str();
         QString robotId = request->robotid().c_str();
         QString robotIp = request->robotip().c_str();
         qint32 robotPort = request->robotport();
-        g_sm->logger()->info(QString().sprintf("peer:%s,%s:%s:%d", context->peer().c_str(), request->robotid().c_str(), request->robotip().c_str(), request->robotport()));
+        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->robotid().c_str(), request->robotip().c_str(), request->robotport());
         QMetaObject::invokeMethod(g_sm->pushService(), "onRobotConnected", Qt::QueuedConnection, Q_ARG(QString, robotId), Q_ARG(QString, robotIp), Q_ARG(qint32, robotPort));
 
         response->set_exchangeopened(true);
@@ -55,16 +54,16 @@ public:
     virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override { return grpc::Status::OK; }
     virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) override
     {
-        g_sm->logger()->info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
 
         // metadata-key只能是小写的=
         if (0 == context->client_metadata().count("robotid")) {
-            g_sm->logger()->info("no matadata: robotid");
+            BfDebug("no matadata: robotid");
         } else {
             auto its = context->client_metadata().equal_range("robotid");
             auto it = its.first;
             grpc::string robotId = grpc::string(it->second.begin(), it->second.end());
-            g_sm->logger()->info(QString().sprintf("metadata: robotid=%s", robotId.c_str()));
+            BfDebug("metadata: robotid=%s", robotId.c_str());
         }
         return grpc::Status::OK;
     }
@@ -86,31 +85,47 @@ RpcService::RpcService(QObject* parent)
 
 void RpcService::init()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
-
-    gatewayThread_ = new QThread();
-    QObject::connect(gatewayThread_, &QThread::started, this, &RpcService::onGatewayThreadStarted, Qt::DirectConnection);
-    gatewayThread_->start();
 }
 
 void RpcService::shutdown()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::RPC);
+}
+
+void RpcService::start()
+{
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
-    grpcServer_->Shutdown();
-    grpcServer_ = nullptr;
+    if (gatewayThread_ == nullptr) {
+        gatewayThread_ = new QThread();
+        QObject::connect(gatewayThread_, &QThread::started, this, &RpcService::onGatewayThreadStarted, Qt::DirectConnection);
+        gatewayThread_->start();
+    }
+}
 
-    gatewayThread_->quit();
-    gatewayThread_->wait();
-    delete gatewayThread_;
-    gatewayThread_ = nullptr;
+void RpcService::stop()
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::RPC);
+
+    if (gatewayThread_ != nullptr) {
+        grpcServer_->Shutdown();
+        grpcServer_ = nullptr;
+
+        gatewayThread_->quit();
+        gatewayThread_->wait();
+        delete gatewayThread_;
+        gatewayThread_ = nullptr;
+    }
 }
 
 void RpcService::onGatewayThreadStarted()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     if (g_sm->isCurrentOn(ServiceMgr::RPC)) {
         qFatal("g_sm->CurrentOn(ServiceMgr::RPC)");
     }
@@ -122,9 +137,9 @@ void RpcService::onGatewayThreadStarted()
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&gateway);
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    g_sm->logger()->info(QString("gateway listening on ") + server_address.c_str());
+    BfInfo(QString("gateway listening on ") + server_address.c_str());
     grpcServer_ = server.get();
 
     server->Wait();
-    g_sm->logger()->info(QString("gateway shutdown"));
+    BfInfo(QString("gateway shutdown"));
 }

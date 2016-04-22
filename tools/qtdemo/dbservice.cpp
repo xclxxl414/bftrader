@@ -5,7 +5,6 @@
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
-#include "logger.h"
 #include "profile.h"
 #include "servicemgr.h"
 
@@ -16,7 +15,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     leveldb::Env::Default();
@@ -25,7 +24,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     delete leveldb::BytewiseComparator();
@@ -34,11 +33,11 @@ void DbService::shutdown()
 
 void DbService::dbOpen()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_) {
-        g_sm->logger()->info("opened already");
+        BfDebug("opened already");
         return;
     }
 
@@ -62,11 +61,11 @@ void DbService::dbOpen()
 
 void DbService::dbClose()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        g_sm->logger()->info("not open yet");
+        BfDebug("not open yet");
         return;
     }
     delete db_;
@@ -75,11 +74,11 @@ void DbService::dbClose()
 
 void DbService::dbInit()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        g_sm->logger()->info("not open yet");
+        BfDebug("not open yet");
         return;
     }
 

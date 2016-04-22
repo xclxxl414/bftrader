@@ -50,11 +50,11 @@ void ContractForm::shutdown()
 {
 }
 
-void ContractForm::onGotInstruments(QStringList ids)
+void ContractForm::onGotInstruments(QStringList ids, QStringList idsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();
-    QStringList sorted_ids = ids;
+    QStringList sorted_ids = idsAll;
     sorted_ids.sort();
     this->ui->tableWidget->clearContents();
     this->ui->tableWidget->setRowCount(sorted_ids.length());

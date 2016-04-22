@@ -23,6 +23,6 @@ void CtpMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    g_sm->logger()->info(QString("mdapi version: ") + CThostFtdcMdApi::GetApiVersion());
-    g_sm->logger()->info(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());
+    BfInfo(QString("mdapi version: ") + CThostFtdcMdApi::GetApiVersion());
+    BfInfo(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());
 }

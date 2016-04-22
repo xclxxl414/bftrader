@@ -12,7 +12,6 @@ TEMPLATE = app
 include(../bftrader.pri)
 
 SOURCES += main.cpp\
-    ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
     ctpmgr.cpp \
@@ -21,10 +20,13 @@ SOURCES += main.cpp\
     dbservice.cpp \
     mdsm.cpp \
     tdsm.cpp \
+    ringbuffer.cpp \
+    ctp_utils.cpp \
+    ui/mainwindow.cpp \
     ui/configdialog.cpp \
     ui/logindialog.cpp \
-    ringbuffer.cpp \
-    ui/logform.cpp \
+    ui/infoform.cpp \
+    ui/debugform.cpp \
     ui/positionform.cpp \
     ui/contractform.cpp \
     ui/finishedorderform.cpp \
@@ -32,8 +34,7 @@ SOURCES += main.cpp\
     ui/tickform.cpp \
     ui/accountform.cpp \
     ui/tablewidget_helper.cpp \
-    ui/workingorderform.cpp \
-    ctp_utils.cpp
+    ui/workingorderform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -47,7 +48,8 @@ HEADERS  += ui/mainwindow.h \
     ui/configdialog.h \
     ui/logindialog.h \
     ringbuffer.h \
-    ui/logform.h \
+    ui/infoform.h \
+    ui/debugform.h \
     ui/positionform.h \
     ui/contractform.h \
     ui/finishedorderform.h \
@@ -61,7 +63,8 @@ HEADERS  += ui/mainwindow.h \
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
     ui/logindialog.ui \
-    ui/logform.ui \
+    ui/infoform.ui \
+    ui/debugform.ui \
     ui/positionform.ui \
     ui/contractform.ui \
     ui/finishedorderform.ui \

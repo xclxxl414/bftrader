@@ -57,7 +57,7 @@ public:
 signals:
     void requestSent(int reqId, QString robotId);
     void tradeWillBegin();
-    void gotInstruments(QStringList ids);
+    void gotInstruments(QStringList ids, QStringList idsAll);
     void gotTick(void* curTick, void* preTick);
     void gotAccount(const BfAccountData& account);
     void gotOrder(const BfOrderData& order);
@@ -76,7 +76,7 @@ public slots:
     void queryOrders();
 
 private slots:
-    void onGotInstruments(QStringList ids);
+    void onGotInstruments(QStringList ids, QStringList idsAll);
     void onMdSmStateChanged(int state);
     void onTdSmStateChanged(int state);
     void onRunCmdInterval();

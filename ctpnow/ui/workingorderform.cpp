@@ -2,11 +2,11 @@
 #include "ctp_utils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_pendingorderform.h"
+#include "ui_workingorderform.h"
 
 WorkingOrderForm::WorkingOrderForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::PendingOrderForm)
+    , ui(new Ui::WorkingOrderForm)
 {
     ui->setupUi(this);
 
@@ -111,7 +111,12 @@ void WorkingOrderForm::onGotOrder(const BfOrderData& newOrder)
     }
 }
 
-void WorkingOrderForm::on_pushButtonCancelOrders_clicked()
+void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
+{
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryOrders", Qt::QueuedConnection);
+}
+
+void WorkingOrderForm::on_pushButtonCancelAll_clicked()
 {
     for (auto order : orders_) {
         BfCancelOrderReq req;
@@ -122,9 +127,4 @@ void WorkingOrderForm::on_pushButtonCancelOrders_clicked()
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
     }
-}
-
-void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
-{
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryOrders", Qt::QueuedConnection);
 }

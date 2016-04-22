@@ -317,3 +317,35 @@ void ServiceMgr::checkCurrentOn(ThreadType p)
         qFatal("checkCurrentOn");
     }
 }
+
+//////////////////////
+
+void BfInfo(const char* msg, ...)
+{
+    va_list ap;
+    va_start(ap, msg);
+    QString buf = QString::vasprintf(msg, ap);
+    va_end(ap);
+
+    g_sm->logger()->info(buf);
+}
+
+void BfDebug(const char* msg, ...)
+{
+    va_list ap;
+    va_start(ap, msg);
+    QString buf = QString::vasprintf(msg, ap);
+    va_end(ap);
+
+    g_sm->logger()->debug(buf);
+}
+
+void BfInfo(QString msg)
+{
+    g_sm->logger()->info(msg);
+}
+
+void BfDebug(QString msg)
+{
+    g_sm->logger()->info(msg);
+}

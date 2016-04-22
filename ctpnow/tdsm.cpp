@@ -4,7 +4,6 @@
 #include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
-#include "logger.h"
 #include "servicemgr.h"
 #include <QDir>
 
@@ -19,7 +18,7 @@ public:
 private:
     void OnFrontConnected() override
     {
-        info(__FUNCTION__);
+        BfInfo(__FUNCTION__);
         emit sm()->statusChanged(TDSM_CONNECTED);
     }
 
@@ -29,7 +28,7 @@ private:
     // logout也会导致一次disconnected+connected，0x1001
     void OnFrontDisconnected(int nReason) override
     {
-        info(QString().sprintf("TdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason));
+        BfInfo("TdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
 
         emit sm()->statusChanged(TDSM_DISCONNECTED);
     }
@@ -42,7 +41,7 @@ private:
     // 3. 发现对于errorid=7，不一定会disconnect后再connected，需要自己去发包=
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfInfo(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGINFAIL);
@@ -60,7 +59,7 @@ private:
     // 就是手动停止了，stop掉=
     void OnRspUserLogout(CThostFtdcUserLogoutField* pUserLogout, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfInfo(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGOUTFAIL);
@@ -74,7 +73,7 @@ private:
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (bIsLast) {
-            info(__FUNCTION__);
+            BfInfo(__FUNCTION__);
             isErrorRsp(pRspInfo, nRequestID);
         }
     }
@@ -90,37 +89,41 @@ private:
         }
         if (!isErrorRsp(pRspInfo, nRequestID) && pInstrument) {
             id = pInstrument->InstrumentID;
+
+            // 全部合约，由于持仓的部分可能不是订阅的，持仓需要用合约信息，这里要保留全部合约信息=
+            // https://github.com/sunwangme/bftrader/issues/5
+            CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
+            memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
+            g_sm->ctpMgr()->insertContract(id, contract);
+            ids_all_ << id;
+
+            // 订阅合约=
             if (id.length() <= 6) {
                 QString low_id = id.toLower();
                 for (int i = 0; i < idPrefixList_.length(); i++) {
                     prefix = idPrefixList_.at(i);
                     if (low_id.startsWith(prefix)) {
                         ids_ << id;
-
-                        // 保存一份供查询=
-                        CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
-                        memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
-                        g_sm->ctpMgr()->insertContract(id, contract);
                         break;
                     }
                 }
             }
         }
 
-        if (bIsLast && ids_.length()) {
+        if (bIsLast) {
             QString ids;
             for (auto id : ids_) {
                 ids = ids + id + ";";
             }
-            info(QString().sprintf("total got ids:%d,%s", ids_.length(), ids.toUtf8().constData()));
-            emit g_sm->ctpMgr()->gotInstruments(ids_);
+            BfInfo("total got ids:%d,%s", ids_.length(), ids.toUtf8().constData());
+            emit g_sm->ctpMgr()->gotInstruments(ids_, ids_all_);
         }
     }
 
     // 请求查询资金账户响应=
     void OnRspQryTradingAccount(CThostFtdcTradingAccountField* pTradingAccount, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 return;
@@ -178,14 +181,14 @@ private:
         }
 
         if (bIsLast) {
-            info(__FUNCTION__);
+            BfDebug(__FUNCTION__);
         }
     }
 
     // 投资者结算结果确认响应=
     void OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField* pSettlementInfoConfirm, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 return;
@@ -223,7 +226,7 @@ private:
         }
 
         if (bIsLast) {
-            info(__FUNCTION__);
+            BfDebug(__FUNCTION__);
         }
     }
 
@@ -231,12 +234,12 @@ private:
     // 发单错误（柜台）=
     void OnRspOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID) && pInputOrder) {
                 int orderRef = QString(pInputOrder->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
-                info(QString().sprintf("OnRspOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str()));
+                BfInfo("OnRspOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -247,12 +250,12 @@ private:
     // 发单错误回报（交易所）=
     void OnErrRtnOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pInputOrder) {
                 int orderRef = QString(pInputOrder->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
-                info(QString().sprintf("OnErrRtnOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str()));
+                BfInfo("OnErrRtnOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -263,12 +266,12 @@ private:
     // 撤单错误（柜台）=
     void OnRspOrderAction(CThostFtdcInputOrderActionField* pInputOrderAction, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID) && pInputOrderAction) {
                 int orderRef = QString(pInputOrderAction->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(pInputOrderAction->FrontID, pInputOrderAction->SessionID, orderRef);
-                info(QString().sprintf("OnRspOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str()));
+                BfInfo("OnRspOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -279,12 +282,12 @@ private:
     // 撤单错误回报（交易所）=
     void OnErrRtnOrderAction(CThostFtdcOrderActionField* pOrderAction, CThostFtdcRspInfoField* pRspInfo) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pOrderAction) {
                 int orderRef = QString(pOrderAction->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(pOrderAction->FrontID, pOrderAction->SessionID, orderRef);
-                info(QString().sprintf("OnErrRtnOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str()));
+                BfInfo("OnErrRtnOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -294,13 +297,13 @@ private:
     // 报单通知=
     virtual void OnRtnOrder(CThostFtdcOrderField* pOrder)
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
 
         int orderRef = QString(pOrder->OrderRef).toInt();
         orderRef_ = qMax(orderRef, orderRef_);
 
         QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
-        info(QString().sprintf("OnRtnOrder: bfOrderId = %s,sysOrderId=%s", bfOrderId.toStdString().c_str(), pOrder->OrderSysID));
+        BfDebug("OnRtnOrder: bfOrderId = %s,sysOrderId=%s", bfOrderId.toStdString().c_str(), pOrder->OrderSysID);
 
         BfOrderData order;
         // 保存代码和报单号=
@@ -326,7 +329,7 @@ private:
     // 成交通知=
     virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
 
         BfTradeData trade;
 
@@ -351,7 +354,7 @@ private:
     bool isErrorRsp(CThostFtdcRspInfoField* pRspInfo, int reqId)
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
-            info(QString().sprintf("<==错误，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData()));
+            BfInfo("<==error，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
             return true;
         }
         return false;
@@ -367,13 +370,9 @@ private:
         g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
         ids_.clear();
+        ids_all_.clear();
         idPrefixList_.clear();
         g_sm->ctpMgr()->freeContracts();
-    }
-
-    void info(QString msg)
-    {
-        g_sm->logger()->info(msg);
     }
 
     int getOrderRef()
@@ -388,6 +387,7 @@ private:
 private:
     TdSm* sm_;
     QStringList ids_;
+    QStringList ids_all_;
     QStringList idPrefixList_;
     int orderRef_ = 0;
     int frontId_ = 0;
@@ -427,7 +427,7 @@ bool TdSm::init(QString userId, QString password, QString brokerId, QString fron
 
 void TdSm::start()
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     if (tdapi_ != nullptr) {
         qFatal("tdapi_!=nullptr");
@@ -447,7 +447,7 @@ void TdSm::start()
 
 void TdSm::stop()
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     if (tdapi_ == nullptr) {
         qFatal("tdapi_==nullptr");
@@ -463,11 +463,6 @@ void TdSm::stop()
     emit this->statusChanged(TDSM_STOPPED);
 }
 
-void TdSm::info(QString msg)
-{
-    g_sm->logger()->info(msg);
-}
-
 QString TdSm::version()
 {
     return CThostFtdcTraderApi::GetApiVersion();
@@ -481,7 +476,7 @@ void TdSm::resetData()
 // 登录填userID，其他填investorid=
 void TdSm::login(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcReqUserLoginField req;
@@ -492,7 +487,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
 
         int result = tdapi_->ReqUserLogin(&req, reqId);
-        info(QString().sprintf("CmdTdLogin,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -510,7 +505,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
 // logout之后会有一个disconnect/connect...先disableautologin
 void TdSm::logout(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcUserLogoutField req;
@@ -520,7 +515,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
 
         int result = tdapi_->ReqUserLogout(&req, reqId);
-        info(QString().sprintf("CmdTdLogout,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdLogout,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -536,7 +531,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
 
 void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         // 重置ctpmgr相关内存=
@@ -546,7 +541,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
         memset(&req, 0, sizeof(req));
 
         int result = tdapi_->ReqQryInstrument(&req, reqId);
-        info(QString().sprintf("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -562,7 +557,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
 
 void TdSm::queryAccount(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryTradingAccountField req;
@@ -572,7 +567,7 @@ void TdSm::queryAccount(unsigned int delayTick, QString robotId)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
 
         int result = tdapi_->ReqQryTradingAccount(&req, reqId);
-        info(QString().sprintf("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -588,7 +583,7 @@ void TdSm::queryAccount(unsigned int delayTick, QString robotId)
 
 void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcSettlementInfoConfirmField req;
@@ -598,7 +593,7 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
 
         int result = tdapi_->ReqSettlementInfoConfirm(&req, reqId);
-        info(QString().sprintf("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -614,7 +609,7 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
 
 void TdSm::queryPosition(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryInvestorPositionField req;
@@ -624,7 +619,7 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
 
         int result = tdapi_->ReqQryInvestorPosition(&req, reqId);
-        info(QString().sprintf("CmdTdReqQryInvestorPosition,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdReqQryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -640,7 +635,7 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
 
 void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& bfReq)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcInputOrderField req;
@@ -668,7 +663,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderR
 
         int result = tdapi_->ReqOrderInsert(&req, reqId);
         QString bfOrderId = CtpUtils::formatBfOrderId(tdspi_->getFrontId(), tdspi_->getSessionId(), orderRef);
-        info(QString().sprintf("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result));
+        BfDebug("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -684,7 +679,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderR
 
 void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& bfReq)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcInputOrderActionField req;
@@ -708,7 +703,7 @@ void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOr
         req.ActionFlag = THOST_FTDC_AF_Delete;
 
         int result = tdapi_->ReqOrderAction(&req, reqId);
-        info(QString().sprintf("CmdTdReqOrderAction,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result));
+        BfDebug("CmdTdReqOrderAction,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -724,7 +719,7 @@ void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOr
 
 void TdSm::queryOrders(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcQryOrderField req;
@@ -734,7 +729,7 @@ void TdSm::queryOrders(unsigned int delayTick, QString robotId)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
 
         int result = tdapi_->ReqQryOrder(&req, reqId);
-        info(QString().sprintf("CmdTdReqQryOrder,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdTdReqQryOrder,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }

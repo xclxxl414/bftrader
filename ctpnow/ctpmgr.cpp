@@ -1,5 +1,4 @@
 #include "ctpmgr.h"
-#include "logger.h"
 #include "mdsm.h"
 #include "profile.h"
 #include "servicemgr.h"
@@ -45,8 +44,8 @@ void CtpMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    g_sm->logger()->info(QString("mdapi version: ") + MdSm::version());
-    g_sm->logger()->info(QString("tdapi version: ") + TdSm::version());
+    BfInfo(QString("mdapi version: ") + MdSm::version());
+    BfInfo(QString("tdapi version: ") + TdSm::version());
 }
 
 void CtpMgr::onMdSmStateChanged(int state)
@@ -54,7 +53,7 @@ void CtpMgr::onMdSmStateChanged(int state)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (!mdsm_) {
-        logger()->info(QString().sprintf("mdsm freed,ingore onMdSmStateChanged:%d", state));
+        BfDebug("mdsm freed,ingore onMdSmStateChanged:%d", state);
         return;
     }
 
@@ -78,7 +77,7 @@ void CtpMgr::onMdSmStateChanged(int state)
     }
     if (state == MDSM_LOGINFAIL) {
         if (autoLoginMd_) {
-            logger()->info("mdsm login fail,try again 1 minute later");
+            BfInfo("mdsm login fail,try again 1 minute later");
             mdsm_->login(60 * 1000, "");
         } else {
             mdsm_->stop();
@@ -97,7 +96,7 @@ void CtpMgr::onTdSmStateChanged(int state)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (!tdsm_) {
-        logger()->info(QString().sprintf("tdsm freed,ingore onTdSmStateChanged:%d", state));
+        BfDebug("tdsm freed,ingore onTdSmStateChanged:%d", state);
         return;
     }
 
@@ -122,7 +121,7 @@ void CtpMgr::onTdSmStateChanged(int state)
     }
     if (state == TDSM_LOGINFAIL) {
         if (autoLoginTd_) {
-            logger()->info("tdsm login fail,try again 1 minute later");
+            BfInfo("tdsm login fail,try again 1 minute later");
             tdsm_->login(60 * 1000, "");
         } else {
             tdsm_->stop();
@@ -151,7 +150,7 @@ void CtpMgr::start(QString password)
 
     // check
     if (mdsm_ != nullptr || tdsm_ != nullptr) {
-        logger()->info("mdsm_!= nullptr || tdsm_ != nullptr");
+        BfDebug("mdsm_!= nullptr || tdsm_ != nullptr");
         return;
     }
 
@@ -183,7 +182,7 @@ bool CtpMgr::initMdSm()
     if (!res) {
         delete mdsm_;
         mdsm_ = nullptr;
-        logger()->info("invalid parameter,check please");
+        BfInfo("invalid parameter,check please");
         return false;
     }
     return true;
@@ -211,7 +210,7 @@ bool CtpMgr::initTdSm()
     if (!res) {
         delete tdsm_;
         tdsm_ = nullptr;
-        logger()->info("invalid parameter,check please");
+        BfInfo("invalid parameter,check please");
         return false;
     }
     return true;
@@ -235,8 +234,7 @@ void CtpMgr::tryStartSubscrible()
 
     if (mdsm_logined_ && tdsm_logined_) {
         emit this->tradeWillBegin();
-        //tdsm_->resetData();
-        //mdsm_->resetData();
+        //函数开始执行时候才resetData
         tdsm_->queryInstrument(1000, "");
     }
     if (tdsm_ == nullptr) {
@@ -253,7 +251,7 @@ void CtpMgr::stop()
 
     // check
     if (mdsm_ == nullptr && tdsm_ == nullptr) {
-        logger()->info("mdsm_ == nullptr && tdsm_ == nullptr");
+        BfDebug("mdsm_ == nullptr && tdsm_ == nullptr");
         return;
     }
     if (mdsm_) {
@@ -272,7 +270,7 @@ void CtpMgr::stop()
     }
 }
 
-void CtpMgr::onGotInstruments(QStringList ids)
+void CtpMgr::onGotInstruments(QStringList ids, QStringList idsAll)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -330,7 +328,7 @@ void CtpMgr::queryAccount()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("CtpMgr::queryAccount,please login first");
+        BfInfo("CtpMgr::queryAccount,please login first");
         return;
     }
     tdsm_->queryAccount(0, "");
@@ -341,7 +339,7 @@ void CtpMgr::queryPosition()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("CtpMgr::queryPosition,please login first");
+        BfInfo("CtpMgr::queryPosition,please login first");
         return;
     }
     tdsm_->queryPosition(0, "");
@@ -429,7 +427,7 @@ void CtpMgr::onRunCmdInterval()
     // 流控了就一秒后重试=
     if (cmd->fn(++reqId_, cmd->robotId) == -3) {
         cmd->expires = curTick + 1000;
-        g_sm->logger()->info(QString().sprintf("发包太快，reqId=%d", reqId_));
+        BfDebug("sendcmd toofast,reqId=%d", reqId_);
         return;
     }
 
@@ -445,7 +443,7 @@ void CtpMgr::runCmd(CtpCmd* cmd)
     if (cmd->delayTick == 0) {
         int result = cmd->fn(++reqId_, cmd->robotId);
         if (result == -3) {
-            g_sm->logger()->info(QString().sprintf("发包太快，reqId=%d", reqId_));
+            BfDebug("sendcmd toofast,reqId=%d", reqId_);
             cmd->expires = ::GetTickCount() + 1000;
             cmds_.append(cmd);
         } else {
@@ -461,7 +459,7 @@ void CtpMgr::resetCmds()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (cmds_.length()) {
-        logger()->info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
 
         for (auto cmd : cmds_) {
             delete cmd;
@@ -475,7 +473,7 @@ void CtpMgr::sendOrder(const BfSendOrderReq& req)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("CtpMgr::sendOrder,please login first");
+        BfInfo("CtpMgr::sendOrder,please login first");
         return;
     }
 
@@ -487,7 +485,7 @@ void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("CtpMgr::cancelOrder,please login first");
+        BfInfo("CtpMgr::cancelOrder,please login first");
         return;
     }
 
@@ -499,7 +497,7 @@ void CtpMgr::queryOrders()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        logger()->info("CtpMgr::queryOrders,please login first");
+        BfInfo("CtpMgr::queryOrders,please login first");
         return;
     }
     tdsm_->queryOrders(0, "");

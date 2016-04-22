@@ -1,5 +1,5 @@
-#ifndef PENDINGORDERFORM_H
-#define PENDINGORDERFORM_H
+#ifndef WORKINGORDERFORM_H
+#define WORKINGORDERFORM_H
 
 #include <QMap>
 #include <QWidget>
@@ -7,7 +7,7 @@
 #include "ctpmgr.h"
 
 namespace Ui {
-class PendingOrderForm;
+class WorkingOrderForm;
 }
 
 class WorkingOrderForm : public QWidget {
@@ -21,15 +21,15 @@ public:
 
 private slots:
     void onGotOrder(const BfOrderData& data);
-    void on_pushButtonCancelOrders_clicked();
     void on_pushButtonQueryOrders_clicked();
+    void on_pushButtonCancelAll_clicked();
 
 private:
-    Ui::PendingOrderForm* ui;
+    Ui::WorkingOrderForm* ui;
     QStringList table_col_;
     QMap<QString, int> table_row_;
 
     QMap<QString, BfOrderData> orders_;
 };
 
-#endif // PENDINGORDERFORM_H
+#endif // WORKINGORDERFORM_H

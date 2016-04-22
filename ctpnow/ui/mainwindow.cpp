@@ -6,11 +6,13 @@
 #include "dbservice.h"
 #include "debug_utils.h"
 #include "finishedorderform.h"
-#include "logform.h"
+#include "infoform.h"
+#include "debugform.h"
 #include "logger.h"
 #include "logindialog.h"
 #include "positionform.h"
 #include "profile.h"
+#include "rpcservice.h"
 #include "runextensions.h"
 #include "servicemgr.h"
 #include "tickform.h"
@@ -41,7 +43,8 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionStop->setEnabled(false);
 
     // tabs
-    logForm_ = new LogForm(this);
+    infoForm_ = new InfoForm(this);
+    debugForm_ = new DebugForm(this);
     contractForm_ = new ContractForm(this);
     positionForm_ = new PositionForm(this);
     workingOrderForm_ = new WorkingOrderForm(this);
@@ -51,7 +54,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(logForm_, "log");
+    ui->tabWidgetLog->addTab(infoForm_, "info"); //todo(hege):error?
+    ui->tabWidgetLog->addTab(debugForm_, "debug");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetOrder->addTab(finishedOrderForm_, "finishedOrder");
@@ -72,7 +76,8 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     // sub window
-    logForm_->init();
+    infoForm_->init();
+    debugForm_->init();
     contractForm_->init();
     tickForm_->init();
     positionForm_->init();
@@ -88,7 +93,8 @@ void MainWindow::init()
 void MainWindow::shutdown()
 {
     // sub window
-    logForm_->shutdown();
+    infoForm_->shutdown();
+    debugForm_->shutdown();
     contractForm_->shutdown();
     tickForm_->shutdown();
     positionForm_->shutdown();
@@ -100,19 +106,19 @@ void MainWindow::shutdown()
 
 void MainWindow::onTradeWillBegin()
 {
-    logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 }
 
 void MainWindow::on_actionVersion_triggered()
 {
-    logger()->info(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionQuit_triggered()
 {
     if (g_sm->ctpMgr()->running()) {
         this->showNormal();
-        logger()->info("please stop first");
+        BfInfo("please stop first");
         return;
     }
 
@@ -179,11 +185,6 @@ void MainWindow::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
 Profile* MainWindow::profile()
 {
     return g_sm->profile();
-}
-
-Logger* MainWindow::logger()
-{
-    return g_sm->logger();
 }
 
 void MainWindow::on_actionInvalidParamCrash_triggered()
@@ -254,13 +255,13 @@ void MainWindow::on_actionExternal_triggered()
 void MainWindow::runOnExternal()
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    logger()->info(__FUNCTION__);
+    BfInfo(__FUNCTION__);
 }
 
 void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    logger()->info(__FUNCTION__);
+    BfInfo(__FUNCTION__);
 
     future.reportFinished();
 }
@@ -319,4 +320,14 @@ void MainWindow::on_actionStop_triggered()
     ui->actionStop->setEnabled(false);
 
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "stop", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionRpcStart_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionRpcStop_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }

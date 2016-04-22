@@ -3,7 +3,6 @@
 #include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
-#include "logger.h"
 #include "servicemgr.h"
 #include <QDateTime>
 #include <QDir>
@@ -19,7 +18,7 @@ public:
 private:
     void OnFrontConnected() override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         emit sm()->statusChanged(MDSM_CONNECTED);
     }
 
@@ -27,8 +26,7 @@ private:
     // 网络错误当再次恢复时候，会自动重连重新走OnFrontConnected
     void OnFrontDisconnected(int nReason) override
     {
-        info(QString().sprintf("MdSmSpi::OnFrontDisconnected,nReason=0x%x",
-            nReason));
+        BfDebug("MdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
 
         emit sm()->statusChanged(MDSM_DISCONNECTED);
     }
@@ -39,7 +37,7 @@ private:
         int nRequestID,
         bool bIsLast) override
     {
-        info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(MDSM_LOGINFAIL);
@@ -60,7 +58,7 @@ private:
         bool bIsLast) override
     {
         if (bIsLast) {
-            info(__FUNCTION__);
+            BfInfo(__FUNCTION__);
             isErrorRsp(pRspInfo, nRequestID);
         }
     }
@@ -82,8 +80,7 @@ private:
             for (auto id : got_ids_) {
                 ids = ids + id + ";";
             }
-            info(QString().sprintf("total sub ids:%d,%s", got_ids_.length(),
-                ids.toUtf8().constData()));
+            BfInfo("total sub ids:%d,%s", got_ids_.length(), ids.toUtf8().constData());
         }
     }
 
@@ -110,9 +107,8 @@ private:
     bool isErrorRsp(CThostFtdcRspInfoField* pRspInfo, int reqId)
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
-            info(QString().sprintf(
-                "<==错误，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
-                gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData()));
+            BfInfo("<==error，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
+                gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
             return true;
         }
         return false;
@@ -127,8 +123,6 @@ private:
         got_ids_.clear();
         g_sm->ctpMgr()->freeRingBuffer();
     }
-
-    void info(QString msg) { g_sm->logger()->info(msg); }
 
     // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
     // 1.总成交量为0的：无效=
@@ -194,7 +188,7 @@ bool MdSm::init(QString userId,
 
 void MdSm::start()
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     if (mdapi_ != nullptr) {
         qFatal("mdapi_!=nullptr");
@@ -212,7 +206,7 @@ void MdSm::start()
 
 void MdSm::stop()
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     if (mdapi_ == nullptr) {
         qFatal("mdapi_==nullptr");
@@ -228,11 +222,6 @@ void MdSm::stop()
     emit this->statusChanged(MDSM_STOPPED);
 }
 
-void MdSm::info(QString msg)
-{
-    g_sm->logger()->info(msg);
-}
-
 QString MdSm::version()
 {
     return CThostFtdcMdApi::GetApiVersion();
@@ -245,7 +234,7 @@ void MdSm::resetData()
 
 void MdSm::login(unsigned int delayTick, QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcReqUserLoginField req;
@@ -254,7 +243,7 @@ void MdSm::login(unsigned int delayTick, QString robotId)
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
         int result = mdapi_->ReqUserLogin(&req, reqId);
-        info(QString().sprintf("CmdMdLogin,reqId=%d,result=%d", reqId, result));
+        BfDebug("CmdMdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);
         }
@@ -272,7 +261,7 @@ void MdSm::subscrible(QStringList ids,
     unsigned int delayTick,
     QString robotId)
 {
-    info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         (void)reqId;
@@ -284,7 +273,7 @@ void MdSm::subscrible(QStringList ids,
         }
         int result = mdapi_->SubscribeMarketData(cids, ids.length());
         delete[] cids;
-        info(QString().sprintf("CmdMdSubscrible,result=%d", result));
+        BfDebug("CmdMdSubscrible,result=%d", result);
         if (result == 0) {
             g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids);
         }

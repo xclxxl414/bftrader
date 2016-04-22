@@ -19,7 +19,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotInstruments(QStringList ids);
+    void onGotInstruments(QStringList ids, QStringList idsAll);
     void onGotTick(void* curTick, void* preTick);
     void onTradeWillBegin();
     void onUpdateTick();

@@ -25,7 +25,6 @@ public:
     bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath);
     void start();
     void stop();
-    void info(QString msg);
     static QString version();
 
     void login(unsigned int delayTick, QString robotId);

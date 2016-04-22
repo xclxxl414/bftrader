@@ -10,7 +10,6 @@ class MainWindow;
 }
 
 class Profile;
-class Logger;
 template <typename T>
 class QFutureInterface;
 
@@ -50,7 +49,6 @@ private:
     void createTrayIcon();
     void createActions();
     Profile* profile();
-    Logger* logger();
 
     void runOnExternal();
     void runOnExternalEx(QFutureInterface<void>& future);

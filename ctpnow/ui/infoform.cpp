@@ -1,12 +1,12 @@
-#include "logform.h"
+#include "infoform.h"
 #include "logger.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_logform.h"
+#include "ui_infoform.h"
 
-LogForm::LogForm(QWidget* parent)
+InfoForm::InfoForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::LogForm)
+    , ui(new Ui::InfoForm)
 {
     ui->setupUi(this);
 
@@ -22,22 +22,22 @@ LogForm::LogForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-LogForm::~LogForm()
+InfoForm::~InfoForm()
 {
     delete ui;
 }
 
-void LogForm::init()
+void InfoForm::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &LogForm::onInfo);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &InfoForm::onInfo);
 }
 
-void LogForm::shutdown()
+void InfoForm::shutdown()
 {
 }
 
-void LogForm::onInfo(QString when, QString msg)
+void InfoForm::onInfo(QString when, QString msg)
 {
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);

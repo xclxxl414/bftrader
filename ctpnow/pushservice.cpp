@@ -1,6 +1,5 @@
 #include "pushservice.h"
 #include "bfrobot.grpc.pb.h"
-#include "logger.h"
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
@@ -15,7 +14,7 @@ public:
     RobotClient(std::shared_ptr<grpc::Channel> channel)
         : stub_(BfRobotService::NewStub(channel))
     {
-        g_sm->logger()->info(__FUNCTION__);
+        BfDebug(__FUNCTION__);
     }
     ~RobotClient() {}
 
@@ -28,7 +27,7 @@ public:
         ctx.set_deadline(deadline);
         grpc::Status status = stub_->OnTick(&ctx, tick, &reply);
         if (!status.ok()) {
-            g_sm->logger()->info(QString().sprintf("stub_->OnTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str()));
+            BfDebug("stub_->OnTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -47,13 +46,13 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 }
 
 void PushService::shutdown()
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // delete all robotclient
@@ -66,7 +65,7 @@ void PushService::shutdown()
 
 void PushService::onRobotConnected(QString robotId, QString robotIp, qint32 robotPort)
 {
-    g_sm->logger()->info(__FUNCTION__);
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString endpoint = QString().sprintf("%s:%d", robotIp.toStdString().c_str(), robotPort);
 

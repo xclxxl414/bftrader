@@ -12,11 +12,13 @@ public:
     void init();
     void shutdown();
     Q_INVOKABLE void info(QString msg);
+    Q_INVOKABLE void debug(QString msg);
     static void startExitMonitor();
     static void stopExitMonitor();
 
 signals:
     void gotInfo(QString when, QString msg);
+    void gotDebug(QString when, QString msg);
 
 private:
     QFile log_;

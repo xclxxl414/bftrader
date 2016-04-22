@@ -1,6 +1,5 @@
 #include "ctp_utils.h"
 #include "ThostFtdcUserApiStruct.h"
-#include "logger.h"
 #include "servicemgr.h"
 
 ///////////
@@ -73,7 +72,7 @@ BfOffset translateOffset(char offset)
     case THOST_FTDC_OF_CloseYesterday:
         return OFFSET_CLOSEYESTERDAY;
     default:
-        g_sm->logger()->info("invalid offset");
+        BfDebug("invalid offset");
     }
     return OFFSET_UNKNOWN;
 }
@@ -87,7 +86,7 @@ BfDirection translateDirection(char direction)
     case THOST_FTDC_D_Sell:
         return DIRECTION_SHORT;
     default:
-        g_sm->logger()->info("invalid direction");
+        BfDebug("invalid direction");
     }
     return DIRECTION_UNKNOWN;
 }
@@ -103,7 +102,7 @@ BfDirection translatePosiDirection(char direction)
     case THOST_FTDC_PD_Short:
         return DIRECTION_SHORT;
     default:
-        g_sm->logger()->info("invalid direction");
+        BfDebug("invalid direction");
     }
     return DIRECTION_UNKNOWN;
 }
@@ -120,7 +119,7 @@ BfStatus translateStatus(char status)
     case THOST_FTDC_OST_Canceled:
         return STATUS_CANCELLED;
     default:
-        g_sm->logger()->info("invalid status");
+        BfDebug("invalid status");
     }
     return STATUS_UNKNOWN;
 }
@@ -131,7 +130,7 @@ BfProduct translateProduct(char product)
     case THOST_FTDC_PC_Futures:
         return PRODUCT_FUTURES;
     default:
-        g_sm->logger()->info("invalid product");
+        BfDebug("invalid product");
     }
 
     return PRODUCT_UNKNOWN;

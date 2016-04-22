@@ -151,7 +151,7 @@ void Logger::shutdown()
 void Logger::info(QString msg)
 {
     QString when = QTime::currentTime().toString("hh:mm:ss.zzz");
-    QString logToFile = when + QStringLiteral("==>") + msg + QStringLiteral("\n");
+    QString logToFile = when + QStringLiteral("<info>") + msg + QStringLiteral("\n");
 
     // write to file
     mutex_.lock();
@@ -161,4 +161,19 @@ void Logger::info(QString msg)
 
     // dispatch...
     emit gotInfo(when, msg);
+}
+
+void Logger::debug(QString msg)
+{
+    QString when = QTime::currentTime().toString("hh:mm:ss.zzz");
+    QString logToFile = when + QStringLiteral("<debug>") + msg + QStringLiteral("\n");
+
+    // write to file
+    mutex_.lock();
+    log_.write(logToFile.toUtf8().constData());
+    log_.flush();
+    mutex_.unlock();
+
+    // dispatch...
+    emit gotDebug(when, msg);
 }

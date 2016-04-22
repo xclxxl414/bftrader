@@ -10,8 +10,8 @@ class MainWindow;
 }
 
 class Profile;
-class Logger;
-class LogForm;
+class InfoForm;
+class DebugForm;
 class ContractForm;
 class FinishedOrderForm;
 class WorkingOrderForm;
@@ -56,20 +56,22 @@ private slots:
     void on_actionConfig_triggered();
     void on_actionStart_triggered();
     void on_actionStop_triggered();
+    void on_actionRpcStart_triggered();
+    void on_actionRpcStop_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();
     void createActions();
     Profile* profile();
-    Logger* logger();
 
     void runOnExternal();
     void runOnExternalEx(QFutureInterface<void>& future);
 
 private:
     Ui::MainWindow* ui;
-    LogForm* logForm_;
+    InfoForm* infoForm_;
+    DebugForm* debugForm_;
     ContractForm* contractForm_;
     FinishedOrderForm* finishedOrderForm_;
     WorkingOrderForm* workingOrderForm_;
