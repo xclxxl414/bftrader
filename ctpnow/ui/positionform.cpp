@@ -18,7 +18,9 @@ PositionForm::PositionForm(QWidget* parent)
                << "position"
                << "price"
                << "frozen"
-               << "ydPosition";
+               << "ydPosition"
+
+               << "key";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -69,13 +71,16 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
 
     // 更新界面=
     table_row_.clear();
-    this->ui->tableWidget->clearContents();
-    this->ui->tableWidget->setRowCount(positions_.size());
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(positions_.size());
     QStringList keys = positions_.keys();
     keys.sort();
     for (int i = 0; i < keys.length(); i++) {
-        QString id = keys.at(i);
-        table_row_[id] = i;
+        QString key = keys.at(i);
+        table_row_[key] = i;
+
+        QTableWidgetItem* item = new QTableWidgetItem(key);
+        ui->tableWidget->setItem(i, table_col_.indexOf("key"), item);
     }
 
     for (auto pos : positions_) {
@@ -98,10 +103,11 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
         vItem.insert("frozen", pos.frozen());
         vItem.insert("ydPosition", pos.ydposition());
 
-        //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
         QString key = QString().sprintf("%s.%s.%d", symbol.toStdString().c_str(), exchange.toStdString().c_str(), pos.direction());
+        vItem.insert("key", key);
+
+        //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
         int row = table_row_.value(key);
-        ui->tableWidget->insertRow(row);
         for (int i = 0; i < table_col_.count(); i++) {
             QVariant raw_val = vItem.value(table_col_.at(i));
             QString str_val = raw_val.toString();
@@ -120,6 +126,13 @@ void PositionForm::on_pushButtonQueryPosition_clicked()
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
 }
 
+// 如果不是上期所，平今仓可用close或closeToday，平昨仓可用close或closeYesterday=
+// 如果是上期所，平今仓只可用closeToday，平昨仓可用close或closeYesterday=
+// 那成交回报的流水回来的时侯:
+// CloseYesterday=> insert =>CloseYesterday
+// CloseToday=> insert =>CloseToday
+// 也存在:closeToday =>close或closeYesterday =>close的情况=
+// 参考：http://www.cnblogs.com/xiaouisme/p/4654750.html
 void PositionForm::on_pushButtonCloseAll_clicked()
 {
     for (auto pos : positions_) {
@@ -141,35 +154,73 @@ void PositionForm::on_pushButtonCloseAll_clicked()
             continue;
         }
 
+        // 取不到tick的pass，比如晚上if不开盘=
         void* tick = g_sm->ctpMgr()->getLatestTick(symbol);
+        if (!tick) {
+            BfInfo(symbol + " has no tick,please close byhand");
+            continue;
+        }
         BfTickData bfTick;
-        CtpUtils::translateTick(tick, nullptr, bfTick);
+        CtpUtils::translateTick(tick, nullptr, &bfTick);
 
-        // 限价单=
-        BfOffset offset = OFFSET_CLOSE;
-        BfPriceType priceType = PRICETYPE_LIMITPRICE;
-        //todo(hege):这里要判断是否超过了contract->maxLimit
-        //todo(hege):这里要判断昨持仓和今持仓，先平昨再平今=
-        int volume = pos.position();
+        // 平昨=
+        if (pos.ydposition() > 0) {
+            // 限价单=
+            BfOffset offset = OFFSET_CLOSE;
+            BfPriceType priceType = PRICETYPE_LIMITPRICE;
+            //todo(hege):这里要判断是否超过了contract->maxLimit
+            //todo(hege):这里要判断昨持仓和今持仓，先平昨再平今=
+            int volume = pos.ydposition();
 
-        //空单-->最高价+多+平=
-        //多单-->最低价+空+平=
-        double price = bfTick.upperlimit();
-        BfDirection direction = DIRECTION_LONG;
-        if (pos.direction() == DIRECTION_NET || pos.direction() == DIRECTION_LONG) {
-            direction = DIRECTION_SHORT;
-            price = bfTick.lowerlimit();
+            //空单-->最高价+多+平=
+            //多单-->最低价+空+平=
+            double price = bfTick.upperlimit();
+            BfDirection direction = DIRECTION_LONG;
+            if (pos.direction() == DIRECTION_NET || pos.direction() == DIRECTION_LONG) {
+                direction = DIRECTION_SHORT;
+                price = bfTick.lowerlimit();
+            }
+
+            BfSendOrderReq req;
+            req.set_symbol(symbol.toStdString());
+            req.set_exchange(exchange.toStdString());
+            req.set_price(price);
+            req.set_volume(volume);
+            req.set_direction(direction);
+            req.set_offset(offset);
+            req.set_pricetype(priceType);
+
+            QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
         }
 
-        BfSendOrderReq req;
-        req.set_symbol(symbol.toStdString());
-        req.set_exchange(exchange.toStdString());
-        req.set_price(price);
-        req.set_volume(volume);
-        req.set_direction(direction);
-        req.set_offset(offset);
-        req.set_pricetype(priceType);
+        // 平今=
+        if (pos.position() - pos.ydposition() > 0) {
+            // 限价单=
+            BfOffset offset = OFFSET_CLOSETODAY;
+            BfPriceType priceType = PRICETYPE_LIMITPRICE;
+            //todo(hege):这里要判断是否超过了contract->maxLimit
+            //todo(hege):这里要判断昨持仓和今持仓，先平昨再平今=
+            int volume = pos.position() - pos.ydposition();
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+            //空单-->最高价+多+平=
+            //多单-->最低价+空+平=
+            double price = bfTick.upperlimit();
+            BfDirection direction = DIRECTION_LONG;
+            if (pos.direction() == DIRECTION_NET || pos.direction() == DIRECTION_LONG) {
+                direction = DIRECTION_SHORT;
+                price = bfTick.lowerlimit();
+            }
+
+            BfSendOrderReq req;
+            req.set_symbol(symbol.toStdString());
+            req.set_exchange(exchange.toStdString());
+            req.set_price(price);
+            req.set_volume(volume);
+            req.set_direction(direction);
+            req.set_offset(offset);
+            req.set_pricetype(priceType);
+
+            QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+        }
     }
 }

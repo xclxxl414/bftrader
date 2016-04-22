@@ -235,22 +235,22 @@ int getVolumeMultipleFromContract(void* contract)
     int32 maxMarket = 9;        // 市价单最大下单量
     int32 minMartet = 10;       // 市价单最小下单量
 */
-void translateContract(void* from, BfContractData& to)
+void translateContract(void* from, BfContractData* to)
 {
     auto data = (CThostFtdcInstrumentField*)from;
 
-    to.set_symbol(data->InstrumentID);
-    to.set_exchange(data->ExchangeID);
-    to.set_name(data->InstrumentName);
+    to->set_symbol(data->InstrumentID);
+    to->set_exchange(data->ExchangeID);
+    to->set_name(data->InstrumentName);
 
-    to.set_productclass(translateProduct(data->ProductClass));
-    to.set_volumemultiple(data->VolumeMultiple);
-    to.set_pricetick(data->PriceTick);
+    to->set_productclass(translateProduct(data->ProductClass));
+    to->set_volumemultiple(data->VolumeMultiple);
+    to->set_pricetick(data->PriceTick);
 
-    to.set_maxlimit(data->MaxLimitOrderVolume);
-    to.set_minlimit(data->MinLimitOrderVolume);
-    to.set_maxmarket(data->MaxMarketOrderVolume);
-    to.set_minmartet(data->MinMarketOrderVolume);
+    to->set_maxlimit(data->MaxLimitOrderVolume);
+    to->set_minlimit(data->MinLimitOrderVolume);
+    to->set_maxmarket(data->MaxMarketOrderVolume);
+    to->set_minmartet(data->MinMarketOrderVolume);
 }
 
 /*
@@ -281,32 +281,32 @@ void translateContract(void* from, BfContractData& to)
     int32 askVolume1 = 18;      // 卖量
 */
 
-void translateTick(void* from, void* preFrom, BfTickData& to)
+void translateTick(void* from, void* preFrom, BfTickData* to)
 {
     auto data = (CThostFtdcDepthMarketDataField*)from;
 
-    to.set_symbol(data->InstrumentID);
-    to.set_exchange(data->ExchangeID);
+    to->set_symbol(data->InstrumentID);
+    to->set_exchange(data->ExchangeID);
 
-    to.set_actiondate(data->ActionDay);
+    to->set_actiondate(data->ActionDay);
     QString tickTime = QString().sprintf("%s.%03d", data->UpdateTime, data->UpdateMillisec);
-    to.set_ticktime(tickTime.toStdString());
-    to.set_lastprice(data->LastPrice);
-    to.set_volume(data->Volume);
-    to.set_openinterest(data->OpenInterest);
-    to.set_lastvolume(preFrom ? getVolumeFromTick(from) - getVolumeFromTick(preFrom) : 1);
+    to->set_ticktime(tickTime.toStdString());
+    to->set_lastprice(data->LastPrice);
+    to->set_volume(data->Volume);
+    to->set_openinterest(data->OpenInterest);
+    to->set_lastvolume(preFrom ? getVolumeFromTick(from) - getVolumeFromTick(preFrom) : 1);
 
-    to.set_openprice(data->OpenPrice);
-    to.set_highprice(data->HighestPrice);
-    to.set_lowprice(data->LowestPrice);
-    to.set_precloseprice(data->PreClosePrice);
-    to.set_upperlimit(data->UpperLimitPrice);
-    to.set_lowerlimit(data->LowerLimitPrice);
+    to->set_openprice(data->OpenPrice);
+    to->set_highprice(data->HighestPrice);
+    to->set_lowprice(data->LowestPrice);
+    to->set_precloseprice(data->PreClosePrice);
+    to->set_upperlimit(data->UpperLimitPrice);
+    to->set_lowerlimit(data->LowerLimitPrice);
 
-    to.set_bidprice1(data->BidPrice1);
-    to.set_askprice1(data->AskPrice1);
-    to.set_bidvolume1(data->BidVolume1);
-    to.set_askvolume1(data->AskVolume1);
+    to->set_bidprice1(data->BidPrice1);
+    to->set_askprice1(data->AskPrice1);
+    to->set_bidvolume1(data->BidVolume1);
+    to->set_askvolume1(data->AskVolume1);
 }
 
 int getVolumeFromTick(void* tick)

@@ -25,9 +25,9 @@ QString formatProduct(BfProduct product);
 
 char* getExchangeFromContract(void* contract);
 int getVolumeMultipleFromContract(void* contract);
-void translateContract(void* from, BfContractData& to);
+void translateContract(void* from, BfContractData* to);
 
-void translateTick(void* from, void* preFrom, BfTickData& to);
+void translateTick(void* from, void* preFrom, BfTickData* to);
 int getVolumeFromTick(void* tick);
 
 void translateBfOrderId(QString bfOrderId, int& frontId, int& sessionId, int& orderRef);

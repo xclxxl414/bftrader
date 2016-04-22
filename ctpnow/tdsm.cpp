@@ -115,7 +115,7 @@ private:
             for (auto id : ids_) {
                 ids = ids + id + ";";
             }
-            BfInfo("total got ids:%d,reqId=%d,%s", ids_.length(), nRequestID,ids.toUtf8().constData());
+            BfInfo("total got ids:%d,reqId=%d,%s", ids_.length(), nRequestID, ids.toUtf8().constData());
             g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
             emit g_sm->ctpMgr()->gotInstruments(ids_, ids_all_);
         }
@@ -170,8 +170,10 @@ private:
             }
 
             // 持仓量=
+            // 持仓查询记录中的昨持仓是今天开盘前的一个初始值，不会因为平昨或者平仓而减少
+            // 当前时侯的昨持仓=总持仓-今持仓。YdPosition := Position - TodayPosition
             pos.set_position(pInvestorPosition->Position);
-            pos.set_ydposition(pInvestorPosition->YdPosition);
+            pos.set_ydposition(pInvestorPosition->Position - pInvestorPosition->TodayPosition);
 
             // 均价=
             if (pos.position() > 0) {
@@ -295,14 +297,13 @@ private:
         }
     }
 
-    // 报单通知=
+    // 报单通知= 多客户端时候也得到其他客户端的回报，可以通过frontid+sessionid过滤出自己的报单=
+    // 参考：综合交易平台交易API特别说明.pdf
     virtual void OnRtnOrder(CThostFtdcOrderField* pOrder)
     {
         BfDebug(__FUNCTION__);
 
         int orderRef = QString(pOrder->OrderRef).toInt();
-        orderRef_ = qMax(orderRef, orderRef_);
-
         QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
         BfDebug("OnRtnOrder: bfOrderId = %s,sysOrderId=%s", bfOrderId.toStdString().c_str(), pOrder->OrderSysID);
 
@@ -390,7 +391,7 @@ private:
     QStringList ids_;
     QStringList ids_all_;
     QStringList idPrefixList_;
-    int orderRef_ = 0;
+    std::atomic_int32_t orderRef_ = 0;
     int frontId_ = 0;
     int sessionId_ = 0;
 
@@ -455,13 +456,13 @@ void TdSm::stop()
         return;
     }
 
-    this->tdapi_->RegisterSpi(nullptr);
-    this->tdapi_->Release();
+    tdapi_->RegisterSpi(nullptr);
+    tdapi_->Release();
 
-    this->tdapi_ = nullptr;
-    delete this->tdspi_;
-    this->tdspi_ = nullptr;
-    emit this->statusChanged(TDSM_STOPPED);
+    tdapi_ = nullptr;
+    delete tdspi_;
+    tdspi_ = nullptr;
+    emit statusChanged(TDSM_STOPPED);
 }
 
 QString TdSm::version()
@@ -471,7 +472,14 @@ QString TdSm::version()
 
 void TdSm::resetData()
 {
-    this->tdspi_->resetData();
+    tdspi_->resetData();
+}
+
+QString TdSm::genBfOrderId()
+{
+    int orderRef = tdspi_->getOrderRef();
+    QString bfOrderId = CtpUtils::formatBfOrderId(tdspi_->getFrontId(), tdspi_->getSessionId(), orderRef);
+    return bfOrderId;
 }
 
 // 登录填userID，其他填investorid=
@@ -636,13 +644,21 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
 
 void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& bfReq)
 {
+    QString bfOrderId = genBfOrderId();
+    sendOrder(delayTick, robotId, bfOrderId, bfReq);
+}
+
+void TdSm::sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId, const BfSendOrderReq& bfReq)
+{
     BfDebug(__FUNCTION__);
 
     std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
         CThostFtdcInputOrderField req;
         memset(&req, 0, sizeof(req));
 
-        int orderRef = tdspi_->getOrderRef();
+        int orderRef, frontId, sessionId;
+        CtpUtils::translateBfOrderId(bfOrderId, frontId, sessionId, orderRef);
+
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
         strncpy(req.OrderRef, QString::number(orderRef).toStdString().c_str(), sizeof(req.OrderRef) - 1);
@@ -663,7 +679,6 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderR
         req.MinVolume = 1; // 最小成交量为1=
 
         int result = tdapi_->ReqOrderInsert(&req, reqId);
-        QString bfOrderId = CtpUtils::formatBfOrderId(tdspi_->getFrontId(), tdspi_->getSessionId(), orderRef);
         BfDebug("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
             emit g_sm->ctpMgr()->requestSent(reqId, robotId);

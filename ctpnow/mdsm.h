@@ -20,12 +20,12 @@ class MdSm : public QObject {
 public:
     explicit MdSm(QObject* parent = 0);
     virtual ~MdSm();
+    static QString version();
 
 public:
     bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath);
     void start();
     void stop();
-    static QString version();
 
     void login(unsigned int delayTick, QString robotId);
     void subscrible(QStringList ids, unsigned int delayTick, QString robotId);

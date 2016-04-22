@@ -71,7 +71,7 @@ void TickForm::shutdown()
 void TickForm::onGotTick(void* curTick, void* preTick)
 {
     BfTickData bfTick;
-    CtpUtils::translateTick(curTick, preTick, bfTick);
+    CtpUtils::translateTick(curTick, preTick, &bfTick);
 
     QVariantMap vItem;
     vItem.insert("symbol", bfTick.symbol().c_str());
@@ -211,7 +211,7 @@ void TickForm::on_tableWidget_cellDoubleClicked(int row, int column)
     void* contract = g_sm->ctpMgr()->getContract(symbol);
     if (contract) {
         BfContractData bfContract;
-        CtpUtils::translateContract(contract, bfContract);
+        CtpUtils::translateContract(contract, &bfContract);
         ui->doubleSpinBoxPrice->setSingleStep(bfContract.pricetick());
 
         // 设置volume

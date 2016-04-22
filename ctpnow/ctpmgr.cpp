@@ -322,6 +322,16 @@ void CtpMgr::resetData()
     mdsm_->resetData();
 }
 
+QString CtpMgr::genOrderId()
+{
+    if (tdsm_ == nullptr) {
+        BfInfo("CtpMgr::genOrderId,please login first");
+        return "888.888.888";
+    }
+
+    return tdsm_->genBfOrderId();
+}
+
 Logger* CtpMgr::logger()
 {
     return g_sm->logger();
@@ -487,6 +497,18 @@ void CtpMgr::sendOrder(const BfSendOrderReq& req)
     }
 
     tdsm_->sendOrder(0, "", req);
+}
+
+void CtpMgr::sendOrderWithId(QString bfOrderId,const BfSendOrderReq& req)
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    if (tdsm_ == nullptr) {
+        BfInfo("CtpMgr::sendOrder,please login first");
+        return;
+    }
+
+    tdsm_->sendOrder(0, "",bfOrderId,req);
 }
 
 void CtpMgr::cancelOrder(const BfCancelOrderReq& req)

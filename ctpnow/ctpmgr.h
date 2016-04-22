@@ -42,6 +42,8 @@ public:
     bool running();
 
     // tick+contract高效维护=
+    void resetData();
+
     void insertContract(QString id, void* contract);
     void* getContract(QString id);
     void freeContracts();
@@ -52,7 +54,8 @@ public:
     void* getLatestTick(QString id);
     void* getPreLatestTick(QString id);
 
-    void resetData();
+    // 分配BfOrderId
+    QString genOrderId();
 
 signals:
     void requestSent(int reqId, QString robotId);
@@ -70,6 +73,7 @@ public slots:
     void start(QString password);
     void stop();
     void queryAccount();
+    void sendOrderWithId(QString byOrderId,const BfSendOrderReq& req);
     void sendOrder(const BfSendOrderReq& req);
     void queryPosition();
     void cancelOrder(const BfCancelOrderReq& req);

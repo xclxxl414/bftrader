@@ -1,5 +1,7 @@
 #include "rpcservice.h"
 #include "bfgateway.grpc.pb.h"
+#include "ctp_utils.h"
+#include "ctpmgr.h"
 #include "pushservice.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -32,11 +34,17 @@ using namespace bftrader::bfgateway;
 //
 class Gateway final : public BfGatewayService::Service {
 public:
-    Gateway() {}
-    virtual ~Gateway() {}
+    Gateway()
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+    }
+    virtual ~Gateway()
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+    }
     virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override
     {
-        BfDebug(__FUNCTION__);
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString peer = context->peer().c_str();
         QString robotId = request->robotid().c_str();
@@ -48,13 +56,36 @@ public:
         response->set_exchangeopened(true);
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override { return grpc::Status::OK; }
+    virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString symbol = request->symbol().c_str();
+        void* contract = g_sm->ctpMgr()->getContract(symbol);
+        if (contract) {
+            CtpUtils::translateContract(contract, response);
+        }
+
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        return grpc::Status::OK;
+    }
     virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) override
     {
-        BfDebug(__FUNCTION__);
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         // metadata-key只能是小写的=
         if (0 == context->client_metadata().count("robotid")) {
@@ -67,11 +98,42 @@ public:
         }
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
-    virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override { return grpc::Status::OK; }
+    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString bfOrderId = g_sm->ctpMgr()->genOrderId();
+        response->set_bforderid(bfOrderId.toStdString());
+
+        QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrderWithId", Qt::QueuedConnection, Q_ARG(QString, bfOrderId), Q_ARG(BfSendOrderReq, *request));
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        return grpc::Status::OK;
+    }
 };
 
 //

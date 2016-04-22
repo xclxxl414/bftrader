@@ -76,7 +76,7 @@ void ContractForm::onGotInstruments(QStringList ids, QStringList idsAll)
 void ContractForm::onGotContract(void* contract)
 {
     BfContractData bfItem;
-    CtpUtils::translateContract(contract, bfItem);
+    CtpUtils::translateContract(contract, &bfItem);
 
     QVariantMap vItem;
     vItem.insert("symbol", bfItem.symbol().c_str());

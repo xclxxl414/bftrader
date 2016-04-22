@@ -26,13 +26,14 @@ class TdSm : public QObject {
 public:
     explicit TdSm(QObject* parent = 0);
     virtual ~TdSm();
+    static QString version();
 
 public:
     bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList);
     void start();
     void stop();
-    static QString version();
     void resetData();
+    QString genBfOrderId();
 
     void login(unsigned int delayTick, QString robotId);
     void logout(unsigned int delayTick, QString robotId);
@@ -40,6 +41,7 @@ public:
     void queryAccount(unsigned int delayTick, QString robotId);
     void reqSettlementInfoConfirm(unsigned int delayTick, QString robotId);
     void sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& orderReq);
+    void sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId,const BfSendOrderReq& orderReq);
     void queryPosition(unsigned int delayTick, QString robotId);
     void cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& orderReq);
     void queryOrders(unsigned int delayTick, QString robotId);
