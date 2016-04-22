@@ -6,7 +6,7 @@
 
 #include <QCoreApplication>
 #include <QDir>
-#include <QTime>
+#include <QDateTime>
 #include <QtGlobal>
 #include <crtdbg.h>
 
@@ -134,7 +134,7 @@ void Logger::init()
     mkDir(logFileName);
     log_.setFileName(logFileName);
     log_.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append | QIODevice::Unbuffered);
-    this->info(__FUNCTION__);
+    this->debug(__FUNCTION__);
     g_logger = this;
 
     preMessageHandler = qInstallMessageHandler(myMessageHandler);
@@ -142,7 +142,7 @@ void Logger::init()
 
 void Logger::shutdown()
 {
-    this->info(__FUNCTION__);
+    this->debug(__FUNCTION__);
     qInstallMessageHandler(nullptr);
     g_logger = nullptr;
     log_.close();
@@ -150,7 +150,7 @@ void Logger::shutdown()
 
 void Logger::info(QString msg)
 {
-    QString when = QTime::currentTime().toString("hh:mm:ss.zzz");
+    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
     QString logToFile = when + QStringLiteral("<info>") + msg + QStringLiteral("\n");
 
     // write to file
@@ -165,7 +165,7 @@ void Logger::info(QString msg)
 
 void Logger::debug(QString msg)
 {
-    QString when = QTime::currentTime().toString("hh:mm:ss.zzz");
+    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
     QString logToFile = when + QStringLiteral("<debug>") + msg + QStringLiteral("\n");
 
     // write to file
