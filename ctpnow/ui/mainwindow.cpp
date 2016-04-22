@@ -111,7 +111,7 @@ void MainWindow::onTradeWillBegin()
 
 void MainWindow::on_actionVersion_triggered()
 {
-    BfInfo(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("application's buildtime: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionQuit_triggered()

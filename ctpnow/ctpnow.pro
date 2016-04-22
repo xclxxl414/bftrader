@@ -85,4 +85,5 @@ RESOURCES += \
     systray.qrc
 
 DISTFILES += \
-    design.qmodel
+    design.qmodel \
+    ctpmgr.qmodel

@@ -18,7 +18,7 @@ public:
 private:
     void OnFrontConnected() override
     {
-        BfDebug(__FUNCTION__);
+        BfInfo(__FUNCTION__);
         emit sm()->statusChanged(MDSM_CONNECTED);
     }
 
@@ -26,7 +26,7 @@ private:
     // 网络错误当再次恢复时候，会自动重连重新走OnFrontConnected
     void OnFrontDisconnected(int nReason) override
     {
-        BfDebug("MdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
+        BfInfo("MdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
 
         emit sm()->statusChanged(MDSM_DISCONNECTED);
     }
@@ -37,7 +37,7 @@ private:
         int nRequestID,
         bool bIsLast) override
     {
-        BfDebug(__FUNCTION__);
+        BfInfo(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(MDSM_LOGINFAIL);
@@ -75,12 +75,12 @@ private:
             got_ids_ << iid;
         }
 
-        if (bIsLast && got_ids_.length()) {
+        if (bIsLast) {
             QString ids;
             for (auto id : got_ids_) {
                 ids = ids + id + ";";
             }
-            BfInfo("total sub ids:%d,%s", got_ids_.length(), ids.toUtf8().constData());
+            BfInfo("total sub ids:%d,reqId=%d,%s", got_ids_.length(),nRequestID, ids.toUtf8().constData());
         }
     }
 
@@ -274,9 +274,6 @@ void MdSm::subscrible(QStringList ids,
         int result = mdapi_->SubscribeMarketData(cids, ids.length());
         delete[] cids;
         BfDebug("CmdMdSubscrible,result=%d", result);
-        if (result == 0) {
-            g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids);
-        }
         return result;
     };
 

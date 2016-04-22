@@ -14,6 +14,7 @@ void CtpMgr::init()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
+    // cmdRunnder
     cmdRunnerTimer_ = new QTimer;
     cmdRunnerTimer_->setInterval(100);
     QObject::connect(cmdRunnerTimer_, &QTimer::timeout, this, &CtpMgr::onRunCmdInterval);
@@ -26,6 +27,9 @@ void CtpMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
+
+    // gotInstruments
+    QObject::connect(this, &CtpMgr::gotInstruments, this, &CtpMgr::onGotInstruments);
 }
 
 void CtpMgr::shutdown()
@@ -69,6 +73,8 @@ void CtpMgr::onMdSmStateChanged(int state)
         mdsm_logined_ = false;
         if (!autoLoginMd_) {
             mdsm_->stop();
+        }else{
+            BfInfo("waiting for mdapi auto-reconnect......");
         }
     }
     if (state == MDSM_LOGINED) {
@@ -113,6 +119,8 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_logined_ = false;
         if (!autoLoginTd_) {
             tdsm_->stop();
+        }else{
+            BfInfo("waiting for tdapi auto-reconnect......");
         }
     }
     if (state == TDSM_LOGINED) {
@@ -222,7 +230,6 @@ void CtpMgr::startTdSm()
 
     // go...
     QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
-    QObject::connect(this, &CtpMgr::gotInstruments, this, &CtpMgr::onGotInstruments);
 
     autoLoginTd_ = true;
     tdsm_->start();
@@ -233,7 +240,7 @@ void CtpMgr::tryStartSubscrible()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (mdsm_logined_ && tdsm_logined_) {
-        emit this->tradeWillBegin();
+        emit tradeWillBegin();
         //函数开始执行时候才resetData
         tdsm_->queryInstrument(1000, "");
     }
@@ -272,6 +279,8 @@ void CtpMgr::stop()
 
 void CtpMgr::onGotInstruments(QStringList ids, QStringList idsAll)
 {
+    BfDebug(__FUNCTION__);
+
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // mdapi开始订阅=

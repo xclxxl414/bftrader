@@ -115,7 +115,8 @@ private:
             for (auto id : ids_) {
                 ids = ids + id + ";";
             }
-            BfInfo("total got ids:%d,%s", ids_.length(), ids.toUtf8().constData());
+            BfInfo("total got ids:%d,reqId=%d,%s", ids_.length(), nRequestID,ids.toUtf8().constData());
+            g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
             emit g_sm->ctpMgr()->gotInstruments(ids_, ids_all_);
         }
     }
