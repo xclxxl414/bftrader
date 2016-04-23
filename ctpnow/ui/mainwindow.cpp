@@ -43,6 +43,9 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionConfig->setEnabled(true);
     ui->actionStop->setEnabled(false);
 
+    ui->actionRpcStart->setEnabled(true);
+    ui->actionRpcStop->setEnabled(false);
+
     // tabs
     infoForm_ = new InfoForm(this);
     errorForm_ = new ErrorForm(this);
@@ -331,10 +334,14 @@ void MainWindow::on_actionStop_triggered()
 
 void MainWindow::on_actionRpcStart_triggered()
 {
+    ui->actionRpcStart->setEnabled(false);
+    ui->actionRpcStop->setEnabled(true);
     QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionRpcStop_triggered()
 {
+    ui->actionRpcStart->setEnabled(true);
+    ui->actionRpcStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }

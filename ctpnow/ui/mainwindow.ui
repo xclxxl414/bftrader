@@ -132,23 +132,23 @@
       <addaction name="actionExitProcess"/>
       <addaction name="actionTerminateProcess"/>
      </widget>
-     <widget class="QMenu" name="menuNetwork">
-      <property name="title">
-       <string>network</string>
-      </property>
-      <addaction name="actionRpcStart"/>
-      <addaction name="actionRpcStop"/>
-     </widget>
      <addaction name="menuCtpTest"/>
      <addaction name="menuThread"/>
      <addaction name="menuDb"/>
      <addaction name="menuCrash"/>
-     <addaction name="menuNetwork"/>
     </widget>
     <addaction name="actionVersion"/>
     <addaction name="menuDeveloperTools"/>
    </widget>
+   <widget class="QMenu" name="menuRpc">
+    <property name="title">
+     <string>rpc</string>
+    </property>
+    <addaction name="actionRpcStart"/>
+    <addaction name="actionRpcStop"/>
+   </widget>
    <addaction name="menuCtp"/>
+   <addaction name="menuRpc"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -249,12 +249,12 @@
   </action>
   <action name="actionRpcStart">
    <property name="text">
-    <string>rpcstart</string>
+    <string>start</string>
    </property>
   </action>
   <action name="actionRpcStop">
    <property name="text">
-    <string>rpcStop</string>
+    <string>stop</string>
    </property>
   </action>
  </widget>

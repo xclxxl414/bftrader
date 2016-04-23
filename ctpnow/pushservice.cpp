@@ -1,6 +1,7 @@
 #include "pushservice.h"
 #include "bfproxy.grpc.pb.h"
 #include "ctp_utils.h"
+#include "logger.h"
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
@@ -201,6 +202,9 @@ void PushService::init()
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTrade, this, &PushService::onGotTrade);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotPosition, this, &PushService::onGotPosition);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotAccount, this, &PushService::onGotAccount);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotCtpError, this, &PushService::onCtpError);
+    QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
 }
 
 void PushService::shutdown()
@@ -327,7 +331,7 @@ void PushService::onPing()
     }
 }
 
-void PushService::onError(int code, QString msg, QString msgEx)
+void PushService::onCtpError(int code, QString msg, QString msgEx)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 

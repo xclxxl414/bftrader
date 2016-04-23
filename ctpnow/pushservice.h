@@ -25,7 +25,7 @@ public slots:
 
     void onTradeWillBegin();
     void onPing();
-    void onError(int code, QString msg, QString msgEx);
+    void onCtpError(int code, QString msg, QString msgEx);
     void onLog(QString when, QString msg);
     void onGotTick(void* curTick, void* preTick);
     void onGotTrade(const BfTradeData& trade);
