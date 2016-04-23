@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+// option optimize_for = CODE_SIZE;
+option cc_enable_arenas = true;
+
+package bftrader.bfcta;
+
+import "bftrader.proto";
+
+// 获取历史Tick数据的对象类（1分钟整存整取）
+message BfGetTickReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
+    int32 count = 5;                // 获取条数
+}
+
+// 获取历史Bar数据的对象类
+message BfGetBarReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    BfPeriod period = 3;            // 周期
+    string toDate = 4;              // 截止日期
+    string toTime = 5;              // 截止时间
+    int32 count = 6;                // 获取条数
+}
+
+// K/V数据交换传入传出的数据类
+// 策略间交换数据服务
+// 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
+message BfKvData{
+
+    //kv对
+    string key = 1;
+    string value = 2;
+}

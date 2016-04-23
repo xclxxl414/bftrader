@@ -5,10 +5,10 @@
 #include "ctpmgr.h"
 #include "dbservice.h"
 #include "debug_utils.h"
+#include "debugform.h"
+#include "errorform.h"
 #include "finishedorderform.h"
 #include "infoform.h"
-#include "errorform.h"
-#include "debugform.h"
 #include "logger.h"
 #include "logindialog.h"
 #include "positionform.h"
@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
     ui->tabWidgetLog->addTab(infoForm_, "info");
-    ui->tabWidgetLog->addTab(errorForm_,"error");
+    ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");

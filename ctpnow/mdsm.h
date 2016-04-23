@@ -27,8 +27,8 @@ public:
     void start();
     void stop();
 
-    void login(unsigned int delayTick, QString robotId);
-    void subscrible(QStringList ids, unsigned int delayTick, QString robotId);
+    void login(unsigned int delayTick);
+    void subscrible(QStringList ids, unsigned int delayTick);
     void resetData();
 
 signals:

@@ -1,38 +1,41 @@
 #include "pushservice.h"
-#include "bfrobot.grpc.pb.h"
+#include "bfproxy.grpc.pb.h"
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
 using namespace bftrader;
-using namespace bftrader::bfrobot;
+using namespace bftrader::bfproxy;
 
 //
-// RobotClient
+// ProxyClient
 //
-class RobotClient {
+class ProxyClient {
 public:
-    RobotClient(std::shared_ptr<grpc::Channel> channel)
-        : stub_(BfRobotService::NewStub(channel))
+    ProxyClient(std::shared_ptr<grpc::Channel> channel)
+        : stub_(BfProxyService::NewStub(channel))
     {
         BfDebug(__FUNCTION__);
     }
-    ~RobotClient() {}
+    ~ProxyClient() {}
 
     // ref: grpc\test\cpp\interop\interop_client.cc
-    void OnTick(const BfTickData& tick)
+    void OnPing(const BfPingData& ping)
     {
-        BfVoid reply;
+        BfPingData reply;
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(1000);
         ctx.set_deadline(deadline);
-        grpc::Status status = stub_->OnTick(&ctx, tick, &reply);
+        BfDebug("ping:%s", ping.message().c_str());
+        grpc::Status status = stub_->OnPing(&ctx, ping, &reply);
         if (!status.ok()) {
-            BfDebug("stub_->OnTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfDebug("stub_->OnPing fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            return;
         }
+        BfDebug("pong:%s", reply.message().c_str());
     }
 
 private:
-    std::unique_ptr<BfRobotService::Stub> stub_;
+    std::unique_ptr<BfProxyService::Stub> stub_;
 };
 
 //
@@ -55,29 +58,43 @@ void PushService::shutdown()
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    // delete all robotclient
-    for (int i = 0; i < robotClients_.size(); i++) {
-        auto robotClient = robotClients_.values().at(i);
-        delete robotClient;
+    // delete all proxyclient
+    for (int i = 0; i < proxyClients_.size(); i++) {
+        auto proxyClient = proxyClients_.values().at(i);
+        delete proxyClient;
     }
-    robotClients_.clear();
+    proxyClients_.clear();
 }
 
-void PushService::onRobotConnected(QString robotId, QString robotIp, qint32 robotPort)
+void PushService::onProxyConnect(QString proxyId, QString proxyIp, qint32 proxyPort)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString endpoint = QString().sprintf("%s:%d", robotIp.toStdString().c_str(), robotPort);
+    QString endpoint = QString().sprintf("%s:%d", proxyIp.toStdString().c_str(), proxyPort);
 
-    RobotClient* robotClient = new RobotClient(grpc::CreateChannel(
+    ProxyClient* proxyClient = new ProxyClient(grpc::CreateChannel(
         endpoint.toStdString(), grpc::InsecureChannelCredentials()));
 
-    robotClients_[robotId] = robotClient;
+    proxyClients_[proxyId] = proxyClient;
 
     //
     // TODO(hege): remove debug
     //
     google::protobuf::Arena arena;
-    BfTickData* data = google::protobuf::Arena::CreateMessage<BfTickData>(&arena);
-    robotClient->OnTick(*data);
+    BfPingData* data = google::protobuf::Arena::CreateMessage<BfPingData>(&arena);
+    data->set_message("pingpong");
+    proxyClient->OnPing(*data);
+}
+
+void PushService::onProxyClose(QString proxyId)
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    if (proxyClients_.contains(proxyId)) {
+        BfDebug("delete proxyclient:%s", qPrintable(proxyId));
+        ProxyClient* proxyClient = proxyClients_[proxyId];
+        delete proxyClient;
+        proxyClients_.remove(proxyId);
+    }
 }

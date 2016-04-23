@@ -455,7 +455,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{de82f06e-6ef1-4b66-a1c8-825cf3a9020a}</object>
-                         <name>robot</name>
+                         <name>proxy</name>
                          <pos>x:330;y:245</pos>
                          <rect>x:-20;y:-10;w:40;h:20</rect>
                          <visual-role>0</visual-role>
@@ -512,7 +512,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{02fede8b-ee63-4bdd-b7e2-7c29dc2fa1c3}</object>
-                         <name>robotclients</name>
+                         <name>proxyclients</name>
                          <pos>x:475;y:-40</pos>
                          <rect>x:-40;y:-10;w:80;h:20</rect>
                          <visual-role>0</visual-role>
@@ -1237,7 +1237,7 @@
                     <uid>{de82f06e-6ef1-4b66-a1c8-825cf3a9020a}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>robot</name>
+                  <name>proxy</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -1279,7 +1279,7 @@
                     <uid>{02fede8b-ee63-4bdd-b7e2-7c29dc2fa1c3}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>robotclients</name>
+                  <name>proxyclients</name>
                  </MObject>
                 </base-MObject>
                </MItem>

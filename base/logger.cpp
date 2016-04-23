@@ -5,8 +5,8 @@
 #include "mhook-lib/mhook.h"
 
 #include <QCoreApplication>
-#include <QDir>
 #include <QDateTime>
+#include <QDir>
 #include <QtGlobal>
 #include <crtdbg.h>
 

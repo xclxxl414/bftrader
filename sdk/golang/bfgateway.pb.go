@@ -44,15 +44,10 @@ const _ = grpc.SupportPackageIsVersion1
 type BfGatewayServiceClient interface {
 	// 建立连接
 	Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (*bftrader.BfConnectResp, error)
-	// 策略间交换数据服务
-	// 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
-	SetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
-	GetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error)
-	// 获取可交易合约信息
+	// 活跃检测
+	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	// 获取交易合约信息
 	GetContract(ctx context.Context, in *bftrader.BfGetContractReq, opts ...grpc.CallOption) (*bftrader.BfContractData, error)
-	GetContractList(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (BfGatewayService_GetContractListClient, error)
-	// 订阅行情
-	Subscribe(ctx context.Context, in *bftrader.BfSubscribeReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	// 发单
 	SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error)
 	// 撤单
@@ -82,18 +77,9 @@ func (c *bfGatewayServiceClient) Connect(ctx context.Context, in *bftrader.BfCon
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) SetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/SetKv", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *bfGatewayServiceClient) GetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error) {
-	out := new(bftrader.BfKvData)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/GetKv", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error) {
+	out := new(bftrader.BfPingData)
+	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/Ping", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,47 +89,6 @@ func (c *bfGatewayServiceClient) GetKv(ctx context.Context, in *bftrader.BfKvDat
 func (c *bfGatewayServiceClient) GetContract(ctx context.Context, in *bftrader.BfGetContractReq, opts ...grpc.CallOption) (*bftrader.BfContractData, error) {
 	out := new(bftrader.BfContractData)
 	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/GetContract", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *bfGatewayServiceClient) GetContractList(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (BfGatewayService_GetContractListClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfGatewayService_serviceDesc.Streams[0], c.cc, "/bftrader.bfgateway.BfGatewayService/GetContractList", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &bfGatewayServiceGetContractListClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type BfGatewayService_GetContractListClient interface {
-	Recv() (*bftrader.BfContractData, error)
-	grpc.ClientStream
-}
-
-type bfGatewayServiceGetContractListClient struct {
-	grpc.ClientStream
-}
-
-func (x *bfGatewayServiceGetContractListClient) Recv() (*bftrader.BfContractData, error) {
-	m := new(bftrader.BfContractData)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *bfGatewayServiceClient) Subscribe(ctx context.Context, in *bftrader.BfSubscribeReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/Subscribe", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -200,15 +145,10 @@ func (c *bfGatewayServiceClient) Close(ctx context.Context, in *bftrader.BfVoid,
 type BfGatewayServiceServer interface {
 	// 建立连接
 	Connect(context.Context, *bftrader.BfConnectReq) (*bftrader.BfConnectResp, error)
-	// 策略间交换数据服务
-	// 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
-	SetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfVoid, error)
-	GetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfKvData, error)
-	// 获取可交易合约信息
+	// 活跃检测
+	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	// 获取交易合约信息
 	GetContract(context.Context, *bftrader.BfGetContractReq) (*bftrader.BfContractData, error)
-	GetContractList(*bftrader.BfVoid, BfGatewayService_GetContractListServer) error
-	// 订阅行情
-	Subscribe(context.Context, *bftrader.BfSubscribeReq) (*bftrader.BfVoid, error)
 	// 发单
 	SendOrder(context.Context, *bftrader.BfSendOrderReq) (*bftrader.BfSendOrderResp, error)
 	// 撤单
@@ -237,24 +177,12 @@ func _BfGatewayService_Connect_Handler(srv interface{}, ctx context.Context, dec
 	return out, nil
 }
 
-func _BfGatewayService_SetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfKvData)
+func _BfGatewayService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).SetKv(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func _BfGatewayService_GetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfKvData)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	out, err := srv.(BfGatewayServiceServer).GetKv(ctx, in)
+	out, err := srv.(BfGatewayServiceServer).Ping(ctx, in)
 	if err != nil {
 		return nil, err
 	}
@@ -267,39 +195,6 @@ func _BfGatewayService_GetContract_Handler(srv interface{}, ctx context.Context,
 		return nil, err
 	}
 	out, err := srv.(BfGatewayServiceServer).GetContract(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func _BfGatewayService_GetContractList_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(bftrader.BfVoid)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(BfGatewayServiceServer).GetContractList(m, &bfGatewayServiceGetContractListServer{stream})
-}
-
-type BfGatewayService_GetContractListServer interface {
-	Send(*bftrader.BfContractData) error
-	grpc.ServerStream
-}
-
-type bfGatewayServiceGetContractListServer struct {
-	grpc.ServerStream
-}
-
-func (x *bfGatewayServiceGetContractListServer) Send(m *bftrader.BfContractData) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _BfGatewayService_Subscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfSubscribeReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	out, err := srv.(BfGatewayServiceServer).Subscribe(ctx, in)
 	if err != nil {
 		return nil, err
 	}
@@ -375,20 +270,12 @@ var _BfGatewayService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _BfGatewayService_Connect_Handler,
 		},
 		{
-			MethodName: "SetKv",
-			Handler:    _BfGatewayService_SetKv_Handler,
-		},
-		{
-			MethodName: "GetKv",
-			Handler:    _BfGatewayService_GetKv_Handler,
+			MethodName: "Ping",
+			Handler:    _BfGatewayService_Ping_Handler,
 		},
 		{
 			MethodName: "GetContract",
 			Handler:    _BfGatewayService_GetContract_Handler,
-		},
-		{
-			MethodName: "Subscribe",
-			Handler:    _BfGatewayService_Subscribe_Handler,
 		},
 		{
 			MethodName: "SendOrder",
@@ -411,34 +298,26 @@ var _BfGatewayService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _BfGatewayService_Close_Handler,
 		},
 	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "GetContractList",
-			Handler:       _BfGatewayService_GetContractList_Handler,
-			ServerStreams: true,
-		},
-	},
+	Streams: []grpc.StreamDesc{},
 }
 
 var fileDescriptor0 = []byte{
-	// 301 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x8c, 0x92, 0xcb, 0x4e, 0xf3, 0x30,
-	0x10, 0x85, 0xff, 0xe8, 0x57, 0x40, 0x4c, 0x81, 0x56, 0x5e, 0x70, 0xc9, 0x92, 0x3d, 0xe1, 0xbe,
-	0x40, 0x82, 0x45, 0x13, 0x50, 0x17, 0x45, 0xe2, 0x12, 0x89, 0xbd, 0xe3, 0x4c, 0x90, 0xa5, 0xca,
-	0x2e, 0x8e, 0x13, 0xd4, 0x37, 0xe1, 0x51, 0x59, 0xe2, 0xa4, 0x25, 0x72, 0x8b, 0x83, 0xba, 0x3d,
-	0xe7, 0x7c, 0xe3, 0x33, 0x23, 0x43, 0x3f, 0xcd, 0xdf, 0xa8, 0xc6, 0x0f, 0x3a, 0x0b, 0xa7, 0x4a,
-	0x6a, 0x49, 0x48, 0x9a, 0x6b, 0x45, 0x33, 0x54, 0x61, 0xeb, 0x04, 0xbb, 0xad, 0xd6, 0x64, 0xce,
-	0x3f, 0x7d, 0x18, 0x44, 0xf9, 0x68, 0xee, 0x26, 0xa8, 0x2a, 0xce, 0x90, 0xdc, 0xc0, 0x66, 0x2c,
-	0x85, 0x40, 0xa6, 0xc9, 0x5e, 0xd8, 0x02, 0x51, 0xbe, 0x10, 0x5f, 0xf0, 0x3d, 0xd8, 0x77, 0xea,
-	0xc5, 0xf4, 0xe8, 0x1f, 0x39, 0x01, 0x3f, 0x41, 0x3d, 0xae, 0x08, 0xb1, 0x33, 0xe3, 0xea, 0x8e,
-	0x6a, 0x1a, 0x0c, 0x6c, 0xed, 0x55, 0xf2, 0xcc, 0x00, 0x67, 0xe0, 0x8f, 0x3a, 0x01, 0x87, 0x66,
-	0x90, 0x7b, 0xe8, 0x19, 0xc4, 0xbc, 0x6b, 0x2c, 0xd3, 0x32, 0xb0, 0x43, 0x96, 0x51, 0x37, 0x3d,
-	0x58, 0x69, 0xda, 0x18, 0x8b, 0x31, 0x43, 0xe8, 0x5b, 0xe9, 0x07, 0x5e, 0x68, 0xf2, 0xab, 0xe0,
-	0x5f, 0x03, 0x4e, 0x3d, 0x72, 0x0d, 0x5b, 0x49, 0x99, 0x16, 0x4c, 0xf1, 0x14, 0xc9, 0x52, 0xb4,
-	0x95, 0xeb, 0x16, 0xae, 0xbd, 0x23, 0x83, 0xa2, 0xc8, 0x1e, 0x95, 0x51, 0x57, 0xd0, 0x1f, 0xb9,
-	0x46, 0x0f, 0x3b, 0x9c, 0xe6, 0xd8, 0xb7, 0xd0, 0x8b, 0xa9, 0x60, 0x38, 0x99, 0x4f, 0x59, 0x3a,
-	0x84, 0x65, 0x74, 0x55, 0xb8, 0x84, 0xed, 0xe7, 0x12, 0xd5, 0x6c, 0xc8, 0x98, 0x2c, 0x85, 0x6b,
-	0x7b, 0x17, 0x75, 0x05, 0x3b, 0x0d, 0xf5, 0x24, 0x0b, 0xae, 0xb9, 0x14, 0x6b, 0x62, 0xc7, 0xe0,
-	0xc7, 0x13, 0x59, 0xe0, 0x7a, 0xf1, 0xe8, 0xff, 0x97, 0xe7, 0xa5, 0x1b, 0xcd, 0x37, 0xbd, 0xf8,
-	0x0e, 0x00, 0x00, 0xff, 0xff, 0xcc, 0x8e, 0xc7, 0xc1, 0xdd, 0x02, 0x00, 0x00,
+	// 260 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x8c, 0x91, 0xc9, 0x4e, 0xc3, 0x30,
+	0x10, 0x86, 0xa9, 0xca, 0x22, 0xa6, 0x2c, 0x95, 0x85, 0x58, 0x72, 0xe4, 0x4e, 0x0e, 0x2c, 0x37,
+	0x38, 0x90, 0x80, 0x7a, 0xa4, 0x50, 0x89, 0xbb, 0xe3, 0x4c, 0x2a, 0x4b, 0x95, 0xa7, 0x38, 0x53,
+	0x50, 0xdf, 0x99, 0x07, 0xe0, 0x88, 0xe3, 0x56, 0x96, 0x0b, 0xa9, 0xd4, 0xeb, 0xff, 0xfd, 0x8b,
+	0x47, 0x86, 0xe3, 0xa2, 0x1a, 0x4b, 0xc6, 0x2f, 0x39, 0x4f, 0xa7, 0x96, 0x98, 0x84, 0x28, 0x2a,
+	0xb6, 0xb2, 0x44, 0x9b, 0x06, 0x92, 0x1c, 0x05, 0xcd, 0x7b, 0xae, 0xbf, 0xbb, 0xd0, 0xcf, 0xaa,
+	0xc1, 0x82, 0x8e, 0xd0, 0x7e, 0x6a, 0x85, 0xe2, 0x1e, 0xf6, 0x72, 0x32, 0x06, 0x15, 0x8b, 0xd3,
+	0x34, 0x04, 0xb2, 0x6a, 0x29, 0xbe, 0xe1, 0x47, 0x72, 0xd6, 0xaa, 0xd7, 0xd3, 0xcb, 0x2d, 0x71,
+	0x0b, 0xdb, 0x43, 0x6d, 0xc6, 0xe2, 0x24, 0xb6, 0x34, 0xca, 0x93, 0x64, 0x99, 0xb4, 0xaa, 0x2e,
+	0xf5, 0x0c, 0xbd, 0x01, 0xb2, 0x6b, 0x72, 0xd0, 0xed, 0x26, 0xb1, 0x2d, 0x02, 0xcd, 0xf6, 0xf9,
+	0x9f, 0x6d, 0x0f, 0x96, 0x35, 0x19, 0xec, 0x8f, 0xd0, 0x94, 0x2f, 0xd6, 0x51, 0xb1, 0x62, 0x0c,
+	0x72, 0x53, 0x71, 0xb1, 0x86, 0xf8, 0x03, 0x1e, 0xa0, 0x97, 0x4b, 0xa3, 0x70, 0xb2, 0x68, 0x59,
+	0x79, 0x4a, 0x04, 0x9a, 0x9e, 0x7e, 0xcc, 0xde, 0x49, 0x97, 0xfe, 0xfe, 0x83, 0xd7, 0x19, 0xda,
+	0xf9, 0xa3, 0x52, 0x34, 0x33, 0x2c, 0xfe, 0x79, 0x5a, 0x53, 0x77, 0x70, 0xe8, 0x53, 0x43, 0xaa,
+	0x35, 0x6b, 0x32, 0x1b, 0xc6, 0xae, 0x60, 0x27, 0x9f, 0x50, 0x8d, 0x9b, 0xd9, 0xb3, 0xee, 0x4f,
+	0xa7, 0x53, 0xec, 0xfa, 0xaf, 0xbf, 0xf9, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x3d, 0x9a, 0x00, 0xa5,
+	0x31, 0x02, 0x00, 0x00,
 }

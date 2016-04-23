@@ -18,11 +18,8 @@ namespace bfgateway {
 
 static const char* BfGatewayService_method_names[] = {
   "/bftrader.bfgateway.BfGatewayService/Connect",
-  "/bftrader.bfgateway.BfGatewayService/SetKv",
-  "/bftrader.bfgateway.BfGatewayService/GetKv",
+  "/bftrader.bfgateway.BfGatewayService/Ping",
   "/bftrader.bfgateway.BfGatewayService/GetContract",
-  "/bftrader.bfgateway.BfGatewayService/GetContractList",
-  "/bftrader.bfgateway.BfGatewayService/Subscribe",
   "/bftrader.bfgateway.BfGatewayService/SendOrder",
   "/bftrader.bfgateway.BfGatewayService/CancelOrder",
   "/bftrader.bfgateway.BfGatewayService/QueryAccount",
@@ -37,16 +34,13 @@ std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::sh
 
 BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetKv_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetKv_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContractList_(BfGatewayService_method_names[4], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_Subscribe_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SendOrder_(BfGatewayService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelOrder_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_QueryAccount_(BfGatewayService_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_QueryPosition_(BfGatewayService_method_names[9], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Close_(BfGatewayService_method_names[10], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Ping_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContract_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SendOrder_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelOrder_(BfGatewayService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryAccount_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryPosition_(BfGatewayService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Close_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status BfGatewayService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfConnectResp* response) {
@@ -57,20 +51,12 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>(channel_.get(), cq, rpcmethod_Connect_, context, request);
 }
 
-::grpc::Status BfGatewayService::Stub::SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SetKv_, context, request, response);
+::grpc::Status BfGatewayService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfGatewayService::Stub::AsyncSetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_SetKv_, context, request);
-}
-
-::grpc::Status BfGatewayService::Stub::GetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetKv_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* BfGatewayService::Stub::AsyncGetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>(channel_.get(), cq, rpcmethod_GetKv_, context, request);
+::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfGatewayService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::GetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::bftrader::BfContractData* response) {
@@ -79,22 +65,6 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfContractData>* BfGatewayService::Stub::AsyncGetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfContractData>(channel_.get(), cq, rpcmethod_GetContract_, context, request);
-}
-
-::grpc::ClientReader< ::bftrader::BfContractData>* BfGatewayService::Stub::GetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) {
-  return new ::grpc::ClientReader< ::bftrader::BfContractData>(channel_.get(), rpcmethod_GetContractList_, context, request);
-}
-
-::grpc::ClientAsyncReader< ::bftrader::BfContractData>* BfGatewayService::Stub::AsyncGetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) {
-  return new ::grpc::ClientAsyncReader< ::bftrader::BfContractData>(channel_.get(), cq, rpcmethod_GetContractList_, context, request, tag);
-}
-
-::grpc::Status BfGatewayService::Stub::Subscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Subscribe_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfGatewayService::Stub::AsyncSubscribeRaw(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Subscribe_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) {
@@ -147,50 +117,35 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfKvData, ::bftrader::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::SetKv), this)));
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+          std::mem_fn(&BfGatewayService::Service::Ping), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[2],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfKvData, ::bftrader::BfKvData>(
-          std::mem_fn(&BfGatewayService::Service::GetKv), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfGetContractReq, ::bftrader::BfContractData>(
           std::mem_fn(&BfGatewayService::Service::GetContract), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[4],
-      ::grpc::RpcMethod::SERVER_STREAMING,
-      new ::grpc::ServerStreamingHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfContractData>(
-          std::mem_fn(&BfGatewayService::Service::GetContractList), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[5],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfSubscribeReq, ::bftrader::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::Subscribe), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[6],
+      BfGatewayService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfSendOrderReq, ::bftrader::BfSendOrderResp>(
           std::mem_fn(&BfGatewayService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[7],
+      BfGatewayService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfCancelOrderReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::CancelOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[8],
+      BfGatewayService_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::QueryAccount), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[9],
+      BfGatewayService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::QueryPosition), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[10],
+      BfGatewayService_method_names[7],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::Close), this)));
@@ -206,14 +161,7 @@ BfGatewayService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfGatewayService::Service::GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) {
+::grpc::Status BfGatewayService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -221,20 +169,6 @@ BfGatewayService::Service::~Service() {
 }
 
 ::grpc::Status BfGatewayService::Service::GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfGatewayService::Service::GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) {
-  (void) context;
-  (void) request;
-  (void) writer;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfGatewayService::Service::Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;

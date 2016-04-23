@@ -115,7 +115,7 @@ private:
             for (auto id : ids_) {
                 ids = ids + id + ";";
             }
-            BfInfo("total got ids:%d,reqId=%d,filter=%s,ids=%s", ids_.length(), nRequestID, sm()->idPrefixList_.toStdString().c_str(),ids.toUtf8().constData());
+            BfInfo("total got ids:%d,reqId=%d,filter=%s,ids=%s", ids_.length(), nRequestID, sm()->idPrefixList_.toStdString().c_str(), ids.toUtf8().constData());
             g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
             emit g_sm->ctpMgr()->gotInstruments(ids_, ids_all_);
         }
@@ -483,11 +483,11 @@ QString TdSm::genBfOrderId()
 }
 
 // 登录填userID，其他填investorid=
-void TdSm::login(unsigned int delayTick, QString robotId)
+void TdSm::login(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
 
@@ -498,7 +498,7 @@ void TdSm::login(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqUserLogin(&req, reqId);
         BfDebug("CmdTdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -506,17 +506,16 @@ void TdSm::login(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
 //目前，通过 ReqUserLogout 登出系统的话，会先将现有的连接断开，再重新建立一个新的连接(CTPSDK)
 // logout之后会有一个disconnect/connect...先disableautologin
-void TdSm::logout(unsigned int delayTick, QString robotId)
+void TdSm::logout(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcUserLogoutField req;
         memset(&req, 0, sizeof(req));
 
@@ -526,7 +525,7 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqUserLogout(&req, reqId);
         BfDebug("CmdTdLogout,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -534,15 +533,14 @@ void TdSm::logout(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
+void TdSm::queryInstrument(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         // 重置ctpmgr相关内存=
         g_sm->ctpMgr()->resetData();
 
@@ -552,7 +550,7 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqQryInstrument(&req, reqId);
         BfDebug("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -560,15 +558,14 @@ void TdSm::queryInstrument(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::queryAccount(unsigned int delayTick, QString robotId)
+void TdSm::queryAccount(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcQryTradingAccountField req;
         memset(&req, 0, sizeof(req));
 
@@ -578,7 +575,7 @@ void TdSm::queryAccount(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqQryTradingAccount(&req, reqId);
         BfDebug("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -586,15 +583,14 @@ void TdSm::queryAccount(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
+void TdSm::reqSettlementInfoConfirm(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcSettlementInfoConfirmField req;
         memset(&req, 0, sizeof(req));
 
@@ -604,7 +600,7 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqSettlementInfoConfirm(&req, reqId);
         BfDebug("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -612,15 +608,14 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::queryPosition(unsigned int delayTick, QString robotId)
+void TdSm::queryPosition(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcQryInvestorPositionField req;
         memset(&req, 0, sizeof(req));
 
@@ -630,7 +625,7 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqQryInvestorPosition(&req, reqId);
         BfDebug("CmdTdReqQryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -638,21 +633,20 @@ void TdSm::queryPosition(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& bfReq)
+void TdSm::sendOrder(unsigned int delayTick, const BfSendOrderReq& bfReq)
 {
     QString bfOrderId = genBfOrderId();
-    sendOrder(delayTick, robotId, bfOrderId, bfReq);
+    sendOrder(delayTick, bfOrderId, bfReq);
 }
 
-void TdSm::sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId, const BfSendOrderReq& bfReq)
+void TdSm::sendOrder(unsigned int delayTick, QString bfOrderId, const BfSendOrderReq& bfReq)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcInputOrderField req;
         memset(&req, 0, sizeof(req));
 
@@ -681,7 +675,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId,
         int result = tdapi_->ReqOrderInsert(&req, reqId);
         BfDebug("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -689,15 +683,14 @@ void TdSm::sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId,
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& bfReq)
+void TdSm::cancelOrder(unsigned int delayTick, const BfCancelOrderReq& bfReq)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcInputOrderActionField req;
         memset(&req, 0, sizeof(req));
 
@@ -721,7 +714,7 @@ void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOr
         int result = tdapi_->ReqOrderAction(&req, reqId);
         BfDebug("CmdTdReqOrderAction,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -729,15 +722,14 @@ void TdSm::cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOr
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
-void TdSm::queryOrders(unsigned int delayTick, QString robotId)
+void TdSm::queryOrders(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcQryOrderField req;
         memset(&req, 0, sizeof(req));
 
@@ -747,7 +739,7 @@ void TdSm::queryOrders(unsigned int delayTick, QString robotId)
         int result = tdapi_->ReqQryOrder(&req, reqId);
         BfDebug("CmdTdReqQryOrder,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -755,6 +747,5 @@ void TdSm::queryOrders(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }

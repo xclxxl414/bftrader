@@ -4,7 +4,7 @@
 #include <QMap>
 #include <QObject>
 
-class RobotClient;
+class ProxyClient;
 
 //IO
 class PushService : public QObject {
@@ -17,10 +17,11 @@ public:
 signals:
 
 public slots:
-    void onRobotConnected(QString robotId, QString robotIp, qint32 robotPort);
+    void onProxyConnect(QString proxyId, QString proxyIp, qint32 proxyPort);
+    void onProxyClose(QString proxyId);
 
 private:
-    QMap<QString, RobotClient*> robotClients_;
+    QMap<QString, ProxyClient*> proxyClients_;
 };
 
 #endif // PUSHSERVICE_H

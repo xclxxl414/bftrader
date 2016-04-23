@@ -47,23 +47,24 @@ enum BfPriceType{
     PRICETYPE_MARKETPRICE = 2;  // 市价
 }
 
-// 交易所类型
-enum BfExchange{
-    EXCHANGE_UNKNOWN = 0;       // UNKNOWN,未知交易所
-    EXCHANGE_SSE = 1;           // SSE,上交所
-    EXCHANGE_SZSE = 2;          // SZSE,深交所
-    EXCHANGE_CFFEX = 3;         // CFFEX,中金所
-    EXCHANGE_SHFE = 4;          // SHFE,上期所
-    EXCHANGE_CZCE = 5;          // CZCE,郑商所
-    EXCHANGE_DCE = 6;           // DCE,大商所
-    EXCHANGE_SGE = 7;           // SGE,上金所
-}
-
 // Bar周期类型
 enum BfPeriod{
     PERIOD_UNKNOWN = 0;         // 未知
-    PERIOD_M1 = 1;              // 1分钟
-    PERIOD_D1 = 2;              // 1天
+    PERIOD_S1 = 1;              // 1秒
+    PERIOD_S3 = 2;              // 3秒
+    PERIOD_S5 = 3;              // 5秒
+    PERIOD_S15 = 4;             // 15秒
+    PERIOD_S30 = 5;             // 30秒
+    PERIOD_M1 = 6;              // 1分钟
+    PERIOD_M3 = 7;              // 3分钟
+    PERIOD_M5 = 8;              // 5分钟
+    PERIOD_M15 = 9;             // 15分钟
+    PERIOD_M30 = 10;            // 30分钟
+    PERIOD_H1 = 11;             // 1小时
+    PERIOD_H2 = 12;             // 2小时
+    PERIOD_H4 = 13;             // 4小时
+    PERIOD_D1 = 14;             // 1天
+    PERIOD_W1 = 15;             // 1周
 }
 
 //============================
@@ -216,8 +217,8 @@ message BfErrorData{
 // 日志数据类
 message BfLogData{
 
-    string logTime = 1;         // 日志生成时间
-    string logContent = 2;      // 日志信息
+    string when = 1;            // 日志生成时间
+    string message = 2;         // 日志信息
 }
 
 // 合约详细信息类
@@ -236,14 +237,6 @@ message BfContractData{
     int32 minLimit = 8;         // 限价单最小下单量
     int32 maxMarket = 9;        // 市价单最大下单量
     int32 minMartet = 10;       // 市价单最小下单量
-}
-
-// K/V数据交换传入传出的数据类
-message BfKvData{
-
-    //kv对
-    string key = 1;
-    string value = 2;
 }
 
 // 订阅行情时传入的对象类
@@ -286,16 +279,16 @@ message BfCancelOrderReq{
 
 // 连接时传入的对象类
 message BfConnectReq{
-    
-    // Robot相关
-    string robotId = 1;         // 策略名,用于日志分析和ui显示
-    string robotIp = 2;         // 机器人服务,"localhost"
-    int32 robotPort = 3;        // 机器人端口,50053    
+    // Proxy相关
+    string proxyId = 1;         // Proxy名,用于日志分析和ui显示
+    string proxyIp = 2;         // 机器人服务,"localhost"
+    int32 proxyPort = 3;        // 机器人端口,50053    
 }
 
 // 连接时返回的对象类
 message BfConnectResp{
-    bool exchangeOpened = 1;    // 交易所是否连通
+    int32 errorCode = 1;        // 错误代码,0成功
+    string errorMsg = 2;        // 错误信息
 }
 
 // 获取合约信息传入的对象类
@@ -303,29 +296,20 @@ message BfGetContractReq{
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
+    
+    // 获取全部合约时候可以用index来枚举，从0开始，返回空结束
+    int32 index = 3;            // 枚举下标
+    
+    // 过滤条件，指定是否要求已经订阅
+    bool subscribled = 4;       // 是否要求已经订阅
+}
+
+// Ping/Pong检测传入的对象类
+// 同ctp一样，5秒一次
+message BfPingData{
+    string message = 1;         // 内容，返回一模一样
 }
 
 //============================
 
-// 获取历史Tick数据的对象类（1分钟整存整取）
-message BfGetTickReq{
-    // 代码编号相关
-    string symbol = 1;              // 合约代码
-    string exchange = 2;            // 交易所代码
 
-    string toDate = 3;              // 截止日期
-    string toTime = 4;              // 截止时间
-    int32 count = 5;                // 获取条数
-}
-
-// 获取历史Bar数据的对象类
-message BfGetBarReq{
-    // 代码编号相关
-    string symbol = 1;              // 合约代码
-    string exchange = 2;            // 交易所代码
-
-    BfPeriod period = 3;            // 周期
-    string toDate = 4;              // 截止日期
-    string toTime = 5;              // 截止时间
-    int32 count = 6;                // 获取条数
-}

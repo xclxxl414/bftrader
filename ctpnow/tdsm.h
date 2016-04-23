@@ -35,16 +35,16 @@ public:
     void resetData();
     QString genBfOrderId();
 
-    void login(unsigned int delayTick, QString robotId);
-    void logout(unsigned int delayTick, QString robotId);
-    void queryInstrument(unsigned int delayTick, QString robotId);
-    void queryAccount(unsigned int delayTick, QString robotId);
-    void reqSettlementInfoConfirm(unsigned int delayTick, QString robotId);
-    void sendOrder(unsigned int delayTick, QString robotId, const BfSendOrderReq& orderReq);
-    void sendOrder(unsigned int delayTick, QString robotId, QString bfOrderId,const BfSendOrderReq& orderReq);
-    void queryPosition(unsigned int delayTick, QString robotId);
-    void cancelOrder(unsigned int delayTick, QString robotId, const BfCancelOrderReq& orderReq);
-    void queryOrders(unsigned int delayTick, QString robotId);
+    void login(unsigned int delayTick);
+    void logout(unsigned int delayTick);
+    void queryInstrument(unsigned int delayTick);
+    void queryAccount(unsigned int delayTick);
+    void reqSettlementInfoConfirm(unsigned int delayTick);
+    void sendOrder(unsigned int delayTick, const BfSendOrderReq& orderReq);
+    void sendOrder(unsigned int delayTick, QString bfOrderId, const BfSendOrderReq& orderReq);
+    void queryPosition(unsigned int delayTick);
+    void cancelOrder(unsigned int delayTick, const BfCancelOrderReq& orderReq);
+    void queryOrders(unsigned int delayTick);
 
 signals:
     void statusChanged(int state);

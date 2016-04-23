@@ -20,9 +20,8 @@ class Profile;
 
 // todo(hege):增加一个错误处理函数,等req返回了可以找到cmd然后执行，之后才删除=
 struct CtpCmd {
-    std::function<int(int, QString)> fn;
+    std::function<int(int)> fn;
     quint32 delayTick;
-    QString robotId;
     quint32 expires;
 };
 
@@ -44,6 +43,8 @@ public:
     // tick+contract高效维护=
     void resetData();
 
+    QStringList getIds();
+    QStringList getIdsAll();
     void insertContract(QString id, void* contract);
     void* getContract(QString id);
     void freeContracts();
@@ -58,7 +59,7 @@ public:
     QString genOrderId();
 
 signals:
-    void requestSent(int reqId, QString robotId);
+    void requestSent(int reqId);
     void tradeWillBegin();
     void gotInstruments(QStringList ids, QStringList idsAll);
     void gotTick(void* curTick, void* preTick);
@@ -73,7 +74,7 @@ public slots:
     void start(QString password);
     void stop();
     void queryAccount();
-    void sendOrderWithId(QString byOrderId,const BfSendOrderReq& req);
+    void sendOrderWithId(QString byOrderId, const BfSendOrderReq& req);
     void sendOrder(const BfSendOrderReq& req);
     void queryPosition();
     void cancelOrder(const BfCancelOrderReq& req);
@@ -107,6 +108,8 @@ private:
     QMap<QString, void*> contracts_;
     QMap<QString, RingBuffer*> rbs_;
     const int ringBufferLen_ = 256;
+    QStringList ids_;
+    QStringList ids_all_;
 
     QQueue<CtpCmd*> cmds_;
     int reqId_ = 0;

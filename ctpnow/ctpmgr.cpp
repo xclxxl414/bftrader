@@ -64,7 +64,7 @@ void CtpMgr::onMdSmStateChanged(int state)
     if (state == MDSM_CONNECTED) {
         mdsm_logined_ = false;
         if (autoLoginMd_) {
-            mdsm_->login(1000, "");
+            mdsm_->login(1000);
         } else {
             mdsm_->stop();
         }
@@ -73,7 +73,7 @@ void CtpMgr::onMdSmStateChanged(int state)
         mdsm_logined_ = false;
         if (!autoLoginMd_) {
             mdsm_->stop();
-        }else{
+        } else {
             BfInfo("waiting for mdapi auto-reconnect......");
         }
     }
@@ -84,7 +84,7 @@ void CtpMgr::onMdSmStateChanged(int state)
     if (state == MDSM_LOGINFAIL) {
         if (autoLoginMd_) {
             BfInfo("mdsm login fail,try again 1 minute later");
-            mdsm_->login(60 * 1000, "");
+            mdsm_->login(60 * 1000);
         } else {
             mdsm_->stop();
         }
@@ -109,7 +109,7 @@ void CtpMgr::onTdSmStateChanged(int state)
     if (state == TDSM_CONNECTED) {
         tdsm_logined_ = false;
         if (autoLoginTd_) {
-            tdsm_->login(1000, "");
+            tdsm_->login(1000);
         } else {
             tdsm_->stop();
         }
@@ -119,7 +119,7 @@ void CtpMgr::onTdSmStateChanged(int state)
         tdsm_logined_ = false;
         if (!autoLoginTd_) {
             tdsm_->stop();
-        }else{
+        } else {
             BfInfo("waiting for tdapi auto-reconnect......");
         }
     }
@@ -130,7 +130,7 @@ void CtpMgr::onTdSmStateChanged(int state)
     if (state == TDSM_LOGINFAIL) {
         if (autoLoginTd_) {
             BfInfo("tdsm login fail,try again 1 minute later");
-            tdsm_->login(60 * 1000, "");
+            tdsm_->login(60 * 1000);
         } else {
             tdsm_->stop();
         }
@@ -242,7 +242,7 @@ void CtpMgr::tryStartSubscrible()
     if (mdsm_logined_ && tdsm_logined_) {
         emit tradeWillBegin();
         //函数开始执行时候才resetData
-        tdsm_->queryInstrument(1000, "");
+        tdsm_->queryInstrument(1000);
     }
     if (tdsm_ == nullptr) {
         if (!initTdSm()) {
@@ -270,7 +270,7 @@ void CtpMgr::stop()
         autoLoginTd_ = false;
         if (tdsm_logined_) {
             //先logout，然后自动退出=
-            tdsm_->logout(0, "");
+            tdsm_->logout(0);
         } else {
             tdsm_->stop();
         }
@@ -283,11 +283,15 @@ void CtpMgr::onGotInstruments(QStringList ids, QStringList idsAll)
 
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
+    // 保存ids，便于枚举=
+    ids_ = ids;
+    ids_all_ = idsAll;
+
     // mdapi开始订阅=
-    mdsm_->subscrible(ids, 0, "");
+    mdsm_->subscrible(ids, 0);
 
     // tdapi开始确认账单=
-    tdsm_->reqSettlementInfoConfirm(0, "");
+    tdsm_->reqSettlementInfoConfirm(0);
 }
 
 bool CtpMgr::running()
@@ -318,8 +322,10 @@ void CtpMgr::resetData()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    tdsm_->resetData();
-    mdsm_->resetData();
+    ids_.clear();
+    ids_all_.clear();
+    tdsm_->resetData(); //contract
+    mdsm_->resetData(); //ringbuffer
 }
 
 QString CtpMgr::genOrderId()
@@ -350,7 +356,7 @@ void CtpMgr::queryAccount()
         BfInfo("CtpMgr::queryAccount,please login first");
         return;
     }
-    tdsm_->queryAccount(0, "");
+    tdsm_->queryAccount(0);
 }
 
 void CtpMgr::queryPosition()
@@ -361,7 +367,17 @@ void CtpMgr::queryPosition()
         BfInfo("CtpMgr::queryPosition,please login first");
         return;
     }
-    tdsm_->queryPosition(0, "");
+    tdsm_->queryPosition(0);
+}
+
+QStringList CtpMgr::getIds()
+{
+    return ids_;
+}
+
+QStringList CtpMgr::getIdsAll()
+{
+    return ids_all_;
 }
 
 void CtpMgr::freeContracts()
@@ -444,7 +460,7 @@ void CtpMgr::onRunCmdInterval()
     }
 
     // 流控了就一秒后重试=
-    if (cmd->fn(++reqId_, cmd->robotId) == -3) {
+    if (cmd->fn(++reqId_) == -3) {
         cmd->expires = curTick + 1000;
         BfError("sendcmd toofast,reqId=%d", reqId_);
         return;
@@ -460,7 +476,7 @@ void CtpMgr::runCmd(CtpCmd* cmd)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (cmd->delayTick == 0) {
-        int result = cmd->fn(++reqId_, cmd->robotId);
+        int result = cmd->fn(++reqId_);
         if (result == -3) {
             BfError("sendcmd toofast,reqId=%d", reqId_);
             cmd->expires = ::GetTickCount() + 1000;
@@ -496,10 +512,10 @@ void CtpMgr::sendOrder(const BfSendOrderReq& req)
         return;
     }
 
-    tdsm_->sendOrder(0, "", req);
+    tdsm_->sendOrder(0, req);
 }
 
-void CtpMgr::sendOrderWithId(QString bfOrderId,const BfSendOrderReq& req)
+void CtpMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -508,7 +524,7 @@ void CtpMgr::sendOrderWithId(QString bfOrderId,const BfSendOrderReq& req)
         return;
     }
 
-    tdsm_->sendOrder(0, "",bfOrderId,req);
+    tdsm_->sendOrder(0, bfOrderId, req);
 }
 
 void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
@@ -520,7 +536,7 @@ void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
         return;
     }
 
-    tdsm_->cancelOrder(0, "", req);
+    tdsm_->cancelOrder(0, req);
 }
 
 void CtpMgr::queryOrders()
@@ -531,5 +547,5 @@ void CtpMgr::queryOrders()
         BfInfo("CtpMgr::queryOrders,please login first");
         return;
     }
-    tdsm_->queryOrders(0, "");
+    tdsm_->queryOrders(0);
 }

@@ -3,25 +3,22 @@
 import time
 
 import bftrader_pb2
-import bfrobot_pb2
+import bfproxy_pb2
 import bfgateway_pb2
-import bfdatafeed_pb2
 
 from grpc.beta import implementations
 
 _BF_VOID = bftrader_pb2.BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
-_MT = [("robotid","demo")]
+_MT = [("proxyid","demo")]
     
-class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
+class Proxy(bfproxy_pb2.BetaBfProxyServiceServicer):
     def __init__(self):
-        print "init robot"
+        print "init proxy"
         self.gateway_channel = implementations.insecure_channel('localhost', 50051)
         self.gateway = bfgateway_pb2.beta_create_BfGatewayService_stub(self.gateway_channel)
-        self.datafeed_channel = implementations.insecure_channel('localhost', 50052)
-        self.datafeed = bfdatafeed_pb2.beta_create_BfDatafeedService_stub(self.datafeed_channel)
-        self._service = bfrobot_pb2.beta_create_BfRobotService_server(self)
+        self._service = bfproxy_pb2.beta_create_BfProxyService_server(self)
         self._service.add_insecure_port('[::]:50053')
         
     def start(self):
@@ -30,10 +27,15 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
     def stop(self):
         self._service.stop(0)
         
-    def OnExchangeOpened(self, request, context):
-        print "OnExchangeOpened"
+    def OnTradeWillBegin(self, request, context):
+        print "OnTradeWillBegin"
         return _BF_VOID
         
+    def OnPing(self, request, context):
+        print "OnPing"
+        message = request.message
+        return bftrader_pb2.BfPingData(message=request.message)
+
     def OnTick(self, request, context):
         print "OnTick"
         return _BF_VOID
@@ -42,6 +44,10 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         print "OnError"
         return _BF_VOID
             
+    def OnLog(self, request, context):
+        print "OnLog"
+        return _BF_VOID
+    
     def OnTrade(self, request, context):
         print "OnTrade"
         return _BF_VOID
@@ -58,26 +64,23 @@ class Robot(bfrobot_pb2.BetaBfRobotServiceServicer):
         print "OnAccount"
         return _BF_VOID
     
-    def OnExchangeClosed(self, request, context):
-        print "OnExchangeClosed"
-        return _BF_VOID
-    
 def run():
-    print "start robot"
-    robot = Robot()
-    robot.start()
+    print "start proxy"
+    proxy = Proxy()
+    proxy.start()
 
     print "connect gateway"
-    bfconnectresp = robot.gateway.Connect(bftrader_pb2.BfConnectReq(robotId="demo",robotIp="localhost",robotPort=50053),_TIMEOUT_SECONDS)
-    if bfconnectresp.exchangeOpened:
-        bfvoid = robot.gateway.Subscribe(bftrader_pb2.BfSubscribeReq(symbol="*",exchange="*"),_TIMEOUT_SECONDS,metadata=_MT)
+    bfconnectresp = proxy.gateway.Connect(bftrader_pb2.BfConnectReq(proxyId="demo",proxyIp="localhost",proxyPort=50053),_TIMEOUT_SECONDS)
+    if bfconnectresp.errorCode == 0:
+        bfpingdata = proxy.gateway.Ping(bftrader_pb2.BfPingData(message="ping"),_TIMEOUT_SECONDS,metadata=_MT)
+        print "ping=%s,pong=%s" % ("ping",bfpingdata.message)
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
-        print "stop robot"
-        bfvoid = robot.gateway.Close(_BF_VOID,_TIMEOUT_SECONDS,metadata=_MT)
-        robot.stop()
+        print "stop proxy"
+        bfvoid = proxy.gateway.Close(_BF_VOID,_TIMEOUT_SECONDS,metadata=_MT)
+        proxy.stop()
 
 if __name__ == '__main__':
     run()

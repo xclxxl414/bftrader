@@ -80,7 +80,7 @@ private:
             for (auto id : got_ids_) {
                 ids = ids + id + ";";
             }
-            BfInfo("total sub ids:%d,reqId=%d,%s", got_ids_.length(),nRequestID, ids.toUtf8().constData());
+            BfInfo("total sub ids:%d,reqId=%d,%s", got_ids_.length(), nRequestID, ids.toUtf8().constData());
         }
     }
 
@@ -232,11 +232,11 @@ void MdSm::resetData()
     this->mdspi_->resetData();
 }
 
-void MdSm::login(unsigned int delayTick, QString robotId)
+void MdSm::login(unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcReqUserLoginField req;
         memset(&req, 0, sizeof(req));
         strncpy(req.BrokerID, brokerId_.toStdString().c_str(), sizeof(req.BrokerID) - 1);
@@ -245,7 +245,7 @@ void MdSm::login(unsigned int delayTick, QString robotId)
         int result = mdapi_->ReqUserLogin(&req, reqId);
         BfDebug("CmdMdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId, robotId);
+            emit g_sm->ctpMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -253,17 +253,15 @@ void MdSm::login(unsigned int delayTick, QString robotId)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }
 
 void MdSm::subscrible(QStringList ids,
-    unsigned int delayTick,
-    QString robotId)
+    unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
-    std::function<int(int, QString)> fn = [=](int reqId, QString robotId) -> int {
+    std::function<int(int)> fn = [=](int reqId) -> int {
         (void)reqId;
         QList<std::string> std_ids;
         char** cids = new char*[ids.length()];
@@ -280,6 +278,5 @@ void MdSm::subscrible(QStringList ids,
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    cmd->robotId = robotId;
     g_sm->ctpMgr()->runCmd(cmd);
 }

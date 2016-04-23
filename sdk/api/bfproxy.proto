@@ -3,24 +3,29 @@ syntax = "proto3";
 // option optimize_for = CODE_SIZE;
 option cc_enable_arenas = true;
 
-package bftrader.bfrobot;
+package bftrader.bfproxy;
 
 import "bftrader.proto";
 
 //
-// 机器人服务，实现进程外策略
-// 策略底层由一个robot来驱动，采用单线程实现
-// robot负责和gateway和hisdata通信
+// 代理服务，实现管理和转发用
 //
-service BfRobotService{
-    // 交易所开机/连通通知，这里可以做订阅处理
-    rpc OnExchangeOpened(BfVoid) returns (BfVoid) {}
+service BfProxyService{
+    // 交易所开机/连通通知，可以在这里做收盘处理
+    rpc OnTradeWillBegin(BfVoid) returns (BfVoid) {}
 
+    // 活跃检测
+    // 也可以在这里做收盘处理，如果很长时间没有收到tick
+    rpc OnPing(BfPingData) returns (BfPingData) {}
+    
     // 行情回报
     rpc OnTick(BfTickData) returns (BfVoid) {}
     
-    // 命令/回报错误
+    // 命令/回报错误信息
     rpc OnError(BfErrorData) returns (BfVoid) {}
+
+    // 日志信息
+    rpc OnLog(BfLogData) returns (BfVoid) {}
     
     // 成交回报
     rpc OnTrade(BfTradeData) returns (BfVoid) {}
@@ -33,7 +38,4 @@ service BfRobotService{
     
     // 账号信息回报
     rpc OnAccount(BfAccountData) returns (BfVoid) {}
-        
-    // 交易所关机/断开通知，这里可以做收盘处理
-    rpc OnExchangeClosed(BfVoid) returns (BfVoid) {}
 }

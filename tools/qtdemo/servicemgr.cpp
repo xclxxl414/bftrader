@@ -364,4 +364,3 @@ void BfDebug(QString msg)
 {
     g_sm->logger()->info(msg);
 }
-

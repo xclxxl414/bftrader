@@ -4,7 +4,7 @@ import time
 
 import bftrader_pb2
 import bfgateway_pb2
-import bfrobot_pb2
+import bfproxy_pb2
 
 from grpc.beta import implementations
 
@@ -15,38 +15,26 @@ _TIMEOUT_SECONDS = 1
 class Gateway(bfgateway_pb2.BetaBfGatewayServiceServicer):
     def __init__(self):
         print "init gateway"
-        self.robot_channel = ""
-        self.robot = ""
+        self.proxy_channel = ""
+        self.proxy = ""
         
-    def SetKv(self, request, context):
-        print "SetKv"
-        return _BF_VOID
-        
-    def GetKv(self, request, context):
-        print "GetKv"
-        return _BF_VOID
-        
-    def GetContract(self, request, context):
-        print "GetContract"
-        
-    def GetContractList(self, request, context):
-        print "GetContractList"
-
     def Connect(self, request, context):
         print "Connect"
-        print request.robotId,request.robotIp,request.robotPort
-        self.robot_channel = implementations.insecure_channel(request.robotIp, request.robotPort)
-        self.robot = bfrobot_pb2.beta_create_BfRobotService_stub(self.robot_channel)
+        print request.proxyId,request.proxyIp,request.proxyPort
+        self.proxy_channel = implementations.insecure_channel(request.proxyIp, request.proxyPort)
+        self.proxy = bfproxy_pb2.beta_create_BfProxyService_stub(self.proxy_channel)
+        bfvoid = self.proxy.OnTick(bftrader_pb2.BfTickData(),_TIMEOUT_SECONDS)        
         return bftrader_pb2.BfConnectResp(exchangeOpened = True)
 
-    def Subscribe(self, request, context):
-        print "Subscribe"
-        print request.symbol,request.exchange
+    def Ping(self, request, context):
+        print "Ping"
         mt =  context.invocation_metadata()
         for it in mt:
             print "metadata: %s:%s" % (it[0],it[1])
-        bfvoid = self.robot.OnTick(bftrader_pb2.BfTickData(),_TIMEOUT_SECONDS)        
-        return _BF_VOID
+        print "Ping"
+
+    def GetContract(self, request, context):
+        print "GetContract"
 
     def SendOrder(self, request, context):
         print "SendOrder"
@@ -61,8 +49,8 @@ class Gateway(bfgateway_pb2.BetaBfGatewayServiceServicer):
         print "QueryPosition"
 
     def Close(self, request, context):
-        print "Close"
-    
+        return _BF_VOID
+        
 def run():
     gateway = bfgateway_pb2.beta_create_BfGatewayService_server(Gateway())
     gateway.add_insecure_port('[::]:50051')

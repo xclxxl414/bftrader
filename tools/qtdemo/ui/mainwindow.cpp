@@ -6,11 +6,11 @@
 #include "profile.h"
 #include "runextensions.h"
 #include "servicemgr.h"
+#include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
-#include "tablewidget_helper.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)

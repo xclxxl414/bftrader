@@ -34,27 +34,13 @@ class BfGatewayService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfConnectResp>> AsyncConnect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfConnectResp>>(AsyncConnectRaw(context, request, cq));
     }
-    virtual ::grpc::Status SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncSetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncSetKvRaw(context, request, cq));
-    }
-    virtual ::grpc::Status GetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>> AsyncGetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>>(AsyncGetKvRaw(context, request, cq));
+    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
     virtual ::grpc::Status GetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::bftrader::BfContractData* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfContractData>> AsyncGetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfContractData>>(AsyncGetContractRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfContractData>> GetContractList(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) {
-      return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfContractData>>(GetContractListRaw(context, request));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>> AsyncGetContractList(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>>(AsyncGetContractListRaw(context, request, cq, tag));
-    }
-    virtual ::grpc::Status Subscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncSubscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncSubscribeRaw(context, request, cq));
     }
     virtual ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
@@ -78,12 +64,8 @@ class BfGatewayService GRPC_FINAL {
     }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfConnectResp>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncSetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>* AsyncGetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfContractData>* AsyncGetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderInterface< ::bftrader::BfContractData>* GetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>* AsyncGetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncSubscribeRaw(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncQueryAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
@@ -97,27 +79,13 @@ class BfGatewayService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>> AsyncConnect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>>(AsyncConnectRaw(context, request, cq));
     }
-    ::grpc::Status SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncSetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncSetKvRaw(context, request, cq));
-    }
-    ::grpc::Status GetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>> AsyncGetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>>(AsyncGetKvRaw(context, request, cq));
+    ::grpc::Status Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
     ::grpc::Status GetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::bftrader::BfContractData* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfContractData>> AsyncGetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfContractData>>(AsyncGetContractRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfContractData>> GetContractList(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) {
-      return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfContractData>>(GetContractListRaw(context, request));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfContractData>> AsyncGetContractList(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfContractData>>(AsyncGetContractListRaw(context, request, cq, tag));
-    }
-    ::grpc::Status Subscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncSubscribe(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncSubscribeRaw(context, request, cq));
     }
     ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
@@ -143,23 +111,16 @@ class BfGatewayService GRPC_FINAL {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncSetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* AsyncGetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfContractData>* AsyncGetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientReader< ::bftrader::BfContractData>* GetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncReader< ::bftrader::BfContractData>* AsyncGetContractListRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncSubscribeRaw(::grpc::ClientContext* context, const ::bftrader::BfSubscribeReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncQueryAccountRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncQueryPositionRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncCloseRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Connect_;
-    const ::grpc::RpcMethod rpcmethod_SetKv_;
-    const ::grpc::RpcMethod rpcmethod_GetKv_;
+    const ::grpc::RpcMethod rpcmethod_Ping_;
     const ::grpc::RpcMethod rpcmethod_GetContract_;
-    const ::grpc::RpcMethod rpcmethod_GetContractList_;
-    const ::grpc::RpcMethod rpcmethod_Subscribe_;
     const ::grpc::RpcMethod rpcmethod_SendOrder_;
     const ::grpc::RpcMethod rpcmethod_CancelOrder_;
     const ::grpc::RpcMethod rpcmethod_QueryAccount_;
@@ -173,11 +134,8 @@ class BfGatewayService GRPC_FINAL {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response);
-    virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response);
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response);
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response);
-    virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer);
-    virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response);
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
@@ -205,43 +163,23 @@ class BfGatewayService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_SetKv : public BaseClass {
+  class WithAsyncMethod_Ping : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithAsyncMethod_SetKv() {
+    WithAsyncMethod_Ping() {
       ::grpc::Service::MarkMethodAsync(1);
     }
-    ~WithAsyncMethod_SetKv() GRPC_OVERRIDE {
+    ~WithAsyncMethod_Ping() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSetKv(::grpc::ServerContext* context, ::bftrader::BfKvData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPing(::grpc::ServerContext* context, ::bftrader::BfPingData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfPingData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_GetKv : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_GetKv() {
-      ::grpc::Service::MarkMethodAsync(2);
-    }
-    ~WithAsyncMethod_GetKv() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestGetKv(::grpc::ServerContext* context, ::bftrader::BfKvData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfKvData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -250,7 +188,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_GetContract() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_GetContract() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -261,47 +199,7 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetContract(::grpc::ServerContext* context, ::bftrader::BfGetContractReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfContractData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_GetContractList : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_GetContractList() {
-      ::grpc::Service::MarkMethodAsync(4);
-    }
-    ~WithAsyncMethod_GetContractList() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestGetContractList(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncWriter< ::bftrader::BfContractData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(4, context, request, writer, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_Subscribe : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_Subscribe() {
-      ::grpc::Service::MarkMethodAsync(5);
-    }
-    ~WithAsyncMethod_Subscribe() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestSubscribe(::grpc::ServerContext* context, ::bftrader::BfSubscribeReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -310,7 +208,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_SendOrder() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_SendOrder() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -321,7 +219,7 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSendOrder(::grpc::ServerContext* context, ::bftrader::BfSendOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfSendOrderResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -330,7 +228,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_CancelOrder() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(4);
     }
     ~WithAsyncMethod_CancelOrder() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -341,7 +239,7 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCancelOrder(::grpc::ServerContext* context, ::bftrader::BfCancelOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -350,7 +248,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_QueryAccount() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_QueryAccount() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -361,7 +259,7 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryAccount(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -370,7 +268,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_QueryPosition() {
-      ::grpc::Service::MarkMethodAsync(9);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_QueryPosition() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -381,7 +279,7 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryPosition(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -390,7 +288,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_Close() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_Close() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -401,10 +299,10 @@ class BfGatewayService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestClose(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Connect<WithAsyncMethod_SetKv<WithAsyncMethod_GetKv<WithAsyncMethod_GetContract<WithAsyncMethod_GetContractList<WithAsyncMethod_Subscribe<WithAsyncMethod_SendOrder<WithAsyncMethod_CancelOrder<WithAsyncMethod_QueryAccount<WithAsyncMethod_QueryPosition<WithAsyncMethod_Close<Service > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_Connect<WithAsyncMethod_Ping<WithAsyncMethod_GetContract<WithAsyncMethod_SendOrder<WithAsyncMethod_CancelOrder<WithAsyncMethod_QueryAccount<WithAsyncMethod_QueryPosition<WithAsyncMethod_Close<Service > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_Connect : public BaseClass {
    private:
@@ -423,35 +321,18 @@ class BfGatewayService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_SetKv : public BaseClass {
+  class WithGenericMethod_Ping : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
-    WithGenericMethod_SetKv() {
+    WithGenericMethod_Ping() {
       ::grpc::Service::MarkMethodGeneric(1);
     }
-    ~WithGenericMethod_SetKv() GRPC_OVERRIDE {
+    ~WithGenericMethod_Ping() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_GetKv : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_GetKv() {
-      ::grpc::Service::MarkMethodGeneric(2);
-    }
-    ~WithGenericMethod_GetKv() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -462,7 +343,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_GetContract() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_GetContract() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -474,46 +355,12 @@ class BfGatewayService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_GetContractList : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_GetContractList() {
-      ::grpc::Service::MarkMethodGeneric(4);
-    }
-    ~WithGenericMethod_GetContractList() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_Subscribe : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_Subscribe() {
-      ::grpc::Service::MarkMethodGeneric(5);
-    }
-    ~WithGenericMethod_Subscribe() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_SendOrder : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_SendOrder() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_SendOrder() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -530,7 +377,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_CancelOrder() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(4);
     }
     ~WithGenericMethod_CancelOrder() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -547,7 +394,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_QueryAccount() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_QueryAccount() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -564,7 +411,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_QueryPosition() {
-      ::grpc::Service::MarkMethodGeneric(9);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_QueryPosition() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -581,7 +428,7 @@ class BfGatewayService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_Close() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_Close() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);

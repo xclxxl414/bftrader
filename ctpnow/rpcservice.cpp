@@ -13,25 +13,9 @@ using namespace bftrader::bfgateway;
 
 //
 // Gateway
+// 全广播机制
 //
 
-//
-// 首先实现一个最简单的版本：全广播机制=
-//
-// TODO(hege):实现隔离机制
-// 策略间是完全隔离的，gateway在connect时候分配robot线程
-// robot对象，将robot对象移动到robot线程，并记录<peer,robotobj>
-// map<peer,robotobj> 用于分离rpc命令,servercontext::get_peer
-// map<reqid,robotobj> 用于分离请求的回报
-// map<orderid,robotobj> 用于分离委托推送
-// map<orderref,orderid> 分离撮合平台委托回报比如CTP
-// map<sysid,orderid> 分离交易所委托回报
-// map<tradeid,robotobj> 用于分离成交推送
-// map<symbol,robotobjlist> 用于分离行情推送
-// gateway提供界面添加策略，指定名称/robotid，状态:离线/在线
-// robotid作为主键，将记录持仓 挂单/委托 成交等信息到数据库，便于统计
-// 策略本身也要维护自己的持仓 挂单 委托 成交=
-//
 class Gateway final : public BfGatewayService::Service {
 public:
     Gateway()
@@ -47,60 +31,58 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString peer = context->peer().c_str();
-        QString robotId = request->robotid().c_str();
-        QString robotIp = request->robotip().c_str();
-        qint32 robotPort = request->robotport();
-        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->robotid().c_str(), request->robotip().c_str(), request->robotport());
-        QMetaObject::invokeMethod(g_sm->pushService(), "onRobotConnected", Qt::QueuedConnection, Q_ARG(QString, robotId), Q_ARG(QString, robotIp), Q_ARG(qint32, robotPort));
+        QString proxyId = request->proxyid().c_str();
+        QString proxyIp = request->proxyip().c_str();
+        qint32 proxyPort = request->proxyport();
+        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->proxyid().c_str(), request->proxyip().c_str(), request->proxyport());
+        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyConnect", Qt::QueuedConnection, Q_ARG(QString, proxyId), Q_ARG(QString, proxyIp), Q_ARG(qint32, proxyPort));
 
-        response->set_exchangeopened(true);
+        response->set_errorcode(0);
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
+
+        response->set_message(request->message());
         return grpc::Status::OK;
     }
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString symbol = request->symbol().c_str();
-        void* contract = g_sm->ctpMgr()->getContract(symbol);
-        if (contract) {
-            CtpUtils::translateContract(contract, response);
-        }
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
 
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status GetContractList(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status Subscribe(::grpc::ServerContext* context, const ::bftrader::BfSubscribeReq* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        // metadata-key只能是小写的=
-        if (0 == context->client_metadata().count("robotid")) {
-            BfDebug("no matadata: robotid");
+        int index = request->index();
+        if (index <= 0) {
+            QString symbol = request->symbol().c_str();
+            void* contract = g_sm->ctpMgr()->getContract(symbol);
+            if (contract) {
+                CtpUtils::translateContract(contract, response);
+            }
         } else {
-            auto its = context->client_metadata().equal_range("robotid");
-            auto it = its.first;
-            grpc::string robotId = grpc::string(it->second.begin(), it->second.end());
-            BfDebug("metadata: robotid=%s", robotId.c_str());
+            QStringList ids = request->subscribled() ? g_sm->ctpMgr()->getIds() : g_sm->ctpMgr()->getIdsAll();
+            if (ids.length() > index - 1) {
+                QString symbol = ids.at(index - 1);
+                void* contract = g_sm->ctpMgr()->getContract(symbol);
+                if (contract) {
+                    CtpUtils::translateContract(contract, response);
+                }
+            }
         }
+
         return grpc::Status::OK;
     }
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
 
         QString bfOrderId = g_sm->ctpMgr()->genOrderId();
         response->set_bforderid(bfOrderId.toStdString());
@@ -112,12 +94,18 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
+
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
         return grpc::Status::OK;
@@ -126,13 +114,35 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
+
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString proxyId = getProxyId(context);
+        BfDebug("proxyid=%s", qPrintable(proxyId));
+
+        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, proxyId));
         return grpc::Status::OK;
+    }
+
+private:
+    // metadata-key只能是小写的=
+    QString getProxyId(::grpc::ServerContext* context)
+    {
+        QString proxyId;
+        if (0 != context->client_metadata().count("proxyid")) {
+            auto its = context->client_metadata().equal_range("proxyid");
+            auto it = its.first;
+            proxyId = grpc::string(it->second.begin(), it->second.end()).c_str();
+            BfDebug("metadata: proxyid=%s", proxyId.toStdString().c_str());
+        }
+        return proxyId;
     }
 };
 

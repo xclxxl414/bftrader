@@ -3,25 +3,27 @@ syntax = "proto3";
 // option optimize_for = CODE_SIZE;
 option cc_enable_arenas = true;
 
-package bftrader.bfgateway;
+package bftrader.bfcta;
 
 import "bftrader.proto";
 
 //
 // 网关服务，必须先connect然后才可以调用其他api
-// 本网关实现的是广播服务，用于做远程管理工具/远程策略引擎
-// 不想做远程策略引擎的，可使用内置的Cta引擎
-// 
-service BfGatewayService{    
+//
+service BfCtaService{    
     // 建立连接
     rpc Connect(BfConnectReq) returns (BfConnectResp) {}
     
-    // 活跃检测
-    rpc Ping(BfPingData) returns (BfPingData) {}
-        
-    // 获取交易合约信息
-    rpc GetContract(BfGetContractReq) returns (BfContractData) {}
-       
+    // rpc SetKv(BfKvData) returns (BfVoid){}
+    // rpc GetKv(BfKvData) returns (BfKvData){}
+    
+    // 获取可交易合约信息
+    //rpc GetContract(BfGetContractReq) returns (BfContractData) {}
+    //rpc GetContractList(BfVoid) returns (stream BfContractData) {}
+    
+    // 订阅行情
+    //rpc Subscribe(BfSubscribeReq) returns (BfVoid) {}
+    
     // 发单
     rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}
     
@@ -29,10 +31,10 @@ service BfGatewayService{
     rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
     
     // 查询账户信息
-    rpc QueryAccount(BfVoid) returns (BfVoid) {}
+    //rpc QueryAccount(BfVoid) returns (BfVoid) {}
     
     // 查询持仓信息
-    rpc QueryPosition(BfVoid) returns (BfVoid) {}
+    //rpc QueryPosition(BfVoid) returns (BfVoid) {}
         
     // 关闭连接
     rpc Close(BfVoid) returns (BfVoid) {}
