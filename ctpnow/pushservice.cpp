@@ -13,9 +13,10 @@ using namespace bftrader::bfproxy;
 //
 class ProxyClient {
 public:
-    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString proxyId)
+    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString proxyId, const BfConnectReq& req)
         : stub_(BfProxyService::NewStub(channel))
         , proxyId_(proxyId)
+        , req_(req)
     {
         BfDebug(__FUNCTION__);
     }
@@ -168,11 +169,27 @@ public:
         }
     }
 
+public:
+    bool logHandler() { return req_.loghandler(); }
+    bool tickHandler() { return req_.tickhandler(); }
+    bool tradehandler() { return req_.tradehandler(); }
+    bool subscribled(const std::string& symbol, const std::string& exchange)
+    {
+        if (req_.symbol() == "*") {
+            return true;
+        }
+        if (symbol == req_.symbol()) {
+            return true;
+        }
+        return false;
+    }
+
 private:
     std::unique_ptr<BfProxyService::Stub> stub_;
     int pingfail_count_ = 0;
     const int deadline_ = 100;
     QString proxyId_;
+    BfConnectReq req_;
 };
 
 //
@@ -225,14 +242,15 @@ void PushService::shutdown()
     proxyClients_.clear();
 }
 
-void PushService::onProxyConnect(QString proxyId, QString proxyIp, qint32 proxyPort)
+void PushService::onProxyConnect(const BfConnectReq& req)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString endpoint = QString().sprintf("%s:%d", proxyIp.toStdString().c_str(), proxyPort);
+    QString endpoint = QString().sprintf("%s:%d", req.proxyip().c_str(), req.proxyport());
+    QString proxyId = req.proxyid().c_str();
 
     ProxyClient* proxyClient = new ProxyClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        proxyId);
+        proxyId, req);
 
     proxyClients_[proxyId] = proxyClient;
 }
@@ -255,7 +273,9 @@ void PushService::onGotOrder(const BfOrderData& data)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto proxy : proxyClients_) {
-        proxy->OnOrder(data);
+        if (proxy->tradehandler()) {
+            proxy->OnOrder(data);
+        }
     }
 };
 
@@ -264,7 +284,9 @@ void PushService::onGotTrade(const BfTradeData& data)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto proxy : proxyClients_) {
-        proxy->OnTrade(data);
+        if (proxy->tradehandler()) {
+            proxy->OnTrade(data);
+        }
     }
 }
 
@@ -275,7 +297,9 @@ void PushService::onGotTick(void* curTick, void* preTick)
     BfTickData data;
     CtpUtils::translateTick(curTick, preTick, &data);
     for (auto proxy : proxyClients_) {
-        proxy->OnTick(data);
+        if (proxy->tickHandler() && proxy->subscribled(data.symbol(), data.exchange())) {
+            proxy->OnTick(data);
+        }
     }
 }
 
@@ -294,7 +318,9 @@ void PushService::onGotPosition(const BfPositionData& data)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto proxy : proxyClients_) {
-        proxy->OnPosition(data);
+        if (proxy->tradehandler()) {
+            proxy->OnPosition(data);
+        }
     }
 }
 
@@ -306,7 +332,9 @@ void PushService::onLog(QString when, QString msg)
     data.set_when(when.toStdString());
     data.set_message(msg.toStdString());
     for (auto proxy : proxyClients_) {
-        proxy->OnLog(data);
+        if (proxy->logHandler()) {
+            proxy->OnLog(data);
+        }
     }
 }
 
@@ -315,7 +343,9 @@ void PushService::onGotAccount(const BfAccountData& data)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto proxy : proxyClients_) {
-        proxy->OnAccount(data);
+        if (proxy->tradehandler()) {
+            proxy->OnAccount(data);
+        }
     }
 }
 
@@ -340,6 +370,8 @@ void PushService::onCtpError(int code, QString msg, QString msgEx)
     data.set_errormsg(msg.toStdString());
     data.set_additionalinfo(msgEx.toStdString());
     for (auto proxy : proxyClients_) {
-        proxy->OnError(data);
+        if (proxy->logHandler()) {
+            proxy->OnError(data);
+        }
     }
 }

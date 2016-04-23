@@ -23,8 +23,7 @@ TradeForm::TradeForm(QWidget* parent)
                << "tradeTime"
 
                << "tradeId"
-               << "bfOrderId"
-               << "sysOrderId";
+               << "bfOrderId";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -64,7 +63,6 @@ void TradeForm::onGotTrade(const BfTradeData& trade)
 
     vItem.insert("tradeId", trade.tradeid().c_str());
     vItem.insert("bfOrderId", trade.bforderid().c_str());
-    vItem.insert("sysOrderId", trade.sysorderid().c_str());
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     int row = ui->tableWidget->rowCount();

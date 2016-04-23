@@ -83,8 +83,7 @@ FinishedOrderForm::FinishedOrderForm(QWidget* parent)
                << "insertTime"
                << "cancelTime"
 
-               << "bfOrderId"
-               << "sysOrderId";
+               << "bfOrderId";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -147,7 +146,6 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
         vItem.insert("cancelTime", order.canceltime().c_str());
 
         vItem.insert("bfOrderId", order.bforderid().c_str());
-        vItem.insert("sysOrderId", order.sysorderid().c_str());
 
         //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
         QString id = vItem.value("bfOrderId").toString();

@@ -35,7 +35,7 @@ public:
         QString proxyIp = request->proxyip().c_str();
         qint32 proxyPort = request->proxyport();
         BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->proxyid().c_str(), request->proxyip().c_str(), request->proxyport());
-        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyConnect", Qt::QueuedConnection, Q_ARG(QString, proxyId), Q_ARG(QString, proxyIp), Q_ARG(qint32, proxyPort));
+        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyConnect", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
 
         response->set_errorcode(0);
         return grpc::Status::OK;

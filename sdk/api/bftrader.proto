@@ -83,7 +83,7 @@ message BfTickData{
     int32 askVolume1 = 18;      // 卖量  
 }
 
-// 成交数据类，根据byOrderId或者sysOrderId可以找到Order
+// 成交数据类
 message BfTradeData{
     
     // 代码编号相关
@@ -91,19 +91,18 @@ message BfTradeData{
     string exchange = 2;        // 交易所代码
 
     string tradeId = 3;         // 成交编号
-    // 对于ctp/lts是frontid.sessioni.orderref，因为gateway可能会断线
-    // 保留sysOrderId是为了隐射trade到Order
+    // 对于ctp/lts是frontid.sessioni.orderref
     // ctp/lts的trade里面没有frontid+sessionid
+    // 内部通过sysOrderId是做了映射trade到Order
     string bfOrderId = 4;       // 订单编号,是本地自己分配的
-    string sysOrderId = 5;      // 订单编号
     
     // 成交相关
-    BfDirection direction = 6;  // 成交方向
-    BfOffset offset =  7;       // 成交开平仓
-    double price = 8;           // 成交价格
-    int32 volume = 9;           // 成交数量
-    string tradeDate = 10;      // 成交日期
-    string tradeTime = 11;      // 成交时间
+    BfDirection direction = 5;  // 成交方向
+    BfOffset offset =  6;       // 成交开平仓
+    double price = 7;           // 成交价格
+    int32 volume = 8;           // 成交数量
+    string tradeDate = 9;       // 成交日期
+    string tradeTime = 10;      // 成交时间
 }
 
 // 订单数据类
@@ -114,19 +113,18 @@ message BfOrderData{
     string exchange = 2;        // 交易所代码
     
     string bfOrderId = 3;       // 订单编号,是本地自己分配的
-    string sysOrderId = 4;      // 订单编号
-    
+   
     // 报单相关
-    BfDirection direction = 5;  // 报单方向
-    BfOffset offset = 6;        // 报单开平仓
-    double price = 7;           // 报单价格
-    int32 totalVolume = 8;      // 报单总数量
-    int32 tradedVolume = 9;     // 报单成交数量
-    BfStatus status = 10;       // 报单状态
+    BfDirection direction = 4;  // 报单方向
+    BfOffset offset = 5;        // 报单开平仓
+    double price = 6;           // 报单价格
+    int32 totalVolume = 7;      // 报单总数量
+    int32 tradedVolume = 8;     // 报单成交数量
+    BfStatus status = 9;        // 报单状态
     
-    string insertDate = 11;     // 发单日期
-    string insertTime = 12;     // 发单时间
-    string cancelTime = 13;     // 撤单时间
+    string insertDate = 10;     // 发单日期
+    string insertTime = 11;     // 发单时间
+    string cancelTime = 12;     // 撤单时间
 }
 
 // 持仓数据类
@@ -220,7 +218,7 @@ message BfSendOrderResp{
     string bfOrderId = 1;       // 报单号,是本地自己分配的
 }
 
-// 撤单时传入的对象类,bfOrderId/sysOrderId随便填一个都行=
+// 撤单时传入的对象类
 message BfCancelOrderReq{
 
     // 代码编号相关
@@ -228,15 +226,25 @@ message BfCancelOrderReq{
     string exchange = 2;        // 交易所代码
     
     string bfOrderId = 3;       // 报单号,是本地自己分配的
-    string sysOrderId = 4;      // 报单号
 }
 
 // 连接时传入的对象类
 message BfConnectReq{
-    // Proxy相关
+    // 唯一英文代号
     string proxyId = 1;         // Proxy名,用于日志分析和ui显示
+    
+    // 服务地址和端口
     string proxyIp = 2;         // 机器人服务,"localhost"
-    int32 proxyPort = 3;        // 机器人端口,50053    
+    int32 proxyPort = 3;        // 机器人端口,50053
+
+    // 角色类别，可多选，注意：OnTradeWillBegin OnPing都必须实现
+    bool tickHandler = 4;       // OnTick
+    bool tradeHandler = 5;      // OnAccount OnPosition OnTrade OnOrder 
+    bool logHandler = 6;        // OnError OnLog(可扩展做日志分析)
+    
+    // tickHandler相关
+    string symbol = 7;          // 指定订阅的合约，都填*订阅所有
+    string exchange = 8;        // 合约exchange
 }
 
 // 连接时返回的对象类

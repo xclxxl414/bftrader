@@ -27,6 +27,7 @@ void CtpMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
+    qRegisterMetaType<BfConnectReq>("BfConnectReq");
 
     // gotInstruments
     QObject::connect(this, &CtpMgr::gotInstruments, this, &CtpMgr::onGotInstruments);

@@ -49,6 +49,7 @@ private:
                 orderRef_ = 0;
                 frontId_ = pRspUserLogin->FrontID;
                 sessionId_ = pRspUserLogin->SessionID;
+                sysid2bfid_.clear();
 
                 emit sm()->statusChanged(TDSM_LOGINED);
             }
@@ -206,13 +207,18 @@ private:
         if (!isErrorRsp(pRspInfo, nRequestID) && pOrder) {
             int orderRef = QString(pOrder->OrderRef).toInt();
             QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
+            BfDebug("%s: bfOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId));
+            QString sysOrderId = pOrder->OrderSysID;
+            if (sysOrderId.trimmed().length() != 0) {
+                sysid2bfid_[pOrder->OrderSysID] = bfOrderId;
+                BfDebug("%s: bfOrderId=(%s)<--sysOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId), qPrintable(sysOrderId));
+            }
 
             BfOrderData order;
             // 保存代码和报单号=
             order.set_exchange(pOrder->ExchangeID);
             order.set_symbol(pOrder->InstrumentID);
             order.set_bforderid(bfOrderId.toStdString());
-            order.set_sysorderid(pOrder->OrderSysID);
             order.set_direction(CtpUtils::translateDirection(pOrder->Direction)); //方向=
             order.set_offset(CtpUtils::translateOffset(pOrder->CombOffsetFlag[0])); //开平=
             order.set_status(CtpUtils::translateStatus(pOrder->OrderStatus)); //状态=
@@ -229,7 +235,7 @@ private:
         }
 
         if (bIsLast) {
-            BfDebug(__FUNCTION__);
+            BfDebug("%s: finished", __FUNCTION__);
         }
     }
 
@@ -301,18 +307,20 @@ private:
     // 参考：综合交易平台交易API特别说明.pdf
     virtual void OnRtnOrder(CThostFtdcOrderField* pOrder)
     {
-        BfDebug(__FUNCTION__);
-
         int orderRef = QString(pOrder->OrderRef).toInt();
         QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
-        BfDebug("OnRtnOrder: bfOrderId = %s,sysOrderId=%s", bfOrderId.toStdString().c_str(), pOrder->OrderSysID);
+        QString sysOrderId = pOrder->OrderSysID;
+        BfDebug("%s: bfOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId));
+        if (sysOrderId.trimmed().length() != 0) {
+            sysid2bfid_[pOrder->OrderSysID] = bfOrderId;
+            BfDebug("%s: bfOrderId=(%s)<--sysOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId), qPrintable(sysOrderId));
+        }
 
         BfOrderData order;
         // 保存代码和报单号=
         order.set_exchange(pOrder->ExchangeID);
         order.set_symbol(pOrder->InstrumentID);
         order.set_bforderid(bfOrderId.toStdString());
-        order.set_sysorderid(pOrder->OrderSysID);
         order.set_direction(CtpUtils::translateDirection(pOrder->Direction)); //方向=
         order.set_offset(CtpUtils::translateOffset(pOrder->CombOffsetFlag[0])); //开平=
         order.set_status(CtpUtils::translateStatus(pOrder->OrderStatus)); //状态=
@@ -328,17 +336,26 @@ private:
         emit g_sm->ctpMgr()->gotOrder(order);
     }
 
-    // 成交通知=
+    // 成交通知=成交可以使另外一个session的，这里要做sysid到bforderid的隐射，需要先拿到所有的working order
+    // 比如：挂单->ctp断网->ctp联网->成交=
+    // 重连之后，要重新查一下order，也可以重建隐射=
     virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
     {
-        BfDebug(__FUNCTION__);
+        QString sysOrderId = pTrade->OrderSysID;
+        BfDebug("%s: sysOrderId=(%s)", __FUNCTION__, qPrintable(sysOrderId));
+        if (!sysid2bfid_.contains(sysOrderId)) {
+            BfInfo("%s: can not find order,so ignore the trade,tradeId=(%s),sysOrderId=(%s)", __FUNCTION__, pTrade->TradeID, qPrintable(sysOrderId));
+            return;
+        }
+        QString bfOrderId = sysid2bfid_[sysOrderId];
+        BfDebug("%s: bfOrderId=(%s)<--sysOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId), qPrintable(sysOrderId));
 
         BfTradeData trade;
 
         // 保存代码和报单号=
         trade.set_exchange(pTrade->ExchangeID);
         trade.set_symbol(pTrade->InstrumentID);
-        trade.set_sysorderid(pTrade->OrderSysID); //这里没有bfOrderId
+        trade.set_bforderid(bfOrderId.toStdString());
         trade.set_tradeid(pTrade->TradeID);
         trade.set_direction(CtpUtils::translateDirection(pTrade->Direction)); //方向=
         trade.set_offset(CtpUtils::translateOffset(pTrade->OffsetFlag)); //开平=
@@ -357,7 +374,7 @@ private:
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
             BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
-            emit g_sm->ctpMgr()->gotCtpError(pRspInfo->ErrorID,gbk2utf16(pRspInfo->ErrorMsg),QString().sprintf("reqId=%d",reqId));
+            emit g_sm->ctpMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
             return true;
         }
         return false;
@@ -395,6 +412,7 @@ private:
     std::atomic_int32_t orderRef_ = 0;
     int frontId_ = 0;
     int sessionId_ = 0;
+    QMap<QString, QString> sysid2bfid_;
 
     friend TdSm;
 };

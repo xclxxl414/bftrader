@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-    void onProxyConnect(QString proxyId, QString proxyIp, qint32 proxyPort);
+    void onProxyConnect(const BfConnectReq& req);
     void onProxyClose(QString proxyId);
 
     void onTradeWillBegin();
