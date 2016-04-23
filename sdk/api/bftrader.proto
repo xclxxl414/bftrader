@@ -47,34 +47,12 @@ enum BfPriceType{
     PRICETYPE_MARKETPRICE = 2;  // 市价
 }
 
-// Bar周期类型
-enum BfPeriod{
-    PERIOD_UNKNOWN = 0;         // 未知
-    PERIOD_S1 = 1;              // 1秒
-    PERIOD_S3 = 2;              // 3秒
-    PERIOD_S5 = 3;              // 5秒
-    PERIOD_S15 = 4;             // 15秒
-    PERIOD_S30 = 5;             // 30秒
-    PERIOD_M1 = 6;              // 1分钟
-    PERIOD_M3 = 7;              // 3分钟
-    PERIOD_M5 = 8;              // 5分钟
-    PERIOD_M15 = 9;             // 15分钟
-    PERIOD_M30 = 10;            // 30分钟
-    PERIOD_H1 = 11;             // 1小时
-    PERIOD_H2 = 12;             // 2小时
-    PERIOD_H4 = 13;             // 4小时
-    PERIOD_D1 = 14;             // 1天
-    PERIOD_W1 = 15;             // 1周
-}
-
 //============================
 
 // 空参数
 message BfVoid{
 }
-
-//============================
-    
+  
 // Tick行情数据类
 message BfTickData{
 
@@ -103,30 +81,6 @@ message BfTickData{
     double askPrice1 = 16;      // 卖价
     int32 bidVolume1 = 17;      // 买量
     int32 askVolume1 = 18;      // 卖量  
-}
-
-// Bar行情数据类
-message BfBarData{
-
-    // 代码相关
-    string symbol = 1;          // 合约代码
-    string exchange = 2;        // 交易所代码
-
-    // 周期   
-    BfPeriod period = 3;       
-    
-    // 成交数据
-    string date = 4;            // 日期 20151009
-    string time = 5;            // 时间 11:20:56
-    int32 volume = 6;           // 今天总成交量
-    double openInterest = 7;    // 持仓量
-    int32 lastVolume = 8;       // 本bar成交量，本笔增减
-    
-    // OHLC
-    double openPrice = 9;       // 开盘价
-    double highPrice = 10;      // 最高价
-    double lowPrice = 11;       // 最低价
-    double closePrice = 12;     // 收盘价 
 }
 
 // 成交数据类，根据byOrderId或者sysOrderId可以找到Order
@@ -209,7 +163,7 @@ message BfAccountData{
 // 错误数据类
 message BfErrorData{
 
-    string errorId = 1;         // 错误代码
+    int32 errorId = 1;          // 错误代码
     string errorMsg = 2;        // 错误信息
     string additionalInfo = 3;  // 补充信息
 }

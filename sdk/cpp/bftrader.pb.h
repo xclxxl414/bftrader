@@ -38,7 +38,6 @@ void protobuf_AssignDesc_bftrader_2eproto();
 void protobuf_ShutdownFile_bftrader_2eproto();
 
 class BfAccountData;
-class BfBarData;
 class BfCancelOrderReq;
 class BfConnectReq;
 class BfConnectResp;
@@ -170,41 +169,6 @@ inline bool BfPriceType_Parse(
     const ::std::string& name, BfPriceType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<BfPriceType>(
     BfPriceType_descriptor(), name, value);
-}
-enum BfPeriod {
-  PERIOD_UNKNOWN = 0,
-  PERIOD_S1 = 1,
-  PERIOD_S3 = 2,
-  PERIOD_S5 = 3,
-  PERIOD_S15 = 4,
-  PERIOD_S30 = 5,
-  PERIOD_M1 = 6,
-  PERIOD_M3 = 7,
-  PERIOD_M5 = 8,
-  PERIOD_M15 = 9,
-  PERIOD_M30 = 10,
-  PERIOD_H1 = 11,
-  PERIOD_H2 = 12,
-  PERIOD_H4 = 13,
-  PERIOD_D1 = 14,
-  PERIOD_W1 = 15,
-  BfPeriod_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  BfPeriod_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool BfPeriod_IsValid(int value);
-const BfPeriod BfPeriod_MIN = PERIOD_UNKNOWN;
-const BfPeriod BfPeriod_MAX = PERIOD_W1;
-const int BfPeriod_ARRAYSIZE = BfPeriod_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* BfPeriod_descriptor();
-inline const ::std::string& BfPeriod_Name(BfPeriod value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    BfPeriod_descriptor(), value);
-}
-inline bool BfPeriod_Parse(
-    const ::std::string& name, BfPeriod* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<BfPeriod>(
-    BfPeriod_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -531,206 +495,6 @@ class BfTickData : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfTickData* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class BfBarData : public ::google::protobuf::Message {
- public:
-  BfBarData();
-  virtual ~BfBarData();
-
-  BfBarData(const BfBarData& from);
-
-  inline BfBarData& operator=(const BfBarData& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
-  inline void* GetMaybeArenaPointer() const {
-    return MaybeArenaPtr();
-  }
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BfBarData& default_instance();
-
-  void UnsafeArenaSwap(BfBarData* other);
-  void Swap(BfBarData* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BfBarData* New() const { return New(NULL); }
-
-  BfBarData* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfBarData& from);
-  void MergeFrom(const BfBarData& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BfBarData* other);
-  protected:
-  explicit BfBarData(::google::protobuf::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string symbol = 1;
-  void clear_symbol();
-  static const int kSymbolFieldNumber = 1;
-  const ::std::string& symbol() const;
-  void set_symbol(const ::std::string& value);
-  void set_symbol(const char* value);
-  void set_symbol(const char* value, size_t size);
-  ::std::string* mutable_symbol();
-  ::std::string* release_symbol();
-  void set_allocated_symbol(::std::string* symbol);
-  ::std::string* unsafe_arena_release_symbol();
-  void unsafe_arena_set_allocated_symbol(
-      ::std::string* symbol);
-
-  // optional string exchange = 2;
-  void clear_exchange();
-  static const int kExchangeFieldNumber = 2;
-  const ::std::string& exchange() const;
-  void set_exchange(const ::std::string& value);
-  void set_exchange(const char* value);
-  void set_exchange(const char* value, size_t size);
-  ::std::string* mutable_exchange();
-  ::std::string* release_exchange();
-  void set_allocated_exchange(::std::string* exchange);
-  ::std::string* unsafe_arena_release_exchange();
-  void unsafe_arena_set_allocated_exchange(
-      ::std::string* exchange);
-
-  // optional .bftrader.BfPeriod period = 3;
-  void clear_period();
-  static const int kPeriodFieldNumber = 3;
-  ::bftrader::BfPeriod period() const;
-  void set_period(::bftrader::BfPeriod value);
-
-  // optional string date = 4;
-  void clear_date();
-  static const int kDateFieldNumber = 4;
-  const ::std::string& date() const;
-  void set_date(const ::std::string& value);
-  void set_date(const char* value);
-  void set_date(const char* value, size_t size);
-  ::std::string* mutable_date();
-  ::std::string* release_date();
-  void set_allocated_date(::std::string* date);
-  ::std::string* unsafe_arena_release_date();
-  void unsafe_arena_set_allocated_date(
-      ::std::string* date);
-
-  // optional string time = 5;
-  void clear_time();
-  static const int kTimeFieldNumber = 5;
-  const ::std::string& time() const;
-  void set_time(const ::std::string& value);
-  void set_time(const char* value);
-  void set_time(const char* value, size_t size);
-  ::std::string* mutable_time();
-  ::std::string* release_time();
-  void set_allocated_time(::std::string* time);
-  ::std::string* unsafe_arena_release_time();
-  void unsafe_arena_set_allocated_time(
-      ::std::string* time);
-
-  // optional int32 volume = 6;
-  void clear_volume();
-  static const int kVolumeFieldNumber = 6;
-  ::google::protobuf::int32 volume() const;
-  void set_volume(::google::protobuf::int32 value);
-
-  // optional double openInterest = 7;
-  void clear_openinterest();
-  static const int kOpenInterestFieldNumber = 7;
-  double openinterest() const;
-  void set_openinterest(double value);
-
-  // optional int32 lastVolume = 8;
-  void clear_lastvolume();
-  static const int kLastVolumeFieldNumber = 8;
-  ::google::protobuf::int32 lastvolume() const;
-  void set_lastvolume(::google::protobuf::int32 value);
-
-  // optional double openPrice = 9;
-  void clear_openprice();
-  static const int kOpenPriceFieldNumber = 9;
-  double openprice() const;
-  void set_openprice(double value);
-
-  // optional double highPrice = 10;
-  void clear_highprice();
-  static const int kHighPriceFieldNumber = 10;
-  double highprice() const;
-  void set_highprice(double value);
-
-  // optional double lowPrice = 11;
-  void clear_lowprice();
-  static const int kLowPriceFieldNumber = 11;
-  double lowprice() const;
-  void set_lowprice(double value);
-
-  // optional double closePrice = 12;
-  void clear_closeprice();
-  static const int kClosePriceFieldNumber = 12;
-  double closeprice() const;
-  void set_closeprice(double value);
-
-  // @@protoc_insertion_point(class_scope:bftrader.BfBarData)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  friend class ::google::protobuf::Arena;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr symbol_;
-  ::google::protobuf::internal::ArenaStringPtr exchange_;
-  ::google::protobuf::internal::ArenaStringPtr date_;
-  int period_;
-  ::google::protobuf::int32 volume_;
-  ::google::protobuf::internal::ArenaStringPtr time_;
-  double openinterest_;
-  double openprice_;
-  double highprice_;
-  double lowprice_;
-  double closeprice_;
-  ::google::protobuf::int32 lastvolume_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_bftrader_2eproto();
-  friend void protobuf_AssignDesc_bftrader_2eproto();
-  friend void protobuf_ShutdownFile_bftrader_2eproto();
-
-  void InitAsDefaultInstance();
-  static BfBarData* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1545,19 +1309,11 @@ class BfErrorData : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string errorId = 1;
+  // optional int32 errorId = 1;
   void clear_errorid();
   static const int kErrorIdFieldNumber = 1;
-  const ::std::string& errorid() const;
-  void set_errorid(const ::std::string& value);
-  void set_errorid(const char* value);
-  void set_errorid(const char* value, size_t size);
-  ::std::string* mutable_errorid();
-  ::std::string* release_errorid();
-  void set_allocated_errorid(::std::string* errorid);
-  ::std::string* unsafe_arena_release_errorid();
-  void unsafe_arena_set_allocated_errorid(
-      ::std::string* errorid);
+  ::google::protobuf::int32 errorid() const;
+  void set_errorid(::google::protobuf::int32 value);
 
   // optional string errorMsg = 2;
   void clear_errormsg();
@@ -1595,9 +1351,9 @@ class BfErrorData : public ::google::protobuf::Message {
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr errorid_;
   ::google::protobuf::internal::ArenaStringPtr errormsg_;
   ::google::protobuf::internal::ArenaStringPtr additionalinfo_;
+  ::google::protobuf::int32 errorid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bftrader_2eproto();
   friend void protobuf_AssignDesc_bftrader_2eproto();
@@ -3324,378 +3080,6 @@ inline void BfTickData::set_askvolume1(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// BfBarData
-
-// optional string symbol = 1;
-inline void BfBarData::clear_symbol() {
-  symbol_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfBarData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.symbol)
-  return symbol_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfBarData::set_symbol(const ::std::string& value) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.symbol)
-}
-inline void BfBarData::set_symbol(const char* value) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfBarData.symbol)
-}
-inline void BfBarData::set_symbol(const char* value,
-    size_t size) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfBarData.symbol)
-}
-inline ::std::string* BfBarData::mutable_symbol() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfBarData.symbol)
-  return symbol_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::release_symbol() {
-  
-  return symbol_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::unsafe_arena_release_symbol() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return symbol_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfBarData::set_allocated_symbol(::std::string* symbol) {
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.symbol)
-}
-inline void BfBarData::unsafe_arena_set_allocated_symbol(
-    ::std::string* symbol) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      symbol, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.symbol)
-}
-
-// optional string exchange = 2;
-inline void BfBarData::clear_exchange() {
-  exchange_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfBarData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.exchange)
-  return exchange_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfBarData::set_exchange(const ::std::string& value) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.exchange)
-}
-inline void BfBarData::set_exchange(const char* value) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfBarData.exchange)
-}
-inline void BfBarData::set_exchange(const char* value,
-    size_t size) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfBarData.exchange)
-}
-inline ::std::string* BfBarData::mutable_exchange() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfBarData.exchange)
-  return exchange_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::release_exchange() {
-  
-  return exchange_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::unsafe_arena_release_exchange() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return exchange_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfBarData::set_allocated_exchange(::std::string* exchange) {
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.exchange)
-}
-inline void BfBarData::unsafe_arena_set_allocated_exchange(
-    ::std::string* exchange) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      exchange, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.exchange)
-}
-
-// optional .bftrader.BfPeriod period = 3;
-inline void BfBarData::clear_period() {
-  period_ = 0;
-}
-inline ::bftrader::BfPeriod BfBarData::period() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.period)
-  return static_cast< ::bftrader::BfPeriod >(period_);
-}
-inline void BfBarData::set_period(::bftrader::BfPeriod value) {
-  
-  period_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.period)
-}
-
-// optional string date = 4;
-inline void BfBarData::clear_date() {
-  date_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfBarData::date() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.date)
-  return date_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfBarData::set_date(const ::std::string& value) {
-  
-  date_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.date)
-}
-inline void BfBarData::set_date(const char* value) {
-  
-  date_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfBarData.date)
-}
-inline void BfBarData::set_date(const char* value,
-    size_t size) {
-  
-  date_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfBarData.date)
-}
-inline ::std::string* BfBarData::mutable_date() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfBarData.date)
-  return date_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::release_date() {
-  
-  return date_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::unsafe_arena_release_date() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return date_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfBarData::set_allocated_date(::std::string* date) {
-  if (date != NULL) {
-    
-  } else {
-    
-  }
-  date_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), date,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.date)
-}
-inline void BfBarData::unsafe_arena_set_allocated_date(
-    ::std::string* date) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (date != NULL) {
-    
-  } else {
-    
-  }
-  date_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      date, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.date)
-}
-
-// optional string time = 5;
-inline void BfBarData::clear_time() {
-  time_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfBarData::time() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.time)
-  return time_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfBarData::set_time(const ::std::string& value) {
-  
-  time_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.time)
-}
-inline void BfBarData::set_time(const char* value) {
-  
-  time_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfBarData.time)
-}
-inline void BfBarData::set_time(const char* value,
-    size_t size) {
-  
-  time_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfBarData.time)
-}
-inline ::std::string* BfBarData::mutable_time() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfBarData.time)
-  return time_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::release_time() {
-  
-  return time_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfBarData::unsafe_arena_release_time() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return time_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfBarData::set_allocated_time(::std::string* time) {
-  if (time != NULL) {
-    
-  } else {
-    
-  }
-  time_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), time,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.time)
-}
-inline void BfBarData::unsafe_arena_set_allocated_time(
-    ::std::string* time) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (time != NULL) {
-    
-  } else {
-    
-  }
-  time_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      time, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfBarData.time)
-}
-
-// optional int32 volume = 6;
-inline void BfBarData::clear_volume() {
-  volume_ = 0;
-}
-inline ::google::protobuf::int32 BfBarData::volume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.volume)
-  return volume_;
-}
-inline void BfBarData::set_volume(::google::protobuf::int32 value) {
-  
-  volume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.volume)
-}
-
-// optional double openInterest = 7;
-inline void BfBarData::clear_openinterest() {
-  openinterest_ = 0;
-}
-inline double BfBarData::openinterest() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.openInterest)
-  return openinterest_;
-}
-inline void BfBarData::set_openinterest(double value) {
-  
-  openinterest_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.openInterest)
-}
-
-// optional int32 lastVolume = 8;
-inline void BfBarData::clear_lastvolume() {
-  lastvolume_ = 0;
-}
-inline ::google::protobuf::int32 BfBarData::lastvolume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.lastVolume)
-  return lastvolume_;
-}
-inline void BfBarData::set_lastvolume(::google::protobuf::int32 value) {
-  
-  lastvolume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.lastVolume)
-}
-
-// optional double openPrice = 9;
-inline void BfBarData::clear_openprice() {
-  openprice_ = 0;
-}
-inline double BfBarData::openprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.openPrice)
-  return openprice_;
-}
-inline void BfBarData::set_openprice(double value) {
-  
-  openprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.openPrice)
-}
-
-// optional double highPrice = 10;
-inline void BfBarData::clear_highprice() {
-  highprice_ = 0;
-}
-inline double BfBarData::highprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.highPrice)
-  return highprice_;
-}
-inline void BfBarData::set_highprice(double value) {
-  
-  highprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.highPrice)
-}
-
-// optional double lowPrice = 11;
-inline void BfBarData::clear_lowprice() {
-  lowprice_ = 0;
-}
-inline double BfBarData::lowprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.lowPrice)
-  return lowprice_;
-}
-inline void BfBarData::set_lowprice(double value) {
-  
-  lowprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.lowPrice)
-}
-
-// optional double closePrice = 12;
-inline void BfBarData::clear_closeprice() {
-  closeprice_ = 0;
-}
-inline double BfBarData::closeprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfBarData.closePrice)
-  return closeprice_;
-}
-inline void BfBarData::set_closeprice(double value) {
-  
-  closeprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfBarData.closePrice)
-}
-
-// -------------------------------------------------------------------
-
 // BfTradeData
 
 // optional string symbol = 1;
@@ -5110,68 +4494,18 @@ inline void BfAccountData::set_positionprofit(double value) {
 
 // BfErrorData
 
-// optional string errorId = 1;
+// optional int32 errorId = 1;
 inline void BfErrorData::clear_errorid() {
-  errorid_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
+  errorid_ = 0;
 }
-inline const ::std::string& BfErrorData::errorid() const {
+inline ::google::protobuf::int32 BfErrorData::errorid() const {
   // @@protoc_insertion_point(field_get:bftrader.BfErrorData.errorId)
-  return errorid_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return errorid_;
 }
-inline void BfErrorData::set_errorid(const ::std::string& value) {
+inline void BfErrorData::set_errorid(::google::protobuf::int32 value) {
   
-  errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
+  errorid_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfErrorData.errorId)
-}
-inline void BfErrorData::set_errorid(const char* value) {
-  
-  errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.errorId)
-}
-inline void BfErrorData::set_errorid(const char* value,
-    size_t size) {
-  
-  errorid_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.errorId)
-}
-inline ::std::string* BfErrorData::mutable_errorid() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.errorId)
-  return errorid_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfErrorData::release_errorid() {
-  
-  return errorid_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfErrorData::unsafe_arena_release_errorid() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return errorid_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfErrorData::set_allocated_errorid(::std::string* errorid) {
-  if (errorid != NULL) {
-    
-  } else {
-    
-  }
-  errorid_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), errorid,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorId)
-}
-inline void BfErrorData::unsafe_arena_set_allocated_errorid(
-    ::std::string* errorid) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (errorid != NULL) {
-    
-  } else {
-    
-  }
-  errorid_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      errorid, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorId)
 }
 
 // optional string errorMsg = 2;
@@ -6879,8 +6213,6 @@ inline void BfPingData::unsafe_arena_set_allocated_message(
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -6914,11 +6246,6 @@ template <> struct is_proto_enum< ::bftrader::BfPriceType> : ::google::protobuf:
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::bftrader::BfPriceType>() {
   return ::bftrader::BfPriceType_descriptor();
-}
-template <> struct is_proto_enum< ::bftrader::BfPeriod> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::bftrader::BfPeriod>() {
-  return ::bftrader::BfPeriod_descriptor();
 }
 
 }  // namespace protobuf

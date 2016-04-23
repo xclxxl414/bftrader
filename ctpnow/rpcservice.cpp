@@ -42,11 +42,7 @@ public:
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
         QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
-
         response->set_message(request->message());
         return grpc::Status::OK;
     }
@@ -165,6 +161,8 @@ void RpcService::shutdown()
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
+
+    stop();
 }
 
 void RpcService::start()
