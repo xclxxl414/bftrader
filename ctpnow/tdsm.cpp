@@ -86,7 +86,7 @@ private:
         QString prefix;
         if (!idPrefixList_.length()) {
             QString prefixlist = sm()->idPrefixList_;
-            idPrefixList_ = prefixlist.split(";");
+            idPrefixList_ = prefixlist.split(";",QString::SkipEmptyParts);
         }
         if (!isErrorRsp(pRspInfo, nRequestID) && pInstrument) {
             id = pInstrument->InstrumentID;
