@@ -7,6 +7,7 @@
 #include "debug_utils.h"
 #include "finishedorderform.h"
 #include "infoform.h"
+#include "errorform.h"
 #include "debugform.h"
 #include "logger.h"
 #include "logindialog.h"
@@ -44,6 +45,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     // tabs
     infoForm_ = new InfoForm(this);
+    errorForm_ = new ErrorForm(this);
     debugForm_ = new DebugForm(this);
     contractForm_ = new ContractForm(this);
     positionForm_ = new PositionForm(this);
@@ -54,7 +56,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(infoForm_, "info"); //todo(hege):error?
+    ui->tabWidgetLog->addTab(infoForm_, "info");
+    ui->tabWidgetLog->addTab(errorForm_,"error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
@@ -77,6 +80,7 @@ void MainWindow::init()
 {
     // sub window
     infoForm_->init();
+    errorForm_->init();
     debugForm_->init();
     contractForm_->init();
     tickForm_->init();
@@ -94,6 +98,7 @@ void MainWindow::shutdown()
 {
     // sub window
     infoForm_->shutdown();
+    errorForm_->shutdown();
     debugForm_->shutdown();
     contractForm_->shutdown();
     tickForm_->shutdown();
@@ -111,7 +116,9 @@ void MainWindow::onTradeWillBegin()
 
 void MainWindow::on_actionVersion_triggered()
 {
-    BfInfo(QString("application's buildtime: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionQuit_triggered()

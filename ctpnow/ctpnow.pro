@@ -26,6 +26,7 @@ SOURCES += main.cpp\
     ui/configdialog.cpp \
     ui/logindialog.cpp \
     ui/infoform.cpp \
+    ui/errorform.cpp \
     ui/debugform.cpp \
     ui/positionform.cpp \
     ui/contractform.cpp \
@@ -49,6 +50,7 @@ HEADERS  += ui/mainwindow.h \
     ui/logindialog.h \
     ringbuffer.h \
     ui/infoform.h \
+    ui/errorform.h \
     ui/debugform.h \
     ui/positionform.h \
     ui/contractform.h \
@@ -64,6 +66,7 @@ FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
     ui/logindialog.ui \
     ui/infoform.ui \
+    ui/errorform.ui \
     ui/debugform.ui \
     ui/positionform.ui \
     ui/contractform.ui \

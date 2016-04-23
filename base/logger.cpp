@@ -148,6 +148,21 @@ void Logger::shutdown()
     log_.close();
 }
 
+void Logger::error(QString msg)
+{
+    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
+    QString logToFile = when + QStringLiteral("<error>") + msg + QStringLiteral("\n");
+
+    // write to file
+    mutex_.lock();
+    log_.write(logToFile.toUtf8().constData());
+    log_.flush();
+    mutex_.unlock();
+
+    // dispatch...
+    emit gotError(when, msg);
+}
+
 void Logger::info(QString msg)
 {
     QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");

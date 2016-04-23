@@ -136,6 +136,9 @@ message BfTradeData{
     string exchange = 2;        // 交易所代码
 
     string tradeId = 3;         // 成交编号
+    // 对于ctp/lts是frontid.sessioni.orderref，因为gateway可能会断线
+    // 保留sysOrderId是为了隐射trade到Order
+    // ctp/lts的trade里面没有frontid+sessionid
     string bfOrderId = 4;       // 订单编号,是本地自己分配的
     string sysOrderId = 5;      // 订单编号
     

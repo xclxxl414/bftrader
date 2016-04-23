@@ -30,14 +30,15 @@ InfoForm::~InfoForm()
 void InfoForm::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &InfoForm::onInfo);
+    QObject::connect(g_sm->logger(), &Logger::gotError, this, &InfoForm::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &InfoForm::onLog);
 }
 
 void InfoForm::shutdown()
 {
 }
 
-void InfoForm::onInfo(QString when, QString msg)
+void InfoForm::onLog(QString when, QString msg)
 {
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);

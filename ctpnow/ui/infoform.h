@@ -17,7 +17,7 @@ public:
     void shutdown();
 
 public slots:
-    void onInfo(QString when, QString msg);
+    void onLog(QString when, QString msg);
 
 private:
     Ui::InfoForm* ui;

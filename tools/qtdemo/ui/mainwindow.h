@@ -23,7 +23,7 @@ public:
     void shutdown();
 
 public slots:
-    void onInfo(QString when, QString msg);
+    void onLog(QString when, QString msg);
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -65,6 +65,8 @@ private:
     QSystemTrayIcon* trayIcon;
     QMenu* trayIconMenu;
     QIcon icon_;
+
+    QStringList table_col_;
 };
 
 #endif // MAINWINDOW_H

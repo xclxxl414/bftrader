@@ -10,6 +10,7 @@
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
+#include "tablewidget_helper.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -24,6 +25,17 @@ MainWindow::MainWindow(QWidget* parent)
     //设置trayicon
     this->createActions();
     this->createTrayIcon();
+
+    //设置列=
+    table_col_ << "when"
+               << "message";
+    this->ui->tableWidget->setColumnCount(table_col_.length());
+    for (int i = 0; i < table_col_.length(); i++) {
+        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
+    }
+
+    // 调整参数=
+    bfAdjustTableWidget(ui->tableWidget);
 }
 
 MainWindow::~MainWindow()
@@ -34,25 +46,36 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onInfo);
-    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onInfo);
+    QObject::connect(g_sm->logger(), &Logger::gotError, this, &MainWindow::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onLog);
 }
 
 void MainWindow::shutdown()
 {
 }
 
-void MainWindow::onInfo(QString when, QString msg)
+void MainWindow::onLog(QString when, QString msg)
 {
-    QString log = when + QStringLiteral("==>") + msg + QStringLiteral("\n");
-    ui->listWidget->addItem(log);
-    //滚动到最后一行=
-    ui->listWidget->setCurrentRow(ui->listWidget->count() - 1);
+    int row = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(row);
+
+    QTableWidgetItem* item = nullptr;
+
+    item = new QTableWidgetItem(when);
+    ui->tableWidget->setItem(row, 0, item);
+
+    item = new QTableWidgetItem(msg);
+    ui->tableWidget->setItem(row, 1, item);
+
+    ui->tableWidget->scrollToBottom();
 }
 
 void MainWindow::on_actionVersion_triggered()
 {
-    BfInfo(QString("app version: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfError(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfDebug(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionQuit_triggered()

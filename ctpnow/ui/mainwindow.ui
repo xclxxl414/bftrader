@@ -79,9 +79,9 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuSystem">
+   <widget class="QMenu" name="menuCtp">
     <property name="title">
-     <string>system</string>
+     <string>ctp</string>
     </property>
     <addaction name="actionConfig"/>
     <addaction name="separator"/>
@@ -98,7 +98,7 @@
      <property name="title">
       <string>developer tools</string>
      </property>
-     <widget class="QMenu" name="menuCtp">
+     <widget class="QMenu" name="menuCtpTest">
       <property name="title">
        <string>ctp</string>
       </property>
@@ -139,7 +139,7 @@
       <addaction name="actionRpcStart"/>
       <addaction name="actionRpcStop"/>
      </widget>
-     <addaction name="menuCtp"/>
+     <addaction name="menuCtpTest"/>
      <addaction name="menuThread"/>
      <addaction name="menuDb"/>
      <addaction name="menuCrash"/>
@@ -148,7 +148,7 @@
     <addaction name="actionVersion"/>
     <addaction name="menuDeveloperTools"/>
    </widget>
-   <addaction name="menuSystem"/>
+   <addaction name="menuCtp"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

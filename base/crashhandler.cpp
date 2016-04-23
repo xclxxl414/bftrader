@@ -335,7 +335,7 @@ void CrashHandler::setReporter(const QString& reporter, const QString& params)
 
     Q_ASSERT(QDir::isAbsolutePath(rep));
 
-    Q_ASSERT(QDir().exists(rep));
+    //Q_ASSERT(QDir().exists(rep));
 
     rep += params;
 

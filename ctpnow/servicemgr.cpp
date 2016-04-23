@@ -320,6 +320,16 @@ void ServiceMgr::checkCurrentOn(ThreadType p)
 
 //////////////////////
 
+void BfError(const char* msg, ...)
+{
+    va_list ap;
+    va_start(ap, msg);
+    QString buf = QString::vasprintf(msg, ap);
+    va_end(ap);
+
+    g_sm->logger()->error(buf);
+}
+
 void BfInfo(const char* msg, ...)
 {
     va_list ap;
@@ -338,6 +348,11 @@ void BfDebug(const char* msg, ...)
     va_end(ap);
 
     g_sm->logger()->debug(buf);
+}
+
+void BfError(QString msg)
+{
+    g_sm->logger()->error(msg);
 }
 
 void BfInfo(QString msg)

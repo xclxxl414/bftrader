@@ -446,7 +446,7 @@ void CtpMgr::onRunCmdInterval()
     // 流控了就一秒后重试=
     if (cmd->fn(++reqId_, cmd->robotId) == -3) {
         cmd->expires = curTick + 1000;
-        BfDebug("sendcmd toofast,reqId=%d", reqId_);
+        BfError("sendcmd toofast,reqId=%d", reqId_);
         return;
     }
 
@@ -462,7 +462,7 @@ void CtpMgr::runCmd(CtpCmd* cmd)
     if (cmd->delayTick == 0) {
         int result = cmd->fn(++reqId_, cmd->robotId);
         if (result == -3) {
-            BfDebug("sendcmd toofast,reqId=%d", reqId_);
+            BfError("sendcmd toofast,reqId=%d", reqId_);
             cmd->expires = ::GetTickCount() + 1000;
             cmds_.append(cmd);
         } else {

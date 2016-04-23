@@ -58,7 +58,7 @@ private:
         bool bIsLast) override
     {
         if (bIsLast) {
-            BfInfo(__FUNCTION__);
+            BfError(__FUNCTION__);
             isErrorRsp(pRspInfo, nRequestID);
         }
     }
@@ -107,7 +107,7 @@ private:
     bool isErrorRsp(CThostFtdcRspInfoField* pRspInfo, int reqId)
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
-            BfInfo("<==error，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
+            BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
                 gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
             return true;
         }

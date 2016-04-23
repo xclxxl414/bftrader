@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
-    dbservice.cpp
+    dbservice.cpp \
+    ui/tablewidget_helper.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -26,7 +27,8 @@ HEADERS  += ui/mainwindow.h \
     ctpmgr.h \
     pushservice.h \
     rpcservice.h \
-    dbservice.h
+    dbservice.h \
+    ui/tablewidget_helper.h
 
 FORMS    += ui/mainwindow.ui
 

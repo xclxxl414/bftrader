@@ -76,9 +76,11 @@ private:
 
 extern ServiceMgr* g_sm;
 
+void BfError(const char* msg, ...);
 void BfInfo(const char* msg, ...);
 void BfDebug(const char* msg, ...);
 
+void BfError(QString msg);
 void BfInfo(QString msg);
 void BfDebug(QString msg);
 

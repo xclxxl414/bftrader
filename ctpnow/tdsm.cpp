@@ -41,8 +41,8 @@ private:
     // 3. 发现对于errorid=7，不一定会disconnect后再connected，需要自己去发包=
     void OnRspUserLogin(CThostFtdcRspUserLoginField* pRspUserLogin, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        BfInfo(__FUNCTION__);
         if (bIsLast) {
+            BfInfo(__FUNCTION__);
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGINFAIL);
             } else {
@@ -59,8 +59,8 @@ private:
     // 就是手动停止了，stop掉=
     void OnRspUserLogout(CThostFtdcUserLogoutField* pUserLogout, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        BfInfo(__FUNCTION__);
         if (bIsLast) {
+            BfInfo(__FUNCTION__);
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(TDSM_LOGOUTFAIL);
             } else {
@@ -73,7 +73,7 @@ private:
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (bIsLast) {
-            BfInfo(__FUNCTION__);
+            BfError(__FUNCTION__);
             isErrorRsp(pRspInfo, nRequestID);
         }
     }
@@ -237,12 +237,12 @@ private:
     // 发单错误（柜台）=
     void OnRspOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        BfDebug(__FUNCTION__);
+        BfError(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID) && pInputOrder) {
                 int orderRef = QString(pInputOrder->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
-                BfInfo("OnRspOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
+                BfError("OnRspOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -253,12 +253,12 @@ private:
     // 发单错误回报（交易所）=
     void OnErrRtnOrderInsert(CThostFtdcInputOrderField* pInputOrder, CThostFtdcRspInfoField* pRspInfo) override
     {
-        BfDebug(__FUNCTION__);
+        BfError(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pInputOrder) {
                 int orderRef = QString(pInputOrder->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(frontId_, sessionId_, orderRef);
-                BfInfo("OnErrRtnOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
+                BfError("OnErrRtnOrderInsert: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -269,12 +269,12 @@ private:
     // 撤单错误（柜台）=
     void OnRspOrderAction(CThostFtdcInputOrderActionField* pInputOrderAction, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        BfDebug(__FUNCTION__);
+        BfError(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID) && pInputOrderAction) {
                 int orderRef = QString(pInputOrderAction->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(pInputOrderAction->FrontID, pInputOrderAction->SessionID, orderRef);
-                BfInfo("OnRspOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
+                BfError("OnRspOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -285,12 +285,12 @@ private:
     // 撤单错误回报（交易所）=
     void OnErrRtnOrderAction(CThostFtdcOrderActionField* pOrderAction, CThostFtdcRspInfoField* pRspInfo) override
     {
-        BfDebug(__FUNCTION__);
+        BfError(__FUNCTION__);
         if (true) {
             if (isErrorRsp(pRspInfo, 0) && pOrderAction) {
                 int orderRef = QString(pOrderAction->OrderRef).toInt();
                 QString bfOrderId = CtpUtils::formatBfOrderId(pOrderAction->FrontID, pOrderAction->SessionID, orderRef);
-                BfInfo("OnErrRtnOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
+                BfError("OnErrRtnOrderAction: bfOrderId = %s", bfOrderId.toStdString().c_str());
                 return;
             } else {
             }
@@ -356,7 +356,7 @@ private:
     bool isErrorRsp(CThostFtdcRspInfoField* pRspInfo, int reqId)
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
-            BfInfo("<==error，reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
+            BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
             return true;
         }
         return false;

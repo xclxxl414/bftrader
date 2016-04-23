@@ -1,12 +1,12 @@
-#include "debugform.h"
+#include "errorform.h"
 #include "logger.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_debugform.h"
+#include "ui_errorform.h"
 
-DebugForm::DebugForm(QWidget* parent)
+ErrorForm::ErrorForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::DebugForm)
+    , ui(new Ui::ErrorForm)
 {
     ui->setupUi(this);
 
@@ -22,24 +22,22 @@ DebugForm::DebugForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-DebugForm::~DebugForm()
+ErrorForm::~ErrorForm()
 {
     delete ui;
 }
 
-void DebugForm::init()
+void ErrorForm::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotError, this, &DebugForm::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &DebugForm::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &DebugForm::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotError, this, &ErrorForm::onLog);
 }
 
-void DebugForm::shutdown()
+void ErrorForm::shutdown()
 {
 }
 
-void DebugForm::onLog(QString when, QString msg)
+void ErrorForm::onLog(QString when, QString msg)
 {
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->insertRow(row);
