@@ -2,6 +2,7 @@
 #include "bfgateway.grpc.pb.h"
 #include "ctp_utils.h"
 #include "ctpmgr.h"
+#include "encode_utils.h"
 #include "pushservice.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -30,10 +31,6 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString peer = context->peer().c_str();
-        QString proxyId = request->proxyid().c_str();
-        QString proxyIp = request->proxyip().c_str();
-        qint32 proxyPort = request->proxyport();
         BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->proxyid().c_str(), request->proxyip().c_str(), request->proxyport());
         QMetaObject::invokeMethod(g_sm->pushService(), "onProxyConnect", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
 
@@ -59,6 +56,9 @@ public:
             void* contract = g_sm->ctpMgr()->getContract(symbol);
             if (contract) {
                 CtpUtils::translateContract(contract, response);
+                std::string gbk_name = response->name();
+                QString utf16_name = gbk2utf16(gbk_name.c_str());
+                response->set_name(utf16_name.toStdString());
             }
         } else {
             QStringList ids = request->subscribled() ? g_sm->ctpMgr()->getIds() : g_sm->ctpMgr()->getIdsAll();
@@ -67,6 +67,9 @@ public:
                 void* contract = g_sm->ctpMgr()->getContract(symbol);
                 if (contract) {
                     CtpUtils::translateContract(contract, response);
+                    std::string gbk_name = response->name();
+                    QString utf16_name = gbk2utf16(gbk_name.c_str());
+                    response->set_name(utf16_name.toStdString());
                 }
             }
         }

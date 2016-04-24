@@ -50,7 +50,6 @@ class BfPingData;
 class BfPositionData;
 class BfSendOrderReq;
 class BfSendOrderResp;
-class BfSubscribeReq;
 class BfTickData;
 class BfTradeData;
 class BfVoid;
@@ -1623,120 +1622,6 @@ class BfContractData : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfContractData* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class BfSubscribeReq : public ::google::protobuf::Message {
- public:
-  BfSubscribeReq();
-  virtual ~BfSubscribeReq();
-
-  BfSubscribeReq(const BfSubscribeReq& from);
-
-  inline BfSubscribeReq& operator=(const BfSubscribeReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline ::google::protobuf::Arena* GetArena() const { return GetArenaNoVirtual(); }
-  inline void* GetMaybeArenaPointer() const {
-    return MaybeArenaPtr();
-  }
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BfSubscribeReq& default_instance();
-
-  void UnsafeArenaSwap(BfSubscribeReq* other);
-  void Swap(BfSubscribeReq* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BfSubscribeReq* New() const { return New(NULL); }
-
-  BfSubscribeReq* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfSubscribeReq& from);
-  void MergeFrom(const BfSubscribeReq& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BfSubscribeReq* other);
-  protected:
-  explicit BfSubscribeReq(::google::protobuf::Arena* arena);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::google::protobuf::Arena* arena);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string symbol = 1;
-  void clear_symbol();
-  static const int kSymbolFieldNumber = 1;
-  const ::std::string& symbol() const;
-  void set_symbol(const ::std::string& value);
-  void set_symbol(const char* value);
-  void set_symbol(const char* value, size_t size);
-  ::std::string* mutable_symbol();
-  ::std::string* release_symbol();
-  void set_allocated_symbol(::std::string* symbol);
-  ::std::string* unsafe_arena_release_symbol();
-  void unsafe_arena_set_allocated_symbol(
-      ::std::string* symbol);
-
-  // optional string exchange = 2;
-  void clear_exchange();
-  static const int kExchangeFieldNumber = 2;
-  const ::std::string& exchange() const;
-  void set_exchange(const ::std::string& value);
-  void set_exchange(const char* value);
-  void set_exchange(const char* value, size_t size);
-  ::std::string* mutable_exchange();
-  ::std::string* release_exchange();
-  void set_allocated_exchange(::std::string* exchange);
-  ::std::string* unsafe_arena_release_exchange();
-  void unsafe_arena_set_allocated_exchange(
-      ::std::string* exchange);
-
-  // @@protoc_insertion_point(class_scope:bftrader.BfSubscribeReq)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  friend class ::google::protobuf::Arena;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr symbol_;
-  ::google::protobuf::internal::ArenaStringPtr exchange_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_bftrader_2eproto();
-  friend void protobuf_AssignDesc_bftrader_2eproto();
-  friend void protobuf_ShutdownFile_bftrader_2eproto();
-
-  void InitAsDefaultInstance();
-  static BfSubscribeReq* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4942,138 +4827,6 @@ inline void BfContractData::set_minmartet(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// BfSubscribeReq
-
-// optional string symbol = 1;
-inline void BfSubscribeReq::clear_symbol() {
-  symbol_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfSubscribeReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSubscribeReq.symbol)
-  return symbol_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfSubscribeReq::set_symbol(const ::std::string& value) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfSubscribeReq.symbol)
-}
-inline void BfSubscribeReq::set_symbol(const char* value) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfSubscribeReq.symbol)
-}
-inline void BfSubscribeReq::set_symbol(const char* value,
-    size_t size) {
-  
-  symbol_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfSubscribeReq.symbol)
-}
-inline ::std::string* BfSubscribeReq::mutable_symbol() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfSubscribeReq.symbol)
-  return symbol_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfSubscribeReq::release_symbol() {
-  
-  return symbol_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfSubscribeReq::unsafe_arena_release_symbol() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return symbol_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfSubscribeReq::set_allocated_symbol(::std::string* symbol) {
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSubscribeReq.symbol)
-}
-inline void BfSubscribeReq::unsafe_arena_set_allocated_symbol(
-    ::std::string* symbol) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      symbol, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSubscribeReq.symbol)
-}
-
-// optional string exchange = 2;
-inline void BfSubscribeReq::clear_exchange() {
-  exchange_.ClearToEmpty(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline const ::std::string& BfSubscribeReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSubscribeReq.exchange)
-  return exchange_.Get(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfSubscribeReq::set_exchange(const ::std::string& value) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set:bftrader.BfSubscribeReq.exchange)
-}
-inline void BfSubscribeReq::set_exchange(const char* value) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_char:bftrader.BfSubscribeReq.exchange)
-}
-inline void BfSubscribeReq::set_exchange(const char* value,
-    size_t size) {
-  
-  exchange_.Set(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfSubscribeReq.exchange)
-}
-inline ::std::string* BfSubscribeReq::mutable_exchange() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfSubscribeReq.exchange)
-  return exchange_.Mutable(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfSubscribeReq::release_exchange() {
-  
-  return exchange_.Release(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), GetArenaNoVirtual());
-}
-inline ::std::string* BfSubscribeReq::unsafe_arena_release_exchange() {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  
-  return exchange_.UnsafeArenaRelease(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      GetArenaNoVirtual());
-}
-inline void BfSubscribeReq::set_allocated_exchange(::std::string* exchange) {
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.SetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange,
-      GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSubscribeReq.exchange)
-}
-inline void BfSubscribeReq::unsafe_arena_set_allocated_exchange(
-    ::std::string* exchange) {
-  GOOGLE_DCHECK(GetArenaNoVirtual() != NULL);
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.UnsafeArenaSetAllocated(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      exchange, GetArenaNoVirtual());
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSubscribeReq.exchange)
-}
-
-// -------------------------------------------------------------------
-
 // BfSendOrderReq
 
 // optional string symbol = 1;
@@ -6165,8 +5918,6 @@ inline void BfPingData::unsafe_arena_set_allocated_message(
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -28,7 +28,7 @@ struct CtpCmd {
 // 1.完成登录/自动登录/确认账单/订阅合约，负责行情（tick+contract）的高效维护（ringbuffer+map）
 // 2.订阅什么合约由gateway统一确定，策略不管这事=
 // 3.在queryInstrument之前重新初始化后界面，1秒后重新初始化内存+开始查询就可以了，这样就不会有问题了=
-//   onGotInstruments后开始刷新界面，queryInstrument+login都延迟一秒，用途之一就是这个=
+//   onGotContracts后开始刷新界面，queryInstrument+login都延迟一秒，用途之一就是这个=
 // 4. tdsm/mdsm/ctputils的c++文件能包括ctp头文件，其他文件不准包含，便于移植=
 class CtpMgr : public QObject {
     Q_OBJECT
@@ -61,13 +61,13 @@ public:
 signals:
     void requestSent(int reqId);
     void tradeWillBegin();
-    void gotInstruments(QStringList ids, QStringList idsAll);
+    void gotContracts(QStringList ids, QStringList idsAll);
     void gotTick(void* curTick, void* preTick);
     void gotAccount(const BfAccountData& account);
     void gotOrder(const BfOrderData& order);
     void gotTrade(const BfTradeData& trade);
     void gotPosition(const BfPositionData& pos);
-    void gotCtpError(int code,QString msg,QString msgEx);
+    void gotCtpError(int code, QString msg, QString msgEx);
 
 public slots:
     void showVersion();
@@ -82,7 +82,7 @@ public slots:
     void queryOrders();
 
 private slots:
-    void onGotInstruments(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList ids, QStringList idsAll);
     void onMdSmStateChanged(int state);
     void onTdSmStateChanged(int state);
     void onRunCmdInterval();

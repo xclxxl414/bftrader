@@ -53,7 +53,7 @@ void TickForm::init()
     // ctpmgr
     // tablewidget更新ui太慢了(是自适应高度和宽度搞的，去掉自适应后好了)，不过改成500毫秒的定时器也不错=
     //QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &TickForm::onGotInstruments);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &TickForm::onGotContracts);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &TickForm::onTradeWillBegin);
 
     this->updateTickTimer_ = new QTimer(this);
@@ -118,7 +118,7 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     }
 }
 
-void TickForm::onGotInstruments(QStringList ids, QStringList idsAll)
+void TickForm::onGotContracts(QStringList ids, QStringList idsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();

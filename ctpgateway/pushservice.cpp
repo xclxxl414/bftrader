@@ -26,7 +26,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -37,12 +36,25 @@ public:
         }
     }
 
+    void OnGotContracts(const BfVoid& data)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+
+        BfVoid reply;
+        grpc::Status status = stub_->OnGotContracts(&ctx, data, &reply);
+        if (!status.ok()) {
+            BfError("(%s)->OnGotContracts fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            return;
+        }
+    }
+
     // ref: grpc\test\cpp\interop\interop_client.cc
     void OnPing(const BfPingData& data)
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfPingData reply;
@@ -68,7 +80,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -79,32 +90,30 @@ public:
         }
     }
 
+    // 这个函数就别log了，会重入=
     void OnError(const BfErrorData& data)
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
         grpc::Status status = stub_->OnError(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnError fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
             return;
         }
     }
 
+    // 这个函数就别log了，会重入=
     void OnLog(const BfLogData& data)
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
         grpc::Status status = stub_->OnLog(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnLog fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
             return;
         }
     }
@@ -113,7 +122,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -128,7 +136,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -143,7 +150,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -158,7 +164,6 @@ public:
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ;
         ctx.set_deadline(deadline);
 
         BfVoid reply;
@@ -208,12 +213,13 @@ void PushService::init()
 
     // start timer
     this->pingTimer_ = new QTimer(this);
-    this->pingTimer_->setInterval(5000);
+    this->pingTimer_->setInterval(60 * 1000);
     QObject::connect(this->pingTimer_, &QTimer::timeout, this, &PushService::onPing);
     this->pingTimer_->start();
 
     // ctpmgr...
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &PushService::onTradeWillBegin);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &PushService::onGotContracts);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &PushService::onGotTick);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &PushService::onGotOrder);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTrade, this, &PushService::onGotTrade);
@@ -252,6 +258,11 @@ void PushService::onProxyConnect(const BfConnectReq& req)
     ProxyClient* proxyClient = new ProxyClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
         proxyId, req);
 
+    if (proxyClients_.contains(proxyId)) {
+        auto it = proxyClients_[proxyId];
+        delete it;
+        proxyClients_.remove(proxyId);
+    }
     proxyClients_[proxyId] = proxyClient;
 }
 
@@ -310,6 +321,16 @@ void PushService::onTradeWillBegin()
     BfVoid data;
     for (auto proxy : proxyClients_) {
         proxy->OnTradeWillBegin(data);
+    }
+}
+
+void PushService::onGotContracts(QStringList ids, QStringList idsAll)
+{
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    BfVoid data;
+    for (auto proxy : proxyClients_) {
+        proxy->OnGotContracts(data);
     }
 }
 

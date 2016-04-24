@@ -39,14 +39,14 @@ void PositionForm::init()
 {
     // ctpmgr
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotPosition, this, &PositionForm::onGotPosition);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &PositionForm::onGotInstruments);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &PositionForm::onGotContracts);
 }
 
 void PositionForm::shutdown()
 {
 }
 
-void PositionForm::onGotInstruments(QStringList ids, QStringList idsAll)
+void PositionForm::onGotContracts(QStringList ids, QStringList idsAll)
 {
     ids_ = ids;
 }

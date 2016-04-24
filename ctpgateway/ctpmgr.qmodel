@@ -402,7 +402,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{d244190b-eec0-4121-bb2c-2d238f668afe}</object>
-                         <name>emit ctpmgr_gotInstruments</name>
+                         <name>emit ctpmgr_gotContracts</name>
                          <pos>x:375;y:445</pos>
                          <rect>x:-85;y:-10;w:170;h:20</rect>
                          <visual-role>0</visual-role>
@@ -441,7 +441,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{dd5c51d0-e64a-4ad0-b8d7-3bdaa5c393fa}</object>
-                         <name>ctpmgr_onGotInstruments</name>
+                         <name>ctpmgr_onGotContracts</name>
                          <pos>x:410;y:515</pos>
                          <rect>x:-75;y:-10;w:150;h:20</rect>
                          <visual-role>0</visual-role>
@@ -519,7 +519,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{21e2da44-697c-4cc8-9779-b5880f7fcd3e}</object>
-                         <name>ui_onGotInstruments</name>
+                         <name>ui_onGotContracts</name>
                          <pos>x:70;y:445</pos>
                          <rect>x:-65;y:-10;w:130;h:20</rect>
                          <visual-role>0</visual-role>
@@ -1795,7 +1795,7 @@
                     <uid>{d244190b-eec0-4121-bb2c-2d238f668afe}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>emit ctpmgr_gotInstruments</name>
+                  <name>emit ctpmgr_gotContracts</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1868,7 +1868,7 @@
                     <uid>{dd5c51d0-e64a-4ad0-b8d7-3bdaa5c393fa}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_onGotInstruments</name>
+                  <name>ctpmgr_onGotContracts</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1992,7 +1992,7 @@
                     <uid>{21e2da44-697c-4cc8-9779-b5880f7fcd3e}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ui_onGotInstruments</name>
+                  <name>ui_onGotContracts</name>
                   <relations>
                    <handles>
                     <handles>

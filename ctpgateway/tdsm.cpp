@@ -119,7 +119,7 @@ private:
             }
             BfInfo("total got ids:%d,reqId=%d,filter=%s,ids=%s", ids_.length(), nRequestID, sm()->idPrefixList_.toStdString().c_str(), ids.toUtf8().constData());
             g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
-            emit g_sm->ctpMgr()->gotInstruments(ids_, ids_all_);
+            emit g_sm->ctpMgr()->gotContracts(ids_, ids_all_);
         }
     }
 

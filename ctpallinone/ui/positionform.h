@@ -19,7 +19,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotInstruments(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList ids, QStringList idsAll);
     void onGotPosition(const BfPositionData& pos);
     void on_pushButtonQueryPosition_clicked();
     void on_pushButtonCloseAll_clicked();

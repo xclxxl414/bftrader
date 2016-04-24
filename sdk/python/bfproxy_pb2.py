@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfproxy.proto',
   package='bftrader.bfproxy',
   syntax='proto3',
-  serialized_pb=_b('\n\rbfproxy.proto\x12\x10\x62\x66trader.bfproxy\x1a\x0e\x62\x66trader.proto2\x80\x04\n\x0e\x42\x66ProxyService\x12\x38\n\x10OnTradeWillBegin\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x06OnPing\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnError\x12\x15.bftrader.BfErrorData\x1a\x10.bftrader.BfVoid\"\x00\x12\x30\n\x05OnLog\x12\x13.bftrader.BfLogData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12:\n\nOnPosition\x12\x18.bftrader.BfPositionData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\tOnAccount\x12\x17.bftrader.BfAccountData\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\rbfproxy.proto\x12\x10\x62\x66trader.bfproxy\x1a\x0e\x62\x66trader.proto2\xb8\x04\n\x0e\x42\x66ProxyService\x12\x38\n\x10OnTradeWillBegin\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x0eOnGotContracts\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x06OnPing\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnError\x12\x15.bftrader.BfErrorData\x1a\x10.bftrader.BfVoid\"\x00\x12\x30\n\x05OnLog\x12\x13.bftrader.BfLogData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12:\n\nOnPosition\x12\x18.bftrader.BfPositionData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\tOnAccount\x12\x17.bftrader.BfAccountData\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -41,6 +41,9 @@ class BetaBfProxyServiceServicer(object):
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
   def OnTradeWillBegin(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def OnGotContracts(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
   def OnPing(self, request, context):
@@ -74,6 +77,10 @@ class BetaBfProxyServiceStub(object):
   def OnTradeWillBegin(self, request, timeout):
     raise NotImplementedError()
   OnTradeWillBegin.future = None
+  @abc.abstractmethod
+  def OnGotContracts(self, request, timeout):
+    raise NotImplementedError()
+  OnGotContracts.future = None
   @abc.abstractmethod
   def OnPing(self, request, timeout):
     raise NotImplementedError()
@@ -126,9 +133,12 @@ def beta_create_BfProxyService_server(servicer, pool=None, pool_size=None, defau
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfproxy.BfProxyService', 'OnAccount'): bftrader_pb2.BfAccountData.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnError'): bftrader_pb2.BfErrorData.FromString,
+    ('bftrader.bfproxy.BfProxyService', 'OnGotContracts'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnLog'): bftrader_pb2.BfLogData.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnOrder'): bftrader_pb2.BfOrderData.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnPing'): bftrader_pb2.BfPingData.FromString,
@@ -140,6 +150,7 @@ def beta_create_BfProxyService_server(servicer, pool=None, pool_size=None, defau
   response_serializers = {
     ('bftrader.bfproxy.BfProxyService', 'OnAccount'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnError'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfproxy.BfProxyService', 'OnGotContracts'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnLog'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnOrder'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnPing'): bftrader_pb2.BfPingData.SerializeToString,
@@ -151,6 +162,7 @@ def beta_create_BfProxyService_server(servicer, pool=None, pool_size=None, defau
   method_implementations = {
     ('bftrader.bfproxy.BfProxyService', 'OnAccount'): face_utilities.unary_unary_inline(servicer.OnAccount),
     ('bftrader.bfproxy.BfProxyService', 'OnError'): face_utilities.unary_unary_inline(servicer.OnError),
+    ('bftrader.bfproxy.BfProxyService', 'OnGotContracts'): face_utilities.unary_unary_inline(servicer.OnGotContracts),
     ('bftrader.bfproxy.BfProxyService', 'OnLog'): face_utilities.unary_unary_inline(servicer.OnLog),
     ('bftrader.bfproxy.BfProxyService', 'OnOrder'): face_utilities.unary_unary_inline(servicer.OnOrder),
     ('bftrader.bfproxy.BfProxyService', 'OnPing'): face_utilities.unary_unary_inline(servicer.OnPing),
@@ -181,9 +193,12 @@ def beta_create_BfProxyService_stub(channel, host=None, metadata_transformer=Non
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_serializers = {
     ('bftrader.bfproxy.BfProxyService', 'OnAccount'): bftrader_pb2.BfAccountData.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnError'): bftrader_pb2.BfErrorData.SerializeToString,
+    ('bftrader.bfproxy.BfProxyService', 'OnGotContracts'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnLog'): bftrader_pb2.BfLogData.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnOrder'): bftrader_pb2.BfOrderData.SerializeToString,
     ('bftrader.bfproxy.BfProxyService', 'OnPing'): bftrader_pb2.BfPingData.SerializeToString,
@@ -195,6 +210,7 @@ def beta_create_BfProxyService_stub(channel, host=None, metadata_transformer=Non
   response_deserializers = {
     ('bftrader.bfproxy.BfProxyService', 'OnAccount'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnError'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfproxy.BfProxyService', 'OnGotContracts'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnLog'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnOrder'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfproxy.BfProxyService', 'OnPing'): bftrader_pb2.BfPingData.FromString,
@@ -206,6 +222,7 @@ def beta_create_BfProxyService_stub(channel, host=None, metadata_transformer=Non
   cardinalities = {
     'OnAccount': cardinality.Cardinality.UNARY_UNARY,
     'OnError': cardinality.Cardinality.UNARY_UNARY,
+    'OnGotContracts': cardinality.Cardinality.UNARY_UNARY,
     'OnLog': cardinality.Cardinality.UNARY_UNARY,
     'OnOrder': cardinality.Cardinality.UNARY_UNARY,
     'OnPing': cardinality.Cardinality.UNARY_UNARY,

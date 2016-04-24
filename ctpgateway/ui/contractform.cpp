@@ -42,7 +42,7 @@ ContractForm::~ContractForm()
 void ContractForm::init()
 {
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotInstruments, this, &ContractForm::onGotInstruments);
+    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &ContractForm::onGotContracts);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &ContractForm::onTradeWillBegin);
 }
 
@@ -50,7 +50,7 @@ void ContractForm::shutdown()
 {
 }
 
-void ContractForm::onGotInstruments(QStringList ids, QStringList idsAll)
+void ContractForm::onGotContracts(QStringList ids, QStringList idsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();

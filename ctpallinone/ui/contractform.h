@@ -18,7 +18,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotInstruments(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList ids, QStringList idsAll);
     void onTradeWillBegin();
 
 private:

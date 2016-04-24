@@ -29,8 +29,8 @@ void CtpMgr::init()
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
     qRegisterMetaType<BfConnectReq>("BfConnectReq");
 
-    // gotInstruments
-    QObject::connect(this, &CtpMgr::gotInstruments, this, &CtpMgr::onGotInstruments);
+    // gotContracts
+    QObject::connect(this, &CtpMgr::gotContracts, this, &CtpMgr::onGotContracts);
 }
 
 void CtpMgr::shutdown()
@@ -278,7 +278,7 @@ void CtpMgr::stop()
     }
 }
 
-void CtpMgr::onGotInstruments(QStringList ids, QStringList idsAll)
+void CtpMgr::onGotContracts(QStringList ids, QStringList idsAll)
 {
     BfDebug(__FUNCTION__);
 
@@ -286,7 +286,9 @@ void CtpMgr::onGotInstruments(QStringList ids, QStringList idsAll)
 
     // 保存ids，便于枚举=
     ids_ = ids;
+    ids_.sort();
     ids_all_ = idsAll;
+    ids_all_.sort();
 
     // mdapi开始订阅=
     mdsm_->subscrible(ids, 0);
@@ -464,7 +466,7 @@ void CtpMgr::onRunCmdInterval()
     if (cmd->fn(++reqId_) == -3) {
         cmd->expires = curTick + 1000;
         BfError("sendcmd toofast,reqId=%d", reqId_);
-        emit gotCtpError(-3,"sendmsg too fast",QString().sprintf("reqId=%d",reqId_));
+        emit gotCtpError(-3, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
         return;
     }
 
@@ -481,7 +483,7 @@ void CtpMgr::runCmd(CtpCmd* cmd)
         int result = cmd->fn(++reqId_);
         if (result == -3) {
             BfError("sendcmd toofast,reqId=%d", reqId_);
-            emit gotCtpError(-3,"sendmsg too fast",QString().sprintf("reqId=%d",reqId_));
+            emit gotCtpError(-3, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
             cmd->expires = ::GetTickCount() + 1000;
             cmds_.append(cmd);
         } else {

@@ -1,1 +1,36 @@
-QQäº¤æµç¾¤340195342ï¼Œç‚¹å‡»åŠ å…¥ï¼šhttp://jq.qq.com/?_wv=1027&k=2ADNTk3
+
+QQ½»Á÷Èº340195342£¬µã»÷¼ÓÈë£ºhttp://jq.qq.com/?_wv=1027&k=2ADNTk3
+===============================================================
+
+2015-2016 by ºÍ¸ç
+
+ÓÃpythonÔõÃ´Ğ´²ßÂÔ£¿£¨¿ÉÒÔÊ¹ÓÃgateway½Ó¿Ú£¬Ò²¿ÉÒÔÊ¹ÓÃcta½Ó¿Ú£¬Ä¿Ç°ÓÃgateway½Ó¿Ú£©
+Õâ¸ö¾ÍÒª¿´¶®sdk£¡¿´¶®sdk/api£¡
+½øÈësdkÄ¿Â¼£¬ÔËĞĞÀı×Ó£¬¾ÍÃ÷°×ÁË£¡
+
+°²×°grpc for python
+======
+1. °²×°python python-2.7.11.msi
+2. °²×°python¿â,python_libsÄ¿Â¼ÏÂ
+  2.1 pip install six-xxx
+  2.2 pip install setuptools-xxx
+  2.3 pip install enum34-xxx
+  2.4 pip install futures-xxx
+  2.5 pip install protobuf-xxx
+  2.6 pip install grpcio-xxx
+
+Ğ´²ßÂÔ£¬µ÷ÊÔ²ßÂÔ  
+=======
+1. ÔËĞĞctpgateway.exe
+2. µã»÷ctpgatewayµÄrpc start
+3. ÔËĞĞ python proxy_demo.py£¬Á¬½Óctpgateway
+4. µã»÷ctpgatewayµÄctp start
+5. ¿ÉÒÔ¿´µ½proxy_demo.pyÅÜÆğÀ´
+
+±¸×¢£º
+protocÏÂÃæÊÇprotobuf+grpcµÄ±àÒëÆ÷
+=======
+1. Ö´ĞĞgen.bat£¬½«sdk/apiµÄ½Ó¿Ú·­Òë³Épy/go/c++
+2. ¼ì²é python cpp golangÄ¿Â¼£¬¿ÉÒÔ¿´µ½´úÂë
+
+£¨Íê£©

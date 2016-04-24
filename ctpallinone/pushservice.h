@@ -24,6 +24,7 @@ public slots:
     void onProxyClose(QString proxyId);
 
     void onTradeWillBegin();
+    void onGotContracts(QStringList ids, QStringList idsAll);
     void onPing();
     void onCtpError(int code, QString msg, QString msgEx);
     void onLog(QString when, QString msg);

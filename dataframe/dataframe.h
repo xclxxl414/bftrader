@@ -3,8 +3,7 @@
 
 #include "dataframe_global.h"
 
-class DATAFRAMESHARED_EXPORT Dataframe
-{
+class DATAFRAMESHARED_EXPORT Dataframe {
 
 public:
     Dataframe();
@@ -17,7 +16,7 @@ extern "C" {
 DATAFRAMESHARED_EXPORT void helloWorld();
 
 #ifdef __cplusplus
-}  /* end extern "C" */
+} /* end extern "C" */
 #endif
 
 #endif // DATAFRAME_H

@@ -191,14 +191,6 @@ message BfContractData{
     int32 minMartet = 10;       // 市价单最小下单量
 }
 
-// 订阅行情时传入的对象类
-message BfSubscribeReq{
-
-    // 代码编号相关
-    string symbol = 1;          // 合约代码
-    string exchange = 2;        // 交易所代码    
-}
-
 // 发单时传入的对象类
 message BfSendOrderReq{
 
@@ -259,7 +251,7 @@ message BfGetContractReq{
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
     
-    // 获取全部合约时候可以用index来枚举，从0开始，返回空结束
+    // 获取全部合约时候可以用index来枚举，从1开始，返回空结束
     int32 index = 3;            // 枚举下标
     
     // 过滤条件，指定是否要求已经订阅

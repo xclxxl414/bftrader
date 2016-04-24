@@ -60,20 +60,21 @@ void protobuf_AddDesc_bfproxy_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rbfproxy.proto\022\020bftrader.bfproxy\032\016bftra"
-    "der.proto2\200\004\n\016BfProxyService\0228\n\020OnTradeW"
+    "der.proto2\270\004\n\016BfProxyService\0228\n\020OnTradeW"
     "illBegin\022\020.bftrader.BfVoid\032\020.bftrader.Bf"
-    "Void\"\000\0226\n\006OnPing\022\024.bftrader.BfPingData\032\024"
-    ".bftrader.BfPingData\"\000\0222\n\006OnTick\022\024.bftra"
-    "der.BfTickData\032\020.bftrader.BfVoid\"\000\0224\n\007On"
-    "Error\022\025.bftrader.BfErrorData\032\020.bftrader."
-    "BfVoid\"\000\0220\n\005OnLog\022\023.bftrader.BfLogData\032\020"
-    ".bftrader.BfVoid\"\000\0224\n\007OnTrade\022\025.bftrader"
-    ".BfTradeData\032\020.bftrader.BfVoid\"\000\0224\n\007OnOr"
-    "der\022\025.bftrader.BfOrderData\032\020.bftrader.Bf"
-    "Void\"\000\022:\n\nOnPosition\022\030.bftrader.BfPositi"
-    "onData\032\020.bftrader.BfVoid\"\000\0228\n\tOnAccount\022"
-    "\027.bftrader.BfAccountData\032\020.bftrader.BfVo"
-    "id\"\000B\003\370\001\001b\006proto3", 577);
+    "Void\"\000\0226\n\016OnGotContracts\022\020.bftrader.BfVo"
+    "id\032\020.bftrader.BfVoid\"\000\0226\n\006OnPing\022\024.bftra"
+    "der.BfPingData\032\024.bftrader.BfPingData\"\000\0222"
+    "\n\006OnTick\022\024.bftrader.BfTickData\032\020.bftrade"
+    "r.BfVoid\"\000\0224\n\007OnError\022\025.bftrader.BfError"
+    "Data\032\020.bftrader.BfVoid\"\000\0220\n\005OnLog\022\023.bftr"
+    "ader.BfLogData\032\020.bftrader.BfVoid\"\000\0224\n\007On"
+    "Trade\022\025.bftrader.BfTradeData\032\020.bftrader."
+    "BfVoid\"\000\0224\n\007OnOrder\022\025.bftrader.BfOrderDa"
+    "ta\032\020.bftrader.BfVoid\"\000\022:\n\nOnPosition\022\030.b"
+    "ftrader.BfPositionData\032\020.bftrader.BfVoid"
+    "\"\000\0228\n\tOnAccount\022\027.bftrader.BfAccountData"
+    "\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006proto3", 633);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfproxy.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfproxy_2eproto);

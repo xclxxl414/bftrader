@@ -1,10 +1,9 @@
 #include "dataframe.h"
 
-
 Dataframe::Dataframe()
 {
 }
 
-void helloWorld(){
-
+void helloWorld()
+{
 }
