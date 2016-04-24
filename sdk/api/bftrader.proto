@@ -229,7 +229,8 @@ message BfConnectReq{
     string proxyIp = 2;         // 机器人服务,"localhost"
     int32 proxyPort = 3;        // 机器人端口,50053
 
-    // 角色类别，可多选，注意：OnTradeWillBegin OnPing都必须实现
+    // 角色类别，可多选
+    // 注意：OnTradeWillBegin OnGotContracts OnPing 都必须实现
     bool tickHandler = 4;       // OnTick
     bool tradeHandler = 5;      // OnAccount OnPosition OnTrade OnOrder 
     bool logHandler = 6;        // OnError OnLog(可扩展做日志分析)
