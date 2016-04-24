@@ -71,6 +71,7 @@ private:
     }
 
     //出现了一次queryinstruments错误，打印详细信息=
+    //todo(hege):这个需要做一个判断，然后自动queryinstruments，不然就不能自动登录了=
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (bIsLast) {
@@ -86,7 +87,7 @@ private:
         QString prefix;
         if (!idPrefixList_.length()) {
             QString prefixlist = sm()->idPrefixList_;
-            idPrefixList_ = prefixlist.split(";",QString::SkipEmptyParts);
+            idPrefixList_ = prefixlist.split(";", QString::SkipEmptyParts);
         }
         if (!isErrorRsp(pRspInfo, nRequestID) && pInstrument) {
             id = pInstrument->InstrumentID;
@@ -208,8 +209,8 @@ private:
             int orderRef = QString(pOrder->OrderRef).toInt();
             QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
             BfDebug("%s: bfOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId));
-            QString sysOrderId = pOrder->OrderSysID;
-            if (sysOrderId.trimmed().length() != 0) {
+            if (QString(pOrder->OrderSysID).trimmed().length() != 0 && QString(pOrder->ExchangeID).trimmed().length() != 0) {
+                QString sysOrderId = QString().sprintf("%s.%s", pOrder->ExchangeID, pOrder->OrderSysID);
                 sysid2bfid_[pOrder->OrderSysID] = bfOrderId;
                 BfDebug("%s: bfOrderId=(%s)<--sysOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId), qPrintable(sysOrderId));
             }
@@ -309,10 +310,10 @@ private:
     {
         int orderRef = QString(pOrder->OrderRef).toInt();
         QString bfOrderId = CtpUtils::formatBfOrderId(pOrder->FrontID, pOrder->SessionID, orderRef);
-        QString sysOrderId = pOrder->OrderSysID;
         BfDebug("%s: bfOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId));
-        if (sysOrderId.trimmed().length() != 0) {
-            sysid2bfid_[pOrder->OrderSysID] = bfOrderId;
+        if (QString(pOrder->OrderSysID).trimmed().length() != 0 && QString(pOrder->ExchangeID).trimmed().length() != 0) {
+            QString sysOrderId = QString().sprintf("%s.%s", pOrder->ExchangeID, pOrder->OrderSysID);
+            sysid2bfid_[sysOrderId] = bfOrderId;
             BfDebug("%s: bfOrderId=(%s)<--sysOrderId=(%s)", __FUNCTION__, qPrintable(bfOrderId), qPrintable(sysOrderId));
         }
 
@@ -341,7 +342,7 @@ private:
     // 重连之后，要重新查一下order，也可以重建隐射=
     virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
     {
-        QString sysOrderId = pTrade->OrderSysID;
+        QString sysOrderId = QString().sprintf("%s.%s", pTrade->ExchangeID, pTrade->OrderSysID);
         BfDebug("%s: sysOrderId=(%s)", __FUNCTION__, qPrintable(sysOrderId));
         if (!sysid2bfid_.contains(sysOrderId)) {
             BfInfo("%s: can not find order,so ignore the trade,tradeId=(%s),sysOrderId=(%s)", __FUNCTION__, pTrade->TradeID, qPrintable(sysOrderId));

@@ -1,0 +1,5 @@
+ <class>PositionForm</class>
+ <widget class="QWidget" name="PositionForm">
+ 
+ 把name改了，class不改，在qtcreator编辑器里面，看class也改了，哈哈，而编译器却认为没有改
+ 

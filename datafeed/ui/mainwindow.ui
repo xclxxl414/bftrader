@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>799</width>
+    <height>581</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableWidget" name="tableWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>799</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSystem">
+    <property name="title">
+     <string>system</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>about</string>
+    </property>
+    <addaction name="actionVersion"/>
+   </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>crash</string>
+    </property>
+    <addaction name="actionInvalidParamCrash"/>
+    <addaction name="actionPureCallCrash"/>
+    <addaction name="actionDerefZeroCrash"/>
+    <addaction name="actionQFatal"/>
+    <addaction name="actiondebugbreak"/>
+    <addaction name="actionDebugBreak"/>
+    <addaction name="actionExit"/>
+    <addaction name="actionExitProcess"/>
+    <addaction name="actionTerminateProcess"/>
+   </widget>
+   <widget class="QMenu" name="menuThread">
+    <property name="title">
+     <string>thread</string>
+    </property>
+    <addaction name="actionExternal"/>
+   </widget>
+   <widget class="QMenu" name="menuDb">
+    <property name="title">
+     <string>db</string>
+    </property>
+    <addaction name="actionDbOpen"/>
+    <addaction name="actionDbInit"/>
+    <addaction name="actionDbClose"/>
+   </widget>
+   <widget class="QMenu" name="menuCtp">
+    <property name="title">
+     <string>ctp</string>
+    </property>
+    <addaction name="actionCtpVersion"/>
+   </widget>
+   <addaction name="menuSystem"/>
+   <addaction name="menuThread"/>
+   <addaction name="menuDb"/>
+   <addaction name="menuDebug"/>
+   <addaction name="menuCtp"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <action name="actionQuit">
+   <property name="text">
+    <string>quit</string>
+   </property>
+  </action>
+  <action name="actionVersion">
+   <property name="text">
+    <string>version</string>
+   </property>
+  </action>
+  <action name="actionPureCallCrash">
+   <property name="text">
+    <string>PureCallCrash</string>
+   </property>
+  </action>
+  <action name="actionInvalidParamCrash">
+   <property name="text">
+    <string>InvalidParamCrash</string>
+   </property>
+  </action>
+  <action name="actionDerefZeroCrash">
+   <property name="text">
+    <string>DerefZeroCrash</string>
+   </property>
+  </action>
+  <action name="actionQFatal">
+   <property name="text">
+    <string>qFatal</string>
+   </property>
+  </action>
+  <action name="actiondebugbreak">
+   <property name="text">
+    <string>debugbreak</string>
+   </property>
+  </action>
+  <action name="actionDebugBreak">
+   <property name="text">
+    <string>DebugBreak</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>exit</string>
+   </property>
+  </action>
+  <action name="actionExitProcess">
+   <property name="text">
+    <string>ExitProcess</string>
+   </property>
+  </action>
+  <action name="actionTerminateProcess">
+   <property name="text">
+    <string>TerminateProcess</string>
+   </property>
+  </action>
+  <action name="actionCtpVersion">
+   <property name="text">
+    <string>ctpVersion</string>
+   </property>
+  </action>
+  <action name="actionDbOpen">
+   <property name="text">
+    <string>dbOpen</string>
+   </property>
+  </action>
+  <action name="actionDbInit">
+   <property name="text">
+    <string>dbInit</string>
+   </property>
+  </action>
+  <action name="actionDbClose">
+   <property name="text">
+    <string>dbClose</string>
+   </property>
+  </action>
+  <action name="actionExternal">
+   <property name="text">
+    <string>external</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

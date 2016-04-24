@@ -11,7 +11,10 @@ import "bftrader.proto";
 // 代理服务，实现管理和转发用
 //
 service BfProxyService{
-    // 交易所开机/连通通知，可以在这里做收盘处理
+    // 交易所开机/连通通知，可以在这里做：
+    // 1. 如果是收盘时间可以做上次收盘处理
+    // 2. 查询持仓 查询合约，核准数据
+    // 3. 如果是断网重连，可以测量自己度量
     rpc OnTradeWillBegin(BfVoid) returns (BfVoid) {}
 
     // 活跃检测
