@@ -8,6 +8,11 @@ QQ交流群340195342，点击加入：http://jq.qq.com/?_wv=1027&k=2ADNTk3
 这个就要看懂sdk！看懂sdk/api！
 进入sdk目录，运行例子，就明白了！
 
+下载sdk
+======
+下载地址: https://github.com/sunwangme/bftrader/releases
+下载地址: http://pan.baidu.com/s/1nvgrNst
+
 安装grpc for python
 ======
 1. 安装python python-2.7.11.msi
