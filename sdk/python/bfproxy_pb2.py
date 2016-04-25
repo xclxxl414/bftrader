@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfproxy.proto',
   package='bftrader.bfproxy',
   syntax='proto3',
-  serialized_pb=_b('\n\rbfproxy.proto\x12\x10\x62\x66trader.bfproxy\x1a\x0e\x62\x66trader.proto2\xb8\x04\n\x0e\x42\x66ProxyService\x12\x38\n\x10OnTradeWillBegin\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x0eOnGotContracts\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x06OnPing\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnError\x12\x15.bftrader.BfErrorData\x1a\x10.bftrader.BfVoid\"\x00\x12\x30\n\x05OnLog\x12\x13.bftrader.BfLogData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12:\n\nOnPosition\x12\x18.bftrader.BfPositionData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\tOnAccount\x12\x17.bftrader.BfAccountData\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\rbfproxy.proto\x12\x10\x62\x66trader.bfproxy\x1a\x0e\x62\x66trader.proto2\xb8\x04\n\x0e\x42\x66ProxyService\x12\x38\n\x10OnTradeWillBegin\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x0eOnGotContracts\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x36\n\x06OnPing\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnError\x12\x15.bftrader.BfErrorData\x1a\x10.bftrader.BfVoid\"\x00\x12\x30\n\x05OnLog\x12\x13.bftrader.BfLogData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12:\n\nOnPosition\x12\x18.bftrader.BfPositionData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\tOnAccount\x12\x17.bftrader.BfAccountData\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -29,8 +29,6 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\370\001\001'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality

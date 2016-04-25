@@ -74,7 +74,7 @@ void protobuf_AddDesc_bfproxy_2eproto() {
     "ta\032\020.bftrader.BfVoid\"\000\022:\n\nOnPosition\022\030.b"
     "ftrader.BfPositionData\032\020.bftrader.BfVoid"
     "\"\000\0228\n\tOnAccount\022\027.bftrader.BfAccountData"
-    "\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006proto3", 633);
+    "\032\020.bftrader.BfVoid\"\000b\006proto3", 628);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfproxy.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfproxy_2eproto);

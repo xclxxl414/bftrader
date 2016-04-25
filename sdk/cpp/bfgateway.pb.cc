@@ -72,8 +72,7 @@ void protobuf_AddDesc_bfgateway_2eproto() {
     "yAccount\022\020.bftrader.BfVoid\032\020.bftrader.Bf"
     "Void\"\000\0225\n\rQueryPosition\022\020.bftrader.BfVoi"
     "d\032\020.bftrader.BfVoid\"\000\022-\n\005Close\022\020.bftrade"
-    "r.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006proto"
-    "3", 561);
+    "r.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto3", 556);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfgateway_2eproto);

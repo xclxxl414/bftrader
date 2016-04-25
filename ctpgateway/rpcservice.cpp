@@ -193,6 +193,8 @@ void RpcService::stop()
         gatewayThread_->wait();
         delete gatewayThread_;
         gatewayThread_ = nullptr;
+
+        QMetaObject::invokeMethod(g_sm->pushService(), "onGatewayClose", Qt::QueuedConnection);
     }
 }
 
