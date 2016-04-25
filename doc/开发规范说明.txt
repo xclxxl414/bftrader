@@ -1,0 +1,29 @@
+编程语言
+======
+1. 策略管理(cta)/数据服务(datafeed)/网关服务(gateway)/远程管理(assist)等上，都用c++，保证项目的可维护性；编译器用windows/vc2015/x64
+2. python限定在写进程外策略；解释器为windows/2.7/x86
+
+
+仓库管理
+======
+1. 发布分支为master，也是默认分支
+git clone https://github.com/sunwangme/bftrader.git
+2. 特性分支由master来派生，如新建一个cta
+git branch cta
+git checkout cta
+3. 推送代码到特性分支
+git add -A
+git commit -m "update"
+git push origin cta
+git push origin cta --force  #强推
+4. 合并代码到发布分支
+git checkout master
+git pull --rebase
+git checkout cta
+git rebase master
+git push origin cta
+git checkout master
+git rebase cta
+git push origin master
+参考：http://blog.csdn.net/hudashi/article/details/7664631
+
