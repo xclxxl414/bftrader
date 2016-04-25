@@ -21,9 +21,14 @@ git checkout master
 git pull --rebase
 git checkout cta
 git rebase master
-git push origin cta
+git push origin cta --force
 git checkout master
 git rebase cta
 git push origin master
-参考：http://blog.csdn.net/hudashi/article/details/7664631
+5. 删除分支
+git delete cta
+git push origin --delete cta
 
+参考：
+http://blog.csdn.net/hudashi/article/details/7664631
+http://zengrong.net/post/1746.htm
