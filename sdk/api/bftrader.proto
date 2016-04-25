@@ -179,7 +179,7 @@ message BfContractData{
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
-    string name = 3;            // 合约中文名(gbk)
+    string name = 3;            // 合约中文名(utf16)
     
     BfProduct productClass = 4; // 合约类型
     int32 volumeMultiple = 5;   // 合约数量乘数
