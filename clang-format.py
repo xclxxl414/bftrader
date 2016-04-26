@@ -3,7 +3,7 @@ import os.path
 import subprocess
 
 extList = set(["cpp","cc","h"])
-cppDir = ["base","tools","ctpallinone","ctpgateway","datafeed","ctaengine","dataframe"]
+cppDir = ["base","tools","allinone","ctpgateway","datafeed","ctaengine","dataframe","btgateway","assist"]
 
 def clangformat(filePath):
     cmdline = ["clang-format.exe","-style","WebKit",filePath]

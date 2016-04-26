@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    ctpgateway \
+    allinone \
     tools
