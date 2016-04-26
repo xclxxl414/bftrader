@@ -56,9 +56,7 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
     QString newSymbol = QString::fromStdString(newPos.symbol());
     QString newExchange = QString::fromStdString(newPos.exchange()); //ctp里面没有提供=
     void* newContract = g_sm->ctpMgr()->getContract(newSymbol);
-    if (newContract) {
-        newExchange = CtpUtils::getExchangeFromContract(newContract);
-    }
+    newExchange = CtpUtils::getExchangeFromContract(newContract);
 
     QString newKey = QString().sprintf("%s.%s.%d", newSymbol.toStdString().c_str(), newExchange.toStdString().c_str(), newPos.direction());
     if (newPos.position() == 0 && newPos.frozen() == 0) {
@@ -88,10 +86,8 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
         QString exchange = QString::fromStdString(pos.exchange()); //ctp里面没有提供=
         int volumeMultiple = 1;
         void* contract = g_sm->ctpMgr()->getContract(symbol);
-        if (contract) {
-            exchange = CtpUtils::getExchangeFromContract(contract);
-            volumeMultiple = CtpUtils::getVolumeMultipleFromContract(contract);
-        }
+        exchange = CtpUtils::getExchangeFromContract(contract);
+        volumeMultiple = CtpUtils::getVolumeMultipleFromContract(contract);
 
         QVariantMap vItem;
         vItem.insert("symbol", symbol);

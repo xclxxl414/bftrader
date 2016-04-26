@@ -28,22 +28,22 @@ void ServiceMgr::init()
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
     ui_thread_ = QThread::currentThread();
+    logic_thread_ = new QThread;
     io_thread_ = new QThread;
     db_thread_ = new QThread;
     push_thread_ = new QThread;
     rpc_thread_ = new QThread;
-    logic_thread_ = new QThread;
 
     logger_ = new Logger;
     profile_ = new Profile;
+    ctpMgr_ = new CtpMgr;
+    ctpMgr_->moveToThread(logic_thread_);
     dbService_ = new DbService;
     dbService_->moveToThread(db_thread_);
     rpcService_ = new RpcService;
     rpcService_->moveToThread(rpc_thread_);
     pushService_ = new PushService;
     pushService_->moveToThread(push_thread_);
-    ctpMgr_ = new CtpMgr;
-    ctpMgr_->moveToThread(logic_thread_);
 
     // ui objects
     logger_->init();
@@ -59,11 +59,11 @@ void ServiceMgr::init()
     QObject::connect(push_thread_, &QThread::finished, this, &ServiceMgr::pushThreadFinished, Qt::DirectConnection);
     QObject::connect(rpc_thread_, &QThread::finished, this, &ServiceMgr::rpcThreadFinished, Qt::DirectConnection);
     QObject::connect(logic_thread_, &QThread::finished, this, &ServiceMgr::logicThreadFinished, Qt::DirectConnection);
+    logic_thread_->start();
     io_thread_->start();
     db_thread_->start();
     push_thread_->start();
     rpc_thread_->start();
-    logic_thread_->start();
 }
 
 void ServiceMgr::ioThreadStarted()
@@ -173,11 +173,6 @@ void ServiceMgr::shutdown()
 
     QThreadPool::globalInstance()->waitForDone();
 
-    logic_thread_->quit();
-    logic_thread_->wait();
-    delete logic_thread_;
-    logic_thread_ = nullptr;
-
     rpc_thread_->quit();
     rpc_thread_->wait();
     delete rpc_thread_;
@@ -198,11 +193,13 @@ void ServiceMgr::shutdown()
     delete io_thread_;
     io_thread_ = nullptr;
 
+    logic_thread_->quit();
+    logic_thread_->wait();
+    delete logic_thread_;
+    logic_thread_ = nullptr;
+
     profile_->shutdown();
     logger_->shutdown();
-
-    delete ctpMgr_;
-    ctpMgr_ = nullptr;
 
     delete rpcService_;
     rpcService_ = nullptr;
@@ -212,6 +209,9 @@ void ServiceMgr::shutdown()
 
     delete dbService_;
     dbService_ = nullptr;
+
+    delete ctpMgr_;
+    ctpMgr_ = nullptr;
 
     delete profile_;
     profile_ = nullptr;

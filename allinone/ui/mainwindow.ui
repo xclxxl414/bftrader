@@ -83,8 +83,9 @@
     <property name="title">
      <string>ctp</string>
     </property>
-    <addaction name="actionConfig"/>
+    <addaction name="actionCtpVersion"/>
     <addaction name="separator"/>
+    <addaction name="actionConfig"/>
     <addaction name="actionStart"/>
     <addaction name="actionStop"/>
     <addaction name="separator"/>
@@ -98,25 +99,11 @@
      <property name="title">
       <string>developer tools</string>
      </property>
-     <widget class="QMenu" name="menuCtpTest">
-      <property name="title">
-       <string>ctp</string>
-      </property>
-      <addaction name="actionCtpVersion"/>
-     </widget>
      <widget class="QMenu" name="menuThread">
       <property name="title">
        <string>thread</string>
       </property>
       <addaction name="actionExternal"/>
-     </widget>
-     <widget class="QMenu" name="menuDb">
-      <property name="title">
-       <string>db</string>
-      </property>
-      <addaction name="actionDbOpen"/>
-      <addaction name="actionDbInit"/>
-      <addaction name="actionDbClose"/>
      </widget>
      <widget class="QMenu" name="menuCrash">
       <property name="title">
@@ -132,12 +119,10 @@
       <addaction name="actionExitProcess"/>
       <addaction name="actionTerminateProcess"/>
      </widget>
-     <addaction name="menuCtpTest"/>
      <addaction name="menuThread"/>
-     <addaction name="menuDb"/>
      <addaction name="menuCrash"/>
     </widget>
-    <addaction name="actionVersion"/>
+    <addaction name="actionAppVersion"/>
     <addaction name="menuDeveloperTools"/>
    </widget>
    <widget class="QMenu" name="menuRpc">
@@ -157,9 +142,9 @@
     <string>quit</string>
    </property>
   </action>
-  <action name="actionVersion">
+  <action name="actionAppVersion">
    <property name="text">
-    <string>version</string>
+    <string>appVersion</string>
    </property>
   </action>
   <action name="actionPureCallCrash">
@@ -207,26 +192,6 @@
     <string>TerminateProcess</string>
    </property>
   </action>
-  <action name="actionCtpVersion">
-   <property name="text">
-    <string>ctpVersion</string>
-   </property>
-  </action>
-  <action name="actionDbOpen">
-   <property name="text">
-    <string>dbOpen</string>
-   </property>
-  </action>
-  <action name="actionDbInit">
-   <property name="text">
-    <string>dbInit</string>
-   </property>
-  </action>
-  <action name="actionDbClose">
-   <property name="text">
-    <string>dbClose</string>
-   </property>
-  </action>
   <action name="actionExternal">
    <property name="text">
     <string>external</string>
@@ -249,12 +214,17 @@
   </action>
   <action name="actionRpcStart">
    <property name="text">
-    <string>start</string>
+    <string>rpcStart</string>
    </property>
   </action>
   <action name="actionRpcStop">
    <property name="text">
-    <string>stop</string>
+    <string>rpcStop</string>
+   </property>
+  </action>
+  <action name="actionCtpVersion">
+   <property name="text">
+    <string>ctpVersion</string>
    </property>
   </action>
  </widget>

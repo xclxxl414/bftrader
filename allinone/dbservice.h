@@ -12,13 +12,24 @@ public:
     void init();
     void shutdown();
 
-signals:
-
-public slots:
+private:
     void dbOpen();
-    void dbInit();
     void dbClose();
+    void batchWriteTicks();
+
+private slots:
+    void onGotContracts(QStringList ids, QStringList idsAll);
+    void onGotTick(void* curTick, void* preTick);
+    void onTradeWillBegin();
 
 private:
     leveldb::DB* db_ = nullptr;
+
+    struct TickPair {
+        void* curTick;
+        void* preTick;
+    };
+    static const int tickArrayLen_ = 128;
+    TickPair tickArray[tickArrayLen_] = { 0 };
+    int tickCount_ = 0;
 };

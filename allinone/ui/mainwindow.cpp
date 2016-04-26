@@ -281,21 +281,6 @@ void MainWindow::on_actionCtpVersion_triggered()
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionDbOpen_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbOpen", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbInit_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbInit", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbClose_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
-}
-
 void MainWindow::on_actionConfig_triggered()
 {
     ConfigDialog dlg(this);

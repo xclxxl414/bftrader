@@ -11,10 +11,11 @@ static f_CreateMdApi p_CreateMdApi = nullptr;
 typedef const char*(__cdecl* f_GetApiVersion)();
 static f_GetApiVersion p_GetApiVersion = nullptr;
 
+static HMODULE s_mod_mdapi = nullptr;
+
 // init
 static void LoadMdApi()
 {
-    static HMODULE s_mod_mdapi = nullptr;
     if (!s_mod_mdapi) {
         wchar_t buffer[MAX_PATH] = { 0 };
         GetModuleFileNameW(0, buffer, MAX_PATH);
@@ -62,6 +63,10 @@ const char* CThostFtdcMdApi::GetApiVersion()
     if (p_GetApiVersion) {
         return p_GetApiVersion();
     } else {
-        return "< v6.3.6";
+        if(s_mod_mdapi){
+            return "< v6.3.6";
+        }else{
+            return "no thostmduserapi.dll";
+        }
     }
 }

@@ -10,10 +10,11 @@ static f_CreateTraderApi p_CreateTraderApi = nullptr;
 typedef const char*(__cdecl* f_GetApiVersion)();
 static f_GetApiVersion p_GetApiVersion = nullptr;
 
+static HMODULE s_mod_tdapi = nullptr;
+
 // init
 static void LoadTdApi()
 {
-    static HMODULE s_mod_tdapi = nullptr;
     if (!s_mod_tdapi) {
         wchar_t buffer[MAX_PATH] = { 0 };
         GetModuleFileNameW(0, buffer, MAX_PATH);
@@ -61,6 +62,11 @@ const char* CThostFtdcTraderApi::GetApiVersion()
     if (p_GetApiVersion) {
         return p_GetApiVersion();
     } else {
-        return "< v6.3.6";
+        if (s_mod_tdapi){
+            return "< v6.3.6";
+        }
+        else{
+            return "no thosttraderapi.dll";
+        }
     }
 }

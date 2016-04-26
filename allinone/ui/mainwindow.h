@@ -51,9 +51,6 @@ private slots:
     void on_actionTerminateProcess_triggered();
     void on_actionExternal_triggered();
     void on_actionCtpVersion_triggered();
-    void on_actionDbOpen_triggered();
-    void on_actionDbInit_triggered();
-    void on_actionDbClose_triggered();
     void on_actionConfig_triggered();
     void on_actionStart_triggered();
     void on_actionStop_triggered();
