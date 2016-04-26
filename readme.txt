@@ -1,38 +1,38 @@
-QQ½»Á÷Èº340195342£¬µã»÷¼ÓÈë£ºhttp://jq.qq.com/?_wv=1027&k=2ADNTk3
+QQäº¤æµç¾¤340195342ï¼Œç‚¹å‡»åŠ å…¥ï¼šhttp://jq.qq.com/?_wv=1027&k=2ADNTk3
 ======
 
-2015-2016 by ºÍ¸ç
-bftrader/¸£ÓÑÁ¿»¯: Ö§³ÖÊÖ¶¯½»Ò×£¬Ò²Ö§³Ö³ÌĞò»¯
+2015-2016 by å’Œå“¥
+bftrader/ç¦å‹é‡åŒ–: æ”¯æŒæ‰‹åŠ¨äº¤æ˜“ï¼Œä¹Ÿæ”¯æŒç¨‹åºåŒ–
 
-´ÓÔ´Âë±àÒë
+ä»æºç ç¼–è¯‘
 ======
-ÕÕ×Å×ö£¬ºÜ¿ìÄÜ¸ã¶¨¡£
-doc\bftrader±àÒë²½Öè-ÎÄ×Ö°æ.txt
-doc\bftrader±àÒë²½Öè-Í¼ÎÄ°æ.docx
+ç…§ç€åšï¼Œå¾ˆå¿«èƒ½æå®šã€‚
+doc\bftraderç¼–è¯‘æ­¥éª¤-æ–‡å­—ç‰ˆ.txt
+doc\bftraderç¼–è¯‘æ­¥éª¤-å›¾æ–‡ç‰ˆ.docx
 
-ÊÖ¶¯½»Ò×
+æ‰‹åŠ¨äº¤æ˜“
 ======
-1. ÏÂÔØbftrader·¢²¼°ü
-ÏÂÔØµØÖ·: https://github.com/sunwangme/bftrader/releases
-ÏÂÔØµØÖ·: http://pan.baidu.com/s/1nvgrNst
+1. ä¸‹è½½bftraderå‘å¸ƒåŒ…
+ä¸‹è½½åœ°å€: https://github.com/sunwangme/bftrader/releases
+ä¸‹è½½åœ°å€: http://pan.baidu.com/s/1nvgrNst
 
-2. ÔËĞĞallinone
-ÏÈctp/config£¬×¢ÒâµØÖ·Ç°Ãæ¼Ótcp://£¬ÆäËûºÍvnpyÒ»ÖÂ
+2. è¿è¡Œallinone
+å…ˆctp/configï¼Œæ³¨æ„åœ°å€å‰é¢åŠ tcp://ï¼Œå…¶ä»–å’Œvnpyä¸€è‡´
 
 
-³ÌĞò»¯½»Ò×
+ç¨‹åºåŒ–äº¤æ˜“
 ======
-ÓÃpythonÔõÃ´Ğ´²ßÂÔ£¿£¨¿ÉÒÔÊ¹ÓÃgateway½Ó¿Ú£¬Ò²¿ÉÒÔÊ¹ÓÃcta½Ó¿Ú£¬Ä¿Ç°ÓÃgateway½Ó¿Ú£©
-Õâ¸ö¾ÍÒª¿´¶®sdk£¡¿´¶®sdk/api£¡
-½øÈësdkÄ¿Â¼£¬ÔËĞĞÀı×Ó£¬¾ÍÃ÷°×ÁË£¡
+ç”¨pythonæ€ä¹ˆå†™ç­–ç•¥ï¼Ÿï¼ˆå¯ä»¥ä½¿ç”¨gatewayæ¥å£ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨ctaæ¥å£ï¼Œç›®å‰ç”¨gatewayæ¥å£ï¼‰
+è¿™ä¸ªå°±è¦çœ‹æ‡‚sdkï¼çœ‹æ‡‚sdk/apiï¼
+è¿›å…¥sdkç›®å½•ï¼Œè¿è¡Œä¾‹å­ï¼Œå°±æ˜ç™½äº†ï¼
 
-1. ÏÂÔØbftrader·¢²¼°ü
-ÏÂÔØµØÖ·: https://github.com/sunwangme/bftrader/releases
-ÏÂÔØµØÖ·: http://pan.baidu.com/s/1nvgrNst
+1. ä¸‹è½½bftraderå‘å¸ƒåŒ…
+ä¸‹è½½åœ°å€: https://github.com/sunwangme/bftrader/releases
+ä¸‹è½½åœ°å€: http://pan.baidu.com/s/1nvgrNst
 
-2. °²×°grpc for python
-   2.1 °²×°python python-2.7.11.msi
-   2.2 °²×°python¿â,°²×°°üÔÚ sdk/python_libsÄ¿Â¼ÏÂ
+2. å®‰è£…grpc for python
+   2.1 å®‰è£…python python-2.7.11.msi
+   2.2 å®‰è£…pythonåº“,å®‰è£…åŒ…åœ¨ sdk/python_libsç›®å½•ä¸‹
       2.2.1 pip install six-xxx
       2.2.2 pip install setuptools-xxx
       2.2.3 pip install enum34-xxx
@@ -40,12 +40,12 @@ doc\bftrader±àÒë²½Öè-Í¼ÎÄ°æ.docx
       2.2.5 pip install protobuf-xxx
       2.2.6 pip install grpcio-xxx
 
-3. Ğ´²ßÂÔ£¬µ÷ÊÔ²ßÂÔ  
-    3.1 ÔËĞĞallinone.exe
-    3.2 µã»÷allinoneµÄrpc/start
-    3.3 ÔËĞĞpython/demo.py£¬ÒÔÁ¬½Óallinone
-    3.4 µã»÷allinoneµÄctp/start
-    3.5 ¿ÉÒÔ¿´µ½demo.pyÅÜÆğÀ´À²
+3. å†™ç­–ç•¥ï¼Œè°ƒè¯•ç­–ç•¥  
+    3.1 è¿è¡Œallinone.exe
+    3.2 ç‚¹å‡»allinoneçš„rpc/start
+    3.3 è¿è¡Œpython/demo.pyï¼Œä»¥è¿æ¥allinone
+    3.4 ç‚¹å‡»allinoneçš„ctp/start
+    3.5 å¯ä»¥çœ‹åˆ°demo.pyè·‘èµ·æ¥å•¦
 
 
-£¨Íê£©
+ï¼ˆå®Œï¼‰
