@@ -5,4 +5,8 @@ build-*/
 *.pyo
 *.autosave
 ~*
-third_party/
+third_party/ctp/bin/
+third_party/ctp/lib/
+third_party/grpc/bin/
+third_party/grpc/lib/
+
