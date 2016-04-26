@@ -14,7 +14,7 @@ Profile::Profile(QObject* parent)
 }
 
 void Profile::init()
-{   
+{
     //path_ = QDir::home().absoluteFilePath(appName() + QStringLiteral("/config.json"));
     path_ = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/config.json"));
 
@@ -79,7 +79,6 @@ QString Profile::flowPathMd()
 {
     //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
     return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
-
 }
 
 //居然要传一个/结尾=
@@ -124,8 +123,9 @@ bool Profile::checkSingleInstance()
     return true;
 }
 
-void Profile::closeSingleInstanceMutex(){
-    if(hSingleInstanceMutex){
+void Profile::closeSingleInstanceMutex()
+{
+    if (hSingleInstanceMutex) {
         CloseHandle(hSingleInstanceMutex);
         hSingleInstanceMutex = nullptr;
     }

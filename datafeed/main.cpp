@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
         QApplication a(argc, argv);
 
         // single instance for dir+appname
-        if(!Profile::checkSingleInstance()){
+        if (!Profile::checkSingleInstance()) {
             return -1;
         }
 

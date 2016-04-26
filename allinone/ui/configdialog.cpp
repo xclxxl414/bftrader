@@ -24,18 +24,18 @@ void ConfigDialog::save()
 
     // 解决ctp网址缺tcp://或者大写导致的crash=
     QString frontMd = ui->frontMd->text();
-    if(!frontMd.trimmed().toLower().startsWith("tcp://")){
+    if (!frontMd.trimmed().toLower().startsWith("tcp://")) {
         frontMd = QString("tcp://") + frontMd.trimmed().toLower();
-    }else{
+    } else {
         frontMd = frontMd.trimmed().toLower();
     }
     profile->put("frontMd", frontMd);
 
     // 解决ctp网址缺tcp://或者大写导致的crash=
     QString frontTd = ui->frontTd->text();
-    if(!frontTd.trimmed().toLower().startsWith("tcp://")){
+    if (!frontTd.trimmed().toLower().startsWith("tcp://")) {
         frontTd = QString("tcp://") + frontTd.trimmed().toLower();
-    }else{
+    } else {
         frontTd = frontTd.trimmed().toLower();
     }
     profile->put("frontTd", frontTd);

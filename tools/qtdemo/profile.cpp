@@ -108,8 +108,9 @@ bool Profile::checkSingleInstance()
     return true;
 }
 
-void Profile::closeSingleInstanceMutex(){
-    if(hSingleInstanceMutex){
+void Profile::closeSingleInstanceMutex()
+{
+    if (hSingleInstanceMutex) {
         CloseHandle(hSingleInstanceMutex);
         hSingleInstanceMutex = nullptr;
     }
