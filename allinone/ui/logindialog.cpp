@@ -7,6 +7,7 @@ LoginDialog::LoginDialog(QWidget* parent)
 {
     ui->setupUi(this);
     setWindowTitle("login");
+    setWindowIcon(QIcon(":/images/heart.png"));
 }
 
 LoginDialog::~LoginDialog()

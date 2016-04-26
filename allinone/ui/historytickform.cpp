@@ -12,6 +12,7 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
     , ui(new Ui::HistoryTickForm)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/images/heart.png"));
 
     //设置列=
     table_col_ << "key"
@@ -331,7 +332,7 @@ void HistoryTickForm::on_delButton_clicked()
 void HistoryTickForm::onGotTick(QString key, const BfTickData& bfTick)
 {
     QVariantMap vItem;
-    vItem.insert("Key", key);
+    vItem.insert("key", key);
     vItem.insert("symbol", bfTick.symbol().c_str());
     // tick里面的exchange不一定有=
     QString exchange = bfTick.exchange().c_str();

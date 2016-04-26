@@ -16,9 +16,9 @@ PositionForm::PositionForm(QWidget* parent)
 
                << "direction"
                << "position"
+               << "ydPosition"
                << "price"
                << "frozen"
-               << "ydPosition"
 
                << "key";
     this->ui->tableWidget->setColumnCount(table_col_.length());
@@ -59,12 +59,29 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
     newExchange = CtpUtils::getExchangeFromContract(newContract);
 
     QString newKey = QString().sprintf("%s.%s.%d", newSymbol.toStdString().c_str(), newExchange.toStdString().c_str(), newPos.direction());
-    if (newPos.position() == 0 && newPos.frozen() == 0) {
-        if (positions_.contains(newKey)) {
+
+    // 需要累加=
+    BfPositionData combPos;
+    if (!positions_.contains(newKey)){
+        combPos = newPos;
+    }else{
+        BfPositionData oldPos = positions_[newKey];
+        combPos = oldPos;
+        combPos.set_position(oldPos.position() + newPos.position());
+        combPos.set_ydposition(oldPos.ydposition() + newPos.ydposition());
+        combPos.set_frozen(oldPos.frozen() + newPos.frozen());
+        if(combPos.position()>0){
+            combPos.set_price( (oldPos.price()*oldPos.position()+newPos.price()*newPos.position())/combPos.position());
+        }
+    }
+
+    // 滤掉空的=
+    if (combPos.position()==0 && combPos.frozen()==0){
+        if(positions_.contains(newKey)){
             positions_.remove(newKey);
         }
-    } else {
-        positions_[newKey] = newPos;
+    }else{
+        positions_[newKey] = combPos;
     }
 
     // 更新界面=
@@ -95,9 +112,9 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
 
         vItem.insert("direction", CtpUtils::formatDirection(pos.direction()));
         vItem.insert("position", pos.position());
+        vItem.insert("ydPosition", pos.ydposition());
         vItem.insert("price", pos.price() / volumeMultiple);
         vItem.insert("frozen", pos.frozen());
-        vItem.insert("ydPosition", pos.ydposition());
 
         QString key = QString().sprintf("%s.%s.%d", symbol.toStdString().c_str(), exchange.toStdString().c_str(), pos.direction());
         vItem.insert("key", key);
@@ -119,6 +136,11 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
 
 void PositionForm::on_pushButtonQueryPosition_clicked()
 {
+    table_row_.clear();
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(positions_.size());
+    positions_.clear();
+
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
 }
 

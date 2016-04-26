@@ -9,6 +9,7 @@ ConfigDialog::ConfigDialog(QWidget* parent)
 {
     ui->setupUi(this);
     setWindowTitle("config");
+    setWindowIcon(QIcon(":/images/heart.png"));
 }
 
 ConfigDialog::~ConfigDialog()

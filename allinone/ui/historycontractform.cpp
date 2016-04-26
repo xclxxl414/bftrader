@@ -13,6 +13,7 @@ HistoryContractForm::HistoryContractForm(QWidget* parent)
     , ui(new Ui::HistoryContractForm)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/images/heart.png"));
 
     //设置列=
     table_col_ << "key"

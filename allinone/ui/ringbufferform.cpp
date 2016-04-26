@@ -12,6 +12,7 @@ RingBufferForm::RingBufferForm(QWidget* parent)
     , ui(new Ui::RingBufferForm)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/images/heart.png"));
 
     //设置列=
     table_col_ << "symbol"

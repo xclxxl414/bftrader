@@ -155,6 +155,7 @@ private:
     }
 
     // 请求查询投资者持仓响应，可能有多个回调=
+    // 需要累加=由上层完成=
     void OnRspQryInvestorPosition(CThostFtdcInvestorPositionField* pInvestorPosition, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (!isErrorRsp(pRspInfo, nRequestID) && pInvestorPosition) {
@@ -181,6 +182,14 @@ private:
             if (pos.position() > 0) {
                 pos.set_price(pInvestorPosition->PositionCost / pos.position());
             }
+
+            BfDebug("position: symbol=%s direction=%s position=%d ydposition=%d todayposition=%d",
+                   pos.symbol().c_str(),
+                   CtpUtils::formatDirection(pos.direction()).toStdString().c_str(),
+                   pos.position(),
+                   pos.ydposition(),
+                   pInvestorPosition->TodayPosition
+                   );
 
             emit g_sm->ctpMgr()->gotPosition(pos);
         }
