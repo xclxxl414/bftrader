@@ -1,0 +1,12 @@
+#ifndef DATAFRAME_GLOBAL_H
+#define DATAFRAME_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DATAFRAME_LIBRARY)
+#define DATAFRAMESHARED_EXPORT Q_DECL_EXPORT
+#else
+#define DATAFRAMESHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DATAFRAME_GLOBAL_H
