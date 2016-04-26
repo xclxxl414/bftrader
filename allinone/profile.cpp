@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <windows.h>
 
 Profile::Profile(QObject* parent)
     : QObject(parent)
@@ -13,8 +14,10 @@ Profile::Profile(QObject* parent)
 }
 
 void Profile::init()
-{
-    path_ = QDir::home().absoluteFilePath(appName() + QStringLiteral("/config.json"));
+{   
+    //path_ = QDir::home().absoluteFilePath(appName() + QStringLiteral("/config.json"));
+    path_ = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/config.json"));
+
     mkDir(path_);
 
     QFile file(path_);
@@ -74,23 +77,28 @@ void Profile::commit()
 //居然要传一个/结尾=
 QString Profile::flowPathMd()
 {
-    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+
 }
 
 //居然要传一个/结尾=
 QString Profile::flowPathTd()
 {
-    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
 }
 
 QString Profile::dbPath()
 {
-    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/data/db"));
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/data/db"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/data/db"));
 }
 
 QString Profile::logPath()
 {
-    return QDir::home().absoluteFilePath(appName() + QStringLiteral("/log.txt"));
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/log.txt"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/log.txt"));
 }
 
 QString Profile::appName()
@@ -101,4 +109,24 @@ QString Profile::appName()
 #else
     return fi.baseName();
 #endif
+}
+
+static HANDLE hSingleInstanceMutex = nullptr;
+bool Profile::checkSingleInstance()
+{
+    QString logPath = QString("Global//") + Profile::logPath();
+    HANDLE hMutex = CreateMutexW(NULL, FALSE, logPath.toStdWString().c_str());
+    if (GetLastError() == ERROR_ALREADY_EXISTS) {
+        CloseHandle(hMutex);
+        return false;
+    }
+    hSingleInstanceMutex = hMutex;
+    return true;
+}
+
+void Profile::closeSingleInstanceMutex(){
+    if(hSingleInstanceMutex){
+        CloseHandle(hSingleInstanceMutex);
+        hSingleInstanceMutex = nullptr;
+    }
 }

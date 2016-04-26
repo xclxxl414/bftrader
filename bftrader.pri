@@ -42,9 +42,13 @@ CONFIG += c++11
 # x64
 contains(QT_ARCH, i386) {
     #message("32-bit")
+    DEFINES += WIN32
+    DEFINES += _WIN32
+    DEFINES += __WIN32__
     error("dont support x86")
 } else {
     #message("64-bit")
     DEFINES += WIN64
     DEFINES += _WIN64
+    DEFINES += __WIN64__
 }

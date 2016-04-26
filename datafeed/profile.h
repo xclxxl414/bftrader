@@ -24,6 +24,9 @@ public:
     static QString logPath();
     static QString appName();
 
+    static bool checkSingleInstance();
+    static void closeSingleInstanceMutex();
+
 signals:
     void keyValueChanged(QString key, QVariant value);
 

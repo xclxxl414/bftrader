@@ -125,7 +125,8 @@ static QString Profile_appName()
 
 static QString Profile_logPath()
 {
-    return QDir::home().absoluteFilePath(Profile_appName() + QStringLiteral("/log.txt"));
+    //return QDir::home().absoluteFilePath(Profile_appName() + QStringLiteral("/log.txt"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(Profile_appName() + QStringLiteral("/log.txt"));
 }
 
 void Logger::init()

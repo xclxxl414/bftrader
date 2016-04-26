@@ -1,7 +1,11 @@
 #include "logger.h"
+#include "profile.h"
 #include "servicemgr.h"
 #include "ui/mainwindow.h"
 #include <QApplication>
+#include <QDesktopWidget>
+
+//开一个vc编译器cmd，执行：windeployqt --dir bftrader --no-angle --no-translations --pdb appname.exe
 
 //qt的插件在退出时候没有释放造成泄漏，改了两个太无聊了不改了=
 #if 0
@@ -74,20 +78,37 @@ int main(int argc, char* argv[])
     int result = 0;
     {
         QApplication a(argc, argv);
+
+        // single instance for dir+appname
+        if(!Profile::checkSingleInstance()){
+            return -1;
+        }
+
+        // crash monitor
         Logger::startExitMonitor();
+
+        // windows
         a.setQuitOnLastWindowClosed(false);
 
+        // servicemgr
         ServiceMgr s;
         s.init();
 
+        // main window
         MainWindow w;
         w.init();
+        w.move((QApplication::desktop()->width() - w.width()) / 2, (QApplication::desktop()->height() - w.height()) / 3);
         w.show();
 
+        // message pump
         result = a.exec();
 
+        // shutdown
         w.shutdown();
         s.shutdown();
+
+        // free single instance mutex
+        Profile::closeSingleInstanceMutex();
     }
 
     return result;
