@@ -35,7 +35,10 @@ SOURCES += main.cpp\
     ui/tickform.cpp \
     ui/accountform.cpp \
     ui/tablewidget_helper.cpp \
-    ui/workingorderform.cpp
+    ui/workingorderform.cpp \
+    ui/ringbufferform.cpp \
+    ui/historytickform.cpp \
+    ui/historycontractform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -60,7 +63,10 @@ HEADERS  += ui/mainwindow.h \
     ui/accountform.h \
     ui/tablewidget_helper.h \
     ui/workingorderform.h \
-    ctp_utils.h
+    ctp_utils.h \
+    ui/ringbufferform.h \
+    ui/historytickform.h \
+    ui/historycontractform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -74,7 +80,10 @@ FORMS    += ui/mainwindow.ui \
     ui/tradeform.ui \
     ui/tickform.ui \
     ui/accountform.ui \
-    ui/workingorderform.ui
+    ui/workingorderform.ui \
+    ui/ringbufferform.ui \
+    ui/historytickform.ui \
+    ui/historycontractform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)
@@ -83,6 +92,7 @@ include(../third_party/mhook.pri)
 include(../third_party/ctp.pri)
 include(../third_party/leveldb.pri)
 include(../third_party/grpc.pri)
+include(../third_party/qcustomplot.pri)
 
 RESOURCES += \
     systray.qrc

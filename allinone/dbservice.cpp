@@ -1,6 +1,7 @@
 #include "dbservice.h"
 #include "ctp_utils.h"
 #include "ctpmgr.h"
+#include "encode_utils.h"
 #include "file_utils.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
@@ -48,6 +49,18 @@ void DbService::shutdown()
     delete leveldb::Env::Default();
 }
 
+leveldb::DB* DbService::getDb()
+{
+    BfDebug(__FUNCTION__);
+
+    if (!db_) {
+        qFatal("db not open yet");
+        return nullptr;
+    }
+
+    return db_;
+}
+
 void DbService::dbOpen()
 {
     BfDebug(__FUNCTION__);
@@ -93,7 +106,7 @@ void DbService::batchWriteTicks()
 {
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    if( tickCount_ == 0 ){
+    if (tickCount_ == 0) {
         return;
     }
 
@@ -114,9 +127,13 @@ void DbService::batchWriteTicks()
             bfItem.set_exchange(exchange.toStdString());
         }
 
-        // key: tick.exchange.symbol.actiondata.ticktime
-        std::string key = QString().sprintf("tick.%s.%s.%s.%s", bfItem.exchange().c_str(), bfItem.symbol().c_str(), bfItem.actiondate().c_str(), bfItem.ticktime().c_str()).toStdString();
-        std::string val = bfItem.SerializeAsString();
+        // key: tick-exchange-symbol-actiondata-ticktime
+        std::string key = QString().sprintf("tick-%s-%s-%s-%s", bfItem.exchange().c_str(), bfItem.symbol().c_str(), bfItem.actiondate().c_str(), bfItem.ticktime().c_str()).toStdString();
+        std::string val;
+        bool ok = bfItem.SerializeToString(&val);
+        if (!ok) {
+            qFatal("SerializeToString fail");
+        }
 
         batch.Put(key, val);
     }
@@ -153,18 +170,42 @@ void DbService::onGotContracts(QStringList ids, QStringList idsAll)
     //按排序后合约来=
     QStringList sorted_ids = idsAll;
     sorted_ids.sort();
+
+    // key: contract+
+    // key: contract=
+    BfContractData bfNullContract;
+    std::string key = "contract+";
+    std::string val = bfNullContract.SerializeAsString();
+    batch.Put(key, val);
+    key = "contract=";
+    val = bfNullContract.SerializeAsString();
+    batch.Put(key, val);
+
     for (int i = 0; i < sorted_ids.length(); i++) {
         QString id = sorted_ids.at(i);
         void* contract = g_sm->ctpMgr()->getContract(id);
         BfContractData bfItem;
         CtpUtils::translateContract(contract, &bfItem);
 
-        // key: contract.exchange.symbol
-        std::string key = QString().sprintf("contract.%s.%s", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
-        std::string val = bfItem.SerializeAsString();
+        // key: contract-exchange-symbol
+        key = QString().sprintf("contract-%s-%s", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        bool ok = bfItem.SerializeToString(&val);
+        if (!ok) {
+            qFatal("SerializeToString fail");
+        }
+        batch.Put(key, val);
 
+        // key: tick-exchange-symbol+
+        // key: tick-exchange-symbol=
+        BfTickData bfNullTick;
+        key = QString().sprintf("tick-%s-%s+", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        val = bfNullTick.SerializeAsString();
+        batch.Put(key, val);
+        key = QString().sprintf("tick-%s-%s=", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        val = bfNullTick.SerializeAsString();
         batch.Put(key, val);
     }
+
     db_->Write(options, &batch);
 }
 

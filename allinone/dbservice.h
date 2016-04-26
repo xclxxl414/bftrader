@@ -11,6 +11,7 @@ public:
     explicit DbService(QObject* parent = 0);
     void init();
     void shutdown();
+    leveldb::DB* getDb();
 
 private:
     void dbOpen();

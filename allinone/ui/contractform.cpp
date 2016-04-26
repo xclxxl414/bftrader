@@ -81,7 +81,7 @@ void ContractForm::onGotContract(void* contract)
     QVariantMap vItem;
     vItem.insert("symbol", bfItem.symbol().c_str());
     vItem.insert("exchange", bfItem.exchange().c_str());
-    vItem.insert("name", gbk2utf16(bfItem.name().c_str()));
+    vItem.insert("name", bfItem.name().c_str());
 
     vItem.insert("productClass", CtpUtils::formatProduct(bfItem.productclass()));
     vItem.insert("volumeMultiple", bfItem.volumemultiple());
@@ -99,7 +99,7 @@ void ContractForm::onGotContract(void* contract)
         QVariant raw_val = vItem.value(table_col_.at(i));
         QString str_val = raw_val.toString();
         if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
-            str_val = QString().sprintf("%6.1f", raw_val.toDouble());
+            str_val = QString().sprintf("%6.3f", raw_val.toDouble());
         }
 
         QTableWidgetItem* item = new QTableWidgetItem(str_val);

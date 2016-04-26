@@ -27,6 +27,8 @@ private slots:
     void on_pushButtonSendOrder_clicked();
     void on_tableWidget_cellDoubleClicked(int row, int column);
 
+    void on_tableWidget_cellClicked(int row, int column);
+
 private:
     Ui::TickForm* ui;
     QTimer* updateTickTimer_ = nullptr;

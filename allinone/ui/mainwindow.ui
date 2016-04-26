@@ -83,47 +83,39 @@
     <property name="title">
      <string>ctp</string>
     </property>
-    <addaction name="actionCtpVersion"/>
     <addaction name="separator"/>
-    <addaction name="actionConfig"/>
-    <addaction name="actionStart"/>
-    <addaction name="actionStop"/>
+    <addaction name="actionCtpStart"/>
+    <addaction name="actionCtpStop"/>
     <addaction name="separator"/>
-    <addaction name="actionQuit"/>
+    <addaction name="actionCtpConfig"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>about</string>
     </property>
-    <widget class="QMenu" name="menuDeveloperTools">
+    <widget class="QMenu" name="menu_NO_MONEY">
      <property name="title">
-      <string>developer tools</string>
+      <string>!!!NO MONEY!!!</string>
      </property>
-     <widget class="QMenu" name="menuThread">
-      <property name="title">
-       <string>thread</string>
-      </property>
-      <addaction name="actionExternal"/>
-     </widget>
-     <widget class="QMenu" name="menuCrash">
-      <property name="title">
-       <string>crash</string>
-      </property>
-      <addaction name="actionInvalidParamCrash"/>
-      <addaction name="actionPureCallCrash"/>
-      <addaction name="actionDerefZeroCrash"/>
-      <addaction name="actionQFatal"/>
-      <addaction name="actiondebugbreak"/>
-      <addaction name="actionDebugBreak"/>
-      <addaction name="actionExit"/>
-      <addaction name="actionExitProcess"/>
-      <addaction name="actionTerminateProcess"/>
-     </widget>
-     <addaction name="menuThread"/>
-     <addaction name="menuCrash"/>
+     <addaction name="actionExternal"/>
+     <addaction name="separator"/>
+     <addaction name="actionInvalidParamCrash"/>
+     <addaction name="actionPureCallCrash"/>
+     <addaction name="actionDerefZeroCrash"/>
+     <addaction name="actionQFatal"/>
+     <addaction name="actiondebugbreak"/>
+     <addaction name="actionDebugBreak"/>
+     <addaction name="actionExit"/>
+     <addaction name="actionExitProcess"/>
+     <addaction name="actionTerminateProcess"/>
     </widget>
+    <addaction name="actionWebsite"/>
+    <addaction name="actionFeedback"/>
+    <addaction name="separator"/>
     <addaction name="actionAppVersion"/>
-    <addaction name="menuDeveloperTools"/>
+    <addaction name="actionCtpVersion"/>
+    <addaction name="separator"/>
+    <addaction name="menu_NO_MONEY"/>
    </widget>
    <widget class="QMenu" name="menuRpc">
     <property name="title">
@@ -132,14 +124,29 @@
     <addaction name="actionRpcStart"/>
     <addaction name="actionRpcStop"/>
    </widget>
+   <widget class="QMenu" name="menuDb">
+    <property name="title">
+     <string>db</string>
+    </property>
+    <addaction name="actionHistoryContract"/>
+   </widget>
+   <widget class="QMenu" name="menuApp">
+    <property name="title">
+     <string>app</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionAppQuit"/>
+   </widget>
+   <addaction name="menuApp"/>
    <addaction name="menuCtp"/>
    <addaction name="menuRpc"/>
+   <addaction name="menuDb"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionQuit">
+  <action name="actionAppQuit">
    <property name="text">
-    <string>quit</string>
+    <string>appQuit</string>
    </property>
   </action>
   <action name="actionAppVersion">
@@ -197,19 +204,19 @@
     <string>external</string>
    </property>
   </action>
-  <action name="actionConfig">
+  <action name="actionCtpConfig">
    <property name="text">
-    <string>config</string>
+    <string>ctpConfig</string>
    </property>
   </action>
-  <action name="actionStart">
+  <action name="actionCtpStart">
    <property name="text">
-    <string>start</string>
+    <string>ctpStart</string>
    </property>
   </action>
-  <action name="actionStop">
+  <action name="actionCtpStop">
    <property name="text">
-    <string>stop</string>
+    <string>ctpStop</string>
    </property>
   </action>
   <action name="actionRpcStart">
@@ -225,6 +232,21 @@
   <action name="actionCtpVersion">
    <property name="text">
     <string>ctpVersion</string>
+   </property>
+  </action>
+  <action name="actionHistoryContract">
+   <property name="text">
+    <string>historyContract</string>
+   </property>
+  </action>
+  <action name="actionWebsite">
+   <property name="text">
+    <string>website</string>
+   </property>
+  </action>
+  <action name="actionFeedback">
+   <property name="text">
+    <string>feedback</string>
    </property>
   </action>
  </widget>

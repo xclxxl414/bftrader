@@ -1,4 +1,6 @@
 #include "tablewidget_helper.h"
+#include <QApplication>
+#include <QDesktopWidget>
 
 void bfAdjustTableWidget(QTableWidget* tableWidget)
 {
@@ -27,4 +29,9 @@ void bfAdjustTableWidget(QTableWidget* tableWidget)
 void bfFitTableWidget(QTableWidget* tableWidget)
 {
     tableWidget->resizeColumnsToContents(); //自动调整列宽度=
+}
+
+void centerWindow(QWidget* form)
+{
+    form->move((QApplication::desktop()->width() - form->width()) / 2, (QApplication::desktop()->height() - form->height()) / 3);
 }

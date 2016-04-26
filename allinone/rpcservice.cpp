@@ -55,18 +55,12 @@ public:
             QString symbol = request->symbol().c_str();
             void* contract = g_sm->ctpMgr()->getContract(symbol);
             CtpUtils::translateContract(contract, response);
-            std::string gbk_name = response->name();
-            QString utf16_name = gbk2utf16(gbk_name.c_str());
-            response->set_name(utf16_name.toStdString());
         } else {
             QStringList ids = request->subscribled() ? g_sm->ctpMgr()->getIds() : g_sm->ctpMgr()->getIdsAll();
             if (ids.length() > index - 1) {
                 QString symbol = ids.at(index - 1);
                 void* contract = g_sm->ctpMgr()->getContract(symbol);
                 CtpUtils::translateContract(contract, response);
-                std::string gbk_name = response->name();
-                QString utf16_name = gbk2utf16(gbk_name.c_str());
-                response->set_name(utf16_name.toStdString());
             }
         }
 

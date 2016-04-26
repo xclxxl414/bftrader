@@ -1,5 +1,6 @@
 #include "ctp_utils.h"
 #include "ThostFtdcUserApiStruct.h"
+#include "encode_utils.h"
 #include "servicemgr.h"
 
 ///////////
@@ -241,7 +242,8 @@ void translateContract(void* from, BfContractData* to)
 
     to->set_symbol(data->InstrumentID);
     to->set_exchange(data->ExchangeID);
-    to->set_name(data->InstrumentName);
+    //gbk会导致protobuf反序列化失败=
+    to->set_name(gbk2utf16(data->InstrumentName).toStdString());
 
     to->set_productclass(translateProduct(data->ProductClass));
     to->set_volumemultiple(data->VolumeMultiple);

@@ -8,6 +8,7 @@
 #include "debugform.h"
 #include "errorform.h"
 #include "finishedorderform.h"
+#include "historycontractform.h"
 #include "infoform.h"
 #include "logger.h"
 #include "logindialog.h"
@@ -20,6 +21,9 @@
 #include "tradeform.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
+
+#include <QDesktopServices>
+#include <QUrl>
 #include <QtConcurrentRun>
 #include <functional>
 #include <windows.h>
@@ -39,9 +43,9 @@ MainWindow::MainWindow(QWidget* parent)
     this->createTrayIcon();
 
     // ui actions
-    ui->actionStart->setEnabled(true);
-    ui->actionConfig->setEnabled(true);
-    ui->actionStop->setEnabled(false);
+    ui->actionCtpStart->setEnabled(true);
+    ui->actionCtpConfig->setEnabled(true);
+    ui->actionCtpStop->setEnabled(false);
 
     ui->actionRpcStart->setEnabled(true);
     ui->actionRpcStop->setEnabled(false);
@@ -117,18 +121,18 @@ void MainWindow::onTradeWillBegin()
     BfDebug(__FUNCTION__);
 }
 
-void MainWindow::on_actionVersion_triggered()
+void MainWindow::on_actionAppVersion_triggered()
 {
     BfInfo(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfInfo(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
-void MainWindow::on_actionQuit_triggered()
+void MainWindow::on_actionAppQuit_triggered()
 {
     if (g_sm->ctpMgr()->running()) {
         this->showNormal();
-        BfInfo("please stop first");
+        BfInfo("please stop ctp first");
         return;
     }
 
@@ -281,7 +285,7 @@ void MainWindow::on_actionCtpVersion_triggered()
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionConfig_triggered()
+void MainWindow::on_actionCtpConfig_triggered()
 {
     ConfigDialog dlg(this);
     dlg.load();
@@ -290,7 +294,7 @@ void MainWindow::on_actionConfig_triggered()
     }
 }
 
-void MainWindow::on_actionStart_triggered()
+void MainWindow::on_actionCtpStart_triggered()
 {
     // input password
     LoginDialog dlg;
@@ -300,19 +304,19 @@ void MainWindow::on_actionStart_triggered()
     QString password = dlg.getPassword();
 
     //更新ui,接收数据中不要出现模态对话框=
-    ui->actionStart->setEnabled(false);
-    ui->actionConfig->setEnabled(false);
-    ui->actionStop->setEnabled(true);
+    ui->actionCtpStart->setEnabled(false);
+    ui->actionCtpConfig->setEnabled(false);
+    ui->actionCtpStop->setEnabled(true);
 
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "start", Qt::QueuedConnection, Q_ARG(QString, password));
 }
 
-void MainWindow::on_actionStop_triggered()
+void MainWindow::on_actionCtpStop_triggered()
 {
     //更新ui
-    ui->actionStart->setEnabled(true);
-    ui->actionConfig->setEnabled(true);
-    ui->actionStop->setEnabled(false);
+    ui->actionCtpStart->setEnabled(true);
+    ui->actionCtpConfig->setEnabled(true);
+    ui->actionCtpStop->setEnabled(false);
 
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "stop", Qt::QueuedConnection);
 }
@@ -329,4 +333,24 @@ void MainWindow::on_actionRpcStop_triggered()
     ui->actionRpcStart->setEnabled(true);
     ui->actionRpcStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionHistoryContract_triggered()
+{
+    HistoryContractForm* form = new HistoryContractForm();
+    form->setWindowFlags(Qt::Window);
+    form->init();
+    form->show();
+}
+
+void MainWindow::on_actionWebsite_triggered()
+{
+    QUrl url("https://github.com/sunwangme/bftrader");
+    QDesktopServices::openUrl(url);
+}
+
+void MainWindow::on_actionFeedback_triggered()
+{
+    QUrl url("https://github.com/sunwangme/bftrader/issues");
+    QDesktopServices::openUrl(url);
 }

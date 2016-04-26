@@ -38,8 +38,8 @@ public slots:
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
-    void on_actionQuit_triggered();
-    void on_actionVersion_triggered();
+    void on_actionAppQuit_triggered();
+    void on_actionAppVersion_triggered();
     void on_actionPureCallCrash_triggered();
     void on_actionInvalidParamCrash_triggered();
     void on_actionDerefZeroCrash_triggered();
@@ -51,11 +51,14 @@ private slots:
     void on_actionTerminateProcess_triggered();
     void on_actionExternal_triggered();
     void on_actionCtpVersion_triggered();
-    void on_actionConfig_triggered();
-    void on_actionStart_triggered();
-    void on_actionStop_triggered();
+    void on_actionCtpConfig_triggered();
+    void on_actionCtpStart_triggered();
+    void on_actionCtpStop_triggered();
     void on_actionRpcStart_triggered();
     void on_actionRpcStop_triggered();
+    void on_actionHistoryContract_triggered();
+    void on_actionWebsite_triggered();
+    void on_actionFeedback_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
