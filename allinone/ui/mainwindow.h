@@ -20,6 +20,7 @@ class PositionForm;
 class TradeForm;
 class TickForm;
 class AccountForm;
+class CtaForm;
 
 template <typename T>
 class QFutureInterface;
@@ -54,8 +55,8 @@ private slots:
     void on_actionCtpConfig_triggered();
     void on_actionCtpStart_triggered();
     void on_actionCtpStop_triggered();
-    void on_actionRpcStart_triggered();
-    void on_actionRpcStop_triggered();
+    void on_actionNetStart_triggered();
+    void on_actionNetStop_triggered();
     void on_actionHistoryContract_triggered();
     void on_actionWebsite_triggered();
     void on_actionFeedback_triggered();
@@ -81,6 +82,7 @@ private:
     TradeForm* tradeForm_;
     TickForm* tickForm_;
     AccountForm* accountForm_;
+    CtaForm* ctaForm_;
 
 private:
     QAction* minimizeAction;

@@ -117,12 +117,12 @@
     <addaction name="separator"/>
     <addaction name="menu_NO_MONEY"/>
    </widget>
-   <widget class="QMenu" name="menuRpc">
+   <widget class="QMenu" name="menuNet">
     <property name="title">
-     <string>rpc</string>
+     <string>net</string>
     </property>
-    <addaction name="actionRpcStart"/>
-    <addaction name="actionRpcStop"/>
+    <addaction name="actionNetStart"/>
+    <addaction name="actionNetStop"/>
    </widget>
    <widget class="QMenu" name="menuDb">
     <property name="title">
@@ -139,7 +139,7 @@
    </widget>
    <addaction name="menuApp"/>
    <addaction name="menuCtp"/>
-   <addaction name="menuRpc"/>
+   <addaction name="menuNet"/>
    <addaction name="menuDb"/>
    <addaction name="menuAbout"/>
   </widget>
@@ -219,14 +219,14 @@
     <string>ctpStop</string>
    </property>
   </action>
-  <action name="actionRpcStart">
+  <action name="actionNetStart">
    <property name="text">
-    <string>rpcStart</string>
+    <string>netStart</string>
    </property>
   </action>
-  <action name="actionRpcStop">
+  <action name="actionNetStop">
    <property name="text">
-    <string>rpcStop</string>
+    <string>netStop</string>
    </property>
   </action>
   <action name="actionCtpVersion">

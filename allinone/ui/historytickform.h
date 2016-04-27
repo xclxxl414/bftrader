@@ -24,6 +24,7 @@ private slots:
     void on_last128_clicked();
     void on_seekButton_clicked();
     void on_delButton_clicked();
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     void onGotTick(QString key, const BfTickData& bfItem);

@@ -21,6 +21,7 @@
 #include "tradeform.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
+#include "ctaform.h"
 
 #include <QDesktopServices>
 #include <QUrl>
@@ -47,8 +48,8 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionCtpConfig->setEnabled(true);
     ui->actionCtpStop->setEnabled(false);
 
-    ui->actionRpcStart->setEnabled(true);
-    ui->actionRpcStop->setEnabled(false);
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
 
     // tabs
     infoForm_ = new InfoForm(this);
@@ -60,9 +61,11 @@ MainWindow::MainWindow(QWidget* parent)
     finishedOrderForm_ = new FinishedOrderForm(this);
     tradeForm_ = new TradeForm(this);
     tickForm_ = new TickForm(this);
+    ctaForm_ = new CtaForm(this);
 
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
+    ui->tabWidgetMarket->addTab(ctaForm_, "cta");
     ui->tabWidgetLog->addTab(infoForm_, "info");
     ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
@@ -89,6 +92,7 @@ void MainWindow::init()
     infoForm_->init();
     errorForm_->init();
     debugForm_->init();
+    ctaForm_->init();
     contractForm_->init();
     tickForm_->init();
     positionForm_->init();
@@ -107,6 +111,7 @@ void MainWindow::shutdown()
     infoForm_->shutdown();
     errorForm_->shutdown();
     debugForm_->shutdown();
+    ctaForm_->shutdown();
     contractForm_->shutdown();
     tickForm_->shutdown();
     positionForm_->shutdown();
@@ -321,17 +326,17 @@ void MainWindow::on_actionCtpStop_triggered()
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "stop", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionRpcStart_triggered()
+void MainWindow::on_actionNetStart_triggered()
 {
-    ui->actionRpcStart->setEnabled(false);
-    ui->actionRpcStop->setEnabled(true);
+    ui->actionNetStart->setEnabled(false);
+    ui->actionNetStop->setEnabled(true);
     QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionRpcStop_triggered()
+void MainWindow::on_actionNetStop_triggered()
 {
-    ui->actionRpcStart->setEnabled(true);
-    ui->actionRpcStop->setEnabled(false);
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 

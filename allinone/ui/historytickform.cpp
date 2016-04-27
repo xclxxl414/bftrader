@@ -48,8 +48,8 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 
     //设置上下分割=
-    ui->splitter->setStretchFactor(0, 2);
-    ui->splitter->setStretchFactor(1, 1);
+    //ui->splitter->setStretchFactor(0, 2);
+    //ui->splitter->setStretchFactor(1, 1);
 
     //设置graph
     initGraph();
@@ -390,4 +390,11 @@ void HistoryTickForm::drawGraph()
     ui->tickPlot->yAxis->setTicks(true);
     ui->tickPlot->axisRect()->setupFullAxesBox();
     ui->tickPlot->replot();
+}
+
+void HistoryTickForm::on_tableWidget_cellClicked(int row, int column)
+{
+    QString key = ui->tableWidget->item(row, table_col_.indexOf("key"))->text();
+
+    ui->lineEdit->setText(key);
 }

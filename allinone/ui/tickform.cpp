@@ -236,3 +236,17 @@ void TickForm::on_tableWidget_cellClicked(int row, int column)
         ui->spinBoxVolume->setSingleStep(bfContract.minlimit());
     }
 }
+
+void TickForm::on_pushButtonTick_clicked()
+{
+    QString symbol = ui->lineEditSymbol->text();
+    QString exchange = ui->lineEditExchange->text();
+
+    if(symbol.length()!=0 && exchange.length()!=0){
+        RingBufferForm* form = new RingBufferForm();
+        form->setWindowFlags(Qt::Window);
+        form->init(symbol, exchange);
+        centerWindow(form);
+        form->show();
+    }
+}

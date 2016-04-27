@@ -141,3 +141,26 @@ void HistoryContractForm::on_tableWidget_cellDoubleClicked(int row, int column)
     centerWindow(form);
     form->show();
 }
+
+void HistoryContractForm::on_tableWidget_cellClicked(int row, int column)
+{
+    QString symbol = ui->tableWidget->item(row, table_col_.indexOf("symbol"))->text();
+    QString exchange = ui->tableWidget->item(row, table_col_.indexOf("exchange"))->text();
+
+    ui->lineEditSymbol->setText(symbol);
+    ui->lineEditExchange->setText(exchange);
+}
+
+void HistoryContractForm::on_pushButtonTick_clicked()
+{
+    QString symbol = ui->lineEditSymbol->text();
+    QString exchange = ui->lineEditExchange->text();
+
+    if(symbol.length()!=0 && exchange.length()!=0){
+        HistoryTickForm* form = new HistoryTickForm();
+        form->setWindowFlags(Qt::Window);
+        form->init(symbol, exchange);
+        centerWindow(form);
+        form->show();
+    }
+}

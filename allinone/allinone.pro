@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     ui/workingorderform.cpp \
     ui/ringbufferform.cpp \
     ui/historytickform.cpp \
-    ui/historycontractform.cpp
+    ui/historycontractform.cpp \
+    ui/ctaform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -66,7 +67,8 @@ HEADERS  += ui/mainwindow.h \
     ctp_utils.h \
     ui/ringbufferform.h \
     ui/historytickform.h \
-    ui/historycontractform.h
+    ui/historycontractform.h \
+    ui/ctaform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -83,7 +85,8 @@ FORMS    += ui/mainwindow.ui \
     ui/workingorderform.ui \
     ui/ringbufferform.ui \
     ui/historytickform.ui \
-    ui/historycontractform.ui
+    ui/historycontractform.ui \
+    ui/ctaform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)
