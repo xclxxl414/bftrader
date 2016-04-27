@@ -126,18 +126,16 @@ private:
     }
 
     // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
-    // 1.总成交量为0的：无效=
-    // 2.确定第一个有效tick：交易日期+时间，和当前时间偏离在5分钟之外：无效=
-    // 3.确定后续tick是否有效：和上一个tick相比，总成交量不变的：无效=
-    // todo(hege):规则1，3先注释掉，暂时看没有必要=
+    // 1.确定第一个有效tick：交易日期+时间，和当前时间偏离在3分钟之外：无效=
+    // 2.确定后续tick是否有效：和上一个tick相比，总成交量不变的,如果偏移在3分钟之外：无效=
+    // 规则2是过滤收盘后没断开网络之前发来的东西（这个可以改成前tick存在，而vol=0，校验时间偏移）
+    // 规则1是过滤开盘前发来的之前的交易数据
+
     bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
     {
-        //if (curTick->Volume == 0) {
-        //    return false;
-        //}
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
-        if (!preTick) {
-            // ActionDay 指当时的日期
+        if (!preTick || preTick->Volume == curTick->Volume ) {
+            // ActionDay 指当时的系统日期
             // TradingDay 是指当时的交易日期，夜盘算下一个交易的=
             QDateTime curDateTime = QDateTime::currentDateTime();
             QString tickDateTimeStr = QString().sprintf("%s %s.%03d", curTick->ActionDay, curTick->UpdateTime, curTick->UpdateMillisec);
@@ -146,10 +144,6 @@ private:
             if (delta >= 5 * 60 * 1000) {
                 return false;
             }
-        } else {
-            //if (preTick->Volume == curTick->Volume) {
-            //    return false;
-            //}
         }
         return true;
     }
