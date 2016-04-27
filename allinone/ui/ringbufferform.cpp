@@ -55,7 +55,7 @@ void RingBufferForm::init(QString symbol, QString exchange)
 {
     symbol_ = symbol;
     exchange_ = exchange;
-    this->setWindowTitle(QString("ringbuffer-") + symbol_);
+    this->setWindowTitle(QString("ringbuffer-tick-") + symbol_);
     scanTicks();
 
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &RingBufferForm::onTradeWillBegin);

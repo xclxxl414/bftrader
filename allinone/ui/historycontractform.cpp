@@ -16,8 +16,7 @@ HistoryContractForm::HistoryContractForm(QWidget* parent)
     setWindowIcon(QIcon(":/images/heart.png"));
 
     //设置列=
-    table_col_ << "key"
-               << "symbol"
+    table_col_ << "symbol"
                << "exchange"
                << "name"
 
@@ -28,7 +27,8 @@ HistoryContractForm::HistoryContractForm(QWidget* parent)
                << "maxLimit"
                << "minLimit"
                << "maxMarket"
-               << "minMarket";
+               << "minMarket"
+               << "key";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -45,7 +45,7 @@ HistoryContractForm::~HistoryContractForm()
 
 void HistoryContractForm::init()
 {
-    this->setWindowTitle(QStringLiteral("history contract"));
+    this->setWindowTitle(QStringLiteral("history-contract"));
     refresh();
 }
 
@@ -100,7 +100,6 @@ void HistoryContractForm::refresh()
 void HistoryContractForm::onGotContract(QString key, const BfContractData& bfItem)
 {
     QVariantMap vItem;
-    vItem.insert("key", key);
     vItem.insert("symbol", bfItem.symbol().c_str());
     vItem.insert("exchange", bfItem.exchange().c_str());
     vItem.insert("name", bfItem.name().c_str());
@@ -113,6 +112,8 @@ void HistoryContractForm::onGotContract(QString key, const BfContractData& bfIte
     vItem.insert("minLimit", bfItem.minlimit());
     vItem.insert("maxMarket", bfItem.maxmarket());
     vItem.insert("minMarket", bfItem.minmartet());
+
+    vItem.insert("key", key);
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     int row = ui->tableWidget->rowCount();

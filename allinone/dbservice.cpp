@@ -127,8 +127,8 @@ void DbService::batchWriteTicks()
             bfItem.set_exchange(exchange.toStdString());
         }
 
-        // key: tick-exchange-symbol-actiondata-ticktime
-        std::string key = QString().sprintf("tick-%s-%s-%s-%s", bfItem.exchange().c_str(), bfItem.symbol().c_str(), bfItem.actiondate().c_str(), bfItem.ticktime().c_str()).toStdString();
+        // key: tick-symbol-exchange-actiondata-ticktime
+        std::string key = QString().sprintf("tick-%s-%s-%s-%s",  bfItem.symbol().c_str(),bfItem.exchange().c_str(), bfItem.actiondate().c_str(), bfItem.ticktime().c_str()).toStdString();
         std::string val;
         bool ok = bfItem.SerializeToString(&val);
         if (!ok) {
@@ -168,7 +168,8 @@ void DbService::onGotContracts(QStringList ids, QStringList idsAll)
     leveldb::WriteBatch batch;
 
     //按排序后合约来=
-    QStringList sorted_ids = idsAll;
+    //QStringList sorted_ids = idsAll;
+    QStringList sorted_ids = ids;
     sorted_ids.sort();
 
     // key: contract+
@@ -187,21 +188,21 @@ void DbService::onGotContracts(QStringList ids, QStringList idsAll)
         BfContractData bfItem;
         CtpUtils::translateContract(contract, &bfItem);
 
-        // key: contract-exchange-symbol
-        key = QString().sprintf("contract-%s-%s", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        // key: contract-symbol-exchange
+        key = QString().sprintf("contract-%s-%s",bfItem.symbol().c_str(),bfItem.exchange().c_str()).toStdString();
         bool ok = bfItem.SerializeToString(&val);
         if (!ok) {
             qFatal("SerializeToString fail");
         }
         batch.Put(key, val);
 
-        // key: tick-exchange-symbol+
-        // key: tick-exchange-symbol=
+        // key: tick-symbol-exchange+
+        // key: tick-symbol-exchange=
         BfTickData bfNullTick;
-        key = QString().sprintf("tick-%s-%s+", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        key = QString().sprintf("tick-%s-%s+", bfItem.symbol().c_str(),bfItem.exchange().c_str()).toStdString();
         val = bfNullTick.SerializeAsString();
         batch.Put(key, val);
-        key = QString().sprintf("tick-%s-%s=", bfItem.exchange().c_str(), bfItem.symbol().c_str()).toStdString();
+        key = QString().sprintf("tick-%s-%s=", bfItem.symbol().c_str(),bfItem.exchange().c_str()).toStdString();
         val = bfNullTick.SerializeAsString();
         batch.Put(key, val);
     }

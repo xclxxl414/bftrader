@@ -15,8 +15,7 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
     setWindowIcon(QIcon(":/images/heart.png"));
 
     //设置列=
-    table_col_ << "key"
-               << "symbol"
+    table_col_ << "symbol"
                << "exchange"
 
                << "actionDate"
@@ -37,7 +36,8 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
                << "lowPrice"
                << "preClosePrice"
                << "upperLimit"
-               << "lowerLimit";
+               << "lowerLimit"
+               << "key";
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
@@ -79,9 +79,9 @@ void HistoryTickForm::on_first128_clicked()
         qFatal("NewIterator == nullptr");
     }
 
-    //第一个是tick.exchange.symbol+
-    //最后一个是tick.exchange.symbol=
-    QString key = QString().sprintf("tick-%s-%s+", qPrintable(exchange_), qPrintable(symbol_));
+    //第一个是tick-symbol-exchange+
+    //最后一个是tick-symbol-exchange=
+    QString key = QString().sprintf("tick-%s-%s+",qPrintable(symbol_),qPrintable(exchange_));
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -129,10 +129,10 @@ void HistoryTickForm::on_next128_clicked()
         qFatal("NewIterator == nullptr");
     }
 
-    //第一个是tick.exchange.symbol+
-    //最后一个是tick.exchange.symbol=
+    //第一个是tick-symbol-exchange+
+    //最后一个是tick-symbol-exchange=
     int r = ui->tableWidget->rowCount() - 1;
-    QString key = ui->tableWidget->item(r, 0)->text();
+    QString key = ui->tableWidget->item(r, table_col_.indexOf("key"))->text();
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -180,10 +180,10 @@ void HistoryTickForm::on_pre128_clicked()
         qFatal("NewIterator == nullptr");
     }
 
-    //第一个是tick.exchange.symbol+
-    //最后一个是tick.exchange.symbol=
+    //第一个是tick-symbol-exchange+
+    //最后一个是tick-symbol-exchange=
     int r = ui->tableWidget->rowCount() - 1;
-    QString key = ui->tableWidget->item(r, 0)->text();
+    QString key = ui->tableWidget->item(r, table_col_.indexOf("key"))->text();
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -227,9 +227,9 @@ void HistoryTickForm::on_last128_clicked()
         qFatal("NewIterator == nullptr");
     }
 
-    //第一个是tick.exchange.symbol+
-    //最后一个是tick.exchange.symbol=
-    QString key = QString().sprintf("tick-%s-%s=", qPrintable(exchange_), qPrintable(symbol_));
+    //第一个是tick-symbol-exchange+
+    //最后一个是tick-symbol-exchange=
+    QString key = QString().sprintf("tick-%s-%s=", qPrintable(symbol_), qPrintable(exchange_));
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -332,7 +332,6 @@ void HistoryTickForm::on_delButton_clicked()
 void HistoryTickForm::onGotTick(QString key, const BfTickData& bfTick)
 {
     QVariantMap vItem;
-    vItem.insert("key", key);
     vItem.insert("symbol", bfTick.symbol().c_str());
     // tick里面的exchange不一定有=
     QString exchange = bfTick.exchange().c_str();
@@ -358,6 +357,8 @@ void HistoryTickForm::onGotTick(QString key, const BfTickData& bfTick)
     vItem.insert("preClosePrice", bfTick.precloseprice());
     vItem.insert("upperLimit", bfTick.upperlimit());
     vItem.insert("lowerLimit", bfTick.lowerlimit());
+
+    vItem.insert("key", key);
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     int row = ui->tableWidget->rowCount();

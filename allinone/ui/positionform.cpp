@@ -217,7 +217,6 @@ void PositionForm::on_pushButtonCloseAll_clicked()
             BfOffset offset = OFFSET_CLOSETODAY;
             BfPriceType priceType = PRICETYPE_LIMITPRICE;
             //todo(hege):这里要判断是否超过了contract->maxLimit
-            //todo(hege):这里要判断昨持仓和今持仓，先平昨再平今=
             int volume = pos.position() - pos.ydposition();
 
             //空单-->最高价+多+平=
