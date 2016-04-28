@@ -128,7 +128,8 @@
     <property name="title">
      <string>db</string>
     </property>
-    <addaction name="actionHistoryContract"/>
+    <addaction name="actionHistoryData"/>
+    <addaction name="actionMetaData"/>
    </widget>
    <widget class="QMenu" name="menuApp">
     <property name="title">
@@ -137,9 +138,16 @@
     <addaction name="separator"/>
     <addaction name="actionAppQuit"/>
    </widget>
+   <widget class="QMenu" name="menuCta">
+    <property name="title">
+     <string>cta</string>
+    </property>
+    <addaction name="actionCtaConfig"/>
+   </widget>
    <addaction name="menuApp"/>
-   <addaction name="menuCtp"/>
    <addaction name="menuNet"/>
+   <addaction name="menuCtp"/>
+   <addaction name="menuCta"/>
    <addaction name="menuDb"/>
    <addaction name="menuAbout"/>
   </widget>
@@ -234,9 +242,9 @@
     <string>ctpVersion</string>
    </property>
   </action>
-  <action name="actionHistoryContract">
+  <action name="actionHistoryData">
    <property name="text">
-    <string>historyContract</string>
+    <string>historyData</string>
    </property>
   </action>
   <action name="actionWebsite">
@@ -247,6 +255,16 @@
   <action name="actionFeedback">
    <property name="text">
     <string>feedback</string>
+   </property>
+  </action>
+  <action name="actionMetaData">
+   <property name="text">
+    <string>metaData</string>
+   </property>
+  </action>
+  <action name="actionCtaConfig">
+   <property name="text">
+    <string>ctaConfig</string>
    </property>
   </action>
  </widget>

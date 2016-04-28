@@ -28,7 +28,8 @@ void DbService::init()
     dbOpen();
 
     // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &DbService::onGotTick);
+    // 不主动收集tick了，见doc/<<Bftrader开发计划.docx>>的数据服务设计
+    //QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &DbService::onGotTick);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &DbService::onGotContracts);
     QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &DbService::onTradeWillBegin);
 }

@@ -164,3 +164,8 @@ void HistoryContractForm::on_pushButtonTick_clicked()
         form->show();
     }
 }
+
+void HistoryContractForm::on_pushButtonBar_clicked()
+{
+    // todo(hege)
+}

@@ -83,7 +83,48 @@
      <item>
       <widget class="QPushButton" name="pushButtonTick">
        <property name="text">
-        <string>showHistoryTick</string>
+        <string>showTick</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>m1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>m3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>m15</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>h1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>d1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>w1</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonBar">
+       <property name="text">
+        <string>showBar</string>
        </property>
       </widget>
      </item>

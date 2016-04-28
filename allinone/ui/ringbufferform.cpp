@@ -139,15 +139,6 @@ void RingBufferForm::onGotTick(void* curTick, void* preTick)
     }
 }
 
-void RingBufferForm::on_historyButton_clicked()
-{
-    HistoryTickForm* form = new HistoryTickForm();
-    form->setWindowFlags(Qt::Window);
-    form->init(symbol_, exchange_);
-    centerWindow(form);
-    form->show();
-}
-
 void RingBufferForm::on_refreshButton_clicked()
 {
     scanTicks();

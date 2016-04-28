@@ -57,9 +57,11 @@ private slots:
     void on_actionCtpStop_triggered();
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
-    void on_actionHistoryContract_triggered();
+    void on_actionHistoryData_triggered();
     void on_actionWebsite_triggered();
     void on_actionFeedback_triggered();
+    void on_actionCtaConfig_triggered();
+    void on_actionMetaData_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;

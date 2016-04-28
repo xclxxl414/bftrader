@@ -340,7 +340,7 @@ void MainWindow::on_actionNetStop_triggered()
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionHistoryContract_triggered()
+void MainWindow::on_actionHistoryData_triggered()
 {
     HistoryContractForm* form = new HistoryContractForm();
     form->setWindowFlags(Qt::Window);
@@ -358,4 +358,14 @@ void MainWindow::on_actionFeedback_triggered()
 {
     QUrl url("https://github.com/sunwangme/bftrader/issues");
     QDesktopServices::openUrl(url);
+}
+
+void MainWindow::on_actionCtaConfig_triggered()
+{
+    //todo(hege)
+}
+
+void MainWindow::on_actionMetaData_triggered()
+{
+    //todo(hege)
 }

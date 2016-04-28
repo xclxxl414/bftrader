@@ -1,0 +1,2 @@
+﻿1. BfTickData 补上tradingDate
+2. BfPriceType 补上 FOK FAK

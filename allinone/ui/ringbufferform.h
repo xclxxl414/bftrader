@@ -23,7 +23,6 @@ private:
 
 private slots:
     void onTradeWillBegin();
-    void on_historyButton_clicked();
     void on_refreshButton_clicked();
 
 private:
