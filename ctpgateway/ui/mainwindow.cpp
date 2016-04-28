@@ -3,7 +3,6 @@
 #include "configdialog.h"
 #include "contractform.h"
 #include "ctpmgr.h"
-#include "dbservice.h"
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
@@ -14,7 +13,6 @@
 #include "positionform.h"
 #include "profile.h"
 #include "rpcservice.h"
-#include "runextensions.h"
 #include "servicemgr.h"
 #include "tickform.h"
 #include "tradeform.h"
@@ -23,8 +21,6 @@
 
 #include <QDesktopServices>
 #include <QUrl>
-#include <QtConcurrentRun>
-#include <functional>
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -200,20 +196,20 @@ Profile* MainWindow::profile()
     return g_sm->profile();
 }
 
-void MainWindow::on_actionInvalidParamCrash_triggered()
+void MainWindow::on_actionCrashInvalidParamCrash_triggered()
 {
     //InvalidParamCrash
     printf(nullptr);
 }
 
-void MainWindow::on_actionPureCallCrash_triggered()
+void MainWindow::on_actionCrashPureCallCrash_triggered()
 {
     //PureCallCrash
     base::debug::Derived derived;
     base::debug::Alias(&derived);
 }
 
-void MainWindow::on_actionDerefZeroCrash_triggered()
+void MainWindow::on_actionCrashDerefZeroCrash_triggered()
 {
     //DerefZeroCrash
     int* x = 0;
@@ -221,62 +217,34 @@ void MainWindow::on_actionDerefZeroCrash_triggered()
     base::debug::Alias(x);
 }
 
-void MainWindow::on_actionQFatal_triggered()
+void MainWindow::on_actionCrashQFatal_triggered()
 {
     qFatal("crash for qFatal");
 }
 
-void MainWindow::on_actiondebugbreak_triggered()
+void MainWindow::on_actionCrashdebugbreak_triggered()
 {
     __debugbreak();
 }
 
-void MainWindow::on_actionDebugBreak_triggered()
+void MainWindow::on_actionCrashDebugBreak_triggered()
 {
     DebugBreak();
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::on_actionCrashExit_triggered()
 {
     exit(1);
 }
 
-void MainWindow::on_actionExitProcess_triggered()
+void MainWindow::on_actionCrashExitProcess_triggered()
 {
     ::ExitProcess(1);
 }
 
-void MainWindow::on_actionTerminateProcess_triggered()
+void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
-}
-
-void MainWindow::on_actionExternal_triggered()
-{
-    QFuture<void> future1 = QtConcurrent::run(this, &MainWindow::runOnExternal);
-    QFuture<void> future2 = QtConcurrent::run(std::bind(&MainWindow::runOnExternal, this));
-    QFuture<void> future3 = QtConcurrent::run(&MainWindow::runOnExternalEx, this);
-    std::function<void(QFutureInterface<void>&)> fn = std::bind(&MainWindow::runOnExternalEx, this, std::placeholders::_1);
-    QFuture<void> future4 = QtConcurrent::run(fn);
-
-    Q_UNUSED(future1);
-    Q_UNUSED(future2);
-    Q_UNUSED(future3);
-    Q_UNUSED(future4);
-}
-
-void MainWindow::runOnExternal()
-{
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
-}
-
-void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
-{
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
-
-    future.reportFinished();
 }
 
 void MainWindow::on_actionCtpVersion_triggered()

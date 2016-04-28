@@ -97,17 +97,15 @@
      <property name="title">
       <string>!!!NO MONEY!!!</string>
      </property>
-     <addaction name="actionExternal"/>
-     <addaction name="separator"/>
-     <addaction name="actionInvalidParamCrash"/>
-     <addaction name="actionPureCallCrash"/>
-     <addaction name="actionDerefZeroCrash"/>
-     <addaction name="actionQFatal"/>
-     <addaction name="actiondebugbreak"/>
-     <addaction name="actionDebugBreak"/>
-     <addaction name="actionExit"/>
-     <addaction name="actionExitProcess"/>
-     <addaction name="actionTerminateProcess"/>
+     <addaction name="actionCrashInvalidParamCrash"/>
+     <addaction name="actionCrashPureCallCrash"/>
+     <addaction name="actionCrashDerefZeroCrash"/>
+     <addaction name="actionCrashQFatal"/>
+     <addaction name="actionCrashdebugbreak"/>
+     <addaction name="actionCrashDebugBreak"/>
+     <addaction name="actionCrashExit"/>
+     <addaction name="actionCrashExitProcess"/>
+     <addaction name="actionCrashTerminateProcess"/>
     </widget>
     <addaction name="actionWebsite"/>
     <addaction name="actionFeedback"/>
@@ -147,54 +145,49 @@
     <string>appVersion</string>
    </property>
   </action>
-  <action name="actionPureCallCrash">
+  <action name="actionCrashPureCallCrash">
    <property name="text">
-    <string>PureCallCrash</string>
+    <string>Crash_PureCallCrash</string>
    </property>
   </action>
-  <action name="actionInvalidParamCrash">
+  <action name="actionCrashInvalidParamCrash">
    <property name="text">
-    <string>InvalidParamCrash</string>
+    <string>Crash_InvalidParamCrash</string>
    </property>
   </action>
-  <action name="actionDerefZeroCrash">
+  <action name="actionCrashDerefZeroCrash">
    <property name="text">
-    <string>DerefZeroCrash</string>
+    <string>Crash_DerefZeroCrash</string>
    </property>
   </action>
-  <action name="actionQFatal">
+  <action name="actionCrashQFatal">
    <property name="text">
-    <string>qFatal</string>
+    <string>Crash_qFatal</string>
    </property>
   </action>
-  <action name="actiondebugbreak">
+  <action name="actionCrashdebugbreak">
    <property name="text">
-    <string>debugbreak</string>
+    <string>Crash_debugbreak</string>
    </property>
   </action>
-  <action name="actionDebugBreak">
+  <action name="actionCrashDebugBreak">
    <property name="text">
-    <string>DebugBreak</string>
+    <string>Crash_DebugBreak</string>
    </property>
   </action>
-  <action name="actionExit">
+  <action name="actionCrashExit">
    <property name="text">
-    <string>exit</string>
+    <string>Crash_exit</string>
    </property>
   </action>
-  <action name="actionExitProcess">
+  <action name="actionCrashExitProcess">
    <property name="text">
-    <string>ExitProcess</string>
+    <string>Crash_ExitProcess</string>
    </property>
   </action>
-  <action name="actionTerminateProcess">
+  <action name="actionCrashTerminateProcess">
    <property name="text">
-    <string>TerminateProcess</string>
-   </property>
-  </action>
-  <action name="actionExternal">
-   <property name="text">
-    <string>external</string>
+    <string>Crash_TerminateProcess</string>
    </property>
   </action>
   <action name="actionCtpConfig">

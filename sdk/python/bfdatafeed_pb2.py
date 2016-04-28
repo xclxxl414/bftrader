@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfdatafeed.proto',
   package='bftrader.bfdatafeed',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\xce\x04\n\x11\x42\x66\x44\x61tafeedService\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12;\n\nDeleteTick\x12\x19.bftrader.BfDeleteTickReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12\x39\n\tDeleteBar\x12\x18.bftrader.BfDeleteBarReq\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12K\n\x0e\x44\x65leteContract\x12%.bftrader.BfDatafeedDeleteContractReq\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\x84\x05\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12;\n\nDeleteTick\x12\x19.bftrader.BfDeleteTickReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12\x39\n\tDeleteBar\x12\x18.bftrader.BfDeleteBarReq\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12K\n\x0e\x44\x65leteContract\x12%.bftrader.BfDatafeedDeleteContractReq\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -39,6 +39,9 @@ from grpc.framework.interfaces.face import utilities as face_utilities
 class BetaBfDatafeedServiceServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
+  @abc.abstractmethod
+  def Ping(self, request, context):
+    raise NotImplementedError()
   @abc.abstractmethod
   def InsertTick(self, request, context):
     raise NotImplementedError()
@@ -70,6 +73,10 @@ class BetaBfDatafeedServiceServicer(object):
 class BetaBfDatafeedServiceStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
+  @abc.abstractmethod
+  def Ping(self, request, timeout):
+    raise NotImplementedError()
+  Ping.future = None
   @abc.abstractmethod
   def InsertTick(self, request, timeout):
     raise NotImplementedError()
@@ -123,6 +130,8 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'DeleteBar'): bftrader_pb2.BfDeleteBarReq.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'DeleteContract'): bftrader_pb2.BfDatafeedDeleteContractReq.FromString,
@@ -133,6 +142,7 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfBarData.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertContract'): bftrader_pb2.BfContractData.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfTickData.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'Ping'): bftrader_pb2.BfPingData.FromString,
   }
   response_serializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'DeleteBar'): bftrader_pb2.BfVoid.SerializeToString,
@@ -144,6 +154,7 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertContract'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
   }
   method_implementations = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'DeleteBar'): face_utilities.unary_unary_inline(servicer.DeleteBar),
@@ -155,11 +166,14 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): face_utilities.unary_unary_inline(servicer.InsertBar),
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertContract'): face_utilities.unary_unary_inline(servicer.InsertContract),
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): face_utilities.unary_unary_inline(servicer.InsertTick),
+    ('bftrader.bfdatafeed.BfDatafeedService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
 
 def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+  import bftrader_pb2
+  import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
@@ -188,6 +202,7 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfBarData.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertContract'): bftrader_pb2.BfContractData.SerializeToString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfTickData.SerializeToString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
   }
   response_deserializers = {
     ('bftrader.bfdatafeed.BfDatafeedService', 'DeleteBar'): bftrader_pb2.BfVoid.FromString,
@@ -199,6 +214,7 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertBar'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertContract'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfdatafeed.BfDatafeedService', 'InsertTick'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfdatafeed.BfDatafeedService', 'Ping'): bftrader_pb2.BfPingData.FromString,
   }
   cardinalities = {
     'DeleteBar': cardinality.Cardinality.UNARY_UNARY,
@@ -210,6 +226,7 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
     'InsertBar': cardinality.Cardinality.UNARY_UNARY,
     'InsertContract': cardinality.Cardinality.UNARY_UNARY,
     'InsertTick': cardinality.Cardinality.UNARY_UNARY,
+    'Ping': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
   return beta_implementations.dynamic_stub(channel, 'bftrader.bfdatafeed.BfDatafeedService', cardinalities, options=stub_options)

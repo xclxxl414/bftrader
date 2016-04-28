@@ -27,18 +27,18 @@ public slots:
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
-    void on_actionQuit_triggered();
-    void on_actionVersion_triggered();
-    void on_actionPureCallCrash_triggered();
-    void on_actionInvalidParamCrash_triggered();
-    void on_actionDerefZeroCrash_triggered();
-    void on_actionQFatal_triggered();
-    void on_actiondebugbreak_triggered();
-    void on_actionDebugBreak_triggered();
-    void on_actionExit_triggered();
-    void on_actionExitProcess_triggered();
-    void on_actionTerminateProcess_triggered();
-    void on_actionExternal_triggered();
+    void on_actionAppQuit_triggered();
+    void on_actionAppVersion_triggered();
+    void on_actionCrashPureCallCrash_triggered();
+    void on_actionCrashInvalidParamCrash_triggered();
+    void on_actionCrashDerefZeroCrash_triggered();
+    void on_actionCrashQFatal_triggered();
+    void on_actionCrashdebugbreak_triggered();
+    void on_actionCrashDebugBreak_triggered();
+    void on_actionCrashExit_triggered();
+    void on_actionCrashExitProcess_triggered();
+    void on_actionCrashTerminateProcess_triggered();
+    void on_actionThreadExternal_triggered();
     void on_actionCtpVersion_triggered();
     void on_actionDbOpen_triggered();
     void on_actionDbInit_triggered();

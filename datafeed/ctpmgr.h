@@ -3,17 +3,15 @@
 
 #include <QObject>
 
+#include "bftrader.pb.h"
+using namespace bftrader;
+
 class CtpMgr : public QObject {
     Q_OBJECT
 public:
     explicit CtpMgr(QObject* parent = 0);
     void init();
     void shutdown();
-
-signals:
-
-public slots:
-    void showVersion();
 };
 
 #endif // CTPMGR_H

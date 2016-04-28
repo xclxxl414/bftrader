@@ -71,14 +71,14 @@ void MainWindow::onLog(QString when, QString msg)
     ui->tableWidget->scrollToBottom();
 }
 
-void MainWindow::on_actionVersion_triggered()
+void MainWindow::on_actionAppVersion_triggered()
 {
     BfError(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfDebug(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
-void MainWindow::on_actionQuit_triggered()
+void MainWindow::on_actionAppQuit_triggered()
 {
     Logger::stopExitMonitor();
     qApp->quit();
@@ -102,7 +102,7 @@ void MainWindow::createActions()
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
     quitAction = new QAction(tr("&Quit"), this);
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(on_actionQuit_triggered()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(on_actionAppQuit_triggered()));
 }
 
 void MainWindow::createTrayIcon()
@@ -145,20 +145,20 @@ Profile* MainWindow::profile()
     return g_sm->profile();
 }
 
-void MainWindow::on_actionInvalidParamCrash_triggered()
+void MainWindow::on_actionCrashInvalidParamCrash_triggered()
 {
     //InvalidParamCrash
     printf(nullptr);
 }
 
-void MainWindow::on_actionPureCallCrash_triggered()
+void MainWindow::on_actionCrashPureCallCrash_triggered()
 {
     //PureCallCrash
     base::debug::Derived derived;
     base::debug::Alias(&derived);
 }
 
-void MainWindow::on_actionDerefZeroCrash_triggered()
+void MainWindow::on_actionCrashDerefZeroCrash_triggered()
 {
     //DerefZeroCrash
     int* x = 0;
@@ -166,37 +166,37 @@ void MainWindow::on_actionDerefZeroCrash_triggered()
     base::debug::Alias(x);
 }
 
-void MainWindow::on_actionQFatal_triggered()
+void MainWindow::on_actionCrashQFatal_triggered()
 {
     qFatal("crash for qFatal");
 }
 
-void MainWindow::on_actiondebugbreak_triggered()
+void MainWindow::on_actionCrashdebugbreak_triggered()
 {
     __debugbreak();
 }
 
-void MainWindow::on_actionDebugBreak_triggered()
+void MainWindow::on_actionCrashDebugBreak_triggered()
 {
     DebugBreak();
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::on_actionCrashExit_triggered()
 {
     exit(1);
 }
 
-void MainWindow::on_actionExitProcess_triggered()
+void MainWindow::on_actionCrashExitProcess_triggered()
 {
     ::ExitProcess(1);
 }
 
-void MainWindow::on_actionTerminateProcess_triggered()
+void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
-void MainWindow::on_actionExternal_triggered()
+void MainWindow::on_actionThreadExternal_triggered()
 {
     QFuture<void> future1 = QtConcurrent::run(this, &MainWindow::runOnExternal);
     QFuture<void> future2 = QtConcurrent::run(std::bind(&MainWindow::runOnExternal, this));

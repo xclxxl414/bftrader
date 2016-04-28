@@ -4,6 +4,7 @@
 #include "ctpmgr.h"
 #include <QVector>
 #include <QWidget>
+#include <QMap>
 
 namespace Ui {
 class HistoryTickForm;

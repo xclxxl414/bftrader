@@ -25,3 +25,4 @@ public:
 
 void bfAdjustTableWidget(QTableWidget* tableWidget);
 void bfFitTableWidget(QTableWidget* tableWidget);
+void centerWindow(QWidget* form);

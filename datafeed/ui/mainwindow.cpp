@@ -1,15 +1,12 @@
 #include "mainwindow.h"
-#include "ctpmgr.h"
-#include "dbservice.h"
+#include "rpcservice.h"
 #include "debug_utils.h"
 #include "logger.h"
 #include "profile.h"
-#include "runextensions.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
-#include <QtConcurrentRun>
-#include <functional>
+#include "historycontractform.h"
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -19,7 +16,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
 
     setWindowTitle(Profile::appName());
-    icon_ = QIcon(":/images/heart.png");
+    icon_ = QIcon(":/images/datafeed.png");
     setWindowIcon(icon_);
 
     //设置trayicon
@@ -71,14 +68,14 @@ void MainWindow::onLog(QString when, QString msg)
     ui->tableWidget->scrollToBottom();
 }
 
-void MainWindow::on_actionVersion_triggered()
+void MainWindow::on_actionAppVersion_triggered()
 {
     BfError(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
     BfDebug(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
-void MainWindow::on_actionQuit_triggered()
+void MainWindow::on_actionAppQuit_triggered()
 {
     Logger::stopExitMonitor();
     qApp->quit();
@@ -102,7 +99,7 @@ void MainWindow::createActions()
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
     quitAction = new QAction(tr("&Quit"), this);
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(on_actionQuit_triggered()));
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(on_actionAppQuit_triggered()));
 }
 
 void MainWindow::createTrayIcon()
@@ -145,20 +142,20 @@ Profile* MainWindow::profile()
     return g_sm->profile();
 }
 
-void MainWindow::on_actionInvalidParamCrash_triggered()
+void MainWindow::on_actionCrashInvalidParamCrash_triggered()
 {
     //InvalidParamCrash
     printf(nullptr);
 }
 
-void MainWindow::on_actionPureCallCrash_triggered()
+void MainWindow::on_actionCrashPureCallCrash_triggered()
 {
     //PureCallCrash
     base::debug::Derived derived;
     base::debug::Alias(&derived);
 }
 
-void MainWindow::on_actionDerefZeroCrash_triggered()
+void MainWindow::on_actionCrashDerefZeroCrash_triggered()
 {
     //DerefZeroCrash
     int* x = 0;
@@ -166,80 +163,60 @@ void MainWindow::on_actionDerefZeroCrash_triggered()
     base::debug::Alias(x);
 }
 
-void MainWindow::on_actionQFatal_triggered()
+void MainWindow::on_actionCrashQFatal_triggered()
 {
     qFatal("crash for qFatal");
 }
 
-void MainWindow::on_actiondebugbreak_triggered()
+void MainWindow::on_actionCrashdebugbreak_triggered()
 {
     __debugbreak();
 }
 
-void MainWindow::on_actionDebugBreak_triggered()
+void MainWindow::on_actionCrashDebugBreak_triggered()
 {
     DebugBreak();
 }
 
-void MainWindow::on_actionExit_triggered()
+void MainWindow::on_actionCrashExit_triggered()
 {
     exit(1);
 }
 
-void MainWindow::on_actionExitProcess_triggered()
+void MainWindow::on_actionCrashExitProcess_triggered()
 {
     ::ExitProcess(1);
 }
 
-void MainWindow::on_actionTerminateProcess_triggered()
+void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
-void MainWindow::on_actionExternal_triggered()
+void MainWindow::on_actionNetStart_triggered()
 {
-    QFuture<void> future1 = QtConcurrent::run(this, &MainWindow::runOnExternal);
-    QFuture<void> future2 = QtConcurrent::run(std::bind(&MainWindow::runOnExternal, this));
-    QFuture<void> future3 = QtConcurrent::run(&MainWindow::runOnExternalEx, this);
-    std::function<void(QFutureInterface<void>&)> fn = std::bind(&MainWindow::runOnExternalEx, this, std::placeholders::_1);
-    QFuture<void> future4 = QtConcurrent::run(fn);
-
-    Q_UNUSED(future1);
-    Q_UNUSED(future2);
-    Q_UNUSED(future3);
-    Q_UNUSED(future4);
+    ui->actionNetStart->setEnabled(false);
+    ui->actionNetStop->setEnabled(true);
+    QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
 }
 
-void MainWindow::runOnExternal()
+void MainWindow::on_actionNetStop_triggered()
 {
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
+    QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 
-void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
+void MainWindow::on_actionHistoryData_triggered()
 {
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
-
-    future.reportFinished();
+    HistoryContractForm* form = new HistoryContractForm();
+    form->setWindowFlags(Qt::Window);
+    form->init();
+    centerWindow(form);
+    form->show();
 }
 
-void MainWindow::on_actionCtpVersion_triggered()
+void MainWindow::on_actionMetaData_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
-}
 
-void MainWindow::on_actionDbOpen_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbOpen", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbInit_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbInit", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbClose_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }

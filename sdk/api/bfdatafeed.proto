@@ -10,6 +10,9 @@ import "bftrader.proto";
 // 历史数据服务
 service BfDatafeedService{
 
+    // 活跃检测
+    rpc Ping(BfPingData) returns (BfPingData) {}
+
     // 保存tick
     rpc InsertTick(BfTickData) returns (BfVoid) {}
 

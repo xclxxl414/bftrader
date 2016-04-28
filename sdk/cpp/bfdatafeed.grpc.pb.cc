@@ -17,6 +17,7 @@ namespace bftrader {
 namespace bfdatafeed {
 
 static const char* BfDatafeedService_method_names[] = {
+  "/bftrader.bfdatafeed.BfDatafeedService/Ping",
   "/bftrader.bfdatafeed.BfDatafeedService/InsertTick",
   "/bftrader.bfdatafeed.BfDatafeedService/GetTick",
   "/bftrader.bfdatafeed.BfDatafeedService/DeleteTick",
@@ -34,16 +35,25 @@ std::unique_ptr< BfDatafeedService::Stub> BfDatafeedService::NewStub(const std::
 }
 
 BfDatafeedService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_InsertTick_(BfDatafeedService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetTick_(BfDatafeedService_method_names[1], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_DeleteTick_(BfDatafeedService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_InsertBar_(BfDatafeedService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetBar_(BfDatafeedService_method_names[4], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_DeleteBar_(BfDatafeedService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_InsertContract_(BfDatafeedService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContract_(BfDatafeedService_method_names[7], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_DeleteContract_(BfDatafeedService_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_Ping_(BfDatafeedService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InsertTick_(BfDatafeedService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetTick_(BfDatafeedService_method_names[2], ::grpc::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_DeleteTick_(BfDatafeedService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InsertBar_(BfDatafeedService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetBar_(BfDatafeedService_method_names[5], ::grpc::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_DeleteBar_(BfDatafeedService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InsertContract_(BfDatafeedService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContract_(BfDatafeedService_method_names[8], ::grpc::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_DeleteContract_(BfDatafeedService_method_names[9], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status BfDatafeedService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfDatafeedService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+}
 
 ::grpc::Status BfDatafeedService::Stub::InsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_InsertTick_, context, request, response);
@@ -122,51 +132,63 @@ BfDatafeedService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfDatafeedService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+          std::mem_fn(&BfDatafeedService::Service::Ping), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfDatafeedService_method_names[1],
+      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfTickData, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::InsertTick), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[1],
+      BfDatafeedService_method_names[2],
       ::grpc::RpcMethod::SERVER_STREAMING,
       new ::grpc::ServerStreamingHandler< BfDatafeedService::Service, ::bftrader::BfGetTickReq, ::bftrader::BfTickData>(
           std::mem_fn(&BfDatafeedService::Service::GetTick), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[2],
+      BfDatafeedService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfDeleteTickReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::DeleteTick), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[3],
+      BfDatafeedService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfBarData, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::InsertBar), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[4],
+      BfDatafeedService_method_names[5],
       ::grpc::RpcMethod::SERVER_STREAMING,
       new ::grpc::ServerStreamingHandler< BfDatafeedService::Service, ::bftrader::BfGetBarReq, ::bftrader::BfBarData>(
           std::mem_fn(&BfDatafeedService::Service::GetBar), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[5],
+      BfDatafeedService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfDeleteBarReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::DeleteBar), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[6],
+      BfDatafeedService_method_names[7],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfContractData, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::InsertContract), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[7],
+      BfDatafeedService_method_names[8],
       ::grpc::RpcMethod::SERVER_STREAMING,
       new ::grpc::ServerStreamingHandler< BfDatafeedService::Service, ::bftrader::BfDatafeedGetContractReq, ::bftrader::BfContractData>(
           std::mem_fn(&BfDatafeedService::Service::GetContract), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfDatafeedService_method_names[8],
+      BfDatafeedService_method_names[9],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfDatafeedService::Service, ::bftrader::BfDatafeedDeleteContractReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfDatafeedService::Service::DeleteContract), this)));
 }
 
 BfDatafeedService::Service::~Service() {
+}
+
+::grpc::Status BfDatafeedService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status BfDatafeedService::Service::InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) {

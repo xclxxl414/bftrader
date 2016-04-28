@@ -1,6 +1,5 @@
 #include "historytickform.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "proto_utils.h"
 #include "dbservice.h"
 #include "leveldb/db.h"
 #include "servicemgr.h"
@@ -12,7 +11,7 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
     , ui(new Ui::HistoryTickForm)
 {
     ui->setupUi(this);
-    setWindowIcon(QIcon(":/images/heart.png"));
+    setWindowIcon(QIcon(":/images/datafeed.png"));
 
     //设置列=
     table_col_ << "symbol"

@@ -479,6 +479,15 @@ void PushService::onGotTick(void* curTick, void* preTick)
 
     BfTickData data;
     CtpUtils::translateTick(curTick, preTick, &data);
+
+    // tick里面的exchange不一定有=
+    QString exchange = data.exchange().c_str();
+    if (exchange.trimmed().length() == 0) {
+        void* contract = g_sm->ctpMgr()->getContract(data.symbol().c_str());
+        exchange = CtpUtils::getExchangeFromContract(contract);
+        data.set_exchange(exchange.toStdString());
+    }
+
     for (auto proxy : proxyClients_) {
         if (proxy->tickHandler() && proxy->subscribled(data.symbol(), data.exchange())) {
             proxy->OnTick(data);

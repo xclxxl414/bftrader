@@ -1,5 +1,5 @@
 #include "historycontractform.h"
-#include "ctp_utils.h"
+#include "proto_utils.h"
 #include "dbservice.h"
 #include "encode_utils.h"
 #include "historytickform.h"
@@ -13,7 +13,7 @@ HistoryContractForm::HistoryContractForm(QWidget* parent)
     , ui(new Ui::HistoryContractForm)
 {
     ui->setupUi(this);
-    setWindowIcon(QIcon(":/images/heart.png"));
+    setWindowIcon(QIcon(":/images/datafeed.png"));
 
     //设置列=
     table_col_ << "symbol"
@@ -104,7 +104,7 @@ void HistoryContractForm::onGotContract(QString key, const BfContractData& bfIte
     vItem.insert("exchange", bfItem.exchange().c_str());
     vItem.insert("name", bfItem.name().c_str());
 
-    vItem.insert("productClass", CtpUtils::formatProduct(bfItem.productclass()));
+    vItem.insert("productClass", ProtoUtils::formatProduct(bfItem.productclass()));
     vItem.insert("volumeMultiple", bfItem.volumemultiple());
     vItem.insert("priceTick", bfItem.pricetick());
 

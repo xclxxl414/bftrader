@@ -80,9 +80,7 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     QString exchange = bfTick.exchange().c_str();
     if (exchange.trimmed().length() == 0) {
         void* contract = g_sm->ctpMgr()->getContract(bfTick.symbol().c_str());
-        if (contract) {
-            exchange = CtpUtils::getExchangeFromContract(contract);
-        }
+        exchange = CtpUtils::getExchangeFromContract(contract);
     }
     vItem.insert("exchange", exchange);
     vItem.insert("actionDate", bfTick.actiondate().c_str());
