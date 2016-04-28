@@ -60,13 +60,22 @@ void protobuf_AddDesc_bfdatafeed_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\020bfdatafeed.proto\022\023bftrader.bfdatafeed\032"
-    "\016bftrader.proto2\370\001\n\021BfDatafeedService\0226\n"
+    "\016bftrader.proto2\316\004\n\021BfDatafeedService\0226\n"
     "\nInsertTick\022\024.bftrader.BfTickData\032\020.bftr"
-    "ader.BfVoid\"\000\0224\n\tInsertBar\022\023.bftrader.Bf"
-    "BarData\032\020.bftrader.BfVoid\"\000\022;\n\007GetTick\022\026"
-    ".bftrader.BfGetTickReq\032\024.bftrader.BfTick"
-    "Data\"\0000\001\0228\n\006GetBar\022\025.bftrader.BfGetBarRe"
-    "q\032\023.bftrader.BfBarData\"\0000\001B\003\370\001\001b\006proto3", 319);
+    "ader.BfVoid\"\000\022;\n\007GetTick\022\026.bftrader.BfGe"
+    "tTickReq\032\024.bftrader.BfTickData\"\0000\001\022;\n\nDe"
+    "leteTick\022\031.bftrader.BfDeleteTickReq\032\020.bf"
+    "trader.BfVoid\"\000\0224\n\tInsertBar\022\023.bftrader."
+    "BfBarData\032\020.bftrader.BfVoid\"\000\0228\n\006GetBar\022"
+    "\025.bftrader.BfGetBarReq\032\023.bftrader.BfBarD"
+    "ata\"\0000\001\0229\n\tDeleteBar\022\030.bftrader.BfDelete"
+    "BarReq\032\020.bftrader.BfVoid\"\000\022>\n\016InsertCont"
+    "ract\022\030.bftrader.BfContractData\032\020.bftrade"
+    "r.BfVoid\"\000\022O\n\013GetContract\022\".bftrader.BfD"
+    "atafeedGetContractReq\032\030.bftrader.BfContr"
+    "actData\"\0000\001\022K\n\016DeleteContract\022%.bftrader"
+    ".BfDatafeedDeleteContractReq\032\020.bftrader."
+    "BfVoid\"\000B\003\370\001\001b\006proto3", 661);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfdatafeed.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfdatafeed_2eproto);

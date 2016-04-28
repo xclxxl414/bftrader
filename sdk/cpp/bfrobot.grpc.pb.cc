@@ -20,6 +20,9 @@ static const char* BfRobotService_method_names[] = {
   "/bftrader.bfrobot.BfRobotService/OnTick",
   "/bftrader.bfrobot.BfRobotService/OnTrade",
   "/bftrader.bfrobot.BfRobotService/OnOrder",
+  "/bftrader.bfrobot.BfRobotService/OnInit",
+  "/bftrader.bfrobot.BfRobotService/OnStart",
+  "/bftrader.bfrobot.BfRobotService/OnStop",
 };
 
 std::unique_ptr< BfRobotService::Stub> BfRobotService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -31,6 +34,9 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   : channel_(channel), rpcmethod_OnTick_(BfRobotService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnTrade_(BfRobotService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnOrder_(BfRobotService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnInit_(BfRobotService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnStart_(BfRobotService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnStop_(BfRobotService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status BfRobotService::Stub::OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) {
@@ -57,6 +63,30 @@ BfRobotService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnOrder_, context, request);
 }
 
+::grpc::Status BfRobotService::Stub::OnInit(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnInit_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnInitRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnInit_, context, request);
+}
+
+::grpc::Status BfRobotService::Stub::OnStart(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnStart_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnStartRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnStart_, context, request);
+}
+
+::grpc::Status BfRobotService::Stub::OnStop(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnStop_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfRobotService::Stub::AsyncOnStopRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnStop_, context, request);
+}
+
 BfRobotService::Service::Service() {
   (void)BfRobotService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -74,6 +104,21 @@ BfRobotService::Service::Service() {
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfOrderData, ::bftrader::BfVoid>(
           std::mem_fn(&BfRobotService::Service::OnOrder), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfRobotService_method_names[3],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnInit), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfRobotService_method_names[4],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnStart), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfRobotService_method_names[5],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfRobotService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfRobotService::Service::OnStop), this)));
 }
 
 BfRobotService::Service::~Service() {
@@ -94,6 +139,27 @@ BfRobotService::Service::~Service() {
 }
 
 ::grpc::Status BfRobotService::Service::OnOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderData* request, ::bftrader::BfVoid* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfRobotService::Service::OnInit(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfRobotService::Service::OnStart(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfRobotService::Service::OnStop(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;

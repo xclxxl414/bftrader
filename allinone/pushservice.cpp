@@ -564,9 +564,9 @@ void PushService::onCtpError(int code, QString msg, QString msgEx)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfErrorData data;
-    data.set_errorid(code);
-    data.set_errormsg(msg.toStdString());
-    data.set_additionalinfo(msgEx.toStdString());
+    data.set_code(code);
+    data.set_message(msg.toStdString());
+    data.set_messageex(msgEx.toStdString());
     for (auto proxy : proxyClients_) {
         if (proxy->logHandler()) {
             proxy->OnError(data);

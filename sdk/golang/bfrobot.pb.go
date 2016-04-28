@@ -48,6 +48,10 @@ type BfRobotServiceClient interface {
 	OnTrade(ctx context.Context, in *bftrader.BfTradeData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	// 委托回报
 	OnOrder(ctx context.Context, in *bftrader.BfOrderData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	// 生命周期控制
+	OnInit(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	OnStart(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	OnStop(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 }
 
 type bfRobotServiceClient struct {
@@ -85,6 +89,33 @@ func (c *bfRobotServiceClient) OnOrder(ctx context.Context, in *bftrader.BfOrder
 	return out, nil
 }
 
+func (c *bfRobotServiceClient) OnInit(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfrobot.BfRobotService/OnInit", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfRobotServiceClient) OnStart(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfrobot.BfRobotService/OnStart", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfRobotServiceClient) OnStop(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfrobot.BfRobotService/OnStop", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for BfRobotService service
 
 type BfRobotServiceServer interface {
@@ -94,6 +125,10 @@ type BfRobotServiceServer interface {
 	OnTrade(context.Context, *bftrader.BfTradeData) (*bftrader.BfVoid, error)
 	// 委托回报
 	OnOrder(context.Context, *bftrader.BfOrderData) (*bftrader.BfVoid, error)
+	// 生命周期控制
+	OnInit(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	OnStart(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	OnStop(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
 }
 
 func RegisterBfRobotServiceServer(s *grpc.Server, srv BfRobotServiceServer) {
@@ -136,6 +171,42 @@ func _BfRobotService_OnOrder_Handler(srv interface{}, ctx context.Context, dec f
 	return out, nil
 }
 
+func _BfRobotService_OnInit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfVoid)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfRobotServiceServer).OnInit(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfRobotService_OnStart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfVoid)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfRobotServiceServer).OnStart(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfRobotService_OnStop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfVoid)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfRobotServiceServer).OnStop(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 var _BfRobotService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "bftrader.bfrobot.BfRobotService",
 	HandlerType: (*BfRobotServiceServer)(nil),
@@ -152,19 +223,33 @@ var _BfRobotService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "OnOrder",
 			Handler:    _BfRobotService_OnOrder_Handler,
 		},
+		{
+			MethodName: "OnInit",
+			Handler:    _BfRobotService_OnInit_Handler,
+		},
+		{
+			MethodName: "OnStart",
+			Handler:    _BfRobotService_OnStart_Handler,
+		},
+		{
+			MethodName: "OnStop",
+			Handler:    _BfRobotService_OnStop_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{},
 }
 
 var fileDescriptor0 = []byte{
-	// 139 bytes of a gzipped FileDescriptorProto
+	// 170 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4a, 0x2b, 0xca,
 	0x4f, 0xca, 0x2f, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x48, 0x4a, 0x2b, 0x29, 0x4a,
-	0x4c, 0x49, 0x2d, 0xd2, 0x83, 0x8a, 0x4b, 0xf1, 0xc1, 0x45, 0xc0, 0x2a, 0x8c, 0x36, 0x30, 0x72,
+	0x4c, 0x49, 0x2d, 0xd2, 0x83, 0x8a, 0x4b, 0xf1, 0xc1, 0x45, 0xc0, 0x2a, 0x8c, 0x0e, 0x32, 0x71,
 	0xf1, 0x39, 0xa5, 0x05, 0x81, 0xe4, 0x82, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53, 0x85, 0x8c, 0xb8,
 	0xd8, 0xfc, 0xf3, 0x42, 0x32, 0x93, 0xb3, 0x85, 0x44, 0xf4, 0xe0, 0xaa, 0x9d, 0xd2, 0x40, 0x22,
 	0x2e, 0x89, 0x25, 0x89, 0x52, 0x02, 0xc8, 0xa2, 0x61, 0xf9, 0x99, 0x29, 0x4a, 0x0c, 0x42, 0x26,
 	0x5c, 0xec, 0x40, 0x3d, 0x20, 0x41, 0x21, 0x51, 0x14, 0x4d, 0x20, 0x06, 0x7e, 0x5d, 0xfe, 0x45,
-	0x40, 0x31, 0x54, 0x5d, 0x60, 0x21, 0x5c, 0xba, 0x92, 0xd8, 0xc0, 0x2e, 0x37, 0x06, 0x04, 0x00,
-	0x00, 0xff, 0xff, 0x59, 0xef, 0x83, 0x38, 0xec, 0x00, 0x00, 0x00,
+	0x40, 0x31, 0x54, 0x5d, 0x60, 0x21, 0x9c, 0xba, 0xf4, 0x40, 0xee, 0xf3, 0xcc, 0xcb, 0x2c, 0x11,
+	0xc2, 0x90, 0xc5, 0xaa, 0x5e, 0x1f, 0x64, 0x4b, 0x70, 0x49, 0x62, 0x11, 0xb1, 0x1a, 0xc0, 0x16,
+	0x04, 0x97, 0xe4, 0x17, 0x10, 0xa7, 0x3e, 0x89, 0x0d, 0x1c, 0x94, 0xc6, 0x80, 0x00, 0x00, 0x00,
+	0xff, 0xff, 0xfc, 0xb5, 0x77, 0xf6, 0x7d, 0x01, 0x00, 0x00,
 }

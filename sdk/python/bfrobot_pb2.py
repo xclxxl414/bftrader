@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfrobot.proto',
   package='bftrader.bfrobot',
   syntax='proto3',
-  serialized_pb=_b('\n\rbfrobot.proto\x12\x10\x62\x66trader.bfrobot\x1a\x0e\x62\x66trader.proto2\xb0\x01\n\x0e\x42\x66RobotService\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rbfrobot.proto\x12\x10\x62\x66trader.bfrobot\x1a\x0e\x62\x66trader.proto2\xc1\x02\n\x0e\x42\x66RobotService\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnInit\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12/\n\x07OnStart\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnStop\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -46,6 +46,15 @@ class BetaBfRobotServiceServicer(object):
   @abc.abstractmethod
   def OnOrder(self, request, context):
     raise NotImplementedError()
+  @abc.abstractmethod
+  def OnInit(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def OnStart(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def OnStop(self, request, context):
+    raise NotImplementedError()
 
 class BetaBfRobotServiceStub(object):
   """The interface to which stubs will conform."""
@@ -62,6 +71,18 @@ class BetaBfRobotServiceStub(object):
   def OnOrder(self, request, timeout):
     raise NotImplementedError()
   OnOrder.future = None
+  @abc.abstractmethod
+  def OnInit(self, request, timeout):
+    raise NotImplementedError()
+  OnInit.future = None
+  @abc.abstractmethod
+  def OnStart(self, request, timeout):
+    raise NotImplementedError()
+  OnStart.future = None
+  @abc.abstractmethod
+  def OnStop(self, request, timeout):
+    raise NotImplementedError()
+  OnStop.future = None
 
 def beta_create_BfRobotService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import bftrader_pb2
@@ -70,18 +91,33 @@ def beta_create_BfRobotService_server(servicer, pool=None, pool_size=None, defau
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
+    ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfOrderData.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfTickData.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTrade'): bftrader_pb2.BfTradeData.FromString,
   }
   response_serializers = {
+    ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTrade'): bftrader_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
+    ('bftrader.bfrobot.BfRobotService', 'OnInit'): face_utilities.unary_unary_inline(servicer.OnInit),
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): face_utilities.unary_unary_inline(servicer.OnOrder),
+    ('bftrader.bfrobot.BfRobotService', 'OnStart'): face_utilities.unary_unary_inline(servicer.OnStart),
+    ('bftrader.bfrobot.BfRobotService', 'OnStop'): face_utilities.unary_unary_inline(servicer.OnStop),
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): face_utilities.unary_unary_inline(servicer.OnTick),
     ('bftrader.bfrobot.BfRobotService', 'OnTrade'): face_utilities.unary_unary_inline(servicer.OnTrade),
   }
@@ -95,18 +131,33 @@ def beta_create_BfRobotService_stub(channel, host=None, metadata_transformer=Non
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_serializers = {
+    ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfOrderData.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfTickData.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTrade'): bftrader_pb2.BfTradeData.SerializeToString,
   }
   response_deserializers = {
+    ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTrade'): bftrader_pb2.BfVoid.FromString,
   }
   cardinalities = {
+    'OnInit': cardinality.Cardinality.UNARY_UNARY,
     'OnOrder': cardinality.Cardinality.UNARY_UNARY,
+    'OnStart': cardinality.Cardinality.UNARY_UNARY,
+    'OnStop': cardinality.Cardinality.UNARY_UNARY,
     'OnTick': cardinality.Cardinality.UNARY_UNARY,
     'OnTrade': cardinality.Cardinality.UNARY_UNARY,
   }

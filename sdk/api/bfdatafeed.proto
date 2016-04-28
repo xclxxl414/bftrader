@@ -12,13 +12,28 @@ service BfDatafeedService{
 
     // 保存tick
     rpc InsertTick(BfTickData) returns (BfVoid) {}
+
+    // 获取tick
+    rpc GetTick(BfGetTickReq) returns (stream BfTickData){}
+
+    // 删除tick
+    rpc DeleteTick(BfDeleteTickReq) returns (BfVoid) {}
     
     // 保存bar
     rpc InsertBar(BfBarData) returns (BfVoid) {}
-    
-    // 获取tick
-    rpc GetTick(BfGetTickReq) returns (stream BfTickData){}
-    
+       
     // 获取bar
     rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
+    
+    // 删除bar
+    rpc DeleteBar(BfDeleteBarReq) returns (BfVoid) {}
+    
+    // 保存contract
+    rpc InsertContract(BfContractData) returns (BfVoid) {}
+       
+    // 获取contract
+    rpc GetContract(BfDatafeedGetContractReq) returns (stream BfContractData) {}
+    
+    // 删除contract
+    rpc DeleteContract(BfDatafeedDeleteContractReq) returns (BfVoid) {}    
 }

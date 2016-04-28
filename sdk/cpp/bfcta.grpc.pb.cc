@@ -18,6 +18,7 @@ namespace bfctaservice {
 
 static const char* BfCtaService_method_names[] = {
   "/bftrader.bfctaservice.BfCtaService/Connect",
+  "/bftrader.bfctaservice.BfCtaService/GetRobotInfo",
   "/bftrader.bfctaservice.BfCtaService/SendOrder",
   "/bftrader.bfctaservice.BfCtaService/CancelOrder",
   "/bftrader.bfctaservice.BfCtaService/Close",
@@ -30,9 +31,10 @@ std::unique_ptr< BfCtaService::Stub> BfCtaService::NewStub(const std::shared_ptr
 
 BfCtaService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Connect_(BfCtaService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SendOrder_(BfCtaService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelOrder_(BfCtaService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Close_(BfCtaService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRobotInfo_(BfCtaService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SendOrder_(BfCtaService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelOrder_(BfCtaService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Close_(BfCtaService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status BfCtaService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfConnectResp* response) {
@@ -41,6 +43,14 @@ BfCtaService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chann
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>* BfCtaService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>(channel_.get(), cq, rpcmethod_Connect_, context, request);
+}
+
+::grpc::Status BfCtaService::Stub::GetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRobotInfo_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* BfCtaService::Stub::AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>(channel_.get(), cq, rpcmethod_GetRobotInfo_, context, request);
 }
 
 ::grpc::Status BfCtaService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) {
@@ -77,15 +87,20 @@ BfCtaService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfKvData, ::bftrader::BfKvData>(
+          std::mem_fn(&BfCtaService::Service::GetRobotInfo), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfCtaService_method_names[2],
+      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfSendOrderReq, ::bftrader::BfSendOrderResp>(
           std::mem_fn(&BfCtaService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfCtaService_method_names[2],
+      BfCtaService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfCancelOrderReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfCtaService::Service::CancelOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfCtaService_method_names[3],
+      BfCtaService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
           std::mem_fn(&BfCtaService::Service::Close), this)));
@@ -95,6 +110,13 @@ BfCtaService::Service::~Service() {
 }
 
 ::grpc::Status BfCtaService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfCtaService::Service::GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) {
   (void) context;
   (void) request;
   (void) response;

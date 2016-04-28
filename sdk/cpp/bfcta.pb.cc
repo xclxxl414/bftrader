@@ -60,14 +60,15 @@ void protobuf_AddDesc_bfcta_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\013bfcta.proto\022\025bftrader.bfctaservice\032\016bf"
-    "trader.proto2\376\001\n\014BfCtaService\022<\n\007Connect"
+    "trader.proto2\270\002\n\014BfCtaService\022<\n\007Connect"
     "\022\026.bftrader.BfConnectReq\032\027.bftrader.BfCo"
-    "nnectResp\"\000\022B\n\tSendOrder\022\030.bftrader.BfSe"
-    "ndOrderReq\032\031.bftrader.BfSendOrderResp\"\000\022"
-    "=\n\013CancelOrder\022\032.bftrader.BfCancelOrderR"
-    "eq\032\020.bftrader.BfVoid\"\000\022-\n\005Close\022\020.bftrad"
-    "er.BfVoid\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006prot"
-    "o3", 322);
+    "nnectResp\"\000\0228\n\014GetRobotInfo\022\022.bftrader.B"
+    "fKvData\032\022.bftrader.BfKvData\"\000\022B\n\tSendOrd"
+    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
+    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
+    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
+    "\022-\n\005Close\022\020.bftrader.BfVoid\032\020.bftrader.B"
+    "fVoid\"\000B\003\370\001\001b\006proto3", 380);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfcta_2eproto);

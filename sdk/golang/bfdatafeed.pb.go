@@ -44,12 +44,22 @@ const _ = grpc.SupportPackageIsVersion1
 type BfDatafeedServiceClient interface {
 	// 保存tick
 	InsertTick(ctx context.Context, in *bftrader.BfTickData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
-	// 保存bar
-	InsertBar(ctx context.Context, in *bftrader.BfBarData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	// 获取tick
 	GetTick(ctx context.Context, in *bftrader.BfGetTickReq, opts ...grpc.CallOption) (BfDatafeedService_GetTickClient, error)
+	// 删除tick
+	DeleteTick(ctx context.Context, in *bftrader.BfDeleteTickReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	// 保存bar
+	InsertBar(ctx context.Context, in *bftrader.BfBarData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	// 获取bar
 	GetBar(ctx context.Context, in *bftrader.BfGetBarReq, opts ...grpc.CallOption) (BfDatafeedService_GetBarClient, error)
+	// 删除bar
+	DeleteBar(ctx context.Context, in *bftrader.BfDeleteBarReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	// 保存contract
+	InsertContract(ctx context.Context, in *bftrader.BfContractData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	// 获取contract
+	GetContract(ctx context.Context, in *bftrader.BfDatafeedGetContractReq, opts ...grpc.CallOption) (BfDatafeedService_GetContractClient, error)
+	// 删除contract
+	DeleteContract(ctx context.Context, in *bftrader.BfDatafeedDeleteContractReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 }
 
 type bfDatafeedServiceClient struct {
@@ -63,15 +73,6 @@ func NewBfDatafeedServiceClient(cc *grpc.ClientConn) BfDatafeedServiceClient {
 func (c *bfDatafeedServiceClient) InsertTick(ctx context.Context, in *bftrader.BfTickData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
 	out := new(bftrader.BfVoid)
 	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/InsertTick", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *bfDatafeedServiceClient) InsertBar(ctx context.Context, in *bftrader.BfBarData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/InsertBar", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -110,6 +111,24 @@ func (x *bfDatafeedServiceGetTickClient) Recv() (*bftrader.BfTickData, error) {
 	return m, nil
 }
 
+func (c *bfDatafeedServiceClient) DeleteTick(ctx context.Context, in *bftrader.BfDeleteTickReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/DeleteTick", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfDatafeedServiceClient) InsertBar(ctx context.Context, in *bftrader.BfBarData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/InsertBar", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *bfDatafeedServiceClient) GetBar(ctx context.Context, in *bftrader.BfGetBarReq, opts ...grpc.CallOption) (BfDatafeedService_GetBarClient, error) {
 	stream, err := grpc.NewClientStream(ctx, &_BfDatafeedService_serviceDesc.Streams[1], c.cc, "/bftrader.bfdatafeed.BfDatafeedService/GetBar", opts...)
 	if err != nil {
@@ -142,17 +161,86 @@ func (x *bfDatafeedServiceGetBarClient) Recv() (*bftrader.BfBarData, error) {
 	return m, nil
 }
 
+func (c *bfDatafeedServiceClient) DeleteBar(ctx context.Context, in *bftrader.BfDeleteBarReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/DeleteBar", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfDatafeedServiceClient) InsertContract(ctx context.Context, in *bftrader.BfContractData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/InsertContract", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfDatafeedServiceClient) GetContract(ctx context.Context, in *bftrader.BfDatafeedGetContractReq, opts ...grpc.CallOption) (BfDatafeedService_GetContractClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_BfDatafeedService_serviceDesc.Streams[2], c.cc, "/bftrader.bfdatafeed.BfDatafeedService/GetContract", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bfDatafeedServiceGetContractClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type BfDatafeedService_GetContractClient interface {
+	Recv() (*bftrader.BfContractData, error)
+	grpc.ClientStream
+}
+
+type bfDatafeedServiceGetContractClient struct {
+	grpc.ClientStream
+}
+
+func (x *bfDatafeedServiceGetContractClient) Recv() (*bftrader.BfContractData, error) {
+	m := new(bftrader.BfContractData)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *bfDatafeedServiceClient) DeleteContract(ctx context.Context, in *bftrader.BfDatafeedDeleteContractReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfdatafeed.BfDatafeedService/DeleteContract", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for BfDatafeedService service
 
 type BfDatafeedServiceServer interface {
 	// 保存tick
 	InsertTick(context.Context, *bftrader.BfTickData) (*bftrader.BfVoid, error)
-	// 保存bar
-	InsertBar(context.Context, *bftrader.BfBarData) (*bftrader.BfVoid, error)
 	// 获取tick
 	GetTick(*bftrader.BfGetTickReq, BfDatafeedService_GetTickServer) error
+	// 删除tick
+	DeleteTick(context.Context, *bftrader.BfDeleteTickReq) (*bftrader.BfVoid, error)
+	// 保存bar
+	InsertBar(context.Context, *bftrader.BfBarData) (*bftrader.BfVoid, error)
 	// 获取bar
 	GetBar(*bftrader.BfGetBarReq, BfDatafeedService_GetBarServer) error
+	// 删除bar
+	DeleteBar(context.Context, *bftrader.BfDeleteBarReq) (*bftrader.BfVoid, error)
+	// 保存contract
+	InsertContract(context.Context, *bftrader.BfContractData) (*bftrader.BfVoid, error)
+	// 获取contract
+	GetContract(*bftrader.BfDatafeedGetContractReq, BfDatafeedService_GetContractServer) error
+	// 删除contract
+	DeleteContract(context.Context, *bftrader.BfDatafeedDeleteContractReq) (*bftrader.BfVoid, error)
 }
 
 func RegisterBfDatafeedServiceServer(s *grpc.Server, srv BfDatafeedServiceServer) {
@@ -165,18 +253,6 @@ func _BfDatafeedService_InsertTick_Handler(srv interface{}, ctx context.Context,
 		return nil, err
 	}
 	out, err := srv.(BfDatafeedServiceServer).InsertTick(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func _BfDatafeedService_InsertBar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfBarData)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	out, err := srv.(BfDatafeedServiceServer).InsertBar(ctx, in)
 	if err != nil {
 		return nil, err
 	}
@@ -204,6 +280,30 @@ func (x *bfDatafeedServiceGetTickServer) Send(m *bftrader.BfTickData) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _BfDatafeedService_DeleteTick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfDeleteTickReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfDatafeedServiceServer).DeleteTick(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfDatafeedService_InsertBar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfBarData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfDatafeedServiceServer).InsertBar(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func _BfDatafeedService_GetBar_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(bftrader.BfGetBarReq)
 	if err := stream.RecvMsg(m); err != nil {
@@ -225,6 +325,63 @@ func (x *bfDatafeedServiceGetBarServer) Send(m *bftrader.BfBarData) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _BfDatafeedService_DeleteBar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfDeleteBarReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfDatafeedServiceServer).DeleteBar(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfDatafeedService_InsertContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfContractData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfDatafeedServiceServer).InsertContract(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfDatafeedService_GetContract_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(bftrader.BfDatafeedGetContractReq)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(BfDatafeedServiceServer).GetContract(m, &bfDatafeedServiceGetContractServer{stream})
+}
+
+type BfDatafeedService_GetContractServer interface {
+	Send(*bftrader.BfContractData) error
+	grpc.ServerStream
+}
+
+type bfDatafeedServiceGetContractServer struct {
+	grpc.ServerStream
+}
+
+func (x *bfDatafeedServiceGetContractServer) Send(m *bftrader.BfContractData) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _BfDatafeedService_DeleteContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfDatafeedDeleteContractReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfDatafeedServiceServer).DeleteContract(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 var _BfDatafeedService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "bftrader.bfdatafeed.BfDatafeedService",
 	HandlerType: (*BfDatafeedServiceServer)(nil),
@@ -234,8 +391,24 @@ var _BfDatafeedService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _BfDatafeedService_InsertTick_Handler,
 		},
 		{
+			MethodName: "DeleteTick",
+			Handler:    _BfDatafeedService_DeleteTick_Handler,
+		},
+		{
 			MethodName: "InsertBar",
 			Handler:    _BfDatafeedService_InsertBar_Handler,
+		},
+		{
+			MethodName: "DeleteBar",
+			Handler:    _BfDatafeedService_DeleteBar_Handler,
+		},
+		{
+			MethodName: "InsertContract",
+			Handler:    _BfDatafeedService_InsertContract_Handler,
+		},
+		{
+			MethodName: "DeleteContract",
+			Handler:    _BfDatafeedService_DeleteContract_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
@@ -249,21 +422,31 @@ var _BfDatafeedService_serviceDesc = grpc.ServiceDesc{
 			Handler:       _BfDatafeedService_GetBar_Handler,
 			ServerStreams: true,
 		},
+		{
+			StreamName:    "GetContract",
+			Handler:       _BfDatafeedService_GetContract_Handler,
+			ServerStreams: true,
+		},
 	},
 }
 
 var fileDescriptor0 = []byte{
-	// 183 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x12, 0x48, 0x4a, 0x4b, 0x49,
-	0x2c, 0x49, 0x4c, 0x4b, 0x4d, 0x4d, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x4e, 0x4a,
-	0x2b, 0x29, 0x4a, 0x4c, 0x49, 0x2d, 0xd2, 0x43, 0x48, 0x49, 0xf1, 0xc1, 0x05, 0xc1, 0x8a, 0x8c,
-	0x7e, 0x30, 0x72, 0x09, 0x3a, 0xa5, 0xb9, 0x40, 0xa5, 0x83, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53,
-	0x85, 0xcc, 0xb8, 0xb8, 0x3c, 0xf3, 0x8a, 0x53, 0x8b, 0x4a, 0x42, 0x32, 0x93, 0xb3, 0x85, 0x44,
-	0xf4, 0xe0, 0x9a, 0x9c, 0xd2, 0x40, 0x22, 0x20, 0xe5, 0x52, 0x02, 0xc8, 0xa2, 0x61, 0xf9, 0x99,
-	0x29, 0x4a, 0x0c, 0x42, 0x26, 0x5c, 0x9c, 0x10, 0x7d, 0x4e, 0x89, 0x45, 0x42, 0xc2, 0xc8, 0x0a,
-	0x80, 0x02, 0x38, 0x75, 0x59, 0x73, 0xb1, 0xbb, 0xa7, 0x42, 0xac, 0x12, 0x43, 0x96, 0x86, 0x0a,
-	0x06, 0xa5, 0x16, 0x4a, 0x61, 0x75, 0x82, 0x12, 0x83, 0x01, 0xa3, 0x90, 0x05, 0x17, 0x1b, 0x50,
-	0x1d, 0xc8, 0x3e, 0x51, 0x34, 0xbd, 0x40, 0x31, 0x90, 0x56, 0x6c, 0xce, 0x00, 0xe9, 0x74, 0x62,
-	0xfe, 0xc1, 0xc8, 0x98, 0xc4, 0x06, 0x0e, 0x06, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa3,
-	0xb9, 0x4c, 0xb6, 0x3f, 0x01, 0x00, 0x00,
+	// 270 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x92, 0xcb, 0x4a, 0xc4, 0x30,
+	0x14, 0x86, 0xa7, 0x28, 0x23, 0x73, 0x84, 0x32, 0x66, 0x54, 0xb4, 0xcb, 0x82, 0xdb, 0x22, 0x2a,
+	0xa2, 0x08, 0x2e, 0xea, 0x80, 0x88, 0x0b, 0x41, 0xc5, 0x7d, 0xdb, 0x9c, 0x40, 0x51, 0x26, 0x1a,
+	0x83, 0x8f, 0xe9, 0xf3, 0xb8, 0x34, 0x37, 0xd3, 0xd4, 0x49, 0xb6, 0xff, 0xf9, 0x2f, 0x5f, 0x68,
+	0x61, 0xde, 0x32, 0xda, 0xc8, 0x86, 0x21, 0xd2, 0xea, 0x5d, 0x70, 0xc9, 0xc9, 0xa2, 0x65, 0x52,
+	0x34, 0x14, 0x45, 0x35, 0x9c, 0x8a, 0xdc, 0x8b, 0xc6, 0x74, 0xf2, 0xbd, 0x09, 0x3b, 0x35, 0x5b,
+	0xba, 0xf3, 0x13, 0x8a, 0xaf, 0xbe, 0x43, 0x72, 0x0e, 0x70, 0xb7, 0xfa, 0x44, 0x21, 0x9f, 0xfb,
+	0xee, 0x95, 0xec, 0x56, 0x3e, 0x54, 0x33, 0xad, 0x68, 0x7b, 0x31, 0x0f, 0xd5, 0x17, 0xde, 0xd3,
+	0x72, 0x42, 0xae, 0x60, 0xeb, 0x16, 0x6d, 0x68, 0x3f, 0x3c, 0x3b, 0xf1, 0x11, 0x3f, 0x8a, 0x68,
+	0x59, 0x39, 0x39, 0xce, 0x54, 0x18, 0x96, 0xf8, 0x86, 0x12, 0x4d, 0xfe, 0x30, 0xf4, 0x0d, 0xba,
+	0xae, 0x88, 0x2d, 0x9f, 0xc1, 0xcc, 0x12, 0xd7, 0x8d, 0x20, 0x8b, 0xd0, 0xa0, 0x84, 0x24, 0xef,
+	0x05, 0x4c, 0x15, 0x9a, 0x8e, 0xec, 0xfd, 0xc3, 0x55, 0x9a, 0x9e, 0x8a, 0x35, 0x19, 0xd8, 0x4b,
+	0x98, 0x59, 0x28, 0x1d, 0x3e, 0x58, 0x67, 0x75, 0xf9, 0xd8, 0xe8, 0x35, 0xe4, 0x16, 0xf5, 0x86,
+	0xaf, 0xd4, 0xad, 0x93, 0xe3, 0xfc, 0x9f, 0x9a, 0x84, 0x7e, 0x80, 0x6d, 0x05, 0xe8, 0xc3, 0xe5,
+	0x68, 0xdc, 0x7d, 0xc8, 0xc0, 0xa0, 0x31, 0x92, 0x03, 0xe6, 0x2d, 0xf7, 0x90, 0x5b, 0x68, 0xdf,
+	0x79, 0x14, 0xeb, 0x1c, 0x7b, 0x12, 0xaf, 0xab, 0x37, 0x7e, 0xb2, 0xac, 0x9d, 0x9a, 0x9f, 0xeb,
+	0xf4, 0x37, 0x00, 0x00, 0xff, 0xff, 0x77, 0xf9, 0x34, 0xe1, 0x95, 0x02, 0x00, 0x00,
 }

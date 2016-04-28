@@ -14,6 +14,10 @@ service BfCtaService{
     // 建立连接
     rpc Connect(BfConnectReq) returns (BfConnectResp) {}
                 
+
+    // 获取策略信息，如position，用kv最方便
+    rpc GetRobotInfo(BfKvData) returns (BfKvData) {}
+
     // 发单
     rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}
     

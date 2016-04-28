@@ -75,9 +75,21 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BfGetTickReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfGetTickReq_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfDeleteTickReq_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfDeleteTickReq_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfGetBarReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfGetBarReq_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfDeleteBarReq_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfDeleteBarReq_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfDatafeedGetContractReq_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfDatafeedGetContractReq_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfDatafeedDeleteContractReq_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfDatafeedDeleteContractReq_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfKvData_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfKvData_reflection_ = NULL;
@@ -238,9 +250,9 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfAccountData, _is_default_instance_));
   BfErrorData_descriptor_ = file->message_type(6);
   static const int BfErrorData_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, errorid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, errormsg_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, additionalinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, code_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfErrorData, messageex_),
   };
   BfErrorData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -462,7 +474,25 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetTickReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, _is_default_instance_));
-  BfGetBarReq_descriptor_ = file->message_type(18);
+  BfDeleteTickReq_descriptor_ = file->message_type(18);
+  static const int BfDeleteTickReq_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, symbol_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, exchange_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, todate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, totime_),
+  };
+  BfDeleteTickReq_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfDeleteTickReq_descriptor_,
+      BfDeleteTickReq::default_instance_,
+      BfDeleteTickReq_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfDeleteTickReq),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, _is_default_instance_));
+  BfGetBarReq_descriptor_ = file->message_type(19);
   static const int BfGetBarReq_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, exchange_),
@@ -482,7 +512,58 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetBarReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _is_default_instance_));
-  BfKvData_descriptor_ = file->message_type(19);
+  BfDeleteBarReq_descriptor_ = file->message_type(20);
+  static const int BfDeleteBarReq_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, symbol_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, exchange_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, period_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, todate_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, totime_),
+  };
+  BfDeleteBarReq_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfDeleteBarReq_descriptor_,
+      BfDeleteBarReq::default_instance_,
+      BfDeleteBarReq_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfDeleteBarReq),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, _is_default_instance_));
+  BfDatafeedGetContractReq_descriptor_ = file->message_type(21);
+  static const int BfDatafeedGetContractReq_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, symbolpattern_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, exchangepattern_),
+  };
+  BfDatafeedGetContractReq_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfDatafeedGetContractReq_descriptor_,
+      BfDatafeedGetContractReq::default_instance_,
+      BfDatafeedGetContractReq_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfDatafeedGetContractReq),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _is_default_instance_));
+  BfDatafeedDeleteContractReq_descriptor_ = file->message_type(22);
+  static const int BfDatafeedDeleteContractReq_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, symbol_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, exchange_),
+  };
+  BfDatafeedDeleteContractReq_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfDatafeedDeleteContractReq_descriptor_,
+      BfDatafeedDeleteContractReq::default_instance_,
+      BfDatafeedDeleteContractReq_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfDatafeedDeleteContractReq),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, _is_default_instance_));
+  BfKvData_descriptor_ = file->message_type(23);
   static const int BfKvData_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfKvData, key_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfKvData, value_),
@@ -553,7 +634,15 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfGetTickReq_descriptor_, &BfGetTickReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfDeleteTickReq_descriptor_, &BfDeleteTickReq::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfGetBarReq_descriptor_, &BfGetBarReq::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfDeleteBarReq_descriptor_, &BfDeleteBarReq::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfDatafeedGetContractReq_descriptor_, &BfDatafeedGetContractReq::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfDatafeedDeleteContractReq_descriptor_, &BfDatafeedDeleteContractReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfKvData_descriptor_, &BfKvData::default_instance());
 }
@@ -597,8 +686,16 @@ void protobuf_ShutdownFile_bftrader_2eproto() {
   delete BfBarData_reflection_;
   delete BfGetTickReq::default_instance_;
   delete BfGetTickReq_reflection_;
+  delete BfDeleteTickReq::default_instance_;
+  delete BfDeleteTickReq_reflection_;
   delete BfGetBarReq::default_instance_;
   delete BfGetBarReq_reflection_;
+  delete BfDeleteBarReq::default_instance_;
+  delete BfDeleteBarReq_reflection_;
+  delete BfDatafeedGetContractReq::default_instance_;
+  delete BfDatafeedGetContractReq_reflection_;
+  delete BfDatafeedDeleteContractReq::default_instance_;
+  delete BfDatafeedDeleteContractReq_reflection_;
   delete BfKvData::default_instance_;
   delete BfKvData_reflection_;
 }
@@ -641,65 +738,74 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "ountId\030\001 \001(\t\022\022\n\npreBalance\030\002 \001(\001\022\017\n\007bala"
     "nce\030\003 \001(\001\022\021\n\tavailable\030\004 \001(\001\022\022\n\ncommissi"
     "on\030\005 \001(\001\022\024\n\014frozenMargin\030\006 \001(\001\022\023\n\013closeP"
-    "rofit\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001(\001\"H\n\013B"
-    "fErrorData\022\017\n\007errorId\030\001 \001(\005\022\020\n\010errorMsg\030"
-    "\002 \001(\t\022\026\n\016additionalInfo\030\003 \001(\t\"*\n\tBfLogDa"
-    "ta\022\014\n\004when\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"\340\001\n\016Bf"
-    "ContractData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange"
-    "\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022)\n\014productClass\030\004 \001"
-    "(\0162\023.bftrader.BfProduct\022\026\n\016volumeMultipl"
-    "e\030\005 \001(\005\022\021\n\tpriceTick\030\006 \001(\001\022\020\n\010maxLimit\030\007"
-    " \001(\005\022\020\n\010minLimit\030\010 \001(\005\022\021\n\tmaxMarket\030\t \001("
-    "\005\022\021\n\tminMartet\030\n \001(\005\"\311\001\n\016BfSendOrderReq\022"
-    "\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005pri"
-    "ce\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tpriceType\030\005 "
-    "\001(\0162\025.bftrader.BfPriceType\022(\n\tdirection\030"
-    "\006 \001(\0162\025.bftrader.BfDirection\022\"\n\006offset\030\007"
-    " \001(\0162\022.bftrader.BfOffset\"$\n\017BfSendOrderR"
-    "esp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfCancelOrderR"
-    "eq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\t"
-    "bfOrderId\030\003 \001(\t\"\244\001\n\014BfConnectReq\022\017\n\007prox"
-    "yId\030\001 \001(\t\022\017\n\007proxyIp\030\002 \001(\t\022\021\n\tproxyPort\030"
-    "\003 \001(\005\022\023\n\013tickHandler\030\004 \001(\010\022\024\n\014tradeHandl"
-    "er\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007"
-    " \001(\t\022\020\n\010exchange\030\010 \001(\t\"4\n\rBfConnectResp\022"
-    "\021\n\terrorCode\030\001 \001(\005\022\020\n\010errorMsg\030\002 \001(\t\"X\n\020"
-    "BfGetContractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exch"
-    "ange\030\002 \001(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled"
-    "\030\004 \001(\010\"\035\n\nBfPingData\022\017\n\007message\030\001 \001(\t\"\377\001"
-    "\n\tBfBarData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030"
-    "\002 \001(\t\022%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPe"
-    "riod\022\022\n\nactionDate\030\004 \001(\t\022\017\n\007barTime\030\005 \001("
-    "\t\022\016\n\006volume\030\006 \001(\005\022\024\n\014openInterest\030\007 \001(\001\022"
-    "\022\n\nlastVolume\030\010 \001(\005\022\021\n\topenPrice\030\t \001(\001\022\021"
-    "\n\thighPrice\030\n \001(\001\022\020\n\010lowPrice\030\013 \001(\001\022\022\n\nc"
-    "losePrice\030\014 \001(\001\"_\n\014BfGetTickReq\022\016\n\006symbo"
-    "l\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001("
-    "\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005count\030\005 \001(\005\"\205\001\n\013BfG"
-    "etBarReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001"
-    "(\t\022%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPerio"
-    "d\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005cou"
-    "nt\030\006 \001(\005\"&\n\010BfKvData\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-    "ue\030\002 \001(\t*`\n\013BfDirection\022\025\n\021DIRECTION_UNK"
-    "NOWN\020\000\022\022\n\016DIRECTION_LONG\020\001\022\023\n\017DIRECTION_"
-    "SHORT\020\002\022\021\n\rDIRECTION_NET\020\003*s\n\010BfOffset\022\022"
-    "\n\016OFFSET_UNKNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014O"
-    "FFSET_CLOSE\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n\025"
-    "OFFSET_CLOSEYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016S"
-    "TATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n"
-    "\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADED"
-    "\020\003\022\024\n\020STATUS_CANCELLED\020\004*I\n\tBfProduct\022\023\n"
-    "\017PRODUCT_UNKNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023"
-    "\n\017PRODUCT_FUTURES\020\002*Y\n\013BfPriceType\022\025\n\021PR"
-    "ICETYPE_UNKONWN\020\000\022\030\n\024PRICETYPE_LIMITPRIC"
-    "E\020\001\022\031\n\025PRICETYPE_MARKETPRICE\020\002*\210\002\n\013BfBar"
-    "Period\022\022\n\016PERIOD_UNKNOWN\020\000\022\r\n\tPERIOD_S1\020"
-    "\001\022\r\n\tPERIOD_S3\020\002\022\r\n\tPERIOD_S5\020\003\022\016\n\nPERIO"
-    "D_S10\020\004\022\016\n\nPERIOD_S15\020\005\022\016\n\nPERIOD_S30\020\006\022"
-    "\r\n\tPERIOD_M1\020\007\022\r\n\tPERIOD_M3\020\010\022\r\n\tPERIOD_"
-    "M5\020\t\022\016\n\nPERIOD_M10\020\n\022\016\n\nPERIOD_M15\020\013\022\016\n\n"
-    "PERIOD_M30\020\014\022\r\n\tPERIOD_H1\020\r\022\r\n\tPERIOD_D1"
-    "\020\016\022\r\n\tPERIOD_W1\020\017b\006proto3", 3585);
+    "rofit\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001(\001\"\?\n\013B"
+    "fErrorData\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001("
+    "\t\022\021\n\tmessageEx\030\003 \001(\t\"*\n\tBfLogData\022\014\n\004whe"
+    "n\030\001 \001(\t\022\017\n\007message\030\002 \001(\t\"\340\001\n\016BfContractD"
+    "ata\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n"
+    "\004name\030\003 \001(\t\022)\n\014productClass\030\004 \001(\0162\023.bftr"
+    "ader.BfProduct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021"
+    "\n\tpriceTick\030\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010m"
+    "inLimit\030\010 \001(\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminM"
+    "artet\030\n \001(\005\"\311\001\n\016BfSendOrderReq\022\016\n\006symbol"
+    "\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022"
+    "\016\n\006volume\030\004 \001(\005\022(\n\tpriceType\030\005 \001(\0162\025.bft"
+    "rader.BfPriceType\022(\n\tdirection\030\006 \001(\0162\025.b"
+    "ftrader.BfDirection\022\"\n\006offset\030\007 \001(\0162\022.bf"
+    "trader.BfOffset\"$\n\017BfSendOrderResp\022\021\n\tbf"
+    "OrderId\030\001 \001(\t\"G\n\020BfCancelOrderReq\022\016\n\006sym"
+    "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrderId"
+    "\030\003 \001(\t\"\244\001\n\014BfConnectReq\022\017\n\007proxyId\030\001 \001(\t"
+    "\022\017\n\007proxyIp\030\002 \001(\t\022\021\n\tproxyPort\030\003 \001(\005\022\023\n\013"
+    "tickHandler\030\004 \001(\010\022\024\n\014tradeHandler\030\005 \001(\010\022"
+    "\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020\n\010e"
+    "xchange\030\010 \001(\t\"4\n\rBfConnectResp\022\021\n\terrorC"
+    "ode\030\001 \001(\005\022\020\n\010errorMsg\030\002 \001(\t\"X\n\020BfGetCont"
+    "ractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
+    "\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010\"\035\n"
+    "\nBfPingData\022\017\n\007message\030\001 \001(\t\"\377\001\n\tBfBarDa"
+    "ta\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022%\n\006"
+    "period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\022\n\na"
+    "ctionDate\030\004 \001(\t\022\017\n\007barTime\030\005 \001(\t\022\016\n\006volu"
+    "me\030\006 \001(\005\022\024\n\014openInterest\030\007 \001(\001\022\022\n\nlastVo"
+    "lume\030\010 \001(\005\022\021\n\topenPrice\030\t \001(\001\022\021\n\thighPri"
+    "ce\030\n \001(\001\022\020\n\010lowPrice\030\013 \001(\001\022\022\n\nclosePrice"
+    "\030\014 \001(\001\"_\n\014BfGetTickReq\022\016\n\006symbol\030\001 \001(\t\022\020"
+    "\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTi"
+    "me\030\004 \001(\t\022\r\n\005count\030\005 \001(\005\"S\n\017BfDeleteTickR"
+    "eq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006"
+    "toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\"\205\001\n\013BfGetBa"
+    "rReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022%"
+    "\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\016\n"
+    "\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006"
+    " \001(\005\"y\n\016BfDeleteBarReq\022\016\n\006symbol\030\001 \001(\t\022\020"
+    "\n\010exchange\030\002 \001(\t\022%\n\006period\030\003 \001(\0162\025.bftra"
+    "der.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTim"
+    "e\030\005 \001(\t\"J\n\030BfDatafeedGetContractReq\022\025\n\rs"
+    "ymbolPattern\030\001 \001(\t\022\027\n\017exchangePattern\030\002 "
+    "\001(\t\"\?\n\033BfDatafeedDeleteContractReq\022\016\n\006sy"
+    "mbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"&\n\010BfKvData"
+    "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t*`\n\013BfDirect"
+    "ion\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_"
+    "LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\rDIRECTION"
+    "_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017"
+    "\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE\020\002\022\025\n\021OFF"
+    "SET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOSEYESTERDA"
+    "Y\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNOWN\020\000\022\024\n\020S"
+    "TATUS_NOTTRADED\020\001\022\025\n\021STATUS_PARTTRADED\020\002"
+    "\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATUS_CANCELL"
+    "ED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UNKNOWN\020\000\022\022"
+    "\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_FUTURES\020\002*"
+    "Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n"
+    "\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MAR"
+    "KETPRICE\020\002*\210\002\n\013BfBarPeriod\022\022\n\016PERIOD_UNK"
+    "NOWN\020\000\022\r\n\tPERIOD_S1\020\001\022\r\n\tPERIOD_S3\020\002\022\r\n\t"
+    "PERIOD_S5\020\003\022\016\n\nPERIOD_S10\020\004\022\016\n\nPERIOD_S1"
+    "5\020\005\022\016\n\nPERIOD_S30\020\006\022\r\n\tPERIOD_M1\020\007\022\r\n\tPE"
+    "RIOD_M3\020\010\022\r\n\tPERIOD_M5\020\t\022\016\n\nPERIOD_M10\020\n"
+    "\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_M30\020\014\022\r\n\tPERI"
+    "OD_H1\020\r\022\r\n\tPERIOD_D1\020\016\022\r\n\tPERIOD_W1\020\017b\006p"
+    "roto3", 3925);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -720,7 +826,11 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfPingData::default_instance_ = new BfPingData();
   BfBarData::default_instance_ = new BfBarData();
   BfGetTickReq::default_instance_ = new BfGetTickReq();
+  BfDeleteTickReq::default_instance_ = new BfDeleteTickReq();
   BfGetBarReq::default_instance_ = new BfGetBarReq();
+  BfDeleteBarReq::default_instance_ = new BfDeleteBarReq();
+  BfDatafeedGetContractReq::default_instance_ = new BfDatafeedGetContractReq();
+  BfDatafeedDeleteContractReq::default_instance_ = new BfDatafeedDeleteContractReq();
   BfKvData::default_instance_ = new BfKvData();
   BfVoid::default_instance_->InitAsDefaultInstance();
   BfTickData::default_instance_->InitAsDefaultInstance();
@@ -740,7 +850,11 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfPingData::default_instance_->InitAsDefaultInstance();
   BfBarData::default_instance_->InitAsDefaultInstance();
   BfGetTickReq::default_instance_->InitAsDefaultInstance();
+  BfDeleteTickReq::default_instance_->InitAsDefaultInstance();
   BfGetBarReq::default_instance_->InitAsDefaultInstance();
+  BfDeleteBarReq::default_instance_->InitAsDefaultInstance();
+  BfDatafeedGetContractReq::default_instance_->InitAsDefaultInstance();
+  BfDatafeedDeleteContractReq::default_instance_->InitAsDefaultInstance();
   BfKvData::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bftrader_2eproto);
 }
@@ -5668,9 +5782,9 @@ void BfAccountData::clear_positionprofit() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfErrorData::kErrorIdFieldNumber;
-const int BfErrorData::kErrorMsgFieldNumber;
-const int BfErrorData::kAdditionalInfoFieldNumber;
+const int BfErrorData::kCodeFieldNumber;
+const int BfErrorData::kMessageFieldNumber;
+const int BfErrorData::kMessageExFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfErrorData::BfErrorData()
@@ -5695,9 +5809,9 @@ void BfErrorData::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  errorid_ = 0;
-  errormsg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  additionalinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  code_ = 0;
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 BfErrorData::~BfErrorData() {
@@ -5706,8 +5820,8 @@ BfErrorData::~BfErrorData() {
 }
 
 void BfErrorData::SharedDtor() {
-  errormsg_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  additionalinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -5738,9 +5852,9 @@ BfErrorData* BfErrorData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfErrorData::Clear() {
-  errorid_ = 0;
-  errormsg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  additionalinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  code_ = 0;
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfErrorData::MergePartialFromCodedStream(
@@ -5753,47 +5867,47 @@ bool BfErrorData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 errorId = 1;
+      // optional int32 code = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &errorid_)));
+                 input, &code_)));
 
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_errorMsg;
+        if (input->ExpectTag(18)) goto parse_message;
         break;
       }
 
-      // optional string errorMsg = 2;
+      // optional string message = 2;
       case 2: {
         if (tag == 18) {
-         parse_errorMsg:
+         parse_message:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_errormsg()));
+                input, this->mutable_message()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->errormsg().data(), this->errormsg().length(),
+            this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfErrorData.errorMsg"));
+            "bftrader.BfErrorData.message"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_additionalInfo;
+        if (input->ExpectTag(26)) goto parse_messageEx;
         break;
       }
 
-      // optional string additionalInfo = 3;
+      // optional string messageEx = 3;
       case 3: {
         if (tag == 26) {
-         parse_additionalInfo:
+         parse_messageEx:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_additionalinfo()));
+                input, this->mutable_messageex()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->additionalinfo().data(), this->additionalinfo().length(),
+            this->messageex().data(), this->messageex().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfErrorData.additionalInfo"));
+            "bftrader.BfErrorData.messageEx"));
         } else {
           goto handle_unusual;
         }
@@ -5825,29 +5939,29 @@ failure:
 void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfErrorData)
-  // optional int32 errorId = 1;
-  if (this->errorid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->errorid(), output);
+  // optional int32 code = 1;
+  if (this->code() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->code(), output);
   }
 
-  // optional string errorMsg = 2;
-  if (this->errormsg().size() > 0) {
+  // optional string message = 2;
+  if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->errormsg().data(), this->errormsg().length(),
+      this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.errorMsg");
+      "bftrader.BfErrorData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->errormsg(), output);
+      2, this->message(), output);
   }
 
-  // optional string additionalInfo = 3;
-  if (this->additionalinfo().size() > 0) {
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->additionalinfo().data(), this->additionalinfo().length(),
+      this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.additionalInfo");
+      "bftrader.BfErrorData.messageEx");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->additionalinfo(), output);
+      3, this->messageex(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfErrorData)
@@ -5856,31 +5970,31 @@ void BfErrorData::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfErrorData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfErrorData)
-  // optional int32 errorId = 1;
-  if (this->errorid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->errorid(), target);
+  // optional int32 code = 1;
+  if (this->code() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->code(), target);
   }
 
-  // optional string errorMsg = 2;
-  if (this->errormsg().size() > 0) {
+  // optional string message = 2;
+  if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->errormsg().data(), this->errormsg().length(),
+      this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.errorMsg");
+      "bftrader.BfErrorData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->errormsg(), target);
+        2, this->message(), target);
   }
 
-  // optional string additionalInfo = 3;
-  if (this->additionalinfo().size() > 0) {
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->additionalinfo().data(), this->additionalinfo().length(),
+      this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.additionalInfo");
+      "bftrader.BfErrorData.messageEx");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->additionalinfo(), target);
+        3, this->messageex(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfErrorData)
@@ -5890,25 +6004,25 @@ void BfErrorData::SerializeWithCachedSizes(
 int BfErrorData::ByteSize() const {
   int total_size = 0;
 
-  // optional int32 errorId = 1;
-  if (this->errorid() != 0) {
+  // optional int32 code = 1;
+  if (this->code() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->errorid());
+        this->code());
   }
 
-  // optional string errorMsg = 2;
-  if (this->errormsg().size() > 0) {
+  // optional string message = 2;
+  if (this->message().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->errormsg());
+        this->message());
   }
 
-  // optional string additionalInfo = 3;
-  if (this->additionalinfo().size() > 0) {
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->additionalinfo());
+        this->messageex());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -5931,16 +6045,16 @@ void BfErrorData::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BfErrorData::MergeFrom(const BfErrorData& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.errorid() != 0) {
-    set_errorid(from.errorid());
+  if (from.code() != 0) {
+    set_code(from.code());
   }
-  if (from.errormsg().size() > 0) {
+  if (from.message().size() > 0) {
 
-    errormsg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.errormsg_);
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
   }
-  if (from.additionalinfo().size() > 0) {
+  if (from.messageex().size() > 0) {
 
-    additionalinfo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.additionalinfo_);
+    messageex_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messageex_);
   }
 }
 
@@ -5966,9 +6080,9 @@ void BfErrorData::Swap(BfErrorData* other) {
   InternalSwap(other);
 }
 void BfErrorData::InternalSwap(BfErrorData* other) {
-  std::swap(errorid_, other->errorid_);
-  errormsg_.Swap(&other->errormsg_);
-  additionalinfo_.Swap(&other->additionalinfo_);
+  std::swap(code_, other->code_);
+  message_.Swap(&other->message_);
+  messageex_.Swap(&other->messageex_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -5984,104 +6098,104 @@ void BfErrorData::InternalSwap(BfErrorData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfErrorData
 
-// optional int32 errorId = 1;
-void BfErrorData::clear_errorid() {
-  errorid_ = 0;
+// optional int32 code = 1;
+void BfErrorData::clear_code() {
+  code_ = 0;
 }
- ::google::protobuf::int32 BfErrorData::errorid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.errorId)
-  return errorid_;
+ ::google::protobuf::int32 BfErrorData::code() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.code)
+  return code_;
 }
- void BfErrorData::set_errorid(::google::protobuf::int32 value) {
+ void BfErrorData::set_code(::google::protobuf::int32 value) {
   
-  errorid_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.errorId)
+  code_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.code)
 }
 
-// optional string errorMsg = 2;
-void BfErrorData::clear_errormsg() {
-  errormsg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string message = 2;
+void BfErrorData::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfErrorData::errormsg() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.errorMsg)
-  return errormsg_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfErrorData::message() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfErrorData::set_errormsg(const ::std::string& value) {
+ void BfErrorData::set_message(const ::std::string& value) {
   
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.errorMsg)
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.message)
 }
- void BfErrorData::set_errormsg(const char* value) {
+ void BfErrorData::set_message(const char* value) {
   
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.errorMsg)
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.message)
 }
- void BfErrorData::set_errormsg(const char* value, size_t size) {
+ void BfErrorData::set_message(const char* value, size_t size) {
   
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.errorMsg)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.message)
 }
- ::std::string* BfErrorData::mutable_errormsg() {
+ ::std::string* BfErrorData::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.errorMsg)
-  return errormsg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfErrorData::release_errormsg() {
+ ::std::string* BfErrorData::release_message() {
   
-  return errormsg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfErrorData::set_allocated_errormsg(::std::string* errormsg) {
-  if (errormsg != NULL) {
+ void BfErrorData::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
     
   } else {
     
   }
-  errormsg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), errormsg);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.errorMsg)
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.message)
 }
 
-// optional string additionalInfo = 3;
-void BfErrorData::clear_additionalinfo() {
-  additionalinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string messageEx = 3;
+void BfErrorData::clear_messageex() {
+  messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfErrorData::additionalinfo() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.additionalInfo)
-  return additionalinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfErrorData::messageex() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.messageEx)
+  return messageex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfErrorData::set_additionalinfo(const ::std::string& value) {
+ void BfErrorData::set_messageex(const ::std::string& value) {
   
-  additionalinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.additionalInfo)
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.messageEx)
 }
- void BfErrorData::set_additionalinfo(const char* value) {
+ void BfErrorData::set_messageex(const char* value) {
   
-  additionalinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.additionalInfo)
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.messageEx)
 }
- void BfErrorData::set_additionalinfo(const char* value, size_t size) {
+ void BfErrorData::set_messageex(const char* value, size_t size) {
   
-  additionalinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.additionalInfo)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.messageEx)
 }
- ::std::string* BfErrorData::mutable_additionalinfo() {
+ ::std::string* BfErrorData::mutable_messageex() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.additionalInfo)
-  return additionalinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.messageEx)
+  return messageex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfErrorData::release_additionalinfo() {
+ ::std::string* BfErrorData::release_messageex() {
   
-  return additionalinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return messageex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfErrorData::set_allocated_additionalinfo(::std::string* additionalinfo) {
-  if (additionalinfo != NULL) {
+ void BfErrorData::set_allocated_messageex(::std::string* messageex) {
+  if (messageex != NULL) {
     
   } else {
     
   }
-  additionalinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), additionalinfo);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.additionalInfo)
+  messageex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), messageex);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.messageEx)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -12137,6 +12251,568 @@ void BfGetTickReq::clear_count() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfDeleteTickReq::kSymbolFieldNumber;
+const int BfDeleteTickReq::kExchangeFieldNumber;
+const int BfDeleteTickReq::kToDateFieldNumber;
+const int BfDeleteTickReq::kToTimeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfDeleteTickReq::BfDeleteTickReq()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfDeleteTickReq)
+}
+
+void BfDeleteTickReq::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfDeleteTickReq::BfDeleteTickReq(const BfDeleteTickReq& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfDeleteTickReq)
+}
+
+void BfDeleteTickReq::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  todate_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfDeleteTickReq::~BfDeleteTickReq() {
+  // @@protoc_insertion_point(destructor:bftrader.BfDeleteTickReq)
+  SharedDtor();
+}
+
+void BfDeleteTickReq::SharedDtor() {
+  symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  todate_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfDeleteTickReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfDeleteTickReq::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfDeleteTickReq_descriptor_;
+}
+
+const BfDeleteTickReq& BfDeleteTickReq::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfDeleteTickReq* BfDeleteTickReq::default_instance_ = NULL;
+
+BfDeleteTickReq* BfDeleteTickReq::New(::google::protobuf::Arena* arena) const {
+  BfDeleteTickReq* n = new BfDeleteTickReq;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfDeleteTickReq::Clear() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  todate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfDeleteTickReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfDeleteTickReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string symbol = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbol()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->symbol().data(), this->symbol().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteTickReq.symbol"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_exchange;
+        break;
+      }
+
+      // optional string exchange = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_exchange:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_exchange()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->exchange().data(), this->exchange().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteTickReq.exchange"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_toDate;
+        break;
+      }
+
+      // optional string toDate = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_toDate:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_todate()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->todate().data(), this->todate().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteTickReq.toDate"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_toTime;
+        break;
+      }
+
+      // optional string toTime = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_toTime:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_totime()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->totime().data(), this->totime().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteTickReq.toTime"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfDeleteTickReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfDeleteTickReq)
+  return false;
+#undef DO_
+}
+
+void BfDeleteTickReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfDeleteTickReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.symbol");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->symbol(), output);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.exchange");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->exchange(), output);
+  }
+
+  // optional string toDate = 3;
+  if (this->todate().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->todate().data(), this->todate().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.toDate");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->todate(), output);
+  }
+
+  // optional string toTime = 4;
+  if (this->totime().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->totime().data(), this->totime().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.toTime");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->totime(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfDeleteTickReq)
+}
+
+::google::protobuf::uint8* BfDeleteTickReq::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfDeleteTickReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.symbol");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->symbol(), target);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.exchange");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->exchange(), target);
+  }
+
+  // optional string toDate = 3;
+  if (this->todate().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->todate().data(), this->todate().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.toDate");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->todate(), target);
+  }
+
+  // optional string toTime = 4;
+  if (this->totime().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->totime().data(), this->totime().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteTickReq.toTime");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->totime(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfDeleteTickReq)
+  return target;
+}
+
+int BfDeleteTickReq::ByteSize() const {
+  int total_size = 0;
+
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->symbol());
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->exchange());
+  }
+
+  // optional string toDate = 3;
+  if (this->todate().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->todate());
+  }
+
+  // optional string toTime = 4;
+  if (this->totime().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->totime());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfDeleteTickReq::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfDeleteTickReq* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfDeleteTickReq>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfDeleteTickReq::MergeFrom(const BfDeleteTickReq& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.symbol().size() > 0) {
+
+    symbol_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbol_);
+  }
+  if (from.exchange().size() > 0) {
+
+    exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
+  }
+  if (from.todate().size() > 0) {
+
+    todate_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.todate_);
+  }
+  if (from.totime().size() > 0) {
+
+    totime_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.totime_);
+  }
+}
+
+void BfDeleteTickReq::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfDeleteTickReq::CopyFrom(const BfDeleteTickReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfDeleteTickReq::IsInitialized() const {
+
+  return true;
+}
+
+void BfDeleteTickReq::Swap(BfDeleteTickReq* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfDeleteTickReq::InternalSwap(BfDeleteTickReq* other) {
+  symbol_.Swap(&other->symbol_);
+  exchange_.Swap(&other->exchange_);
+  todate_.Swap(&other->todate_);
+  totime_.Swap(&other->totime_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfDeleteTickReq::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfDeleteTickReq_descriptor_;
+  metadata.reflection = BfDeleteTickReq_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfDeleteTickReq
+
+// optional string symbol = 1;
+void BfDeleteTickReq::clear_symbol() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteTickReq::symbol() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteTickReq.symbol)
+  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_symbol(const ::std::string& value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteTickReq.symbol)
+}
+ void BfDeleteTickReq::set_symbol(const char* value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteTickReq.symbol)
+}
+ void BfDeleteTickReq::set_symbol(const char* value, size_t size) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteTickReq.symbol)
+}
+ ::std::string* BfDeleteTickReq::mutable_symbol() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteTickReq.symbol)
+  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteTickReq::release_symbol() {
+  
+  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_allocated_symbol(::std::string* symbol) {
+  if (symbol != NULL) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteTickReq.symbol)
+}
+
+// optional string exchange = 2;
+void BfDeleteTickReq::clear_exchange() {
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteTickReq::exchange() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteTickReq.exchange)
+  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_exchange(const ::std::string& value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteTickReq.exchange)
+}
+ void BfDeleteTickReq::set_exchange(const char* value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteTickReq.exchange)
+}
+ void BfDeleteTickReq::set_exchange(const char* value, size_t size) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteTickReq.exchange)
+}
+ ::std::string* BfDeleteTickReq::mutable_exchange() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteTickReq.exchange)
+  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteTickReq::release_exchange() {
+  
+  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_allocated_exchange(::std::string* exchange) {
+  if (exchange != NULL) {
+    
+  } else {
+    
+  }
+  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteTickReq.exchange)
+}
+
+// optional string toDate = 3;
+void BfDeleteTickReq::clear_todate() {
+  todate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteTickReq::todate() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteTickReq.toDate)
+  return todate_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_todate(const ::std::string& value) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteTickReq.toDate)
+}
+ void BfDeleteTickReq::set_todate(const char* value) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteTickReq.toDate)
+}
+ void BfDeleteTickReq::set_todate(const char* value, size_t size) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteTickReq.toDate)
+}
+ ::std::string* BfDeleteTickReq::mutable_todate() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteTickReq.toDate)
+  return todate_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteTickReq::release_todate() {
+  
+  return todate_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_allocated_todate(::std::string* todate) {
+  if (todate != NULL) {
+    
+  } else {
+    
+  }
+  todate_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), todate);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteTickReq.toDate)
+}
+
+// optional string toTime = 4;
+void BfDeleteTickReq::clear_totime() {
+  totime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteTickReq::totime() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteTickReq.toTime)
+  return totime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_totime(const ::std::string& value) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteTickReq.toTime)
+}
+ void BfDeleteTickReq::set_totime(const char* value) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteTickReq.toTime)
+}
+ void BfDeleteTickReq::set_totime(const char* value, size_t size) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteTickReq.toTime)
+}
+ ::std::string* BfDeleteTickReq::mutable_totime() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteTickReq.toTime)
+  return totime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteTickReq::release_totime() {
+  
+  return totime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteTickReq::set_allocated_totime(::std::string* totime) {
+  if (totime != NULL) {
+    
+  } else {
+    
+  }
+  totime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totime);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteTickReq.toTime)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfGetBarReq::kSymbolFieldNumber;
 const int BfGetBarReq::kExchangeFieldNumber;
 const int BfGetBarReq::kPeriodFieldNumber;
@@ -12811,6 +13487,1359 @@ void BfGetBarReq::clear_count() {
   
   count_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfGetBarReq.count)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfDeleteBarReq::kSymbolFieldNumber;
+const int BfDeleteBarReq::kExchangeFieldNumber;
+const int BfDeleteBarReq::kPeriodFieldNumber;
+const int BfDeleteBarReq::kToDateFieldNumber;
+const int BfDeleteBarReq::kToTimeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfDeleteBarReq::BfDeleteBarReq()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfDeleteBarReq)
+}
+
+void BfDeleteBarReq::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfDeleteBarReq::BfDeleteBarReq(const BfDeleteBarReq& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfDeleteBarReq)
+}
+
+void BfDeleteBarReq::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  period_ = 0;
+  todate_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfDeleteBarReq::~BfDeleteBarReq() {
+  // @@protoc_insertion_point(destructor:bftrader.BfDeleteBarReq)
+  SharedDtor();
+}
+
+void BfDeleteBarReq::SharedDtor() {
+  symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  todate_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfDeleteBarReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfDeleteBarReq::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfDeleteBarReq_descriptor_;
+}
+
+const BfDeleteBarReq& BfDeleteBarReq::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfDeleteBarReq* BfDeleteBarReq::default_instance_ = NULL;
+
+BfDeleteBarReq* BfDeleteBarReq::New(::google::protobuf::Arena* arena) const {
+  BfDeleteBarReq* n = new BfDeleteBarReq;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfDeleteBarReq::Clear() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  period_ = 0;
+  todate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  totime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfDeleteBarReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfDeleteBarReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string symbol = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbol()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->symbol().data(), this->symbol().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteBarReq.symbol"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_exchange;
+        break;
+      }
+
+      // optional string exchange = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_exchange:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_exchange()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->exchange().data(), this->exchange().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteBarReq.exchange"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_period;
+        break;
+      }
+
+      // optional .bftrader.BfBarPeriod period = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_period:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_period(static_cast< ::bftrader::BfBarPeriod >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_toDate;
+        break;
+      }
+
+      // optional string toDate = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_toDate:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_todate()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->todate().data(), this->todate().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteBarReq.toDate"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_toTime;
+        break;
+      }
+
+      // optional string toTime = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_toTime:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_totime()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->totime().data(), this->totime().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDeleteBarReq.toTime"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfDeleteBarReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfDeleteBarReq)
+  return false;
+#undef DO_
+}
+
+void BfDeleteBarReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfDeleteBarReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.symbol");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->symbol(), output);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.exchange");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->exchange(), output);
+  }
+
+  // optional .bftrader.BfBarPeriod period = 3;
+  if (this->period() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->period(), output);
+  }
+
+  // optional string toDate = 4;
+  if (this->todate().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->todate().data(), this->todate().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.toDate");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->todate(), output);
+  }
+
+  // optional string toTime = 5;
+  if (this->totime().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->totime().data(), this->totime().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.toTime");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->totime(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfDeleteBarReq)
+}
+
+::google::protobuf::uint8* BfDeleteBarReq::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfDeleteBarReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.symbol");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->symbol(), target);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.exchange");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->exchange(), target);
+  }
+
+  // optional .bftrader.BfBarPeriod period = 3;
+  if (this->period() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->period(), target);
+  }
+
+  // optional string toDate = 4;
+  if (this->todate().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->todate().data(), this->todate().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.toDate");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->todate(), target);
+  }
+
+  // optional string toTime = 5;
+  if (this->totime().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->totime().data(), this->totime().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDeleteBarReq.toTime");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->totime(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfDeleteBarReq)
+  return target;
+}
+
+int BfDeleteBarReq::ByteSize() const {
+  int total_size = 0;
+
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->symbol());
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->exchange());
+  }
+
+  // optional .bftrader.BfBarPeriod period = 3;
+  if (this->period() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->period());
+  }
+
+  // optional string toDate = 4;
+  if (this->todate().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->todate());
+  }
+
+  // optional string toTime = 5;
+  if (this->totime().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->totime());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfDeleteBarReq::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfDeleteBarReq* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfDeleteBarReq>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfDeleteBarReq::MergeFrom(const BfDeleteBarReq& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.symbol().size() > 0) {
+
+    symbol_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbol_);
+  }
+  if (from.exchange().size() > 0) {
+
+    exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
+  }
+  if (from.period() != 0) {
+    set_period(from.period());
+  }
+  if (from.todate().size() > 0) {
+
+    todate_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.todate_);
+  }
+  if (from.totime().size() > 0) {
+
+    totime_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.totime_);
+  }
+}
+
+void BfDeleteBarReq::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfDeleteBarReq::CopyFrom(const BfDeleteBarReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfDeleteBarReq::IsInitialized() const {
+
+  return true;
+}
+
+void BfDeleteBarReq::Swap(BfDeleteBarReq* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfDeleteBarReq::InternalSwap(BfDeleteBarReq* other) {
+  symbol_.Swap(&other->symbol_);
+  exchange_.Swap(&other->exchange_);
+  std::swap(period_, other->period_);
+  todate_.Swap(&other->todate_);
+  totime_.Swap(&other->totime_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfDeleteBarReq::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfDeleteBarReq_descriptor_;
+  metadata.reflection = BfDeleteBarReq_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfDeleteBarReq
+
+// optional string symbol = 1;
+void BfDeleteBarReq::clear_symbol() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteBarReq::symbol() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteBarReq.symbol)
+  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_symbol(const ::std::string& value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteBarReq.symbol)
+}
+ void BfDeleteBarReq::set_symbol(const char* value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteBarReq.symbol)
+}
+ void BfDeleteBarReq::set_symbol(const char* value, size_t size) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteBarReq.symbol)
+}
+ ::std::string* BfDeleteBarReq::mutable_symbol() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteBarReq.symbol)
+  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteBarReq::release_symbol() {
+  
+  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_allocated_symbol(::std::string* symbol) {
+  if (symbol != NULL) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteBarReq.symbol)
+}
+
+// optional string exchange = 2;
+void BfDeleteBarReq::clear_exchange() {
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteBarReq::exchange() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteBarReq.exchange)
+  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_exchange(const ::std::string& value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteBarReq.exchange)
+}
+ void BfDeleteBarReq::set_exchange(const char* value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteBarReq.exchange)
+}
+ void BfDeleteBarReq::set_exchange(const char* value, size_t size) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteBarReq.exchange)
+}
+ ::std::string* BfDeleteBarReq::mutable_exchange() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteBarReq.exchange)
+  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteBarReq::release_exchange() {
+  
+  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_allocated_exchange(::std::string* exchange) {
+  if (exchange != NULL) {
+    
+  } else {
+    
+  }
+  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteBarReq.exchange)
+}
+
+// optional .bftrader.BfBarPeriod period = 3;
+void BfDeleteBarReq::clear_period() {
+  period_ = 0;
+}
+ ::bftrader::BfBarPeriod BfDeleteBarReq::period() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteBarReq.period)
+  return static_cast< ::bftrader::BfBarPeriod >(period_);
+}
+ void BfDeleteBarReq::set_period(::bftrader::BfBarPeriod value) {
+  
+  period_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteBarReq.period)
+}
+
+// optional string toDate = 4;
+void BfDeleteBarReq::clear_todate() {
+  todate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteBarReq::todate() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteBarReq.toDate)
+  return todate_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_todate(const ::std::string& value) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteBarReq.toDate)
+}
+ void BfDeleteBarReq::set_todate(const char* value) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteBarReq.toDate)
+}
+ void BfDeleteBarReq::set_todate(const char* value, size_t size) {
+  
+  todate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteBarReq.toDate)
+}
+ ::std::string* BfDeleteBarReq::mutable_todate() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteBarReq.toDate)
+  return todate_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteBarReq::release_todate() {
+  
+  return todate_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_allocated_todate(::std::string* todate) {
+  if (todate != NULL) {
+    
+  } else {
+    
+  }
+  todate_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), todate);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteBarReq.toDate)
+}
+
+// optional string toTime = 5;
+void BfDeleteBarReq::clear_totime() {
+  totime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDeleteBarReq::totime() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDeleteBarReq.toTime)
+  return totime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_totime(const ::std::string& value) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDeleteBarReq.toTime)
+}
+ void BfDeleteBarReq::set_totime(const char* value) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDeleteBarReq.toTime)
+}
+ void BfDeleteBarReq::set_totime(const char* value, size_t size) {
+  
+  totime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDeleteBarReq.toTime)
+}
+ ::std::string* BfDeleteBarReq::mutable_totime() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDeleteBarReq.toTime)
+  return totime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDeleteBarReq::release_totime() {
+  
+  return totime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDeleteBarReq::set_allocated_totime(::std::string* totime) {
+  if (totime != NULL) {
+    
+  } else {
+    
+  }
+  totime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totime);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDeleteBarReq.toTime)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfDatafeedGetContractReq::kSymbolPatternFieldNumber;
+const int BfDatafeedGetContractReq::kExchangePatternFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfDatafeedGetContractReq::BfDatafeedGetContractReq()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfDatafeedGetContractReq)
+}
+
+void BfDatafeedGetContractReq::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfDatafeedGetContractReq::BfDatafeedGetContractReq(const BfDatafeedGetContractReq& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfDatafeedGetContractReq)
+}
+
+void BfDatafeedGetContractReq::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  symbolpattern_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangepattern_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfDatafeedGetContractReq::~BfDatafeedGetContractReq() {
+  // @@protoc_insertion_point(destructor:bftrader.BfDatafeedGetContractReq)
+  SharedDtor();
+}
+
+void BfDatafeedGetContractReq::SharedDtor() {
+  symbolpattern_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangepattern_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfDatafeedGetContractReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfDatafeedGetContractReq::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfDatafeedGetContractReq_descriptor_;
+}
+
+const BfDatafeedGetContractReq& BfDatafeedGetContractReq::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfDatafeedGetContractReq* BfDatafeedGetContractReq::default_instance_ = NULL;
+
+BfDatafeedGetContractReq* BfDatafeedGetContractReq::New(::google::protobuf::Arena* arena) const {
+  BfDatafeedGetContractReq* n = new BfDatafeedGetContractReq;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfDatafeedGetContractReq::Clear() {
+  symbolpattern_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangepattern_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfDatafeedGetContractReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfDatafeedGetContractReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string symbolPattern = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbolpattern()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->symbolpattern().data(), this->symbolpattern().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDatafeedGetContractReq.symbolPattern"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_exchangePattern;
+        break;
+      }
+
+      // optional string exchangePattern = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_exchangePattern:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_exchangepattern()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->exchangepattern().data(), this->exchangepattern().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDatafeedGetContractReq.exchangePattern"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfDatafeedGetContractReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfDatafeedGetContractReq)
+  return false;
+#undef DO_
+}
+
+void BfDatafeedGetContractReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfDatafeedGetContractReq)
+  // optional string symbolPattern = 1;
+  if (this->symbolpattern().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbolpattern().data(), this->symbolpattern().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedGetContractReq.symbolPattern");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->symbolpattern(), output);
+  }
+
+  // optional string exchangePattern = 2;
+  if (this->exchangepattern().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchangepattern().data(), this->exchangepattern().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedGetContractReq.exchangePattern");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->exchangepattern(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfDatafeedGetContractReq)
+}
+
+::google::protobuf::uint8* BfDatafeedGetContractReq::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfDatafeedGetContractReq)
+  // optional string symbolPattern = 1;
+  if (this->symbolpattern().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbolpattern().data(), this->symbolpattern().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedGetContractReq.symbolPattern");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->symbolpattern(), target);
+  }
+
+  // optional string exchangePattern = 2;
+  if (this->exchangepattern().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchangepattern().data(), this->exchangepattern().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedGetContractReq.exchangePattern");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->exchangepattern(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfDatafeedGetContractReq)
+  return target;
+}
+
+int BfDatafeedGetContractReq::ByteSize() const {
+  int total_size = 0;
+
+  // optional string symbolPattern = 1;
+  if (this->symbolpattern().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->symbolpattern());
+  }
+
+  // optional string exchangePattern = 2;
+  if (this->exchangepattern().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->exchangepattern());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfDatafeedGetContractReq::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfDatafeedGetContractReq* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfDatafeedGetContractReq>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfDatafeedGetContractReq::MergeFrom(const BfDatafeedGetContractReq& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.symbolpattern().size() > 0) {
+
+    symbolpattern_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbolpattern_);
+  }
+  if (from.exchangepattern().size() > 0) {
+
+    exchangepattern_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchangepattern_);
+  }
+}
+
+void BfDatafeedGetContractReq::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfDatafeedGetContractReq::CopyFrom(const BfDatafeedGetContractReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfDatafeedGetContractReq::IsInitialized() const {
+
+  return true;
+}
+
+void BfDatafeedGetContractReq::Swap(BfDatafeedGetContractReq* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfDatafeedGetContractReq::InternalSwap(BfDatafeedGetContractReq* other) {
+  symbolpattern_.Swap(&other->symbolpattern_);
+  exchangepattern_.Swap(&other->exchangepattern_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfDatafeedGetContractReq::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfDatafeedGetContractReq_descriptor_;
+  metadata.reflection = BfDatafeedGetContractReq_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfDatafeedGetContractReq
+
+// optional string symbolPattern = 1;
+void BfDatafeedGetContractReq::clear_symbolpattern() {
+  symbolpattern_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDatafeedGetContractReq::symbolpattern() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDatafeedGetContractReq.symbolPattern)
+  return symbolpattern_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedGetContractReq::set_symbolpattern(const ::std::string& value) {
+  
+  symbolpattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDatafeedGetContractReq.symbolPattern)
+}
+ void BfDatafeedGetContractReq::set_symbolpattern(const char* value) {
+  
+  symbolpattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDatafeedGetContractReq.symbolPattern)
+}
+ void BfDatafeedGetContractReq::set_symbolpattern(const char* value, size_t size) {
+  
+  symbolpattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDatafeedGetContractReq.symbolPattern)
+}
+ ::std::string* BfDatafeedGetContractReq::mutable_symbolpattern() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDatafeedGetContractReq.symbolPattern)
+  return symbolpattern_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDatafeedGetContractReq::release_symbolpattern() {
+  
+  return symbolpattern_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedGetContractReq::set_allocated_symbolpattern(::std::string* symbolpattern) {
+  if (symbolpattern != NULL) {
+    
+  } else {
+    
+  }
+  symbolpattern_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolpattern);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDatafeedGetContractReq.symbolPattern)
+}
+
+// optional string exchangePattern = 2;
+void BfDatafeedGetContractReq::clear_exchangepattern() {
+  exchangepattern_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDatafeedGetContractReq::exchangepattern() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDatafeedGetContractReq.exchangePattern)
+  return exchangepattern_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedGetContractReq::set_exchangepattern(const ::std::string& value) {
+  
+  exchangepattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDatafeedGetContractReq.exchangePattern)
+}
+ void BfDatafeedGetContractReq::set_exchangepattern(const char* value) {
+  
+  exchangepattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDatafeedGetContractReq.exchangePattern)
+}
+ void BfDatafeedGetContractReq::set_exchangepattern(const char* value, size_t size) {
+  
+  exchangepattern_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDatafeedGetContractReq.exchangePattern)
+}
+ ::std::string* BfDatafeedGetContractReq::mutable_exchangepattern() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDatafeedGetContractReq.exchangePattern)
+  return exchangepattern_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDatafeedGetContractReq::release_exchangepattern() {
+  
+  return exchangepattern_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedGetContractReq::set_allocated_exchangepattern(::std::string* exchangepattern) {
+  if (exchangepattern != NULL) {
+    
+  } else {
+    
+  }
+  exchangepattern_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchangepattern);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDatafeedGetContractReq.exchangePattern)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfDatafeedDeleteContractReq::kSymbolFieldNumber;
+const int BfDatafeedDeleteContractReq::kExchangeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfDatafeedDeleteContractReq::BfDatafeedDeleteContractReq()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfDatafeedDeleteContractReq)
+}
+
+void BfDatafeedDeleteContractReq::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfDatafeedDeleteContractReq::BfDatafeedDeleteContractReq(const BfDatafeedDeleteContractReq& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfDatafeedDeleteContractReq)
+}
+
+void BfDatafeedDeleteContractReq::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfDatafeedDeleteContractReq::~BfDatafeedDeleteContractReq() {
+  // @@protoc_insertion_point(destructor:bftrader.BfDatafeedDeleteContractReq)
+  SharedDtor();
+}
+
+void BfDatafeedDeleteContractReq::SharedDtor() {
+  symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfDatafeedDeleteContractReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfDatafeedDeleteContractReq::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfDatafeedDeleteContractReq_descriptor_;
+}
+
+const BfDatafeedDeleteContractReq& BfDatafeedDeleteContractReq::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfDatafeedDeleteContractReq* BfDatafeedDeleteContractReq::default_instance_ = NULL;
+
+BfDatafeedDeleteContractReq* BfDatafeedDeleteContractReq::New(::google::protobuf::Arena* arena) const {
+  BfDatafeedDeleteContractReq* n = new BfDatafeedDeleteContractReq;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfDatafeedDeleteContractReq::Clear() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfDatafeedDeleteContractReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfDatafeedDeleteContractReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string symbol = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbol()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->symbol().data(), this->symbol().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDatafeedDeleteContractReq.symbol"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_exchange;
+        break;
+      }
+
+      // optional string exchange = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_exchange:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_exchange()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->exchange().data(), this->exchange().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfDatafeedDeleteContractReq.exchange"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfDatafeedDeleteContractReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfDatafeedDeleteContractReq)
+  return false;
+#undef DO_
+}
+
+void BfDatafeedDeleteContractReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfDatafeedDeleteContractReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedDeleteContractReq.symbol");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->symbol(), output);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedDeleteContractReq.exchange");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->exchange(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfDatafeedDeleteContractReq)
+}
+
+::google::protobuf::uint8* BfDatafeedDeleteContractReq::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfDatafeedDeleteContractReq)
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbol().data(), this->symbol().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedDeleteContractReq.symbol");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->symbol(), target);
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchange().data(), this->exchange().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfDatafeedDeleteContractReq.exchange");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->exchange(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfDatafeedDeleteContractReq)
+  return target;
+}
+
+int BfDatafeedDeleteContractReq::ByteSize() const {
+  int total_size = 0;
+
+  // optional string symbol = 1;
+  if (this->symbol().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->symbol());
+  }
+
+  // optional string exchange = 2;
+  if (this->exchange().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->exchange());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfDatafeedDeleteContractReq::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfDatafeedDeleteContractReq* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfDatafeedDeleteContractReq>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfDatafeedDeleteContractReq::MergeFrom(const BfDatafeedDeleteContractReq& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.symbol().size() > 0) {
+
+    symbol_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbol_);
+  }
+  if (from.exchange().size() > 0) {
+
+    exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
+  }
+}
+
+void BfDatafeedDeleteContractReq::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfDatafeedDeleteContractReq::CopyFrom(const BfDatafeedDeleteContractReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfDatafeedDeleteContractReq::IsInitialized() const {
+
+  return true;
+}
+
+void BfDatafeedDeleteContractReq::Swap(BfDatafeedDeleteContractReq* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfDatafeedDeleteContractReq::InternalSwap(BfDatafeedDeleteContractReq* other) {
+  symbol_.Swap(&other->symbol_);
+  exchange_.Swap(&other->exchange_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfDatafeedDeleteContractReq::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfDatafeedDeleteContractReq_descriptor_;
+  metadata.reflection = BfDatafeedDeleteContractReq_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfDatafeedDeleteContractReq
+
+// optional string symbol = 1;
+void BfDatafeedDeleteContractReq::clear_symbol() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDatafeedDeleteContractReq::symbol() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDatafeedDeleteContractReq.symbol)
+  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedDeleteContractReq::set_symbol(const ::std::string& value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDatafeedDeleteContractReq.symbol)
+}
+ void BfDatafeedDeleteContractReq::set_symbol(const char* value) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDatafeedDeleteContractReq.symbol)
+}
+ void BfDatafeedDeleteContractReq::set_symbol(const char* value, size_t size) {
+  
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDatafeedDeleteContractReq.symbol)
+}
+ ::std::string* BfDatafeedDeleteContractReq::mutable_symbol() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDatafeedDeleteContractReq.symbol)
+  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDatafeedDeleteContractReq::release_symbol() {
+  
+  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedDeleteContractReq::set_allocated_symbol(::std::string* symbol) {
+  if (symbol != NULL) {
+    
+  } else {
+    
+  }
+  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDatafeedDeleteContractReq.symbol)
+}
+
+// optional string exchange = 2;
+void BfDatafeedDeleteContractReq::clear_exchange() {
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfDatafeedDeleteContractReq::exchange() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfDatafeedDeleteContractReq.exchange)
+  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedDeleteContractReq::set_exchange(const ::std::string& value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfDatafeedDeleteContractReq.exchange)
+}
+ void BfDatafeedDeleteContractReq::set_exchange(const char* value) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfDatafeedDeleteContractReq.exchange)
+}
+ void BfDatafeedDeleteContractReq::set_exchange(const char* value, size_t size) {
+  
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfDatafeedDeleteContractReq.exchange)
+}
+ ::std::string* BfDatafeedDeleteContractReq::mutable_exchange() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfDatafeedDeleteContractReq.exchange)
+  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfDatafeedDeleteContractReq::release_exchange() {
+  
+  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfDatafeedDeleteContractReq::set_allocated_exchange(::std::string* exchange) {
+  if (exchange != NULL) {
+    
+  } else {
+    
+  }
+  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfDatafeedDeleteContractReq.exchange)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -159,9 +159,9 @@ message BfAccountData{
 // 错误数据类
 message BfErrorData{
 
-    int32 errorId = 1;          // 错误代码
-    string errorMsg = 2;        // 错误信息
-    string additionalInfo = 3;  // 补充信息
+    int32 code = 1;             // 错误代码
+    string message = 2;         // 错误信息
+    string messageEx = 3;       // 补充信息
 }
 
 // 日志数据类
@@ -319,6 +319,15 @@ message BfGetTickReq{
     int32 count = 5;                // 获取条数
 }
 
+message BfDeleteTickReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
+}
+
 message BfGetBarReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码
@@ -331,6 +340,29 @@ message BfGetBarReq{
     int32 count = 6;                // 获取条数
 }
 
+message BfDeleteBarReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    BfBarPeriod period = 3;         // 周期
+    
+    string toDate = 4;              // 截止日期
+    string toTime = 5;              // 截止时间
+}
+
+message BfDatafeedGetContractReq{
+    // 代码编号相关
+    string symbolPattern = 1;       // 合约代码,支持模式匹配 * . ?
+    string exchangePattern = 2;     // 交易所代码,支持模式匹配 * . ?
+}
+
+message BfDatafeedDeleteContractReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码，
+    string exchange = 2;            // 交易所代码
+}
+
 //KV==========================
 
 // K/V数据交换传入传出的数据类
@@ -339,8 +371,8 @@ message BfGetBarReq{
 message BfKvData{
 
     //kv对
-    string key = 1;
-    string value = 2;
+    string key = 1;                 // key
+    string value = 2;               // val，any？=
 }
 
 //============================

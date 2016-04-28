@@ -21,4 +21,9 @@ service BfRobotService{
     
     // 委托回报
     rpc OnOrder(BfOrderData) returns (BfVoid) {}
+
+    // 生命周期控制
+    rpc OnInit(BfVoid) returns (BfVoid) {}
+    rpc OnStart(BfVoid) returns (BfVoid) {}
+    rpc OnStop(BfVoid) returns (BfVoid) {}
 }
