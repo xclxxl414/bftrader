@@ -28,11 +28,11 @@ void ServiceMgr::init()
     QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
     ui_thread_ = QThread::currentThread();
+    logic_thread_ = new QThread;
     io_thread_ = new QThread;
     db_thread_ = new QThread;
     push_thread_ = new QThread;
     rpc_thread_ = new QThread;
-    logic_thread_ = new QThread;
 
     logger_ = new Logger;
     profile_ = new Profile;

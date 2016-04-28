@@ -1,7 +1,6 @@
 #include "ringbufferform.h"
 #include "ctp_utils.h"
 #include "ctpmgr.h"
-#include "historytickform.h"
 #include "ringbuffer.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
@@ -12,7 +11,7 @@ RingBufferForm::RingBufferForm(QWidget* parent)
     , ui(new Ui::RingBufferForm)
 {
     ui->setupUi(this);
-    setWindowIcon(QIcon(":/images/heart.png"));
+    setWindowIcon(QIcon(":/images/gateway.png"));
 
     //设置列=
     table_col_ << "symbol"

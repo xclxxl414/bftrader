@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>581</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,58 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
     <item>
-     <widget class="QTableWidget" name="tableWidget"/>
+     <widget class="QSplitter" name="splitterTop">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="handleWidth">
+       <number>2</number>
+      </property>
+      <widget class="QTabWidget" name="tabWidgetMarket">
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+      </widget>
+      <widget class="QSplitter" name="splitterBottom">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="handleWidth">
+        <number>2</number>
+       </property>
+       <widget class="QTabWidget" name="tabWidgetLog">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidgetPosition">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+       <widget class="QTabWidget" name="tabWidgetOrder">
+        <property name="currentIndex">
+         <number>-1</number>
+        </property>
+       </widget>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -25,71 +75,76 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>799</width>
+     <width>900</width>
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuSystem">
+   <widget class="QMenu" name="menuCtp">
     <property name="title">
-     <string>system</string>
+     <string>ctp</string>
     </property>
-    <addaction name="actionQuit"/>
+    <addaction name="separator"/>
+    <addaction name="actionCtpStart"/>
+    <addaction name="actionCtpStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionCtpConfig"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>about</string>
     </property>
-    <addaction name="actionVersion"/>
-   </widget>
-   <widget class="QMenu" name="menuDebug">
-    <property name="title">
-     <string>crash</string>
-    </property>
-    <addaction name="actionInvalidParamCrash"/>
-    <addaction name="actionPureCallCrash"/>
-    <addaction name="actionDerefZeroCrash"/>
-    <addaction name="actionQFatal"/>
-    <addaction name="actiondebugbreak"/>
-    <addaction name="actionDebugBreak"/>
-    <addaction name="actionExit"/>
-    <addaction name="actionExitProcess"/>
-    <addaction name="actionTerminateProcess"/>
-   </widget>
-   <widget class="QMenu" name="menuThread">
-    <property name="title">
-     <string>thread</string>
-    </property>
-    <addaction name="actionExternal"/>
-   </widget>
-   <widget class="QMenu" name="menuDb">
-    <property name="title">
-     <string>db</string>
-    </property>
-    <addaction name="actionDbOpen"/>
-    <addaction name="actionDbInit"/>
-    <addaction name="actionDbClose"/>
-   </widget>
-   <widget class="QMenu" name="menuCtp">
-    <property name="title">
-     <string>ctp</string>
-    </property>
+    <widget class="QMenu" name="menu_NO_MONEY">
+     <property name="title">
+      <string>!!!NO MONEY!!!</string>
+     </property>
+     <addaction name="actionExternal"/>
+     <addaction name="separator"/>
+     <addaction name="actionInvalidParamCrash"/>
+     <addaction name="actionPureCallCrash"/>
+     <addaction name="actionDerefZeroCrash"/>
+     <addaction name="actionQFatal"/>
+     <addaction name="actiondebugbreak"/>
+     <addaction name="actionDebugBreak"/>
+     <addaction name="actionExit"/>
+     <addaction name="actionExitProcess"/>
+     <addaction name="actionTerminateProcess"/>
+    </widget>
+    <addaction name="actionWebsite"/>
+    <addaction name="actionFeedback"/>
+    <addaction name="separator"/>
+    <addaction name="actionAppVersion"/>
     <addaction name="actionCtpVersion"/>
+    <addaction name="separator"/>
+    <addaction name="menu_NO_MONEY"/>
    </widget>
-   <addaction name="menuSystem"/>
-   <addaction name="menuThread"/>
-   <addaction name="menuDb"/>
-   <addaction name="menuDebug"/>
+   <widget class="QMenu" name="menuNet">
+    <property name="title">
+     <string>net</string>
+    </property>
+    <addaction name="actionNetStart"/>
+    <addaction name="actionNetStop"/>
+   </widget>
+   <widget class="QMenu" name="menuApp">
+    <property name="title">
+     <string>app</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionAppQuit"/>
+   </widget>
+   <addaction name="menuApp"/>
    <addaction name="menuCtp"/>
+   <addaction name="menuNet"/>
    <addaction name="menuAbout"/>
   </widget>
-  <action name="actionQuit">
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAppQuit">
    <property name="text">
-    <string>quit</string>
+    <string>appQuit</string>
    </property>
   </action>
-  <action name="actionVersion">
+  <action name="actionAppVersion">
    <property name="text">
-    <string>version</string>
+    <string>appVersion</string>
    </property>
   </action>
   <action name="actionPureCallCrash">
@@ -137,29 +192,49 @@
     <string>TerminateProcess</string>
    </property>
   </action>
+  <action name="actionExternal">
+   <property name="text">
+    <string>external</string>
+   </property>
+  </action>
+  <action name="actionCtpConfig">
+   <property name="text">
+    <string>ctpConfig</string>
+   </property>
+  </action>
+  <action name="actionCtpStart">
+   <property name="text">
+    <string>ctpStart</string>
+   </property>
+  </action>
+  <action name="actionCtpStop">
+   <property name="text">
+    <string>ctpStop</string>
+   </property>
+  </action>
+  <action name="actionNetStart">
+   <property name="text">
+    <string>netStart</string>
+   </property>
+  </action>
+  <action name="actionNetStop">
+   <property name="text">
+    <string>netStop</string>
+   </property>
+  </action>
   <action name="actionCtpVersion">
    <property name="text">
     <string>ctpVersion</string>
    </property>
   </action>
-  <action name="actionDbOpen">
+  <action name="actionWebsite">
    <property name="text">
-    <string>dbOpen</string>
+    <string>website</string>
    </property>
   </action>
-  <action name="actionDbInit">
+  <action name="actionFeedback">
    <property name="text">
-    <string>dbInit</string>
-   </property>
-  </action>
-  <action name="actionDbClose">
-   <property name="text">
-    <string>dbClose</string>
-   </property>
-  </action>
-  <action name="actionExternal">
-   <property name="text">
-    <string>external</string>
+    <string>feedback</string>
    </property>
   </action>
  </widget>

@@ -10,6 +10,17 @@ class MainWindow;
 }
 
 class Profile;
+class InfoForm;
+class ErrorForm;
+class DebugForm;
+class ContractForm;
+class FinishedOrderForm;
+class WorkingOrderForm;
+class PositionForm;
+class TradeForm;
+class TickForm;
+class AccountForm;
+
 template <typename T>
 class QFutureInterface;
 
@@ -23,12 +34,12 @@ public:
     void shutdown();
 
 public slots:
-    void onLog(QString when, QString msg);
+    void onTradeWillBegin();
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
-    void on_actionQuit_triggered();
-    void on_actionVersion_triggered();
+    void on_actionAppQuit_triggered();
+    void on_actionAppVersion_triggered();
     void on_actionPureCallCrash_triggered();
     void on_actionInvalidParamCrash_triggered();
     void on_actionDerefZeroCrash_triggered();
@@ -40,9 +51,13 @@ private slots:
     void on_actionTerminateProcess_triggered();
     void on_actionExternal_triggered();
     void on_actionCtpVersion_triggered();
-    void on_actionDbOpen_triggered();
-    void on_actionDbInit_triggered();
-    void on_actionDbClose_triggered();
+    void on_actionCtpConfig_triggered();
+    void on_actionCtpStart_triggered();
+    void on_actionCtpStop_triggered();
+    void on_actionNetStart_triggered();
+    void on_actionNetStop_triggered();
+    void on_actionWebsite_triggered();
+    void on_actionFeedback_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
@@ -55,6 +70,16 @@ private:
 
 private:
     Ui::MainWindow* ui;
+    InfoForm* infoForm_;
+    ErrorForm* errorForm_;
+    DebugForm* debugForm_;
+    ContractForm* contractForm_;
+    FinishedOrderForm* finishedOrderForm_;
+    WorkingOrderForm* workingOrderForm_;
+    PositionForm* positionForm_;
+    TradeForm* tradeForm_;
+    TickForm* tickForm_;
+    AccountForm* accountForm_;
 
 private:
     QAction* minimizeAction;
@@ -65,8 +90,6 @@ private:
     QSystemTrayIcon* trayIcon;
     QMenu* trayIconMenu;
     QIcon icon_;
-
-    QStringList table_col_;
 };
 
 #endif // MAINWINDOW_H

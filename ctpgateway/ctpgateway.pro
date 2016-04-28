@@ -12,14 +12,31 @@ TEMPLATE = app
 include(../bftrader.pri)
 
 SOURCES += main.cpp\
-    ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
     ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
-    ui/tablewidget_helper.cpp
+    mdsm.cpp \
+    tdsm.cpp \
+    ringbuffer.cpp \
+    ctp_utils.cpp \
+    ui/mainwindow.cpp \
+    ui/configdialog.cpp \
+    ui/logindialog.cpp \
+    ui/infoform.cpp \
+    ui/errorform.cpp \
+    ui/debugform.cpp \
+    ui/positionform.cpp \
+    ui/contractform.cpp \
+    ui/finishedorderform.cpp \
+    ui/tradeform.cpp \
+    ui/tickform.cpp \
+    ui/accountform.cpp \
+    ui/tablewidget_helper.cpp \
+    ui/workingorderform.cpp \
+    ui/ringbufferform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -28,15 +45,51 @@ HEADERS  += ui/mainwindow.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
-    ui/tablewidget_helper.h
+    mdsm.h \
+    tdsm.h \
+    ui/configdialog.h \
+    ui/logindialog.h \
+    ringbuffer.h \
+    ui/infoform.h \
+    ui/errorform.h \
+    ui/debugform.h \
+    ui/positionform.h \
+    ui/contractform.h \
+    ui/finishedorderform.h \
+    ui/tradeform.h \
+    ui/tickform.h \
+    ui/accountform.h \
+    ui/tablewidget_helper.h \
+    ui/workingorderform.h \
+    ctp_utils.h \
+    ui/ringbufferform.h 
 
-FORMS    += ui/mainwindow.ui
+FORMS    += ui/mainwindow.ui \
+    ui/configdialog.ui \
+    ui/logindialog.ui \
+    ui/infoform.ui \
+    ui/errorform.ui \
+    ui/debugform.ui \
+    ui/positionform.ui \
+    ui/contractform.ui \
+    ui/finishedorderform.ui \
+    ui/tradeform.ui \
+    ui/tickform.ui \
+    ui/accountform.ui \
+    ui/workingorderform.ui \
+    ui/ringbufferform.ui
 
 include(../base/base.pri)
+include(../sdk/sdk.pri)
 include(../third_party/breakpad.pri)
 include(../third_party/mhook.pri)
 include(../third_party/ctp.pri)
 include(../third_party/leveldb.pri)
+include(../third_party/grpc.pri)
 
 RESOURCES += \
     systray.qrc
+
+DISTFILES += \
+    design.qmodel \
+    ctpmgr.qmodel

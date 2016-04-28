@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS = \
-    allinone \
-    #ctpgateway \
+    #allinone \
+    ctpgateway \
     #btgateway \
     #ctaengine \
     #datafeed \

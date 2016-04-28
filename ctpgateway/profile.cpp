@@ -17,6 +17,7 @@ void Profile::init()
 {
     //path_ = QDir::home().absoluteFilePath(appName() + QStringLiteral("/config.json"));
     path_ = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/config.json"));
+
     mkDir(path_);
 
     QFile file(path_);
@@ -71,6 +72,20 @@ void Profile::commit()
     file.write(doc.toJson(QJsonDocument::Compact));
     file.close();
     dirty_ = false;
+}
+
+//居然要传一个/结尾=
+QString Profile::flowPathMd()
+{
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/mdapi/"));
+}
+
+//居然要传一个/结尾=
+QString Profile::flowPathTd()
+{
+    //return QDir::home().absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
+    return QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(appName() + QStringLiteral("/tdapi/"));
 }
 
 QString Profile::dbPath()

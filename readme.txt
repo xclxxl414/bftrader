@@ -16,7 +16,7 @@ doc\bftrader编译步骤-图文版.docx
 下载地址: https://github.com/sunwangme/bftrader/releases
 下载地址: http://pan.baidu.com/s/1nvgrNst
 
-2. 运行allinone
+2. 运行ctpgateway
 先ctp/config，注意地址前面加tcp://，其他和vnpy一致
 
 
@@ -41,10 +41,10 @@ doc\bftrader编译步骤-图文版.docx
       2.2.6 pip install grpcio-xxx
 
 3. 写策略，调试策略  
-    3.1 运行allinone.exe
-    3.2 点击allinone的rpc/start
-    3.3 运行python/demo.py，以连接allinone
-    3.4 点击allinone的ctp/start
+    3.1 运行ctpgateway.exe
+    3.2 点击ctpgateway的net/netStart
+    3.3 运行python/demo.py，以连接ctpgateway
+    3.4 点击ctpgateway的ctp/ctpStart
     3.5 可以看到demo.py跑起来啦
 
 
