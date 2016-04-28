@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// option optimize_for = CODE_SIZE;
+option cc_enable_arenas = true;
+
+package bftrader.bfctaservice;
+
+import "bftrader.proto";
+
+//
+// Cta服务，必须先connect然后才可以调用其他api
+//
+service BfCtaService{    
+    // 建立连接
+    rpc Connect(BfConnectReq) returns (BfConnectResp) {}
+                
+    // 发单
+    rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}
+    
+    // 撤单
+    rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
+            
+    // 关闭连接
+    rpc Close(BfVoid) returns (BfVoid) {}
+}
