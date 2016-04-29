@@ -313,4 +313,3 @@ void MainWindow::on_actionFeedback_triggered()
     QUrl url("https://github.com/sunwangme/bftrader/issues");
     QDesktopServices::openUrl(url);
 }
-

@@ -1,10 +1,10 @@
 #include "ctaform.h"
-#include "ui_ctaform.h"
 #include "tablewidget_helper.h"
+#include "ui_ctaform.h"
 
-CtaForm::CtaForm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::CtaForm)
+CtaForm::CtaForm(QWidget* parent)
+    : QWidget(parent)
+    , ui(new Ui::CtaForm)
 {
     ui->setupUi(this);
 
@@ -22,8 +22,8 @@ CtaForm::CtaForm(QWidget *parent) :
                << "sPrice"
                << "sProfit"
 
-               << "maxPos"  //风控：最大持仓=
-               << "maxVol"  //分控：最大单笔开仓量=
+               << "maxPos" //风控：最大持仓=
+               << "maxVol" //分控：最大单笔开仓量=
                << "maxLoss" //分控：最大浮亏 x%=；整体的放哪里呢？ todo(hege)
 
                << "exchange";
@@ -44,10 +44,8 @@ CtaForm::~CtaForm()
 
 void CtaForm::init()
 {
-
 }
 
 void CtaForm::shutdown()
 {
-
 }

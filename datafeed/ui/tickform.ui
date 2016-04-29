@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HistoryTickForm</class>
- <widget class="QWidget" name="HistoryTickForm">
+ <class>TickForm</class>
+ <widget class="QWidget" name="TickForm">
   <property name="geometry">
    <rect>
     <x>0</x>

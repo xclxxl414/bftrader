@@ -134,7 +134,7 @@ private:
     bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
     {
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
-        if (!preTick || preTick->Volume == curTick->Volume ) {
+        if (!preTick || preTick->Volume == curTick->Volume) {
             // ActionDay 指当时的系统日期
             // TradingDay 是指当时的交易日期，夜盘算下一个交易的=
             QDateTime curDateTime = QDateTime::currentDateTime();

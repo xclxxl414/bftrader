@@ -62,25 +62,25 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
 
     // 需要累加=
     BfPositionData combPos;
-    if (!positions_.contains(newKey)){
+    if (!positions_.contains(newKey)) {
         combPos = newPos;
-    }else{
+    } else {
         BfPositionData oldPos = positions_[newKey];
         combPos = oldPos;
         combPos.set_position(oldPos.position() + newPos.position());
         combPos.set_ydposition(oldPos.ydposition() + newPos.ydposition());
         combPos.set_frozen(oldPos.frozen() + newPos.frozen());
-        if(combPos.position()>0){
-            combPos.set_price( (oldPos.price()*oldPos.position()+newPos.price()*newPos.position())/combPos.position());
+        if (combPos.position() > 0) {
+            combPos.set_price((oldPos.price() * oldPos.position() + newPos.price() * newPos.position()) / combPos.position());
         }
     }
 
     // 滤掉空的=
-    if (combPos.position()==0 && combPos.frozen()==0){
-        if(positions_.contains(newKey)){
+    if (combPos.position() == 0 && combPos.frozen() == 0) {
+        if (positions_.contains(newKey)) {
             positions_.remove(newKey);
         }
-    }else{
+    } else {
         positions_[newKey] = combPos;
     }
 

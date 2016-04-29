@@ -240,7 +240,7 @@ void TickForm::on_pushButtonTick_clicked()
     QString symbol = ui->lineEditSymbol->text();
     QString exchange = ui->lineEditExchange->text();
 
-    if(symbol.length()!=0 && exchange.length()!=0){
+    if (symbol.length() != 0 && exchange.length() != 0) {
         RingBufferForm* form = new RingBufferForm();
         form->setWindowFlags(Qt::Window);
         form->init(symbol, exchange);

@@ -184,12 +184,11 @@ private:
             }
 
             BfDebug("position: symbol=%s direction=%s position=%d ydposition=%d todayposition=%d",
-                   pos.symbol().c_str(),
-                   CtpUtils::formatDirection(pos.direction()).toStdString().c_str(),
-                   pos.position(),
-                   pos.ydposition(),
-                   pInvestorPosition->TodayPosition
-                   );
+                pos.symbol().c_str(),
+                CtpUtils::formatDirection(pos.direction()).toStdString().c_str(),
+                pos.position(),
+                pos.ydposition(),
+                pInvestorPosition->TodayPosition);
 
             emit g_sm->ctpMgr()->gotPosition(pos);
         }

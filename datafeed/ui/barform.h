@@ -1,22 +1,22 @@
-#ifndef HISTORYTICKFORM_H
-#define HISTORYTICKFORM_H
+#ifndef BARFORM_H
+#define BARFORM_H
 
 #include "ctpmgr.h"
+#include <QMap>
 #include <QVector>
 #include <QWidget>
-#include <QMap>
 
 namespace Ui {
-class HistoryTickForm;
+class BarForm;
 }
 
-class HistoryTickForm : public QWidget {
+class BarForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit HistoryTickForm(QWidget* parent = 0);
-    ~HistoryTickForm();
-    void init(QString symbol, QString exchange);
+    explicit BarForm(QWidget* parent = 0);
+    ~BarForm();
+    void init(QString symbol, QString exchange, int period);
 
 private slots:
     void on_first128_clicked();
@@ -28,20 +28,22 @@ private slots:
     void on_tableWidget_cellClicked(int row, int column);
 
 private:
-    void onGotTick(QString key, const BfTickData& bfItem);
+    void onGotTick(QString key, const BfBarData& bfItem);
     void initGraph();
     void drawGraph();
+    QString getPeriod();
 
 private:
-    Ui::HistoryTickForm* ui;
+    Ui::BarForm* ui;
 
     QMap<QString, int> table_row_;
     QStringList table_col_;
 
     QString symbol_;
     QString exchange_;
+    int period_ = 0;
     QVector<double> x_;
     QVector<double> y_;
 };
 
-#endif // HISTORYTICKFORM_H
+#endif // BARFORM_H

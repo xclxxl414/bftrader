@@ -1,12 +1,12 @@
 #include "mainwindow.h"
-#include "rpcservice.h"
+#include "contractform.h"
 #include "debug_utils.h"
 #include "logger.h"
 #include "profile.h"
+#include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
-#include "historycontractform.h"
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -209,7 +209,7 @@ void MainWindow::on_actionNetStop_triggered()
 
 void MainWindow::on_actionDbBrowser_triggered()
 {
-    HistoryContractForm* form = new HistoryContractForm();
+    ContractForm* form = new ContractForm();
     form->setWindowFlags(Qt::Window);
     form->init();
     centerWindow(form);
@@ -218,5 +218,4 @@ void MainWindow::on_actionDbBrowser_triggered()
 
 void MainWindow::on_actionDbStat_triggered()
 {
-
 }

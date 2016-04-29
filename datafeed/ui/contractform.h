@@ -1,5 +1,5 @@
-#ifndef HISTORYCONTRACTFORM_H
-#define HISTORYCONTRACTFORM_H
+#ifndef CONTRACTFORM_H
+#define CONTRACTFORM_H
 
 #include <QMap>
 #include <QStringList>
@@ -8,15 +8,15 @@
 #include "ctpmgr.h"
 
 namespace Ui {
-class HistoryContractForm;
+class ContractForm;
 }
 
-class HistoryContractForm : public QWidget {
+class ContractForm : public QWidget {
     Q_OBJECT
 
 public:
-    explicit HistoryContractForm(QWidget* parent = 0);
-    ~HistoryContractForm();
+    explicit ContractForm(QWidget* parent = 0);
+    ~ContractForm();
 
 public:
     void init();
@@ -33,10 +33,10 @@ private:
     void onGotContract(QString key, const BfContractData& bfContract);
 
 private:
-    Ui::HistoryContractForm* ui;
+    Ui::ContractForm* ui;
 
     QMap<QString, int> table_row_;
     QStringList table_col_;
 };
 
-#endif // HISTORYCONTRACTFORM_H
+#endif // CONTRACTFORM_H

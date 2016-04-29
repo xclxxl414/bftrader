@@ -20,9 +20,10 @@ SOURCES += main.cpp\
     rpcservice.cpp \
     dbservice.cpp \
     ui/tablewidget_helper.cpp \
-    ui/historycontractform.cpp \
-    ui/historytickform.cpp \
-    proto_utils.cpp
+    ui/contractform.cpp \
+    ui/tickform.cpp \
+    proto_utils.cpp \
+    ui/barform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -32,13 +33,15 @@ HEADERS  += ui/mainwindow.h \
     rpcservice.h \
     dbservice.h \
     ui/tablewidget_helper.h \
-    ui/historycontractform.h \
-    ui/historytickform.h \
-    proto_utils.h
+    ui/contractform.h \
+    ui/tickform.h \
+    proto_utils.h \
+    ui/barform.h
 
 FORMS    += ui/mainwindow.ui \
-    ui/historycontractform.ui \
-    ui/historytickform.ui
+    ui/contractform.ui \
+    ui/tickform.ui \
+    ui/barform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

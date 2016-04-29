@@ -13,7 +13,6 @@ QString formatOffset(BfOffset offset);
 QString formatStatus(BfStatus status);
 QString formatProduct(BfProduct product);
 QString formatPeriod(BfBarPeriod period);
-
 }
 
 #endif // PROTOUTILS_H

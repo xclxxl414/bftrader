@@ -1,14 +1,14 @@
-#include "historytickform.h"
-#include "proto_utils.h"
+#include "tickform.h"
 #include "dbservice.h"
 #include "leveldb/db.h"
+#include "proto_utils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_historytickform.h"
+#include "ui_tickform.h"
 
-HistoryTickForm::HistoryTickForm(QWidget* parent)
+TickForm::TickForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::HistoryTickForm)
+    , ui(new Ui::TickForm)
 {
     ui->setupUi(this);
     setWindowIcon(QIcon(":/images/datafeed.png"));
@@ -54,12 +54,12 @@ HistoryTickForm::HistoryTickForm(QWidget* parent)
     initGraph();
 }
 
-HistoryTickForm::~HistoryTickForm()
+TickForm::~TickForm()
 {
     delete ui;
 }
 
-void HistoryTickForm::init(QString symbol, QString exchange)
+void TickForm::init(QString symbol, QString exchange)
 {
     symbol_ = symbol;
     exchange_ = exchange;
@@ -68,7 +68,7 @@ void HistoryTickForm::init(QString symbol, QString exchange)
     on_first128_clicked();
 }
 
-void HistoryTickForm::on_first128_clicked()
+void TickForm::on_first128_clicked()
 {
     leveldb::DB* db = g_sm->dbService()->getDb();
     leveldb::ReadOptions options;
@@ -80,7 +80,7 @@ void HistoryTickForm::on_first128_clicked()
 
     //第一个是tick-symbol-exchange+
     //最后一个是tick-symbol-exchange=
-    QString key = QString().sprintf("tick-%s-%s+",qPrintable(symbol_),qPrintable(exchange_));
+    QString key = QString().sprintf("tick-%s-%s+", qPrintable(symbol_), qPrintable(exchange_));
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -114,7 +114,7 @@ void HistoryTickForm::on_first128_clicked()
     drawGraph();
 }
 
-void HistoryTickForm::on_next128_clicked()
+void TickForm::on_next128_clicked()
 {
     if (ui->tableWidget->rowCount() == 0) {
         return;
@@ -165,7 +165,7 @@ void HistoryTickForm::on_next128_clicked()
     drawGraph();
 }
 
-void HistoryTickForm::on_pre128_clicked()
+void TickForm::on_pre128_clicked()
 {
     if (ui->tableWidget->rowCount() == 0) {
         return;
@@ -216,7 +216,7 @@ void HistoryTickForm::on_pre128_clicked()
     drawGraph();
 }
 
-void HistoryTickForm::on_last128_clicked()
+void TickForm::on_last128_clicked()
 {
     leveldb::DB* db = g_sm->dbService()->getDb();
     leveldb::ReadOptions options;
@@ -262,7 +262,7 @@ void HistoryTickForm::on_last128_clicked()
     drawGraph();
 }
 
-void HistoryTickForm::on_seekButton_clicked()
+void TickForm::on_seekButton_clicked()
 {
     leveldb::DB* db = g_sm->dbService()->getDb();
     leveldb::ReadOptions options;
@@ -279,7 +279,7 @@ void HistoryTickForm::on_seekButton_clicked()
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    QString msg("not found,input format:\ntick--CFFEX-IF1511-\ntick-CFFEX-IF1511-20151023-1304\ntick-CFFEX-IF1511-20151023-13:04:00.000");
+    QString msg("not found,input format:\ntick-IF1511-CFFEX-\ntick-IF1511-CFFEX-20151023-1304\ntick-IF1511-CFFEX-20151023-13:04:00.000");
     it->Seek(leveldb::Slice(key.toStdString()));
     if (!it->Valid()) {
         BfError(msg);
@@ -307,10 +307,9 @@ void HistoryTickForm::on_seekButton_clicked()
     drawGraph();
 }
 
-void HistoryTickForm::on_delButton_clicked()
+void TickForm::on_delButton_clicked()
 {
     leveldb::DB* db = g_sm->dbService()->getDb();
-    ;
     QString key = ui->lineEdit->text();
     leveldb::ReadOptions options;
     std::string val;
@@ -328,16 +327,11 @@ void HistoryTickForm::on_delButton_clicked()
     }
 }
 
-void HistoryTickForm::onGotTick(QString key, const BfTickData& bfTick)
+void TickForm::onGotTick(QString key, const BfTickData& bfTick)
 {
     QVariantMap vItem;
     vItem.insert("symbol", bfTick.symbol().c_str());
-    // tick里面的exchange不一定有=
-    QString exchange = bfTick.exchange().c_str();
-    if (exchange.trimmed().length() == 0) {
-        exchange = exchange_;
-    }
-    vItem.insert("exchange", exchange);
+    vItem.insert("exchange", bfTick.exchange().c_str());
     vItem.insert("actionDate", bfTick.actiondate().c_str());
     vItem.insert("tickTime", bfTick.ticktime().c_str());
     vItem.insert("lastPrice", bfTick.lastprice());
@@ -374,12 +368,12 @@ void HistoryTickForm::onGotTick(QString key, const BfTickData& bfTick)
     }
 }
 
-void HistoryTickForm::initGraph()
+void TickForm::initGraph()
 {
     ui->tickPlot->addGraph();
 }
 
-void HistoryTickForm::drawGraph()
+void TickForm::drawGraph()
 {
     ui->tickPlot->graph()->setData(x_, y_);
     ui->tickPlot->graph()->rescaleAxes(false);
@@ -391,7 +385,7 @@ void HistoryTickForm::drawGraph()
     ui->tickPlot->replot();
 }
 
-void HistoryTickForm::on_tableWidget_cellClicked(int row, int column)
+void TickForm::on_tableWidget_cellClicked(int row, int column)
 {
     QString key = ui->tableWidget->item(row, table_col_.indexOf("key"))->text();
 
