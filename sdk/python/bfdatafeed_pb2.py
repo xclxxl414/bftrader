@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfdatafeed.proto',
   package='bftrader.bfdatafeed',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\x84\x05\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12;\n\nDeleteTick\x12\x19.bftrader.BfDeleteTickReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12\x39\n\tDeleteBar\x12\x18.bftrader.BfDeleteBarReq\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12K\n\x0e\x44\x65leteContract\x12%.bftrader.BfDatafeedDeleteContractReq\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x13\x62\x66trader.bfdatafeed\x1a\x0e\x62\x66trader.proto2\x84\x05\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12;\n\nDeleteTick\x12\x19.bftrader.BfDeleteTickReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12\x39\n\tDeleteBar\x12\x18.bftrader.BfDeleteBarReq\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x12K\n\x0e\x44\x65leteContract\x12%.bftrader.BfDatafeedDeleteContractReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -29,8 +29,6 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\370\001\001'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality

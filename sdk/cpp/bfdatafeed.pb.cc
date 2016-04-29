@@ -76,7 +76,7 @@ void protobuf_AddDesc_bfdatafeed_2eproto() {
     "\".bftrader.BfDatafeedGetContractReq\032\030.bf"
     "trader.BfContractData\"\0000\001\022K\n\016DeleteContr"
     "act\022%.bftrader.BfDatafeedDeleteContractR"
-    "eq\032\020.bftrader.BfVoid\"\000B\003\370\001\001b\006proto3", 715);
+    "eq\032\020.bftrader.BfVoid\"\000b\006proto3", 710);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfdatafeed.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfdatafeed_2eproto);

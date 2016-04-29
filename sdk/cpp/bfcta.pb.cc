@@ -68,7 +68,7 @@ void protobuf_AddDesc_bfcta_2eproto() {
     "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
     "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
     "\022-\n\005Close\022\020.bftrader.BfVoid\032\020.bftrader.B"
-    "fVoid\"\000B\003\370\001\001b\006proto3", 380);
+    "fVoid\"\000b\006proto3", 375);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfcta_2eproto);

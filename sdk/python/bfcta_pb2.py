@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfcta.proto',
   package='bftrader.bfctaservice',
   syntax='proto3',
-  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x15\x62\x66trader.bfctaservice\x1a\x0e\x62\x66trader.proto2\xb8\x02\n\x0c\x42\x66\x43taService\x12<\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x17.bftrader.BfConnectResp\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12-\n\x05\x43lose\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x42\x03\xf8\x01\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x15\x62\x66trader.bfctaservice\x1a\x0e\x62\x66trader.proto2\xb8\x02\n\x0c\x42\x66\x43taService\x12<\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x17.bftrader.BfConnectResp\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12-\n\x05\x43lose\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -29,8 +29,6 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\370\001\001'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality
