@@ -41,11 +41,11 @@ doc\bftrader编译步骤-图文版.docx
       2.2.6 pip install grpcio-xxx
 
 3. 写策略，调试策略  
-    3.1 运行ctpgateway.exe
-    3.2 点击ctpgateway的net/netStart
-    3.3 运行python/demo.py，以连接ctpgateway
+    3.1 运行ctpgateway.exe,datafeed.exe
+    3.2 点击ctpgateway的net/netStart,点击datafeed的net/netStart
+    3.3 运行python/datarecorder.py，以连接ctpgateway datafeed
     3.4 点击ctpgateway的ctp/ctpStart
-    3.5 可以看到demo.py跑起来啦
+    3.5 可以看到datarecorder.py跑起来啦
 
 
 （完）
