@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     ui/contractform.cpp \
     ui/tickform.cpp \
     proto_utils.cpp \
-    ui/barform.cpp
+    ui/barform.cpp \
+    ui/statform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -36,12 +37,14 @@ HEADERS  += ui/mainwindow.h \
     ui/contractform.h \
     ui/tickform.h \
     proto_utils.h \
-    ui/barform.h
+    ui/barform.h \
+    ui/statform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/contractform.ui \
     ui/tickform.ui \
-    ui/barform.ui
+    ui/barform.ui \
+    ui/statform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

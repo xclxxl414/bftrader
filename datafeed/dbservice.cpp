@@ -133,8 +133,12 @@ void DbService::getContract(const BfDatafeedGetContractReq* request, ::grpc::Ser
 void DbService::insertTick(const BfTickData& bfItem)
 {
     BfDebug(__FUNCTION__);
-
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.ticktime().length() == 0) {
+        BfDebug("invalid tick,ignore");
+        return;
+    }
 
     leveldb::WriteOptions options;
     leveldb::WriteBatch batch;
@@ -155,7 +159,13 @@ void DbService::insertTick(const BfTickData& bfItem)
 
 void DbService::insertBar(const BfBarData& bfItem)
 {
+    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0) {
+        BfDebug("invalid bar,ignore");
+        return;
+    }
 
     leveldb::WriteOptions options;
     leveldb::WriteBatch batch;
@@ -177,8 +187,12 @@ void DbService::insertBar(const BfBarData& bfItem)
 void DbService::insertContract(const BfContractData& bfItem)
 {
     BfDebug(__FUNCTION__);
-
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.name().length() == 0) {
+        BfDebug("invalid contract,ignore");
+        return;
+    }
 
     leveldb::WriteOptions options;
     leveldb::WriteBatch batch;

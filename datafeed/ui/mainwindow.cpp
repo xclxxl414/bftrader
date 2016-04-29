@@ -5,6 +5,7 @@
 #include "profile.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
+#include "statform.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
 #include <windows.h>
@@ -222,4 +223,9 @@ void MainWindow::on_actionDbBrowser_triggered()
 
 void MainWindow::on_actionDbStat_triggered()
 {
+    StatForm* form = new StatForm();
+    form->setWindowFlags(Qt::Window);
+    form->init();
+    centerWindow(form);
+    form->show();
 }
