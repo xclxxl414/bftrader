@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget* parent)
     this->createActions();
     this->createTrayIcon();
 
+    // actions
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
+
     //设置列=
     table_col_ << "when"
                << "message";

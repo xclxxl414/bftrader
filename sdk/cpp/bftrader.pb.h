@@ -1849,33 +1849,33 @@ class BfConnectReq : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string proxyId = 1;
-  void clear_proxyid();
-  static const int kProxyIdFieldNumber = 1;
-  const ::std::string& proxyid() const;
-  void set_proxyid(const ::std::string& value);
-  void set_proxyid(const char* value);
-  void set_proxyid(const char* value, size_t size);
-  ::std::string* mutable_proxyid();
-  ::std::string* release_proxyid();
-  void set_allocated_proxyid(::std::string* proxyid);
+  // optional string clientId = 1;
+  void clear_clientid();
+  static const int kClientIdFieldNumber = 1;
+  const ::std::string& clientid() const;
+  void set_clientid(const ::std::string& value);
+  void set_clientid(const char* value);
+  void set_clientid(const char* value, size_t size);
+  ::std::string* mutable_clientid();
+  ::std::string* release_clientid();
+  void set_allocated_clientid(::std::string* clientid);
 
-  // optional string proxyIp = 2;
-  void clear_proxyip();
-  static const int kProxyIpFieldNumber = 2;
-  const ::std::string& proxyip() const;
-  void set_proxyip(const ::std::string& value);
-  void set_proxyip(const char* value);
-  void set_proxyip(const char* value, size_t size);
-  ::std::string* mutable_proxyip();
-  ::std::string* release_proxyip();
-  void set_allocated_proxyip(::std::string* proxyip);
+  // optional string clientIp = 2;
+  void clear_clientip();
+  static const int kClientIpFieldNumber = 2;
+  const ::std::string& clientip() const;
+  void set_clientip(const ::std::string& value);
+  void set_clientip(const char* value);
+  void set_clientip(const char* value, size_t size);
+  ::std::string* mutable_clientip();
+  ::std::string* release_clientip();
+  void set_allocated_clientip(::std::string* clientip);
 
-  // optional int32 proxyPort = 3;
-  void clear_proxyport();
-  static const int kProxyPortFieldNumber = 3;
-  ::google::protobuf::int32 proxyport() const;
-  void set_proxyport(::google::protobuf::int32 value);
+  // optional int32 clientPort = 3;
+  void clear_clientport();
+  static const int kClientPortFieldNumber = 3;
+  ::google::protobuf::int32 clientport() const;
+  void set_clientport(::google::protobuf::int32 value);
 
   // optional bool tickHandler = 4;
   void clear_tickhandler();
@@ -1922,9 +1922,9 @@ class BfConnectReq : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr proxyid_;
-  ::google::protobuf::internal::ArenaStringPtr proxyip_;
-  ::google::protobuf::int32 proxyport_;
+  ::google::protobuf::internal::ArenaStringPtr clientid_;
+  ::google::protobuf::internal::ArenaStringPtr clientip_;
+  ::google::protobuf::int32 clientport_;
   bool tickhandler_;
   bool tradehandler_;
   bool loghandler_;
@@ -5302,104 +5302,104 @@ inline void BfCancelOrderReq::set_allocated_bforderid(::std::string* bforderid) 
 
 // BfConnectReq
 
-// optional string proxyId = 1;
-inline void BfConnectReq::clear_proxyid() {
-  proxyid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string clientId = 1;
+inline void BfConnectReq::clear_clientid() {
+  clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BfConnectReq::proxyid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyId)
-  return proxyid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BfConnectReq::clientid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientId)
+  return clientid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_proxyid(const ::std::string& value) {
+inline void BfConnectReq::set_clientid(const ::std::string& value) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyId)
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientId)
 }
-inline void BfConnectReq::set_proxyid(const char* value) {
+inline void BfConnectReq::set_clientid(const char* value) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.proxyId)
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientId)
 }
-inline void BfConnectReq::set_proxyid(const char* value, size_t size) {
+inline void BfConnectReq::set_clientid(const char* value, size_t size) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.proxyId)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientId)
 }
-inline ::std::string* BfConnectReq::mutable_proxyid() {
+inline ::std::string* BfConnectReq::mutable_clientid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.proxyId)
-  return proxyid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientId)
+  return clientid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BfConnectReq::release_proxyid() {
+inline ::std::string* BfConnectReq::release_clientid() {
   
-  return proxyid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return clientid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_allocated_proxyid(::std::string* proxyid) {
-  if (proxyid != NULL) {
+inline void BfConnectReq::set_allocated_clientid(::std::string* clientid) {
+  if (clientid != NULL) {
     
   } else {
     
   }
-  proxyid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), proxyid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.proxyId)
+  clientid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientId)
 }
 
-// optional string proxyIp = 2;
-inline void BfConnectReq::clear_proxyip() {
-  proxyip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string clientIp = 2;
+inline void BfConnectReq::clear_clientip() {
+  clientip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BfConnectReq::proxyip() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyIp)
-  return proxyip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string& BfConnectReq::clientip() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientIp)
+  return clientip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_proxyip(const ::std::string& value) {
+inline void BfConnectReq::set_clientip(const ::std::string& value) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientIp)
 }
-inline void BfConnectReq::set_proxyip(const char* value) {
+inline void BfConnectReq::set_clientip(const char* value) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientIp)
 }
-inline void BfConnectReq::set_proxyip(const char* value, size_t size) {
+inline void BfConnectReq::set_clientip(const char* value, size_t size) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.proxyIp)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientIp)
 }
-inline ::std::string* BfConnectReq::mutable_proxyip() {
+inline ::std::string* BfConnectReq::mutable_clientip() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.proxyIp)
-  return proxyip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientIp)
+  return clientip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BfConnectReq::release_proxyip() {
+inline ::std::string* BfConnectReq::release_clientip() {
   
-  return proxyip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return clientip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_allocated_proxyip(::std::string* proxyip) {
-  if (proxyip != NULL) {
+inline void BfConnectReq::set_allocated_clientip(::std::string* clientip) {
+  if (clientip != NULL) {
     
   } else {
     
   }
-  proxyip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), proxyip);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientip);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientIp)
 }
 
-// optional int32 proxyPort = 3;
-inline void BfConnectReq::clear_proxyport() {
-  proxyport_ = 0;
+// optional int32 clientPort = 3;
+inline void BfConnectReq::clear_clientport() {
+  clientport_ = 0;
 }
-inline ::google::protobuf::int32 BfConnectReq::proxyport() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyPort)
-  return proxyport_;
+inline ::google::protobuf::int32 BfConnectReq::clientport() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientPort)
+  return clientport_;
 }
-inline void BfConnectReq::set_proxyport(::google::protobuf::int32 value) {
+inline void BfConnectReq::set_clientport(::google::protobuf::int32 value) {
   
-  proxyport_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyPort)
+  clientport_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientPort)
 }
 
 // optional bool tickHandler = 4;

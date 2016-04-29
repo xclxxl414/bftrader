@@ -132,6 +132,8 @@ void DbService::getContract(const BfDatafeedGetContractReq* request, ::grpc::Ser
 
 void DbService::insertTick(const BfTickData& bfItem)
 {
+    BfDebug(__FUNCTION__);
+
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     leveldb::WriteOptions options;
@@ -174,6 +176,8 @@ void DbService::insertBar(const BfBarData& bfItem)
 
 void DbService::insertContract(const BfContractData& bfItem)
 {
+    BfDebug(__FUNCTION__);
+
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     leveldb::WriteOptions options;

@@ -25,6 +25,8 @@ public:
 
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
         response->set_message(request->message());
         return grpc::Status::OK;
@@ -32,6 +34,8 @@ public:
 
     virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "insertTick", Qt::QueuedConnection, Q_ARG(BfTickData, *request));
@@ -40,6 +44,8 @@ public:
 
     virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
         g_sm->dbService()->getTick(request, writer);
         return grpc::Status::OK;
@@ -47,6 +53,8 @@ public:
 
     virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "deleteTick", Qt::QueuedConnection, Q_ARG(BfDeleteTickReq, *request));
@@ -55,6 +63,8 @@ public:
 
     virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "insertBar", Qt::QueuedConnection, Q_ARG(BfBarData, *request));
@@ -63,6 +73,7 @@ public:
 
     virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -72,6 +83,8 @@ public:
 
     virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "deleteBar", Qt::QueuedConnection, Q_ARG(BfDeleteBarReq, *request));
@@ -80,6 +93,8 @@ public:
 
     virtual ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "insertContract", Qt::QueuedConnection, Q_ARG(BfContractData, *request));
@@ -88,6 +103,8 @@ public:
 
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
         QString clientId = getClientId(context);
 
         g_sm->dbService()->getContract(request, writer);
@@ -96,6 +113,7 @@ public:
 
     virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedDeleteContractReq* request, ::bftrader::BfVoid* response) override
     {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 

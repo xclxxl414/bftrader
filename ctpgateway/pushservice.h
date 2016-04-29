@@ -21,7 +21,7 @@ signals:
 
 public slots:
     void onProxyConnect(const BfConnectReq& req);
-    void onProxyClose(QString proxyId);
+    void onProxyClose(QString clientId);
     void onGatewayClose();
 
     void onTradeWillBegin();

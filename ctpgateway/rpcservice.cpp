@@ -30,7 +30,7 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->proxyid().c_str(), request->proxyip().c_str(), request->proxyport());
+        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->clientid().c_str(), request->clientip().c_str(), request->clientport());
         QMetaObject::invokeMethod(g_sm->pushService(), "onProxyConnect", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
 
         response->set_errorcode(0);
@@ -38,7 +38,7 @@ public:
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
     {
-        QString proxyId = getProxyId(context);
+        QString clientId = getClientId(context);
         response->set_message(request->message());
         return grpc::Status::OK;
     }
@@ -46,8 +46,8 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
         int index = request->index();
         if (index <= 0) {
@@ -69,8 +69,8 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
         QString bfOrderId = g_sm->ctpMgr()->genOrderId();
         response->set_bforderid(bfOrderId.toStdString());
@@ -82,8 +82,8 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
         return grpc::Status::OK;
@@ -92,8 +92,8 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
         return grpc::Status::OK;
@@ -102,8 +102,8 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
@@ -112,25 +112,25 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
-        QString proxyId = getProxyId(context);
-        BfDebug("proxyid=%s", qPrintable(proxyId));
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
 
-        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, proxyId));
+        QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
 
 private:
     // metadata-key只能是小写的=
-    QString getProxyId(::grpc::ServerContext* context)
+    QString getClientId(::grpc::ServerContext* context)
     {
-        QString proxyId;
-        if (0 != context->client_metadata().count("proxyid")) {
-            auto its = context->client_metadata().equal_range("proxyid");
+        QString clientId;
+        if (0 != context->client_metadata().count("clientid")) {
+            auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
-            proxyId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            BfDebug("metadata: proxyid=%s", proxyId.toStdString().c_str());
+            clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
+            BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
         }
-        return proxyId;
+        return clientId;
     }
 };
 

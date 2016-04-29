@@ -360,9 +360,9 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _is_default_instance_));
   BfConnectReq_descriptor_ = file->message_type(12);
   static const int BfConnectReq_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, proxyid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, proxyip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, proxyport_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientip_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientport_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, tickhandler_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, tradehandler_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, loghandler_),
@@ -755,57 +755,57 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "trader.BfOffset\"$\n\017BfSendOrderResp\022\021\n\tbf"
     "OrderId\030\001 \001(\t\"G\n\020BfCancelOrderReq\022\016\n\006sym"
     "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrderId"
-    "\030\003 \001(\t\"\244\001\n\014BfConnectReq\022\017\n\007proxyId\030\001 \001(\t"
-    "\022\017\n\007proxyIp\030\002 \001(\t\022\021\n\tproxyPort\030\003 \001(\005\022\023\n\013"
-    "tickHandler\030\004 \001(\010\022\024\n\014tradeHandler\030\005 \001(\010\022"
-    "\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020\n\010e"
-    "xchange\030\010 \001(\t\"4\n\rBfConnectResp\022\021\n\terrorC"
-    "ode\030\001 \001(\005\022\020\n\010errorMsg\030\002 \001(\t\"X\n\020BfGetCont"
-    "ractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
-    "\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010\"\035\n"
-    "\nBfPingData\022\017\n\007message\030\001 \001(\t\"\377\001\n\tBfBarDa"
-    "ta\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022%\n\006"
-    "period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\022\n\na"
-    "ctionDate\030\004 \001(\t\022\017\n\007barTime\030\005 \001(\t\022\016\n\006volu"
-    "me\030\006 \001(\005\022\024\n\014openInterest\030\007 \001(\001\022\022\n\nlastVo"
-    "lume\030\010 \001(\005\022\021\n\topenPrice\030\t \001(\001\022\021\n\thighPri"
-    "ce\030\n \001(\001\022\020\n\010lowPrice\030\013 \001(\001\022\022\n\nclosePrice"
-    "\030\014 \001(\001\"_\n\014BfGetTickReq\022\016\n\006symbol\030\001 \001(\t\022\020"
-    "\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006toTi"
-    "me\030\004 \001(\t\022\r\n\005count\030\005 \001(\005\"S\n\017BfDeleteTickR"
-    "eq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006"
-    "toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\"\205\001\n\013BfGetBa"
-    "rReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022%"
-    "\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\016\n"
-    "\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005count\030\006"
-    " \001(\005\"y\n\016BfDeleteBarReq\022\016\n\006symbol\030\001 \001(\t\022\020"
-    "\n\010exchange\030\002 \001(\t\022%\n\006period\030\003 \001(\0162\025.bftra"
-    "der.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTim"
-    "e\030\005 \001(\t\"J\n\030BfDatafeedGetContractReq\022\025\n\rs"
-    "ymbolPattern\030\001 \001(\t\022\027\n\017exchangePattern\030\002 "
-    "\001(\t\"\?\n\033BfDatafeedDeleteContractReq\022\016\n\006sy"
-    "mbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"&\n\010BfKvData"
-    "\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t*`\n\013BfDirect"
-    "ion\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_"
-    "LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\rDIRECTION"
-    "_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017"
-    "\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE\020\002\022\025\n\021OFF"
-    "SET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOSEYESTERDA"
-    "Y\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNOWN\020\000\022\024\n\020S"
-    "TATUS_NOTTRADED\020\001\022\025\n\021STATUS_PARTTRADED\020\002"
-    "\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATUS_CANCELL"
-    "ED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UNKNOWN\020\000\022\022"
-    "\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_FUTURES\020\002*"
-    "Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n"
-    "\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MAR"
-    "KETPRICE\020\002*\210\002\n\013BfBarPeriod\022\022\n\016PERIOD_UNK"
-    "NOWN\020\000\022\r\n\tPERIOD_S1\020\001\022\r\n\tPERIOD_S3\020\002\022\r\n\t"
-    "PERIOD_S5\020\003\022\016\n\nPERIOD_S10\020\004\022\016\n\nPERIOD_S1"
-    "5\020\005\022\016\n\nPERIOD_S30\020\006\022\r\n\tPERIOD_M1\020\007\022\r\n\tPE"
-    "RIOD_M3\020\010\022\r\n\tPERIOD_M5\020\t\022\016\n\nPERIOD_M10\020\n"
-    "\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_M30\020\014\022\r\n\tPERI"
-    "OD_H1\020\r\022\r\n\tPERIOD_D1\020\016\022\r\n\tPERIOD_W1\020\017b\006p"
-    "roto3", 3925);
+    "\030\003 \001(\t\"\247\001\n\014BfConnectReq\022\020\n\010clientId\030\001 \001("
+    "\t\022\020\n\010clientIp\030\002 \001(\t\022\022\n\nclientPort\030\003 \001(\005\022"
+    "\023\n\013tickHandler\030\004 \001(\010\022\024\n\014tradeHandler\030\005 \001"
+    "(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020"
+    "\n\010exchange\030\010 \001(\t\"4\n\rBfConnectResp\022\021\n\terr"
+    "orCode\030\001 \001(\005\022\020\n\010errorMsg\030\002 \001(\t\"X\n\020BfGetC"
+    "ontractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
+    " \001(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010"
+    "\"\035\n\nBfPingData\022\017\n\007message\030\001 \001(\t\"\377\001\n\tBfBa"
+    "rData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
+    "%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\022"
+    "\n\nactionDate\030\004 \001(\t\022\017\n\007barTime\030\005 \001(\t\022\016\n\006v"
+    "olume\030\006 \001(\005\022\024\n\014openInterest\030\007 \001(\001\022\022\n\nlas"
+    "tVolume\030\010 \001(\005\022\021\n\topenPrice\030\t \001(\001\022\021\n\thigh"
+    "Price\030\n \001(\001\022\020\n\010lowPrice\030\013 \001(\001\022\022\n\nclosePr"
+    "ice\030\014 \001(\001\"_\n\014BfGetTickReq\022\016\n\006symbol\030\001 \001("
+    "\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006t"
+    "oTime\030\004 \001(\t\022\r\n\005count\030\005 \001(\005\"S\n\017BfDeleteTi"
+    "ckReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
+    "\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\"\205\001\n\013BfGe"
+    "tBarReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
+    "\t\022%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod"
+    "\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005coun"
+    "t\030\006 \001(\005\"y\n\016BfDeleteBarReq\022\016\n\006symbol\030\001 \001("
+    "\t\022\020\n\010exchange\030\002 \001(\t\022%\n\006period\030\003 \001(\0162\025.bf"
+    "trader.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006to"
+    "Time\030\005 \001(\t\"J\n\030BfDatafeedGetContractReq\022\025"
+    "\n\rsymbolPattern\030\001 \001(\t\022\027\n\017exchangePattern"
+    "\030\002 \001(\t\"\?\n\033BfDatafeedDeleteContractReq\022\016\n"
+    "\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"&\n\010BfKvD"
+    "ata\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t*`\n\013BfDir"
+    "ection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTI"
+    "ON_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\rDIRECT"
+    "ION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020"
+    "\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE\020\002\022\025\n\021"
+    "OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOSEYESTE"
+    "RDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNOWN\020\000\022\024"
+    "\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PARTTRADE"
+    "D\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATUS_CANC"
+    "ELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UNKNOWN\020"
+    "\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_FUTURES"
+    "\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000"
+    "\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_"
+    "MARKETPRICE\020\002*\210\002\n\013BfBarPeriod\022\022\n\016PERIOD_"
+    "UNKNOWN\020\000\022\r\n\tPERIOD_S1\020\001\022\r\n\tPERIOD_S3\020\002\022"
+    "\r\n\tPERIOD_S5\020\003\022\016\n\nPERIOD_S10\020\004\022\016\n\nPERIOD"
+    "_S15\020\005\022\016\n\nPERIOD_S30\020\006\022\r\n\tPERIOD_M1\020\007\022\r\n"
+    "\tPERIOD_M3\020\010\022\r\n\tPERIOD_M5\020\t\022\016\n\nPERIOD_M1"
+    "0\020\n\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_M30\020\014\022\r\n\tP"
+    "ERIOD_H1\020\r\022\r\n\tPERIOD_D1\020\016\022\r\n\tPERIOD_W1\020\017"
+    "b\006proto3", 3928);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -8795,9 +8795,9 @@ void BfCancelOrderReq::clear_bforderid() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfConnectReq::kProxyIdFieldNumber;
-const int BfConnectReq::kProxyIpFieldNumber;
-const int BfConnectReq::kProxyPortFieldNumber;
+const int BfConnectReq::kClientIdFieldNumber;
+const int BfConnectReq::kClientIpFieldNumber;
+const int BfConnectReq::kClientPortFieldNumber;
 const int BfConnectReq::kTickHandlerFieldNumber;
 const int BfConnectReq::kTradeHandlerFieldNumber;
 const int BfConnectReq::kLogHandlerFieldNumber;
@@ -8827,9 +8827,9 @@ void BfConnectReq::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  proxyid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  proxyip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  proxyport_ = 0;
+  clientid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientport_ = 0;
   tickhandler_ = false;
   tradehandler_ = false;
   loghandler_ = false;
@@ -8843,8 +8843,8 @@ BfConnectReq::~BfConnectReq() {
 }
 
 void BfConnectReq::SharedDtor() {
-  proxyid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  proxyip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
@@ -8885,9 +8885,9 @@ void BfConnectReq::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(proxyport_, loghandler_);
-  proxyid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  proxyip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ZR_(clientport_, loghandler_);
+  clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clientip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
@@ -8906,46 +8906,46 @@ bool BfConnectReq::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string proxyId = 1;
+      // optional string clientId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_proxyid()));
+                input, this->mutable_clientid()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->proxyid().data(), this->proxyid().length(),
+            this->clientid().data(), this->clientid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.proxyId"));
+            "bftrader.BfConnectReq.clientId"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_proxyIp;
+        if (input->ExpectTag(18)) goto parse_clientIp;
         break;
       }
 
-      // optional string proxyIp = 2;
+      // optional string clientIp = 2;
       case 2: {
         if (tag == 18) {
-         parse_proxyIp:
+         parse_clientIp:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_proxyip()));
+                input, this->mutable_clientip()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->proxyip().data(), this->proxyip().length(),
+            this->clientip().data(), this->clientip().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.proxyIp"));
+            "bftrader.BfConnectReq.clientIp"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_proxyPort;
+        if (input->ExpectTag(24)) goto parse_clientPort;
         break;
       }
 
-      // optional int32 proxyPort = 3;
+      // optional int32 clientPort = 3;
       case 3: {
         if (tag == 24) {
-         parse_proxyPort:
+         parse_clientPort:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &proxyport_)));
+                 input, &clientport_)));
 
         } else {
           goto handle_unusual;
@@ -9057,29 +9057,29 @@ failure:
 void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfConnectReq)
-  // optional string proxyId = 1;
-  if (this->proxyid().size() > 0) {
+  // optional string clientId = 1;
+  if (this->clientid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->proxyid().data(), this->proxyid().length(),
+      this->clientid().data(), this->clientid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.proxyId");
+      "bftrader.BfConnectReq.clientId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->proxyid(), output);
+      1, this->clientid(), output);
   }
 
-  // optional string proxyIp = 2;
-  if (this->proxyip().size() > 0) {
+  // optional string clientIp = 2;
+  if (this->clientip().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->proxyip().data(), this->proxyip().length(),
+      this->clientip().data(), this->clientip().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.proxyIp");
+      "bftrader.BfConnectReq.clientIp");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->proxyip(), output);
+      2, this->clientip(), output);
   }
 
-  // optional int32 proxyPort = 3;
-  if (this->proxyport() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->proxyport(), output);
+  // optional int32 clientPort = 3;
+  if (this->clientport() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->clientport(), output);
   }
 
   // optional bool tickHandler = 4;
@@ -9123,31 +9123,31 @@ void BfConnectReq::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfConnectReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfConnectReq)
-  // optional string proxyId = 1;
-  if (this->proxyid().size() > 0) {
+  // optional string clientId = 1;
+  if (this->clientid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->proxyid().data(), this->proxyid().length(),
+      this->clientid().data(), this->clientid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.proxyId");
+      "bftrader.BfConnectReq.clientId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->proxyid(), target);
+        1, this->clientid(), target);
   }
 
-  // optional string proxyIp = 2;
-  if (this->proxyip().size() > 0) {
+  // optional string clientIp = 2;
+  if (this->clientip().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->proxyip().data(), this->proxyip().length(),
+      this->clientip().data(), this->clientip().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.proxyIp");
+      "bftrader.BfConnectReq.clientIp");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->proxyip(), target);
+        2, this->clientip(), target);
   }
 
-  // optional int32 proxyPort = 3;
-  if (this->proxyport() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->proxyport(), target);
+  // optional int32 clientPort = 3;
+  if (this->clientport() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->clientport(), target);
   }
 
   // optional bool tickHandler = 4;
@@ -9194,25 +9194,25 @@ void BfConnectReq::SerializeWithCachedSizes(
 int BfConnectReq::ByteSize() const {
   int total_size = 0;
 
-  // optional string proxyId = 1;
-  if (this->proxyid().size() > 0) {
+  // optional string clientId = 1;
+  if (this->clientid().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->proxyid());
+        this->clientid());
   }
 
-  // optional string proxyIp = 2;
-  if (this->proxyip().size() > 0) {
+  // optional string clientIp = 2;
+  if (this->clientip().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->proxyip());
+        this->clientip());
   }
 
-  // optional int32 proxyPort = 3;
-  if (this->proxyport() != 0) {
+  // optional int32 clientPort = 3;
+  if (this->clientport() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->proxyport());
+        this->clientport());
   }
 
   // optional bool tickHandler = 4;
@@ -9264,16 +9264,16 @@ void BfConnectReq::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BfConnectReq::MergeFrom(const BfConnectReq& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.proxyid().size() > 0) {
+  if (from.clientid().size() > 0) {
 
-    proxyid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.proxyid_);
+    clientid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientid_);
   }
-  if (from.proxyip().size() > 0) {
+  if (from.clientip().size() > 0) {
 
-    proxyip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.proxyip_);
+    clientip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientip_);
   }
-  if (from.proxyport() != 0) {
-    set_proxyport(from.proxyport());
+  if (from.clientport() != 0) {
+    set_clientport(from.clientport());
   }
   if (from.tickhandler() != 0) {
     set_tickhandler(from.tickhandler());
@@ -9316,9 +9316,9 @@ void BfConnectReq::Swap(BfConnectReq* other) {
   InternalSwap(other);
 }
 void BfConnectReq::InternalSwap(BfConnectReq* other) {
-  proxyid_.Swap(&other->proxyid_);
-  proxyip_.Swap(&other->proxyip_);
-  std::swap(proxyport_, other->proxyport_);
+  clientid_.Swap(&other->clientid_);
+  clientip_.Swap(&other->clientip_);
+  std::swap(clientport_, other->clientport_);
   std::swap(tickhandler_, other->tickhandler_);
   std::swap(tradehandler_, other->tradehandler_);
   std::swap(loghandler_, other->loghandler_);
@@ -9339,104 +9339,104 @@ void BfConnectReq::InternalSwap(BfConnectReq* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfConnectReq
 
-// optional string proxyId = 1;
-void BfConnectReq::clear_proxyid() {
-  proxyid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string clientId = 1;
+void BfConnectReq::clear_clientid() {
+  clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfConnectReq::proxyid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyId)
-  return proxyid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfConnectReq::clientid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientId)
+  return clientid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_proxyid(const ::std::string& value) {
+ void BfConnectReq::set_clientid(const ::std::string& value) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyId)
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientId)
 }
- void BfConnectReq::set_proxyid(const char* value) {
+ void BfConnectReq::set_clientid(const char* value) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.proxyId)
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientId)
 }
- void BfConnectReq::set_proxyid(const char* value, size_t size) {
+ void BfConnectReq::set_clientid(const char* value, size_t size) {
   
-  proxyid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.proxyId)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientId)
 }
- ::std::string* BfConnectReq::mutable_proxyid() {
+ ::std::string* BfConnectReq::mutable_clientid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.proxyId)
-  return proxyid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientId)
+  return clientid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfConnectReq::release_proxyid() {
+ ::std::string* BfConnectReq::release_clientid() {
   
-  return proxyid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return clientid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_allocated_proxyid(::std::string* proxyid) {
-  if (proxyid != NULL) {
+ void BfConnectReq::set_allocated_clientid(::std::string* clientid) {
+  if (clientid != NULL) {
     
   } else {
     
   }
-  proxyid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), proxyid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.proxyId)
+  clientid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientId)
 }
 
-// optional string proxyIp = 2;
-void BfConnectReq::clear_proxyip() {
-  proxyip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string clientIp = 2;
+void BfConnectReq::clear_clientip() {
+  clientip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfConnectReq::proxyip() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyIp)
-  return proxyip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfConnectReq::clientip() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientIp)
+  return clientip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_proxyip(const ::std::string& value) {
+ void BfConnectReq::set_clientip(const ::std::string& value) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientIp)
 }
- void BfConnectReq::set_proxyip(const char* value) {
+ void BfConnectReq::set_clientip(const char* value) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientIp)
 }
- void BfConnectReq::set_proxyip(const char* value, size_t size) {
+ void BfConnectReq::set_clientip(const char* value, size_t size) {
   
-  proxyip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.proxyIp)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientIp)
 }
- ::std::string* BfConnectReq::mutable_proxyip() {
+ ::std::string* BfConnectReq::mutable_clientip() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.proxyIp)
-  return proxyip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientIp)
+  return clientip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfConnectReq::release_proxyip() {
+ ::std::string* BfConnectReq::release_clientip() {
   
-  return proxyip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return clientip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_allocated_proxyip(::std::string* proxyip) {
-  if (proxyip != NULL) {
+ void BfConnectReq::set_allocated_clientip(::std::string* clientip) {
+  if (clientip != NULL) {
     
   } else {
     
   }
-  proxyip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), proxyip);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.proxyIp)
+  clientip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientip);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientIp)
 }
 
-// optional int32 proxyPort = 3;
-void BfConnectReq::clear_proxyport() {
-  proxyport_ = 0;
+// optional int32 clientPort = 3;
+void BfConnectReq::clear_clientport() {
+  clientport_ = 0;
 }
- ::google::protobuf::int32 BfConnectReq::proxyport() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.proxyPort)
-  return proxyport_;
+ ::google::protobuf::int32 BfConnectReq::clientport() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientPort)
+  return clientport_;
 }
- void BfConnectReq::set_proxyport(::google::protobuf::int32 value) {
+ void BfConnectReq::set_clientport(::google::protobuf::int32 value) {
   
-  proxyport_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.proxyPort)
+  clientport_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientPort)
 }
 
 // optional bool tickHandler = 4;

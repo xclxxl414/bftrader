@@ -5,19 +5,22 @@ import time
 from bftrader_pb2 import *
 from bfproxy_pb2 import *
 from bfgateway_pb2 import *
+from bfdatafeed_pb2 import *
 
 from grpc.beta import implementations
 
 _BF_VOID = BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
-_MT = [("proxyid","demo")]
+_MT = [("clientid","datarecorder")]
     
-class Proxy(BetaBfProxyServiceServicer):
+class DataRecorder(BetaBfProxyServiceServicer):
     def __init__(self):
-        print "init proxy"
+        print "init datarecorder"
         self.gateway_channel = implementations.insecure_channel('localhost', 50051)
         self.gateway = beta_create_BfGatewayService_stub(self.gateway_channel)
+        self.datafeed_channel = implementations.insecure_channel('localhost',50052)
+        self.datafeed = beta_create_BfDatafeedService_stub(self.datafeed_channel)
         self._service = beta_create_BfProxyService_server(self)
         self._service.add_insecure_port('[::]:50053')
         
@@ -42,6 +45,7 @@ class Proxy(BetaBfProxyServiceServicer):
             resp = self.gateway.GetContract(req,_TIMEOUT_SECONDS,metadata=_MT)
             if (resp.symbol):
                 print resp
+                df = self.datafeed.InsertContract(resp,_TIMEOUT_SECONDS,metadata=_MT)
             else:
                 break
         
@@ -66,6 +70,7 @@ class Proxy(BetaBfProxyServiceServicer):
     def OnTick(self, request, context):
         print "OnTick"
         print request
+        resp = self.datafeed.InsertTick(request,_TIMEOUT_SECONDS,metadata=_MT)
         return _BF_VOID
         
     def OnError(self, request, context):
@@ -99,18 +104,23 @@ class Proxy(BetaBfProxyServiceServicer):
         return _BF_VOID
     
 def run():
-    print "start proxy"
-    proxy = Proxy()
-    proxy.start()
+    print "start datarecorder"
+    datarecorder = DataRecorder()
+    datarecorder.start()
 
+    print "ping datafeed"
+    req = BfPingData(message="ping")
+    resp = datarecorder.datafeed.Ping(req,_TIMEOUT_SECONDS,metadata=_MT)
+    print "ping=(%s),pong=(%s)" % (req.message,resp.message)
+    
     print "connect gateway"
     # Connect
-    req = BfConnectReq(proxyId="demo",proxyIp="localhost",proxyPort=50053,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
-    resp = proxy.gateway.Connect(req,_TIMEOUT_SECONDS)
+    req = BfConnectReq(clientId="datarecorder",clientIp="localhost",clientPort=50053,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
+    resp = datarecorder.gateway.Connect(req,_TIMEOUT_SECONDS)
     if resp.errorCode == 0:
         # Ping
         req = BfPingData(message="ping")
-        resp = proxy.gateway.Ping(req,_TIMEOUT_SECONDS,metadata=_MT)
+        resp = datarecorder.gateway.Ping(req,_TIMEOUT_SECONDS,metadata=_MT)
         print "ping=(%s),pong=(%s)" % (req.message,resp.message)
     try:
         while True:
@@ -118,10 +128,10 @@ def run():
     except KeyboardInterrupt:
         # Close
         req = BfVoid()
-        resp = proxy.gateway.Close(req,_TIMEOUT_SECONDS,metadata=_MT)
+        resp = datarecorder.gateway.Close(req,_TIMEOUT_SECONDS,metadata=_MT)
 
-        print "stop proxy"
-        proxy.stop()
+        print "stop datarecorder"
+        datarecorder.stop()
 
 if __name__ == '__main__':
     run()

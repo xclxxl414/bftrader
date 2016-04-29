@@ -86,9 +86,9 @@ private:
 
 class ProxyClient {
 public:
-    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString proxyId, const BfConnectReq& req)
+    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString clientId, const BfConnectReq& req)
         : stub_(BfProxyService::NewStub(channel))
-        , proxyId_(proxyId)
+        , clientId_(clientId)
         , req_(req)
     {
         BfDebug(__FUNCTION__);
@@ -132,7 +132,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnTradeWillBegin(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnTradeWillBegin fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnTradeWillBegin fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -150,7 +150,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnGotContracts(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnGotContracts fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnGotContracts fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -170,10 +170,10 @@ public:
         grpc::Status status = stub_->OnPing(&ctx, data, &reply);
         if (!status.ok()) {
             incPingFailCount();;
-            BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s",qPrintable(proxyId_),deadline_, pingFailCount(), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s",qPrintable(clientId_),deadline_, pingFailCount(), status.error_code(), status.error_message().c_str());
             if (pingFailCount() > 3) {
-                BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(proxyId_));
-                QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, proxyId_));
+                BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId_));
+                QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, clientId_));
             }
             return;
         }
@@ -194,7 +194,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnTick(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnTick fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnTick fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -248,7 +248,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnTrade(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnTrade fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnTrade fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -266,7 +266,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnOrder(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnOrder fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnOrder fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -284,7 +284,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnPosition(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnPosition fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnPosition fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -302,7 +302,7 @@ public:
         BfVoid reply;
         grpc::Status status = stub_->OnAccount(&ctx, data, &reply);
         if (!status.ok()) {
-            BfError("(%s)->OnAccount fail,code:%d,msg:%s", qPrintable(proxyId_), status.error_code(), status.error_message().c_str());
+            BfError("(%s)->OnAccount fail,code:%d,msg:%s", qPrintable(clientId_), status.error_code(), status.error_message().c_str());
             return;
         }
         */
@@ -327,13 +327,13 @@ public:
     void incPingFailCount() { pingfail_count_++; }
     int pingFailCount() { return pingfail_count_; }
     void resetPingFailCount() { pingfail_count_ = 0; }
-    QString proxyId() { return proxyId_; }
+    QString clientId() { return clientId_; }
 
 private:
     std::unique_ptr<BfProxyService::Stub> stub_;
     std::atomic_int32_t pingfail_count_ = 0;
     const int deadline_ = 500;
-    QString proxyId_;
+    QString clientId_;
     BfConnectReq req_;
 
     // async client
@@ -344,15 +344,15 @@ private:
 void PingCb::operator()()
 {
     if (!status_.ok()) {
-        QString proxyId = proxyClient_->proxyId();
+        QString clientId = proxyClient_->clientId();
         proxyClient_->incPingFailCount();
         int failCount = proxyClient_->pingFailCount();
         int errorCode = status_.error_code();
         std::string errorMsg = status_.error_message();
-        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(proxyId), deadline_, failCount, errorCode, errorMsg.c_str());
+        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
         if (failCount > 3) {
-            BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(proxyId));
-            QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, proxyId));
+            BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
+            QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
         }
         return;
     }
@@ -413,30 +413,30 @@ void PushService::onProxyConnect(const BfConnectReq& req)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString endpoint = QString().sprintf("%s:%d", req.proxyip().c_str(), req.proxyport());
-    QString proxyId = req.proxyid().c_str();
+    QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
+    QString clientId = req.clientid().c_str();
 
     ProxyClient* proxyClient = new ProxyClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        proxyId, req);
+        clientId, req);
 
-    if (proxyClients_.contains(proxyId)) {
-        auto it = proxyClients_[proxyId];
+    if (proxyClients_.contains(clientId)) {
+        auto it = proxyClients_[clientId];
         delete it;
-        proxyClients_.remove(proxyId);
+        proxyClients_.remove(clientId);
     }
-    proxyClients_[proxyId] = proxyClient;
+    proxyClients_[clientId] = proxyClient;
 }
 
-void PushService::onProxyClose(QString proxyId)
+void PushService::onProxyClose(QString clientId)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    if (proxyClients_.contains(proxyId)) {
-        BfDebug("delete proxyclient:%s", qPrintable(proxyId));
-        ProxyClient* proxyClient = proxyClients_[proxyId];
+    if (proxyClients_.contains(clientId)) {
+        BfDebug("delete proxyclient:%s", qPrintable(clientId));
+        ProxyClient* proxyClient = proxyClients_[clientId];
         delete proxyClient;
-        proxyClients_.remove(proxyId);
+        proxyClients_.remove(clientId);
     }
 }
 
