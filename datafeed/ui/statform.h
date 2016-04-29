@@ -20,7 +20,6 @@ public:
 private slots:
     void on_pushButtonRefresh_clicked();
     void on_pushButtonShowData_clicked();
-
     void on_tableWidget_cellClicked(int row, int column);
 
 private:

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>600</height>
+    <width>799</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,32 +15,8 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>2</number>
-    </property>
-    <property name="leftMargin">
-     <number>2</number>
-    </property>
-    <property name="topMargin">
-     <number>2</number>
-    </property>
-    <property name="rightMargin">
-     <number>2</number>
-    </property>
-    <property name="bottomMargin">
-     <number>2</number>
-    </property>
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="handleWidth">
-       <number>2</number>
-      </property>
-      <widget class="QTabWidget" name="tabWidgetData"/>
-      <widget class="QTabWidget" name="tabWidgetLog"/>
-     </widget>
+     <widget class="QTableWidget" name="tableWidget"/>
     </item>
    </layout>
   </widget>
@@ -49,11 +25,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>900</width>
+     <width>799</width>
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuSystem">
+   <widget class="QMenu" name="menuApp">
     <property name="title">
      <string>app</string>
     </property>
@@ -78,25 +54,32 @@
      <addaction name="actionCrashTerminateProcess"/>
     </widget>
     <addaction name="actionAppVersion"/>
-    <addaction name="separator"/>
     <addaction name="menu_NO_MONEY"/>
+   </widget>
+   <widget class="QMenu" name="menuThread">
+    <property name="title">
+     <string>thread</string>
+    </property>
+    <addaction name="actionThreadExternal"/>
    </widget>
    <widget class="QMenu" name="menuDb">
     <property name="title">
      <string>db</string>
     </property>
-    <addaction name="actionDbCompact"/>
+    <addaction name="actionDbOpen"/>
+    <addaction name="actionDbInit"/>
+    <addaction name="actionDbClose"/>
    </widget>
-   <widget class="QMenu" name="menuNet">
+   <widget class="QMenu" name="menuCtp">
     <property name="title">
-     <string>net</string>
+     <string>ctp</string>
     </property>
-    <addaction name="actionNetStart"/>
-    <addaction name="actionNetStop"/>
+    <addaction name="actionCtpVersion"/>
    </widget>
-   <addaction name="menuSystem"/>
-   <addaction name="menuNet"/>
+   <addaction name="menuApp"/>
+   <addaction name="menuThread"/>
    <addaction name="menuDb"/>
+   <addaction name="menuCtp"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -154,19 +137,29 @@
     <string>Crash_TerminateProcess</string>
    </property>
   </action>
-  <action name="actionNetStart">
+  <action name="actionCtpVersion">
    <property name="text">
-    <string>netStart</string>
+    <string>ctpVersion</string>
    </property>
   </action>
-  <action name="actionNetStop">
+  <action name="actionDbOpen">
    <property name="text">
-    <string>netStop</string>
+    <string>dbOpen</string>
    </property>
   </action>
-  <action name="actionDbCompact">
+  <action name="actionDbInit">
    <property name="text">
-    <string>dbCompact</string>
+    <string>dbInit</string>
+   </property>
+  </action>
+  <action name="actionDbClose">
+   <property name="text">
+    <string>dbClose</string>
+   </property>
+  </action>
+  <action name="actionThreadExternal">
+   <property name="text">
+    <string>threadExternal</string>
    </property>
   </action>
  </widget>

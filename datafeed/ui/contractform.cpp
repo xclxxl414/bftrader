@@ -50,6 +50,10 @@ void ContractForm::init()
     refresh();
 }
 
+void ContractForm::shutdown()
+{
+}
+
 void ContractForm::on_refreshButton_clicked()
 {
     refresh();
@@ -129,18 +133,6 @@ void ContractForm::onGotContract(QString key, const BfContractData& bfItem)
         QTableWidgetItem* item = new QTableWidgetItem(str_val);
         ui->tableWidget->setItem(row, i, item);
     }
-}
-
-void ContractForm::on_tableWidget_cellDoubleClicked(int row, int column)
-{
-    QString symbol = ui->tableWidget->item(row, table_col_.indexOf("symbol"))->text();
-    QString exchange = ui->tableWidget->item(row, table_col_.indexOf("exchange"))->text();
-
-    TickForm* form = new TickForm();
-    form->setWindowFlags(Qt::Window);
-    form->init(symbol, exchange);
-    centerWindow(form);
-    form->show();
 }
 
 void ContractForm::on_tableWidget_cellClicked(int row, int column)

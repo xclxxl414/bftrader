@@ -20,10 +20,10 @@ public:
 
 public:
     void init();
+    void shutdown();
 
 private slots:
     void on_refreshButton_clicked();
-    void on_tableWidget_cellDoubleClicked(int row, int column);
     void on_tableWidget_cellClicked(int row, int column);
     void on_pushButtonTick_clicked();
     void on_pushButtonBar_clicked();

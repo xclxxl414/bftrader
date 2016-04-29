@@ -186,20 +186,6 @@ void TickForm::on_pushButtonSendOrder_clicked()
     QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
 }
 
-void TickForm::on_tableWidget_cellDoubleClicked(int row, int column)
-{
-    (void)column;
-
-    QString symbol = ui->tableWidget->item(row, table_col_.indexOf("symbol"))->text();
-    QString exchange = ui->tableWidget->item(row, table_col_.indexOf("exchange"))->text();
-
-    RingBufferForm* form = new RingBufferForm();
-    form->setWindowFlags(Qt::Window);
-    form->init(symbol, exchange);
-    centerWindow(form);
-    form->show();
-}
-
 void TickForm::on_tableWidget_cellClicked(int row, int column)
 {
     (void)column;

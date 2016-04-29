@@ -1,9 +1,11 @@
+#include "encode_utils.h"
 #include "logger.h"
 #include "profile.h"
 #include "servicemgr.h"
 #include "ui/mainwindow.h"
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QMessageBox>
 
 //开一个vc编译器cmd，执行：windeployqt --dir bftrader --no-angle --no-translations --pdb appname.exe
 
@@ -79,8 +81,15 @@ int main(int argc, char* argv[])
     {
         QApplication a(argc, argv);
 
+        // ctp dont support path include cjk
+        if (hasCJK(a.applicationDirPath())) {
+            QMessageBox::critical(nullptr, Profile::appName(), "dont support cjk dir");
+            return -1;
+        }
+
         // single instance for dir+appname
         if (!Profile::checkSingleInstance()) {
+            QMessageBox::critical(nullptr, Profile::appName(), "dont support 1+ instance");
             return -1;
         }
 

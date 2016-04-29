@@ -80,7 +80,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    // sub window
+    // tabs
     infoForm_->init();
     errorForm_->init();
     debugForm_->init();
@@ -98,7 +98,7 @@ void MainWindow::init()
 
 void MainWindow::shutdown()
 {
-    // sub window
+    // tabs
     infoForm_->shutdown();
     errorForm_->shutdown();
     debugForm_->shutdown();

@@ -3,8 +3,9 @@ TEMPLATE = subdirs
 SUBDIRS = \
     ctpgateway \
     btgateway \
-    ctaengine \
+    cta \
     datafeed \
     dataframe \
     assist \
+    launcher \
     tools

@@ -24,7 +24,6 @@ private slots:
     void onTradeWillBegin();
     void onUpdateTick();
     void on_pushButtonSendOrder_clicked();
-    void on_tableWidget_cellDoubleClicked(int row, int column);
     void on_tableWidget_cellClicked(int row, int column);
     void on_pushButtonTick_clicked();
 

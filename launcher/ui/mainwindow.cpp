@@ -1,17 +1,15 @@
 #include "mainwindow.h"
-#include "contractform.h"
+#include "ctpmgr.h"
+#include "dbservice.h"
 #include "debug_utils.h"
-#include "debugform.h"
-#include "errorform.h"
-#include "infoform.h"
 #include "logger.h"
 #include "profile.h"
-#include "rpcservice.h"
+#include "runextensions.h"
 #include "servicemgr.h"
-#include "statform.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
-
+#include <QtConcurrentRun>
+#include <functional>
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -21,29 +19,23 @@ MainWindow::MainWindow(QWidget* parent)
     ui->setupUi(this);
 
     setWindowTitle(Profile::appName());
-    icon_ = QIcon(":/images/datafeed.png");
+    icon_ = QIcon(":/images/heart.png");
     setWindowIcon(icon_);
 
     //设置trayicon
     this->createActions();
     this->createTrayIcon();
 
-    // actions
-    ui->actionNetStart->setEnabled(true);
-    ui->actionNetStop->setEnabled(false);
+    //设置列=
+    table_col_ << "when"
+               << "message";
+    this->ui->tableWidget->setColumnCount(table_col_.length());
+    for (int i = 0; i < table_col_.length(); i++) {
+        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
+    }
 
-    // tabs
-    infoForm_ = new InfoForm(this);
-    errorForm_ = new ErrorForm(this);
-    debugForm_ = new DebugForm(this);
-    contractForm_ = new ContractForm(this);
-    statForm_ = new StatForm(this);
-
-    ui->tabWidgetData->addTab(statForm_, "data");
-    ui->tabWidgetData->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(infoForm_, "info");
-    ui->tabWidgetLog->addTab(errorForm_, "error");
-    ui->tabWidgetLog->addTab(debugForm_, "debug");
+    // 调整参数=
+    bfAdjustTableWidget(ui->tableWidget);
 }
 
 MainWindow::~MainWindow()
@@ -53,20 +45,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    infoForm_->init();
-    errorForm_->init();
-    debugForm_->init();
-    contractForm_->init();
-    statForm_->init();
+    // logger
+    QObject::connect(g_sm->logger(), &Logger::gotError, this, &MainWindow::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onLog);
 }
 
 void MainWindow::shutdown()
 {
-    infoForm_->shutdown();
-    errorForm_->shutdown();
-    debugForm_->shutdown();
-    contractForm_->shutdown();
-    statForm_->shutdown();
+}
+
+void MainWindow::onLog(QString when, QString msg)
+{
+    int row = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(row);
+
+    QTableWidgetItem* item = nullptr;
+
+    item = new QTableWidgetItem(when);
+    ui->tableWidget->setItem(row, 0, item);
+
+    item = new QTableWidgetItem(msg);
+    ui->tableWidget->setItem(row, 1, item);
+
+    ui->tableWidget->scrollToBottom();
 }
 
 void MainWindow::on_actionAppVersion_triggered()
@@ -194,21 +196,50 @@ void MainWindow::on_actionCrashTerminateProcess_triggered()
     ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
-void MainWindow::on_actionNetStart_triggered()
+void MainWindow::on_actionThreadExternal_triggered()
 {
-    ui->actionNetStart->setEnabled(false);
-    ui->actionNetStop->setEnabled(true);
-    QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
+    QFuture<void> future1 = QtConcurrent::run(this, &MainWindow::runOnExternal);
+    QFuture<void> future2 = QtConcurrent::run(std::bind(&MainWindow::runOnExternal, this));
+    QFuture<void> future3 = QtConcurrent::run(&MainWindow::runOnExternalEx, this);
+    std::function<void(QFutureInterface<void>&)> fn = std::bind(&MainWindow::runOnExternalEx, this, std::placeholders::_1);
+    QFuture<void> future4 = QtConcurrent::run(fn);
+
+    Q_UNUSED(future1);
+    Q_UNUSED(future2);
+    Q_UNUSED(future3);
+    Q_UNUSED(future4);
 }
 
-void MainWindow::on_actionNetStop_triggered()
+void MainWindow::runOnExternal()
 {
-    ui->actionNetStart->setEnabled(true);
-    ui->actionNetStop->setEnabled(false);
-    QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    BfInfo(__FUNCTION__);
 }
 
-void MainWindow::on_actionDbCompact_triggered()
+void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
 {
-    //垃圾回收=
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    BfInfo(__FUNCTION__);
+
+    future.reportFinished();
+}
+
+void MainWindow::on_actionCtpVersion_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionDbOpen_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbOpen", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionDbInit_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbInit", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionDbClose_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }
