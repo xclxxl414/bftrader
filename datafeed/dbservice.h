@@ -1,6 +1,8 @@
 #pragma once
 
+#include "ctpmgr.h"
 #include <QObject>
+#include <grpc++/grpc++.h>
 
 namespace leveldb {
 class DB;
@@ -16,21 +18,21 @@ public:
 private:
     void dbOpen();
     void dbClose();
-    //void batchWriteTicks();
+    void dbInit();
 
-private slots:
-    //void onGotContracts(QStringList ids, QStringList idsAll);
-    //void onGotTick(void* curTick, void* preTick);
-    //void onTradeWillBegin();
+public slots:
+    void getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
+    void getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
+    void getContract(const BfDatafeedGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
+
+    void insertTick(const BfTickData& bfItem);
+    void insertBar(const BfBarData& bfItem);
+    void insertContract(const BfContractData& bfItem);
+
+    void deleteTick(const BfDeleteTickReq& bfReq);
+    void deleteBar(const BfDeleteBarReq& bfReq);
+    void deleteContract(const BfDatafeedDeleteContractReq& bfReq);
 
 private:
     leveldb::DB* db_ = nullptr;
-
-    //struct TickPair {
-    //    void* curTick;
-    //    void* preTick;
-    //};
-    //static const int tickArrayLen_ = 128;
-    //TickPair tickArray[tickArrayLen_] = { 0 };
-    //int tickCount_ = 0;
 };

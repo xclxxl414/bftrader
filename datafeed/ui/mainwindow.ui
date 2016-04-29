@@ -15,6 +15,21 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
+    <property name="topMargin">
+     <number>2</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
+    </property>
+    <property name="bottomMargin">
+     <number>2</number>
+    </property>
     <item>
      <widget class="QTableWidget" name="tableWidget"/>
     </item>
@@ -61,8 +76,8 @@
     <property name="title">
      <string>db</string>
     </property>
-    <addaction name="actionHistoryData"/>
-    <addaction name="actionMetaData"/>
+    <addaction name="actionDbBrowser"/>
+    <addaction name="actionDbStat"/>
    </widget>
    <widget class="QMenu" name="menuNet">
     <property name="title">
@@ -141,14 +156,14 @@
     <string>netStop</string>
    </property>
   </action>
-  <action name="actionHistoryData">
+  <action name="actionDbBrowser">
    <property name="text">
-    <string>historyData</string>
+    <string>dbBrowser</string>
    </property>
   </action>
-  <action name="actionMetaData">
+  <action name="actionDbStat">
    <property name="text">
-    <string>metaData</string>
+    <string>dbStat</string>
    </property>
   </action>
  </widget>

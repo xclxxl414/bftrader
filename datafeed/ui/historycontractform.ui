@@ -14,6 +14,21 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -91,6 +106,36 @@
       <widget class="QComboBox" name="comboBox">
        <item>
         <property name="text">
+         <string>s1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>s3</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>s5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>s10</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>s15</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>s30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>m1</string>
         </property>
        </item>
@@ -101,7 +146,22 @@
        </item>
        <item>
         <property name="text">
+         <string>m5</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>m10</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>m15</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>m30</string>
         </property>
        </item>
        <item>

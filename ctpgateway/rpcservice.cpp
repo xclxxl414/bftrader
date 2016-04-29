@@ -14,7 +14,6 @@ using namespace bftrader::bfgateway;
 
 //
 // Gateway
-// 全广播机制
 //
 
 class Gateway final : public BfGatewayService::Service {

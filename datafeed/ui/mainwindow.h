@@ -38,8 +38,8 @@ private slots:
     void on_actionCrashTerminateProcess_triggered();
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
-    void on_actionHistoryData_triggered();
-    void on_actionMetaData_triggered();
+    void on_actionDbBrowser_triggered();
+    void on_actionDbStat_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;

@@ -207,7 +207,7 @@ void MainWindow::on_actionNetStop_triggered()
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionHistoryData_triggered()
+void MainWindow::on_actionDbBrowser_triggered()
 {
     HistoryContractForm* form = new HistoryContractForm();
     form->setWindowFlags(Qt::Window);
@@ -216,7 +216,7 @@ void MainWindow::on_actionHistoryData_triggered()
     form->show();
 }
 
-void MainWindow::on_actionMetaData_triggered()
+void MainWindow::on_actionDbStat_triggered()
 {
 
 }
