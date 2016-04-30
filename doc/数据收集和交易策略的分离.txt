@@ -1,3 +1,4 @@
-建议交易策略不要inserttick insertbar insertcontract之类的
-单独写一个数据收集的部件来做这个事情，
-交易策略初始化时候，需要历史数据就读一下datafeed就行了
+1 建议交易策略不要inserttick insertbar insertcontract之类的
+2 单独写一个数据收集的部件来做这个事情，
+3 交易策略初始化时候，需要历史数据就读一下datafeed就行了
+4 交易中需要的其他数据，比如指数，可以采用定期读datafeed来解决
