@@ -1,10 +1,10 @@
-#include "ctaform.h"
+#include "robotform.h"
 #include "tablewidget_helper.h"
-#include "ui_ctaform.h"
+#include "ui_robotform.h"
 
-CtaForm::CtaForm(QWidget* parent)
+RobotForm::RobotForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::CtaForm)
+    , ui(new Ui::RobotForm)
 {
     ui->setupUi(this);
 
@@ -37,15 +37,15 @@ CtaForm::CtaForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-CtaForm::~CtaForm()
+RobotForm::~RobotForm()
 {
     delete ui;
 }
 
-void CtaForm::init()
+void RobotForm::init()
 {
 }
 
-void CtaForm::shutdown()
+void RobotForm::shutdown()
 {
 }

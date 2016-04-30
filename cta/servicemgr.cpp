@@ -6,7 +6,6 @@
 #include "pushservice.h"
 #include "rpcservice.h"
 #include <QThread>
-#include <QThreadPool>
 
 ServiceMgr* g_sm = nullptr;
 
@@ -23,9 +22,6 @@ void ServiceMgr::init()
         return;
     }
     init_ = true;
-
-    const int threadCount = QThreadPool::globalInstance()->maxThreadCount();
-    QThreadPool::globalInstance()->setMaxThreadCount(qMax(4, 2 * threadCount));
 
     ui_thread_ = QThread::currentThread();
     io_thread_ = new QThread;
@@ -170,8 +166,6 @@ void ServiceMgr::shutdown()
         qFatal("shutdown_ == true");
         return;
     }
-
-    QThreadPool::globalInstance()->waitForDone();
 
     rpc_thread_->quit();
     rpc_thread_->wait();
@@ -362,5 +356,5 @@ void BfInfo(QString msg)
 
 void BfDebug(QString msg)
 {
-    g_sm->logger()->info(msg);
+    g_sm->logger()->debug(msg);
 }

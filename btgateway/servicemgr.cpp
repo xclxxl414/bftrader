@@ -362,5 +362,5 @@ void BfInfo(QString msg)
 
 void BfDebug(QString msg)
 {
-    g_sm->logger()->info(msg);
+    g_sm->logger()->debug(msg);
 }

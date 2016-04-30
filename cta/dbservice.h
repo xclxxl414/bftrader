@@ -16,7 +16,6 @@ signals:
 
 public slots:
     void dbOpen();
-    void dbInit();
     void dbClose();
 
 private:

@@ -1,15 +1,14 @@
 #include "mainwindow.h"
-#include "ctpmgr.h"
-#include "dbservice.h"
 #include "debug_utils.h"
 #include "logger.h"
 #include "profile.h"
-#include "runextensions.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
-#include <QtConcurrentRun>
-#include <functional>
+#include "robotform.h"
+#include "errorform.h"
+#include "infoform.h"
+#include "debugform.h"
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -26,16 +25,16 @@ MainWindow::MainWindow(QWidget* parent)
     this->createActions();
     this->createTrayIcon();
 
-    //设置列=
-    table_col_ << "when"
-               << "message";
-    this->ui->tableWidget->setColumnCount(table_col_.length());
-    for (int i = 0; i < table_col_.length(); i++) {
-        ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(table_col_.at(i)));
-    }
+    // tabs
+    infoForm_ = new InfoForm(this);
+    errorForm_ = new ErrorForm(this);
+    debugForm_ = new DebugForm(this);
+    robotForm_ = new RobotForm(this);
 
-    // 调整参数=
-    bfAdjustTableWidget(ui->tableWidget);
+    ui->tabWidgetCta->addTab(robotForm_, "robot");
+    ui->tabWidgetLog->addTab(infoForm_, "info");
+    ui->tabWidgetLog->addTab(errorForm_, "error");
+    ui->tabWidgetLog->addTab(debugForm_, "debug");
 }
 
 MainWindow::~MainWindow()
@@ -45,30 +44,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    // logger
-    QObject::connect(g_sm->logger(), &Logger::gotError, this, &MainWindow::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onLog);
+    infoForm_->init();
+    errorForm_->init();
+    debugForm_->init();
+    robotForm_->init();
 }
 
 void MainWindow::shutdown()
 {
-}
-
-void MainWindow::onLog(QString when, QString msg)
-{
-    int row = ui->tableWidget->rowCount();
-    ui->tableWidget->insertRow(row);
-
-    QTableWidgetItem* item = nullptr;
-
-    item = new QTableWidgetItem(when);
-    ui->tableWidget->setItem(row, 0, item);
-
-    item = new QTableWidgetItem(msg);
-    ui->tableWidget->setItem(row, 1, item);
-
-    ui->tableWidget->scrollToBottom();
+    infoForm_->shutdown();
+    errorForm_->shutdown();
+    debugForm_->shutdown();
+    robotForm_->shutdown();
 }
 
 void MainWindow::on_actionAppVersion_triggered()
@@ -194,52 +181,4 @@ void MainWindow::on_actionCrashExitProcess_triggered()
 void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
-}
-
-void MainWindow::on_actionThreadExternal_triggered()
-{
-    QFuture<void> future1 = QtConcurrent::run(this, &MainWindow::runOnExternal);
-    QFuture<void> future2 = QtConcurrent::run(std::bind(&MainWindow::runOnExternal, this));
-    QFuture<void> future3 = QtConcurrent::run(&MainWindow::runOnExternalEx, this);
-    std::function<void(QFutureInterface<void>&)> fn = std::bind(&MainWindow::runOnExternalEx, this, std::placeholders::_1);
-    QFuture<void> future4 = QtConcurrent::run(fn);
-
-    Q_UNUSED(future1);
-    Q_UNUSED(future2);
-    Q_UNUSED(future3);
-    Q_UNUSED(future4);
-}
-
-void MainWindow::runOnExternal()
-{
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
-}
-
-void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
-{
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
-
-    future.reportFinished();
-}
-
-void MainWindow::on_actionCtpVersion_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbOpen_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbOpen", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbInit_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbInit", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionDbClose_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->dbService(), "dbClose", Qt::QueuedConnection);
 }

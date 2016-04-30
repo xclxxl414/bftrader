@@ -12,8 +12,6 @@ public:
 
 signals:
 
-public slots:
-    void showVersion();
 };
 
 #endif // CTPMGR_H

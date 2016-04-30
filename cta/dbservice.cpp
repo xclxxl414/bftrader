@@ -1,6 +1,4 @@
 #include "dbservice.h"
-#include "ThostFtdcMdApi.h"
-#include "ThostFtdcTraderApi.h"
 #include "file_utils.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
@@ -70,26 +68,4 @@ void DbService::dbClose()
     }
     delete db_;
     db_ = nullptr;
-}
-
-void DbService::dbInit()
-{
-    BfDebug(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::DB);
-
-    if (db_ == nullptr) {
-        BfDebug("not open yet");
-        return;
-    }
-
-    CThostFtdcInstrumentField* idItem = new (CThostFtdcInstrumentField);
-    memset(idItem, 0, sizeof(CThostFtdcInstrumentField));
-    QString key;
-    leveldb::Slice val((const char*)idItem, sizeof(CThostFtdcInstrumentField));
-    leveldb::WriteOptions options;
-    key = QStringLiteral("instrument+");
-    db_->Put(options, key.toStdString(), val);
-    key = QStringLiteral("instrument=");
-    db_->Put(options, key.toStdString(), val);
-    delete idItem;
 }

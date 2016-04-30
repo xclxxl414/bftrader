@@ -10,8 +10,10 @@ class MainWindow;
 }
 
 class Profile;
-template <typename T>
-class QFutureInterface;
+class RobotForm;
+class InfoForm;
+class DebugForm;
+class ErrorForm;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -23,7 +25,6 @@ public:
     void shutdown();
 
 public slots:
-    void onLog(QString when, QString msg);
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
@@ -38,20 +39,12 @@ private slots:
     void on_actionCrashExit_triggered();
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
-    void on_actionThreadExternal_triggered();
-    void on_actionCtpVersion_triggered();
-    void on_actionDbOpen_triggered();
-    void on_actionDbInit_triggered();
-    void on_actionDbClose_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();
     void createActions();
     Profile* profile();
-
-    void runOnExternal();
-    void runOnExternalEx(QFutureInterface<void>& future);
 
 private:
     Ui::MainWindow* ui;
@@ -66,7 +59,11 @@ private:
     QMenu* trayIconMenu;
     QIcon icon_;
 
-    QStringList table_col_;
+    //tabs
+    RobotForm* robotForm_;
+    InfoForm* infoForm_;
+    DebugForm* debugForm_;
+    ErrorForm* errorForm_;
 };
 
 #endif // MAINWINDOW_H
