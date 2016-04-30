@@ -20,9 +20,9 @@ public:
 signals:
 
 public slots:
-    void onProxyConnect(const BfConnectReq& req);
-    void onProxyClose(QString clientId);
-    void onGatewayClose();
+    void onClientConnect(const BfConnectReq& req);
+    void onClientClose(QString clientId);
+    void onServerClose();
 
     void onTradeWillBegin();
     void onGotContracts(QStringList ids, QStringList idsAll);
@@ -36,7 +36,7 @@ public slots:
     void onGotAccount(const BfAccountData& account);
 
 private:
-    QMap<QString, ProxyClient*> proxyClients_;
+    QMap<QString, ProxyClient*> clients_;
     QTimer* pingTimer_ = nullptr;
 };
 

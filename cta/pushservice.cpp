@@ -196,7 +196,7 @@ void PingCb::operator()()
         BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
         if (failCount > 3) {
             BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
-            QMetaObject::invokeMethod(g_sm->pushService(), "onProxyClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
+            QMetaObject::invokeMethod(g_sm->pushService(), "onClientClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
         }
         return;
     }
