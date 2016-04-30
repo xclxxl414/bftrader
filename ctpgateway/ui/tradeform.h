@@ -1,7 +1,7 @@
 #ifndef TRADEFORM_H
 #define TRADEFORM_H
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QWidget>
 
 namespace Ui {

@@ -1,7 +1,7 @@
 #ifndef ACCOUNTFORM_H
 #define ACCOUNTFORM_H
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QWidget>
 
 namespace Ui {

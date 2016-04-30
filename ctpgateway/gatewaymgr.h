@@ -1,5 +1,5 @@
-#ifndef CTPMGR_H
-#define CTPMGR_H
+#ifndef GATEWAYMGR_H
+#define GATEWAYMGR_H
 
 #include "bftrader.pb.h"
 #include "ringbuffer.h"
@@ -30,10 +30,10 @@ struct CtpCmd {
 // 3.在queryInstrument之前重新初始化后界面，1秒后重新初始化内存+开始查询就可以了，这样就不会有问题了=
 //   onGotContracts后开始刷新界面，queryInstrument+login都延迟一秒，用途之一就是这个=
 // 4. tdsm/mdsm/ctputils的c++文件能包括ctp头文件，其他文件不准包含，便于移植=
-class CtpMgr : public QObject {
+class GatewayMgr : public QObject {
     Q_OBJECT
 public:
-    explicit CtpMgr(QObject* parent = 0);
+    explicit GatewayMgr(QObject* parent = 0);
     void init();
     void shutdown();
 
@@ -117,4 +117,4 @@ private:
     QTimer* cmdRunnerTimer_ = nullptr;
 };
 
-#endif // CTPMGR_H
+#endif // GATEWAYMGR_H

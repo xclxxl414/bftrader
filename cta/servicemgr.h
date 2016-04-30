@@ -6,7 +6,7 @@
 class QThread;
 class Logger;
 class Profile;
-class CtpMgr;
+class GatewayMgr;
 class DbService;
 class RpcService;
 class PushService;
@@ -26,7 +26,7 @@ public:
         IO, // file
         PUSH, // network-->
         RPC, // network<--
-        LOGIC // logic,eg.ctpmgr
+        LOGIC // logic,eg.gatewaymgr
     };
     QThread* getThread(ThreadType p);
     bool isCurrentOn(ThreadType p);
@@ -34,7 +34,7 @@ public:
 
     Logger* logger();
     Profile* profile();
-    CtpMgr* ctpMgr();
+    GatewayMgr* gatewayMgr();
     DbService* dbService();
     RpcService* rpcService();
     PushService* pushService();
@@ -65,7 +65,7 @@ private:
 
     Logger* logger_ = nullptr;
     Profile* profile_ = nullptr;
-    CtpMgr* ctpMgr_ = nullptr;
+    GatewayMgr* gatewayMgr_ = nullptr;
     DbService* dbService_ = nullptr;
     RpcService* rpcService_ = nullptr;
     PushService* pushService_ = nullptr;

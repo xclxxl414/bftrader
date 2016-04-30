@@ -15,7 +15,6 @@ SOURCES += main.cpp\
     ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
-    ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
@@ -23,12 +22,12 @@ SOURCES += main.cpp\
     ui/debugform.cpp \
     ui/errorform.cpp \
     ui/infoform.cpp \
-    ui/robotform.cpp
+    ui/robotform.cpp \
+    gatewaymgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
     servicemgr.h \
-    ctpmgr.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
@@ -36,7 +35,8 @@ HEADERS  += ui/mainwindow.h \
     ui/debugform.h \
     ui/errorform.h \
     ui/infoform.h \
-    ui/robotform.h
+    ui/robotform.h \
+    gatewaymgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \

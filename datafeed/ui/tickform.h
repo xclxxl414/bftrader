@@ -1,7 +1,7 @@
 #ifndef TICKFORM_H
 #define TICKFORM_H
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QMap>
 #include <QVector>
 #include <QWidget>

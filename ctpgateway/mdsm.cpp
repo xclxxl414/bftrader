@@ -1,8 +1,8 @@
 #include "mdsm.h"
 #include "ThostFtdcMdApi.h"
-#include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
+#include "gatewaymgr.h"
 #include "servicemgr.h"
 #include <QDateTime>
 #include <QDir>
@@ -94,13 +94,13 @@ private:
         CThostFtdcDepthMarketDataField* pDepthMarketData) override
     {
         QString id = pDepthMarketData->InstrumentID;
-        auto rb = g_sm->ctpMgr()->getRingBuffer(id);
+        auto rb = g_sm->gatewayMgr()->getRingBuffer(id);
         if (!isValidTick(rb, pDepthMarketData)) {
             return;
         }
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
         void* curTick = rb->put(pDepthMarketData);
-        emit g_sm->ctpMgr()->gotTick(curTick, preTick);
+        emit g_sm->gatewayMgr()->gotTick(curTick, preTick);
     }
 
 private:
@@ -109,7 +109,7 @@ private:
         if (pRspInfo && pRspInfo->ErrorID != 0) {
             BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
                 gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
-            emit g_sm->ctpMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
+            emit g_sm->gatewayMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
             return true;
         }
         return false;
@@ -122,7 +122,7 @@ private:
         g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
         got_ids_.clear();
-        g_sm->ctpMgr()->freeRingBuffer();
+        g_sm->gatewayMgr()->freeRingBuffer();
     }
 
     // 每次收盘/断网/崩溃/退出等等,都会清空ringbufer，需要重来一下下面的逻辑=
@@ -241,7 +241,7 @@ void MdSm::login(unsigned int delayTick)
         int result = mdapi_->ReqUserLogin(&req, reqId);
         BfDebug("CmdMdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -249,7 +249,7 @@ void MdSm::login(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void MdSm::subscrible(QStringList ids,
@@ -274,5 +274,5 @@ void MdSm::subscrible(QStringList ids,
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }

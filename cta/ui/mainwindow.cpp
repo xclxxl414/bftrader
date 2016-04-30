@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include "debug_utils.h"
+#include "debugform.h"
+#include "errorform.h"
+#include "infoform.h"
 #include "logger.h"
 #include "profile.h"
+#include "robotform.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
-#include "robotform.h"
-#include "errorform.h"
-#include "infoform.h"
-#include "debugform.h"
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)

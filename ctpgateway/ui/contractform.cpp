@@ -1,7 +1,7 @@
 #include "contractform.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "ctputils.h"
 #include "encode_utils.h"
+#include "gatewaymgr.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_contractform.h"
@@ -41,9 +41,9 @@ ContractForm::~ContractForm()
 
 void ContractForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &ContractForm::onGotContracts);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &ContractForm::onTradeWillBegin);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &ContractForm::onGotContracts);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &ContractForm::onTradeWillBegin);
 }
 
 void ContractForm::shutdown()
@@ -69,7 +69,7 @@ void ContractForm::onGotContracts(QStringList ids, QStringList idsAll)
     //设置行内容=
     for (int i = 0; i < sorted_ids.length(); i++) {
         QString id = sorted_ids.at(i);
-        void* contract = g_sm->ctpMgr()->getContract(id);
+        void* contract = g_sm->gatewayMgr()->getContract(id);
         onGotContract(contract);
     }
 }

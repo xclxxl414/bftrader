@@ -1,6 +1,6 @@
 #include "pushservice.h"
 #include "bfproxy.grpc.pb.h"
-#include "ctp_utils.h"
+#include "ctputils.h"
 #include "logger.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -379,15 +379,15 @@ void PushService::init()
     QObject::connect(this->pingTimer_, &QTimer::timeout, this, &PushService::onPing);
     this->pingTimer_->start();
 
-    // ctpmgr...
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &PushService::onTradeWillBegin);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &PushService::onGotContracts);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &PushService::onGotTick);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &PushService::onGotOrder);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTrade, this, &PushService::onGotTrade);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotPosition, this, &PushService::onGotPosition);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotAccount, this, &PushService::onGotAccount);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotCtpError, this, &PushService::onCtpError);
+    // gatewaymgr...
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &PushService::onTradeWillBegin);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &PushService::onGotContracts);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &PushService::onGotTick);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &PushService::onGotOrder);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &PushService::onGotTrade);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PushService::onGotPosition);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotAccount, this, &PushService::onGotAccount);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotCtpError, this, &PushService::onCtpError);
     QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
     QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
 }
@@ -483,7 +483,7 @@ void PushService::onGotTick(void* curTick, void* preTick)
     // tick里面的exchange不一定有=
     QString exchange = data.exchange().c_str();
     if (exchange.trimmed().length() == 0) {
-        void* contract = g_sm->ctpMgr()->getContract(data.symbol().c_str());
+        void* contract = g_sm->gatewayMgr()->getContract(data.symbol().c_str());
         exchange = CtpUtils::getExchangeFromContract(contract);
         data.set_exchange(exchange.toStdString());
     }

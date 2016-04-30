@@ -15,36 +15,36 @@ SOURCES += main.cpp\
     ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
-    ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
     ui/tablewidget_helper.cpp \
     ui/contractform.cpp \
     ui/tickform.cpp \
-    proto_utils.cpp \
     ui/barform.cpp \
     ui/statform.cpp \
     ui/debugform.cpp \
     ui/errorform.cpp \
-    ui/infoform.cpp
+    ui/infoform.cpp \
+    gatewaymgr.cpp \
+    protoutils.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
     servicemgr.h \
-    ctpmgr.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
     ui/tablewidget_helper.h \
     ui/contractform.h \
     ui/tickform.h \
-    proto_utils.h \
     ui/barform.h \
     ui/statform.h \
     ui/debugform.h \
     ui/errorform.h \
-    ui/infoform.h
+    ui/infoform.h \
+    gatewaymgr.h \
+    protoutils.h
 
 FORMS    += ui/mainwindow.ui \
     ui/contractform.ui \

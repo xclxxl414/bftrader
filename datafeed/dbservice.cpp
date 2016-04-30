@@ -1,13 +1,13 @@
 #include "dbservice.h"
-#include "ctpmgr.h"
 #include "encode_utils.h"
 #include "file_utils.h"
+#include "gatewaymgr.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
 #include "leveldb/env.h"
 #include "leveldb/write_batch.h"
 #include "profile.h"
-#include "proto_utils.h"
+#include "protoutils.h"
 #include "servicemgr.h"
 
 DbService::DbService(QObject* parent)

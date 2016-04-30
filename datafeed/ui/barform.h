@@ -1,7 +1,7 @@
 #ifndef BARFORM_H
 #define BARFORM_H
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QMap>
 #include <QVector>
 #include <QWidget>

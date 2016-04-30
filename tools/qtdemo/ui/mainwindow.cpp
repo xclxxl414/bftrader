@@ -1,7 +1,7 @@
 #include "mainwindow.h"
-#include "ctpmgr.h"
 #include "dbservice.h"
 #include "debug_utils.h"
+#include "gatewaymgr.h"
 #include "logger.h"
 #include "profile.h"
 #include "runextensions.h"
@@ -226,7 +226,7 @@ void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
 
 void MainWindow::on_actionCtpVersion_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "showVersion", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionDbOpen_triggered()

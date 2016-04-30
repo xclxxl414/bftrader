@@ -1,5 +1,5 @@
 #include "accountform.h"
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include "servicemgr.h"
 #include "ui_accountform.h"
 #include <QDesktopServices>
@@ -19,8 +19,8 @@ AccountForm::~AccountForm()
 
 void AccountForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotAccount, this, &AccountForm::onGotAccount);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotAccount, this, &AccountForm::onGotAccount);
 }
 
 void AccountForm::shutdown()
@@ -43,7 +43,7 @@ void AccountForm::onGotAccount(const BfAccountData& account)
 
 void AccountForm::on_pushButtonQueryAccount_clicked()
 {
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryAccount", Qt::QueuedConnection);
 }
 
 void AccountForm::on_pushButtonFeedback_clicked()

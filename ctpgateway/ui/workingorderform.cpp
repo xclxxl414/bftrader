@@ -1,5 +1,5 @@
 #include "workingorderform.h"
-#include "ctp_utils.h"
+#include "ctputils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_workingorderform.h"
@@ -42,8 +42,8 @@ WorkingOrderForm::~WorkingOrderForm()
 
 void WorkingOrderForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &WorkingOrderForm::onGotOrder);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &WorkingOrderForm::onGotOrder);
 }
 
 void WorkingOrderForm::shutdown()
@@ -111,7 +111,7 @@ void WorkingOrderForm::onGotOrder(const BfOrderData& newOrder)
 
 void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
 {
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryOrders", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection);
 }
 
 void WorkingOrderForm::on_pushButtonCancelAll_clicked()
@@ -122,6 +122,6 @@ void WorkingOrderForm::on_pushButtonCancelAll_clicked()
         req.set_exchange(order.exchange());
         req.set_bforderid(order.bforderid());
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
     }
 }

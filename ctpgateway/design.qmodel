@@ -114,7 +114,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{8f3e1c54-f763-437f-9c6e-91086a026802}</object>
-                         <name>ctpMgr</name>
+                         <name>gatewayMgr</name>
                          <pos>x:285;y:-125</pos>
                          <rect>x:-25;y:-10;w:50;h:20</rect>
                          <visual-role>0</visual-role>
@@ -665,7 +665,7 @@
                     <uid>{8f3e1c54-f763-437f-9c6e-91086a026802}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpMgr</name>
+                  <name>gatewayMgr</name>
                   <relations>
                    <handles>
                     <handles>

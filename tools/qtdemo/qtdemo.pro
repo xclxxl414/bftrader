@@ -15,20 +15,20 @@ SOURCES += main.cpp\
     ui/mainwindow.cpp \
     profile.cpp \
     servicemgr.cpp \
-    ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
-    ui/tablewidget_helper.cpp
+    ui/tablewidget_helper.cpp \
+    gatewaymgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
     servicemgr.h \
-    ctpmgr.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
-    ui/tablewidget_helper.h
+    ui/tablewidget_helper.h \
+    gatewaymgr.h
 
 FORMS    += ui/mainwindow.ui
 

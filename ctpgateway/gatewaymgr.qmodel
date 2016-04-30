@@ -90,7 +90,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{32e20014-629d-46db-b7a4-b38f977e1300}</object>
-                         <name>ctpmgr_tryStartSubscrible</name>
+                         <name>gatewaymgr_tryStartSubscrible</name>
                          <pos>x:355;y:165</pos>
                          <rect>x:-80;y:-10;w:160;h:20</rect>
                          <visual-role>0</visual-role>
@@ -132,7 +132,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{c5228060-332f-4d86-be46-a1e017241c9b}</object>
-                         <name>ctpmgr_resetData</name>
+                         <name>gatewaymgr_resetData</name>
                          <pos>x:365;y:255</pos>
                          <rect>x:-55;y:-10;w:110;h:20</rect>
                          <visual-role>0</visual-role>
@@ -153,7 +153,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{e23778c4-e4fb-45b1-882f-079ea08771ac}</object>
-                         <name>ctpmgr_start</name>
+                         <name>gatewaymgr_start</name>
                          <pos>x:370;y:30</pos>
                          <rect>x:-40;y:-10;w:80;h:20</rect>
                          <visual-role>0</visual-role>
@@ -249,7 +249,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{1b59f881-4f4a-4b23-87b5-54a41fd07b34}</object>
-                         <name>emit ctpmgr_tradeWillBegin</name>
+                         <name>emit gatewaymgr_tradeWillBegin</name>
                          <pos>x:360;y:210</pos>
                          <rect>x:-85;y:-10;w:170;h:20</rect>
                          <visual-role>0</visual-role>
@@ -324,7 +324,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{b830b230-81f0-4357-ab8c-c3f6ab429b13}</object>
-                         <name>ctpmgr_insertContract</name>
+                         <name>gatewaymgr_insertContract</name>
                          <pos>x:370;y:355</pos>
                          <rect>x:-70;y:-10;w:140;h:20</rect>
                          <visual-role>9</visual-role>
@@ -345,7 +345,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{be3ffa30-b7c7-4e3f-8e9f-8f4a23fbf884}</object>
-                         <name>ctpmgr_initRingBuffer</name>
+                         <name>gatewaymgr_initRingBuffer</name>
                          <pos>x:375;y:400</pos>
                          <rect>x:-70;y:-10;w:140;h:20</rect>
                          <visual-role>9</visual-role>
@@ -402,7 +402,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{d244190b-eec0-4121-bb2c-2d238f668afe}</object>
-                         <name>emit ctpmgr_gotContracts</name>
+                         <name>emit gatewaymgr_gotContracts</name>
                          <pos>x:375;y:445</pos>
                          <rect>x:-85;y:-10;w:170;h:20</rect>
                          <visual-role>0</visual-role>
@@ -441,7 +441,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{dd5c51d0-e64a-4ad0-b8d7-3bdaa5c393fa}</object>
-                         <name>ctpmgr_onGotContracts</name>
+                         <name>gatewaymgr_onGotContracts</name>
                          <pos>x:410;y:515</pos>
                          <rect>x:-75;y:-10;w:150;h:20</rect>
                          <visual-role>0</visual-role>
@@ -828,7 +828,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{fb60f289-f2bc-4ef7-8d1a-4a19e7d7f1d3}</object>
-                         <name>ctpmgr_getRingBuffer/putTick</name>
+                         <name>gatewaymgr_getRingBuffer/putTick</name>
                          <pos>x:390;y:620</pos>
                          <rect>x:-90;y:-10;w:180;h:20</rect>
                          <visual-role>9</visual-role>
@@ -867,7 +867,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{0346b201-8f05-41db-bcad-e0b7c5ad88d0}</object>
-                         <name>emit ctpmgr_gotTick</name>
+                         <name>emit gatewaymgr_gotTick</name>
                          <pos>x:365;y:660</pos>
                          <rect>x:-65;y:-10;w:130;h:20</rect>
                          <visual-role>0</visual-role>
@@ -906,7 +906,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{50032558-6cd2-4a02-8009-2b38f8b93c7f}</object>
-                         <name>ctpmgr_freeringbuffer/contract</name>
+                         <name>gatewaymgr_freeringbuffer/contract</name>
                          <pos>x:320;y:310</pos>
                          <rect>x:-95;y:-10;w:190;h:20</rect>
                          <visual-role>9</visual-role>
@@ -1101,7 +1101,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{66ada4b6-8f72-43c3-8f53-00e090b78245}</object>
-                         <name>ctpmgr_getRingBuffer/getTick</name>
+                         <name>gatewaymgr_getRingBuffer/getTick</name>
                          <pos>x:390;y:705</pos>
                          <rect>x:-90;y:-10;w:180;h:20</rect>
                          <visual-role>9</visual-role>
@@ -1140,7 +1140,7 @@
                           </DElement>
                          </base-DElement>
                          <object>{b0c0d15d-f5a5-4894-abfd-4b408822fb8d}</object>
-                         <name>ctpmgr_getContract</name>
+                         <name>gatewaymgr_getContract</name>
                          <pos>x:305;y:480</pos>
                          <rect>x:-60;y:-10;w:120;h:20</rect>
                          <visual-role>9</visual-role>
@@ -1337,7 +1337,7 @@
                     <uid>{32e20014-629d-46db-b7a4-b38f977e1300}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_tryStartSubscrible</name>
+                  <name>gatewaymgr_tryStartSubscrible</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1483,7 +1483,7 @@
                     <uid>{c5228060-332f-4d86-be46-a1e017241c9b}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_resetData</name>
+                  <name>gatewaymgr_resetData</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1534,7 +1534,7 @@
                     <uid>{e23778c4-e4fb-45b1-882f-079ea08771ac}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_start</name>
+                  <name>gatewaymgr_start</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1702,7 +1702,7 @@
                     <uid>{1b59f881-4f4a-4b23-87b5-54a41fd07b34}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>emit ctpmgr_tradeWillBegin</name>
+                  <name>emit gatewaymgr_tradeWillBegin</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1753,7 +1753,7 @@
                     <uid>{b830b230-81f0-4357-ab8c-c3f6ab429b13}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_insertContract</name>
+                  <name>gatewaymgr_insertContract</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -1774,7 +1774,7 @@
                     <uid>{be3ffa30-b7c7-4e3f-8e9f-8f4a23fbf884}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_initRingBuffer</name>
+                  <name>gatewaymgr_initRingBuffer</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -1795,7 +1795,7 @@
                     <uid>{d244190b-eec0-4121-bb2c-2d238f668afe}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>emit ctpmgr_gotContracts</name>
+                  <name>emit gatewaymgr_gotContracts</name>
                   <relations>
                    <handles>
                     <handles>
@@ -1868,7 +1868,7 @@
                     <uid>{dd5c51d0-e64a-4ad0-b8d7-3bdaa5c393fa}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_onGotContracts</name>
+                  <name>gatewaymgr_onGotContracts</name>
                   <relations>
                    <handles>
                     <handles>
@@ -2385,7 +2385,7 @@
                     <uid>{fb60f289-f2bc-4ef7-8d1a-4a19e7d7f1d3}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_getRingBuffer/putTick</name>
+                  <name>gatewaymgr_getRingBuffer/putTick</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -2406,7 +2406,7 @@
                     <uid>{0346b201-8f05-41db-bcad-e0b7c5ad88d0}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>emit ctpmgr_gotTick</name>
+                  <name>emit gatewaymgr_gotTick</name>
                   <relations>
                    <handles>
                     <handles>
@@ -2550,7 +2550,7 @@
                     <uid>{1d5800a2-fc93-4006-aece-9922ee16a1b7}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_contracts</name>
+                  <name>gatewaymgr_contracts</name>
                  </MObject>
                 </base-MObject>
                </MPackage>
@@ -2571,7 +2571,7 @@
                     <uid>{50032558-6cd2-4a02-8009-2b38f8b93c7f}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_freeringbuffer/contract</name>
+                  <name>gatewaymgr_freeringbuffer/contract</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -2796,7 +2796,7 @@
                     <uid>{66ada4b6-8f72-43c3-8f53-00e090b78245}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_getRingBuffer/getTick</name>
+                  <name>gatewaymgr_getRingBuffer/getTick</name>
                  </MObject>
                 </base-MObject>
                </MItem>
@@ -2817,7 +2817,7 @@
                     <uid>{b0c0d15d-f5a5-4894-abfd-4b408822fb8d}</uid>
                    </MElement>
                   </base-MElement>
-                  <name>ctpmgr_getContract</name>
+                  <name>gatewaymgr_getContract</name>
                  </MObject>
                 </base-MObject>
                </MItem>

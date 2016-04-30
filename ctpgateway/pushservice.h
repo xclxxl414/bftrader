@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QTimer>
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 
 class ProxyClient;
 

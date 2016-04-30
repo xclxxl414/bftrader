@@ -13,6 +13,10 @@ import "bftrader.proto";
 // robot负责和cta/gateway和datafeed通信
 //
 service BfRobotService{
+    // 活跃检测
+    // 也可以在这里做收盘处理，如果很长时间没有收到tick
+    rpc OnPing(BfPingData) returns (BfPingData) {}
+    
     // 行情回报
     rpc OnTick(BfTickData) returns (BfVoid) {}
         

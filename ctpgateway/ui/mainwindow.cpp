@@ -2,11 +2,11 @@
 #include "accountform.h"
 #include "configdialog.h"
 #include "contractform.h"
-#include "ctpmgr.h"
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
 #include "finishedorderform.h"
+#include "gatewaymgr.h"
 #include "infoform.h"
 #include "logger.h"
 #include "logindialog.h"
@@ -92,8 +92,8 @@ void MainWindow::init()
     tradeForm_->init();
     accountForm_->init();
 
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &MainWindow::onTradeWillBegin);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &MainWindow::onTradeWillBegin);
 }
 
 void MainWindow::shutdown()
@@ -125,7 +125,7 @@ void MainWindow::on_actionAppVersion_triggered()
 
 void MainWindow::on_actionAppQuit_triggered()
 {
-    if (g_sm->ctpMgr()->running()) {
+    if (g_sm->gatewayMgr()->running()) {
         this->showNormal();
         BfInfo("please stop ctp first");
         return;
@@ -249,7 +249,7 @@ void MainWindow::on_actionCrashTerminateProcess_triggered()
 
 void MainWindow::on_actionCtpVersion_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "showVersion", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "showVersion", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionCtpConfig_triggered()
@@ -275,7 +275,7 @@ void MainWindow::on_actionCtpStart_triggered()
     ui->actionCtpConfig->setEnabled(false);
     ui->actionCtpStop->setEnabled(true);
 
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "start", Qt::QueuedConnection, Q_ARG(QString, password));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "start", Qt::QueuedConnection, Q_ARG(QString, password));
 }
 
 void MainWindow::on_actionCtpStop_triggered()
@@ -285,7 +285,7 @@ void MainWindow::on_actionCtpStop_triggered()
     ui->actionCtpConfig->setEnabled(true);
     ui->actionCtpStop->setEnabled(false);
 
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "stop", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stop", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionNetStart_triggered()

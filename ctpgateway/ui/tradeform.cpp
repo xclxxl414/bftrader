@@ -1,5 +1,5 @@
 #include "tradeform.h"
-#include "ctp_utils.h"
+#include "ctputils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_tradeform.h"
@@ -40,8 +40,8 @@ TradeForm::~TradeForm()
 
 void TradeForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTrade, this, &TradeForm::onGotTrade);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &TradeForm::onGotTrade);
 }
 
 void TradeForm::shutdown()

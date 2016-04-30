@@ -23,7 +23,7 @@ class ServerContext;
 }  // namespace grpc
 
 namespace bftrader {
-namespace bfctaservice {
+namespace bfcta {
 
 class BfCtaService GRPC_FINAL {
  public:
@@ -294,7 +294,7 @@ class BfCtaService GRPC_FINAL {
   };
 };
 
-}  // namespace bfctaservice
+}  // namespace bfcta
 }  // namespace bftrader
 
 

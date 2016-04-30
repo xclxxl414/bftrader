@@ -100,8 +100,8 @@ FinishedOrderForm::~FinishedOrderForm()
 
 void FinishedOrderForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotOrder, this, &FinishedOrderForm::onGotOrder);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &FinishedOrderForm::onGotOrder);
 }
 
 void FinishedOrderForm::shutdown()

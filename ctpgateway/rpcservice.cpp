@@ -1,8 +1,8 @@
 #include "rpcservice.h"
 #include "bfgateway.grpc.pb.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "ctputils.h"
 #include "encode_utils.h"
+#include "gatewaymgr.h"
 #include "pushservice.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -52,13 +52,13 @@ public:
         int index = request->index();
         if (index <= 0) {
             QString symbol = request->symbol().c_str();
-            void* contract = g_sm->ctpMgr()->getContract(symbol);
+            void* contract = g_sm->gatewayMgr()->getContract(symbol);
             CtpUtils::translateContract(contract, response);
         } else {
-            QStringList ids = request->subscribled() ? g_sm->ctpMgr()->getIds() : g_sm->ctpMgr()->getIdsAll();
+            QStringList ids = request->subscribled() ? g_sm->gatewayMgr()->getIds() : g_sm->gatewayMgr()->getIdsAll();
             if (ids.length() > index - 1) {
                 QString symbol = ids.at(index - 1);
-                void* contract = g_sm->ctpMgr()->getContract(symbol);
+                void* contract = g_sm->gatewayMgr()->getContract(symbol);
                 CtpUtils::translateContract(contract, response);
             }
         }
@@ -72,10 +72,10 @@ public:
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
 
-        QString bfOrderId = g_sm->ctpMgr()->genOrderId();
+        QString bfOrderId = g_sm->gatewayMgr()->genOrderId();
         response->set_bforderid(bfOrderId.toStdString());
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrderWithId", Qt::QueuedConnection, Q_ARG(QString, bfOrderId), Q_ARG(BfSendOrderReq, *request));
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "sendOrderWithId", Qt::QueuedConnection, Q_ARG(QString, bfOrderId), Q_ARG(BfSendOrderReq, *request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override
@@ -85,7 +85,7 @@ public:
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
@@ -95,7 +95,7 @@ public:
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryAccount", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryAccount", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
@@ -105,7 +105,7 @@ public:
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
 
-        QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override

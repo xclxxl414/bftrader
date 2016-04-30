@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QObject>
 #include <grpc++/grpc++.h>
 

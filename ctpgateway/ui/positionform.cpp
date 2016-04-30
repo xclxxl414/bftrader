@@ -1,5 +1,5 @@
 #include "positionform.h"
-#include "ctp_utils.h"
+#include "ctputils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_positionform.h"
@@ -37,9 +37,9 @@ PositionForm::~PositionForm()
 
 void PositionForm::init()
 {
-    // ctpmgr
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotPosition, this, &PositionForm::onGotPosition);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &PositionForm::onGotContracts);
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PositionForm::onGotPosition);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &PositionForm::onGotContracts);
 }
 
 void PositionForm::shutdown()
@@ -55,7 +55,7 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
 {
     QString newSymbol = QString::fromStdString(newPos.symbol());
     QString newExchange = QString::fromStdString(newPos.exchange()); //ctp里面没有提供=
-    void* newContract = g_sm->ctpMgr()->getContract(newSymbol);
+    void* newContract = g_sm->gatewayMgr()->getContract(newSymbol);
     newExchange = CtpUtils::getExchangeFromContract(newContract);
 
     QString newKey = QString().sprintf("%s.%s.%d", newSymbol.toStdString().c_str(), newExchange.toStdString().c_str(), newPos.direction());
@@ -102,7 +102,7 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
         QString symbol = QString::fromStdString(pos.symbol());
         QString exchange = QString::fromStdString(pos.exchange()); //ctp里面没有提供=
         int volumeMultiple = 1;
-        void* contract = g_sm->ctpMgr()->getContract(symbol);
+        void* contract = g_sm->gatewayMgr()->getContract(symbol);
         exchange = CtpUtils::getExchangeFromContract(contract);
         volumeMultiple = CtpUtils::getVolumeMultipleFromContract(contract);
 
@@ -141,7 +141,7 @@ void PositionForm::on_pushButtonQueryPosition_clicked()
     ui->tableWidget->setRowCount(positions_.size());
     positions_.clear();
 
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "queryPosition", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryPosition", Qt::QueuedConnection);
 }
 
 // 如果不是上期所，平今仓可用close或closeToday，平昨仓可用close或closeYesterday=
@@ -162,7 +162,7 @@ void PositionForm::on_pushButtonCloseAll_clicked()
         QString symbol = pos.symbol().c_str();
         QString exchange = pos.exchange().c_str();
         if (exchange.length() == 0) {
-            void* contract = g_sm->ctpMgr()->getContract(symbol);
+            void* contract = g_sm->gatewayMgr()->getContract(symbol);
             exchange = CtpUtils::getExchangeFromContract(contract);
         }
 
@@ -173,7 +173,7 @@ void PositionForm::on_pushButtonCloseAll_clicked()
         }
 
         // 取不到tick的pass，比如晚上if不开盘=
-        void* tick = g_sm->ctpMgr()->getLatestTick(symbol);
+        void* tick = g_sm->gatewayMgr()->getLatestTick(symbol);
         if (!tick) {
             BfInfo(symbol + " has no tick,please close byhand");
             continue;
@@ -208,7 +208,7 @@ void PositionForm::on_pushButtonCloseAll_clicked()
             req.set_offset(offset);
             req.set_pricetype(priceType);
 
-            QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+            QMetaObject::invokeMethod(g_sm->gatewayMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
         }
 
         // 平今=
@@ -237,7 +237,7 @@ void PositionForm::on_pushButtonCloseAll_clicked()
             req.set_offset(offset);
             req.set_pricetype(priceType);
 
-            QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+            QMetaObject::invokeMethod(g_sm->gatewayMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
         }
     }
 }

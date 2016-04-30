@@ -1,23 +1,23 @@
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include "mdsm.h"
 #include "profile.h"
 #include "servicemgr.h"
 #include "tdsm.h"
 #include <windows.h>
 
-CtpMgr::CtpMgr(QObject* parent)
+GatewayMgr::GatewayMgr(QObject* parent)
     : QObject(parent)
 {
 }
 
-void CtpMgr::init()
+void GatewayMgr::init()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // cmdRunnder
     cmdRunnerTimer_ = new QTimer;
     cmdRunnerTimer_->setInterval(100);
-    QObject::connect(cmdRunnerTimer_, &QTimer::timeout, this, &CtpMgr::onRunCmdInterval);
+    QObject::connect(cmdRunnerTimer_, &QTimer::timeout, this, &GatewayMgr::onRunCmdInterval);
     cmdRunnerTimer_->start();
 
     // qRegisterMetaType
@@ -30,10 +30,10 @@ void CtpMgr::init()
     qRegisterMetaType<BfConnectReq>("BfConnectReq");
 
     // gotContracts
-    QObject::connect(this, &CtpMgr::gotContracts, this, &CtpMgr::onGotContracts);
+    QObject::connect(this, &GatewayMgr::gotContracts, this, &GatewayMgr::onGotContracts);
 }
 
-void CtpMgr::shutdown()
+void GatewayMgr::shutdown()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -45,7 +45,7 @@ void CtpMgr::shutdown()
     freeRingBuffer();
 }
 
-void CtpMgr::showVersion()
+void GatewayMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -53,7 +53,7 @@ void CtpMgr::showVersion()
     BfInfo(QString("tdapi version: ") + TdSm::version());
 }
 
-void CtpMgr::onMdSmStateChanged(int state)
+void GatewayMgr::onMdSmStateChanged(int state)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -98,7 +98,7 @@ void CtpMgr::onMdSmStateChanged(int state)
     }
 }
 
-void CtpMgr::onTdSmStateChanged(int state)
+void GatewayMgr::onTdSmStateChanged(int state)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -153,7 +153,7 @@ void CtpMgr::onTdSmStateChanged(int state)
     }
 }
 
-void CtpMgr::start(QString password)
+void GatewayMgr::start(QString password)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -181,7 +181,7 @@ void CtpMgr::start(QString password)
     return;
 }
 
-bool CtpMgr::initMdSm()
+bool GatewayMgr::initMdSm()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -197,18 +197,18 @@ bool CtpMgr::initMdSm()
     return true;
 }
 
-void CtpMgr::startMdSm()
+void GatewayMgr::startMdSm()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    QObject::connect(mdsm_, &MdSm::statusChanged, this, &CtpMgr::onMdSmStateChanged);
+    QObject::connect(mdsm_, &MdSm::statusChanged, this, &GatewayMgr::onMdSmStateChanged);
 
     autoLoginMd_ = true;
     mdsm_->start();
 }
 
-bool CtpMgr::initTdSm()
+bool GatewayMgr::initTdSm()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -225,18 +225,18 @@ bool CtpMgr::initTdSm()
     return true;
 }
 
-void CtpMgr::startTdSm()
+void GatewayMgr::startTdSm()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // go...
-    QObject::connect(tdsm_, &TdSm::statusChanged, this, &CtpMgr::onTdSmStateChanged);
+    QObject::connect(tdsm_, &TdSm::statusChanged, this, &GatewayMgr::onTdSmStateChanged);
 
     autoLoginTd_ = true;
     tdsm_->start();
 }
 
-void CtpMgr::tryStartSubscrible()
+void GatewayMgr::tryStartSubscrible()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -253,7 +253,7 @@ void CtpMgr::tryStartSubscrible()
     }
 }
 
-void CtpMgr::stop()
+void GatewayMgr::stop()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -278,7 +278,7 @@ void CtpMgr::stop()
     }
 }
 
-void CtpMgr::onGotContracts(QStringList ids, QStringList idsAll)
+void GatewayMgr::onGotContracts(QStringList ids, QStringList idsAll)
 {
     BfDebug(__FUNCTION__);
 
@@ -297,7 +297,7 @@ void CtpMgr::onGotContracts(QStringList ids, QStringList idsAll)
     tdsm_->reqSettlementInfoConfirm(0);
 }
 
-bool CtpMgr::running()
+bool GatewayMgr::running()
 {
     if (tdsm_ || mdsm_) {
         return true;
@@ -305,13 +305,13 @@ bool CtpMgr::running()
     return false;
 }
 
-void* CtpMgr::getLatestTick(QString id)
+void* GatewayMgr::getLatestTick(QString id)
 {
     auto rb = getRingBuffer(id);
     return rb->get(rb->head());
 }
 
-void* CtpMgr::getPreLatestTick(QString id)
+void* GatewayMgr::getPreLatestTick(QString id)
 {
     auto rb = getRingBuffer(id);
     int preIndex = rb->head() - 1;
@@ -321,7 +321,7 @@ void* CtpMgr::getPreLatestTick(QString id)
     return rb->get(preIndex);
 }
 
-void CtpMgr::resetData()
+void GatewayMgr::resetData()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -331,59 +331,59 @@ void CtpMgr::resetData()
     mdsm_->resetData(); //ringbuffer
 }
 
-QString CtpMgr::genOrderId()
+QString GatewayMgr::genOrderId()
 {
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::genOrderId,please login first");
+        BfInfo("GatewayMgr::genOrderId,please login first");
         return "888.888.888";
     }
 
     return tdsm_->genBfOrderId();
 }
 
-Logger* CtpMgr::logger()
+Logger* GatewayMgr::logger()
 {
     return g_sm->logger();
 }
 
-Profile* CtpMgr::profile()
+Profile* GatewayMgr::profile()
 {
     return g_sm->profile();
 }
 
-void CtpMgr::queryAccount()
+void GatewayMgr::queryAccount()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::queryAccount,please login first");
+        BfInfo("GatewayMgr::queryAccount,please login first");
         return;
     }
     tdsm_->queryAccount(0);
 }
 
-void CtpMgr::queryPosition()
+void GatewayMgr::queryPosition()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::queryPosition,please login first");
+        BfInfo("GatewayMgr::queryPosition,please login first");
         return;
     }
     tdsm_->queryPosition(0);
 }
 
-QStringList CtpMgr::getIds()
+QStringList GatewayMgr::getIds()
 {
     return ids_;
 }
 
-QStringList CtpMgr::getIdsAll()
+QStringList GatewayMgr::getIdsAll()
 {
     return ids_all_;
 }
 
-void CtpMgr::freeContracts()
+void GatewayMgr::freeContracts()
 {
     auto contract_list = contracts_.values();
     for (int i = 0; i < contract_list.length(); i++) {
@@ -393,7 +393,7 @@ void CtpMgr::freeContracts()
     contracts_.clear();
 }
 
-void* CtpMgr::getContract(QString id)
+void* GatewayMgr::getContract(QString id)
 {
     auto contract = contracts_.value(id);
     if (contract == nullptr) {
@@ -403,7 +403,7 @@ void* CtpMgr::getContract(QString id)
     return contract;
 }
 
-void CtpMgr::insertContract(QString id, void* contract)
+void GatewayMgr::insertContract(QString id, void* contract)
 {
     auto oldVal = contracts_.value(id);
     if (oldVal != nullptr) {
@@ -412,7 +412,7 @@ void CtpMgr::insertContract(QString id, void* contract)
     contracts_[id] = contract;
 }
 
-RingBuffer* CtpMgr::getRingBuffer(QString id)
+RingBuffer* GatewayMgr::getRingBuffer(QString id)
 {
     RingBuffer* rb = rbs_.value(id);
     if (rb == nullptr) {
@@ -422,7 +422,7 @@ RingBuffer* CtpMgr::getRingBuffer(QString id)
     return rb;
 }
 
-void CtpMgr::initRingBuffer(int itemLen, QStringList ids)
+void GatewayMgr::initRingBuffer(int itemLen, QStringList ids)
 {
     if (rbs_.count() != 0) {
         qFatal("rbs_.count() != 0");
@@ -435,7 +435,7 @@ void CtpMgr::initRingBuffer(int itemLen, QStringList ids)
     }
 }
 
-void CtpMgr::freeRingBuffer()
+void GatewayMgr::freeRingBuffer()
 {
     auto rb_list = rbs_.values();
     for (int i = 0; i < rb_list.length(); i++) {
@@ -446,7 +446,7 @@ void CtpMgr::freeRingBuffer()
     rbs_.clear();
 }
 
-void CtpMgr::onRunCmdInterval()
+void GatewayMgr::onRunCmdInterval()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -475,7 +475,7 @@ void CtpMgr::onRunCmdInterval()
     delete cmd;
 }
 
-void CtpMgr::runCmd(CtpCmd* cmd)
+void GatewayMgr::runCmd(CtpCmd* cmd)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -494,7 +494,7 @@ void CtpMgr::runCmd(CtpCmd* cmd)
         cmds_.append(cmd);
     }
 }
-void CtpMgr::resetCmds()
+void GatewayMgr::resetCmds()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -508,48 +508,48 @@ void CtpMgr::resetCmds()
     }
 }
 
-void CtpMgr::sendOrder(const BfSendOrderReq& req)
+void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::sendOrder,please login first");
+        BfInfo("GatewayMgr::sendOrder,please login first");
         return;
     }
 
     tdsm_->sendOrder(0, req);
 }
 
-void CtpMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
+void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::sendOrder,please login first");
+        BfInfo("GatewayMgr::sendOrder,please login first");
         return;
     }
 
     tdsm_->sendOrder(0, bfOrderId, req);
 }
 
-void CtpMgr::cancelOrder(const BfCancelOrderReq& req)
+void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::cancelOrder,please login first");
+        BfInfo("GatewayMgr::cancelOrder,please login first");
         return;
     }
 
     tdsm_->cancelOrder(0, req);
 }
 
-void CtpMgr::queryOrders()
+void GatewayMgr::queryOrders()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("CtpMgr::queryOrders,please login first");
+        BfInfo("GatewayMgr::queryOrders,please login first");
         return;
     }
     tdsm_->queryOrders(0);

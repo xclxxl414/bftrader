@@ -14,14 +14,12 @@ include(../bftrader.pri)
 SOURCES += main.cpp\
     profile.cpp \
     servicemgr.cpp \
-    ctpmgr.cpp \
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
     mdsm.cpp \
     tdsm.cpp \
     ringbuffer.cpp \
-    ctp_utils.cpp \
     ui/mainwindow.cpp \
     ui/configdialog.cpp \
     ui/logindialog.cpp \
@@ -36,12 +34,13 @@ SOURCES += main.cpp\
     ui/accountform.cpp \
     ui/tablewidget_helper.cpp \
     ui/workingorderform.cpp \
-    ui/ringbufferform.cpp
+    ui/ringbufferform.cpp \
+    gatewaymgr.cpp \
+    ctputils.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
     servicemgr.h \
-    ctpmgr.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
@@ -61,8 +60,9 @@ HEADERS  += ui/mainwindow.h \
     ui/accountform.h \
     ui/tablewidget_helper.h \
     ui/workingorderform.h \
-    ctp_utils.h \
-    ui/ringbufferform.h 
+    ui/ringbufferform.h \ 
+    gatewaymgr.h \
+    ctputils.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
@@ -91,4 +91,4 @@ RESOURCES += \
 
 DISTFILES += \
     design.qmodel \
-    ctpmgr.qmodel
+    gatewaymgr.qmodel

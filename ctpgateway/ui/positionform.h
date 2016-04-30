@@ -1,7 +1,7 @@
 #ifndef POSITIONFORM_H
 #define POSITIONFORM_H
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include <QMap>
 #include <QWidget>
 

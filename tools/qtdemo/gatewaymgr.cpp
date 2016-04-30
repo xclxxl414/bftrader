@@ -1,25 +1,25 @@
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
 #include "logger.h"
 #include "servicemgr.h"
 
-CtpMgr::CtpMgr(QObject* parent)
+GatewayMgr::GatewayMgr(QObject* parent)
     : QObject(parent)
 {
 }
 
-void CtpMgr::init()
+void GatewayMgr::init()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 }
 
-void CtpMgr::shutdown()
+void GatewayMgr::shutdown()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 }
 
-void CtpMgr::showVersion()
+void GatewayMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 

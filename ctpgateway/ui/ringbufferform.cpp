@@ -1,6 +1,6 @@
 #include "ringbufferform.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "ctputils.h"
+#include "gatewaymgr.h"
 #include "ringbuffer.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
@@ -57,7 +57,7 @@ void RingBufferForm::init(QString symbol, QString exchange)
     this->setWindowTitle(QString("ringbuffer-tick-") + symbol_);
     scanTicks();
 
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &RingBufferForm::onTradeWillBegin);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &RingBufferForm::onTradeWillBegin);
 }
 
 void RingBufferForm::scanTicks()
@@ -65,7 +65,7 @@ void RingBufferForm::scanTicks()
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    RingBuffer* rb = g_sm->ctpMgr()->getRingBuffer(symbol_);
+    RingBuffer* rb = g_sm->gatewayMgr()->getRingBuffer(symbol_);
 
     int head = rb->head();
     if (head < 0) {
@@ -98,7 +98,7 @@ void RingBufferForm::onGotTick(void* curTick, void* preTick)
     // tick里面的exchange不一定有=
     QString exchange = bfTick.exchange().c_str();
     if (exchange.trimmed().length() == 0) {
-        void* contract = g_sm->ctpMgr()->getContract(bfTick.symbol().c_str());
+        void* contract = g_sm->gatewayMgr()->getContract(bfTick.symbol().c_str());
         if (contract) {
             exchange = CtpUtils::getExchangeFromContract(contract);
         }

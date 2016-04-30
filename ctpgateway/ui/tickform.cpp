@@ -1,6 +1,6 @@
 #include "tickform.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "ctputils.h"
+#include "gatewaymgr.h"
 #include "ringbufferform.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
@@ -51,11 +51,11 @@ TickForm::~TickForm()
 
 void TickForm::init()
 {
-    // ctpmgr
+    // gatewaymgr
     // tablewidget更新ui太慢了(是自适应高度和宽度搞的，去掉自适应后好了)，不过改成500毫秒的定时器也不错=
-    //QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotTick, this, &TickForm::onGotTick);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::gotContracts, this, &TickForm::onGotContracts);
-    QObject::connect(g_sm->ctpMgr(), &CtpMgr::tradeWillBegin, this, &TickForm::onTradeWillBegin);
+    //QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &TickForm::onGotTick);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &TickForm::onGotContracts);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &TickForm::onTradeWillBegin);
 
     this->updateTickTimer_ = new QTimer(this);
     this->updateTickTimer_->setInterval(500);
@@ -79,7 +79,7 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     // tick里面的exchange不一定有=
     QString exchange = bfTick.exchange().c_str();
     if (exchange.trimmed().length() == 0) {
-        void* contract = g_sm->ctpMgr()->getContract(bfTick.symbol().c_str());
+        void* contract = g_sm->gatewayMgr()->getContract(bfTick.symbol().c_str());
         exchange = CtpUtils::getExchangeFromContract(contract);
     }
     vItem.insert("exchange", exchange);
@@ -132,7 +132,7 @@ void TickForm::onGotContracts(QStringList ids, QStringList idsAll)
         ui->tableWidget->setItem(i, table_col_.indexOf("symbol"), item);
 
         //设置exchange
-        void* contract = g_sm->ctpMgr()->getContract(id);
+        void* contract = g_sm->gatewayMgr()->getContract(id);
         if (contract) {
             QString exchange = CtpUtils::getExchangeFromContract(contract);
             QTableWidgetItem* item = new QTableWidgetItem(exchange);
@@ -156,8 +156,8 @@ void TickForm::onUpdateTick()
 {
     for (int i = 0; i < table_row_.size(); i++) {
         QString id = table_row_.key(i);
-        void* curTick = g_sm->ctpMgr()->getLatestTick(id);
-        void* preTick = g_sm->ctpMgr()->getPreLatestTick(id);
+        void* curTick = g_sm->gatewayMgr()->getLatestTick(id);
+        void* preTick = g_sm->gatewayMgr()->getPreLatestTick(id);
         if (curTick) {
             onGotTick(curTick, preTick);
         }
@@ -183,7 +183,7 @@ void TickForm::on_pushButtonSendOrder_clicked()
     req.set_offset(offset);
     req.set_pricetype(priceType);
 
-    QMetaObject::invokeMethod(g_sm->ctpMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
 }
 
 void TickForm::on_tableWidget_cellClicked(int row, int column)
@@ -207,7 +207,7 @@ void TickForm::on_tableWidget_cellClicked(int row, int column)
     ui->doubleSpinBoxPrice->setMaximum(upperLimit);
     ui->doubleSpinBoxPrice->setMinimum(lowerLimit);
 
-    void* contract = g_sm->ctpMgr()->getContract(symbol);
+    void* contract = g_sm->gatewayMgr()->getContract(symbol);
     if (contract) {
         BfContractData bfContract;
         CtpUtils::translateContract(contract, &bfContract);

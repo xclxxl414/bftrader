@@ -3,7 +3,7 @@
 #include "dbservice.h"
 #include "encode_utils.h"
 #include "leveldb/db.h"
-#include "proto_utils.h"
+#include "protoutils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "tickform.h"

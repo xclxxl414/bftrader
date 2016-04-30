@@ -1,9 +1,9 @@
 #include "tdsm.h"
 #include "ThostFtdcTraderApi.h"
-#include "ctp_utils.h"
-#include "ctpmgr.h"
+#include "ctputils.h"
 #include "encode_utils.h"
 #include "file_utils.h"
+#include "gatewaymgr.h"
 #include "servicemgr.h"
 #include <QDir>
 
@@ -96,7 +96,7 @@ private:
             // https://github.com/sunwangme/bftrader/issues/5
             CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
             memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
-            g_sm->ctpMgr()->insertContract(id, contract);
+            g_sm->gatewayMgr()->insertContract(id, contract);
             ids_all_ << id;
 
             // 订阅合约=
@@ -118,8 +118,8 @@ private:
                 ids = ids + id + ";";
             }
             BfInfo("total got ids:%d,reqId=%d,filter=%s,ids=%s", ids_.length(), nRequestID, sm()->idPrefixList_.toStdString().c_str(), ids.toUtf8().constData());
-            g_sm->ctpMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
-            emit g_sm->ctpMgr()->gotContracts(ids_, ids_all_);
+            g_sm->gatewayMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
+            emit g_sm->gatewayMgr()->gotContracts(ids_, ids_all_);
         }
     }
 
@@ -149,7 +149,7 @@ private:
                 account.set_closeprofit(pTradingAccount->CloseProfit);
                 account.set_positionprofit(pTradingAccount->PositionProfit);
 
-                emit g_sm->ctpMgr()->gotAccount(account);
+                emit g_sm->gatewayMgr()->gotAccount(account);
             }
         }
     }
@@ -190,7 +190,7 @@ private:
                 pos.ydposition(),
                 pInvestorPosition->TodayPosition);
 
-            emit g_sm->ctpMgr()->gotPosition(pos);
+            emit g_sm->gatewayMgr()->gotPosition(pos);
         }
 
         if (bIsLast) {
@@ -240,7 +240,7 @@ private:
             order.set_inserttime(pOrder->InsertTime);
             order.set_canceltime(pOrder->CancelTime);
 
-            emit g_sm->ctpMgr()->gotOrder(order);
+            emit g_sm->gatewayMgr()->gotOrder(order);
         }
 
         if (bIsLast) {
@@ -342,7 +342,7 @@ private:
         order.set_inserttime(pOrder->InsertTime);
         order.set_canceltime(pOrder->CancelTime);
 
-        emit g_sm->ctpMgr()->gotOrder(order);
+        emit g_sm->gatewayMgr()->gotOrder(order);
     }
 
     // 成交通知=成交可以使另外一个session的，这里要做sysid到bforderid的隐射，需要先拿到所有的working order
@@ -375,7 +375,7 @@ private:
         trade.set_tradedate(pTrade->TradeDate);
         trade.set_tradetime(pTrade->TradeTime);
 
-        emit g_sm->ctpMgr()->gotTrade(trade);
+        emit g_sm->gatewayMgr()->gotTrade(trade);
     }
 
 private:
@@ -383,7 +383,7 @@ private:
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
             BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
-            emit g_sm->ctpMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
+            emit g_sm->gatewayMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
             return true;
         }
         return false;
@@ -401,7 +401,7 @@ private:
         ids_.clear();
         ids_all_.clear();
         idPrefixList_.clear();
-        g_sm->ctpMgr()->freeContracts();
+        g_sm->gatewayMgr()->freeContracts();
     }
 
     int getOrderRef()
@@ -526,7 +526,7 @@ void TdSm::login(unsigned int delayTick)
         int result = tdapi_->ReqUserLogin(&req, reqId);
         BfDebug("CmdTdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -534,7 +534,7 @@ void TdSm::login(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 //目前，通过 ReqUserLogout 登出系统的话，会先将现有的连接断开，再重新建立一个新的连接(CTPSDK)
@@ -553,7 +553,7 @@ void TdSm::logout(unsigned int delayTick)
         int result = tdapi_->ReqUserLogout(&req, reqId);
         BfDebug("CmdTdLogout,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -561,7 +561,7 @@ void TdSm::logout(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::queryInstrument(unsigned int delayTick)
@@ -569,8 +569,8 @@ void TdSm::queryInstrument(unsigned int delayTick)
     BfDebug(__FUNCTION__);
 
     std::function<int(int)> fn = [=](int reqId) -> int {
-        // 重置ctpmgr相关内存=
-        g_sm->ctpMgr()->resetData();
+        // 重置gatewaymgr相关内存=
+        g_sm->gatewayMgr()->resetData();
 
         CThostFtdcQryInstrumentField req;
         memset(&req, 0, sizeof(req));
@@ -578,7 +578,7 @@ void TdSm::queryInstrument(unsigned int delayTick)
         int result = tdapi_->ReqQryInstrument(&req, reqId);
         BfDebug("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -586,7 +586,7 @@ void TdSm::queryInstrument(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::queryAccount(unsigned int delayTick)
@@ -603,7 +603,7 @@ void TdSm::queryAccount(unsigned int delayTick)
         int result = tdapi_->ReqQryTradingAccount(&req, reqId);
         BfDebug("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -611,7 +611,7 @@ void TdSm::queryAccount(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::reqSettlementInfoConfirm(unsigned int delayTick)
@@ -628,7 +628,7 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick)
         int result = tdapi_->ReqSettlementInfoConfirm(&req, reqId);
         BfDebug("CmdTdReqSettlementInfoConfirm,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -636,7 +636,7 @@ void TdSm::reqSettlementInfoConfirm(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::queryPosition(unsigned int delayTick)
@@ -653,7 +653,7 @@ void TdSm::queryPosition(unsigned int delayTick)
         int result = tdapi_->ReqQryInvestorPosition(&req, reqId);
         BfDebug("CmdTdReqQryInvestorPosition,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -661,7 +661,7 @@ void TdSm::queryPosition(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::sendOrder(unsigned int delayTick, const BfSendOrderReq& bfReq)
@@ -703,7 +703,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString bfOrderId, const BfSendOrde
         int result = tdapi_->ReqOrderInsert(&req, reqId);
         BfDebug("CmdTdReqOrderInsert,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -711,7 +711,7 @@ void TdSm::sendOrder(unsigned int delayTick, QString bfOrderId, const BfSendOrde
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::cancelOrder(unsigned int delayTick, const BfCancelOrderReq& bfReq)
@@ -742,7 +742,7 @@ void TdSm::cancelOrder(unsigned int delayTick, const BfCancelOrderReq& bfReq)
         int result = tdapi_->ReqOrderAction(&req, reqId);
         BfDebug("CmdTdReqOrderAction,bfOrderId=%s,reqId=%d,result=%d", bfOrderId.toStdString().c_str(), reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -750,7 +750,7 @@ void TdSm::cancelOrder(unsigned int delayTick, const BfCancelOrderReq& bfReq)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }
 
 void TdSm::queryOrders(unsigned int delayTick)
@@ -767,7 +767,7 @@ void TdSm::queryOrders(unsigned int delayTick)
         int result = tdapi_->ReqQryOrder(&req, reqId);
         BfDebug("CmdTdReqQryOrder,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
-            emit g_sm->ctpMgr()->requestSent(reqId);
+            emit g_sm->gatewayMgr()->requestSent(reqId);
         }
         return result;
     };
@@ -775,5 +775,5 @@ void TdSm::queryOrders(unsigned int delayTick)
     CtpCmd* cmd = new CtpCmd;
     cmd->fn = fn;
     cmd->delayTick = delayTick;
-    g_sm->ctpMgr()->runCmd(cmd);
+    g_sm->gatewayMgr()->runCmd(cmd);
 }

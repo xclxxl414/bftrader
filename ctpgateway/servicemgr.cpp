@@ -1,6 +1,6 @@
 #include "servicemgr.h"
-#include "ctpmgr.h"
 #include "dbservice.h"
+#include "gatewaymgr.h"
 #include "logger.h"
 #include "profile.h"
 #include "pushservice.h"
@@ -32,8 +32,8 @@ void ServiceMgr::init()
 
     logger_ = new Logger;
     profile_ = new Profile;
-    ctpMgr_ = new CtpMgr;
-    ctpMgr_->moveToThread(logic_thread_);
+    gatewayMgr_ = new GatewayMgr;
+    gatewayMgr_->moveToThread(logic_thread_);
     dbService_ = new DbService;
     dbService_->moveToThread(db_thread_);
     rpcService_ = new RpcService;
@@ -121,22 +121,22 @@ void ServiceMgr::logicThreadStarted()
 {
     checkCurrentOn(LOGIC);
 
-    ctpMgr_->init();
+    gatewayMgr_->init();
 }
 
 void ServiceMgr::logicThreadFinished()
 {
     checkCurrentOn(LOGIC);
 
-    ctpMgr_->shutdown();
-    ctpMgr_->moveToThread(ui_thread_);
+    gatewayMgr_->shutdown();
+    gatewayMgr_->moveToThread(ui_thread_);
 }
 
-CtpMgr* ServiceMgr::ctpMgr()
+GatewayMgr* ServiceMgr::gatewayMgr()
 {
     check();
 
-    return this->ctpMgr_;
+    return this->gatewayMgr_;
 }
 
 DbService* ServiceMgr::dbService()
@@ -204,8 +204,8 @@ void ServiceMgr::shutdown()
     delete dbService_;
     dbService_ = nullptr;
 
-    delete ctpMgr_;
-    ctpMgr_ = nullptr;
+    delete gatewayMgr_;
+    gatewayMgr_ = nullptr;
 
     delete profile_;
     profile_ = nullptr;

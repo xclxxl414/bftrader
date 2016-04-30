@@ -29,7 +29,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace bftrader {
-namespace bfctaservice {
+namespace bfcta {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_bfcta_2eproto();
@@ -50,7 +50,7 @@ void protobuf_ShutdownFile_bfcta_2eproto();
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace bfctaservice
+}  // namespace bfcta
 }  // namespace bftrader
 
 // @@protoc_insertion_point(global_scope)

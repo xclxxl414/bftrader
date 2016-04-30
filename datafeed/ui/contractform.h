@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QWidget>
 
-#include "ctpmgr.h"
+#include "gatewaymgr.h"
 
 namespace Ui {
 class ContractForm;

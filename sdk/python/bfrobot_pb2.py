@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfrobot.proto',
   package='bftrader.bfrobot',
   syntax='proto3',
-  serialized_pb=_b('\n\rbfrobot.proto\x12\x10\x62\x66trader.bfrobot\x1a\x0e\x62\x66trader.proto2\xc1\x02\n\x0e\x42\x66RobotService\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnInit\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12/\n\x07OnStart\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnStop\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rbfrobot.proto\x12\x10\x62\x66trader.bfrobot\x1a\x0e\x62\x66trader.proto2\xf9\x02\n\x0e\x42\x66RobotService\x12\x36\n\x06OnPing\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\x06OnTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnTrade\x12\x15.bftrader.BfTradeData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x07OnOrder\x12\x15.bftrader.BfOrderData\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnInit\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12/\n\x07OnStart\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12.\n\x06OnStop\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -37,6 +37,9 @@ from grpc.framework.interfaces.face import utilities as face_utilities
 class BetaBfRobotServiceServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
+  @abc.abstractmethod
+  def OnPing(self, request, context):
+    raise NotImplementedError()
   @abc.abstractmethod
   def OnTick(self, request, context):
     raise NotImplementedError()
@@ -59,6 +62,10 @@ class BetaBfRobotServiceServicer(object):
 class BetaBfRobotServiceStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
+  @abc.abstractmethod
+  def OnPing(self, request, timeout):
+    raise NotImplementedError()
+  OnPing.future = None
   @abc.abstractmethod
   def OnTick(self, request, timeout):
     raise NotImplementedError()
@@ -97,9 +104,12 @@ def beta_create_BfRobotService_server(servicer, pool=None, pool_size=None, defau
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfOrderData.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnPing'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfTickData.FromString,
@@ -108,6 +118,7 @@ def beta_create_BfRobotService_server(servicer, pool=None, pool_size=None, defau
   response_serializers = {
     ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfVoid.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnPing'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfVoid.SerializeToString,
@@ -116,6 +127,7 @@ def beta_create_BfRobotService_server(servicer, pool=None, pool_size=None, defau
   method_implementations = {
     ('bftrader.bfrobot.BfRobotService', 'OnInit'): face_utilities.unary_unary_inline(servicer.OnInit),
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): face_utilities.unary_unary_inline(servicer.OnOrder),
+    ('bftrader.bfrobot.BfRobotService', 'OnPing'): face_utilities.unary_unary_inline(servicer.OnPing),
     ('bftrader.bfrobot.BfRobotService', 'OnStart'): face_utilities.unary_unary_inline(servicer.OnStart),
     ('bftrader.bfrobot.BfRobotService', 'OnStop'): face_utilities.unary_unary_inline(servicer.OnStop),
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): face_utilities.unary_unary_inline(servicer.OnTick),
@@ -137,9 +149,12 @@ def beta_create_BfRobotService_stub(channel, host=None, metadata_transformer=Non
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_serializers = {
     ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfOrderData.SerializeToString,
+    ('bftrader.bfrobot.BfRobotService', 'OnPing'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfTickData.SerializeToString,
@@ -148,6 +163,7 @@ def beta_create_BfRobotService_stub(channel, host=None, metadata_transformer=Non
   response_deserializers = {
     ('bftrader.bfrobot.BfRobotService', 'OnInit'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnOrder'): bftrader_pb2.BfVoid.FromString,
+    ('bftrader.bfrobot.BfRobotService', 'OnPing'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnStart'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnStop'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfrobot.BfRobotService', 'OnTick'): bftrader_pb2.BfVoid.FromString,
@@ -156,6 +172,7 @@ def beta_create_BfRobotService_stub(channel, host=None, metadata_transformer=Non
   cardinalities = {
     'OnInit': cardinality.Cardinality.UNARY_UNARY,
     'OnOrder': cardinality.Cardinality.UNARY_UNARY,
+    'OnPing': cardinality.Cardinality.UNARY_UNARY,
     'OnStart': cardinality.Cardinality.UNARY_UNARY,
     'OnStop': cardinality.Cardinality.UNARY_UNARY,
     'OnTick': cardinality.Cardinality.UNARY_UNARY,
