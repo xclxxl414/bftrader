@@ -1,0 +1,3 @@
+建议交易策略不要inserttick insertbar insertcontract之类的
+单独写一个数据收集的部件来做这个事情，
+交易策略初始化时候，需要历史数据就读一下datafeed就行了
