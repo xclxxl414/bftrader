@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QObject>
 #include <QTimer>
+#include <QMutex>
 
 using namespace bftrader;
 
@@ -25,6 +26,7 @@ public:
     void init();
     void shutdown();
 
+    // ui
 public slots:
     void startProxy();
     void stopProxy();
@@ -33,25 +35,25 @@ public slots:
     void onProxyClosed();
     void onPing();
 
-    // todo(hege)
-    void getContract(const BfGetContractReq& req, BfContractData& resp);
-    void sendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp);
-    void cancelOrder(const BfCancelOrderReq& req, BfVoid& resp);
-    void queryAccount(const BfVoid& req, BfVoid& resp);
-    void queryPosition(const BfVoid& req, BfVoid& resp);
-    void queryOrders(const BfVoid& req, BfVoid& resp);
+    // channel&stub is threadsafe
+public slots:
+    void getContract(QString gatewayId,const BfGetContractReq& req, BfContractData& resp);
+    void sendOrder(QString gatewayId,const BfSendOrderReq& req, BfSendOrderResp& resp);
+    void cancelOrder(QString gatewayId,const BfCancelOrderReq& req);
+    void queryAccount(QString gatewayId);
+    void queryPosition(QString gatewayId);
 
 signals:
-    void tradeWillBegin(const BfVoid& data);
-    void gotContracts(const BfVoid& data);
-    void gotTick(const BfTickData& data);
-    void gotPing(const BfPingData& data);
-    void gotAccount(const BfAccountData& data);
-    void gotOrder(const BfOrderData& data);
-    void gotTrade(const BfTradeData& data);
-    void gotPosition(const BfPositionData& data);
-    void gotError(const BfErrorData& data);
-    void gotLog(const BfLogData& data);
+    void tradeWillBegin(QString gatewayId);
+    void gotContracts(QString gatewayId);
+    void gotPing(QString gatewayId,const BfPingData& data);
+    void gotTick(QString gatewayId,const BfTickData& data);
+    void gotAccount(QString gatewayId,const BfAccountData& data);
+    void gotOrder(QString gatewayId,const BfOrderData& data);
+    void gotTrade(QString gatewayId,const BfTradeData& data);
+    void gotPosition(QString gatewayId,const BfPositionData& data);
+    void gotError(QString gatewayId,const BfErrorData& data);
+    void gotLog(QString gatewayId,const BfLogData& data);
 
 private slots:
     void onProxyThreadStarted();
@@ -61,6 +63,7 @@ private:
     grpc::Server* grpcServer_ = nullptr;
 
     QMap<QString, GatewayClient*> clients_;
+    QMutex clients_mutex_;
     QTimer* pingTimer_ = nullptr;
 };
 

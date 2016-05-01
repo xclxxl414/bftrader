@@ -22,7 +22,7 @@ class DataRecorder(BetaBfProxyServiceServicer):
         self.datafeed_channel = implementations.insecure_channel('localhost',50052)
         self.datafeed = beta_create_BfDatafeedService_stub(self.datafeed_channel)
         self._service = beta_create_BfProxyService_server(self)
-        self._service.add_insecure_port('[::]:50053')
+        self._service.add_insecure_port('[::]:50054')
         
     def start(self):
         self._service.start()
@@ -126,9 +126,9 @@ def run():
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
-        # Close
+        # Disconnect
         req = BfVoid()
-        resp = datarecorder.gateway.Close(req,_TIMEOUT_SECONDS,metadata=_MT)
+        resp = datarecorder.gateway.Disconnect(req,_TIMEOUT_SECONDS,metadata=_MT)
 
         print "stop datarecorder"
         datarecorder.stop()

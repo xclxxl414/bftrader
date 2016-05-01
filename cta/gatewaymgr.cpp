@@ -23,54 +23,65 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
+    virtual ::grpc::Status OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
+    {
+        BfDebug("%s on thread:%d,from:(%s)", __FUNCTION__, ::GetCurrentThreadId(), qPrintable(getClientId(context)));
+        response->set_message(request->message());
+        return grpc::Status::OK;
+    }
+
     virtual ::grpc::Status OnTradeWillBegin(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "tradeWillBegin", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfVoid,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnGotContracts(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
-    {
-        BfDebug("%s on thread:%d,from:(%s)", __FUNCTION__, ::GetCurrentThreadId(), qPrintable(getClientId(context)));
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotContracts", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfVoid,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotTick", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfTickData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnError(::grpc::ServerContext* context, const ::bftrader::BfErrorData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotError", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfErrorData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotLog", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfLogData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnTrade(::grpc::ServerContext* context, const ::bftrader::BfTradeData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotTrade", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfTradeData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotOrder", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfOrderData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnPosition(::grpc::ServerContext* context, const ::bftrader::BfPositionData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotPosition", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfPositionData,*request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnAccount(::grpc::ServerContext* context, const ::bftrader::BfAccountData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotAccount", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)),Q_ARG(BfAccountData,*request));
         return grpc::Status::OK;
     }
 
@@ -155,19 +166,69 @@ public:
         }
     }
 
-public:
-    bool logHandler() { return req_.loghandler(); }
-    bool tickHandler() { return req_.tickhandler(); }
-    bool tradehandler() { return req_.tradehandler(); }
-    bool subscribled(const std::string& symbol, const std::string& exchange)
+    void GetContract(const BfGetContractReq& req, BfContractData& resp)
     {
-        if (req_.symbol() == "*") {
-            return true;
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->GetContract(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfError("(%s)->GetContract,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
-        if (symbol == req_.symbol()) {
-            return true;
+    }
+
+    void SendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->SendOrder(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfError("(%s)->SendOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
-        return false;
+    }
+
+    void CancelOrder(const BfCancelOrderReq& req, BfVoid& resp)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->CancelOrder(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfError("(%s)->CancelOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+        }
+    }
+
+    void QueryAccount(const BfVoid& req, BfVoid& resp)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->QueryAccount(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfError("(%s)->QueryAccount,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+        }
+    }
+
+    void QueryPosition(const BfVoid& req, BfVoid& resp)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->QueryPosition(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfError("(%s)->QueryPosition,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+        }
     }
 
 private:
@@ -200,6 +261,12 @@ void GatewayMgr::init()
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
     qRegisterMetaType<BfConnectReq>("BfConnectReq");
 
+    qRegisterMetaType<BfErrorData>("BfErrorData");
+    qRegisterMetaType<BfLogData>("BfLogData");
+
+    qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
+    qRegisterMetaType<BfContractData>("BfContractData");
+
     // start timer
     this->pingTimer_ = new QTimer(this);
     this->pingTimer_->setInterval(5 * 1000);
@@ -216,12 +283,6 @@ void GatewayMgr::shutdown()
     this->pingTimer_->stop();
     delete this->pingTimer_;
     this->pingTimer_ = nullptr;
-
-    // delete all gatewayclient
-    for (auto client : clients_) {
-        delete client;
-    }
-    clients_.clear();
 
     // stop proxy
     stopProxy();
@@ -280,6 +341,7 @@ void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfCon
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
 
     // gatewayclient
     GatewayClient* client = new GatewayClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
@@ -302,6 +364,7 @@ void GatewayMgr::disconnectGateway(QString gatewayId)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
 
     if (clients_.contains(gatewayId)) {
         BfDebug("delete gatewayclient:%s", qPrintable(gatewayId));
@@ -321,6 +384,7 @@ void GatewayMgr::onProxyClosed()
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
 
     for (auto client : clients_) {
         // disconnect
@@ -336,6 +400,7 @@ void GatewayMgr::onProxyClosed()
 void GatewayMgr::onPing()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
 
     BfPingData req, resp;
     req.set_message("cta");
@@ -344,27 +409,66 @@ void GatewayMgr::onPing()
     }
 }
 
-void GatewayMgr::getContract(const BfGetContractReq& req, BfContractData& resp)
+void GatewayMgr::getContract(QString gatewayId,const BfGetContractReq& req, BfContractData& resp)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    QMutexLocker lock(&clients_mutex_);
+
+    auto client = clients_.value(gatewayId,nullptr);
+    if(client!=nullptr){
+        client->GetContract(req,resp);
+    }
 }
-void GatewayMgr::sendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp)
+
+void GatewayMgr::sendOrder(QString gatewayId,const BfSendOrderReq& req, BfSendOrderResp& resp)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    QMutexLocker lock(&clients_mutex_);
+
+    auto client = clients_.value(gatewayId,nullptr);
+    if(client!=nullptr){
+        client->SendOrder(req,resp);
+    }
 }
-void GatewayMgr::cancelOrder(const BfCancelOrderReq& req, BfVoid& resp)
+
+void GatewayMgr::cancelOrder(QString gatewayId,const BfCancelOrderReq& req)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    if(!g_sm->isCurrentOn(ServiceMgr::LOGIC)){
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
+    QMutexLocker lock(&clients_mutex_);
+
+    BfVoid resp;
+    auto client = clients_.value(gatewayId,nullptr);
+    if(client!=nullptr){
+        client->CancelOrder(req,resp);
+    }
 }
-void GatewayMgr::queryAccount(const BfVoid& req, BfVoid& resp)
+
+void GatewayMgr::queryAccount(QString gatewayId)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    if(!g_sm->isCurrentOn(ServiceMgr::LOGIC)){
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
+    QMutexLocker lock(&clients_mutex_);
+
+    BfVoid req,resp;
+    auto client = clients_.value(gatewayId,nullptr);
+    if(client!=nullptr){
+        client->QueryAccount(req,resp);
+    }
 }
-void GatewayMgr::queryPosition(const BfVoid& req, BfVoid& resp)
+
+void GatewayMgr::queryPosition(QString gatewayId)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-}
-void GatewayMgr::queryOrders(const BfVoid& req, BfVoid& resp)
-{
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    if(!g_sm->isCurrentOn(ServiceMgr::LOGIC)){
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
+    QMutexLocker lock(&clients_mutex_);
+
+    BfVoid req,resp;
+    auto client = clients_.value(gatewayId,nullptr);
+    if(client!=nullptr){
+        client->QueryPosition(req,resp);
+    }
 }
