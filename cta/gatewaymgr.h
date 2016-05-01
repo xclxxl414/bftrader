@@ -3,9 +3,9 @@
 
 #include "bftrader.pb.h"
 #include <QMap>
+#include <QMutex>
 #include <QObject>
 #include <QTimer>
-#include <QMutex>
 
 using namespace bftrader;
 
@@ -35,25 +35,25 @@ public slots:
     void onProxyClosed();
     void onPing();
 
-    // channel&stub is threadsafe
+    // channel&stub is threadsafe,sendorder/getcontract可以任意线程调用=
 public slots:
-    void getContract(QString gatewayId,const BfGetContractReq& req, BfContractData& resp);
-    void sendOrder(QString gatewayId,const BfSendOrderReq& req, BfSendOrderResp& resp);
-    void cancelOrder(QString gatewayId,const BfCancelOrderReq& req);
+    void getContract(QString gatewayId, const BfGetContractReq& req, BfContractData& resp);
+    void sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
+    void cancelOrder(QString gatewayId, const BfCancelOrderReq& req);
     void queryAccount(QString gatewayId);
     void queryPosition(QString gatewayId);
 
 signals:
     void tradeWillBegin(QString gatewayId);
     void gotContracts(QString gatewayId);
-    void gotPing(QString gatewayId,const BfPingData& data);
-    void gotTick(QString gatewayId,const BfTickData& data);
-    void gotAccount(QString gatewayId,const BfAccountData& data);
-    void gotOrder(QString gatewayId,const BfOrderData& data);
-    void gotTrade(QString gatewayId,const BfTradeData& data);
-    void gotPosition(QString gatewayId,const BfPositionData& data);
-    void gotError(QString gatewayId,const BfErrorData& data);
-    void gotLog(QString gatewayId,const BfLogData& data);
+    void gotPing(QString gatewayId, const BfPingData& data);
+    void gotTick(QString gatewayId, const BfTickData& data);
+    void gotAccount(QString gatewayId, const BfAccountData& data);
+    void gotOrder(QString gatewayId, const BfOrderData& data);
+    void gotTrade(QString gatewayId, const BfTradeData& data);
+    void gotPosition(QString gatewayId, const BfPositionData& data);
+    void gotError(QString gatewayId, const BfErrorData& data);
+    void gotLog(QString gatewayId, const BfLogData& data);
 
 private slots:
     void onProxyThreadStarted();
