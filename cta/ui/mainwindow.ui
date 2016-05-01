@@ -94,9 +94,17 @@
     <addaction name="actionCtpConnect"/>
     <addaction name="actionCtpDisconnect"/>
    </widget>
+   <widget class="QMenu" name="menuNet">
+    <property name="title">
+     <string>net</string>
+    </property>
+    <addaction name="actionNetStart"/>
+    <addaction name="actionNetStop"/>
+   </widget>
    <addaction name="menuApp"/>
    <addaction name="menuProxy"/>
    <addaction name="menuGateway"/>
+   <addaction name="menuNet"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -172,6 +180,16 @@
   <action name="actionCtpDisconnect">
    <property name="text">
     <string>ctpDisconnect</string>
+   </property>
+  </action>
+  <action name="actionNetStart">
+   <property name="text">
+    <string>netStart</string>
+   </property>
+  </action>
+  <action name="actionNetStop">
+   <property name="text">
+    <string>netStop</string>
    </property>
   </action>
  </widget>

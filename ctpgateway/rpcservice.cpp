@@ -194,9 +194,7 @@ void RpcService::stop()
 void RpcService::onGatewayThreadStarted()
 {
     BfDebug(__FUNCTION__);
-    if (g_sm->isCurrentOn(ServiceMgr::RPC)) {
-        qFatal("g_sm->CurrentOn(ServiceMgr::RPC)");
-    }
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     std::string server_address("0.0.0.0:50051");
     Gateway gateway("ctpgateway");

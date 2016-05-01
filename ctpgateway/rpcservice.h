@@ -3,7 +3,6 @@
 
 #include <QObject>
 
-class BfGateway;
 namespace grpc {
 class Server;
 }

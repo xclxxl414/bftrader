@@ -22,7 +22,7 @@ class DataRecorder(BetaBfProxyServiceServicer):
         self.datafeed_channel = implementations.insecure_channel('localhost',50052)
         self.datafeed = beta_create_BfDatafeedService_stub(self.datafeed_channel)
         self._service = beta_create_BfProxyService_server(self)
-        self._service.add_insecure_port('[::]:50054')
+        self._service.add_insecure_port('[::]:50060')
         
     def start(self):
         self._service.start()
@@ -115,7 +115,7 @@ def run():
     
     print "connect gateway"
     # Connect
-    req = BfConnectReq(clientId="datarecorder",clientIp="localhost",clientPort=50053,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
+    req = BfConnectReq(clientId="datarecorder",clientIp="localhost",clientPort=50060,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
     resp = datarecorder.gateway.Connect(req,_TIMEOUT_SECONDS)
     if resp.errorCode == 0:
         # Ping

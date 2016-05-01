@@ -9,7 +9,7 @@ using namespace bftrader;
 using namespace bftrader::bfrobot;
 
 //
-// RobotClient
+// RobotClient，实现异步客户端，不需要等客户端的应答就直接返回，避免一个客户端堵住其他的=
 //
 class IGrpcCb {
 public:
@@ -217,10 +217,81 @@ void PushService::init()
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    // start timer
+    this->pingTimer_ = new QTimer(this);
+    this->pingTimer_->setInterval(5 * 1000);
+    QObject::connect(this->pingTimer_, &QTimer::timeout, this, &PushService::onPing);
+    this->pingTimer_->start();
 }
 
 void PushService::shutdown()
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    // close timer
+    this->pingTimer_->stop();
+    delete this->pingTimer_;
+    this->pingTimer_ = nullptr;
+
+    // delete all robotclient
+    for (auto client : clients_) {
+        delete client;
+    }
+    clients_.clear();
+}
+
+void PushService::connectRobot(QString ctaId, const BfConnectReq& req)
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
+    QString robotId = req.clientid().c_str();
+
+    RobotClient* client = new RobotClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
+        ctaId, req);
+
+    if (clients_.contains(robotId)) {
+        auto it = clients_[robotId];
+        delete it;
+        clients_.remove(robotId);
+    }
+    clients_[robotId] = client;
+}
+
+void PushService::disconnectRobot(QString robotId)
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    if (clients_.contains(robotId)) {
+        BfDebug("delete robotclient:%s", qPrintable(robotId));
+        RobotClient* client = clients_[robotId];
+        delete client;
+        clients_.remove(robotId);
+    }
+}
+
+void PushService::onCtaClosed()
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    for (auto client : clients_) {
+        delete client;
+    }
+    clients_.clear();
+}
+
+void PushService::onPing()
+{
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    BfPingData data;
+    data.set_message("cta");
+    for (auto client : clients_) {
+        client->OnPing(data);
+    }
 }

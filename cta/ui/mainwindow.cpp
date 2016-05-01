@@ -7,6 +7,7 @@
 #include "logger.h"
 #include "profile.h"
 #include "robotform.h"
+#include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
@@ -31,6 +32,9 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionProxyStop->setEnabled(false);
     ui->actionCtpConnect->setEnabled(true);
     ui->actionCtpDisconnect->setEnabled(false);
+
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
 
     // tabs
     infoForm_ = new InfoForm(this);
@@ -225,4 +229,18 @@ void MainWindow::on_actionCtpDisconnect_triggered()
 
     QString gatewayId = "ctpgateway";
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
+}
+
+void MainWindow::on_actionNetStart_triggered()
+{
+    ui->actionNetStart->setEnabled(false);
+    ui->actionNetStop->setEnabled(true);
+    QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionNetStop_triggered()
+{
+    ui->actionNetStart->setEnabled(true);
+    ui->actionNetStop->setEnabled(false);
+    QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }

@@ -43,6 +43,8 @@ private slots:
     void on_actionProxyStop_triggered();
     void on_actionCtpConnect_triggered();
     void on_actionCtpDisconnect_triggered();
+    void on_actionNetStart_triggered();
+    void on_actionNetStop_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;

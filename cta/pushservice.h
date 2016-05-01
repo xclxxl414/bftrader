@@ -1,9 +1,14 @@
 #ifndef PUSHSERVICE_H
 #define PUSHSERVICE_H
 
+#include "gatewaymgr.h"
+#include <QMap>
 #include <QObject>
+#include <QTimer>
 
-//IO
+class RobotClient;
+
+// PUSH
 class PushService : public QObject {
     Q_OBJECT
 public:
@@ -14,8 +19,14 @@ public:
 signals:
 
 public slots:
+    void connectRobot(QString ctaId, const BfConnectReq& req);
+    void disconnectRobot(QString robotId);
+    void onCtaClosed();
+    void onPing();
 
 private:
+    QMap<QString, RobotClient*> clients_;
+    QTimer* pingTimer_ = nullptr;
 };
 
 #endif // PUSHSERVICE_H
