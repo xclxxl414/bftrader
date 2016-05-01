@@ -16,10 +16,11 @@ using namespace bftrader::bfproxy;
 
 class IGrpcCb {
 public:
-    explicit IGrpcCb()
+    explicit IGrpcCb(QString clientId)
     {
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
         context_.set_deadline(deadline);
+        context_.AddMetadata("clientid", clientId.toStdString());
     }
     virtual ~IGrpcCb()
     {
@@ -40,8 +41,8 @@ protected:
 template <class Resp>
 class GrpcCb : public IGrpcCb {
 public:
-    explicit GrpcCb()
-        : IGrpcCb()
+    explicit GrpcCb(QString clientId)
+        : IGrpcCb(clientId)
     {
     }
     virtual ~GrpcCb() override {}
@@ -70,8 +71,8 @@ private:
 class ProxyClient;
 class PingCb final : public GrpcCb<BfPingData> {
 public:
-    explicit PingCb(ProxyClient* client)
-        : GrpcCb<BfPingData>()
+    explicit PingCb(ProxyClient* client, QString clientId)
+        : GrpcCb<BfPingData>(clientId)
         , client_(client)
     {
     }
@@ -86,9 +87,9 @@ private:
 
 class ProxyClient {
 public:
-    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString clientId, const BfConnectReq& req)
+    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString gatewayId, const BfConnectReq& req)
         : stub_(BfProxyService::NewStub(channel))
-        , clientId_(clientId)
+        , gatewayId_(gatewayId)
         , req_(req)
     {
         BfDebug(__FUNCTION__);
@@ -124,64 +125,64 @@ public:
 
     void OnTradeWillBegin(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnTradeWillBegin(&pCb->context(), data, &cq_));
     }
 
     void OnGotContracts(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnGotContracts(&pCb->context(), data, &cq_));
     }
 
     // ref: grpc\test\cpp\interop\interop_client.cc
     void OnPing(const BfPingData& data)
     {
-        auto pCb = new PingCb(this);
+        auto pCb = new PingCb(this, this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnPing(&pCb->context(), data, &cq_));
     }
 
     void OnTick(const BfTickData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnTick(&pCb->context(), data, &cq_));
     }
 
     // 这个函数就别log了，会重入=
     void OnError(const BfErrorData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnError(&pCb->context(), data, &cq_));
     }
 
     // 这个函数就别log了，会重入=
     void OnLog(const BfLogData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnLog(&pCb->context(), data, &cq_));
     }
 
     void OnTrade(const BfTradeData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnTrade(&pCb->context(), data, &cq_));
     }
 
     void OnOrder(const BfOrderData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnOrder(&pCb->context(), data, &cq_));
     }
 
     void OnPosition(const BfPositionData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnPosition(&pCb->context(), data, &cq_));
     }
 
     void OnAccount(const BfAccountData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnAccount(&pCb->context(), data, &cq_));
     }
 
@@ -202,13 +203,14 @@ public:
     void incPingFailCount() { pingfail_count_++; }
     int pingFailCount() { return pingfail_count_; }
     void resetPingFailCount() { pingfail_count_ = 0; }
-    QString clientId() { return clientId_; }
+    QString gatewayId() { return gatewayId_; }
+    QString proxyId() { return req_.clientid().c_str(); }
 
 private:
     std::unique_ptr<BfProxyService::Stub> stub_;
     std::atomic_int32_t pingfail_count_ = 0;
     const int deadline_ = 500;
-    QString clientId_;
+    QString gatewayId_;
     BfConnectReq req_;
 
     // async client
@@ -219,15 +221,15 @@ private:
 void PingCb::operator()()
 {
     if (!status_.ok()) {
-        QString clientId = client_->clientId();
+        QString proxyId = client_->proxyId();
         client_->incPingFailCount();
         int failCount = client_->pingFailCount();
         int errorCode = status_.error_code();
         std::string errorMsg = status_.error_message();
-        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
+        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(proxyId), deadline_, failCount, errorCode, errorMsg.c_str());
         //if (failCount > 3) {
-        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
-        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectProxy", Qt::QueuedConnection, Q_ARG(QString, clientId));
+        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(proxyId));
+        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectProxy", Qt::QueuedConnection, Q_ARG(QString, proxyId));
         //}
         return;
     }
@@ -284,34 +286,34 @@ void PushService::shutdown()
     clients_.clear();
 }
 
-void PushService::connectProxy(const BfConnectReq& req)
+void PushService::connectProxy(QString gatewayId, const BfConnectReq& req)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
-    QString clientId = req.clientid().c_str();
+    QString proxyId = req.clientid().c_str();
 
     ProxyClient* client = new ProxyClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        clientId, req);
+        gatewayId, req);
 
-    if (clients_.contains(clientId)) {
-        auto it = clients_[clientId];
+    if (clients_.contains(proxyId)) {
+        auto it = clients_[proxyId];
         delete it;
-        clients_.remove(clientId);
+        clients_.remove(proxyId);
     }
-    clients_[clientId] = client;
+    clients_[proxyId] = client;
 }
 
-void PushService::disconnectProxy(QString clientId)
+void PushService::disconnectProxy(QString proxyId)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    if (clients_.contains(clientId)) {
-        BfDebug("delete proxyclient:%s", qPrintable(clientId));
-        ProxyClient* client = clients_[clientId];
+    if (clients_.contains(proxyId)) {
+        BfDebug("delete proxyclient:%s", qPrintable(proxyId));
+        ProxyClient* client = clients_[proxyId];
         delete client;
-        clients_.remove(clientId);
+        clients_.remove(proxyId);
     }
 }
 

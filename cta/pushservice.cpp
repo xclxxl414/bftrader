@@ -13,10 +13,11 @@ using namespace bftrader::bfrobot;
 //
 class IGrpcCb {
 public:
-    explicit IGrpcCb()
+    explicit IGrpcCb(QString clientId)
     {
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
         context_.set_deadline(deadline);
+        context_.AddMetadata("clientid", clientId.toStdString());
     }
     virtual ~IGrpcCb()
     {
@@ -37,8 +38,8 @@ protected:
 template <class Resp>
 class GrpcCb : public IGrpcCb {
 public:
-    explicit GrpcCb()
-        : IGrpcCb()
+    explicit GrpcCb(QString clientId)
+        : IGrpcCb(clientId)
     {
     }
     virtual ~GrpcCb() override {}
@@ -67,8 +68,8 @@ private:
 class RobotClient;
 class PingCb final : public GrpcCb<BfPingData> {
 public:
-    explicit PingCb(RobotClient* robotClient)
-        : GrpcCb<BfPingData>()
+    explicit PingCb(RobotClient* robotClient, QString clientId)
+        : GrpcCb<BfPingData>(clientId)
         , robotClient_(robotClient)
     {
     }
@@ -83,9 +84,9 @@ private:
 
 class RobotClient {
 public:
-    RobotClient(std::shared_ptr<grpc::Channel> channel, QString clientId, const BfConnectReq& req)
+    RobotClient(std::shared_ptr<grpc::Channel> channel, QString ctaId, const BfConnectReq& req)
         : stub_(BfRobotService::NewStub(channel))
-        , clientId_(clientId)
+        , ctaId_(ctaId)
         , req_(req)
     {
         BfDebug(__FUNCTION__);
@@ -120,37 +121,37 @@ public:
     }
     void OnPing(const BfPingData& data)
     {
-        auto pCb = new PingCb(this);
+        auto pCb = new PingCb(this, this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnPing(&pCb->context(), data, &cq_));
     }
     void OnTick(const BfTickData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnTick(&pCb->context(), data, &cq_));
     }
     void OnTrade(const BfTradeData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnTrade(&pCb->context(), data, &cq_));
     }
     void OnOrder(const BfOrderData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnOrder(&pCb->context(), data, &cq_));
     }
     void OnInit(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnInit(&pCb->context(), data, &cq_));
     }
     void OnStart(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnStart(&pCb->context(), data, &cq_));
     }
     void OnStop(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>();
+        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
         pCb->setRpcPtrAndFinish(stub_->AsyncOnStop(&pCb->context(), data, &cq_));
     }
 
@@ -171,13 +172,14 @@ public:
     void incPingFailCount() { pingfail_count_++; }
     int pingFailCount() { return pingfail_count_; }
     void resetPingFailCount() { pingfail_count_ = 0; }
-    QString clientId() { return clientId_; }
+    QString ctaId() { return ctaId_; }
+    QString robotId() { return req_.clientid().c_str(); }
 
 private:
     std::unique_ptr<BfRobotService::Stub> stub_;
     std::atomic_int32_t pingfail_count_ = 0;
     const int deadline_ = 500;
-    QString clientId_;
+    QString ctaId_;
     BfConnectReq req_;
 
     // async client
@@ -188,15 +190,15 @@ private:
 void PingCb::operator()()
 {
     if (!status_.ok()) {
-        QString clientId = robotClient_->clientId();
+        QString robotId = robotClient_->robotId();
         robotClient_->incPingFailCount();
         int failCount = robotClient_->pingFailCount();
         int errorCode = status_.error_code();
         std::string errorMsg = status_.error_message();
-        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
+        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(robotId), deadline_, failCount, errorCode, errorMsg.c_str());
         //if (failCount > 3) {
-        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
-        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectRobot", Qt::QueuedConnection, Q_ARG(QString, clientId));
+        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(robotId));
+        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectRobot", Qt::QueuedConnection, Q_ARG(QString, robotId));
         //}
         return;
     }

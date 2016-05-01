@@ -35,7 +35,7 @@ public:
     }
     virtual ::grpc::Status OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfDebug("%s on thread:%d,from:(%s)", __FUNCTION__, ::GetCurrentThreadId(), qPrintable(getClientId(context)));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status OnTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) override
@@ -83,7 +83,7 @@ private:
             auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
             clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
+            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
         }
         return clientId;
     }
@@ -116,8 +116,8 @@ public:
             pingfail_count_++;
             BfError("(%s)->Ping fail(%d),code:%d,msg:%s", qPrintable(gatewayId_), pingfail_count_, status.error_code(), status.error_message().c_str());
             //if (pingfail_count_ > 3) {
-            //    BfError("(%s)->Ping fail too long,so kill it", qPrintable(clientId_));
-            //    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, clientId_));
+            //    BfError("(%s)->Ping fail too long,so kill it", qPrintable(gatewayId_));
+            //    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId_));
             //}
             return;
         }

@@ -18,7 +18,8 @@ using namespace bftrader::bfgateway;
 
 class Gateway final : public BfGatewayService::Service {
 public:
-    Gateway()
+    explicit Gateway(QString gatewayId)
+        : gatewayId_(gatewayId)
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
@@ -31,7 +32,7 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->clientid().c_str(), request->clientip().c_str(), request->clientport());
-        QMetaObject::invokeMethod(g_sm->pushService(), "connectProxy", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectProxy", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectReq, *request));
 
         response->set_errorcode(0);
         return grpc::Status::OK;
@@ -128,10 +129,13 @@ private:
             auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
             clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
+            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
         }
         return clientId;
     }
+
+private:
+    QString gatewayId_;
 };
 
 //
@@ -195,7 +199,7 @@ void RpcService::onGatewayThreadStarted()
     }
 
     std::string server_address("0.0.0.0:50051");
-    Gateway gateway;
+    Gateway gateway("ctpgateway");
 
     grpc::ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());

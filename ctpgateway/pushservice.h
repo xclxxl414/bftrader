@@ -20,8 +20,8 @@ public:
 signals:
 
 public slots:
-    void connectProxy(const BfConnectReq& req);
-    void disconnectProxy(QString clientId);
+    void connectProxy(QString gatewayId, const BfConnectReq& req);
+    void disconnectProxy(QString proxyId);
     void onGatewayClosed();
     void onPing();
 
