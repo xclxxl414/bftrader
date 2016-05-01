@@ -13,12 +13,15 @@ import "bftrader.proto";
 // 不想做远程策略引擎的，可使用内置的Cta引擎
 // 
 service BfGatewayService{    
-    // 建立连接
+    // 请求建立到proxy的连接
     rpc Connect(BfConnectReq) returns (BfConnectResp) {}
     
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}
         
+    // 请求断开到proxy的连接
+    rpc Disconnect(BfVoid) returns (BfVoid) {}
+
     // 获取交易合约信息
     rpc GetContract(BfGetContractReq) returns (BfContractData) {}
        
@@ -33,7 +36,4 @@ service BfGatewayService{
     
     // 查询持仓信息
     rpc QueryPosition(BfVoid) returns (BfVoid) {}
-        
-    // 关闭连接
-    rpc Close(BfVoid) returns (BfVoid) {}
 }

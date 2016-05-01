@@ -67,7 +67,7 @@ signals:
     void gotOrder(const BfOrderData& order);
     void gotTrade(const BfTradeData& trade);
     void gotPosition(const BfPositionData& pos);
-    void gotCtpError(int code, QString msg, QString msgEx);
+    void gotGatewayError(int code, QString msg, QString msgEx);
 
 public slots:
     void showVersion();

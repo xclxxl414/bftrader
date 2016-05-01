@@ -11,10 +11,15 @@ import "bftrader.proto";
 // Cta服务，必须先connect然后才可以调用其他api
 //
 service BfCtaService{    
-    // 建立连接
+    // 请求建立到robot的连接
     rpc Connect(BfConnectReq) returns (BfConnectResp) {}
-                
-
+    
+    // 活跃检测
+    rpc Ping(BfPingData) returns (BfPingData) {}
+        
+    // 请求断开到robot的连接
+    rpc Disconnect(BfVoid) returns (BfVoid) {}
+    
     // 获取策略信息，如position，用kv最方便
     rpc GetRobotInfo(BfKvData) returns (BfKvData) {}
 
@@ -24,6 +29,4 @@ service BfCtaService{
     // 撤单
     rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
             
-    // 关闭连接
-    rpc Close(BfVoid) returns (BfVoid) {}
 }

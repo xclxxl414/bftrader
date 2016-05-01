@@ -20,14 +20,14 @@ public:
 signals:
 
 public slots:
-    void onClientConnect(const BfConnectReq& req);
-    void onClientClose(QString clientId);
-    void onServerClose();
+    void connectProxy(const BfConnectReq& req);
+    void disconnectProxy(QString clientId);
+    void onGatewayClosed();
+    void onPing();
 
     void onTradeWillBegin();
     void onGotContracts(QStringList ids, QStringList idsAll);
-    void onPing();
-    void onCtpError(int code, QString msg, QString msgEx);
+    void onGatewayError(int code, QString msg, QString msgEx);
     void onLog(QString when, QString msg);
     void onGotTick(void* curTick, void* preTick);
     void onGotTrade(const BfTradeData& trade);

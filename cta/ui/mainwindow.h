@@ -39,6 +39,10 @@ private slots:
     void on_actionCrashExit_triggered();
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
+    void on_actionProxyStart_triggered();
+    void on_actionProxyStop_triggered();
+    void on_actionCtpConnect_triggered();
+    void on_actionCtpDisconnect_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;

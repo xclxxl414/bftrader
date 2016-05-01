@@ -194,10 +194,10 @@ void PingCb::operator()()
         int errorCode = status_.error_code();
         std::string errorMsg = status_.error_message();
         BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
-        if (failCount > 3) {
-            BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
-            QMetaObject::invokeMethod(g_sm->pushService(), "onClientClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
-        }
+        //if (failCount > 3) {
+        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
+        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectRobot", Qt::QueuedConnection, Q_ARG(QString, clientId));
+        //}
         return;
     }
     robotClient_->resetPingFailCount();

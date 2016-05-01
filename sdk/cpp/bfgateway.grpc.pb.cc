@@ -19,12 +19,12 @@ namespace bfgateway {
 static const char* BfGatewayService_method_names[] = {
   "/bftrader.bfgateway.BfGatewayService/Connect",
   "/bftrader.bfgateway.BfGatewayService/Ping",
+  "/bftrader.bfgateway.BfGatewayService/Disconnect",
   "/bftrader.bfgateway.BfGatewayService/GetContract",
   "/bftrader.bfgateway.BfGatewayService/SendOrder",
   "/bftrader.bfgateway.BfGatewayService/CancelOrder",
   "/bftrader.bfgateway.BfGatewayService/QueryAccount",
   "/bftrader.bfgateway.BfGatewayService/QueryPosition",
-  "/bftrader.bfgateway.BfGatewayService/Close",
 };
 
 std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -35,12 +35,12 @@ std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::sh
 BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_Ping_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContract_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SendOrder_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelOrder_(BfGatewayService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_QueryAccount_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_QueryPosition_(BfGatewayService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Close_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Disconnect_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SendOrder_(BfGatewayService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelOrder_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryAccount_(BfGatewayService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_QueryPosition_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status BfGatewayService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfConnectResp* response) {
@@ -57,6 +57,14 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfGatewayService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+}
+
+::grpc::Status BfGatewayService::Stub::Disconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Disconnect_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfGatewayService::Stub::AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Disconnect_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::GetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::bftrader::BfContractData* response) {
@@ -99,14 +107,6 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_QueryPosition_, context, request);
 }
 
-::grpc::Status BfGatewayService::Stub::Close(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Close_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfGatewayService::Stub::AsyncCloseRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Close_, context, request);
-}
-
 BfGatewayService::Service::Service() {
   (void)BfGatewayService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -122,33 +122,33 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfGatewayService::Service::Disconnect), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfGatewayService_method_names[3],
+      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfGetContractReq, ::bftrader::BfContractData>(
           std::mem_fn(&BfGatewayService::Service::GetContract), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[3],
+      BfGatewayService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfSendOrderReq, ::bftrader::BfSendOrderResp>(
           std::mem_fn(&BfGatewayService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[4],
+      BfGatewayService_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfCancelOrderReq, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::CancelOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[5],
+      BfGatewayService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
           std::mem_fn(&BfGatewayService::Service::QueryAccount), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[6],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::QueryPosition), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[7],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::Close), this)));
+          std::mem_fn(&BfGatewayService::Service::QueryPosition), this)));
 }
 
 BfGatewayService::Service::~Service() {
@@ -162,6 +162,13 @@ BfGatewayService::Service::~Service() {
 }
 
 ::grpc::Status BfGatewayService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfGatewayService::Service::Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -197,13 +204,6 @@ BfGatewayService::Service::~Service() {
 }
 
 ::grpc::Status BfGatewayService::Service::QueryPosition(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfGatewayService::Service::Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;

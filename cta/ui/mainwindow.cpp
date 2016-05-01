@@ -2,6 +2,7 @@
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
+#include "gatewaymgr.h"
 #include "infoform.h"
 #include "logger.h"
 #include "profile.h"
@@ -24,6 +25,12 @@ MainWindow::MainWindow(QWidget* parent)
     //设置trayicon
     this->createActions();
     this->createTrayIcon();
+
+    // actions
+    ui->actionProxyStart->setEnabled(true);
+    ui->actionProxyStop->setEnabled(false);
+    ui->actionCtpConnect->setEnabled(true);
+    ui->actionCtpDisconnect->setEnabled(false);
 
     // tabs
     infoForm_ = new InfoForm(this);
@@ -181,4 +188,41 @@ void MainWindow::on_actionCrashExitProcess_triggered()
 void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
+}
+
+void MainWindow::on_actionProxyStart_triggered()
+{
+    ui->actionProxyStart->setEnabled(false);
+    ui->actionProxyStop->setEnabled(true);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "startProxy", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionProxyStop_triggered()
+{
+    ui->actionProxyStart->setEnabled(true);
+    ui->actionProxyStop->setEnabled(false);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stopProxy", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionCtpConnect_triggered()
+{
+    ui->actionCtpConnect->setEnabled(false);
+    ui->actionCtpDisconnect->setEnabled(true);
+
+    QString gatewayId = "ctpgateway";
+    QString endpoint = "localhost:50051";
+    BfConnectReq req;
+    req.set_clientid("cta");
+    req.set_clientip("localhost");
+    req.set_clientport(50053);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "connectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(QString, endpoint), Q_ARG(BfConnectReq, req));
+}
+
+void MainWindow::on_actionCtpDisconnect_triggered()
+{
+    ui->actionCtpConnect->setEnabled(true);
+    ui->actionCtpDisconnect->setEnabled(false);
+
+    QString gatewayId = "ctpgateway";
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
 }

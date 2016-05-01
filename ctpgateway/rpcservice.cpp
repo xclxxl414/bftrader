@@ -31,7 +31,7 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->clientid().c_str(), request->clientip().c_str(), request->clientport());
-        QMetaObject::invokeMethod(g_sm->pushService(), "onClientConnect", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectProxy", Qt::QueuedConnection, Q_ARG(BfConnectReq, *request));
 
         response->set_errorcode(0);
         return grpc::Status::OK;
@@ -40,6 +40,16 @@ public:
     {
         QString clientId = getClientId(context);
         response->set_message(request->message());
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
+
+        QMetaObject::invokeMethod(g_sm->pushService(), "disconnectProxy", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfGetContractReq* request, ::bftrader::BfContractData* response) override
@@ -108,16 +118,6 @@ public:
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status Close(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
-
-        QMetaObject::invokeMethod(g_sm->pushService(), "onClientClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
-        return grpc::Status::OK;
-    }
 
 private:
     // metadata-key只能是小写的=
@@ -183,7 +183,7 @@ void RpcService::stop()
         delete gatewayThread_;
         gatewayThread_ = nullptr;
 
-        QMetaObject::invokeMethod(g_sm->pushService(), "onServerClose", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(g_sm->pushService(), "onGatewayClosed", Qt::QueuedConnection);
     }
 }
 

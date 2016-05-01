@@ -42,16 +42,18 @@ const _ = grpc.SupportPackageIsVersion1
 // Client API for BfCtaService service
 
 type BfCtaServiceClient interface {
-	// 建立连接
+	// 请求建立到robot的连接
 	Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (*bftrader.BfConnectResp, error)
+	// 活跃检测
+	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	// 请求断开到robot的连接
+	Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	// 获取策略信息，如position，用kv最方便
 	GetRobotInfo(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error)
 	// 发单
 	SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error)
 	// 撤单
 	CancelOrder(ctx context.Context, in *bftrader.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
-	// 关闭连接
-	Close(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 }
 
 type bfCtaServiceClient struct {
@@ -65,6 +67,24 @@ func NewBfCtaServiceClient(cc *grpc.ClientConn) BfCtaServiceClient {
 func (c *bfCtaServiceClient) Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (*bftrader.BfConnectResp, error) {
 	out := new(bftrader.BfConnectResp)
 	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Connect", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfCtaServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error) {
+	out := new(bftrader.BfPingData)
+	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Ping", in, out, c.cc, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bfCtaServiceClient) Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
+	out := new(bftrader.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Disconnect", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -98,28 +118,21 @@ func (c *bfCtaServiceClient) CancelOrder(ctx context.Context, in *bftrader.BfCan
 	return out, nil
 }
 
-func (c *bfCtaServiceClient) Close(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Close", in, out, c.cc, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // Server API for BfCtaService service
 
 type BfCtaServiceServer interface {
-	// 建立连接
+	// 请求建立到robot的连接
 	Connect(context.Context, *bftrader.BfConnectReq) (*bftrader.BfConnectResp, error)
+	// 活跃检测
+	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	// 请求断开到robot的连接
+	Disconnect(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
 	// 获取策略信息，如position，用kv最方便
 	GetRobotInfo(context.Context, *bftrader.BfKvData) (*bftrader.BfKvData, error)
 	// 发单
 	SendOrder(context.Context, *bftrader.BfSendOrderReq) (*bftrader.BfSendOrderResp, error)
 	// 撤单
 	CancelOrder(context.Context, *bftrader.BfCancelOrderReq) (*bftrader.BfVoid, error)
-	// 关闭连接
-	Close(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
 }
 
 func RegisterBfCtaServiceServer(s *grpc.Server, srv BfCtaServiceServer) {
@@ -132,6 +145,30 @@ func _BfCtaService_Connect_Handler(srv interface{}, ctx context.Context, dec fun
 		return nil, err
 	}
 	out, err := srv.(BfCtaServiceServer).Connect(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfCtaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfPingData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfCtaServiceServer).Ping(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func _BfCtaService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+	in := new(bftrader.BfVoid)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	out, err := srv.(BfCtaServiceServer).Disconnect(ctx, in)
 	if err != nil {
 		return nil, err
 	}
@@ -174,18 +211,6 @@ func _BfCtaService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec
 	return out, nil
 }
 
-func _BfCtaService_Close_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfVoid)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	out, err := srv.(BfCtaServiceServer).Close(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 var _BfCtaService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "bftrader.bfcta.BfCtaService",
 	HandlerType: (*BfCtaServiceServer)(nil),
@@ -193,6 +218,14 @@ var _BfCtaService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Connect",
 			Handler:    _BfCtaService_Connect_Handler,
+		},
+		{
+			MethodName: "Ping",
+			Handler:    _BfCtaService_Ping_Handler,
+		},
+		{
+			MethodName: "Disconnect",
+			Handler:    _BfCtaService_Disconnect_Handler,
 		},
 		{
 			MethodName: "GetRobotInfo",
@@ -206,27 +239,25 @@ var _BfCtaService_serviceDesc = grpc.ServiceDesc{
 			MethodName: "CancelOrder",
 			Handler:    _BfCtaService_CancelOrder_Handler,
 		},
-		{
-			MethodName: "Close",
-			Handler:    _BfCtaService_Close_Handler,
-		},
 	},
 	Streams: []grpc.StreamDesc{},
 }
 
 var fileDescriptor0 = []byte{
-	// 204 bytes of a gzipped FileDescriptorProto
+	// 225 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4e, 0x4a, 0x4b, 0x2e,
 	0x49, 0xd4, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x4b, 0x4a, 0x2b, 0x29, 0x4a, 0x4c, 0x49,
-	0x2d, 0xd2, 0x03, 0x8b, 0x4a, 0x21, 0xf8, 0x60, 0x79, 0xa3, 0x1d, 0x4c, 0x5c, 0x3c, 0x4e, 0x69,
+	0x2d, 0xd2, 0x03, 0x8b, 0x4a, 0x21, 0xf8, 0x60, 0x79, 0xa3, 0xcf, 0x4c, 0x5c, 0x3c, 0x4e, 0x69,
 	0xce, 0x25, 0x89, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x36, 0x5c, 0xec, 0xce, 0xf9,
 	0x79, 0x79, 0xa9, 0xc9, 0x25, 0x42, 0x62, 0x7a, 0x70, 0xc5, 0x40, 0x25, 0x10, 0xc1, 0xa0, 0xd4,
-	0x42, 0x29, 0x71, 0xac, 0xe2, 0xc5, 0x05, 0x4a, 0x0c, 0x42, 0x16, 0x5c, 0x3c, 0xee, 0xa9, 0x25,
-	0x41, 0xf9, 0x49, 0xf9, 0x25, 0x9e, 0x79, 0x69, 0xf9, 0x42, 0x42, 0xc8, 0x4a, 0xbd, 0xcb, 0x5c,
-	0x12, 0x81, 0x4e, 0xc0, 0x22, 0x06, 0xd4, 0xe9, 0xc4, 0xc5, 0x19, 0x9c, 0x9a, 0x97, 0xe2, 0x5f,
-	0x04, 0x14, 0x17, 0x92, 0x40, 0x56, 0x02, 0x17, 0x06, 0xd9, 0x2d, 0x89, 0x43, 0x06, 0x6c, 0xbb,
-	0x2d, 0x17, 0xb7, 0x73, 0x62, 0x5e, 0x72, 0x6a, 0x0e, 0xc4, 0x14, 0x29, 0x14, 0x77, 0x22, 0x24,
-	0x40, 0xe6, 0x08, 0x20, 0xcb, 0x85, 0xe5, 0x67, 0xa6, 0x00, 0xb5, 0xeb, 0x72, 0xb1, 0x3a, 0xe7,
-	0xe4, 0x17, 0xa7, 0x0a, 0x61, 0x48, 0x62, 0x53, 0x9e, 0xc4, 0x06, 0x0e, 0x41, 0x63, 0x40, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0xca, 0x1f, 0x20, 0x0e, 0x70, 0x01, 0x00, 0x00,
+	0x42, 0x29, 0x71, 0xac, 0xe2, 0xc5, 0x05, 0x4a, 0x0c, 0x42, 0x26, 0x5c, 0x2c, 0x01, 0x99, 0x79,
+	0xe9, 0x42, 0x22, 0xc8, 0x4a, 0x40, 0x22, 0x2e, 0x89, 0x40, 0xcb, 0xb1, 0x8a, 0x02, 0x75, 0x19,
+	0x71, 0x71, 0xb9, 0x64, 0x16, 0x27, 0x43, 0xad, 0x15, 0x40, 0x56, 0x15, 0x96, 0x9f, 0x99, 0x22,
+	0x85, 0x21, 0x02, 0xd4, 0x63, 0xc1, 0xc5, 0xe3, 0x9e, 0x5a, 0x12, 0x94, 0x9f, 0x94, 0x5f, 0xe2,
+	0x99, 0x97, 0x96, 0x2f, 0x24, 0x84, 0xac, 0xc6, 0xbb, 0x0c, 0x6c, 0x1f, 0x16, 0x31, 0xa0, 0x4e,
+	0x27, 0x2e, 0xce, 0xe0, 0xd4, 0xbc, 0x14, 0xff, 0x22, 0xa0, 0xb8, 0x90, 0x04, 0xb2, 0x12, 0xb8,
+	0x30, 0xc8, 0x97, 0x92, 0x38, 0x64, 0xc0, 0xfe, 0xb4, 0xe5, 0xe2, 0x76, 0x4e, 0xcc, 0x4b, 0x4e,
+	0xcd, 0x81, 0x98, 0x22, 0x85, 0x12, 0x22, 0x08, 0x09, 0x90, 0x39, 0x58, 0x1c, 0x9f, 0xc4, 0x06,
+	0x0e, 0x7c, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf4, 0x41, 0xfc, 0xe9, 0xab, 0x01, 0x00,
+	0x00,
 }

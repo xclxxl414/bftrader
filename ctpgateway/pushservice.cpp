@@ -225,10 +225,10 @@ void PingCb::operator()()
         int errorCode = status_.error_code();
         std::string errorMsg = status_.error_message();
         BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(clientId), deadline_, failCount, errorCode, errorMsg.c_str());
-        if (failCount > 3) {
-            BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
-            QMetaObject::invokeMethod(g_sm->pushService(), "onClientClose", Qt::QueuedConnection, Q_ARG(QString, clientId));
-        }
+        //if (failCount > 3) {
+        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(clientId));
+        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectProxy", Qt::QueuedConnection, Q_ARG(QString, clientId));
+        //}
         return;
     }
     client_->resetPingFailCount();
@@ -262,7 +262,7 @@ void PushService::init()
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &PushService::onGotTrade);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PushService::onGotPosition);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotAccount, this, &PushService::onGotAccount);
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotCtpError, this, &PushService::onCtpError);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotGatewayError, this, &PushService::onGatewayError);
     QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
     QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
 }
@@ -278,13 +278,13 @@ void PushService::shutdown()
     this->pingTimer_ = nullptr;
 
     // delete all proxyclient
-    for (auto proxy : clients_) {
-        delete proxy;
+    for (auto client : clients_) {
+        delete client;
     }
     clients_.clear();
 }
 
-void PushService::onClientConnect(const BfConnectReq& req)
+void PushService::connectProxy(const BfConnectReq& req)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
@@ -302,7 +302,7 @@ void PushService::onClientConnect(const BfConnectReq& req)
     clients_[clientId] = client;
 }
 
-void PushService::onClientClose(QString clientId)
+void PushService::disconnectProxy(QString clientId)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
@@ -315,13 +315,13 @@ void PushService::onClientClose(QString clientId)
     }
 }
 
-void PushService::onServerClose()
+void PushService::onGatewayClosed()
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    for (auto proxy : clients_) {
-        delete proxy;
+    for (auto client : clients_) {
+        delete client;
     }
     clients_.clear();
 }
@@ -330,9 +330,9 @@ void PushService::onGotOrder(const BfOrderData& data)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    for (auto proxy : clients_) {
-        if (proxy->tradehandler()) {
-            proxy->OnOrder(data);
+    for (auto client : clients_) {
+        if (client->tradehandler()) {
+            client->OnOrder(data);
         }
     }
 };
@@ -341,9 +341,9 @@ void PushService::onGotTrade(const BfTradeData& data)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    for (auto proxy : clients_) {
-        if (proxy->tradehandler()) {
-            proxy->OnTrade(data);
+    for (auto client : clients_) {
+        if (client->tradehandler()) {
+            client->OnTrade(data);
         }
     }
 }
@@ -363,9 +363,9 @@ void PushService::onGotTick(void* curTick, void* preTick)
         data.set_exchange(exchange.toStdString());
     }
 
-    for (auto proxy : clients_) {
-        if (proxy->tickHandler() && proxy->subscribled(data.symbol(), data.exchange())) {
-            proxy->OnTick(data);
+    for (auto client : clients_) {
+        if (client->tickHandler() && client->subscribled(data.symbol(), data.exchange())) {
+            client->OnTick(data);
         }
     }
 }
@@ -375,8 +375,8 @@ void PushService::onTradeWillBegin()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfVoid data;
-    for (auto proxy : clients_) {
-        proxy->OnTradeWillBegin(data);
+    for (auto client : clients_) {
+        client->OnTradeWillBegin(data);
     }
 }
 
@@ -385,8 +385,8 @@ void PushService::onGotContracts(QStringList ids, QStringList idsAll)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfVoid data;
-    for (auto proxy : clients_) {
-        proxy->OnGotContracts(data);
+    for (auto client : clients_) {
+        client->OnGotContracts(data);
     }
 }
 
@@ -394,9 +394,9 @@ void PushService::onGotPosition(const BfPositionData& data)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    for (auto proxy : clients_) {
-        if (proxy->tradehandler()) {
-            proxy->OnPosition(data);
+    for (auto client : clients_) {
+        if (client->tradehandler()) {
+            client->OnPosition(data);
         }
     }
 }
@@ -408,9 +408,9 @@ void PushService::onLog(QString when, QString msg)
     BfLogData data;
     data.set_when(when.toStdString());
     data.set_message(msg.toStdString());
-    for (auto proxy : clients_) {
-        if (proxy->logHandler()) {
-            proxy->OnLog(data);
+    for (auto client : clients_) {
+        if (client->logHandler()) {
+            client->OnLog(data);
         }
     }
 }
@@ -419,9 +419,9 @@ void PushService::onGotAccount(const BfAccountData& data)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    for (auto proxy : clients_) {
-        if (proxy->tradehandler()) {
-            proxy->OnAccount(data);
+    for (auto client : clients_) {
+        if (client->tradehandler()) {
+            client->OnAccount(data);
         }
     }
 }
@@ -431,13 +431,13 @@ void PushService::onPing()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfPingData data;
-    data.set_message("bftrader");
-    for (auto proxy : clients_) {
-        proxy->OnPing(data);
+    data.set_message("ctpgateway");
+    for (auto client : clients_) {
+        client->OnPing(data);
     }
 }
 
-void PushService::onCtpError(int code, QString msg, QString msgEx)
+void PushService::onGatewayError(int code, QString msg, QString msgEx)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
@@ -445,9 +445,9 @@ void PushService::onCtpError(int code, QString msg, QString msgEx)
     data.set_code(code);
     data.set_message(msg.toStdString());
     data.set_messageex(msgEx.toStdString());
-    for (auto proxy : clients_) {
-        if (proxy->logHandler()) {
-            proxy->OnError(data);
+    for (auto client : clients_) {
+        if (client->logHandler()) {
+            client->OnError(data);
         }
     }
 }

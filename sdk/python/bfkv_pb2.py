@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfkv.proto',
   package='bftrader.bfkv',
   syntax='proto3',
-  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto2q\n\x0b\x42\x66KvService\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto2\xa7\x01\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -38,6 +38,9 @@ class BetaBfKvServiceServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
+  def Ping(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
   def SetKv(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
@@ -47,6 +50,10 @@ class BetaBfKvServiceServicer(object):
 class BetaBfKvServiceStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
+  @abc.abstractmethod
+  def Ping(self, request, timeout):
+    raise NotImplementedError()
+  Ping.future = None
   @abc.abstractmethod
   def SetKv(self, request, timeout):
     raise NotImplementedError()
@@ -61,16 +68,21 @@ def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
+    ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.FromString,
   }
   response_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): face_utilities.unary_unary_inline(servicer.GetKv),
+    ('bftrader.bfkv.BfKvService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
     ('bftrader.bfkv.BfKvService', 'SetKv'): face_utilities.unary_unary_inline(servicer.SetKv),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
@@ -81,16 +93,21 @@ def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, 
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.SerializeToString,
   }
   response_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
+    ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.FromString,
   }
   cardinalities = {
     'GetKv': cardinality.Cardinality.UNARY_UNARY,
+    'Ping': cardinality.Cardinality.UNARY_UNARY,
     'SetKv': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)

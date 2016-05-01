@@ -11,6 +11,10 @@ import "bftrader.proto";
 // 代理服务，实现管理和转发用
 //
 service BfProxyService{
+    // 活跃检测
+    // 也可以在这里做收盘处理，如果很长时间没有收到tick
+    rpc OnPing(BfPingData) returns (BfPingData) {}
+
     // 交易所开机/连通通知，可以在这里做：
     // 1. 如果是收盘时间可以做上次收盘处理
     // 2. 查询持仓 查询合约，核准数据
@@ -20,10 +24,6 @@ service BfProxyService{
     // 先发OnTradeWillBegin，然后查询合约，成功发此消息
     // 和 OnTradeWillBegin的间隙在1秒左右，可以做清理
     rpc OnGotContracts(BfVoid) returns (BfVoid) {}
-
-    // 活跃检测
-    // 也可以在这里做收盘处理，如果很长时间没有收到tick
-    rpc OnPing(BfPingData) returns (BfPingData) {}
     
     // 行情回报
     rpc OnTick(BfTickData) returns (BfVoid) {}

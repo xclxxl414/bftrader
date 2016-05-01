@@ -17,9 +17,9 @@ namespace bftrader {
 namespace bfproxy {
 
 static const char* BfProxyService_method_names[] = {
+  "/bftrader.bfproxy.BfProxyService/OnPing",
   "/bftrader.bfproxy.BfProxyService/OnTradeWillBegin",
   "/bftrader.bfproxy.BfProxyService/OnGotContracts",
-  "/bftrader.bfproxy.BfProxyService/OnPing",
   "/bftrader.bfproxy.BfProxyService/OnTick",
   "/bftrader.bfproxy.BfProxyService/OnError",
   "/bftrader.bfproxy.BfProxyService/OnLog",
@@ -35,9 +35,9 @@ std::unique_ptr< BfProxyService::Stub> BfProxyService::NewStub(const std::shared
 }
 
 BfProxyService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_OnTradeWillBegin_(BfProxyService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnGotContracts_(BfProxyService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnPing_(BfProxyService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_OnPing_(BfProxyService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnTradeWillBegin_(BfProxyService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnGotContracts_(BfProxyService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnTick_(BfProxyService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnError_(BfProxyService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnLog_(BfProxyService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
@@ -46,6 +46,14 @@ BfProxyService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   , rpcmethod_OnPosition_(BfProxyService_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_OnAccount_(BfProxyService_method_names[9], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status BfProxyService::Stub::OnPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnPing_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfProxyService::Stub::AsyncOnPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_OnPing_, context, request);
+}
 
 ::grpc::Status BfProxyService::Stub::OnTradeWillBegin(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnTradeWillBegin_, context, request, response);
@@ -61,14 +69,6 @@ BfProxyService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfProxyService::Stub::AsyncOnGotContractsRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_OnGotContracts_, context, request);
-}
-
-::grpc::Status BfProxyService::Stub::OnPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_OnPing_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfProxyService::Stub::AsyncOnPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_OnPing_, context, request);
 }
 
 ::grpc::Status BfProxyService::Stub::OnTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::bftrader::BfVoid* response) {
@@ -132,18 +132,18 @@ BfProxyService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfProxyService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfProxyService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfProxyService::Service::OnTradeWillBegin), this)));
+      new ::grpc::RpcMethodHandler< BfProxyService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+          std::mem_fn(&BfProxyService::Service::OnPing), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfProxyService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfProxyService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfProxyService::Service::OnGotContracts), this)));
+          std::mem_fn(&BfProxyService::Service::OnTradeWillBegin), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfProxyService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfProxyService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
-          std::mem_fn(&BfProxyService::Service::OnPing), this)));
+      new ::grpc::RpcMethodHandler< BfProxyService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfProxyService::Service::OnGotContracts), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfProxyService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
@@ -184,6 +184,13 @@ BfProxyService::Service::Service() {
 BfProxyService::Service::~Service() {
 }
 
+::grpc::Status BfProxyService::Service::OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
 ::grpc::Status BfProxyService::Service::OnTradeWillBegin(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
@@ -192,13 +199,6 @@ BfProxyService::Service::~Service() {
 }
 
 ::grpc::Status BfProxyService::Service::OnGotContracts(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfProxyService::Service::OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
   (void) context;
   (void) request;
   (void) response;

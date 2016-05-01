@@ -60,11 +60,11 @@ void protobuf_AddDesc_bfproxy_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rbfproxy.proto\022\020bftrader.bfproxy\032\016bftra"
-    "der.proto2\270\004\n\016BfProxyService\0228\n\020OnTradeW"
-    "illBegin\022\020.bftrader.BfVoid\032\020.bftrader.Bf"
-    "Void\"\000\0226\n\016OnGotContracts\022\020.bftrader.BfVo"
-    "id\032\020.bftrader.BfVoid\"\000\0226\n\006OnPing\022\024.bftra"
-    "der.BfPingData\032\024.bftrader.BfPingData\"\000\0222"
+    "der.proto2\270\004\n\016BfProxyService\0226\n\006OnPing\022\024"
+    ".bftrader.BfPingData\032\024.bftrader.BfPingDa"
+    "ta\"\000\0228\n\020OnTradeWillBegin\022\020.bftrader.BfVo"
+    "id\032\020.bftrader.BfVoid\"\000\0226\n\016OnGotContracts"
+    "\022\020.bftrader.BfVoid\032\020.bftrader.BfVoid\"\000\0222"
     "\n\006OnTick\022\024.bftrader.BfTickData\032\020.bftrade"
     "r.BfVoid\"\000\0224\n\007OnError\022\025.bftrader.BfError"
     "Data\032\020.bftrader.BfVoid\"\000\0220\n\005OnLog\022\023.bftr"

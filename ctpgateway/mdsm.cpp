@@ -109,7 +109,7 @@ private:
         if (pRspInfo && pRspInfo->ErrorID != 0) {
             BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
                 gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
-            emit g_sm->gatewayMgr()->gotCtpError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
+            emit g_sm->gatewayMgr()->gotGatewayError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
             return true;
         }
         return false;

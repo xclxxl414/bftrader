@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>581</height>
-   </rect>
-  </property>
-  <property name="maximumSize">
-   <size>
     <width>900</width>
     <height>600</height>
-   </size>
+   </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -55,7 +49,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>799</width>
+     <width>900</width>
      <height>23</height>
     </rect>
    </property>
@@ -86,7 +80,23 @@
     <addaction name="actionAppVersion"/>
     <addaction name="menu_NO_MONEY"/>
    </widget>
+   <widget class="QMenu" name="menuProxy">
+    <property name="title">
+     <string>proxy</string>
+    </property>
+    <addaction name="actionProxyStart"/>
+    <addaction name="actionProxyStop"/>
+   </widget>
+   <widget class="QMenu" name="menuGateway">
+    <property name="title">
+     <string>gateway</string>
+    </property>
+    <addaction name="actionCtpConnect"/>
+    <addaction name="actionCtpDisconnect"/>
+   </widget>
    <addaction name="menuApp"/>
+   <addaction name="menuProxy"/>
+   <addaction name="menuGateway"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -142,6 +152,26 @@
   <action name="actionCrashTerminateProcess">
    <property name="text">
     <string>Crash_TerminateProcess</string>
+   </property>
+  </action>
+  <action name="actionProxyStart">
+   <property name="text">
+    <string>proxyStart</string>
+   </property>
+  </action>
+  <action name="actionProxyStop">
+   <property name="text">
+    <string>proxyStop</string>
+   </property>
+  </action>
+  <action name="actionCtpConnect">
+   <property name="text">
+    <string>ctpConnect</string>
+   </property>
+  </action>
+  <action name="actionCtpDisconnect">
+   <property name="text">
+    <string>ctpDisconnect</string>
    </property>
   </action>
  </widget>

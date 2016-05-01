@@ -17,6 +17,7 @@ namespace bftrader {
 namespace bfkv {
 
 static const char* BfKvService_method_names[] = {
+  "/bftrader.bfkv.BfKvService/Ping",
   "/bftrader.bfkv.BfKvService/SetKv",
   "/bftrader.bfkv.BfKvService/GetKv",
 };
@@ -27,9 +28,18 @@ std::unique_ptr< BfKvService::Stub> BfKvService::NewStub(const std::shared_ptr< 
 }
 
 BfKvService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_SetKv_(BfKvService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetKv_(BfKvService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_Ping_(BfKvService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetKv_(BfKvService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetKv_(BfKvService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status BfKvService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfKvService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+}
 
 ::grpc::Status BfKvService::Stub::SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SetKv_, context, request, response);
@@ -52,16 +62,28 @@ BfKvService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfKvService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< BfKvService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+          std::mem_fn(&BfKvService::Service::Ping), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfKvService_method_names[1],
+      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfKvService::Service, ::bftrader::BfKvData, ::bftrader::BfVoid>(
           std::mem_fn(&BfKvService::Service::SetKv), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfKvService_method_names[1],
+      BfKvService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfKvService::Service, ::bftrader::BfKvData, ::bftrader::BfKvData>(
           std::mem_fn(&BfKvService::Service::GetKv), this)));
 }
 
 BfKvService::Service::~Service() {
+}
+
+::grpc::Status BfKvService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status BfKvService::Service::SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response) {

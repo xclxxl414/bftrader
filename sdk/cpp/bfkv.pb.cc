@@ -60,10 +60,11 @@ void protobuf_AddDesc_bfkv_2eproto() {
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\nbfkv.proto\022\rbftrader.bfkv\032\016bftrader.pr"
-    "oto2q\n\013BfKvService\022/\n\005SetKv\022\022.bftrader.B"
-    "fKvData\032\020.bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.b"
-    "ftrader.BfKvData\032\022.bftrader.BfKvData\"\000b\006"
-    "proto3", 166);
+    "oto2\247\001\n\013BfKvService\0224\n\004Ping\022\024.bftrader.B"
+    "fPingData\032\024.bftrader.BfPingData\"\000\022/\n\005Set"
+    "Kv\022\022.bftrader.BfKvData\032\020.bftrader.BfVoid"
+    "\"\000\0221\n\005GetKv\022\022.bftrader.BfKvData\032\022.bftrad"
+    "er.BfKvData\"\000b\006proto3", 221);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfkv.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfkv_2eproto);

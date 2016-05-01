@@ -11,6 +11,10 @@ import "bftrader.proto";
 // Kv服务
 //
 service BfKvService{    
+    // 活跃检测
+    rpc Ping(BfPingData) returns (BfPingData) {}
+
+    // Kv服务
     rpc SetKv(BfKvData) returns (BfVoid){}
     rpc GetKv(BfKvData) returns (BfKvData){}
 }
