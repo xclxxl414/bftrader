@@ -21,7 +21,7 @@ public:
 public:
     enum ThreadType {
         EXTERNAL, // threadpool
-        UI, // ui
+        MAIN, // main
         DB, // database
         IO, // file
         PUSH, // network-->
@@ -56,7 +56,7 @@ private:
     void check();
 
 private:
-    QThread* ui_thread_ = nullptr;
+    QThread* main_thread_ = nullptr;
     QThread* db_thread_ = nullptr;
     QThread* io_thread_ = nullptr;
     QThread* push_thread_ = nullptr;

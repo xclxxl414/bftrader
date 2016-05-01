@@ -2,3 +2,4 @@
 2. BfPriceType 补上 FOK FAK
 3. 在cta里面支持添加策略文件如进程外的exe/py，和进程内的dll，重定向输出（/或者提供Debug/Info/Error接口给robot用）到robot控制台=
 4. 提供独立的launcher来管理多个策略的运行（提供输出重定向？）
+5. 增加qtdll demo
