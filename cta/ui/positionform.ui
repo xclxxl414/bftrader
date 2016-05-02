@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RobotForm</class>
- <widget class="QWidget" name="RobotForm">
+ <class>PositionForm</class>
+ <widget class="QWidget" name="PositionForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>288</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,12 +49,12 @@
         <bool>true</bool>
        </property>
        <property name="placeholderText">
-        <string>robot</string>
+        <string>position</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonCloseAll">
+      <widget class="QPushButton" name="pushButtonClosePosition">
        <property name="maximumSize">
         <size>
          <width>100</width>
@@ -62,20 +62,7 @@
         </size>
        </property>
        <property name="text">
-        <string>closeAll</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonCancelAll">
-       <property name="maximumSize">
-        <size>
-         <width>100</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>cancelAll</string>
+        <string>closePosition</string>
        </property>
       </widget>
      </item>
@@ -84,9 +71,6 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>0</width>
@@ -94,6 +78,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCloseAll">
+       <property name="text">
+        <string>closeAll</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

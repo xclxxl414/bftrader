@@ -11,9 +11,11 @@ class MainWindow;
 
 class Profile;
 class RobotForm;
+class PositionForm;
 class InfoForm;
 class DebugForm;
 class ErrorForm;
+class WorkingOrderForm;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -67,9 +69,11 @@ private:
 
     //tabs
     RobotForm* robotForm_;
+    PositionForm* positionForm_;
     InfoForm* infoForm_;
     DebugForm* debugForm_;
     ErrorForm* errorForm_;
+    WorkingOrderForm* workingOrderForm_;
 };
 
 #endif // MAINWINDOW_H

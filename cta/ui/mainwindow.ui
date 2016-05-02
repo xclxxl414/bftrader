@@ -31,15 +31,33 @@
      <number>2</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="splitterMid">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
       <property name="handleWidth">
        <number>2</number>
       </property>
-      <widget class="QTabWidget" name="tabWidgetCta"/>
-      <widget class="QTabWidget" name="tabWidgetLog"/>
+      <widget class="QSplitter" name="splitterTop">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="handleWidth">
+        <number>2</number>
+       </property>
+       <widget class="QTabWidget" name="tabWidgetPosition"/>
+       <widget class="QTabWidget" name="tabWidgetOrder"/>
+      </widget>
+      <widget class="QSplitter" name="splitterBottom">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="handleWidth">
+        <number>2</number>
+       </property>
+       <widget class="QTabWidget" name="tabWidgetLog"/>
+       <widget class="QTabWidget" name="tabWidgetRobot"/>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -101,10 +119,18 @@
     <addaction name="actionNetStart"/>
     <addaction name="actionNetStop"/>
    </widget>
+   <widget class="QMenu" name="menuRobot">
+    <property name="title">
+     <string>robot</string>
+    </property>
+    <addaction name="actionRobotStartAll"/>
+    <addaction name="actionRobotStopAll"/>
+   </widget>
    <addaction name="menuApp"/>
    <addaction name="menuProxy"/>
    <addaction name="menuGateway"/>
    <addaction name="menuNet"/>
+   <addaction name="menuRobot"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -190,6 +216,36 @@
   <action name="actionNetStop">
    <property name="text">
     <string>netStop</string>
+   </property>
+  </action>
+  <action name="actionRobotStopAll">
+   <property name="text">
+    <string>robotStopAll</string>
+   </property>
+  </action>
+  <action name="actionRobotStartAll">
+   <property name="text">
+    <string>robotStartAll</string>
+   </property>
+  </action>
+  <action name="actionRobotAdd">
+   <property name="text">
+    <string>robotAdd</string>
+   </property>
+  </action>
+  <action name="actionRobotDelete">
+   <property name="text">
+    <string>robotDelete</string>
+   </property>
+  </action>
+  <action name="actionRobotStart">
+   <property name="text">
+    <string>robotStart</string>
+   </property>
+  </action>
+  <action name="actionRobotStop">
+   <property name="text">
+    <string>robotStop</string>
    </property>
   </action>
  </widget>

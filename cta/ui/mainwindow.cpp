@@ -6,10 +6,12 @@
 #include "infoform.h"
 #include "logger.h"
 #include "profile.h"
+#include "positionform.h"
 #include "robotform.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
+#include "workingorderform.h"
 #include "ui_mainwindow.h"
 #include <windows.h>
 
@@ -41,11 +43,16 @@ MainWindow::MainWindow(QWidget* parent)
     errorForm_ = new ErrorForm(this);
     debugForm_ = new DebugForm(this);
     robotForm_ = new RobotForm(this);
+    positionForm_ = new PositionForm(this);
+    workingOrderForm_ = new WorkingOrderForm(this);
 
-    ui->tabWidgetCta->addTab(robotForm_, "robot");
+    ui->tabWidgetRobot->addTab(robotForm_, "robot");
+    ui->tabWidgetPosition->addTab(positionForm_,"position");
+    ui->tabWidgetOrder->addTab(workingOrderForm_,"workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");
     ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
+
 }
 
 MainWindow::~MainWindow()
@@ -59,6 +66,8 @@ void MainWindow::init()
     errorForm_->init();
     debugForm_->init();
     robotForm_->init();
+    positionForm_->init();
+    workingOrderForm_->init();
 }
 
 void MainWindow::shutdown()
@@ -67,6 +76,8 @@ void MainWindow::shutdown()
     errorForm_->shutdown();
     debugForm_->shutdown();
     robotForm_->shutdown();
+    positionForm_->shutdown();
+    workingOrderForm_->shutdown();
 }
 
 void MainWindow::on_actionAppVersion_triggered()

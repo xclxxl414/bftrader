@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     ui/errorform.cpp \
     ui/infoform.cpp \
     ui/robotform.cpp \
-    gatewaymgr.cpp
+    gatewaymgr.cpp \
+    ui/positionform.cpp \
+    ui/workingorderform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -36,13 +38,17 @@ HEADERS  += ui/mainwindow.h \
     ui/errorform.h \
     ui/infoform.h \
     ui/robotform.h \
-    gatewaymgr.h
+    gatewaymgr.h \
+    ui/positionform.h \
+    ui/workingorderform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \
     ui/errorform.ui \
     ui/infoform.ui \
-    ui/robotform.ui
+    ui/robotform.ui \
+    ui/positionform.ui \
+    ui/workingorderform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)
