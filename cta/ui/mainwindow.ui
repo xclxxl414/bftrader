@@ -125,6 +125,9 @@
     </property>
     <addaction name="actionRobotStartAll"/>
     <addaction name="actionRobotStopAll"/>
+    <addaction name="separator"/>
+    <addaction name="actionRobotShowOrder"/>
+    <addaction name="actionRobotShowTrade"/>
    </widget>
    <addaction name="menuApp"/>
    <addaction name="menuProxy"/>
@@ -246,6 +249,16 @@
   <action name="actionRobotStop">
    <property name="text">
     <string>robotStop</string>
+   </property>
+  </action>
+  <action name="actionRobotShowOrder">
+   <property name="text">
+    <string>robotShowOrder</string>
+   </property>
+  </action>
+  <action name="actionRobotShowTrade">
+   <property name="text">
+    <string>robotShowTrade</string>
    </property>
   </action>
  </widget>
