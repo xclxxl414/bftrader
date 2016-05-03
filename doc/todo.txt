@@ -3,3 +3,15 @@
 3. 在cta里面支持添加策略文件如进程外的exe/py，和进程内的dll，重定向输出（/或者提供Debug/Info/Error接口给robot用）到robot控制台=
 4. 提供独立的launcher来管理多个策略的运行（提供输出重定向？）
 5. 增加qtdll demo
+6. gateway api调整：
+异步查询api：
+on/queryaccount on/queryposition on/queryorder on/querycontract  都返回一个list，一次性给结果。在ctp内部基于req接受完一次性打包返回
+queryorder和普通order接口分离，做到ctpgateway手动操作，不影响cta
+同步查询api：
+getContract
+getAllContract
+getAllContractSubscribled
+
+7. gateway订阅方式调整
+现在是ctpgateway手动配置订阅什么，cta datafeed来选择接受什么。改成系统默认什么都不订阅，需要测量来订阅，ctpgateway维护订阅列表？tblr
+不需要的都不做了。tblr就是配置订阅，测量来选择接受什么。

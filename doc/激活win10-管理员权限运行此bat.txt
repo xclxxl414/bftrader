@@ -1,0 +1,5 @@
+rem http://jingyan.baidu.com/article/925f8cb8fd0e2fc0dde05622.html
+slmgr.vbs /upk
+slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+slmgr /skms 3rss.vicp.net:20439 
+slmgr /ato
