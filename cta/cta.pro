@@ -59,3 +59,6 @@ include(../third_party/grpc.pri)
 
 RESOURCES += \
     systray.qrc
+
+DISTFILES += \
+    cta.qmodel
