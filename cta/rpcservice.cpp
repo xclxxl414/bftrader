@@ -1,5 +1,6 @@
 #include "rpcservice.h"
 #include "bfcta.grpc.pb.h"
+#include "dbservice.h"
 #include "pushservice.h"
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
@@ -10,7 +11,7 @@ using namespace bftrader::bfcta;
 //
 // cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
 //
-// 1.在connect时候，需要核对modelId RobotId信息哦=
+// todo(hege):在connect时候，需要核对modelId RobotId信息哦=
 //
 class Cta final : public BfCtaService::Service {
 public:
@@ -57,11 +58,25 @@ public:
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
+
+        QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
+        g_sm->gatewayMgr()->sendOrder(gatewayId, *request, *response);
+
         return grpc::Status::OK;
     }
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
+
+        QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
+        g_sm->gatewayMgr()->cancelOrder(gatewayId, *request);
+
         return grpc::Status::OK;
     }
 

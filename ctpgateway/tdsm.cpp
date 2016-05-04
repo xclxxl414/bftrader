@@ -71,7 +71,7 @@ private:
     }
 
     //出现了一次queryinstruments错误，打印详细信息=
-    //todo(hege):这个需要做一个判断，然后自动queryinstruments，不然就不能自动登录了=
+    //TODO(hege):这个需要做一个判断，然后自动queryinstruments，不然就不能自动登录了=
     void OnRspError(CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
         if (bIsLast) {

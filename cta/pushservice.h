@@ -24,9 +24,9 @@ public slots:
     void onCtaClosed();
     void onPing();
 
-    void onGotTick(const BfTickData& bfItem);
-    void onGotTrade(const BfTradeData& bfItem);
-    void onGotOrder(const BfOrderData& bfItem);
+    void onGotTick(QString gatewayId, const BfTickData& bfItem);
+    void onGotTrade(QString gatewayId, const BfTradeData& bfItem);
+    void onGotOrder(QString gatewayId, const BfOrderData& bfItem);
 
     /* stopped,idle,working*/
     /* 工作过程是这样的：停下robot，手动做一些工作比如撤单/平仓，然后可以重启*/
@@ -35,7 +35,7 @@ public slots:
     //void onInit();
     //void onFini();
     void onAutoTradingStart(); //cta打开了自动交易=
-    void onAutoTradingStop();  //关闭了自动交易，回到idle状态=
+    void onAutoTradingStop(); //关闭了自动交易，回到idle状态=
 private:
     QMap<QString, RobotClient*> clients_;
     QTimer* pingTimer_ = nullptr;

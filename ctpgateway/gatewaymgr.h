@@ -18,7 +18,7 @@ class TdSm;
 class Logger;
 class Profile;
 
-// todo(hege):增加一个错误处理函数,等req返回了可以找到cmd然后执行，之后才删除=
+// TODO(hege):增加一个错误处理函数,等req返回了可以找到cmd然后执行，之后才删除=
 struct CtpCmd {
     std::function<int(int)> fn;
     quint32 delayTick;

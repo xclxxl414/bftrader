@@ -1,5 +1,6 @@
 #include "pushservice.h"
 #include "bfrobot.grpc.pb.h"
+#include "dbservice.h"
 #include "grpc++/grpc++.h"
 #include "servicemgr.h"
 #include <QThread>
@@ -84,12 +85,14 @@ private:
 
 class RobotClient {
 public:
-    RobotClient(std::shared_ptr<grpc::Channel> channel, QString ctaId, const BfConnectReq& req)
+    RobotClient(std::shared_ptr<grpc::Channel> channel, QString gatewayId, QString ctaId, const BfConnectReq& req)
         : stub_(BfRobotService::NewStub(channel))
         , ctaId_(ctaId)
+        , gatewayId_(gatewayId)
         , req_(req)
     {
         BfDebug(__FUNCTION__);
+        robotId_ = req.clientid().c_str();
         cq_thread_ = new QThread();
         std::function<void(void)> fn = [=]() {
             for (;;) {
@@ -172,15 +175,18 @@ public:
     void incPingFailCount() { pingfail_count_++; }
     int pingFailCount() { return pingfail_count_; }
     void resetPingFailCount() { pingfail_count_ = 0; }
-    QString ctaId() { return ctaId_; }
-    QString robotId() { return req_.clientid().c_str(); }
+    const QString& ctaId() { return ctaId_; }
+    const QString& robotId() { return robotId_; }
+    const QString& gatewayId() { return gatewayId_; }
 
 private:
     std::unique_ptr<BfRobotService::Stub> stub_;
     std::atomic_int32_t pingfail_count_ = 0;
     const int deadline_ = 500;
-    QString ctaId_;
     BfConnectReq req_;
+    QString ctaId_;
+    QString gatewayId_;
+    QString robotId_;
 
     // async client
     grpc::CompletionQueue cq_;
@@ -223,6 +229,11 @@ void PushService::init()
     this->pingTimer_->setInterval(5 * 1000);
     QObject::connect(this->pingTimer_, &QTimer::timeout, this, &PushService::onPing);
     this->pingTimer_->start();
+
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &PushService::onGotTick);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &PushService::onGotOrder);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &PushService::onGotTrade);
 }
 
 void PushService::shutdown()
@@ -247,11 +258,13 @@ void PushService::connectRobot(QString ctaId, const BfConnectReq& req)
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
+    QString gatewayId = g_sm->dbService()->getGatewayId(req);
+
     QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
     QString robotId = req.clientid().c_str();
 
     RobotClient* client = new RobotClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        ctaId, req);
+        gatewayId, ctaId, req);
 
     if (clients_.contains(robotId)) {
         auto it = clients_[robotId];
@@ -296,27 +309,69 @@ void PushService::onPing()
     }
 }
 
-void PushService::onGotTick(const BfTickData& bfItem)
+void PushService::onGotTick(QString gatewayId, const BfTickData& data)
 {
-
+    for (auto client : clients_) {
+        if (client->gatewayId() != gatewayId) {
+            continue;
+        }
+        if (client->tickHandler() && client->subscribled(data.symbol(), data.exchange())) {
+            client->OnTick(data);
+        }
+    }
 }
 
-void PushService::onGotTrade(const BfTradeData& bfItem)
+void PushService::onGotTrade(QString gatewayId, const BfTradeData& data)
 {
-
+    for (auto client : clients_) {
+        if (client->gatewayId() != gatewayId) {
+            continue;
+        }
+        QString robotId = g_sm->dbService()->getRobotId(data);
+        if (client->robotId() != robotId) {
+            continue;
+        }
+        if (client->tradehandler()) {
+            client->OnTrade(data);
+        }
+        return;
+    }
 }
 
-void PushService::onGotOrder(const BfOrderData& bfItem)
+void PushService::onGotOrder(QString gatewayId, const BfOrderData& data)
 {
-
+    for (auto client : clients_) {
+        if (client->gatewayId() != gatewayId) {
+            continue;
+        }
+        QString robotId = g_sm->dbService()->getRobotId(data);
+        if (client->robotId() != robotId) {
+            continue;
+        }
+        if (client->tradehandler()) {
+            client->OnOrder(data);
+        }
+        return;
+    }
 }
 
 void PushService::onAutoTradingStart()
 {
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
+    BfVoid data;
+    for (auto client : clients_) {
+        client->OnInit(data);
+        client->OnStart(data);
+    }
 }
 
 void PushService::onAutoTradingStop()
 {
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
+    BfVoid data;
+    for (auto client : clients_) {
+        client->OnStop(data);
+    }
 }

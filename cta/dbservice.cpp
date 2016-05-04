@@ -69,3 +69,27 @@ void DbService::dbClose()
     delete db_;
     db_ = nullptr;
 }
+
+// TODO(hege):do it
+QString DbService::getRobotId(const BfOrderData& bfItem)
+{
+    return "demo";
+}
+
+// TODO(hege):do it
+QString DbService::getRobotId(const BfTradeData& bfItem)
+{
+    return "demo";
+}
+
+// TODO(hege):do it
+QString DbService::getGatewayId(const BfConnectReq& bfItem)
+{
+    return "ctpGateway";
+}
+
+// TODO(hege):do it
+QString DbService::getGatewayId(const QString& robotId)
+{
+    return "ctpGateway";
+}

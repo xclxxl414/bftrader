@@ -1,10 +1,10 @@
 #include "workingorderform.h"
-#include "ui_workingorderform.h"
 #include "tablewidget_helper.h"
+#include "ui_workingorderform.h"
 
-WorkingOrderForm::WorkingOrderForm(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::WorkingOrderForm)
+WorkingOrderForm::WorkingOrderForm(QWidget* parent)
+    : QWidget(parent)
+    , ui(new Ui::WorkingOrderForm)
 {
     ui->setupUi(this);
 
@@ -32,10 +32,8 @@ WorkingOrderForm::~WorkingOrderForm()
 
 void WorkingOrderForm::init()
 {
-
 }
 
 void WorkingOrderForm::shutdown()
 {
-
 }

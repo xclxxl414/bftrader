@@ -5,15 +5,15 @@
 #include "gatewaymgr.h"
 #include "infoform.h"
 #include "logger.h"
-#include "profile.h"
 #include "positionform.h"
+#include "profile.h"
+#include "pushservice.h"
 #include "robotform.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "workingorderform.h"
 #include "ui_mainwindow.h"
-#include "pushservice.h"
+#include "workingorderform.h"
 
 #include <windows.h>
 
@@ -47,12 +47,11 @@ MainWindow::MainWindow(QWidget* parent)
     workingOrderForm_ = new WorkingOrderForm(this);
 
     ui->tabWidgetRobot->addTab(robotForm_, "robot");
-    ui->tabWidgetPosition->addTab(positionForm_,"position");
-    ui->tabWidgetOrder->addTab(workingOrderForm_,"workingOrder");
+    ui->tabWidgetPosition->addTab(positionForm_, "position");
+    ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");
     ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
-
 }
 
 MainWindow::~MainWindow()
@@ -256,20 +255,16 @@ void MainWindow::on_actionStartAutoTrading_triggered()
 
 void MainWindow::on_actionShowRobotOrder_triggered()
 {
-
 }
 
 void MainWindow::on_actionShowRobotTrade_triggered()
 {
-
 }
 
 void MainWindow::on_actionAddRobot_triggered()
 {
-
 }
 
 void MainWindow::on_actionDeleteRobot_triggered()
 {
-
 }

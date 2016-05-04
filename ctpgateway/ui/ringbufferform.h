@@ -8,7 +8,6 @@ namespace Ui {
 class RingBufferForm;
 }
 
-// todo(hege): onTradeWillBegin,Close it!!!
 class RingBufferForm : public QWidget {
     Q_OBJECT
 
