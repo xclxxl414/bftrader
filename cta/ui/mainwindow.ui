@@ -98,13 +98,6 @@
     <addaction name="actionAppVersion"/>
     <addaction name="menu_NO_MONEY"/>
    </widget>
-   <widget class="QMenu" name="menuProxy">
-    <property name="title">
-     <string>proxy</string>
-    </property>
-    <addaction name="actionProxyStart"/>
-    <addaction name="actionProxyStop"/>
-   </widget>
    <widget class="QMenu" name="menuGateway">
     <property name="title">
      <string>gateway</string>
@@ -123,14 +116,16 @@
     <property name="title">
      <string>robot</string>
     </property>
-    <addaction name="actionRobotStartAll"/>
-    <addaction name="actionRobotStopAll"/>
+    <addaction name="actionStartAutoTrading"/>
+    <addaction name="actionStopAutoTrading"/>
     <addaction name="separator"/>
-    <addaction name="actionRobotShowOrder"/>
-    <addaction name="actionRobotShowTrade"/>
+    <addaction name="actionShowRobotOrder"/>
+    <addaction name="actionShowRobotTrade"/>
+    <addaction name="separator"/>
+    <addaction name="actionAddRobot"/>
+    <addaction name="actionDeleteRobot"/>
    </widget>
    <addaction name="menuApp"/>
-   <addaction name="menuProxy"/>
    <addaction name="menuGateway"/>
    <addaction name="menuNet"/>
    <addaction name="menuRobot"/>
@@ -191,16 +186,6 @@
     <string>Crash_TerminateProcess</string>
    </property>
   </action>
-  <action name="actionProxyStart">
-   <property name="text">
-    <string>proxyStart</string>
-   </property>
-  </action>
-  <action name="actionProxyStop">
-   <property name="text">
-    <string>proxyStop</string>
-   </property>
-  </action>
   <action name="actionCtpConnect">
    <property name="text">
     <string>ctpConnect</string>
@@ -221,44 +206,34 @@
     <string>netStop</string>
    </property>
   </action>
-  <action name="actionRobotStopAll">
+  <action name="actionStopAutoTrading">
    <property name="text">
-    <string>robotStopAll</string>
+    <string>stopAutoTrading</string>
    </property>
   </action>
-  <action name="actionRobotStartAll">
+  <action name="actionStartAutoTrading">
    <property name="text">
-    <string>robotStartAll</string>
+    <string>startAutoTrading</string>
    </property>
   </action>
-  <action name="actionRobotAdd">
+  <action name="actionShowRobotOrder">
    <property name="text">
-    <string>robotAdd</string>
+    <string>showRobotOrder</string>
    </property>
   </action>
-  <action name="actionRobotDelete">
+  <action name="actionShowRobotTrade">
    <property name="text">
-    <string>robotDelete</string>
+    <string>showRobotTrade</string>
    </property>
   </action>
-  <action name="actionRobotStart">
+  <action name="actionAddRobot">
    <property name="text">
-    <string>robotStart</string>
+    <string>addRobot</string>
    </property>
   </action>
-  <action name="actionRobotStop">
+  <action name="actionDeleteRobot">
    <property name="text">
-    <string>robotStop</string>
-   </property>
-  </action>
-  <action name="actionRobotShowOrder">
-   <property name="text">
-    <string>robotShowOrder</string>
-   </property>
-  </action>
-  <action name="actionRobotShowTrade">
-   <property name="text">
-    <string>robotShowTrade</string>
+    <string>deleteRobot</string>
    </property>
   </action>
  </widget>

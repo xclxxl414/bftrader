@@ -8,3 +8,9 @@
 1、每个gateway开一个cta，策略-cta-gateway一对一
 2、策略里面指定gateway，多策略-cta-多gateway
 3、。。。
+
+
+2016.5.4
+======
+robot的信息里面有symbol和gateway等信息，
+model里面没有。

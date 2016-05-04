@@ -16,12 +16,6 @@ class Server;
 
 //
 // 通过gatewaymgr来桥接ctpgateway
-// 后期重构，将ctpgateway改成dll，直接加载应该方便一些=
-//
-// 1.记录一个symbol+exchange到gateway的映射，这样发单时候可以直接选择gateway=
-// 2.robot并不知道多gateway的存在，只知道交易某个合约（exchange+symbol），目前看是这样=
-// 3.可惜，可以多个gateway来搞一个合约，比如ctpgateway和btgateway都可以做白糖1609=
-// 4.需要讨论，需要策略制定交易哪个接口的合约吗？=
 //
 class GatewayMgr : public QObject {
     Q_OBJECT

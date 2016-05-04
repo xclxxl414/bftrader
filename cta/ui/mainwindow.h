@@ -41,12 +41,16 @@ private slots:
     void on_actionCrashExit_triggered();
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
-    void on_actionProxyStart_triggered();
-    void on_actionProxyStop_triggered();
     void on_actionCtpConnect_triggered();
     void on_actionCtpDisconnect_triggered();
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
+    void on_actionStopAutoTrading_triggered();
+    void on_actionStartAutoTrading_triggered();
+    void on_actionShowRobotOrder_triggered();
+    void on_actionShowRobotTrade_triggered();
+    void on_actionAddRobot_triggered();
+    void on_actionDeleteRobot_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;

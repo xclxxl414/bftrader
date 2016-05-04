@@ -295,3 +295,28 @@ void PushService::onPing()
         client->OnPing(data);
     }
 }
+
+void PushService::onGotTick(const BfTickData& bfItem)
+{
+
+}
+
+void PushService::onGotTrade(const BfTradeData& bfItem)
+{
+
+}
+
+void PushService::onGotOrder(const BfOrderData& bfItem)
+{
+
+}
+
+void PushService::onAutoTradingStart()
+{
+
+}
+
+void PushService::onAutoTradingStop()
+{
+
+}

@@ -13,6 +13,8 @@
 #include "tablewidget_helper.h"
 #include "workingorderform.h"
 #include "ui_mainwindow.h"
+#include "pushservice.h"
+
 #include <windows.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -30,8 +32,6 @@ MainWindow::MainWindow(QWidget* parent)
     this->createTrayIcon();
 
     // actions
-    ui->actionProxyStart->setEnabled(true);
-    ui->actionProxyStop->setEnabled(false);
     ui->actionCtpConnect->setEnabled(true);
     ui->actionCtpDisconnect->setEnabled(false);
 
@@ -205,20 +205,6 @@ void MainWindow::on_actionCrashTerminateProcess_triggered()
     ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
-void MainWindow::on_actionProxyStart_triggered()
-{
-    ui->actionProxyStart->setEnabled(false);
-    ui->actionProxyStop->setEnabled(true);
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "startProxy", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionProxyStop_triggered()
-{
-    ui->actionProxyStart->setEnabled(true);
-    ui->actionProxyStop->setEnabled(false);
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stopProxy", Qt::QueuedConnection);
-}
-
 void MainWindow::on_actionCtpConnect_triggered()
 {
     ui->actionCtpConnect->setEnabled(false);
@@ -247,6 +233,7 @@ void MainWindow::on_actionNetStart_triggered()
     ui->actionNetStart->setEnabled(false);
     ui->actionNetStop->setEnabled(true);
     QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "startProxy", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionNetStop_triggered()
@@ -254,4 +241,35 @@ void MainWindow::on_actionNetStop_triggered()
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stopProxy", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionStopAutoTrading_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->pushService(), "onAutoTradingStop", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionStartAutoTrading_triggered()
+{
+    QMetaObject::invokeMethod(g_sm->pushService(), "onAutoTradingStart", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionShowRobotOrder_triggered()
+{
+
+}
+
+void MainWindow::on_actionShowRobotTrade_triggered()
+{
+
+}
+
+void MainWindow::on_actionAddRobot_triggered()
+{
+
+}
+
+void MainWindow::on_actionDeleteRobot_triggered()
+{
+
 }
