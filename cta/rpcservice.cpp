@@ -11,7 +11,7 @@ using namespace bftrader::bfcta;
 //
 // cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
 //
-// todo(hege):在connect时候，需要核对modelId RobotId信息哦=
+// TODO(hege):在connect时候，需要核对modelId RobotId信息哦=
 //
 class Cta final : public BfCtaService::Service {
 public:
