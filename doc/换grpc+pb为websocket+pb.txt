@@ -1,0 +1,49 @@
+不用grpc：
+======
+1、grpc windows版本有内存泄漏
+2、grpc python很久不改bug
+3、grpc 设计太复杂了，如果出了问题，很难修改它
+
+用websocket：
+======
+1、支持双向sendbinmessage sendtextmessage
+2、很流行，全平台，全语言
+3、非常简单，自己写一个也就是500行左右
+
+替换c++的rpc和push的问题：
+======
+1、push替换简单，建立一个连接，直接换就是了。这里可以开
+两个连接，一个push，一个rpc,，便于rpc不设计id可以按一应
+一答来回应；也可以只开一个，这样需要表示每一个request和respone。
+2、rpc替换，有点麻烦，可以参考jsonrpc2.0，message分为
+request：tag>0 
+respone：tag>0
+notification：tag=0
+
+根据respone的tag可以找到request，然后调用对应的
+closure就行了,注意这里是异步变成，需要做一个callback队列
+来等待完成然后查询到callback。可以参考grpc的cq。
+
+
+c++代码：
+======
+websocket->sendmessage(message,function<void(message)>cb)。
+
+如果想同步，这里加上：EventLoop.Run形成消息泵嵌套，然后在
+getmessage里面得到对应的回应然后quit，这个比较恶心。
+
+py&go
+======
+替换python/golang的rpc和push问题：
+都使用coroutine异步来实现，比较简单了，
+多任务，每个任务都是同步代码！
+sendmessage
+recvmessage
+
+参考实现：
+======
+https://github.com/aaugustin/websockets [python]
+https://github.com/python/asyncio
+https://github.com/KeepSafe/aiohttp
+https://github.com/gorilla/websocket [golang]
+https://github.com/qtproject/qtwebsockets [qt/c++]

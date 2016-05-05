@@ -1,0 +1,102 @@
+https://github.com/google/protobuf/releases
+
+1. any
+
+Added runtime support for Any type. To use Any in your proto file, first
+import the definition of Any:
+
+// foo.proto
+import "google/protobuf/any.proto";
+message Foo {
+  google.protobuf.Any any_field = 1;
+}
+message Bar {
+  int32 value = 1;
+}
+Then in C++ you can access the Any field using PackFrom()/UnpackTo()
+methods:
+
+Foo foo;
+Bar bar = ...;
+foo.mutable_any_field()->PackFrom(bar);
+...
+if (foo.any_field().IsType<Bar>()) {
+  foo.any_field().UnpackTo(&bar);
+  ...
+}
+
+
+2. arena
+
+Added arena allocation support (for both proto2 and proto3).
+
+Profiling shows memory allocation and deallocation constitutes a significant
+fraction of CPU-time spent in protobuf code and arena allocation is a
+technique introduced to reduce this cost. With arena allocation, new
+objects will be allocated from a large piece of preallocated memory and
+deallocation of these objects is almost free. Early adoption shows 20% to
+50% improvement in some Google binaries.
+
+To enable arena support, add the following option to your .proto file:
+
+option cc_enable_arenas = true;
+Protocol compiler will generate additional code to make the generated
+message classes work with arenas. This does not change the existing API
+of protobuf messages and does not affect wire format. Your existing code
+should continue to work after adding this option. In the future we will
+make this option enabled by default.
+
+To actually take advantage of arena allocation, you need to use the arena
+APIs when creating messages. A quick example of using the arena API:
+
+{
+  google::protobuf::Arena arena;
+  // Allocate a protobuf message in the arena.
+  MyMessage* message = Arena::CreateMessage<MyMessage>(&arena);
+  // All submessages will be allocated in the same arena.
+  if (!message->ParseFromString(data)) {
+    // Deal with malformed input data.
+  }
+  // Must not delete the message here. It will be deleted automatically
+  // when the arena is destroyed.
+}
+Currently arena does not work with map fields. Enabling arena in a .proto
+file containing map fields will result in compile errors in the generated
+code. This will be addressed in a future release.
+
+
+3. custom arena
+I would like to use Google Protocol Buffers in a memory constrained environment - not so much that the environment is low on memory as much as memory usage is tracked on a per subsystem basis.
+ 
+Generally, in this environment for other non-Google Protocol Buffers, I use the C++ placement new operator, which allows me to allocate a buffer from a specializes allocator and pass the address of that buffer to the new() operator.
+ 
+char* fooAllocation = memoryBroker->Allocate(MY_SUBSYSTEM_ID, MAX_FOO_SIZE);
+ 
+class Foo foo* = new (fooAllocation);
+ 
+When I am done with foo, I can call
+ 
+memoryBroker->Free(MY_SUBYSTEM_ID, MAX_FOO_SIZE, foo);
+ 
+That allows memoryBroker to keep accurate stats on memory usage by subsystem.
+ 
+I'd like to do the same with a GPB message.
+ 
+Is there some way to do that?
+Not possible with the current implementation but the next version of protobuf will include arena support and with that you will be able to allocate a message and all its sub-fields on an arena. For example:
+void ProcessData(const string& data) {
+  google::protobuf::ArenaOptions options;
+  options.initial_block = memoryBroker->Allocate(MY_SUBSYSTEM_ID, MAX_FOO_SIZE);
+  options.initial_block_size = MAX_FOO_SIZE;
+  options.max_block_size = 0;  // prevent arena to allocate heap memory by itself.
+  {
+    google::protobuf::Arena arena(options);
+    MyMessage* message = google::protobuf::Arena::CreateMessage<MyMessage>(&arena);
+    if (message->ParseFromString(data)) {
+      // use message...
+    }
+    cout << "Memory used for protobuf message: " << arena.SpaceUsed() << endl;
+  }
+  memoryBroker->Free(MY_SUBSYSTEM_ID, MAX_FOO_SIZE, options.initial_block);
+}
+
