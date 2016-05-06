@@ -1,46 +1,46 @@
-²»ÓÃgrpc£º
+ä¸ç”¨grpcï¼š
 ======
-1¡¢grpc windows°æ±¾ÓĞÄÚ´æĞ¹Â©
-2¡¢grpc pythonºÜ¾Ã²»¸Äbug
-3¡¢grpc Éè¼ÆÌ«¸´ÔÓÁË£¬Èç¹û³öÁËÎÊÌâ£¬ºÜÄÑĞŞ¸ÄËü
+1ã€grpc windowsç‰ˆæœ¬æœ‰å†…å­˜æ³„æ¼
+2ã€grpc pythonå¾ˆä¹…ä¸æ”¹bug
+3ã€grpc è®¾è®¡å¤ªå¤æ‚äº†ï¼Œå¦‚æœå‡ºäº†é—®é¢˜ï¼Œå¾ˆéš¾ä¿®æ”¹å®ƒ
 
-ÓÃwebsocket£º
+ç”¨websocketï¼š
 ======
-1¡¢Ö§³ÖË«Ïòsendbinmessage sendtextmessage
-2¡¢ºÜÁ÷ĞĞ£¬È«Æ½Ì¨£¬È«ÓïÑÔ
-3¡¢·Ç³£¼òµ¥£¬×Ô¼ºĞ´Ò»¸öÒ²¾ÍÊÇ500ĞĞ×óÓÒ
+1ã€æ”¯æŒåŒå‘sendbinmessage sendtextmessage
+2ã€å¾ˆæµè¡Œï¼Œå…¨å¹³å°ï¼Œå…¨è¯­è¨€
+3ã€éå¸¸ç®€å•ï¼Œè‡ªå·±å†™ä¸€ä¸ªä¹Ÿå°±æ˜¯500è¡Œå·¦å³
 
-Ìæ»»c++µÄrpcºÍpushµÄÎÊÌâ£º
+æ›¿æ¢c++çš„rpcå’Œpushçš„é—®é¢˜ï¼š
 ======
-1¡¢pushÌæ»»¼òµ¥£¬½¨Á¢Ò»¸öÁ¬½Ó£¬Ö±½Ó»»¾ÍÊÇÁË¡£ÕâÀï¿ÉÒÔ¿ª
-Á½¸öÁ¬½Ó£¬Ò»¸öpush£¬Ò»¸örpc,£¬±ãÓÚrpc²»Éè¼Æid¿ÉÒÔ°´Ò»Ó¦
-Ò»´ğÀ´»ØÓ¦£»Ò²¿ÉÒÔÖ»¿ªÒ»¸ö£¬ÕâÑùĞèÒª±íÊ¾Ã¿Ò»¸örequestºÍrespone¡£
-2¡¢rpcÌæ»»£¬ÓĞµãÂé·³£¬¿ÉÒÔ²Î¿¼jsonrpc2.0£¬message·ÖÎª
-request£ºtag>0 
-respone£ºtag>0
-notification£ºtag=0
+1ã€pushæ›¿æ¢ç®€å•ï¼Œå»ºç«‹ä¸€ä¸ªè¿æ¥ï¼Œç›´æ¥æ¢å°±æ˜¯äº†ã€‚è¿™é‡Œå¯ä»¥å¼€
+ä¸¤ä¸ªè¿æ¥ï¼Œä¸€ä¸ªpushï¼Œä¸€ä¸ªrpc,ï¼Œä¾¿äºrpcä¸è®¾è®¡idå¯ä»¥æŒ‰ä¸€åº”
+ä¸€ç­”æ¥å›åº”ï¼›ä¹Ÿå¯ä»¥åªå¼€ä¸€ä¸ªï¼Œè¿™æ ·éœ€è¦è¡¨ç¤ºæ¯ä¸€ä¸ªrequestå’Œresponeã€‚
+2ã€rpcæ›¿æ¢ï¼Œæœ‰ç‚¹éº»çƒ¦ï¼Œå¯ä»¥å‚è€ƒjsonrpc2.0ï¼Œmessageåˆ†ä¸º
+requestï¼štag>0 
+responeï¼štag>0
+notificationï¼štag=0
 
-¸ù¾İresponeµÄtag¿ÉÒÔÕÒµ½request£¬È»ºóµ÷ÓÃ¶ÔÓ¦µÄ
-closure¾ÍĞĞÁË,×¢ÒâÕâÀïÊÇÒì²½±ä³É£¬ĞèÒª×öÒ»¸öcallback¶ÓÁĞ
-À´µÈ´ıÍê³ÉÈ»ºó²éÑ¯µ½callback¡£¿ÉÒÔ²Î¿¼grpcµÄcq¡£
+æ ¹æ®responeçš„tagå¯ä»¥æ‰¾åˆ°requestï¼Œç„¶åè°ƒç”¨å¯¹åº”çš„
+closureå°±è¡Œäº†,æ³¨æ„è¿™é‡Œæ˜¯å¼‚æ­¥å˜æˆï¼Œéœ€è¦åšä¸€ä¸ªcallbacké˜Ÿåˆ—
+æ¥ç­‰å¾…å®Œæˆç„¶åæŸ¥è¯¢åˆ°callbackã€‚å¯ä»¥å‚è€ƒgrpcçš„cqã€‚
 
 
-c++´úÂë£º
+c++ä»£ç ï¼š
 ======
-websocket->sendmessage(message,function<void(message)>cb)¡£
+websocket->sendmessage(message,function<void(message)>cb)ã€‚
 
-Èç¹ûÏëÍ¬²½£¬ÕâÀï¼ÓÉÏ£ºEventLoop.RunĞÎ³ÉÏûÏ¢±ÃÇ¶Ì×£¬È»ºóÔÚ
-getmessageÀïÃæµÃµ½¶ÔÓ¦µÄ»ØÓ¦È»ºóquit£¬Õâ¸ö±È½Ï¶ñĞÄ¡£
+å¦‚æœæƒ³åŒæ­¥ï¼Œè¿™é‡ŒåŠ ä¸Šï¼šEventLoop.Runå½¢æˆæ¶ˆæ¯æ³µåµŒå¥—ï¼Œç„¶ååœ¨
+getmessageé‡Œé¢å¾—åˆ°å¯¹åº”çš„å›åº”ç„¶åquitï¼Œè¿™ä¸ªæ¯”è¾ƒæ¶å¿ƒã€‚
 
 py&go
 ======
-Ìæ»»python/golangµÄrpcºÍpushÎÊÌâ£º
-¶¼Ê¹ÓÃcoroutineÒì²½À´ÊµÏÖ£¬±È½Ï¼òµ¥ÁË£¬
-¶àÈÎÎñ£¬Ã¿¸öÈÎÎñ¶¼ÊÇÍ¬²½´úÂë£¡
+æ›¿æ¢python/golangçš„rpcå’Œpushé—®é¢˜ï¼š
+éƒ½ä½¿ç”¨coroutineå¼‚æ­¥æ¥å®ç°ï¼Œæ¯”è¾ƒç®€å•äº†ï¼Œ
+å¤šä»»åŠ¡ï¼Œæ¯ä¸ªä»»åŠ¡éƒ½æ˜¯åŒæ­¥ä»£ç ï¼
 sendmessage
 recvmessage
 
-²Î¿¼ÊµÏÖ£º
+å‚è€ƒå®ç°ï¼š
 ======
 https://github.com/aaugustin/websockets [python]
 https://github.com/python/asyncio

@@ -1,0 +1,13 @@
+网络库一定要选择异步的（便于集成到event-drive的模式中），单线程就可以跑的飞快。
+libuv不错，python c++都支持的不错。
+
+libuv有个readcb，这里把数据写入recvbuffer，同时做解包，如果发现到了一个fullpacket，
+就发给logic的onpacket，logic同步parse到pbmessage，之后recvbuffer可以回收这个buffer。
+也就是recvbuffer可以做成一个环形缓冲区。
+
+参考：（都做的太复杂了，不过想法是可以的）
+http://blog.csdn.net/dai_jing/article/details/24043665
+https://github.com/wqvbjhc/libuv_tcp
+https://github.com/saghul/pyuv [event-drive]
+https://github.com/MagicStack/uvloop [python3.4+ async await]
+http://www.01happy.com/golang-tcp-socket-adhere/ [golang]

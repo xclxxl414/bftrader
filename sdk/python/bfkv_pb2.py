@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfkv.proto',
   package='bftrader.bfkv',
   syntax='proto3',
-  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto2\xa7\x01\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto2\xe7\x02\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12@\n\x0cPingStreamCS\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00(\x01\x30\x01\x12=\n\x0bPingStreamC\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00(\x01\x12=\n\x0bPingStreamS\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x30\x01\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
   ,
   dependencies=[bftrader__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -41,6 +41,15 @@ class BetaBfKvServiceServicer(object):
   def Ping(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
+  def PingStreamCS(self, request_iterator, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def PingStreamC(self, request_iterator, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def PingStreamS(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
   def SetKv(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
@@ -54,6 +63,16 @@ class BetaBfKvServiceStub(object):
   def Ping(self, request, timeout):
     raise NotImplementedError()
   Ping.future = None
+  @abc.abstractmethod
+  def PingStreamCS(self, request_iterator, timeout):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def PingStreamC(self, request_iterator, timeout):
+    raise NotImplementedError()
+  PingStreamC.future = None
+  @abc.abstractmethod
+  def PingStreamS(self, request, timeout):
+    raise NotImplementedError()
   @abc.abstractmethod
   def SetKv(self, request, timeout):
     raise NotImplementedError()
@@ -70,19 +89,34 @@ def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.FromString,
   }
   response_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): face_utilities.unary_unary_inline(servicer.GetKv),
     ('bftrader.bfkv.BfKvService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): face_utilities.stream_unary_inline(servicer.PingStreamC),
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): face_utilities.stream_stream_inline(servicer.PingStreamCS),
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): face_utilities.unary_stream_inline(servicer.PingStreamS),
     ('bftrader.bfkv.BfKvService', 'SetKv'): face_utilities.unary_unary_inline(servicer.SetKv),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
@@ -95,19 +129,34 @@ def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, 
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
+  import bftrader_pb2
   request_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.SerializeToString,
   }
   response_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.FromString,
   }
   cardinalities = {
     'GetKv': cardinality.Cardinality.UNARY_UNARY,
     'Ping': cardinality.Cardinality.UNARY_UNARY,
+    'PingStreamC': cardinality.Cardinality.STREAM_UNARY,
+    'PingStreamCS': cardinality.Cardinality.STREAM_STREAM,
+    'PingStreamS': cardinality.Cardinality.UNARY_STREAM,
     'SetKv': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
