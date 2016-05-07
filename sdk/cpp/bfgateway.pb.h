@@ -26,6 +26,7 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
 #include "bftrader.pb.h"
+#include <google/protobuf/any.pb.h>
 // @@protoc_insertion_point(includes)
 
 namespace bftrader {

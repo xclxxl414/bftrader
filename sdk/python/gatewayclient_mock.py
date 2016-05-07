@@ -1,31 +1,40 @@
 # coding=utf-8
 
 import time
+import random
 
 from bftrader_pb2 import *
-from bfproxy_pb2 import *
 from bfgateway_pb2 import *
+from google.protobuf.any_pb2 import *
 
 from grpc.beta import implementations
+from grpc.beta import interfaces
 
 _BF_VOID = BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
-_MT = [("clientid","proxy_mock")]
-    
-class Proxy(BetaBfProxyServiceServicer):
+_MT = [("clientid","gatewayclient_mock")]
+_PING_TYPE = BfPingData().DESCRIPTOR
+
+class GatewayClient(object):
     def __init__(self):
-        print "init proxy"
+        print "init GatewayClient"
         self.gateway_channel = implementations.insecure_channel('localhost', 50051)
         self.gateway = beta_create_BfGatewayService_stub(self.gateway_channel)
-        self._service = beta_create_BfProxyService_server(self)
-        self._service.add_insecure_port('[::]:50053')
+        self.connectivity = interfaces.ChannelConnectivity.IDLE
+    
+    def update(self,connectivity):
+        '''C:\projects\grpc\src\python\grpcio\tests\unit\beta\_connectivity_channel_test.py'''
+        print connectivity
+        self.connectivity = connectivity
         
     def start(self):
-        self._service.start()
+        self.gateway_channel.subscribe(self.update,try_to_connect=False)
+        pass
     
     def stop(self):
-        self._service.stop(0)
+        self.gateway_channel.unsubscribe(self.update)
+        pass
         
     def OnTradeWillBegin(self, request, context):
         print "OnTradeWillBegin"
@@ -99,29 +108,28 @@ class Proxy(BetaBfProxyServiceServicer):
         return _BF_VOID
     
 def run():
-    print "start proxy"
-    proxy = Proxy()
-    proxy.start()
+    print "start GatewayClient"
+    client = GatewayClient()
+    client.start()
 
     print "connect gateway"
-    # Connect
-    req = BfConnectReq(clientId="proxy_mock",clientIp="localhost",clientPort=50053,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
-    resp = proxy.gateway.Connect(req,_TIMEOUT_SECONDS)
-    if resp.errorCode == 0:
-        # Ping
-        req = BfPingData(message="ping")
-        resp = proxy.gateway.Ping(req,_TIMEOUT_SECONDS,metadata=_MT)
-        print "ping=(%s),pong=(%s)" % (req.message,resp.message)
-    try:
-        while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
-    except KeyboardInterrupt:
-        # Close
+    req = BfConnectReq(clientId="gatewayclient_mock",tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
+    responses = client.gateway.Connect(req,_ONE_DAY_IN_SECONDS)
+    for resp in responses:
+        if resp.Is(_PING_TYPE):
+            resp_data = BfPingData()
+            resp.Unpack(resp_data)
+            print resp_data        
+    print "connect quit"
+    
+    time.sleep(_TIMEOUT_SECONDS)
+    if client.connectivity == interfaces.ChannelConnectivity.READY:
+        print "disconnect gateway"
         req = BfVoid()
-        resp = proxy.gateway.Close(req,_TIMEOUT_SECONDS,metadata=_MT)
-
-        print "stop proxy"
-        proxy.stop()
-
+        resp = client.gateway.Disconnect(req,_TIMEOUT_SECONDS,metadata=_MT)
+    
+    print "stop GatewayClient"
+    client.stop()
+    
 if __name__ == '__main__':
     run()

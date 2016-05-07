@@ -1,189 +1,98 @@
 #include "pushservice.h"
-#include "bfproxy.grpc.pb.h"
+#include "bfgateway.grpc.pb.h"
 #include "ctputils.h"
 #include "logger.h"
 #include "servicemgr.h"
+#include "safequeue.h"
 #include <QThread>
 #include <atomic>
 #include <grpc++/grpc++.h>
 
 using namespace bftrader;
-using namespace bftrader::bfproxy;
 
-//
-// ProxyClient，实现异步客户端，不需要等客户端的应答就直接返回，避免一个客户端堵住其他的=
-//
-
-class IGrpcCb {
+class GatewayClient {
 public:
-    explicit IGrpcCb(QString clientId)
-    {
-        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        context_.set_deadline(deadline);
-        context_.AddMetadata("clientid", clientId.toStdString());
-    }
-    virtual ~IGrpcCb()
-    {
-    }
-
-    grpc::ClientContext& context() { return context_; }
-    grpc::Status& status() { return status_; }
-
-public:
-    virtual void operator()() {}
-
-protected:
-    grpc::ClientContext context_;
-    grpc::Status status_;
-    const int deadline_ = 500;
-};
-
-template <class Resp>
-class GrpcCb : public IGrpcCb {
-public:
-    explicit GrpcCb(QString clientId)
-        : IGrpcCb(clientId)
-    {
-    }
-    virtual ~GrpcCb() override {}
-
-public:
-    typedef std::unique_ptr<grpc::ClientAsyncResponseReader<Resp> > RpcPtr;
-
-public:
-    Resp& getResp() { return resp_; }
-    void setRpcPtrAndFinish(RpcPtr rpc)
-    {
-        rpc_.swap(rpc);
-        rpc_->Finish(&resp_, &status_, (void*)this);
-    }
-
-public:
-    virtual void operator()() override
-    {
-    }
-
-private:
-    RpcPtr rpc_;
-    Resp resp_;
-};
-
-class ProxyClient;
-class PingCb final : public GrpcCb<BfPingData> {
-public:
-    explicit PingCb(ProxyClient* client, QString clientId)
-        : GrpcCb<BfPingData>(clientId)
-        , client_(client)
-    {
-    }
-    virtual ~PingCb() override {}
-
-public:
-    virtual void operator()() override;
-
-private:
-    ProxyClient* client_ = nullptr;
-};
-
-class ProxyClient {
-public:
-    ProxyClient(std::shared_ptr<grpc::Channel> channel, QString gatewayId, const BfConnectReq& req)
-        : stub_(BfProxyService::NewStub(channel))
+    GatewayClient(SafeQueue<google::protobuf::Any>* queue,QString gatewayId, const BfConnectReq& req)
+        :queue_(queue)
         , gatewayId_(gatewayId)
         , req_(req)
     {
         BfDebug(__FUNCTION__);
-        cq_thread_ = new QThread();
-        std::function<void(void)> fn = [=]() {
-            for (;;) {
-                void* pTag;
-                bool ok = false;
-                bool result = this->cq_.Next(&pTag, &ok);
-                if (result) {
-                    std::unique_ptr<IGrpcCb> pCb(static_cast<IGrpcCb*>(pTag));
-                    // run callback
-                    (*pCb)();
-                } else {
-                    // shutdown
-                    BfDebug("cq_thread shutdown");
-                    break;
-                }
-            }
-        };
-        QObject::connect(cq_thread_, &QThread::started, fn);
-        cq_thread_->start();
     }
-    ~ProxyClient()
+    ~GatewayClient()
     {
         BfDebug(__FUNCTION__);
-        cq_.Shutdown();
-        cq_thread_->quit();
-        cq_thread_->wait();
-        delete cq_thread_;
-        cq_thread_ = nullptr;
+        // NOTE(hege):关闭队列=
+        shutdown();
     }
 
+    // TODO(hege):
     void OnTradeWillBegin(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnTradeWillBegin(&pCb->context(), data, &cq_));
+
     }
 
+    // TODO(hege):
     void OnGotContracts(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnGotContracts(&pCb->context(), data, &cq_));
     }
 
-    // ref: grpc\test\cpp\interop\interop_client.cc
     void OnPing(const BfPingData& data)
     {
-        auto pCb = new PingCb(this, this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnPing(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnTick(const BfTickData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnTick(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     // 这个函数就别log了，会重入=
     void OnError(const BfErrorData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnError(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     // 这个函数就别log了，会重入=
     void OnLog(const BfLogData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnLog(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnTrade(const BfTradeData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnTrade(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnOrder(const BfOrderData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnOrder(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnPosition(const BfPositionData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnPosition(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnAccount(const BfAccountData& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->gatewayId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnAccount(&pCb->context(), data, &cq_));
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
 public:
@@ -200,41 +109,23 @@ public:
         }
         return false;
     }
-    void incPingFailCount() { pingfail_count_++; }
-    int pingFailCount() { return pingfail_count_; }
-    void resetPingFailCount() { pingfail_count_ = 0; }
     QString gatewayId() { return gatewayId_; }
-    QString proxyId() { return req_.clientid().c_str(); }
+    QString clientId() { return req_.clientid().c_str(); }
+    //NOTE(hege):由于跨线程，这里shutdown里面删除会导致rpcthread莫名其妙的问题=
+    void shutdown(){
+        if(queue_){
+            queue_->shutdown();
+            Sleep(1000);
+            delete queue_;
+            queue_ = nullptr;
+        }
+    }
 
 private:
-    std::unique_ptr<BfProxyService::Stub> stub_;
-    std::atomic_int32_t pingfail_count_ = 0;
-    const int deadline_ = 500;
+    SafeQueue<google::protobuf::Any>* queue_ = nullptr;
     QString gatewayId_;
     BfConnectReq req_;
-
-    // async client
-    grpc::CompletionQueue cq_;
-    QThread* cq_thread_ = nullptr;
 };
-
-void PingCb::operator()()
-{
-    if (!status_.ok()) {
-        QString proxyId = client_->proxyId();
-        client_->incPingFailCount();
-        int failCount = client_->pingFailCount();
-        int errorCode = status_.error_code();
-        std::string errorMsg = status_.error_message();
-        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(proxyId), deadline_, failCount, errorCode, errorMsg.c_str());
-        //if (failCount > 3) {
-        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(proxyId));
-        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectProxy", Qt::QueuedConnection, Q_ARG(QString, proxyId));
-        //}
-        return;
-    }
-    client_->resetPingFailCount();
-}
 
 //
 // PushService
@@ -279,41 +170,41 @@ void PushService::shutdown()
     delete this->pingTimer_;
     this->pingTimer_ = nullptr;
 
-    // delete all proxyclient
+    // delete all gatewayclient
     for (auto client : clients_) {
+        client->shutdown();
         delete client;
     }
     clients_.clear();
 }
 
-void PushService::connectProxy(QString gatewayId, const BfConnectReq& req)
+void PushService::connectClient(QString gatewayId, const BfConnectReq& req,void* queue)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
-    QString proxyId = req.clientid().c_str();
+    QString clientId = req.clientid().c_str();
 
-    ProxyClient* client = new ProxyClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        gatewayId, req);
-
-    if (clients_.contains(proxyId)) {
-        auto it = clients_[proxyId];
+    auto client = new GatewayClient((SafeQueue<google::protobuf::Any>*)queue,gatewayId, req);
+    if (clients_.contains(clientId)) {
+        auto it = clients_[clientId];
+        it->shutdown();
         delete it;
-        clients_.remove(proxyId);
+        clients_.remove(clientId);
     }
-    clients_[proxyId] = client;
+    clients_[clientId] = client;
 }
 
-void PushService::disconnectProxy(QString proxyId)
+void PushService::disconnectClient(QString clientId)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    if (clients_.contains(proxyId)) {
-        BfDebug("delete proxyclient:%s", qPrintable(proxyId));
-        ProxyClient* client = clients_[proxyId];
+    if (clients_.contains(clientId)) {
+        BfDebug("delete gatewayclient:(%s)", qPrintable(clientId));
+        auto client = clients_[clientId];
+        client->shutdown();
         delete client;
-        clients_.remove(proxyId);
+        clients_.remove(clientId);
     }
 }
 
@@ -323,6 +214,7 @@ void PushService::onGatewayClosed()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto client : clients_) {
+        client->shutdown();
         delete client;
     }
     clients_.clear();

@@ -33,7 +33,7 @@ std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::sh
 }
 
 BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::SERVER_STREAMING, channel)
   , rpcmethod_Ping_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_Disconnect_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
@@ -43,12 +43,12 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   , rpcmethod_QueryPosition_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status BfGatewayService::Stub::Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::bftrader::BfConnectResp* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Connect_, context, request, response);
+::grpc::ClientReader< ::google::protobuf::Any>* BfGatewayService::Stub::ConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) {
+  return new ::grpc::ClientReader< ::google::protobuf::Any>(channel_.get(), rpcmethod_Connect_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>* BfGatewayService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfConnectResp>(channel_.get(), cq, rpcmethod_Connect_, context, request);
+::grpc::ClientAsyncReader< ::google::protobuf::Any>* BfGatewayService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return new ::grpc::ClientAsyncReader< ::google::protobuf::Any>(channel_.get(), cq, rpcmethod_Connect_, context, request, tag);
 }
 
 ::grpc::Status BfGatewayService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
@@ -111,8 +111,8 @@ BfGatewayService::Service::Service() {
   (void)BfGatewayService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[0],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfConnectReq, ::bftrader::BfConnectResp>(
+      ::grpc::RpcMethod::SERVER_STREAMING,
+      new ::grpc::ServerStreamingHandler< BfGatewayService::Service, ::bftrader::BfConnectReq, ::google::protobuf::Any>(
           std::mem_fn(&BfGatewayService::Service::Connect), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[1],
@@ -154,10 +154,10 @@ BfGatewayService::Service::Service() {
 BfGatewayService::Service::~Service() {
 }
 
-::grpc::Status BfGatewayService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) {
+::grpc::Status BfGatewayService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) {
   (void) context;
   (void) request;
-  (void) response;
+  (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 

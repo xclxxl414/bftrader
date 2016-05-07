@@ -14,15 +14,16 @@ _sym_db = _symbol_database.Default()
 
 
 import bftrader_pb2 as bftrader__pb2
+from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfgateway.proto',
   package='bftrader.bfgateway',
   syntax='proto3',
-  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\x12\x62\x66trader.bfgateway\x1a\x0e\x62\x66trader.proto2\xf1\x03\n\x10\x42\x66GatewayService\x12<\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x17.bftrader.BfConnectResp\"\x00\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x45\n\x0bGetContract\x12\x1a.bftrader.BfGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x0cQueryAccount\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x35\n\rQueryPosition\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\x12\x62\x66trader.bfgateway\x1a\x0e\x62\x66trader.proto\x1a\x19google/protobuf/any.proto2\xf0\x03\n\x10\x42\x66GatewayService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x45\n\x0bGetContract\x12\x1a.bftrader.BfGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x0cQueryAccount\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x35\n\rQueryPosition\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
-  dependencies=[bftrader__pb2.DESCRIPTOR,])
+  dependencies=[bftrader__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -68,7 +69,6 @@ class BetaBfGatewayServiceStub(object):
   @abc.abstractmethod
   def Connect(self, request, timeout):
     raise NotImplementedError()
-  Connect.future = None
   @abc.abstractmethod
   def Ping(self, request, timeout):
     raise NotImplementedError()
@@ -100,7 +100,7 @@ class BetaBfGatewayServiceStub(object):
 
 def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import bftrader_pb2
-  import bftrader_pb2
+  import google.protobuf.any_pb2
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
@@ -127,7 +127,7 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   }
   response_serializers = {
     ('bftrader.bfgateway.BfGatewayService', 'CancelOrder'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfgateway.BfGatewayService', 'Connect'): bftrader_pb2.BfConnectResp.SerializeToString,
+    ('bftrader.bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'Disconnect'): bftrader_pb2.BfVoid.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'GetContract'): bftrader_pb2.BfContractData.SerializeToString,
     ('bftrader.bfgateway.BfGatewayService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
@@ -137,7 +137,7 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   }
   method_implementations = {
     ('bftrader.bfgateway.BfGatewayService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
-    ('bftrader.bfgateway.BfGatewayService', 'Connect'): face_utilities.unary_unary_inline(servicer.Connect),
+    ('bftrader.bfgateway.BfGatewayService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
     ('bftrader.bfgateway.BfGatewayService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
     ('bftrader.bfgateway.BfGatewayService', 'GetContract'): face_utilities.unary_unary_inline(servicer.GetContract),
     ('bftrader.bfgateway.BfGatewayService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
@@ -150,7 +150,7 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
 
 def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
   import bftrader_pb2
-  import bftrader_pb2
+  import google.protobuf.any_pb2
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
@@ -177,7 +177,7 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   }
   response_deserializers = {
     ('bftrader.bfgateway.BfGatewayService', 'CancelOrder'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfgateway.BfGatewayService', 'Connect'): bftrader_pb2.BfConnectResp.FromString,
+    ('bftrader.bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'Disconnect'): bftrader_pb2.BfVoid.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'GetContract'): bftrader_pb2.BfContractData.FromString,
     ('bftrader.bfgateway.BfGatewayService', 'Ping'): bftrader_pb2.BfPingData.FromString,
@@ -187,7 +187,7 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   }
   cardinalities = {
     'CancelOrder': cardinality.Cardinality.UNARY_UNARY,
-    'Connect': cardinality.Cardinality.UNARY_UNARY,
+    'Connect': cardinality.Cardinality.UNARY_STREAM,
     'Disconnect': cardinality.Cardinality.UNARY_UNARY,
     'GetContract': cardinality.Cardinality.UNARY_UNARY,
     'Ping': cardinality.Cardinality.UNARY_UNARY,

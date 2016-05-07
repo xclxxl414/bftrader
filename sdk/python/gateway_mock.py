@@ -1,36 +1,32 @@
 # coding=utf-8
 
 import time
+import random
 
 from bftrader_pb2 import *
 from bfgateway_pb2 import *
-from bfproxy_pb2 import *
+from google.protobuf.any_pb2 import *
 
 from grpc.beta import implementations
 
 _BF_VOID = BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
-_TIMEOUT_SECONDS = 1
 
 class Gateway(BetaBfGatewayServiceServicer):
     def __init__(self):
         print "init gateway"
-        self.proxy_channel = ""
-        self.proxy = ""
         
     def Connect(self, request, context):
         print "Connect"
         print request
         
-        self.proxy_channel = implementations.insecure_channel(request.clientIp, request.clientPort)
-        self.proxy = beta_create_BfProxyService_stub(self.proxy_channel)
-
-        # OnTick
-        req = BfTickData(symbol="RB1609",exchange="ICCSC")
-        resp = self.proxy.OnTick(req,_TIMEOUT_SECONDS)
-
-        resp = BfConnectResp(errorCode = 0)
-        return resp
+        resp_data = BfPingData(message="ping")
+        resp = Any()
+        resp.Pack(resp_data)
+        for i in range(1,10):
+            print i
+            yield resp
+            time.sleep(random.uniform(0.5, 1))
 
     def Ping(self, request, context):
         print "Ping"
@@ -75,9 +71,12 @@ class Gateway(BetaBfGatewayServiceServicer):
         return _BF_VOID
 
     def Disconnect(self, request, context):
-        print "Close"
+        print "Disconnect"
+        mt =  context.invocation_metadata()
+        for it in mt:
+            print "metadata: %s:%s" % (it[0],it[1])
         print request
-        
+            
         return _BF_VOID
         
 def run():

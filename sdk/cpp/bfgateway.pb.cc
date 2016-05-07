@@ -58,22 +58,23 @@ void protobuf_AddDesc_bfgateway_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
+  ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\017bfgateway.proto\022\022bftrader.bfgateway\032\016b"
-    "ftrader.proto2\361\003\n\020BfGatewayService\022<\n\007Co"
-    "nnect\022\026.bftrader.BfConnectReq\032\027.bftrader"
-    ".BfConnectResp\"\000\0224\n\004Ping\022\024.bftrader.BfPi"
-    "ngData\032\024.bftrader.BfPingData\"\000\0222\n\nDiscon"
-    "nect\022\020.bftrader.BfVoid\032\020.bftrader.BfVoid"
-    "\"\000\022E\n\013GetContract\022\032.bftrader.BfGetContra"
-    "ctReq\032\030.bftrader.BfContractData\"\000\022B\n\tSen"
-    "dOrder\022\030.bftrader.BfSendOrderReq\032\031.bftra"
-    "der.BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.b"
-    "ftrader.BfCancelOrderReq\032\020.bftrader.BfVo"
-    "id\"\000\0224\n\014QueryAccount\022\020.bftrader.BfVoid\032\020"
-    ".bftrader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bf"
-    "trader.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto"
-    "3", 561);
+    "ftrader.proto\032\031google/protobuf/any.proto"
+    "2\360\003\n\020BfGatewayService\022;\n\007Connect\022\026.bftra"
+    "der.BfConnectReq\032\024.google.protobuf.Any\"\000"
+    "0\001\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.bftra"
+    "der.BfPingData\"\000\0222\n\nDisconnect\022\020.bftrade"
+    "r.BfVoid\032\020.bftrader.BfVoid\"\000\022E\n\013GetContr"
+    "act\022\032.bftrader.BfGetContractReq\032\030.bftrad"
+    "er.BfContractData\"\000\022B\n\tSendOrder\022\030.bftra"
+    "der.BfSendOrderReq\032\031.bftrader.BfSendOrde"
+    "rResp\"\000\022=\n\013CancelOrder\022\032.bftrader.BfCanc"
+    "elOrderReq\032\020.bftrader.BfVoid\"\000\0224\n\014QueryA"
+    "ccount\022\020.bftrader.BfVoid\032\020.bftrader.BfVo"
+    "id\"\000\0225\n\rQueryPosition\022\020.bftrader.BfVoid\032"
+    "\020.bftrader.BfVoid\"\000b\006proto3", 587);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfgateway_2eproto);

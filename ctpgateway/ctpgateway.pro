@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     dbservice.cpp \
     mdsm.cpp \
     tdsm.cpp \
-    ringbuffer.cpp \
     ui/mainwindow.cpp \
     ui/configdialog.cpp \
     ui/logindialog.cpp \
@@ -48,7 +47,6 @@ HEADERS  += ui/mainwindow.h \
     tdsm.h \
     ui/configdialog.h \
     ui/logindialog.h \
-    ringbuffer.h \
     ui/infoform.h \
     ui/errorform.h \
     ui/debugform.h \

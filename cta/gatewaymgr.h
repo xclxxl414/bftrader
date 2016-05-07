@@ -10,9 +10,6 @@
 using namespace bftrader;
 
 class GatewayClient;
-namespace grpc {
-class Server;
-}
 
 //
 // 通过gatewaymgr来桥接ctpgateway
@@ -26,11 +23,8 @@ public:
 
     // ui
 public slots:
-    void startProxy();
-    void stopProxy();
     void connectGateway(QString gatewayId, QString endpoint, const BfConnectReq& req);
     void disconnectGateway(QString gatewayId);
-    void onProxyClosed();
     void onPing();
 
     // channel&stub is threadsafe,sendorder/getcontract可以任意线程调用=
@@ -53,13 +47,7 @@ signals:
     void gotError(QString gatewayId, const BfErrorData& data);
     void gotLog(QString gatewayId, const BfLogData& data);
 
-private slots:
-    void onProxyThreadStarted();
-
 private:
-    QThread* proxyThread_ = nullptr;
-    grpc::Server* grpcServer_ = nullptr;
-
     QMap<QString, GatewayClient*> clients_;
     QMutex clients_mutex_;
     QTimer* pingTimer_ = nullptr;

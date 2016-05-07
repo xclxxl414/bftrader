@@ -213,8 +213,6 @@ void MainWindow::on_actionCtpConnect_triggered()
     QString endpoint = "localhost:50051";
     BfConnectReq req;
     req.set_clientid("cta");
-    req.set_clientip("localhost");
-    req.set_clientport(50053);
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "connectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(QString, endpoint), Q_ARG(BfConnectReq, req));
 }
 
@@ -232,7 +230,6 @@ void MainWindow::on_actionNetStart_triggered()
     ui->actionNetStart->setEnabled(false);
     ui->actionNetStop->setEnabled(true);
     QMetaObject::invokeMethod(g_sm->rpcService(), "start", Qt::QueuedConnection);
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "startProxy", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionNetStop_triggered()
@@ -240,7 +237,6 @@ void MainWindow::on_actionNetStop_triggered()
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stopProxy", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionStopAutoTrading_triggered()

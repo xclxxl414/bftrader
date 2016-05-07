@@ -7,7 +7,7 @@
 
 #include "gatewaymgr.h"
 
-class ProxyClient;
+class GatewayClient;
 
 // PUSH
 class PushService : public QObject {
@@ -20,8 +20,8 @@ public:
 signals:
 
 public slots:
-    void connectProxy(QString gatewayId, const BfConnectReq& req);
-    void disconnectProxy(QString proxyId);
+    void connectClient(QString gatewayId, const BfConnectReq& req,void* queue);
+    void disconnectClient(QString clientId);
     void onGatewayClosed();
     void onPing();
 
@@ -36,7 +36,7 @@ public slots:
     void onGotAccount(const BfAccountData& account);
 
 private:
-    QMap<QString, ProxyClient*> clients_;
+    QMap<QString, GatewayClient*> clients_;
     QTimer* pingTimer_ = nullptr;
 };
 

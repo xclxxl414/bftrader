@@ -1,7 +1,7 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include <QObject>
+#include <QtGlobal>
 #include <atomic>
 
 //每个合约在内存中使用ringbuffer保留(256)个tick，ui上要延迟1分钟使用请自己复制=

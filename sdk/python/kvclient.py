@@ -23,6 +23,7 @@ def generate_messages():
         time.sleep(random.uniform(0.5, 1))
         
 def PingStreamCS(kvservice):
+    '''C:\projects\grpc\third_party\protobuf\python\google\protobuf\internal\message_test.py'''
     responses = kvservice.PingStreamCS(generate_messages(), _ONE_DAY_IN_SECONDS)
     for resp in responses:
         if resp.Is(_PING_TYPE):

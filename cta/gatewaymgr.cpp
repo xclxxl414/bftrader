@@ -1,104 +1,11 @@
 #include "gatewaymgr.h"
 #include "bfgateway.grpc.pb.h"
-#include "bfproxy.grpc.pb.h"
 #include "servicemgr.h"
 #include <QThread>
 #include <grpc++/grpc++.h>
 
 using namespace bftrader;
-using namespace bftrader::bfproxy;
 using namespace bftrader::bfgateway;
-
-//
-// Proxy
-//
-
-class Proxy final : public BfProxyService::Service {
-public:
-    Proxy()
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-    }
-    virtual ~Proxy()
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-    }
-    virtual ::grpc::Status OnPing(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
-    {
-        BfDebug("%s on thread:%d,from:(%s)", __FUNCTION__, ::GetCurrentThreadId(), qPrintable(getClientId(context)));
-        response->set_message(request->message());
-        return grpc::Status::OK;
-    }
-
-    virtual ::grpc::Status OnTradeWillBegin(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "tradeWillBegin", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfVoid, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnGotContracts(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotContracts", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfVoid, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotTick", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfTickData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnError(::grpc::ServerContext* context, const ::bftrader::BfErrorData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotError", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfErrorData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnLog(::grpc::ServerContext* context, const ::bftrader::BfLogData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotLog", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfLogData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnTrade(::grpc::ServerContext* context, const ::bftrader::BfTradeData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotTrade", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfTradeData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnOrder(::grpc::ServerContext* context, const ::bftrader::BfOrderData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotOrder", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfOrderData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnPosition(::grpc::ServerContext* context, const ::bftrader::BfPositionData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotPosition", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfPositionData, *request));
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status OnAccount(::grpc::ServerContext* context, const ::bftrader::BfAccountData* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "gotAccount", Qt::QueuedConnection, Q_ARG(QString, getClientId(context)), Q_ARG(BfAccountData, *request));
-        return grpc::Status::OK;
-    }
-
-private:
-    // metadata-key只能是小写的=
-    QString getClientId(::grpc::ServerContext* context)
-    {
-        QString clientId;
-        if (0 != context->client_metadata().count("clientid")) {
-            auto its = context->client_metadata().equal_range("clientid");
-            auto it = its.first;
-            clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
-        }
-        return clientId;
-    }
-};
 
 //
 // GatewayClient
@@ -112,7 +19,15 @@ public:
     {
         BfDebug(__FUNCTION__);
     }
-    ~GatewayClient() {}
+    ~GatewayClient() {
+        BfDebug(__FUNCTION__);
+        if(reader_thread_){
+            reader_thread_->quit();
+            reader_thread_->wait();
+            delete reader_thread_;
+            reader_thread_ = nullptr;
+        }
+    }
 
     // ref: grpc\test\cpp\interop\interop_client.cc
     void Ping(const BfPingData& req, BfPingData& resp)
@@ -140,17 +55,37 @@ public:
         }
     }
 
+    // NOTE(hege):要么正常的disconnect让服务端关闭，要么网络异常导致read失败=
+    // TODO(hege):考虑自动重连?
     void Connect(const BfConnectReq& req, BfConnectResp& resp)
     {
-        grpc::ClientContext ctx;
-        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        ctx.set_deadline(deadline);
-        ctx.AddMetadata("clientid", req_.clientid());
-
-        grpc::Status status = stub_->Connect(&ctx, req, &resp);
-        if (!status.ok()) {
-            BfError("(%s)->Connect,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
-        }
+        reader_thread_ = new QThread();
+        std::function<void(void)> fn = [=]() {
+            // NOTE(hege):用不超时，这个估计要改...毕竟服务端还是有一个cache的=
+            grpc::ClientContext ctx;
+            std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>> reader = stub_->Connect(&ctx, req);
+            for (;;) {
+                google::protobuf::Any any;
+                bool ok = reader->Read(&any);
+                if (ok) {
+                    if(any.Is<BfPingData>()){
+                        BfPingData ping;
+                        any.UnpackTo(&ping);
+                        BfInfo("(%s)->Connect,gotPing:%s", qPrintable(this->gatewayId_), ping.message().c_str());
+                    }
+                } else {
+                    // shutdown
+                    BfDebug("stream shutdown");
+                    grpc::Status status = reader->Finish();
+                    if(!status.ok()){
+                        BfError("(%s)->Connect,code:%d,msg:%s", qPrintable(this->gatewayId_), status.error_code(), status.error_message().c_str());
+                    }
+                    break;
+                }
+            }
+        };
+        QObject::connect(reader_thread_, &QThread::started, fn);
+        reader_thread_->start();
     }
 
     void Disconnect(const BfVoid& req, BfVoid& resp)
@@ -232,11 +167,13 @@ public:
     }
 
 private:
-    std::unique_ptr<BfGatewayService::Stub> stub_;
+    std::unique_ptr<BfGatewayService::Stub> stub_;    
     int pingfail_count_ = 0;
     const int deadline_ = 500;
     QString gatewayId_;
     BfConnectReq req_;
+
+    QThread* reader_thread_ = nullptr;
 };
 
 //
@@ -284,57 +221,19 @@ void GatewayMgr::shutdown()
     delete this->pingTimer_;
     this->pingTimer_ = nullptr;
 
-    // stop proxy
-    stopProxy();
-}
+    // stop ....
+    if(1){
+        QMutexLocker lock(&clients_mutex_);
+        for (auto client : clients_) {
+            // disconnect
+            BfVoid req, resp;
+            client->Disconnect(req, resp);
 
-void GatewayMgr::startProxy()
-{
-    BfDebug(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-
-    if (proxyThread_ == nullptr) {
-        proxyThread_ = new QThread();
-        QObject::connect(proxyThread_, &QThread::started, this, &GatewayMgr::onProxyThreadStarted, Qt::DirectConnection);
-        proxyThread_->start();
+            // free
+            delete client;
+        }
+        clients_.clear();
     }
-}
-
-void GatewayMgr::stopProxy()
-{
-    BfDebug(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-
-    if (proxyThread_ != nullptr) {
-        grpcServer_->Shutdown();
-        grpcServer_ = nullptr;
-
-        proxyThread_->quit();
-        proxyThread_->wait();
-        delete proxyThread_;
-        proxyThread_ = nullptr;
-
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "onProxyClosed", Qt::QueuedConnection);
-    }
-}
-
-void GatewayMgr::onProxyThreadStarted()
-{
-    BfDebug(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-
-    std::string server_address("0.0.0.0:50053");
-    Proxy proxy;
-
-    grpc::ServerBuilder builder;
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
-    builder.RegisterService(&proxy);
-    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    BfInfo(QString("proxy listening on ") + server_address.c_str());
-    grpcServer_ = server.get();
-
-    server->Wait();
-    BfInfo(QString("proxy shutdown"));
 }
 
 void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfConnectReq& req)
@@ -379,23 +278,6 @@ void GatewayMgr::disconnectGateway(QString gatewayId)
         delete client;
         clients_.remove(gatewayId);
     }
-}
-
-void GatewayMgr::onProxyClosed()
-{
-    BfDebug(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-    QMutexLocker lock(&clients_mutex_);
-
-    for (auto client : clients_) {
-        // disconnect
-        BfVoid req, resp;
-        client->Disconnect(req, resp);
-
-        // free
-        delete client;
-    }
-    clients_.clear();
 }
 
 void GatewayMgr::onPing()

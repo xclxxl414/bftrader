@@ -9,4 +9,4 @@ SOURCES += \
 
 
 HEADERS += \
-    $$SOURCE_DIR/*.h \
+    $$SOURCE_DIR/*.h
