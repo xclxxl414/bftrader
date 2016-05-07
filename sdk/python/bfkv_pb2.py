@@ -14,15 +14,16 @@ _sym_db = _symbol_database.Default()
 
 
 import bftrader_pb2 as bftrader__pb2
+from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfkv.proto',
   package='bftrader.bfkv',
   syntax='proto3',
-  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto2\xe7\x02\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12@\n\x0cPingStreamCS\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00(\x01\x30\x01\x12=\n\x0bPingStreamC\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00(\x01\x12=\n\x0bPingStreamS\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x30\x01\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\nbfkv.proto\x12\rbftrader.bfkv\x1a\x0e\x62\x66trader.proto\x1a\x19google/protobuf/any.proto2\xe7\x02\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12@\n\x0cPingStreamCS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x30\x01\x12=\n\x0bPingStreamC\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x12=\n\x0bPingStreamS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
   ,
-  dependencies=[bftrader__pb2.DESCRIPTOR,])
+  dependencies=[bftrader__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -85,12 +86,12 @@ class BetaBfKvServiceStub(object):
 def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import bftrader_pb2
   import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
@@ -98,17 +99,17 @@ def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_
   request_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.FromString,
   }
   response_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
@@ -125,12 +126,12 @@ def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_
 def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
   import bftrader_pb2
   import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
+  import google.protobuf.any_pb2
   import bftrader_pb2
   import bftrader_pb2
   import bftrader_pb2
@@ -138,17 +139,17 @@ def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, 
   request_serializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfKvData.SerializeToString,
   }
   response_deserializers = {
     ('bftrader.bfkv.BfKvService', 'GetKv'): bftrader_pb2.BfKvData.FromString,
     ('bftrader.bfkv.BfKvService', 'Ping'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamC'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfkv.BfKvService', 'PingStreamS'): bftrader_pb2.BfPingData.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
+    ('bftrader.bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
     ('bftrader.bfkv.BfKvService', 'SetKv'): bftrader_pb2.BfVoid.FromString,
   }
   cardinalities = {

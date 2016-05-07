@@ -1,11 +1,12 @@
 syntax = "proto3";
 
+package bftrader.bfkv;
+
 // option optimize_for = CODE_SIZE;
 // option cc_enable_arenas = true;
 
-package bftrader.bfkv;
-
 import "bftrader.proto";
+import "google/protobuf/any.proto";
 
 //
 // Kv服务
@@ -13,9 +14,11 @@ import "bftrader.proto";
 service BfKvService{    
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}
-    rpc PingStreamCS(stream BfPingData) returns (stream BfPingData) {}
-    rpc PingStreamC(stream BfPingData) returns (BfPingData) {}
-    rpc PingStreamS(BfPingData) returns (stream BfPingData) {}
+    
+    // stream测试
+    rpc PingStreamCS(stream google.protobuf.Any) returns (stream google.protobuf.Any) {}
+    rpc PingStreamC(stream google.protobuf.Any) returns (google.protobuf.Any) {}
+    rpc PingStreamS(google.protobuf.Any) returns (stream google.protobuf.Any) {}
 
     // Kv服务
     rpc SetKv(BfKvData) returns (BfVoid){}

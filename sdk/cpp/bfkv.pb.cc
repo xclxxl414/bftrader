@@ -58,18 +58,19 @@ void protobuf_AddDesc_bfkv_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::bftrader::protobuf_AddDesc_bftrader_2eproto();
+  ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\nbfkv.proto\022\rbftrader.bfkv\032\016bftrader.pr"
-    "oto2\347\002\n\013BfKvService\0224\n\004Ping\022\024.bftrader.B"
-    "fPingData\032\024.bftrader.BfPingData\"\000\022@\n\014Pin"
-    "gStreamCS\022\024.bftrader.BfPingData\032\024.bftrad"
-    "er.BfPingData\"\000(\0010\001\022=\n\013PingStreamC\022\024.bft"
-    "rader.BfPingData\032\024.bftrader.BfPingData\"\000"
-    "(\001\022=\n\013PingStreamS\022\024.bftrader.BfPingData\032"
-    "\024.bftrader.BfPingData\"\0000\001\022/\n\005SetKv\022\022.bft"
-    "rader.BfKvData\032\020.bftrader.BfVoid\"\000\0221\n\005Ge"
-    "tKv\022\022.bftrader.BfKvData\032\022.bftrader.BfKvD"
-    "ata\"\000b\006proto3", 413);
+    "oto\032\031google/protobuf/any.proto2\347\002\n\013BfKvS"
+    "ervice\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.b"
+    "ftrader.BfPingData\"\000\022@\n\014PingStreamCS\022\024.g"
+    "oogle.protobuf.Any\032\024.google.protobuf.Any"
+    "\"\000(\0010\001\022=\n\013PingStreamC\022\024.google.protobuf."
+    "Any\032\024.google.protobuf.Any\"\000(\001\022=\n\013PingStr"
+    "eamS\022\024.google.protobuf.Any\032\024.google.prot"
+    "obuf.Any\"\0000\001\022/\n\005SetKv\022\022.bftrader.BfKvDat"
+    "a\032\020.bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.bftrade"
+    "r.BfKvData\032\022.bftrader.BfKvData\"\000b\006proto3", 440);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfkv.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfkv_2eproto);

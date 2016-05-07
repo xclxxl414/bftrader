@@ -5,10 +5,12 @@ import random
 
 from bftrader_pb2 import *
 from bfkv_pb2 import *
+from google.protobuf.any_pb2 import *
 
 from grpc.beta import implementations
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
+_PING_TYPE = BfPingData().DESCRIPTOR
 
 class KvService(BetaBfKvServiceServicer):
     def __init__(self):
@@ -23,23 +25,40 @@ class KvService(BetaBfKvServiceServicer):
         
     def PingStreamCS(self, request_iterator, context):
         print "PingStreamCS"
-        resp = BfPingData(message="pong")
+        resp_data = BfPingData(message="pong")
+        resp = Any()
+        resp.Pack(resp_data)
         for req in request_iterator:
-            print req
+            if req.Is(_PING_TYPE):
+                req_data = BfPingData()
+                req.Unpack(req_data)
+                print req_data
             yield resp
 
     def PingStreamC(self, request_iterator, context):
         print "PingStreamC"
         for req in request_iterator:
-            print req
-
-        resp = BfPingData(message="pong")
+            if req.Is(_PING_TYPE):
+                req_data = BfPingData()
+                req.Unpack(req_data)
+                print req_data
+                
+        resp_data = BfPingData(message="pong")
+        resp = Any()
+        resp.Pack(resp_data)
         return  resp
     
     def PingStreamS(self, request, context):
         print "PingStreamS"
-        print request
-        resp = BfPingData(message="pong")
+        req = request
+        if req.Is(_PING_TYPE):
+            req_data = BfPingData()
+            req.Unpack(req_data)
+            print req_data
+
+        resp_data = BfPingData(message="pong")
+        resp = Any()
+        resp.Pack(resp_data)
         for i in range(1,10):
             print i
             yield resp

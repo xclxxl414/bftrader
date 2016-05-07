@@ -34,23 +34,23 @@ class BfKvService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>> PingStreamCS(::grpc::ClientContext* context) {
-      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>>(PingStreamCSRaw(context));
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>> PingStreamCS(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>>(PingStreamCSRaw(context));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>> AsyncPingStreamCS(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>>(AsyncPingStreamCSRaw(context, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>> AsyncPingStreamCS(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>>(AsyncPingStreamCSRaw(context, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientWriterInterface< ::bftrader::BfPingData>> PingStreamC(::grpc::ClientContext* context, ::bftrader::BfPingData* response) {
-      return std::unique_ptr< ::grpc::ClientWriterInterface< ::bftrader::BfPingData>>(PingStreamCRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriterInterface< ::google::protobuf::Any>> PingStreamC(::grpc::ClientContext* context, ::google::protobuf::Any* response) {
+      return std::unique_ptr< ::grpc::ClientWriterInterface< ::google::protobuf::Any>>(PingStreamCRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::bftrader::BfPingData>> AsyncPingStreamC(::grpc::ClientContext* context, ::bftrader::BfPingData* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::bftrader::BfPingData>>(AsyncPingStreamCRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::google::protobuf::Any>> AsyncPingStreamC(::grpc::ClientContext* context, ::google::protobuf::Any* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::google::protobuf::Any>>(AsyncPingStreamCRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfPingData>> PingStreamS(::grpc::ClientContext* context, const ::bftrader::BfPingData& request) {
-      return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfPingData>>(PingStreamSRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::google::protobuf::Any>> PingStreamS(::grpc::ClientContext* context, const ::google::protobuf::Any& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::google::protobuf::Any>>(PingStreamSRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfPingData>> AsyncPingStreamS(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfPingData>>(AsyncPingStreamSRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>> AsyncPingStreamS(::grpc::ClientContext* context, const ::google::protobuf::Any& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>>(AsyncPingStreamSRaw(context, request, cq, tag));
     }
     virtual ::grpc::Status SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncSetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
@@ -62,12 +62,12 @@ class BfKvService GRPC_FINAL {
     }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>* PingStreamCSRaw(::grpc::ClientContext* context) = 0;
-    virtual ::grpc::ClientAsyncReaderWriterInterface< ::bftrader::BfPingData, ::bftrader::BfPingData>* AsyncPingStreamCSRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientWriterInterface< ::bftrader::BfPingData>* PingStreamCRaw(::grpc::ClientContext* context, ::bftrader::BfPingData* response) = 0;
-    virtual ::grpc::ClientAsyncWriterInterface< ::bftrader::BfPingData>* AsyncPingStreamCRaw(::grpc::ClientContext* context, ::bftrader::BfPingData* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientReaderInterface< ::bftrader::BfPingData>* PingStreamSRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfPingData>* AsyncPingStreamSRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>* PingStreamCSRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::google::protobuf::Any, ::google::protobuf::Any>* AsyncPingStreamCSRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientWriterInterface< ::google::protobuf::Any>* PingStreamCRaw(::grpc::ClientContext* context, ::google::protobuf::Any* response) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::google::protobuf::Any>* AsyncPingStreamCRaw(::grpc::ClientContext* context, ::google::protobuf::Any* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientReaderInterface< ::google::protobuf::Any>* PingStreamSRaw(::grpc::ClientContext* context, const ::google::protobuf::Any& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>* AsyncPingStreamSRaw(::grpc::ClientContext* context, const ::google::protobuf::Any& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncSetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>* AsyncGetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -78,23 +78,23 @@ class BfKvService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>> PingStreamCS(::grpc::ClientContext* context) {
-      return std::unique_ptr< ::grpc::ClientReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>>(PingStreamCSRaw(context));
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>> PingStreamCS(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>>(PingStreamCSRaw(context));
     }
-    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>> AsyncPingStreamCS(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>>(AsyncPingStreamCSRaw(context, cq, tag));
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>> AsyncPingStreamCS(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>>(AsyncPingStreamCSRaw(context, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientWriter< ::bftrader::BfPingData>> PingStreamC(::grpc::ClientContext* context, ::bftrader::BfPingData* response) {
-      return std::unique_ptr< ::grpc::ClientWriter< ::bftrader::BfPingData>>(PingStreamCRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriter< ::google::protobuf::Any>> PingStreamC(::grpc::ClientContext* context, ::google::protobuf::Any* response) {
+      return std::unique_ptr< ::grpc::ClientWriter< ::google::protobuf::Any>>(PingStreamCRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriter< ::bftrader::BfPingData>> AsyncPingStreamC(::grpc::ClientContext* context, ::bftrader::BfPingData* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::bftrader::BfPingData>>(AsyncPingStreamCRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::google::protobuf::Any>> AsyncPingStreamC(::grpc::ClientContext* context, ::google::protobuf::Any* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::google::protobuf::Any>>(AsyncPingStreamCRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfPingData>> PingStreamS(::grpc::ClientContext* context, const ::bftrader::BfPingData& request) {
-      return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfPingData>>(PingStreamSRaw(context, request));
+    std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>> PingStreamS(::grpc::ClientContext* context, const ::google::protobuf::Any& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>>(PingStreamSRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfPingData>> AsyncPingStreamS(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfPingData>>(AsyncPingStreamSRaw(context, request, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::protobuf::Any>> AsyncPingStreamS(::grpc::ClientContext* context, const ::google::protobuf::Any& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::protobuf::Any>>(AsyncPingStreamSRaw(context, request, cq, tag));
     }
     ::grpc::Status SetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncSetKv(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
@@ -108,12 +108,12 @@ class BfKvService GRPC_FINAL {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* PingStreamCSRaw(::grpc::ClientContext* context) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* AsyncPingStreamCSRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientWriter< ::bftrader::BfPingData>* PingStreamCRaw(::grpc::ClientContext* context, ::bftrader::BfPingData* response) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncWriter< ::bftrader::BfPingData>* AsyncPingStreamCRaw(::grpc::ClientContext* context, ::bftrader::BfPingData* response, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientReader< ::bftrader::BfPingData>* PingStreamSRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncReader< ::bftrader::BfPingData>* AsyncPingStreamSRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* PingStreamCSRaw(::grpc::ClientContext* context) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* AsyncPingStreamCSRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientWriter< ::google::protobuf::Any>* PingStreamCRaw(::grpc::ClientContext* context, ::google::protobuf::Any* response) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncWriter< ::google::protobuf::Any>* AsyncPingStreamCRaw(::grpc::ClientContext* context, ::google::protobuf::Any* response, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientReader< ::google::protobuf::Any>* PingStreamSRaw(::grpc::ClientContext* context, const ::google::protobuf::Any& request) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReader< ::google::protobuf::Any>* AsyncPingStreamSRaw(::grpc::ClientContext* context, const ::google::protobuf::Any& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncSetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* AsyncGetKvRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Ping_;
@@ -130,9 +130,9 @@ class BfKvService GRPC_FINAL {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response);
-    virtual ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* stream);
-    virtual ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::bftrader::BfPingData>* reader, ::bftrader::BfPingData* response);
-    virtual ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::grpc::ServerWriter< ::bftrader::BfPingData>* writer);
+    virtual ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* stream);
+    virtual ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::google::protobuf::Any>* reader, ::google::protobuf::Any* response);
+    virtual ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::google::protobuf::Any* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer);
     virtual ::grpc::Status SetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status GetKv(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response);
   };
@@ -168,11 +168,11 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* stream) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* stream) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPingStreamCS(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPingStreamCS(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncBidiStreaming(1, context, stream, new_call_cq, notification_cq, tag);
     }
   };
@@ -188,11 +188,11 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::bftrader::BfPingData>* reader, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::google::protobuf::Any>* reader, ::google::protobuf::Any* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPingStreamC(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::bftrader::BfPingData, ::bftrader::BfPingData>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPingStreamC(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::google::protobuf::Any, ::google::protobuf::Any>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(2, context, reader, new_call_cq, notification_cq, tag);
     }
   };
@@ -208,11 +208,11 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::grpc::ServerWriter< ::bftrader::BfPingData>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::google::protobuf::Any* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPingStreamS(::grpc::ServerContext* context, ::bftrader::BfPingData* request, ::grpc::ServerAsyncWriter< ::bftrader::BfPingData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPingStreamS(::grpc::ServerContext* context, ::google::protobuf::Any* request, ::grpc::ServerAsyncWriter< ::google::protobuf::Any>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncServerStreaming(3, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
@@ -286,7 +286,7 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::bftrader::BfPingData, ::bftrader::BfPingData>* stream) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamCS(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::protobuf::Any, ::google::protobuf::Any>* stream) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -303,7 +303,7 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::bftrader::BfPingData>* reader, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamC(::grpc::ServerContext* context, ::grpc::ServerReader< ::google::protobuf::Any>* reader, ::google::protobuf::Any* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -320,7 +320,7 @@ class BfKvService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::grpc::ServerWriter< ::bftrader::BfPingData>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status PingStreamS(::grpc::ServerContext* context, const ::google::protobuf::Any* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

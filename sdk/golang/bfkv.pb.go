@@ -16,6 +16,7 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 import bftrader "."
+import google_protobuf "google/protobuf"
 
 import (
 	context "golang.org/x/net/context"
@@ -44,9 +45,10 @@ const _ = grpc.SupportPackageIsVersion1
 type BfKvServiceClient interface {
 	// 活跃检测
 	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	// stream测试
 	PingStreamCS(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCSClient, error)
 	PingStreamC(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCClient, error)
-	PingStreamS(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error)
+	PingStreamS(ctx context.Context, in *google_protobuf.Any, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error)
 	// Kv服务
 	SetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
 	GetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error)
@@ -79,8 +81,8 @@ func (c *bfKvServiceClient) PingStreamCS(ctx context.Context, opts ...grpc.CallO
 }
 
 type BfKvService_PingStreamCSClient interface {
-	Send(*bftrader.BfPingData) error
-	Recv() (*bftrader.BfPingData, error)
+	Send(*google_protobuf.Any) error
+	Recv() (*google_protobuf.Any, error)
 	grpc.ClientStream
 }
 
@@ -88,12 +90,12 @@ type bfKvServicePingStreamCSClient struct {
 	grpc.ClientStream
 }
 
-func (x *bfKvServicePingStreamCSClient) Send(m *bftrader.BfPingData) error {
+func (x *bfKvServicePingStreamCSClient) Send(m *google_protobuf.Any) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bfKvServicePingStreamCSClient) Recv() (*bftrader.BfPingData, error) {
-	m := new(bftrader.BfPingData)
+func (x *bfKvServicePingStreamCSClient) Recv() (*google_protobuf.Any, error) {
+	m := new(google_protobuf.Any)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -110,8 +112,8 @@ func (c *bfKvServiceClient) PingStreamC(ctx context.Context, opts ...grpc.CallOp
 }
 
 type BfKvService_PingStreamCClient interface {
-	Send(*bftrader.BfPingData) error
-	CloseAndRecv() (*bftrader.BfPingData, error)
+	Send(*google_protobuf.Any) error
+	CloseAndRecv() (*google_protobuf.Any, error)
 	grpc.ClientStream
 }
 
@@ -119,22 +121,22 @@ type bfKvServicePingStreamCClient struct {
 	grpc.ClientStream
 }
 
-func (x *bfKvServicePingStreamCClient) Send(m *bftrader.BfPingData) error {
+func (x *bfKvServicePingStreamCClient) Send(m *google_protobuf.Any) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bfKvServicePingStreamCClient) CloseAndRecv() (*bftrader.BfPingData, error) {
+func (x *bfKvServicePingStreamCClient) CloseAndRecv() (*google_protobuf.Any, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(bftrader.BfPingData)
+	m := new(google_protobuf.Any)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *bfKvServiceClient) PingStreamS(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error) {
+func (c *bfKvServiceClient) PingStreamS(ctx context.Context, in *google_protobuf.Any, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error) {
 	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[2], c.cc, "/bftrader.bfkv.BfKvService/PingStreamS", opts...)
 	if err != nil {
 		return nil, err
@@ -150,7 +152,7 @@ func (c *bfKvServiceClient) PingStreamS(ctx context.Context, in *bftrader.BfPing
 }
 
 type BfKvService_PingStreamSClient interface {
-	Recv() (*bftrader.BfPingData, error)
+	Recv() (*google_protobuf.Any, error)
 	grpc.ClientStream
 }
 
@@ -158,8 +160,8 @@ type bfKvServicePingStreamSClient struct {
 	grpc.ClientStream
 }
 
-func (x *bfKvServicePingStreamSClient) Recv() (*bftrader.BfPingData, error) {
-	m := new(bftrader.BfPingData)
+func (x *bfKvServicePingStreamSClient) Recv() (*google_protobuf.Any, error) {
+	m := new(google_protobuf.Any)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -189,9 +191,10 @@ func (c *bfKvServiceClient) GetKv(ctx context.Context, in *bftrader.BfKvData, op
 type BfKvServiceServer interface {
 	// 活跃检测
 	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	// stream测试
 	PingStreamCS(BfKvService_PingStreamCSServer) error
 	PingStreamC(BfKvService_PingStreamCServer) error
-	PingStreamS(*bftrader.BfPingData, BfKvService_PingStreamSServer) error
+	PingStreamS(*google_protobuf.Any, BfKvService_PingStreamSServer) error
 	// Kv服务
 	SetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfVoid, error)
 	GetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfKvData, error)
@@ -218,8 +221,8 @@ func _BfKvService_PingStreamCS_Handler(srv interface{}, stream grpc.ServerStream
 }
 
 type BfKvService_PingStreamCSServer interface {
-	Send(*bftrader.BfPingData) error
-	Recv() (*bftrader.BfPingData, error)
+	Send(*google_protobuf.Any) error
+	Recv() (*google_protobuf.Any, error)
 	grpc.ServerStream
 }
 
@@ -227,12 +230,12 @@ type bfKvServicePingStreamCSServer struct {
 	grpc.ServerStream
 }
 
-func (x *bfKvServicePingStreamCSServer) Send(m *bftrader.BfPingData) error {
+func (x *bfKvServicePingStreamCSServer) Send(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bfKvServicePingStreamCSServer) Recv() (*bftrader.BfPingData, error) {
-	m := new(bftrader.BfPingData)
+func (x *bfKvServicePingStreamCSServer) Recv() (*google_protobuf.Any, error) {
+	m := new(google_protobuf.Any)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -244,8 +247,8 @@ func _BfKvService_PingStreamC_Handler(srv interface{}, stream grpc.ServerStream)
 }
 
 type BfKvService_PingStreamCServer interface {
-	SendAndClose(*bftrader.BfPingData) error
-	Recv() (*bftrader.BfPingData, error)
+	SendAndClose(*google_protobuf.Any) error
+	Recv() (*google_protobuf.Any, error)
 	grpc.ServerStream
 }
 
@@ -253,12 +256,12 @@ type bfKvServicePingStreamCServer struct {
 	grpc.ServerStream
 }
 
-func (x *bfKvServicePingStreamCServer) SendAndClose(m *bftrader.BfPingData) error {
+func (x *bfKvServicePingStreamCServer) SendAndClose(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bfKvServicePingStreamCServer) Recv() (*bftrader.BfPingData, error) {
-	m := new(bftrader.BfPingData)
+func (x *bfKvServicePingStreamCServer) Recv() (*google_protobuf.Any, error) {
+	m := new(google_protobuf.Any)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -266,7 +269,7 @@ func (x *bfKvServicePingStreamCServer) Recv() (*bftrader.BfPingData, error) {
 }
 
 func _BfKvService_PingStreamS_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(bftrader.BfPingData)
+	m := new(google_protobuf.Any)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -274,7 +277,7 @@ func _BfKvService_PingStreamS_Handler(srv interface{}, stream grpc.ServerStream)
 }
 
 type BfKvService_PingStreamSServer interface {
-	Send(*bftrader.BfPingData) error
+	Send(*google_protobuf.Any) error
 	grpc.ServerStream
 }
 
@@ -282,7 +285,7 @@ type bfKvServicePingStreamSServer struct {
 	grpc.ServerStream
 }
 
-func (x *bfKvServicePingStreamSServer) Send(m *bftrader.BfPingData) error {
+func (x *bfKvServicePingStreamSServer) Send(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -348,16 +351,18 @@ var _BfKvService_serviceDesc = grpc.ServiceDesc{
 }
 
 var fileDescriptor0 = []byte{
-	// 173 bytes of a gzipped FileDescriptorProto
+	// 207 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0x4a, 0xcb, 0x2e,
 	0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x4d, 0x4a, 0x2b, 0x29, 0x4a, 0x4c, 0x49, 0x2d,
-	0xd2, 0x03, 0x09, 0x4a, 0xf1, 0xc1, 0xb9, 0x60, 0x69, 0xa3, 0xe7, 0x4c, 0x5c, 0xdc, 0x4e, 0x69,
-	0xde, 0x65, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x26, 0x5c, 0x2c, 0x01, 0x99, 0x79,
-	0xe9, 0x42, 0x22, 0x7a, 0x70, 0x85, 0x4e, 0x69, 0x20, 0x11, 0x97, 0xc4, 0x92, 0x44, 0x29, 0xac,
-	0xa2, 0x4a, 0x0c, 0x42, 0x0e, 0x5c, 0x3c, 0x20, 0x5e, 0x70, 0x49, 0x51, 0x6a, 0x62, 0xae, 0x73,
-	0x30, 0x69, 0xba, 0x35, 0x18, 0x0d, 0x18, 0x85, 0x6c, 0xb9, 0xb8, 0x91, 0x4c, 0x20, 0xd5, 0x00,
-	0x54, 0xed, 0x24, 0xda, 0x0f, 0xb4, 0x5d, 0x9f, 0x8b, 0x35, 0x38, 0xb5, 0xc4, 0xbb, 0x4c, 0x48,
-	0x08, 0x59, 0x89, 0x77, 0x19, 0x58, 0x9b, 0x00, 0xb2, 0x58, 0x58, 0x7e, 0x66, 0x0a, 0xd0, 0xc3,
-	0x86, 0x5c, 0xac, 0xee, 0x38, 0x35, 0x60, 0x11, 0x53, 0x62, 0x48, 0x62, 0x03, 0x07, 0xb8, 0x31,
-	0x20, 0x00, 0x00, 0xff, 0xff, 0x93, 0x70, 0xbe, 0x91, 0x9d, 0x01, 0x00, 0x00,
+	0xd2, 0x03, 0x09, 0x4a, 0xf1, 0xc1, 0xb9, 0x60, 0x69, 0x29, 0xc9, 0xf4, 0xfc, 0xfc, 0xf4, 0x9c,
+	0x54, 0x7d, 0x30, 0x2f, 0xa9, 0x34, 0x4d, 0x3f, 0x31, 0xaf, 0x12, 0x22, 0x65, 0xf4, 0x9c, 0x89,
+	0x8b, 0xdb, 0x29, 0xcd, 0xbb, 0x2c, 0x38, 0xb5, 0xa8, 0x2c, 0x33, 0x39, 0x55, 0xc8, 0x84, 0x8b,
+	0x25, 0x20, 0x33, 0x2f, 0x5d, 0x48, 0x44, 0x0f, 0x6e, 0x86, 0x53, 0x1a, 0x48, 0xc4, 0x25, 0xb1,
+	0x24, 0x51, 0x0a, 0xab, 0xa8, 0x12, 0x83, 0x90, 0x03, 0x17, 0x0f, 0x88, 0x17, 0x5c, 0x52, 0x94,
+	0x9a, 0x98, 0xeb, 0x1c, 0x0c, 0xd4, 0x0d, 0xb1, 0x51, 0x0f, 0x66, 0xa3, 0x9e, 0x63, 0x5e, 0xa5,
+	0x14, 0x56, 0x51, 0x25, 0x06, 0x0d, 0x46, 0x03, 0x46, 0x21, 0x5b, 0x2e, 0x6e, 0x24, 0x13, 0x48,
+	0x35, 0x00, 0x55, 0x3b, 0x89, 0xf6, 0x03, 0x6d, 0xd7, 0xe7, 0x62, 0x0d, 0x4e, 0x2d, 0xf1, 0x2e,
+	0x13, 0x12, 0x42, 0xf6, 0xa0, 0x77, 0x19, 0xd8, 0xd3, 0x02, 0xc8, 0x62, 0x61, 0xf9, 0x99, 0x29,
+	0x40, 0x0f, 0x1b, 0x72, 0xb1, 0xba, 0xe3, 0xd4, 0x80, 0x45, 0x4c, 0x89, 0x21, 0x89, 0x0d, 0x6c,
+	0xab, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xb5, 0xaa, 0xab, 0x14, 0xb8, 0x01, 0x00, 0x00,
 }

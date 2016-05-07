@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package bftrader.bfdatafeed;
+
 // option optimize_for = CODE_SIZE;
 // option cc_enable_arenas = true;
-
-package bftrader.bfdatafeed;
 
 import "bftrader.proto";
 

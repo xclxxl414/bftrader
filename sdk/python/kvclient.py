@@ -5,33 +5,48 @@ import random
 
 from bftrader_pb2 import *
 from bfkv_pb2 import *
+from google.protobuf.any_pb2 import *
 
 from grpc.beta import implementations
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
-_TIMEOUT_SECONDS = 2
+_TIMEOUT_SECONDS = 1
+_PING_TYPE = BfPingData().DESCRIPTOR
 
 def generate_messages():
-    msg = BfPingData(message="ping")
+    req_data = BfPingData(message="ping")
+    req = Any()
+    req.Pack(req_data)
     for i in range(1,10):
         print i
-        yield msg
+        yield req
         time.sleep(random.uniform(0.5, 1))
         
 def PingStreamCS(kvservice):
     responses = kvservice.PingStreamCS(generate_messages(), _ONE_DAY_IN_SECONDS)
     for resp in responses:
-        print resp
+        if resp.Is(_PING_TYPE):
+            resp_data = BfPingData()
+            resp.Unpack(resp_data)
+            print resp_data
 
 def PingStreamC(kvservice):
     resp = kvservice.PingStreamC(generate_messages(), _ONE_DAY_IN_SECONDS)
-    print resp
+    if resp.Is(_PING_TYPE):
+        resp_data = BfPingData()
+        resp.Unpack(resp_data)
+        print resp_data
 
 def PingStreamS(kvservice):
-    req = BfPingData(message="ping")
+    req_data = BfPingData(message="ping")
+    req = Any()
+    req.Pack(req_data)
     responses = kvservice.PingStreamS(req, _ONE_DAY_IN_SECONDS)
     for resp in responses:
-        print resp
+        if resp.Is(_PING_TYPE):
+            resp_data = BfPingData()
+            resp.Unpack(resp_data)
+            print resp_data
         
 def Ping(kvservice):
     req = BfPingData(message="ping")
