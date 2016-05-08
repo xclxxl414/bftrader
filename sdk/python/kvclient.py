@@ -24,7 +24,7 @@ def generate_messages():
         
 def PingStreamCS(kvservice):
     '''C:\projects\grpc\third_party\protobuf\python\google\protobuf\internal\message_test.py'''
-    responses = kvservice.PingStreamCS(generate_messages(), _ONE_DAY_IN_SECONDS)
+    responses = kvservice.PingStreamCS(generate_messages(), timeout=_ONE_DAY_IN_SECONDS)
     for resp in responses:
         if resp.Is(_PING_TYPE):
             resp_data = BfPingData()
@@ -32,7 +32,7 @@ def PingStreamCS(kvservice):
             print resp_data
 
 def PingStreamC(kvservice):
-    resp = kvservice.PingStreamC(generate_messages(), _ONE_DAY_IN_SECONDS)
+    resp = kvservice.PingStreamC(generate_messages(), timeout=_ONE_DAY_IN_SECONDS)
     if resp.Is(_PING_TYPE):
         resp_data = BfPingData()
         resp.Unpack(resp_data)
@@ -42,7 +42,7 @@ def PingStreamS(kvservice):
     req_data = BfPingData(message="ping")
     req = Any()
     req.Pack(req_data)
-    responses = kvservice.PingStreamS(req, _ONE_DAY_IN_SECONDS)
+    responses = kvservice.PingStreamS(req, timeout=_ONE_DAY_IN_SECONDS)
     for resp in responses:
         if resp.Is(_PING_TYPE):
             resp_data = BfPingData()

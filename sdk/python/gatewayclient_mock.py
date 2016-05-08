@@ -28,11 +28,11 @@ class GatewayClient(object):
         print connectivity
         self.connectivity = connectivity
         
-    def start(self):
-        self.gateway_channel.subscribe(self.update,try_to_connect=False)
+    def subscribe(self):
+        self.gateway_channel.subscribe(self.update,try_to_connect=True)
         pass
     
-    def stop(self):
+    def unsubscribe(self):
         self.gateway_channel.unsubscribe(self.update)
         pass
         
@@ -107,14 +107,10 @@ class GatewayClient(object):
         print request
         return _BF_VOID
     
-def run():
-    print "start GatewayClient"
-    client = GatewayClient()
-    client.start()
-
+def connect(client):
     print "connect gateway"
     req = BfConnectReq(clientId="gatewayclient_mock",tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
-    responses = client.gateway.Connect(req,_ONE_DAY_IN_SECONDS)
+    responses = client.gateway.Connect(req,timeout=_ONE_DAY_IN_SECONDS)
     for resp in responses:
         if resp.Is(_PING_TYPE):
             resp_data = BfPingData()
@@ -122,14 +118,40 @@ def run():
             print resp_data        
     print "connect quit"
     
+def disconnect(client):
+    print "disconnect gateway"
+    req = BfVoid()
+    resp = client.gateway.Disconnect(req,_TIMEOUT_SECONDS,metadata=_MT)
+    
+def tryconnect(client):
+    '''subscribe dont tryconnect after server shutdown. so unsubscrible and subscrible again'''
+    print "sleep 5s,try reconnect..."
     time.sleep(_TIMEOUT_SECONDS)
+    client.unsubscribe()
+    time.sleep(_TIMEOUT_SECONDS)
+    client.subscribe()            
+    time.sleep(_TIMEOUT_SECONDS)
+    time.sleep(_TIMEOUT_SECONDS)
+    time.sleep(_TIMEOUT_SECONDS)
+    
+def run():
+    print "start GatewayClient"
+    client = GatewayClient()
+    client.subscribe()
+
+    try:
+        while True:
+            if client.connectivity == interfaces.ChannelConnectivity.READY:
+                connect(client)
+            tryconnect(client)
+    except KeyboardInterrupt:
+        print "ctrl+c"        
+    
     if client.connectivity == interfaces.ChannelConnectivity.READY:
-        print "disconnect gateway"
-        req = BfVoid()
-        resp = client.gateway.Disconnect(req,_TIMEOUT_SECONDS,metadata=_MT)
+        disconnect(client)
     
     print "stop GatewayClient"
-    client.stop()
+    client.unsubscribe()
     
 if __name__ == '__main__':
     run()

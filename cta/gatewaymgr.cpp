@@ -16,12 +16,39 @@ public:
         : stub_(BfGatewayService::NewStub(channel))
         , gatewayId_(gatewayId)
         , req_(req)
+        , channel_(channel.get())
     {
         BfDebug(__FUNCTION__);
     }
-    ~GatewayClient() {
+    ~GatewayClient()
+    {
         BfDebug(__FUNCTION__);
-        if(reader_thread_){
+        freeReaderThread();
+    }
+    bool ready()
+    {
+        if (GRPC_CHANNEL_READY == channel_->GetState(true)) {
+            return true;
+        }
+        return false;
+    }
+
+    bool connected()
+    {
+        if (reader_thread_) {
+            return true;
+        }
+        return false;
+    }
+
+    void freeReaderThread()
+    {
+        if (reader_thread_) {
+            // disconnect
+            BfVoid req, resp;
+            this->Disconnect(req, resp);
+
+            // free
             reader_thread_->quit();
             reader_thread_->wait();
             delete reader_thread_;
@@ -29,6 +56,7 @@ public:
         }
     }
 
+public:
     // ref: grpc\test\cpp\interop\interop_client.cc
     void Ping(const BfPingData& req, BfPingData& resp)
     {
@@ -56,19 +84,20 @@ public:
     }
 
     // NOTE(hege):要么正常的disconnect让服务端关闭，要么网络异常导致read失败=
-    // TODO(hege):考虑自动重连?
-    void Connect(const BfConnectReq& req, BfConnectResp& resp)
+    void Connect()
     {
+        BfInfo("(%s)->Connect now!", qPrintable(gatewayId_));
+        BfConnectReq req = req_;
         reader_thread_ = new QThread();
         std::function<void(void)> fn = [=]() {
-            // NOTE(hege):用不超时，这个估计要改...毕竟服务端还是有一个cache的=
             grpc::ClientContext ctx;
-            std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>> reader = stub_->Connect(&ctx, req);
+            std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any> > reader = stub_->Connect(&ctx, req);
             for (;;) {
                 google::protobuf::Any any;
                 bool ok = reader->Read(&any);
                 if (ok) {
-                    if(any.Is<BfPingData>()){
+                    // TODO(hege):到gatewaymgr上去解包分流=
+                    if (any.Is<BfPingData>()) {
                         BfPingData ping;
                         any.UnpackTo(&ping);
                         BfInfo("(%s)->Connect,gotPing:%s", qPrintable(this->gatewayId_), ping.message().c_str());
@@ -77,9 +106,11 @@ public:
                     // shutdown
                     BfDebug("stream shutdown");
                     grpc::Status status = reader->Finish();
-                    if(!status.ok()){
+                    if (!status.ok()) {
                         BfError("(%s)->Connect,code:%d,msg:%s", qPrintable(this->gatewayId_), status.error_code(), status.error_message().c_str());
                     }
+                    // freeReaderThread
+                    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "onGatewayDisconnected", Qt::QueuedConnection, Q_ARG(QString, this->gatewayId_));
                     break;
                 }
             }
@@ -167,7 +198,8 @@ public:
     }
 
 private:
-    std::unique_ptr<BfGatewayService::Stub> stub_;    
+    std::unique_ptr<BfGatewayService::Stub> stub_;
+    ::grpc::ChannelInterface* channel_;
     int pingfail_count_ = 0;
     const int deadline_ = 500;
     QString gatewayId_;
@@ -222,14 +254,9 @@ void GatewayMgr::shutdown()
     this->pingTimer_ = nullptr;
 
     // stop ....
-    if(1){
+    if (true) {
         QMutexLocker lock(&clients_mutex_);
         for (auto client : clients_) {
-            // disconnect
-            BfVoid req, resp;
-            client->Disconnect(req, resp);
-
-            // free
             delete client;
         }
         clients_.clear();
@@ -253,11 +280,6 @@ void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfCon
         clients_.remove(gatewayId);
     }
     clients_[gatewayId] = client;
-
-    // connecct
-    BfConnectResp resp;
-    client->Connect(req, resp);
-    BfDebug("connect:%s,code:%d,msg:(%s)", qPrintable(gatewayId), resp.errorcode(), resp.errormsg().c_str());
 }
 
 void GatewayMgr::disconnectGateway(QString gatewayId)
@@ -270,13 +292,21 @@ void GatewayMgr::disconnectGateway(QString gatewayId)
         BfDebug("delete gatewayclient:%s", qPrintable(gatewayId));
         GatewayClient* client = clients_[gatewayId];
 
-        // disconnect
-        BfVoid req, resp;
-        client->Disconnect(req, resp);
-
-        // free
         delete client;
         clients_.remove(gatewayId);
+    }
+}
+
+void GatewayMgr::onGatewayDisconnected(QString gatewayId)
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
+
+    if (clients_.contains(gatewayId)) {
+        BfDebug("free readerthread:%s", qPrintable(gatewayId));
+        GatewayClient* client = clients_[gatewayId];
+        client->freeReaderThread();
     }
 }
 
@@ -289,6 +319,11 @@ void GatewayMgr::onPing()
     req.set_message("cta");
     for (auto client : clients_) {
         client->Ping(req, resp);
+
+        // NOTE(hege):做channel状态监测，如果ready而没有connect就开始connect
+        if (!client->connected() && client->ready()) {
+            client->Connect();
+        }
     }
 }
 

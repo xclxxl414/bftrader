@@ -1,0 +1,7 @@
+1. stream的状态维护，由client来。
+   1.1 服务端检测到任何错误，都断开stream+清理queue，等client再次发起stream
+   1.2 客户端检测到任何错误，都断开stream，然后每5秒检查一下channel状态如果是ready，再发起stream
+   1.3 stream都不设置超时，就是一直等待除非出现通道错误=
+2. unary rpc全部用500毫秒超时+block方式，服务端采用动态多线程
+3. python的timeout设置为n*24*60*60；c++不设置默认就是gpr_inf_future
+4. python的channel subscrible需要不停的unsubscrible才能reconnect，c++只需要不停的getstate就行了

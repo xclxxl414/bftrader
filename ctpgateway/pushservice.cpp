@@ -2,8 +2,8 @@
 #include "bfgateway.grpc.pb.h"
 #include "ctputils.h"
 #include "logger.h"
-#include "servicemgr.h"
 #include "safequeue.h"
+#include "servicemgr.h"
 #include <QThread>
 #include <atomic>
 #include <grpc++/grpc++.h>
@@ -12,16 +12,16 @@ using namespace bftrader;
 
 class GatewayClient {
 public:
-    GatewayClient(SafeQueue<google::protobuf::Any>* queue,QString gatewayId, const BfConnectReq& req)
-        :queue_(queue)
+    GatewayClient(SafeQueue<google::protobuf::Any>* queue, QString gatewayId, const BfConnectReq& req)
+        : queue_(queue)
         , gatewayId_(gatewayId)
         , req_(req)
     {
-        BfDebug(__FUNCTION__);
+        BfDebug("(%s)->GatewayClient", qPrintable(clientId()));
     }
     ~GatewayClient()
     {
-        BfDebug(__FUNCTION__);
+        BfDebug("(%s)->~GatewayClient", qPrintable(clientId()));
         // NOTE(hege):关闭队列=
         shutdown();
     }
@@ -29,7 +29,6 @@ public:
     // TODO(hege):
     void OnTradeWillBegin(const BfVoid& data)
     {
-
     }
 
     // TODO(hege):
@@ -111,9 +110,12 @@ public:
     }
     QString gatewayId() { return gatewayId_; }
     QString clientId() { return req_.clientid().c_str(); }
-    //NOTE(hege):由于跨线程，这里shutdown里面删除会导致rpcthread莫名其妙的问题=
-    void shutdown(){
-        if(queue_){
+
+private:
+    //NOTE(hege):由于跨线程，这里shutdown后等1秒钟=
+    void shutdown()
+    {
+        if (queue_) {
             queue_->shutdown();
             Sleep(1000);
             delete queue_;
@@ -172,22 +174,20 @@ void PushService::shutdown()
 
     // delete all gatewayclient
     for (auto client : clients_) {
-        client->shutdown();
         delete client;
     }
     clients_.clear();
 }
 
-void PushService::connectClient(QString gatewayId, const BfConnectReq& req,void* queue)
+void PushService::connectClient(QString gatewayId, const BfConnectReq& req, void* queue)
 {
-    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString clientId = req.clientid().c_str();
 
-    auto client = new GatewayClient((SafeQueue<google::protobuf::Any>*)queue,gatewayId, req);
+    BfDebug("(%s)->connectClient", qPrintable(clientId));
+    auto client = new GatewayClient((SafeQueue<google::protobuf::Any>*)queue, gatewayId, req);
     if (clients_.contains(clientId)) {
         auto it = clients_[clientId];
-        it->shutdown();
         delete it;
         clients_.remove(clientId);
     }
@@ -196,13 +196,11 @@ void PushService::connectClient(QString gatewayId, const BfConnectReq& req,void*
 
 void PushService::disconnectClient(QString clientId)
 {
-    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (clients_.contains(clientId)) {
-        BfDebug("delete gatewayclient:(%s)", qPrintable(clientId));
+        BfDebug("(%s)->disconnectClient", qPrintable(clientId));
         auto client = clients_[clientId];
-        client->shutdown();
         delete client;
         clients_.remove(clientId);
     }
@@ -214,7 +212,6 @@ void PushService::onGatewayClosed()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto client : clients_) {
-        client->shutdown();
         delete client;
     }
     clients_.clear();

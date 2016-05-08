@@ -4,8 +4,8 @@
 #include "encode_utils.h"
 #include "gatewaymgr.h"
 #include "pushservice.h"
-#include "servicemgr.h"
 #include "safequeue.h"
+#include "servicemgr.h"
 #include <QThread>
 #include <QtCore/QDebug>
 #include <grpc++/grpc++.h>
@@ -32,22 +32,22 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         QString clientId = request->clientid().c_str();
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfDebug("(%s)->Connect", qPrintable(clientId));
 
         auto queue = new SafeQueue<google::protobuf::Any>;
-        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectReq, *request),Q_ARG(void*,(void*)queue));
-        while(auto data = queue->dequeue()){
-            // NOTE(hege):客户端异常导致stream关闭?
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectReq, *request), Q_ARG(void*, (void*)queue));
+        while (auto data = queue->dequeue()) {
+            // NOTE(hege):客户端异常导致stream关闭
             bool ok = writer->Write(*data);
             delete data;
-            if(!ok){
-                BfDebug("stream closed! clientId=%s", qPrintable(clientId));
+            if (!ok) {
+                BfDebug("(%s)-->stream closed!", qPrintable(clientId));
                 QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
                 break;
             }
         }
 
-        BfDebug("Connect exit! clientId=%s", qPrintable(clientId));
+        BfDebug("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
@@ -61,7 +61,7 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfDebug("(%s)->Disconnect", qPrintable(clientId));
 
         // NOTE(hege):关闭stream
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
@@ -194,6 +194,7 @@ void RpcService::stop()
 
     if (gatewayThread_ != nullptr) {
         // NOTE(hege):关闭queue，让rpc结束和rpc线程退出=
+        // servicemgr::shutdown里面rpcservice线程第一个退是必须的，这样下面这个任务才可以抛到pushservice线程=
         QMetaObject::invokeMethod(g_sm->pushService(), "onGatewayClosed", Qt::QueuedConnection);
 
         grpcServer_->Shutdown();

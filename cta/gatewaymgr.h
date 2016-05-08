@@ -25,6 +25,7 @@ public:
 public slots:
     void connectGateway(QString gatewayId, QString endpoint, const BfConnectReq& req);
     void disconnectGateway(QString gatewayId);
+    void onGatewayDisconnected(QString gatewayId);
     void onPing();
 
     // channel&stub is threadsafe,sendorder/getcontract可以任意线程调用=
