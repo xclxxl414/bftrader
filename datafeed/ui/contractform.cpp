@@ -46,8 +46,8 @@ ContractForm::~ContractForm()
 
 void ContractForm::init()
 {
-    this->setWindowTitle(QStringLiteral("history-contract"));
-    refresh();
+    // dbservice
+    QObject::connect(g_sm->dbService(), &DbService::opened, this, &ContractForm::refresh);
 }
 
 void ContractForm::shutdown()

@@ -10,11 +10,19 @@ from google.protobuf.any_pb2 import *
 from grpc.beta import implementations
 from grpc.beta import interfaces
 
-_BF_VOID = BfVoid()
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
 _MT = [("clientid","gatewayclient_mock")]
+
 _PING_TYPE = BfPingData().DESCRIPTOR
+_ACCOUNT_TYPE = BfAccountData().DESCRIPTOR
+_POSITION_TYPE = BfPositionData().DESCRIPTOR
+_TICK_TYPE = BfTickData().DESCRIPTOR
+_TRADE_TYPE = BfTradeData().DESCRIPTOR
+_ORDER_TYPE = BfOrderData().DESCRIPTOR
+_LOG_TYPE = BfLogData().DESCRIPTOR
+_ERROR_TYPE = BfErrorData().DESCRIPTOR
+_NOTIFICATION_TYPE = BfNotificationData().DESCRIPTOR
 
 class GatewayClient(object):
     def __init__(self):
@@ -30,18 +38,15 @@ class GatewayClient(object):
         
     def subscribe(self):
         self.gateway_channel.subscribe(self.update,try_to_connect=True)
-        pass
     
     def unsubscribe(self):
         self.gateway_channel.unsubscribe(self.update)
-        pass
         
-    def OnTradeWillBegin(self, request, context):
+    def OnTradeWillBegin(self, request):
         print "OnTradeWillBegin"
         print request        
-        return _BF_VOID
 
-    def OnGotContracts(self, request, context):
+    def OnGotContracts(self, request):
         print "OnGotContracts"
         print request
         
@@ -63,59 +68,90 @@ class GatewayClient(object):
         req = BfVoid()
         resp = self.gateway.QueryAccount(req,_TIMEOUT_SECONDS,metadata=_MT)
         print resp
-        
-        return _BF_VOID
-    
-    def OnPing(self, request, context):
+            
+    def OnPing(self, request,):
         print "OnPing"
         print request
-        message = request.message
-        return BfPingData(message=request.message)
 
-    def OnTick(self, request, context):
+    def OnTick(self, request):
         print "OnTick"
         print request
-        return _BF_VOID
         
-    def OnError(self, request, context):
+    def OnError(self, request):
         print "OnError"
         print request
-        return _BF_VOID
             
-    def OnLog(self, request, context):
+    def OnLog(self, request):
         print "OnLog"
         print request
-        return _BF_VOID
     
-    def OnTrade(self, request, context):
+    def OnTrade(self, request):
         print "OnTrade"
         print request
-        return _BF_VOID
     
-    def OnOrder(self, request, context):
+    def OnOrder(self, request):
         print "OnOrder"
         print request
-        return _BF_VOID
             
-    def OnPosition(self, request, context):
+    def OnPosition(self, request):
         print "OnPosition"
         print request
-        return _BF_VOID
 
-    def OnAccount(self, request, context):
+    def OnAccount(self, request):
         print "OnAccount"
         print request
-        return _BF_VOID
+    
+def dispatchPush(client,resp):
+    if resp.Is(_TICK_TYPE):
+        resp_data = BfTickData()
+        resp.Unpack(resp_data)
+        client.OnTick(resp_data)
+    elif resp.Is(_PING_TYPE):
+        resp_data = BfPingData()
+        resp.Unpack(resp_data)
+        client.OnPing(resp_data)
+    elif resp.Is(_ACCOUNT_TYPE):
+        resp_data = BfAccountData()
+        resp.Unpack(resp_data)
+        client.OnAccount(resp_data)
+    elif resp.Is(_POSITION_TYPE):
+        resp_data = BfPositionData()
+        resp.Unpack(resp_data)
+        client.OnPosition(resp_data)
+    elif resp.Is(_TRADE_TYPE):
+        resp_data = BfTradeData()
+        resp.Unpack(resp_data)
+        client.OnTrade(resp_data)
+    elif resp.Is(_ORDER_TYPE):
+        resp_data = BfOrderData()
+        resp.Unpack(resp_data)
+        client.OnOrder(resp_data)
+    elif resp.Is(_LOG_TYPE):
+        resp_data = BfLogData()
+        resp.Unpack(resp_data)
+        client.OnLog(resp_data)
+    elif resp.Is(_ERROR_TYPE):
+        resp_data = BfErrorData()
+        resp.Unpack(resp_data)
+        client.OnError(resp_data)
+    elif resp.Is(_NOTIFICATION_TYPE):
+        resp_data = BfNotificationData()
+        resp.Unpack(resp_data)
+        if resp_data.code() == NOTIFICATION_GOTCONTRACTS:
+            client.OnGotContracts(resp_data)
+        elif resp_data.code() == NOTIFICATION_TRADEWILLBEGIN:
+            client.OnTradeWillBegin(resp_data)
+        else:
+            print "invliad notification type"
+    else:
+        print "invalid push type"        
     
 def connect(client):
     print "connect gateway"
-    req = BfConnectReq(clientId="gatewayclient_mock",tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
+    req = BfConnectReq(clientId="datarecorder",tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
     responses = client.gateway.Connect(req,timeout=_ONE_DAY_IN_SECONDS)
     for resp in responses:
-        if resp.Is(_PING_TYPE):
-            resp_data = BfPingData()
-            resp.Unpack(resp_data)
-            print resp_data        
+        dispatchPush(client,resp)            
     print "connect quit"
     
 def disconnect(client):

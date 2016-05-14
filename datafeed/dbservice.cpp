@@ -29,6 +29,8 @@ void DbService::init()
 
     // dbInit
     dbInit();
+
+    emit this->opened();
 }
 
 void DbService::shutdown()

@@ -25,9 +25,15 @@ void GatewayMgr::init()
     qRegisterMetaType<BfPositionData>("BfPositionData");
     qRegisterMetaType<BfOrderData>("BfOrderData");
     qRegisterMetaType<BfTradeData>("BfTradeData");
+    qRegisterMetaType<BfNotificationData>("BfNotificationData");
+    qRegisterMetaType<BfContractData>("BfContractData");
+    qRegisterMetaType<BfErrorData>("BfErrorData");
+    qRegisterMetaType<BfLogData>("BfLogData");
+
+    qRegisterMetaType<BfConnectReq>("BfConnectReq");
+    qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
     qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
-    qRegisterMetaType<BfConnectReq>("BfConnectReq");
 
     // gotContracts
     QObject::connect(this, &GatewayMgr::gotContracts, this, &GatewayMgr::onGotContracts);

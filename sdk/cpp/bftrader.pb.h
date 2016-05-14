@@ -53,6 +53,7 @@ class BfGetContractReq;
 class BfGetTickReq;
 class BfKvData;
 class BfLogData;
+class BfNotificationData;
 class BfOrderData;
 class BfPingData;
 class BfPositionData;
@@ -176,6 +177,28 @@ inline bool BfPriceType_Parse(
     const ::std::string& name, BfPriceType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<BfPriceType>(
     BfPriceType_descriptor(), name, value);
+}
+enum BfNoticationType {
+  NOTIFICATION_UNKNOWN = 0,
+  NOTIFICATION_TRADEWILLBEGIN = 1,
+  NOTIFICATION_GOTCONTRACTS = 2,
+  BfNoticationType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  BfNoticationType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool BfNoticationType_IsValid(int value);
+const BfNoticationType BfNoticationType_MIN = NOTIFICATION_UNKNOWN;
+const BfNoticationType BfNoticationType_MAX = NOTIFICATION_GOTCONTRACTS;
+const int BfNoticationType_ARRAYSIZE = BfNoticationType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* BfNoticationType_descriptor();
+inline const ::std::string& BfNoticationType_Name(BfNoticationType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    BfNoticationType_descriptor(), value);
+}
+inline bool BfNoticationType_Parse(
+    const ::std::string& name, BfNoticationType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<BfNoticationType>(
+    BfNoticationType_descriptor(), name, value);
 }
 enum BfBarPeriod {
   PERIOD_UNKNOWN = 0,
@@ -1470,6 +1493,108 @@ class BfContractData : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfContractData* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class BfNotificationData : public ::google::protobuf::Message {
+ public:
+  BfNotificationData();
+  virtual ~BfNotificationData();
+
+  BfNotificationData(const BfNotificationData& from);
+
+  inline BfNotificationData& operator=(const BfNotificationData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BfNotificationData& default_instance();
+
+  void Swap(BfNotificationData* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BfNotificationData* New() const { return New(NULL); }
+
+  BfNotificationData* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BfNotificationData& from);
+  void MergeFrom(const BfNotificationData& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BfNotificationData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .bftrader.BfNoticationType code = 1;
+  void clear_code();
+  static const int kCodeFieldNumber = 1;
+  ::bftrader::BfNoticationType code() const;
+  void set_code(::bftrader::BfNoticationType value);
+
+  // optional string message = 2;
+  void clear_message();
+  static const int kMessageFieldNumber = 2;
+  const ::std::string& message() const;
+  void set_message(const ::std::string& value);
+  void set_message(const char* value);
+  void set_message(const char* value, size_t size);
+  ::std::string* mutable_message();
+  ::std::string* release_message();
+  void set_allocated_message(::std::string* message);
+
+  // optional string messageEx = 3;
+  void clear_messageex();
+  static const int kMessageExFieldNumber = 3;
+  const ::std::string& messageex() const;
+  void set_messageex(const ::std::string& value);
+  void set_messageex(const char* value);
+  void set_messageex(const char* value, size_t size);
+  ::std::string* mutable_messageex();
+  ::std::string* release_messageex();
+  void set_allocated_messageex(::std::string* messageex);
+
+  // @@protoc_insertion_point(class_scope:bftrader.BfNotificationData)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr message_;
+  ::google::protobuf::internal::ArenaStringPtr messageex_;
+  int code_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_bftrader_2eproto();
+  friend void protobuf_AssignDesc_bftrader_2eproto();
+  friend void protobuf_ShutdownFile_bftrader_2eproto();
+
+  void InitAsDefaultInstance();
+  static BfNotificationData* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4960,6 +5085,110 @@ inline void BfContractData::set_minmartet(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
+// BfNotificationData
+
+// optional .bftrader.BfNoticationType code = 1;
+inline void BfNotificationData::clear_code() {
+  code_ = 0;
+}
+inline ::bftrader::BfNoticationType BfNotificationData::code() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
+  return static_cast< ::bftrader::BfNoticationType >(code_);
+}
+inline void BfNotificationData::set_code(::bftrader::BfNoticationType value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
+}
+
+// optional string message = 2;
+inline void BfNotificationData::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BfNotificationData::message() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfNotificationData::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.message)
+}
+inline void BfNotificationData::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.message)
+}
+inline void BfNotificationData::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.message)
+}
+inline ::std::string* BfNotificationData::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BfNotificationData::release_message() {
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfNotificationData::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.message)
+}
+
+// optional string messageEx = 3;
+inline void BfNotificationData::clear_messageex() {
+  messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BfNotificationData::messageex() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.messageEx)
+  return messageex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfNotificationData::set_messageex(const ::std::string& value) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.messageEx)
+}
+inline void BfNotificationData::set_messageex(const char* value) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.messageEx)
+}
+inline void BfNotificationData::set_messageex(const char* value, size_t size) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.messageEx)
+}
+inline ::std::string* BfNotificationData::mutable_messageex() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.messageEx)
+  return messageex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BfNotificationData::release_messageex() {
+  
+  return messageex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfNotificationData::set_allocated_messageex(::std::string* messageex) {
+  if (messageex != NULL) {
+    
+  } else {
+    
+  }
+  messageex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), messageex);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.messageEx)
+}
+
+// -------------------------------------------------------------------
+
 // BfSendOrderReq
 
 // optional string symbol = 1;
@@ -7121,6 +7350,8 @@ inline void BfKvData::set_allocated_value(::std::string* value) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -7154,6 +7385,11 @@ template <> struct is_proto_enum< ::bftrader::BfPriceType> : ::google::protobuf:
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::bftrader::BfPriceType>() {
   return ::bftrader::BfPriceType_descriptor();
+}
+template <> struct is_proto_enum< ::bftrader::BfNoticationType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::bftrader::BfNoticationType>() {
+  return ::bftrader::BfNoticationType_descriptor();
 }
 template <> struct is_proto_enum< ::bftrader::BfBarPeriod> : ::google::protobuf::internal::true_type {};
 template <>

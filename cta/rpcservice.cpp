@@ -2,6 +2,7 @@
 #include "bfcta.grpc.pb.h"
 #include "dbservice.h"
 #include "pushservice.h"
+#include "safequeue.h"
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
@@ -24,14 +25,26 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::bftrader::BfConnectResp* response) override
+    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        QString clientId = request->clientid().c_str();
+        BfDebug("(%s)->Connect", qPrintable(clientId));
 
-        BfDebug("peer:%s,%s:%s:%d", context->peer().c_str(), request->clientid().c_str(), request->clientip().c_str(), request->clientport());
-        QMetaObject::invokeMethod(g_sm->pushService(), "connectRobot", Qt::QueuedConnection, Q_ARG(QString, ctaId_), Q_ARG(BfConnectReq, *request));
+        auto queue = new SafeQueue<google::protobuf::Any>;
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, ctaId_), Q_ARG(BfConnectReq, *request), Q_ARG(void*, (void*)queue));
+        while (auto data = queue->dequeue()) {
+            // NOTE(hege):客户端异常导致stream关闭
+            bool ok = writer->Write(*data);
+            delete data;
+            if (!ok) {
+                BfDebug("(%s)-->stream closed!", qPrintable(clientId));
+                QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
+                break;
+            }
+        }
 
-        response->set_errorcode(0);
+        BfDebug("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
@@ -45,9 +58,10 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfDebug("(%s)->Disconnect", qPrintable(clientId));
 
-        QMetaObject::invokeMethod(g_sm->pushService(), "disconnectRobot", Qt::QueuedConnection, Q_ARG(QString, clientId));
+        // NOTE(hege):关闭stream
+        QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override

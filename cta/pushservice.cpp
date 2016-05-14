@@ -1,161 +1,72 @@
 #include "pushservice.h"
-#include "bfrobot.grpc.pb.h"
+#include "bfcta.grpc.pb.h"
 #include "dbservice.h"
 #include "grpc++/grpc++.h"
+#include "safequeue.h"
 #include "servicemgr.h"
 #include <QThread>
 #include <atomic>
 
 using namespace bftrader;
-using namespace bftrader::bfrobot;
 
-//
-// RobotClient，实现异步客户端，不需要等客户端的应答就直接返回，避免一个客户端堵住其他的=
-//
-class IGrpcCb {
+class CtaClient {
 public:
-    explicit IGrpcCb(QString clientId)
-    {
-        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
-        context_.set_deadline(deadline);
-        context_.AddMetadata("clientid", clientId.toStdString());
-    }
-    virtual ~IGrpcCb()
-    {
-    }
-
-    grpc::ClientContext& context() { return context_; }
-    grpc::Status& status() { return status_; }
-
-public:
-    virtual void operator()() {}
-
-protected:
-    grpc::ClientContext context_;
-    grpc::Status status_;
-    const int deadline_ = 500;
-};
-
-template <class Resp>
-class GrpcCb : public IGrpcCb {
-public:
-    explicit GrpcCb(QString clientId)
-        : IGrpcCb(clientId)
-    {
-    }
-    virtual ~GrpcCb() override {}
-
-public:
-    typedef std::unique_ptr<grpc::ClientAsyncResponseReader<Resp> > RpcPtr;
-
-public:
-    Resp& getResp() { return resp_; }
-    void setRpcPtrAndFinish(RpcPtr rpc)
-    {
-        rpc_.swap(rpc);
-        rpc_->Finish(&resp_, &status_, (void*)this);
-    }
-
-public:
-    virtual void operator()() override
-    {
-    }
-
-private:
-    RpcPtr rpc_;
-    Resp resp_;
-};
-
-class RobotClient;
-class PingCb final : public GrpcCb<BfPingData> {
-public:
-    explicit PingCb(RobotClient* robotClient, QString clientId)
-        : GrpcCb<BfPingData>(clientId)
-        , robotClient_(robotClient)
-    {
-    }
-    virtual ~PingCb() override {}
-
-public:
-    virtual void operator()() override;
-
-private:
-    RobotClient* robotClient_ = nullptr;
-};
-
-class RobotClient {
-public:
-    RobotClient(std::shared_ptr<grpc::Channel> channel, QString gatewayId, QString ctaId, const BfConnectReq& req)
-        : stub_(BfRobotService::NewStub(channel))
+    CtaClient(SafeQueue<google::protobuf::Any>* queue, QString gatewayId, QString ctaId, const BfConnectReq& req)
+        : queue_(queue)
         , ctaId_(ctaId)
         , gatewayId_(gatewayId)
         , req_(req)
     {
-        BfDebug(__FUNCTION__);
-        robotId_ = req.clientid().c_str();
-        cq_thread_ = new QThread();
-        std::function<void(void)> fn = [=]() {
-            for (;;) {
-                void* pTag;
-                bool ok = false;
-                bool result = this->cq_.Next(&pTag, &ok);
-                if (result) {
-                    std::unique_ptr<IGrpcCb> pCb(static_cast<IGrpcCb*>(pTag));
-                    // run callback
-                    (*pCb)();
-                } else {
-                    // shutdown
-                    BfDebug("cq_thread shutdown");
-                    break;
-                }
-            }
-        };
-        QObject::connect(cq_thread_, &QThread::started, fn);
-        cq_thread_->start();
+        BfDebug("(%s)->CtaClient", qPrintable(clientId()));
     }
-    ~RobotClient()
+    ~CtaClient()
     {
-        BfDebug(__FUNCTION__);
-        cq_.Shutdown();
-        cq_thread_->quit();
-        cq_thread_->wait();
-        delete cq_thread_;
-        cq_thread_ = nullptr;
+        BfDebug("(%s)->~CtaClient", qPrintable(clientId()));
+        // NOTE(hege):关闭队列=
+        shutdown();
     }
-    void OnPing(const BfPingData& data)
-    {
-        auto pCb = new PingCb(this, this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnPing(&pCb->context(), data, &cq_));
-    }
-    void OnTick(const BfTickData& data)
-    {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnTick(&pCb->context(), data, &cq_));
-    }
-    void OnTrade(const BfTradeData& data)
-    {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnTrade(&pCb->context(), data, &cq_));
-    }
-    void OnOrder(const BfOrderData& data)
-    {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnOrder(&pCb->context(), data, &cq_));
-    }
+
+    // TODO(hege):增加notification=
     void OnInit(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnInit(&pCb->context(), data, &cq_));
     }
+
+    // TODO(hege):增加notification=
     void OnStart(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnStart(&pCb->context(), data, &cq_));
     }
+
+    // TODO(hege):增加notification=
     void OnStop(const BfVoid& data)
     {
-        auto pCb = new GrpcCb<BfVoid>(this->ctaId());
-        pCb->setRpcPtrAndFinish(stub_->AsyncOnStop(&pCb->context(), data, &cq_));
+    }
+
+    void OnPing(const BfPingData& data)
+    {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
+    }
+
+    void OnTick(const BfTickData& data)
+    {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
+    }
+
+    void OnTrade(const BfTradeData& data)
+    {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
+    }
+
+    void OnOrder(const BfOrderData& data)
+    {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
 public:
@@ -172,44 +83,28 @@ public:
         }
         return false;
     }
-    void incPingFailCount() { pingfail_count_++; }
-    int pingFailCount() { return pingfail_count_; }
-    void resetPingFailCount() { pingfail_count_ = 0; }
-    const QString& ctaId() { return ctaId_; }
-    const QString& robotId() { return robotId_; }
+    QString ctaId() { return ctaId_; }
+    QString clientId() { return req_.clientid().c_str(); }
     const QString& gatewayId() { return gatewayId_; }
 
 private:
-    std::unique_ptr<BfRobotService::Stub> stub_;
-    std::atomic_int32_t pingfail_count_ = 0;
-    const int deadline_ = 500;
-    BfConnectReq req_;
+    //NOTE(hege):由于跨线程，这里shutdown后等1秒钟=
+    void shutdown()
+    {
+        if (queue_) {
+            queue_->shutdown();
+            Sleep(1000);
+            delete queue_;
+            queue_ = nullptr;
+        }
+    }
+
+private:
+    SafeQueue<google::protobuf::Any>* queue_ = nullptr;
     QString ctaId_;
     QString gatewayId_;
-    QString robotId_;
-
-    // async client
-    grpc::CompletionQueue cq_;
-    QThread* cq_thread_ = nullptr;
+    BfConnectReq req_;
 };
-
-void PingCb::operator()()
-{
-    if (!status_.ok()) {
-        QString robotId = robotClient_->robotId();
-        robotClient_->incPingFailCount();
-        int failCount = robotClient_->pingFailCount();
-        int errorCode = status_.error_code();
-        std::string errorMsg = status_.error_message();
-        BfError("(%s)->OnPing(%dms) fail(%d),code:%d,msg:%s", qPrintable(robotId), deadline_, failCount, errorCode, errorMsg.c_str());
-        //if (failCount > 3) {
-        //    BfError("(%s)->OnPing fail too mang times,so kill it", qPrintable(robotId));
-        //    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectRobot", Qt::QueuedConnection, Q_ARG(QString, robotId));
-        //}
-        return;
-    }
-    robotClient_->resetPingFailCount();
-}
 
 //
 // PushService
@@ -246,44 +141,38 @@ void PushService::shutdown()
     delete this->pingTimer_;
     this->pingTimer_ = nullptr;
 
-    // delete all robotclient
+    // delete all ctaclient
     for (auto client : clients_) {
         delete client;
     }
     clients_.clear();
 }
 
-void PushService::connectRobot(QString ctaId, const BfConnectReq& req)
+void PushService::connectClient(QString ctaId, const BfConnectReq& req, void* queue)
 {
-    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
+    QString clientId = req.clientid().c_str();
+    BfDebug("(%s)->connectClient", qPrintable(clientId));
 
     QString gatewayId = g_sm->dbService()->getGatewayId(req);
-
-    QString endpoint = QString().sprintf("%s:%d", req.clientip().c_str(), req.clientport());
-    QString robotId = req.clientid().c_str();
-
-    RobotClient* client = new RobotClient(grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
-        gatewayId, ctaId, req);
-
-    if (clients_.contains(robotId)) {
-        auto it = clients_[robotId];
+    auto client = new CtaClient((SafeQueue<google::protobuf::Any>*)queue, gatewayId, ctaId, req);
+    if (clients_.contains(clientId)) {
+        auto it = clients_[clientId];
         delete it;
-        clients_.remove(robotId);
+        clients_.remove(clientId);
     }
-    clients_[robotId] = client;
+    clients_[clientId] = client;
 }
 
-void PushService::disconnectRobot(QString robotId)
+void PushService::disconnectClient(QString clientId)
 {
-    BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    if (clients_.contains(robotId)) {
-        BfDebug("delete robotclient:%s", qPrintable(robotId));
-        RobotClient* client = clients_[robotId];
+    if (clients_.contains(clientId)) {
+        BfDebug("(%s)->disconnectClient", qPrintable(clientId));
+        auto client = clients_[clientId];
         delete client;
-        clients_.remove(robotId);
+        clients_.remove(clientId);
     }
 }
 
@@ -328,7 +217,7 @@ void PushService::onGotTrade(QString gatewayId, const BfTradeData& data)
             continue;
         }
         QString robotId = g_sm->dbService()->getRobotId(data);
-        if (client->robotId() != robotId) {
+        if (client->clientId() != robotId) {
             continue;
         }
         if (client->tradehandler()) {
@@ -345,7 +234,7 @@ void PushService::onGotOrder(QString gatewayId, const BfOrderData& data)
             continue;
         }
         QString robotId = g_sm->dbService()->getRobotId(data);
-        if (client->robotId() != robotId) {
+        if (client->clientId() != robotId) {
             continue;
         }
         if (client->tradehandler()) {

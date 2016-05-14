@@ -15,10 +15,8 @@ public:
     void shutdown();
     leveldb::DB* getDb();
 
-private:
-    void dbOpen();
-    void dbClose();
-    void dbInit();
+signals:
+    void opened();
 
 public slots:
     void getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
@@ -32,6 +30,11 @@ public slots:
     void deleteTick(const BfDeleteTickReq& bfReq);
     void deleteBar(const BfDeleteBarReq& bfReq);
     void deleteContract(const BfDatafeedDeleteContractReq& bfReq);
+
+private:
+    void dbOpen();
+    void dbClose();
+    void dbInit();
 
 private:
     leveldb::DB* db_ = nullptr;

@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QTimer>
 
-class RobotClient;
+class CtaClient;
 
 // PUSH
 class PushService : public QObject {
@@ -19,8 +19,8 @@ public:
 signals:
 
 public slots:
-    void connectRobot(QString ctaId, const BfConnectReq& req);
-    void disconnectRobot(QString robotId);
+    void connectClient(QString ctaId, const BfConnectReq& req, void* queue);
+    void disconnectClient(QString clientId);
     void onCtaClosed();
     void onPing();
 
@@ -37,7 +37,7 @@ public slots:
     void onAutoTradingStart(); //cta打开了自动交易=
     void onAutoTradingStop(); //关闭了自动交易，回到idle状态=
 private:
-    QMap<QString, RobotClient*> clients_;
+    QMap<QString, CtaClient*> clients_;
     QTimer* pingTimer_ = nullptr;
 };
 

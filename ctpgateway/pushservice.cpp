@@ -26,14 +26,18 @@ public:
         shutdown();
     }
 
-    // TODO(hege):
-    void OnTradeWillBegin(const BfVoid& data)
+    void OnTradeWillBegin(const BfNotificationData& data)
     {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
-    // TODO(hege):
-    void OnGotContracts(const BfVoid& data)
+    void OnGotContracts(const BfNotificationData& data)
     {
+        auto any = new google::protobuf::Any();
+        any->PackFrom(data);
+        queue_->enqueue(any);
     }
 
     void OnPing(const BfPingData& data)
@@ -265,7 +269,8 @@ void PushService::onTradeWillBegin()
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    BfVoid data;
+    BfNotificationData data;
+    data.set_code(NOTIFICATION_TRADEWILLBEGIN);
     for (auto client : clients_) {
         client->OnTradeWillBegin(data);
     }
@@ -275,7 +280,8 @@ void PushService::onGotContracts(QStringList ids, QStringList idsAll)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    BfVoid data;
+    BfNotificationData data;
+    data.set_code(NOTIFICATION_GOTCONTRACTS);
     for (auto client : clients_) {
         client->OnGotContracts(data);
     }

@@ -48,6 +48,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BfContractData_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfContractData_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfNotificationData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfNotificationData_reflection_ = NULL;
 const ::google::protobuf::Descriptor* BfSendOrderReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfSendOrderReq_reflection_ = NULL;
@@ -98,6 +101,7 @@ const ::google::protobuf::EnumDescriptor* BfOffset_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* BfStatus_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* BfProduct_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* BfPriceType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* BfNoticationType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* BfBarPeriod_descriptor_ = NULL;
 
 }  // namespace
@@ -305,7 +309,24 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfContractData),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, _is_default_instance_));
-  BfSendOrderReq_descriptor_ = file->message_type(9);
+  BfNotificationData_descriptor_ = file->message_type(9);
+  static const int BfNotificationData_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, code_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, messageex_),
+  };
+  BfNotificationData_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfNotificationData_descriptor_,
+      BfNotificationData::default_instance_,
+      BfNotificationData_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfNotificationData),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, _is_default_instance_));
+  BfSendOrderReq_descriptor_ = file->message_type(10);
   static const int BfSendOrderReq_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderReq, exchange_),
@@ -326,7 +347,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfSendOrderReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderReq, _is_default_instance_));
-  BfSendOrderResp_descriptor_ = file->message_type(10);
+  BfSendOrderResp_descriptor_ = file->message_type(11);
   static const int BfSendOrderResp_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderResp, bforderid_),
   };
@@ -341,7 +362,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfSendOrderResp),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderResp, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfSendOrderResp, _is_default_instance_));
-  BfCancelOrderReq_descriptor_ = file->message_type(11);
+  BfCancelOrderReq_descriptor_ = file->message_type(12);
   static const int BfCancelOrderReq_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, exchange_),
@@ -358,7 +379,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfCancelOrderReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfCancelOrderReq, _is_default_instance_));
-  BfConnectReq_descriptor_ = file->message_type(12);
+  BfConnectReq_descriptor_ = file->message_type(13);
   static const int BfConnectReq_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientip_),
@@ -380,7 +401,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfConnectReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, _is_default_instance_));
-  BfConnectResp_descriptor_ = file->message_type(13);
+  BfConnectResp_descriptor_ = file->message_type(14);
   static const int BfConnectResp_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, errorcode_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, errormsg_),
@@ -396,7 +417,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfConnectResp),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectResp, _is_default_instance_));
-  BfGetContractReq_descriptor_ = file->message_type(14);
+  BfGetContractReq_descriptor_ = file->message_type(15);
   static const int BfGetContractReq_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, exchange_),
@@ -414,7 +435,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetContractReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetContractReq, _is_default_instance_));
-  BfPingData_descriptor_ = file->message_type(15);
+  BfPingData_descriptor_ = file->message_type(16);
   static const int BfPingData_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfPingData, message_),
   };
@@ -429,7 +450,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfPingData),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfPingData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfPingData, _is_default_instance_));
-  BfBarData_descriptor_ = file->message_type(16);
+  BfBarData_descriptor_ = file->message_type(17);
   static const int BfBarData_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, exchange_),
@@ -455,7 +476,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfBarData),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfBarData, _is_default_instance_));
-  BfGetTickReq_descriptor_ = file->message_type(17);
+  BfGetTickReq_descriptor_ = file->message_type(18);
   static const int BfGetTickReq_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, exchange_),
@@ -474,7 +495,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetTickReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetTickReq, _is_default_instance_));
-  BfDeleteTickReq_descriptor_ = file->message_type(18);
+  BfDeleteTickReq_descriptor_ = file->message_type(19);
   static const int BfDeleteTickReq_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, exchange_),
@@ -492,7 +513,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfDeleteTickReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteTickReq, _is_default_instance_));
-  BfGetBarReq_descriptor_ = file->message_type(19);
+  BfGetBarReq_descriptor_ = file->message_type(20);
   static const int BfGetBarReq_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, exchange_),
@@ -512,7 +533,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfGetBarReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _is_default_instance_));
-  BfDeleteBarReq_descriptor_ = file->message_type(20);
+  BfDeleteBarReq_descriptor_ = file->message_type(21);
   static const int BfDeleteBarReq_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, exchange_),
@@ -531,7 +552,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfDeleteBarReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDeleteBarReq, _is_default_instance_));
-  BfDatafeedGetContractReq_descriptor_ = file->message_type(21);
+  BfDatafeedGetContractReq_descriptor_ = file->message_type(22);
   static const int BfDatafeedGetContractReq_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, symbolpattern_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, exchangepattern_),
@@ -547,7 +568,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfDatafeedGetContractReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _is_default_instance_));
-  BfDatafeedDeleteContractReq_descriptor_ = file->message_type(22);
+  BfDatafeedDeleteContractReq_descriptor_ = file->message_type(23);
   static const int BfDatafeedDeleteContractReq_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, exchange_),
@@ -563,7 +584,7 @@ void protobuf_AssignDesc_bftrader_2eproto() {
       sizeof(BfDatafeedDeleteContractReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedDeleteContractReq, _is_default_instance_));
-  BfKvData_descriptor_ = file->message_type(23);
+  BfKvData_descriptor_ = file->message_type(24);
   static const int BfKvData_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfKvData, key_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfKvData, value_),
@@ -584,7 +605,8 @@ void protobuf_AssignDesc_bftrader_2eproto() {
   BfStatus_descriptor_ = file->enum_type(2);
   BfProduct_descriptor_ = file->enum_type(3);
   BfPriceType_descriptor_ = file->enum_type(4);
-  BfBarPeriod_descriptor_ = file->enum_type(5);
+  BfNoticationType_descriptor_ = file->enum_type(5);
+  BfBarPeriod_descriptor_ = file->enum_type(6);
 }
 
 namespace {
@@ -615,6 +637,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       BfLogData_descriptor_, &BfLogData::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfContractData_descriptor_, &BfContractData::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfNotificationData_descriptor_, &BfNotificationData::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfSendOrderReq_descriptor_, &BfSendOrderReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -668,6 +692,8 @@ void protobuf_ShutdownFile_bftrader_2eproto() {
   delete BfLogData_reflection_;
   delete BfContractData::default_instance_;
   delete BfContractData_reflection_;
+  delete BfNotificationData::default_instance_;
+  delete BfNotificationData_reflection_;
   delete BfSendOrderReq::default_instance_;
   delete BfSendOrderReq_reflection_;
   delete BfSendOrderResp::default_instance_;
@@ -747,65 +773,70 @@ void protobuf_AddDesc_bftrader_2eproto() {
     "ader.BfProduct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021"
     "\n\tpriceTick\030\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010m"
     "inLimit\030\010 \001(\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminM"
-    "artet\030\n \001(\005\"\311\001\n\016BfSendOrderReq\022\016\n\006symbol"
-    "\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022"
-    "\016\n\006volume\030\004 \001(\005\022(\n\tpriceType\030\005 \001(\0162\025.bft"
-    "rader.BfPriceType\022(\n\tdirection\030\006 \001(\0162\025.b"
-    "ftrader.BfDirection\022\"\n\006offset\030\007 \001(\0162\022.bf"
-    "trader.BfOffset\"$\n\017BfSendOrderResp\022\021\n\tbf"
-    "OrderId\030\001 \001(\t\"G\n\020BfCancelOrderReq\022\016\n\006sym"
-    "bol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrderId"
-    "\030\003 \001(\t\"\247\001\n\014BfConnectReq\022\020\n\010clientId\030\001 \001("
-    "\t\022\020\n\010clientIp\030\002 \001(\t\022\022\n\nclientPort\030\003 \001(\005\022"
-    "\023\n\013tickHandler\030\004 \001(\010\022\024\n\014tradeHandler\030\005 \001"
-    "(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020"
-    "\n\010exchange\030\010 \001(\t\"4\n\rBfConnectResp\022\021\n\terr"
-    "orCode\030\001 \001(\005\022\020\n\010errorMsg\030\002 \001(\t\"X\n\020BfGetC"
-    "ontractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
-    " \001(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010"
-    "\"\035\n\nBfPingData\022\017\n\007message\030\001 \001(\t\"\377\001\n\tBfBa"
-    "rData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
-    "%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\022"
-    "\n\nactionDate\030\004 \001(\t\022\017\n\007barTime\030\005 \001(\t\022\016\n\006v"
-    "olume\030\006 \001(\005\022\024\n\014openInterest\030\007 \001(\001\022\022\n\nlas"
-    "tVolume\030\010 \001(\005\022\021\n\topenPrice\030\t \001(\001\022\021\n\thigh"
-    "Price\030\n \001(\001\022\020\n\010lowPrice\030\013 \001(\001\022\022\n\nclosePr"
-    "ice\030\014 \001(\001\"_\n\014BfGetTickReq\022\016\n\006symbol\030\001 \001("
-    "\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006t"
-    "oTime\030\004 \001(\t\022\r\n\005count\030\005 \001(\005\"S\n\017BfDeleteTi"
-    "ckReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
-    "\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\"\205\001\n\013BfGe"
-    "tBarReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
-    "\t\022%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod"
-    "\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\022\r\n\005coun"
-    "t\030\006 \001(\005\"y\n\016BfDeleteBarReq\022\016\n\006symbol\030\001 \001("
+    "artet\030\n \001(\005\"b\n\022BfNotificationData\022(\n\004cod"
+    "e\030\001 \001(\0162\032.bftrader.BfNoticationType\022\017\n\007m"
+    "essage\030\002 \001(\t\022\021\n\tmessageEx\030\003 \001(\t\"\311\001\n\016BfSe"
+    "ndOrderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
+    " \001(\t\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tp"
+    "riceType\030\005 \001(\0162\025.bftrader.BfPriceType\022(\n"
+    "\tdirection\030\006 \001(\0162\025.bftrader.BfDirection\022"
+    "\"\n\006offset\030\007 \001(\0162\022.bftrader.BfOffset\"$\n\017B"
+    "fSendOrderResp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfC"
+    "ancelOrderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchang"
+    "e\030\002 \001(\t\022\021\n\tbfOrderId\030\003 \001(\t\"\247\001\n\014BfConnect"
+    "Req\022\020\n\010clientId\030\001 \001(\t\022\020\n\010clientIp\030\002 \001(\t\022"
+    "\022\n\nclientPort\030\003 \001(\005\022\023\n\013tickHandler\030\004 \001(\010"
+    "\022\024\n\014tradeHandler\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001"
+    "(\010\022\016\n\006symbol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\"4\n\r"
+    "BfConnectResp\022\021\n\terrorCode\030\001 \001(\005\022\020\n\010erro"
+    "rMsg\030\002 \001(\t\"X\n\020BfGetContractReq\022\016\n\006symbol"
+    "\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005index\030\003 \001(\005\022"
+    "\023\n\013subscribled\030\004 \001(\010\"\035\n\nBfPingData\022\017\n\007me"
+    "ssage\030\001 \001(\t\"\377\001\n\tBfBarData\022\016\n\006symbol\030\001 \001("
     "\t\022\020\n\010exchange\030\002 \001(\t\022%\n\006period\030\003 \001(\0162\025.bf"
-    "trader.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006to"
-    "Time\030\005 \001(\t\"J\n\030BfDatafeedGetContractReq\022\025"
-    "\n\rsymbolPattern\030\001 \001(\t\022\027\n\017exchangePattern"
-    "\030\002 \001(\t\"\?\n\033BfDatafeedDeleteContractReq\022\016\n"
-    "\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\"&\n\010BfKvD"
-    "ata\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t*`\n\013BfDir"
-    "ection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTI"
-    "ON_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\rDIRECT"
-    "ION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020"
-    "\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE\020\002\022\025\n\021"
-    "OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOSEYESTE"
-    "RDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNOWN\020\000\022\024"
-    "\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PARTTRADE"
-    "D\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATUS_CANC"
-    "ELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UNKNOWN\020"
-    "\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_FUTURES"
-    "\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000"
-    "\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_"
-    "MARKETPRICE\020\002*\210\002\n\013BfBarPeriod\022\022\n\016PERIOD_"
-    "UNKNOWN\020\000\022\r\n\tPERIOD_S1\020\001\022\r\n\tPERIOD_S3\020\002\022"
-    "\r\n\tPERIOD_S5\020\003\022\016\n\nPERIOD_S10\020\004\022\016\n\nPERIOD"
-    "_S15\020\005\022\016\n\nPERIOD_S30\020\006\022\r\n\tPERIOD_M1\020\007\022\r\n"
-    "\tPERIOD_M3\020\010\022\r\n\tPERIOD_M5\020\t\022\016\n\nPERIOD_M1"
-    "0\020\n\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_M30\020\014\022\r\n\tP"
-    "ERIOD_H1\020\r\022\r\n\tPERIOD_D1\020\016\022\r\n\tPERIOD_W1\020\017"
-    "b\006proto3", 3928);
+    "trader.BfBarPeriod\022\022\n\nactionDate\030\004 \001(\t\022\017"
+    "\n\007barTime\030\005 \001(\t\022\016\n\006volume\030\006 \001(\005\022\024\n\014openI"
+    "nterest\030\007 \001(\001\022\022\n\nlastVolume\030\010 \001(\005\022\021\n\tope"
+    "nPrice\030\t \001(\001\022\021\n\thighPrice\030\n \001(\001\022\020\n\010lowPr"
+    "ice\030\013 \001(\001\022\022\n\nclosePrice\030\014 \001(\001\"_\n\014BfGetTi"
+    "ckReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
+    "\016\n\006toDate\030\003 \001(\t\022\016\n\006toTime\030\004 \001(\t\022\r\n\005count"
+    "\030\005 \001(\005\"S\n\017BfDeleteTickReq\022\016\n\006symbol\030\001 \001("
+    "\t\022\020\n\010exchange\030\002 \001(\t\022\016\n\006toDate\030\003 \001(\t\022\016\n\006t"
+    "oTime\030\004 \001(\t\"\205\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 "
+    "\001(\t\022\020\n\010exchange\030\002 \001(\t\022%\n\006period\030\003 \001(\0162\025."
+    "bftrader.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006"
+    "toTime\030\005 \001(\t\022\r\n\005count\030\006 \001(\005\"y\n\016BfDeleteB"
+    "arReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022"
+    "%\n\006period\030\003 \001(\0162\025.bftrader.BfBarPeriod\022\016"
+    "\n\006toDate\030\004 \001(\t\022\016\n\006toTime\030\005 \001(\t\"J\n\030BfData"
+    "feedGetContractReq\022\025\n\rsymbolPattern\030\001 \001("
+    "\t\022\027\n\017exchangePattern\030\002 \001(\t\"\?\n\033BfDatafeed"
+    "DeleteContractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exc"
+    "hange\030\002 \001(\t\"&\n\010BfKvData\022\013\n\003key\030\001 \001(\t\022\r\n\005"
+    "value\030\002 \001(\t*`\n\013BfDirection\022\025\n\021DIRECTION_"
+    "UNKNOWN\020\000\022\022\n\016DIRECTION_LONG\020\001\022\023\n\017DIRECTI"
+    "ON_SHORT\020\002\022\021\n\rDIRECTION_NET\020\003*s\n\010BfOffse"
+    "t\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020"
+    "\n\014OFFSET_CLOSE\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022"
+    "\031\n\025OFFSET_CLOSEYESTERDAY\020\004*w\n\010BfStatus\022\022"
+    "\n\016STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001"
+    "\022\025\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRA"
+    "DED\020\003\022\024\n\020STATUS_CANCELLED\020\004*I\n\tBfProduct"
+    "\022\023\n\017PRODUCT_UNKNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020"
+    "\001\022\023\n\017PRODUCT_FUTURES\020\002*Y\n\013BfPriceType\022\025\n"
+    "\021PRICETYPE_UNKONWN\020\000\022\030\n\024PRICETYPE_LIMITP"
+    "RICE\020\001\022\031\n\025PRICETYPE_MARKETPRICE\020\002*l\n\020BfN"
+    "oticationType\022\030\n\024NOTIFICATION_UNKNOWN\020\000\022"
+    "\037\n\033NOTIFICATION_TRADEWILLBEGIN\020\001\022\035\n\031NOTI"
+    "FICATION_GOTCONTRACTS\020\002*\210\002\n\013BfBarPeriod\022"
+    "\022\n\016PERIOD_UNKNOWN\020\000\022\r\n\tPERIOD_S1\020\001\022\r\n\tPE"
+    "RIOD_S3\020\002\022\r\n\tPERIOD_S5\020\003\022\016\n\nPERIOD_S10\020\004"
+    "\022\016\n\nPERIOD_S15\020\005\022\016\n\nPERIOD_S30\020\006\022\r\n\tPERI"
+    "OD_M1\020\007\022\r\n\tPERIOD_M3\020\010\022\r\n\tPERIOD_M5\020\t\022\016\n"
+    "\nPERIOD_M10\020\n\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_"
+    "M30\020\014\022\r\n\tPERIOD_H1\020\r\022\r\n\tPERIOD_D1\020\016\022\r\n\tP"
+    "ERIOD_W1\020\017b\006proto3", 4138);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bftrader.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -817,6 +848,7 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfErrorData::default_instance_ = new BfErrorData();
   BfLogData::default_instance_ = new BfLogData();
   BfContractData::default_instance_ = new BfContractData();
+  BfNotificationData::default_instance_ = new BfNotificationData();
   BfSendOrderReq::default_instance_ = new BfSendOrderReq();
   BfSendOrderResp::default_instance_ = new BfSendOrderResp();
   BfCancelOrderReq::default_instance_ = new BfCancelOrderReq();
@@ -841,6 +873,7 @@ void protobuf_AddDesc_bftrader_2eproto() {
   BfErrorData::default_instance_->InitAsDefaultInstance();
   BfLogData::default_instance_->InitAsDefaultInstance();
   BfContractData::default_instance_->InitAsDefaultInstance();
+  BfNotificationData::default_instance_->InitAsDefaultInstance();
   BfSendOrderReq::default_instance_->InitAsDefaultInstance();
   BfSendOrderResp::default_instance_->InitAsDefaultInstance();
   BfCancelOrderReq::default_instance_->InitAsDefaultInstance();
@@ -935,6 +968,21 @@ const ::google::protobuf::EnumDescriptor* BfPriceType_descriptor() {
   return BfPriceType_descriptor_;
 }
 bool BfPriceType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* BfNoticationType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfNoticationType_descriptor_;
+}
+bool BfNoticationType_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
@@ -7407,6 +7455,429 @@ void BfContractData::clear_minmartet() {
   
   minmartet_ = value;
   // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMartet)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfNotificationData::kCodeFieldNumber;
+const int BfNotificationData::kMessageFieldNumber;
+const int BfNotificationData::kMessageExFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfNotificationData::BfNotificationData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfNotificationData)
+}
+
+void BfNotificationData::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfNotificationData::BfNotificationData(const BfNotificationData& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfNotificationData)
+}
+
+void BfNotificationData::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  code_ = 0;
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfNotificationData::~BfNotificationData() {
+  // @@protoc_insertion_point(destructor:bftrader.BfNotificationData)
+  SharedDtor();
+}
+
+void BfNotificationData::SharedDtor() {
+  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfNotificationData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfNotificationData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfNotificationData_descriptor_;
+}
+
+const BfNotificationData& BfNotificationData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bftrader_2eproto();
+  return *default_instance_;
+}
+
+BfNotificationData* BfNotificationData::default_instance_ = NULL;
+
+BfNotificationData* BfNotificationData::New(::google::protobuf::Arena* arena) const {
+  BfNotificationData* n = new BfNotificationData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfNotificationData::Clear() {
+  code_ = 0;
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfNotificationData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfNotificationData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .bftrader.BfNoticationType code = 1;
+      case 1: {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_code(static_cast< ::bftrader::BfNoticationType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_message;
+        break;
+      }
+
+      // optional string message = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_message:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_message()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfNotificationData.message"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_messageEx;
+        break;
+      }
+
+      // optional string messageEx = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_messageEx:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_messageex()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->messageex().data(), this->messageex().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfNotificationData.messageEx"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfNotificationData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfNotificationData)
+  return false;
+#undef DO_
+}
+
+void BfNotificationData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfNotificationData)
+  // optional .bftrader.BfNoticationType code = 1;
+  if (this->code() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->code(), output);
+  }
+
+  // optional string message = 2;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfNotificationData.message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->message(), output);
+  }
+
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->messageex().data(), this->messageex().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfNotificationData.messageEx");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->messageex(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfNotificationData)
+}
+
+::google::protobuf::uint8* BfNotificationData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfNotificationData)
+  // optional .bftrader.BfNoticationType code = 1;
+  if (this->code() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->code(), target);
+  }
+
+  // optional string message = 2;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfNotificationData.message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->message(), target);
+  }
+
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->messageex().data(), this->messageex().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfNotificationData.messageEx");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->messageex(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfNotificationData)
+  return target;
+}
+
+int BfNotificationData::ByteSize() const {
+  int total_size = 0;
+
+  // optional .bftrader.BfNoticationType code = 1;
+  if (this->code() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->code());
+  }
+
+  // optional string message = 2;
+  if (this->message().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->message());
+  }
+
+  // optional string messageEx = 3;
+  if (this->messageex().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->messageex());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfNotificationData::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfNotificationData* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfNotificationData>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfNotificationData::MergeFrom(const BfNotificationData& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.code() != 0) {
+    set_code(from.code());
+  }
+  if (from.message().size() > 0) {
+
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  }
+  if (from.messageex().size() > 0) {
+
+    messageex_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.messageex_);
+  }
+}
+
+void BfNotificationData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfNotificationData::CopyFrom(const BfNotificationData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfNotificationData::IsInitialized() const {
+
+  return true;
+}
+
+void BfNotificationData::Swap(BfNotificationData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfNotificationData::InternalSwap(BfNotificationData* other) {
+  std::swap(code_, other->code_);
+  message_.Swap(&other->message_);
+  messageex_.Swap(&other->messageex_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfNotificationData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfNotificationData_descriptor_;
+  metadata.reflection = BfNotificationData_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfNotificationData
+
+// optional .bftrader.BfNoticationType code = 1;
+void BfNotificationData::clear_code() {
+  code_ = 0;
+}
+ ::bftrader::BfNoticationType BfNotificationData::code() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
+  return static_cast< ::bftrader::BfNoticationType >(code_);
+}
+ void BfNotificationData::set_code(::bftrader::BfNoticationType value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
+}
+
+// optional string message = 2;
+void BfNotificationData::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfNotificationData::message() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfNotificationData::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.message)
+}
+ void BfNotificationData::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.message)
+}
+ void BfNotificationData::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.message)
+}
+ ::std::string* BfNotificationData::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfNotificationData::release_message() {
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfNotificationData::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.message)
+}
+
+// optional string messageEx = 3;
+void BfNotificationData::clear_messageex() {
+  messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfNotificationData::messageex() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.messageEx)
+  return messageex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfNotificationData::set_messageex(const ::std::string& value) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.messageEx)
+}
+ void BfNotificationData::set_messageex(const char* value) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.messageEx)
+}
+ void BfNotificationData::set_messageex(const char* value, size_t size) {
+  
+  messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.messageEx)
+}
+ ::std::string* BfNotificationData::mutable_messageex() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.messageEx)
+  return messageex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfNotificationData::release_messageex() {
+  
+  return messageex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfNotificationData::set_allocated_messageex(::std::string* messageex) {
+  if (messageex != NULL) {
+    
+  } else {
+    
+  }
+  messageex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), messageex);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.messageEx)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -96,12 +96,7 @@ public:
                 google::protobuf::Any any;
                 bool ok = reader->Read(&any);
                 if (ok) {
-                    // TODO(hege):到gatewaymgr上去解包分流=
-                    if (any.Is<BfPingData>()) {
-                        BfPingData ping;
-                        any.UnpackTo(&ping);
-                        BfInfo("(%s)->Connect,gotPing:%s", qPrintable(this->gatewayId_), ping.message().c_str());
-                    }
+                    dispatchPush(any);
                 } else {
                     // shutdown
                     BfDebug("stream shutdown");
@@ -198,6 +193,64 @@ public:
     }
 
 private:
+    void dispatchPush(google::protobuf::Any& any)
+    {
+        if (any.Is<BfTickData>()) {
+            BfTickData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotTick(gatewayId_, data);
+        } else if (any.Is<BfPingData>()) {
+            BfPingData data;
+            any.UnpackTo(&data);
+            BfInfo("(%s)->Connect,gotPing:%s", qPrintable(this->gatewayId_), data.message().c_str());
+            emit g_sm->gatewayMgr()->gotPing(gatewayId_, data);
+        } else if (any.Is<BfOrderData>()) {
+            BfOrderData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotOrder(gatewayId_, data);
+        } else if (any.Is<BfAccountData>()) {
+            BfAccountData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotAccount(gatewayId_, data);
+        } else if (any.Is<BfPositionData>()) {
+            BfPositionData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotPosition(gatewayId_, data);
+        } else if (any.Is<BfTradeData>()) {
+            BfOrderData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotOrder(gatewayId_, data);
+        } else if (any.Is<BfErrorData>()) {
+            BfErrorData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotError(gatewayId_, data);
+        } else if (any.Is<BfLogData>()) {
+            BfLogData data;
+            any.UnpackTo(&data);
+            emit g_sm->gatewayMgr()->gotLog(gatewayId_, data);
+        } else if (any.Is<BfNotificationData>()) {
+            BfNotificationData data;
+            any.UnpackTo(&data);
+            switch (data.code()) {
+            case NOTIFICATION_GOTCONTRACTS: {
+                emit g_sm->gatewayMgr()->gotContracts(gatewayId_);
+                break;
+            }
+            case NOTIFICATION_TRADEWILLBEGIN: {
+                emit g_sm->gatewayMgr()->tradeWillBegin(gatewayId_);
+                break;
+            }
+            default: {
+                qFatal("invalid notification type");
+                break;
+            }
+            }
+        } else {
+            qFatal("invalid push type");
+        }
+    }
+
+private:
     std::unique_ptr<BfGatewayService::Stub> stub_;
     ::grpc::ChannelInterface* channel_;
     int pingfail_count_ = 0;
@@ -226,15 +279,15 @@ void GatewayMgr::init()
     qRegisterMetaType<BfPositionData>("BfPositionData");
     qRegisterMetaType<BfOrderData>("BfOrderData");
     qRegisterMetaType<BfTradeData>("BfTradeData");
-    qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
-    qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
-    qRegisterMetaType<BfConnectReq>("BfConnectReq");
-
+    qRegisterMetaType<BfNotificationData>("BfNotificationData");
+    qRegisterMetaType<BfContractData>("BfContractData");
     qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
 
+    qRegisterMetaType<BfConnectReq>("BfConnectReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
-    qRegisterMetaType<BfContractData>("BfContractData");
+    qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
+    qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
 
     // start timer
     this->pingTimer_ = new QTimer(this);

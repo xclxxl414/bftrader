@@ -47,6 +47,14 @@ enum BfPriceType{
     PRICETYPE_MARKETPRICE = 2;  // 市价
 }
 
+// Notification
+enum BfNoticationType{
+    NOTIFICATION_UNKNOWN = 0;           //未知
+    NOTIFICATION_TRADEWILLBEGIN = 1;    //登录成功准备查询可交易合约列表
+    NOTIFICATION_GOTCONTRACTS = 2;      //查询可交易合约列表成功
+    
+}
+
 // 空参数
 message BfVoid{
 }
@@ -187,6 +195,13 @@ message BfContractData{
     int32 minLimit = 8;         // 限价单最小下单量
     int32 maxMarket = 9;        // 市价单最大下单量
     int32 minMartet = 10;       // 市价单最小下单量
+}
+
+// Notification
+message BfNotificationData{
+    BfNoticationType code = 1;  // 代码
+    string message = 2;         // 信息    
+    string messageEx = 3;       // 补充信息
 }
 
 // 发单时传入的对象类

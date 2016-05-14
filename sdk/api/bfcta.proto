@@ -6,13 +6,14 @@ package bftrader.bfcta;
 // option cc_enable_arenas = true;
 
 import "bftrader.proto";
+import "google/protobuf/any.proto";
 
 //
 // Cta服务，必须先connect然后才可以调用其他api
 //
 service BfCtaService{    
     // 请求建立到robot的连接
-    rpc Connect(BfConnectReq) returns (BfConnectResp) {}
+    rpc Connect(BfConnectReq) returns (stream google.protobuf.Any) {}
     
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}

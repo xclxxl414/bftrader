@@ -40,10 +40,11 @@ StatForm::~StatForm()
     delete ui;
 }
 
+// NOTE(hege): init里面不能直接访问原始db
 void StatForm::init()
 {
-    this->setWindowTitle(QStringLiteral("history-stat"));
-    refresh();
+    // dbservice
+    QObject::connect(g_sm->dbService(), &DbService::opened, this, &StatForm::refresh);
 }
 
 void StatForm::shutdown()
