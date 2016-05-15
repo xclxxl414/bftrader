@@ -33,8 +33,8 @@ message BfRobotData{
     string robotId = 1;             // 机器人id
     string modelId = 2;             // 模型id
     string gatewayId = 3;           // 网关id
-    string symbolWildcard = 4;      // 合约通配符
-    string exchangeWildcard = 5;    // 交易所通配符
+    string symbol = 4;              // 合约,换月时候手动修改
+    string exchange = 5;            // 交易所
 }
 
 // 网关信息类

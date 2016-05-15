@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "bfgateway.pb.h"
 #include "bfdatafeed.pb.h"
+#include "bfgateway.pb.h"
 
 using namespace bftrader;
 

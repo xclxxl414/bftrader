@@ -154,7 +154,7 @@ void PushService::connectClient(QString ctaId, const BfConnectReq& req, void* qu
     QString clientId = req.clientid().c_str();
     BfDebug("(%s)->connectClient", qPrintable(clientId));
 
-    QString gatewayId = g_sm->dbService()->getGatewayId(req);
+    QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
     auto client = new CtaClient((SafeQueue<google::protobuf::Any>*)queue, gatewayId, ctaId, req);
     if (clients_.contains(clientId)) {
         auto it = clients_[clientId];

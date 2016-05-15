@@ -46,9 +46,9 @@ void PositionForm::shutdown()
 {
 }
 
-void PositionForm::onGotContracts(QStringList ids, QStringList idsAll)
+void PositionForm::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
-    ids_ = ids;
+    symbols_my_ = symbolsMy;
 }
 
 void PositionForm::onGotPosition(const BfPositionData& newPos)
@@ -167,7 +167,7 @@ void PositionForm::on_pushButtonCloseAll_clicked()
         }
 
         // 没有订阅的pass
-        if (!ids_.contains(symbol)) {
+        if (!symbols_my_.contains(symbol)) {
             BfInfo(symbol + " not subscrible,please close byhand");
             continue;
         }

@@ -26,7 +26,7 @@ public slots:
     void onPing();
 
     void onTradeWillBegin();
-    void onGotContracts(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void onGatewayError(int code, QString msg, QString msgEx);
     void onLog(QString when, QString msg);
     void onGotTick(void* curTick, void* preTick);

@@ -192,8 +192,11 @@ bool GatewayMgr::initMdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     mdsm_ = new MdSm;
-    bool res = mdsm_->init(profile()->get("userId").toString(), password_,
-        profile()->get("brokerId").toString(), profile()->get("frontMd").toString(), Profile::flowPathMd());
+    bool res = mdsm_->init(profile()->get("userId").toString(),
+        password_,
+        profile()->get("brokerId").toString(),
+        profile()->get("frontMd").toString(),
+        Profile::flowPathMd());
     if (!res) {
         delete mdsm_;
         mdsm_ = nullptr;
@@ -219,9 +222,12 @@ bool GatewayMgr::initTdSm()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     tdsm_ = new TdSm;
-    bool res = tdsm_->init(profile()->get("userId").toString(), password_,
-        profile()->get("brokerId").toString(), profile()->get("frontTd").toString(),
-        Profile::flowPathTd(), profile()->get("idPrefixList").toString());
+    bool res = tdsm_->init(profile()->get("userId").toString(),
+        password_,
+        profile()->get("brokerId").toString(),
+        profile()->get("frontTd").toString(),
+        Profile::flowPathTd(),
+        profile()->get("symbolPrefixes").toString());
     if (!res) {
         delete tdsm_;
         tdsm_ = nullptr;
@@ -284,20 +290,20 @@ void GatewayMgr::stop()
     }
 }
 
-void GatewayMgr::onGotContracts(QStringList ids, QStringList idsAll)
+void GatewayMgr::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
     BfDebug(__FUNCTION__);
 
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // 保存ids，便于枚举=
-    ids_ = ids;
-    ids_.sort();
-    ids_all_ = idsAll;
-    ids_all_.sort();
+    symbols_my_ = symbolsMy;
+    symbols_my_.sort();
+    symbols_all_ = symbolsAll;
+    symbols_all_.sort();
 
     // mdapi开始订阅=
-    mdsm_->subscrible(ids, 0);
+    mdsm_->subscrible(symbolsMy, 0);
 
     // tdapi开始确认账单=
     tdsm_->reqSettlementInfoConfirm(0);
@@ -311,15 +317,15 @@ bool GatewayMgr::running()
     return false;
 }
 
-void* GatewayMgr::getLatestTick(QString id)
+void* GatewayMgr::getLatestTick(QString symbol)
 {
-    auto rb = getRingBuffer(id);
+    auto rb = getRingBuffer(symbol);
     return rb->get(rb->head());
 }
 
-void* GatewayMgr::getPreLatestTick(QString id)
+void* GatewayMgr::getPreLatestTick(QString symbol)
 {
-    auto rb = getRingBuffer(id);
+    auto rb = getRingBuffer(symbol);
     int preIndex = rb->head() - 1;
     if (preIndex < 0) {
         preIndex += rb->count();
@@ -331,8 +337,8 @@ void GatewayMgr::resetData()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    ids_.clear();
-    ids_all_.clear();
+    symbols_my_.clear();
+    symbols_all_.clear();
     tdsm_->resetData(); //contract
     mdsm_->resetData(); //ringbuffer
 }
@@ -381,12 +387,12 @@ void GatewayMgr::queryPosition()
 
 QStringList GatewayMgr::getIds()
 {
-    return ids_;
+    return symbols_my_;
 }
 
 QStringList GatewayMgr::getIdsAll()
 {
-    return ids_all_;
+    return symbols_all_;
 }
 
 void GatewayMgr::freeContracts()
@@ -399,9 +405,9 @@ void GatewayMgr::freeContracts()
     contracts_.clear();
 }
 
-void* GatewayMgr::getContract(QString id)
+void* GatewayMgr::getContract(QString symbol)
 {
-    auto contract = contracts_.value(id);
+    auto contract = contracts_.value(symbol);
     if (contract == nullptr) {
         qFatal("contract == nullptr");
     }
@@ -409,18 +415,18 @@ void* GatewayMgr::getContract(QString id)
     return contract;
 }
 
-void GatewayMgr::insertContract(QString id, void* contract)
+void GatewayMgr::insertContract(QString symbol, void* contract)
 {
-    auto oldVal = contracts_.value(id);
+    auto oldVal = contracts_.value(symbol);
     if (oldVal != nullptr) {
         qFatal("oldVal != nullptr");
     }
-    contracts_[id] = contract;
+    contracts_[symbol] = contract;
 }
 
-RingBuffer* GatewayMgr::getRingBuffer(QString id)
+RingBuffer* GatewayMgr::getRingBuffer(QString symbol)
 {
-    RingBuffer* rb = rbs_.value(id);
+    RingBuffer* rb = rbs_.value(symbol);
     if (rb == nullptr) {
         qFatal("rb == nullptr");
     }
@@ -434,10 +440,10 @@ void GatewayMgr::initRingBuffer(int itemLen, QStringList ids)
         qFatal("rbs_.count() != 0");
     }
 
-    for (auto id : ids) {
+    for (auto symbol : ids) {
         RingBuffer* rb = new RingBuffer;
         rb->init(itemLen, ringBufferLen_);
-        rbs_.insert(id, rb);
+        rbs_.insert(symbol, rb);
     }
 }
 

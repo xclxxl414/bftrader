@@ -28,7 +28,7 @@ public:
     void stop();
 
     void login(unsigned int delayTick);
-    void subscrible(QStringList ids, unsigned int delayTick);
+    void subscrible(QStringList symbols, unsigned int delayTick);
     void resetData();
 
 signals:

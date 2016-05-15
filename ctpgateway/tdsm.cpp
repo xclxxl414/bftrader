@@ -83,29 +83,27 @@ private:
     // 可能有多次回调=
     void OnRspQryInstrument(CThostFtdcInstrumentField* pInstrument, CThostFtdcRspInfoField* pRspInfo, int nRequestID, bool bIsLast) override
     {
-        QString id;
-        QString prefix;
-        if (!idPrefixList_.length()) {
-            QString prefixlist = sm()->idPrefixList_;
-            idPrefixList_ = prefixlist.split(";", QString::SkipEmptyParts);
+        if (!symbolPrefixList_.length()) {
+            QString prefixes = sm()->symbolPrefixes_;
+            symbolPrefixList_ = prefixes.split(";", QString::SkipEmptyParts);
         }
         if (!isErrorRsp(pRspInfo, nRequestID) && pInstrument) {
-            id = pInstrument->InstrumentID;
+            QString symbol = pInstrument->InstrumentID;
 
             // 全部合约，由于持仓的部分可能不是订阅的，持仓需要用合约信息，这里要保留全部合约信息=
             // https://github.com/sunwangme/bftrader/issues/5
             CThostFtdcInstrumentField* contract = new CThostFtdcInstrumentField();
             memcpy(contract, pInstrument, sizeof(CThostFtdcInstrumentField));
-            g_sm->gatewayMgr()->insertContract(id, contract);
-            ids_all_ << id;
+            g_sm->gatewayMgr()->insertContract(symbol, contract);
+            symbols_all_ << symbol;
 
             // 订阅合约=
-            if (id.length() <= 6) {
-                QString low_id = id.toLower();
-                for (int i = 0; i < idPrefixList_.length(); i++) {
-                    prefix = idPrefixList_.at(i);
-                    if (low_id.startsWith(prefix)) {
-                        ids_ << id;
+            if (symbol.length() <= 6) {
+                QString symbol_low = symbol.toLower();
+                for (int i = 0; i < symbolPrefixList_.length(); i++) {
+                    QString prefix = symbolPrefixList_.at(i);
+                    if (symbol_low.startsWith(prefix)) {
+                        symbols_my_ << symbol;
                         break;
                     }
                 }
@@ -113,13 +111,13 @@ private:
         }
 
         if (bIsLast) {
-            QString ids;
-            for (auto id : ids_) {
-                ids = ids + id + ";";
+            QString symbols;
+            for (auto symbol : symbols_my_) {
+                symbols = symbols + symbol + ";";
             }
-            BfInfo("total got ids:%d,reqId=%d,filter=%s,ids=%s", ids_.length(), nRequestID, sm()->idPrefixList_.toStdString().c_str(), ids.toUtf8().constData());
-            g_sm->gatewayMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), ids_);
-            emit g_sm->gatewayMgr()->gotContracts(ids_, ids_all_);
+            BfInfo("total got symbol:%d,reqId=%d,prefixes=(%s),symbols=(%s)", symbols_my_.length(), nRequestID, qPrintable(sm()->symbolPrefixes_), qPrintable(symbols));
+            g_sm->gatewayMgr()->initRingBuffer(sizeof(CThostFtdcDepthMarketDataField), symbols_my_);
+            emit g_sm->gatewayMgr()->gotContracts(symbols_my_, symbols_all_);
         }
     }
 
@@ -399,9 +397,9 @@ private:
     {
         g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-        ids_.clear();
-        ids_all_.clear();
-        idPrefixList_.clear();
+        symbols_my_.clear();
+        symbols_all_.clear();
+        symbolPrefixList_.clear();
         g_sm->gatewayMgr()->freeContracts();
     }
 
@@ -416,9 +414,9 @@ private:
 
 private:
     TdSm* sm_;
-    QStringList ids_;
-    QStringList ids_all_;
-    QStringList idPrefixList_;
+    QStringList symbols_my_;
+    QStringList symbols_all_;
+    QStringList symbolPrefixList_;
     std::atomic_int32_t orderRef_ = 0;
     int frontId_ = 0;
     int sessionId_ = 0;
@@ -437,19 +435,19 @@ TdSm::~TdSm()
 {
 }
 
-bool TdSm::init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList)
+bool TdSm::init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString symbolPrefixes)
 {
     userId_ = userId;
     password_ = password;
     brokerId_ = brokerId;
     frontTd_ = frontTd;
     flowPathTd_ = flowPathTd;
-    idPrefixList_ = idPrefixList;
+    symbolPrefixes_ = symbolPrefixes;
 
     // check
     if (userId_.length() == 0 || password_.length() == 0
         || brokerId_.length() == 0 || frontTd_.length() == 0 || flowPathTd_.length() == 0
-        || idPrefixList_.length() == 0) {
+        || symbolPrefixes.length() == 0) {
         return false;
     }
 

@@ -41,7 +41,7 @@ void ConfigDialog::save()
     }
     profile->put("frontTd", frontTd);
 
-    profile->put("idPrefixList", ui->idPrefixList->text());
+    profile->put("symbolPrefixes", ui->symbolPrefixes->text());
     profile->commit();
 }
 
@@ -52,5 +52,5 @@ void ConfigDialog::load()
     ui->brokerId->setText(profile->get("brokerId", "9999").toString());
     ui->frontMd->setText(profile->get("frontMd", "tcp://218.202.237.33:10012").toString());
     ui->frontTd->setText(profile->get("frontTd", "tcp://218.202.237.33:10002").toString());
-    ui->idPrefixList->setText(profile->get("idPrefixList", "if;ih;ic;sr;rb;pp").toString());
+    ui->symbolPrefixes->setText(profile->get("symbolPrefixes", "if;ih;ic;sr;rb;pp").toString());
 }

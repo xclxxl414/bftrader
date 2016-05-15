@@ -71,16 +71,16 @@ private:
         bool bIsLast) override
     {
         if (!isErrorRsp(pRspInfo, nRequestID) && pSpecificInstrument) {
-            QString iid = pSpecificInstrument->InstrumentID;
-            got_ids_ << iid;
+            QString symbol = pSpecificInstrument->InstrumentID;
+            got_symbols_ << symbol;
         }
 
         if (bIsLast) {
-            QString ids;
-            for (auto id : got_ids_) {
-                ids = ids + id + ";";
+            QString symbols;
+            for (auto symbol : got_symbols_) {
+                symbols = symbols + symbol + ";";
             }
-            BfInfo("total sub ids:%d,reqId=%d,%s", got_ids_.length(), nRequestID, ids.toUtf8().constData());
+            BfInfo("total subscribled symbols:%d,reqId=%d,(%s)", got_symbols_.length(), nRequestID, qPrintable(symbols));
         }
     }
 
@@ -121,7 +121,7 @@ private:
     {
         g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-        got_ids_.clear();
+        got_symbols_.clear();
         g_sm->gatewayMgr()->freeRingBuffer();
     }
 
@@ -150,7 +150,7 @@ private:
 
 private:
     MdSm* sm_;
-    QStringList got_ids_;
+    QStringList got_symbols_;
 
     friend MdSm;
 };
@@ -252,21 +252,20 @@ void MdSm::login(unsigned int delayTick)
     g_sm->gatewayMgr()->runCmd(cmd);
 }
 
-void MdSm::subscrible(QStringList ids,
-    unsigned int delayTick)
+void MdSm::subscrible(QStringList symbols, unsigned int delayTick)
 {
     BfDebug(__FUNCTION__);
 
     std::function<int(int)> fn = [=](int reqId) -> int {
         (void)reqId;
-        QList<std::string> std_ids;
-        char** cids = new char*[ids.length()];
-        for (int i = 0; i < ids.length(); i++) {
-            std_ids.append(ids.at(i).toStdString());
-            cids[i] = (char*)std_ids.at(i).c_str();
+        QList<std::string> std_symbols;
+        char** c_symbols = new char*[symbols.length()];
+        for (int i = 0; i < symbols.length(); i++) {
+            std_symbols.append(symbols.at(i).toStdString());
+            c_symbols[i] = (char*)std_symbols.at(i).c_str();
         }
-        int result = mdapi_->SubscribeMarketData(cids, ids.length());
-        delete[] cids;
+        int result = mdapi_->SubscribeMarketData(c_symbols, symbols.length());
+        delete[] c_symbols;
         BfDebug("CmdMdSubscrible,result=%d", result);
         return result;
     };

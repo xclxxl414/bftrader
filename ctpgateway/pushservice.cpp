@@ -276,7 +276,7 @@ void PushService::onTradeWillBegin()
     }
 }
 
-void PushService::onGotContracts(QStringList ids, QStringList idsAll)
+void PushService::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 

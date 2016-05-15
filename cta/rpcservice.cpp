@@ -9,8 +9,6 @@
 //
 // cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
 //
-// TODO(hege):在connect时候，需要核对modelId RobotId信息哦=
-//
 class Cta final : public BfCtaService::Service {
 public:
     explicit Cta(QString ctaId)
@@ -28,6 +26,14 @@ public:
         QString clientId = request->clientid().c_str();
         BfDebug("(%s)->Connect", qPrintable(clientId));
 
+        // check modelid
+        QString modelId = g_sm->dbService()->getModelId(clientId);
+        if (modelId.length() == 0 || modelId != request->strparam().c_str()) {
+            BfDebug("(%s)->Connect,invalid param: modelId!", qPrintable(clientId));
+            return grpc::Status::OK;
+        }
+
+        // push now
         auto queue = new SafeQueue<google::protobuf::Any>;
         QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, ctaId_), Q_ARG(BfConnectReq, *request), Q_ARG(void*, (void*)queue));
         while (auto data = queue->dequeue()) {
@@ -75,6 +81,11 @@ public:
 
         QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
         g_sm->gatewayMgr()->sendOrder(gatewayId, *request, *response);
+
+        // update map
+        if (response->bforderid().length() != 0) {
+            g_sm->dbService()->putOrderEx(clientId, response->bforderid().c_str());
+        }
 
         return grpc::Status::OK;
     }

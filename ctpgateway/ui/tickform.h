@@ -19,7 +19,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotContracts(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void onGotTick(void* curTick, void* preTick);
     void onTradeWillBegin();
     void onUpdateTick();

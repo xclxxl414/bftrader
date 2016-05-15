@@ -29,7 +29,7 @@ public:
     static QString version();
 
 public:
-    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString idPrefixList);
+    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString symbolPrefixs);
     void start();
     void stop();
     void resetData();
@@ -50,7 +50,7 @@ signals:
     void statusChanged(int state);
 
 private:
-    QString userId_, password_, brokerId_, frontTd_, flowPathTd_, idPrefixList_;
+    QString userId_, password_, brokerId_, frontTd_, flowPathTd_, symbolPrefixes_;
     CThostFtdcTraderApi* tdapi_ = nullptr;
     TdSmSpi* tdspi_ = nullptr;
 

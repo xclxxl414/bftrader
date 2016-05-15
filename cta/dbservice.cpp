@@ -1,4 +1,5 @@
 #include "dbservice.h"
+#include "bfcta.pb.h"
 #include "file_utils.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
@@ -6,7 +7,6 @@
 #include "leveldb/write_batch.h"
 #include "profile.h"
 #include "servicemgr.h"
-#include "bfcta.pb.h"
 
 DbService::DbService(QObject* parent)
     : QObject(parent)
@@ -100,7 +100,7 @@ void DbService::dbInit()
     leveldb::WriteOptions options;
     leveldb::WriteBatch batch;
 
-    if(1){
+    if (1) {
         // key: gateway+
         // key: gateway=
         BfGatewayData bfNullGateway;
@@ -112,7 +112,7 @@ void DbService::dbInit()
         batch.Put(key, val);
     }
 
-    if(1){
+    if (1) {
         // key: model+
         // key: model=
         BfModelData bfNullModel;
@@ -124,7 +124,7 @@ void DbService::dbInit()
         batch.Put(key, val);
     }
 
-    if(1){
+    if (1) {
         // key: robot+
         // key: robot=
         BfRobotData bfNullRobot;
@@ -136,7 +136,7 @@ void DbService::dbInit()
         batch.Put(key, val);
     }
 
-    if(1){
+    if (1) {
         // key: order+
         // key: order=
         BfOrderData bfNullOrder;
@@ -148,7 +148,7 @@ void DbService::dbInit()
         batch.Put(key, val);
     }
 
-    if(1){
+    if (1) {
         // key: trade+
         // key: trade=
         BfTradeData bfNullTrade;
@@ -160,7 +160,7 @@ void DbService::dbInit()
         batch.Put(key, val);
     }
 
-    if(1){
+    if (1) {
         // key: orderex+
         // key: orderex=
         BfOrderExData bfNullOrderEx;
@@ -188,13 +188,18 @@ QString DbService::getRobotId(const BfTradeData& bfItem)
 }
 
 // TODO(hege):do it
-QString DbService::getGatewayId(const BfConnectReq& bfItem)
+QString DbService::getGatewayId(const QString& robotId)
 {
     return "ctpGateway";
 }
 
 // TODO(hege):do it
-QString DbService::getGatewayId(const QString& robotId)
+QString DbService::getModelId(const QString& robotId)
 {
-    return "ctpGateway";
+    return "demo";
+}
+
+// TODO(hege):do it
+void DbService::putOrderEx(const QString robotId, const QString bfOrderId)
+{
 }

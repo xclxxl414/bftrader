@@ -45,15 +45,15 @@ public:
 
     QStringList getIds();
     QStringList getIdsAll();
-    void insertContract(QString id, void* contract);
-    void* getContract(QString id);
+    void insertContract(QString symbol, void* contract);
+    void* getContract(QString symbol);
     void freeContracts();
 
     void initRingBuffer(int itemLen, QStringList ids);
     void freeRingBuffer();
-    RingBuffer* getRingBuffer(QString id);
-    void* getLatestTick(QString id);
-    void* getPreLatestTick(QString id);
+    RingBuffer* getRingBuffer(QString symbol);
+    void* getLatestTick(QString symbol);
+    void* getPreLatestTick(QString symbol);
 
     // 分配BfOrderId
     QString genOrderId();
@@ -61,7 +61,7 @@ public:
 signals:
     void requestSent(int reqId);
     void tradeWillBegin();
-    void gotContracts(QStringList ids, QStringList idsAll);
+    void gotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void gotTick(void* curTick, void* preTick);
     void gotAccount(const BfAccountData& account);
     void gotOrder(const BfOrderData& order);
@@ -82,7 +82,7 @@ public slots:
     void queryOrders();
 
 private slots:
-    void onGotContracts(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void onMdSmStateChanged(int state);
     void onTdSmStateChanged(int state);
     void onRunCmdInterval();
@@ -109,8 +109,8 @@ private:
     QMap<QString, void*> contracts_;
     QMap<QString, RingBuffer*> rbs_;
     const int ringBufferLen_ = 256;
-    QStringList ids_;
-    QStringList ids_all_;
+    QStringList symbols_my_;
+    QStringList symbols_all_;
 
     QQueue<CtpCmd*> cmds_;
     int reqId_ = 0;

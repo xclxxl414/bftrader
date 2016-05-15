@@ -66,8 +66,8 @@ void protobuf_AssignDesc_bfcta_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, robotid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, modelid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, gatewayid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, symbolwildcard_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, exchangewildcard_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, symbol_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, exchange_),
   };
   BfRobotData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -161,26 +161,26 @@ void protobuf_AddDesc_bfcta_2eproto() {
     "\n\013bfcta.proto\022\010bftrader\032\017bfgateway.proto"
     "\032\031google/protobuf/any.proto\"Y\n\013BfModelDa"
     "ta\022\017\n\007modelId\030\001 \001(\t\022+\n\010langType\030\002 \001(\0162\031."
-    "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"t"
+    "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"d"
     "\n\013BfRobotData\022\017\n\007robotId\030\001 \001(\t\022\017\n\007modelI"
-    "d\030\002 \001(\t\022\021\n\tgatewayId\030\003 \001(\t\022\026\n\016symbolWild"
-    "card\030\004 \001(\t\022\030\n\020exchangeWildcard\030\005 \001(\t\"<\n\r"
-    "BfGatewayData\022\021\n\tgatewayId\030\001 \001(\t\022\014\n\004port"
-    "\030\002 \001(\005\022\n\n\002ip\030\003 \001(\t\"3\n\rBfOrderExData\022\021\n\tb"
-    "fOrderId\030\001 \001(\t\022\017\n\007robotId\030\002 \001(\t*\211\001\n\017BfMo"
-    "delLangType\022\025\n\021MODELLANG_UNKNOWN\020\000\022\032\n\026MO"
-    "DELLANG_PYTHONSCRIPT\020\001\022\027\n\023MODELLANG_GOLA"
-    "NGEXE\020\002\022\024\n\020MODELLANG_CPPEXE\020\003\022\024\n\020MODELLA"
-    "NG_CPPDLL\020\0042\362\002\n\014BfCtaService\022;\n\007Connect\022"
-    "\026.bftrader.BfConnectReq\032\024.google.protobu"
-    "f.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfVoi"
-    "d\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrader"
-    ".BfPingData\032\024.bftrader.BfPingData\"\000\0228\n\014G"
-    "etRobotInfo\022\022.bftrader.BfKvData\032\022.bftrad"
-    "er.BfKvData\"\000\022B\n\tSendOrder\022\030.bftrader.Bf"
-    "SendOrderReq\032\031.bftrader.BfSendOrderResp\""
-    "\000\022=\n\013CancelOrder\022\032.bftrader.BfCancelOrde"
-    "rReq\032\020.bftrader.BfVoid\"\000b\006proto3", 912);
+    "d\030\002 \001(\t\022\021\n\tgatewayId\030\003 \001(\t\022\016\n\006symbol\030\004 \001"
+    "(\t\022\020\n\010exchange\030\005 \001(\t\"<\n\rBfGatewayData\022\021\n"
+    "\tgatewayId\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\n\n\002ip\030\003 \001"
+    "(\t\"3\n\rBfOrderExData\022\021\n\tbfOrderId\030\001 \001(\t\022\017"
+    "\n\007robotId\030\002 \001(\t*\211\001\n\017BfModelLangType\022\025\n\021M"
+    "ODELLANG_UNKNOWN\020\000\022\032\n\026MODELLANG_PYTHONSC"
+    "RIPT\020\001\022\027\n\023MODELLANG_GOLANGEXE\020\002\022\024\n\020MODEL"
+    "LANG_CPPEXE\020\003\022\024\n\020MODELLANG_CPPDLL\020\0042\362\002\n\014"
+    "BfCtaService\022;\n\007Connect\022\026.bftrader.BfCon"
+    "nectReq\032\024.google.protobuf.Any\"\0000\001\0222\n\nDis"
+    "connect\022\020.bftrader.BfVoid\032\020.bftrader.BfV"
+    "oid\"\000\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.bf"
+    "trader.BfPingData\"\000\0228\n\014GetRobotInfo\022\022.bf"
+    "trader.BfKvData\032\022.bftrader.BfKvData\"\000\022B\n"
+    "\tSendOrder\022\030.bftrader.BfSendOrderReq\032\031.b"
+    "ftrader.BfSendOrderResp\"\000\022=\n\013CancelOrder"
+    "\022\032.bftrader.BfCancelOrderReq\032\020.bftrader."
+    "BfVoid\"\000b\006proto3", 896);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   BfModelData::default_instance_ = new BfModelData();
@@ -657,8 +657,8 @@ void BfModelData::clear_path() {
 const int BfRobotData::kRobotIdFieldNumber;
 const int BfRobotData::kModelIdFieldNumber;
 const int BfRobotData::kGatewayIdFieldNumber;
-const int BfRobotData::kSymbolWildcardFieldNumber;
-const int BfRobotData::kExchangeWildcardFieldNumber;
+const int BfRobotData::kSymbolFieldNumber;
+const int BfRobotData::kExchangeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfRobotData::BfRobotData()
@@ -686,8 +686,8 @@ void BfRobotData::SharedCtor() {
   robotid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   modelid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gatewayid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  symbolwildcard_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchangewildcard_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 BfRobotData::~BfRobotData() {
@@ -699,8 +699,8 @@ void BfRobotData::SharedDtor() {
   robotid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   modelid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gatewayid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  symbolwildcard_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchangewildcard_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -734,8 +734,8 @@ void BfRobotData::Clear() {
   robotid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   modelid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  symbolwildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchangewildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfRobotData::MergePartialFromCodedStream(
@@ -794,37 +794,37 @@ bool BfRobotData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_symbolWildcard;
+        if (input->ExpectTag(34)) goto parse_symbol;
         break;
       }
 
-      // optional string symbolWildcard = 4;
+      // optional string symbol = 4;
       case 4: {
         if (tag == 34) {
-         parse_symbolWildcard:
+         parse_symbol:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_symbolwildcard()));
+                input, this->mutable_symbol()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->symbolwildcard().data(), this->symbolwildcard().length(),
+            this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfRobotData.symbolWildcard"));
+            "bftrader.BfRobotData.symbol"));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_exchangeWildcard;
+        if (input->ExpectTag(42)) goto parse_exchange;
         break;
       }
 
-      // optional string exchangeWildcard = 5;
+      // optional string exchange = 5;
       case 5: {
         if (tag == 42) {
-         parse_exchangeWildcard:
+         parse_exchange:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_exchangewildcard()));
+                input, this->mutable_exchange()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->exchangewildcard().data(), this->exchangewildcard().length(),
+            this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfRobotData.exchangeWildcard"));
+            "bftrader.BfRobotData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -886,24 +886,24 @@ void BfRobotData::SerializeWithCachedSizes(
       3, this->gatewayid(), output);
   }
 
-  // optional string symbolWildcard = 4;
-  if (this->symbolwildcard().size() > 0) {
+  // optional string symbol = 4;
+  if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->symbolwildcard().data(), this->symbolwildcard().length(),
+      this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfRobotData.symbolWildcard");
+      "bftrader.BfRobotData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->symbolwildcard(), output);
+      4, this->symbol(), output);
   }
 
-  // optional string exchangeWildcard = 5;
-  if (this->exchangewildcard().size() > 0) {
+  // optional string exchange = 5;
+  if (this->exchange().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->exchangewildcard().data(), this->exchangewildcard().length(),
+      this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfRobotData.exchangeWildcard");
+      "bftrader.BfRobotData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->exchangewildcard(), output);
+      5, this->exchange(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfRobotData)
@@ -945,26 +945,26 @@ void BfRobotData::SerializeWithCachedSizes(
         3, this->gatewayid(), target);
   }
 
-  // optional string symbolWildcard = 4;
-  if (this->symbolwildcard().size() > 0) {
+  // optional string symbol = 4;
+  if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->symbolwildcard().data(), this->symbolwildcard().length(),
+      this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfRobotData.symbolWildcard");
+      "bftrader.BfRobotData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->symbolwildcard(), target);
+        4, this->symbol(), target);
   }
 
-  // optional string exchangeWildcard = 5;
-  if (this->exchangewildcard().size() > 0) {
+  // optional string exchange = 5;
+  if (this->exchange().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->exchangewildcard().data(), this->exchangewildcard().length(),
+      this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfRobotData.exchangeWildcard");
+      "bftrader.BfRobotData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->exchangewildcard(), target);
+        5, this->exchange(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfRobotData)
@@ -995,18 +995,18 @@ int BfRobotData::ByteSize() const {
         this->gatewayid());
   }
 
-  // optional string symbolWildcard = 4;
-  if (this->symbolwildcard().size() > 0) {
+  // optional string symbol = 4;
+  if (this->symbol().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->symbolwildcard());
+        this->symbol());
   }
 
-  // optional string exchangeWildcard = 5;
-  if (this->exchangewildcard().size() > 0) {
+  // optional string exchange = 5;
+  if (this->exchange().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->exchangewildcard());
+        this->exchange());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1041,13 +1041,13 @@ void BfRobotData::MergeFrom(const BfRobotData& from) {
 
     gatewayid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.gatewayid_);
   }
-  if (from.symbolwildcard().size() > 0) {
+  if (from.symbol().size() > 0) {
 
-    symbolwildcard_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbolwildcard_);
+    symbol_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbol_);
   }
-  if (from.exchangewildcard().size() > 0) {
+  if (from.exchange().size() > 0) {
 
-    exchangewildcard_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchangewildcard_);
+    exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
   }
 }
 
@@ -1076,8 +1076,8 @@ void BfRobotData::InternalSwap(BfRobotData* other) {
   robotid_.Swap(&other->robotid_);
   modelid_.Swap(&other->modelid_);
   gatewayid_.Swap(&other->gatewayid_);
-  symbolwildcard_.Swap(&other->symbolwildcard_);
-  exchangewildcard_.Swap(&other->exchangewildcard_);
+  symbol_.Swap(&other->symbol_);
+  exchange_.Swap(&other->exchange_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1222,90 +1222,90 @@ void BfRobotData::clear_gatewayid() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.gatewayId)
 }
 
-// optional string symbolWildcard = 4;
-void BfRobotData::clear_symbolwildcard() {
-  symbolwildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string symbol = 4;
+void BfRobotData::clear_symbol() {
+  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfRobotData::symbolwildcard() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.symbolWildcard)
-  return symbolwildcard_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfRobotData::symbol() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.symbol)
+  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfRobotData::set_symbolwildcard(const ::std::string& value) {
+ void BfRobotData::set_symbol(const ::std::string& value) {
   
-  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.symbolWildcard)
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.symbol)
 }
- void BfRobotData::set_symbolwildcard(const char* value) {
+ void BfRobotData::set_symbol(const char* value) {
   
-  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.symbolWildcard)
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.symbol)
 }
- void BfRobotData::set_symbolwildcard(const char* value, size_t size) {
+ void BfRobotData::set_symbol(const char* value, size_t size) {
   
-  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.symbolWildcard)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.symbol)
 }
- ::std::string* BfRobotData::mutable_symbolwildcard() {
+ ::std::string* BfRobotData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.symbolWildcard)
-  return symbolwildcard_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.symbol)
+  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfRobotData::release_symbolwildcard() {
+ ::std::string* BfRobotData::release_symbol() {
   
-  return symbolwildcard_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfRobotData::set_allocated_symbolwildcard(::std::string* symbolwildcard) {
-  if (symbolwildcard != NULL) {
+ void BfRobotData::set_allocated_symbol(::std::string* symbol) {
+  if (symbol != NULL) {
     
   } else {
     
   }
-  symbolwildcard_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolwildcard);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.symbolWildcard)
+  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.symbol)
 }
 
-// optional string exchangeWildcard = 5;
-void BfRobotData::clear_exchangewildcard() {
-  exchangewildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string exchange = 5;
+void BfRobotData::clear_exchange() {
+  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& BfRobotData::exchangewildcard() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.exchangeWildcard)
-  return exchangewildcard_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& BfRobotData::exchange() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.exchange)
+  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfRobotData::set_exchangewildcard(const ::std::string& value) {
+ void BfRobotData::set_exchange(const ::std::string& value) {
   
-  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.exchangeWildcard)
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.exchange)
 }
- void BfRobotData::set_exchangewildcard(const char* value) {
+ void BfRobotData::set_exchange(const char* value) {
   
-  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.exchangeWildcard)
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.exchange)
 }
- void BfRobotData::set_exchangewildcard(const char* value, size_t size) {
+ void BfRobotData::set_exchange(const char* value, size_t size) {
   
-  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.exchangeWildcard)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.exchange)
 }
- ::std::string* BfRobotData::mutable_exchangewildcard() {
+ ::std::string* BfRobotData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.exchangeWildcard)
-  return exchangewildcard_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.exchange)
+  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfRobotData::release_exchangewildcard() {
+ ::std::string* BfRobotData::release_exchange() {
   
-  return exchangewildcard_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfRobotData::set_allocated_exchangewildcard(::std::string* exchangewildcard) {
-  if (exchangewildcard != NULL) {
+ void BfRobotData::set_allocated_exchange(::std::string* exchange) {
+  if (exchange != NULL) {
     
   } else {
     
   }
-  exchangewildcard_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchangewildcard);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.exchangeWildcard)
+  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.exchange)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

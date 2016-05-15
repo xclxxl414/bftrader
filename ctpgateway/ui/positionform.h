@@ -19,7 +19,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotContracts(QStringList ids, QStringList idsAll);
+    void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void onGotPosition(const BfPositionData& pos);
     void on_pushButtonQueryPosition_clicked();
     void on_pushButtonCloseAll_clicked();
@@ -30,7 +30,7 @@ private:
     QMap<QString, int> table_row_;
 
     QMap<QString, BfPositionData> positions_;
-    QStringList ids_;
+    QStringList symbols_my_;
 };
 
 #endif // POSITIONFORM_H

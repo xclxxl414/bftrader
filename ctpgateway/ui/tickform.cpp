@@ -117,16 +117,16 @@ void TickForm::onGotTick(void* curTick, void* preTick)
     }
 }
 
-void TickForm::onGotContracts(QStringList ids, QStringList idsAll)
+void TickForm::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();
-    QStringList sorted_ids = ids;
-    sorted_ids.sort();
+    QStringList sorted_symbols = symbolsMy;
+    sorted_symbols.sort();
     this->ui->tableWidget->clearContents();
-    this->ui->tableWidget->setRowCount(sorted_ids.length());
-    for (int i = 0; i < sorted_ids.length(); i++) {
-        QString id = sorted_ids.at(i);
+    this->ui->tableWidget->setRowCount(sorted_symbols.length());
+    for (int i = 0; i < sorted_symbols.length(); i++) {
+        QString id = sorted_symbols.at(i);
         table_row_[id] = i;
         QTableWidgetItem* item = new QTableWidgetItem(id);
         ui->tableWidget->setItem(i, table_col_.indexOf("symbol"), item);

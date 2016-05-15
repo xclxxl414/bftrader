@@ -50,25 +50,25 @@ void ContractForm::shutdown()
 {
 }
 
-void ContractForm::onGotContracts(QStringList ids, QStringList idsAll)
+void ContractForm::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
     //设置行，按排序后合约来，一个合约一行=
     table_row_.clear();
-    //QStringList sorted_ids = idsAll;
-    QStringList sorted_ids = ids;
-    sorted_ids.sort();
+    //QStringList sorted_ids = symbolsAll;
+    QStringList sorted_symbols = symbolsMy;
+    sorted_symbols.sort();
     this->ui->tableWidget->clearContents();
-    this->ui->tableWidget->setRowCount(sorted_ids.length());
-    for (int i = 0; i < sorted_ids.length(); i++) {
-        QString id = sorted_ids.at(i);
+    this->ui->tableWidget->setRowCount(sorted_symbols.length());
+    for (int i = 0; i < sorted_symbols.length(); i++) {
+        QString id = sorted_symbols.at(i);
         table_row_[id] = i;
         QTableWidgetItem* item = new QTableWidgetItem(id);
         ui->tableWidget->setItem(i, 0, item);
     }
 
     //设置行内容=
-    for (int i = 0; i < sorted_ids.length(); i++) {
-        QString id = sorted_ids.at(i);
+    for (int i = 0; i < sorted_symbols.length(); i++) {
+        QString id = sorted_symbols.at(i);
         void* contract = g_sm->gatewayMgr()->getContract(id);
         onGotContract(contract);
     }
