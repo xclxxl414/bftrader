@@ -228,7 +228,7 @@ private:
         } else if (any.Is<BfNotificationData>()) {
             BfNotificationData data;
             any.UnpackTo(&data);
-            switch (data.code()) {
+            switch (data.type()) {
             case NOTIFICATION_GOTCONTRACTS: {
                 emit g_sm->gatewayMgr()->gotContracts(gatewayId_);
                 break;

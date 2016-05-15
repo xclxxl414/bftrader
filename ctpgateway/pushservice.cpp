@@ -270,7 +270,7 @@ void PushService::onTradeWillBegin()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfNotificationData data;
-    data.set_code(NOTIFICATION_TRADEWILLBEGIN);
+    data.set_type(NOTIFICATION_TRADEWILLBEGIN);
     for (auto client : clients_) {
         client->OnTradeWillBegin(data);
     }
@@ -281,7 +281,7 @@ void PushService::onGotContracts(QStringList ids, QStringList idsAll)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfNotificationData data;
-    data.set_code(NOTIFICATION_GOTCONTRACTS);
+    data.set_type(NOTIFICATION_GOTCONTRACTS);
     for (auto client : clients_) {
         client->OnGotContracts(data);
     }

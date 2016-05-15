@@ -207,9 +207,10 @@ message BfContractData{
 
 // Notification
 message BfNotificationData{
-    BfNoticationType code = 1;  // 代码
-    string message = 2;         // 信息    
-    string messageEx = 3;       // 补充信息
+    BfNoticationType type = 1;  // 类别
+    int32 icode = 2;            // 代码
+    string message = 3;         // 信息
+    string messageEx = 4;       // 补充信息
 }
 
 // Ping/Pong检测传入的对象类
@@ -261,12 +262,12 @@ message BfCancelOrderReq{
 
 // 连接时传入的对象类
 message BfConnectReq{
-    // 唯一英文代号
-    string clientId = 1;         // 用于日志分析和ui显示
+    // 代号
+    string clientId = 1;        // robot Id
     
-    // 服务地址和端口
-    string clientIp = 2;         // 机器人服务,"localhost"
-    int32 clientPort = 3;        // 机器人端口,50053
+    // 可扩展参数
+    int32 intParam = 2;         // 参数1
+    string strParam = 3;        // 参数2
 
     // 角色类别，可多选
     // 注意：OnTradeWillBegin OnGotContracts OnPing 都必须实现

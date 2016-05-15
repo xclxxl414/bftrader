@@ -285,8 +285,9 @@ void protobuf_AssignDesc_bfgateway_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, _is_default_instance_));
   BfNotificationData_descriptor_ = file->message_type(9);
-  static const int BfNotificationData_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, code_),
+  static const int BfNotificationData_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, icode_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, message_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, messageex_),
   };
@@ -388,8 +389,8 @@ void protobuf_AssignDesc_bfgateway_2eproto() {
   BfConnectReq_descriptor_ = file->message_type(15);
   static const int BfConnectReq_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientip_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, clientport_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, intparam_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, strparam_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, tickhandler_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, tradehandler_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfConnectReq, loghandler_),
@@ -567,53 +568,53 @@ void protobuf_AddDesc_bfgateway_2eproto() {
     "ct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021\n\tpriceTick\030"
     "\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010minLimit\030\010 \001("
     "\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMartet\030\n \001(\005\""
-    "b\n\022BfNotificationData\022(\n\004code\030\001 \001(\0162\032.bf"
-    "trader.BfNoticationType\022\017\n\007message\030\002 \001(\t"
-    "\022\021\n\tmessageEx\030\003 \001(\t\"\035\n\nBfPingData\022\017\n\007mes"
-    "sage\030\001 \001(\t\"&\n\010BfKvData\022\013\n\003key\030\001 \001(\t\022\r\n\005v"
-    "alue\030\002 \001(\t\"\311\001\n\016BfSendOrderReq\022\016\n\006symbol\030"
-    "\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022\016"
-    "\n\006volume\030\004 \001(\005\022(\n\tpriceType\030\005 \001(\0162\025.bftr"
-    "ader.BfPriceType\022(\n\tdirection\030\006 \001(\0162\025.bf"
-    "trader.BfDirection\022\"\n\006offset\030\007 \001(\0162\022.bft"
-    "rader.BfOffset\"$\n\017BfSendOrderResp\022\021\n\tbfO"
-    "rderId\030\001 \001(\t\"G\n\020BfCancelOrderReq\022\016\n\006symb"
-    "ol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrderId\030"
-    "\003 \001(\t\"\247\001\n\014BfConnectReq\022\020\n\010clientId\030\001 \001(\t"
-    "\022\020\n\010clientIp\030\002 \001(\t\022\022\n\nclientPort\030\003 \001(\005\022\023"
-    "\n\013tickHandler\030\004 \001(\010\022\024\n\014tradeHandler\030\005 \001("
-    "\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020\n"
-    "\010exchange\030\010 \001(\t\"X\n\020BfGetContractReq\022\016\n\006s"
-    "ymbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n\005index\030\003"
-    " \001(\005\022\023\n\013subscribled\030\004 \001(\010*`\n\013BfDirection"
-    "\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016DIRECTION_LON"
-    "G\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\rDIRECTION_NE"
-    "T\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013O"
-    "FFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE\020\002\022\025\n\021OFFSET"
-    "_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOSEYESTERDAY\020\004"
-    "*w\n\010BfStatus\022\022\n\016STATUS_UNKNOWN\020\000\022\024\n\020STAT"
-    "US_NOTTRADED\020\001\022\025\n\021STATUS_PARTTRADED\020\002\022\024\n"
-    "\020STATUS_ALLTRADED\020\003\022\024\n\020STATUS_CANCELLED\020"
-    "\004*I\n\tBfProduct\022\023\n\017PRODUCT_UNKNOWN\020\000\022\022\n\016P"
-    "RODUCT_EQUITY\020\001\022\023\n\017PRODUCT_FUTURES\020\002*Y\n\013"
-    "BfPriceType\022\025\n\021PRICETYPE_UNKONWN\020\000\022\030\n\024PR"
-    "ICETYPE_LIMITPRICE\020\001\022\031\n\025PRICETYPE_MARKET"
-    "PRICE\020\002*l\n\020BfNoticationType\022\030\n\024NOTIFICAT"
-    "ION_UNKNOWN\020\000\022\037\n\033NOTIFICATION_TRADEWILLB"
-    "EGIN\020\001\022\035\n\031NOTIFICATION_GOTCONTRACTS\020\0022\360\003"
-    "\n\020BfGatewayService\022;\n\007Connect\022\026.bftrader"
-    ".BfConnectReq\032\024.google.protobuf.Any\"\0000\001\022"
-    "2\n\nDisconnect\022\020.bftrader.BfVoid\032\020.bftrad"
-    "er.BfVoid\"\000\0224\n\004Ping\022\024.bftrader.BfPingDat"
-    "a\032\024.bftrader.BfPingData\"\000\022E\n\013GetContract"
-    "\022\032.bftrader.BfGetContractReq\032\030.bftrader."
-    "BfContractData\"\000\022B\n\tSendOrder\022\030.bftrader"
-    ".BfSendOrderReq\032\031.bftrader.BfSendOrderRe"
-    "sp\"\000\022=\n\013CancelOrder\022\032.bftrader.BfCancelO"
-    "rderReq\032\020.bftrader.BfVoid\"\000\0224\n\014QueryAcco"
-    "unt\022\020.bftrader.BfVoid\032\020.bftrader.BfVoid\""
-    "\000\0225\n\rQueryPosition\022\020.bftrader.BfVoid\032\020.b"
-    "ftrader.BfVoid\"\000b\006proto3", 3504);
+    "q\n\022BfNotificationData\022(\n\004type\030\001 \001(\0162\032.bf"
+    "trader.BfNoticationType\022\r\n\005icode\030\002 \001(\005\022\017"
+    "\n\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001(\t\"\035\n\nBf"
+    "PingData\022\017\n\007message\030\001 \001(\t\"&\n\010BfKvData\022\013\n"
+    "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\311\001\n\016BfSendOrde"
+    "rReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r"
+    "\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tpriceTy"
+    "pe\030\005 \001(\0162\025.bftrader.BfPriceType\022(\n\tdirec"
+    "tion\030\006 \001(\0162\025.bftrader.BfDirection\022\"\n\006off"
+    "set\030\007 \001(\0162\022.bftrader.BfOffset\"$\n\017BfSendO"
+    "rderResp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfCancelO"
+    "rderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
+    "\t\022\021\n\tbfOrderId\030\003 \001(\t\"\245\001\n\014BfConnectReq\022\020\n"
+    "\010clientId\030\001 \001(\t\022\020\n\010intParam\030\002 \001(\005\022\020\n\010str"
+    "Param\030\003 \001(\t\022\023\n\013tickHandler\030\004 \001(\010\022\024\n\014trad"
+    "eHandler\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006sy"
+    "mbol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\"X\n\020BfGetCon"
+    "tractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001"
+    "(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010*`"
+    "\n\013BfDirection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016"
+    "DIRECTION_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n"
+    "\rDIRECTION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_U"
+    "NKNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOS"
+    "E\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLO"
+    "SEYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKN"
+    "OWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PA"
+    "RTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STAT"
+    "US_CANCELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_U"
+    "NKNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_"
+    "FUTURES\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UN"
+    "KONWN\020\000\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRI"
+    "CETYPE_MARKETPRICE\020\002*l\n\020BfNoticationType"
+    "\022\030\n\024NOTIFICATION_UNKNOWN\020\000\022\037\n\033NOTIFICATI"
+    "ON_TRADEWILLBEGIN\020\001\022\035\n\031NOTIFICATION_GOTC"
+    "ONTRACTS\020\0022\360\003\n\020BfGatewayService\022;\n\007Conne"
+    "ct\022\026.bftrader.BfConnectReq\032\024.google.prot"
+    "obuf.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.Bf"
+    "Void\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftra"
+    "der.BfPingData\032\024.bftrader.BfPingData\"\000\022E"
+    "\n\013GetContract\022\032.bftrader.BfGetContractRe"
+    "q\032\030.bftrader.BfContractData\"\000\022B\n\tSendOrd"
+    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
+    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
+    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
+    "\0224\n\014QueryAccount\022\020.bftrader.BfVoid\032\020.bft"
+    "rader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrad"
+    "er.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto3", 3517);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -7195,7 +7196,8 @@ void BfContractData::clear_minmartet() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfNotificationData::kCodeFieldNumber;
+const int BfNotificationData::kTypeFieldNumber;
+const int BfNotificationData::kIcodeFieldNumber;
 const int BfNotificationData::kMessageFieldNumber;
 const int BfNotificationData::kMessageExFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -7222,7 +7224,8 @@ void BfNotificationData::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  code_ = 0;
+  type_ = 0;
+  icode_ = 0;
   message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   messageex_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7265,9 +7268,21 @@ BfNotificationData* BfNotificationData::New(::google::protobuf::Arena* arena) co
 }
 
 void BfNotificationData::Clear() {
-  code_ = 0;
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<BfNotificationData*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(type_, icode_);
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool BfNotificationData::MergePartialFromCodedStream(
@@ -7280,24 +7295,39 @@ bool BfNotificationData::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .bftrader.BfNoticationType code = 1;
+      // optional .bftrader.BfNoticationType type = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_code(static_cast< ::bftrader::BfNoticationType >(value));
+          set_type(static_cast< ::bftrader::BfNoticationType >(value));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_message;
+        if (input->ExpectTag(16)) goto parse_icode;
         break;
       }
 
-      // optional string message = 2;
+      // optional int32 icode = 2;
       case 2: {
-        if (tag == 18) {
+        if (tag == 16) {
+         parse_icode:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &icode_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_message;
+        break;
+      }
+
+      // optional string message = 3;
+      case 3: {
+        if (tag == 26) {
          parse_message:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_message()));
@@ -7308,13 +7338,13 @@ bool BfNotificationData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_messageEx;
+        if (input->ExpectTag(34)) goto parse_messageEx;
         break;
       }
 
-      // optional string messageEx = 3;
-      case 3: {
-        if (tag == 26) {
+      // optional string messageEx = 4;
+      case 4: {
+        if (tag == 34) {
          parse_messageEx:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_messageex()));
@@ -7353,30 +7383,35 @@ failure:
 void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:bftrader.BfNotificationData)
-  // optional .bftrader.BfNoticationType code = 1;
-  if (this->code() != 0) {
+  // optional .bftrader.BfNoticationType type = 1;
+  if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->code(), output);
+      1, this->type(), output);
   }
 
-  // optional string message = 2;
+  // optional int32 icode = 2;
+  if (this->icode() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->icode(), output);
+  }
+
+  // optional string message = 3;
   if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bftrader.BfNotificationData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->message(), output);
+      3, this->message(), output);
   }
 
-  // optional string messageEx = 3;
+  // optional string messageEx = 4;
   if (this->messageex().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bftrader.BfNotificationData.messageEx");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->messageex(), output);
+      4, this->messageex(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfNotificationData)
@@ -7385,13 +7420,18 @@ void BfNotificationData::SerializeWithCachedSizes(
 ::google::protobuf::uint8* BfNotificationData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfNotificationData)
-  // optional .bftrader.BfNoticationType code = 1;
-  if (this->code() != 0) {
+  // optional .bftrader.BfNoticationType type = 1;
+  if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->code(), target);
+      1, this->type(), target);
   }
 
-  // optional string message = 2;
+  // optional int32 icode = 2;
+  if (this->icode() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->icode(), target);
+  }
+
+  // optional string message = 3;
   if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
@@ -7399,10 +7439,10 @@ void BfNotificationData::SerializeWithCachedSizes(
       "bftrader.BfNotificationData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->message(), target);
+        3, this->message(), target);
   }
 
-  // optional string messageEx = 3;
+  // optional string messageEx = 4;
   if (this->messageex().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
@@ -7410,7 +7450,7 @@ void BfNotificationData::SerializeWithCachedSizes(
       "bftrader.BfNotificationData.messageEx");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->messageex(), target);
+        4, this->messageex(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfNotificationData)
@@ -7420,20 +7460,27 @@ void BfNotificationData::SerializeWithCachedSizes(
 int BfNotificationData::ByteSize() const {
   int total_size = 0;
 
-  // optional .bftrader.BfNoticationType code = 1;
-  if (this->code() != 0) {
+  // optional .bftrader.BfNoticationType type = 1;
+  if (this->type() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->code());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
-  // optional string message = 2;
+  // optional int32 icode = 2;
+  if (this->icode() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->icode());
+  }
+
+  // optional string message = 3;
   if (this->message().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->message());
   }
 
-  // optional string messageEx = 3;
+  // optional string messageEx = 4;
   if (this->messageex().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7460,8 +7507,11 @@ void BfNotificationData::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BfNotificationData::MergeFrom(const BfNotificationData& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.code() != 0) {
-    set_code(from.code());
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
+  if (from.icode() != 0) {
+    set_icode(from.icode());
   }
   if (from.message().size() > 0) {
 
@@ -7495,7 +7545,8 @@ void BfNotificationData::Swap(BfNotificationData* other) {
   InternalSwap(other);
 }
 void BfNotificationData::InternalSwap(BfNotificationData* other) {
-  std::swap(code_, other->code_);
+  std::swap(type_, other->type_);
+  std::swap(icode_, other->icode_);
   message_.Swap(&other->message_);
   messageex_.Swap(&other->messageex_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -7513,21 +7564,35 @@ void BfNotificationData::InternalSwap(BfNotificationData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfNotificationData
 
-// optional .bftrader.BfNoticationType code = 1;
-void BfNotificationData::clear_code() {
-  code_ = 0;
+// optional .bftrader.BfNoticationType type = 1;
+void BfNotificationData::clear_type() {
+  type_ = 0;
 }
- ::bftrader::BfNoticationType BfNotificationData::code() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
-  return static_cast< ::bftrader::BfNoticationType >(code_);
+ ::bftrader::BfNoticationType BfNotificationData::type() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.type)
+  return static_cast< ::bftrader::BfNoticationType >(type_);
 }
- void BfNotificationData::set_code(::bftrader::BfNoticationType value) {
+ void BfNotificationData::set_type(::bftrader::BfNoticationType value) {
   
-  code_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
+  type_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.type)
 }
 
-// optional string message = 2;
+// optional int32 icode = 2;
+void BfNotificationData::clear_icode() {
+  icode_ = 0;
+}
+ ::google::protobuf::int32 BfNotificationData::icode() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.icode)
+  return icode_;
+}
+ void BfNotificationData::set_icode(::google::protobuf::int32 value) {
+  
+  icode_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.icode)
+}
+
+// optional string message = 3;
 void BfNotificationData::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7570,7 +7635,7 @@ void BfNotificationData::clear_message() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.message)
 }
 
-// optional string messageEx = 3;
+// optional string messageEx = 4;
 void BfNotificationData::clear_messageex() {
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9639,8 +9704,8 @@ void BfCancelOrderReq::clear_bforderid() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfConnectReq::kClientIdFieldNumber;
-const int BfConnectReq::kClientIpFieldNumber;
-const int BfConnectReq::kClientPortFieldNumber;
+const int BfConnectReq::kIntParamFieldNumber;
+const int BfConnectReq::kStrParamFieldNumber;
 const int BfConnectReq::kTickHandlerFieldNumber;
 const int BfConnectReq::kTradeHandlerFieldNumber;
 const int BfConnectReq::kLogHandlerFieldNumber;
@@ -9671,8 +9736,8 @@ void BfConnectReq::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   clientid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clientip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clientport_ = 0;
+  intparam_ = 0;
+  strparam_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   tickhandler_ = false;
   tradehandler_ = false;
   loghandler_ = false;
@@ -9687,7 +9752,7 @@ BfConnectReq::~BfConnectReq() {
 
 void BfConnectReq::SharedDtor() {
   clientid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clientip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  strparam_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
@@ -9728,9 +9793,9 @@ void BfConnectReq::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(clientport_, loghandler_);
+  ZR_(intparam_, loghandler_);
   clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clientip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  strparam_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
@@ -9761,35 +9826,35 @@ bool BfConnectReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_clientIp;
+        if (input->ExpectTag(16)) goto parse_intParam;
         break;
       }
 
-      // optional string clientIp = 2;
+      // optional int32 intParam = 2;
       case 2: {
-        if (tag == 18) {
-         parse_clientIp:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_clientip()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->clientip().data(), this->clientip().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.clientIp"));
+        if (tag == 16) {
+         parse_intParam:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &intparam_)));
+
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_clientPort;
+        if (input->ExpectTag(26)) goto parse_strParam;
         break;
       }
 
-      // optional int32 clientPort = 3;
+      // optional string strParam = 3;
       case 3: {
-        if (tag == 24) {
-         parse_clientPort:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &clientport_)));
-
+        if (tag == 26) {
+         parse_strParam:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_strparam()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->strparam().data(), this->strparam().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfConnectReq.strParam"));
         } else {
           goto handle_unusual;
         }
@@ -9910,19 +9975,19 @@ void BfConnectReq::SerializeWithCachedSizes(
       1, this->clientid(), output);
   }
 
-  // optional string clientIp = 2;
-  if (this->clientip().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->clientip().data(), this->clientip().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.clientIp");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->clientip(), output);
+  // optional int32 intParam = 2;
+  if (this->intparam() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->intparam(), output);
   }
 
-  // optional int32 clientPort = 3;
-  if (this->clientport() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->clientport(), output);
+  // optional string strParam = 3;
+  if (this->strparam().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strparam().data(), this->strparam().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfConnectReq.strParam");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->strparam(), output);
   }
 
   // optional bool tickHandler = 4;
@@ -9977,20 +10042,20 @@ void BfConnectReq::SerializeWithCachedSizes(
         1, this->clientid(), target);
   }
 
-  // optional string clientIp = 2;
-  if (this->clientip().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->clientip().data(), this->clientip().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.clientIp");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->clientip(), target);
+  // optional int32 intParam = 2;
+  if (this->intparam() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->intparam(), target);
   }
 
-  // optional int32 clientPort = 3;
-  if (this->clientport() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->clientport(), target);
+  // optional string strParam = 3;
+  if (this->strparam().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->strparam().data(), this->strparam().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfConnectReq.strParam");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->strparam(), target);
   }
 
   // optional bool tickHandler = 4;
@@ -10044,18 +10109,18 @@ int BfConnectReq::ByteSize() const {
         this->clientid());
   }
 
-  // optional string clientIp = 2;
-  if (this->clientip().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->clientip());
-  }
-
-  // optional int32 clientPort = 3;
-  if (this->clientport() != 0) {
+  // optional int32 intParam = 2;
+  if (this->intparam() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->clientport());
+        this->intparam());
+  }
+
+  // optional string strParam = 3;
+  if (this->strparam().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->strparam());
   }
 
   // optional bool tickHandler = 4;
@@ -10111,12 +10176,12 @@ void BfConnectReq::MergeFrom(const BfConnectReq& from) {
 
     clientid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientid_);
   }
-  if (from.clientip().size() > 0) {
-
-    clientip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.clientip_);
+  if (from.intparam() != 0) {
+    set_intparam(from.intparam());
   }
-  if (from.clientport() != 0) {
-    set_clientport(from.clientport());
+  if (from.strparam().size() > 0) {
+
+    strparam_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.strparam_);
   }
   if (from.tickhandler() != 0) {
     set_tickhandler(from.tickhandler());
@@ -10160,8 +10225,8 @@ void BfConnectReq::Swap(BfConnectReq* other) {
 }
 void BfConnectReq::InternalSwap(BfConnectReq* other) {
   clientid_.Swap(&other->clientid_);
-  clientip_.Swap(&other->clientip_);
-  std::swap(clientport_, other->clientport_);
+  std::swap(intparam_, other->intparam_);
+  strparam_.Swap(&other->strparam_);
   std::swap(tickhandler_, other->tickhandler_);
   std::swap(tradehandler_, other->tradehandler_);
   std::swap(loghandler_, other->loghandler_);
@@ -10225,61 +10290,61 @@ void BfConnectReq::clear_clientid() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientId)
 }
 
-// optional string clientIp = 2;
-void BfConnectReq::clear_clientip() {
-  clientip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional int32 intParam = 2;
+void BfConnectReq::clear_intparam() {
+  intparam_ = 0;
 }
- const ::std::string& BfConnectReq::clientip() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientIp)
-  return clientip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ ::google::protobuf::int32 BfConnectReq::intparam() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.intParam)
+  return intparam_;
 }
- void BfConnectReq::set_clientip(const ::std::string& value) {
+ void BfConnectReq::set_intparam(::google::protobuf::int32 value) {
   
-  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientIp)
+  intparam_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.intParam)
 }
- void BfConnectReq::set_clientip(const char* value) {
-  
-  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientIp)
+
+// optional string strParam = 3;
+void BfConnectReq::clear_strparam() {
+  strparam_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_clientip(const char* value, size_t size) {
+ const ::std::string& BfConnectReq::strparam() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.strParam)
+  return strparam_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfConnectReq::set_strparam(const ::std::string& value) {
   
-  clientip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.strParam)
+}
+ void BfConnectReq::set_strparam(const char* value) {
+  
+  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.strParam)
+}
+ void BfConnectReq::set_strparam(const char* value, size_t size) {
+  
+  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientIp)
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.strParam)
 }
- ::std::string* BfConnectReq::mutable_clientip() {
+ ::std::string* BfConnectReq::mutable_strparam() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientIp)
-  return clientip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.strParam)
+  return strparam_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* BfConnectReq::release_clientip() {
+ ::std::string* BfConnectReq::release_strparam() {
   
-  return clientip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return strparam_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void BfConnectReq::set_allocated_clientip(::std::string* clientip) {
-  if (clientip != NULL) {
+ void BfConnectReq::set_allocated_strparam(::std::string* strparam) {
+  if (strparam != NULL) {
     
   } else {
     
   }
-  clientip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientip);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientIp)
-}
-
-// optional int32 clientPort = 3;
-void BfConnectReq::clear_clientport() {
-  clientport_ = 0;
-}
- ::google::protobuf::int32 BfConnectReq::clientport() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientPort)
-  return clientport_;
-}
- void BfConnectReq::set_clientport(::google::protobuf::int32 value) {
-  
-  clientport_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientPort)
+  strparam_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), strparam);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.strParam)
 }
 
 // optional bool tickHandler = 4;
