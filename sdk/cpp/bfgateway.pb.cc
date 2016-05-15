@@ -287,7 +287,7 @@ void protobuf_AssignDesc_bfgateway_2eproto() {
   BfNotificationData_descriptor_ = file->message_type(9);
   static const int BfNotificationData_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, icode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, code_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, message_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfNotificationData, messageex_),
   };
@@ -568,53 +568,53 @@ void protobuf_AddDesc_bfgateway_2eproto() {
     "ct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021\n\tpriceTick\030"
     "\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010minLimit\030\010 \001("
     "\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMartet\030\n \001(\005\""
-    "q\n\022BfNotificationData\022(\n\004type\030\001 \001(\0162\032.bf"
-    "trader.BfNoticationType\022\r\n\005icode\030\002 \001(\005\022\017"
-    "\n\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001(\t\"\035\n\nBf"
-    "PingData\022\017\n\007message\030\001 \001(\t\"&\n\010BfKvData\022\013\n"
-    "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\311\001\n\016BfSendOrde"
-    "rReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r"
-    "\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tpriceTy"
-    "pe\030\005 \001(\0162\025.bftrader.BfPriceType\022(\n\tdirec"
-    "tion\030\006 \001(\0162\025.bftrader.BfDirection\022\"\n\006off"
-    "set\030\007 \001(\0162\022.bftrader.BfOffset\"$\n\017BfSendO"
-    "rderResp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfCancelO"
-    "rderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
-    "\t\022\021\n\tbfOrderId\030\003 \001(\t\"\245\001\n\014BfConnectReq\022\020\n"
-    "\010clientId\030\001 \001(\t\022\020\n\010intParam\030\002 \001(\005\022\020\n\010str"
-    "Param\030\003 \001(\t\022\023\n\013tickHandler\030\004 \001(\010\022\024\n\014trad"
-    "eHandler\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006sy"
-    "mbol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\"X\n\020BfGetCon"
-    "tractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001"
-    "(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010*`"
-    "\n\013BfDirection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016"
-    "DIRECTION_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n"
-    "\rDIRECTION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_U"
-    "NKNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOS"
-    "E\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLO"
-    "SEYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKN"
-    "OWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PA"
-    "RTTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STAT"
-    "US_CANCELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_U"
-    "NKNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_"
-    "FUTURES\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UN"
-    "KONWN\020\000\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRI"
-    "CETYPE_MARKETPRICE\020\002*l\n\020BfNoticationType"
-    "\022\030\n\024NOTIFICATION_UNKNOWN\020\000\022\037\n\033NOTIFICATI"
-    "ON_TRADEWILLBEGIN\020\001\022\035\n\031NOTIFICATION_GOTC"
-    "ONTRACTS\020\0022\360\003\n\020BfGatewayService\022;\n\007Conne"
-    "ct\022\026.bftrader.BfConnectReq\032\024.google.prot"
-    "obuf.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.Bf"
-    "Void\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftra"
-    "der.BfPingData\032\024.bftrader.BfPingData\"\000\022E"
-    "\n\013GetContract\022\032.bftrader.BfGetContractRe"
-    "q\032\030.bftrader.BfContractData\"\000\022B\n\tSendOrd"
-    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
-    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
-    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
-    "\0224\n\014QueryAccount\022\020.bftrader.BfVoid\032\020.bft"
-    "rader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrad"
-    "er.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto3", 3517);
+    "p\n\022BfNotificationData\022(\n\004type\030\001 \001(\0162\032.bf"
+    "trader.BfNoticationType\022\014\n\004code\030\002 \001(\005\022\017\n"
+    "\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001(\t\"\035\n\nBfP"
+    "ingData\022\017\n\007message\030\001 \001(\t\"&\n\010BfKvData\022\013\n\003"
+    "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\311\001\n\016BfSendOrder"
+    "Req\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n"
+    "\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tpriceTyp"
+    "e\030\005 \001(\0162\025.bftrader.BfPriceType\022(\n\tdirect"
+    "ion\030\006 \001(\0162\025.bftrader.BfDirection\022\"\n\006offs"
+    "et\030\007 \001(\0162\022.bftrader.BfOffset\"$\n\017BfSendOr"
+    "derResp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfCancelOr"
+    "derReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t"
+    "\022\021\n\tbfOrderId\030\003 \001(\t\"\245\001\n\014BfConnectReq\022\020\n\010"
+    "clientId\030\001 \001(\t\022\020\n\010intParam\030\002 \001(\005\022\020\n\010strP"
+    "aram\030\003 \001(\t\022\023\n\013tickHandler\030\004 \001(\010\022\024\n\014trade"
+    "Handler\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006sym"
+    "bol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\"X\n\020BfGetCont"
+    "ractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
+    "\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010*`\n"
+    "\013BfDirection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016D"
+    "IRECTION_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\r"
+    "DIRECTION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UN"
+    "KNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE"
+    "\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOS"
+    "EYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNO"
+    "WN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PAR"
+    "TTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATU"
+    "S_CANCELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UN"
+    "KNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_F"
+    "UTURES\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNK"
+    "ONWN\020\000\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRIC"
+    "ETYPE_MARKETPRICE\020\002*l\n\020BfNoticationType\022"
+    "\030\n\024NOTIFICATION_UNKNOWN\020\000\022\037\n\033NOTIFICATIO"
+    "N_TRADEWILLBEGIN\020\001\022\035\n\031NOTIFICATION_GOTCO"
+    "NTRACTS\020\0022\360\003\n\020BfGatewayService\022;\n\007Connec"
+    "t\022\026.bftrader.BfConnectReq\032\024.google.proto"
+    "buf.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfV"
+    "oid\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrad"
+    "er.BfPingData\032\024.bftrader.BfPingData\"\000\022E\n"
+    "\013GetContract\022\032.bftrader.BfGetContractReq"
+    "\032\030.bftrader.BfContractData\"\000\022B\n\tSendOrde"
+    "r\022\030.bftrader.BfSendOrderReq\032\031.bftrader.B"
+    "fSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftrad"
+    "er.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000\022"
+    "4\n\014QueryAccount\022\020.bftrader.BfVoid\032\020.bftr"
+    "ader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrade"
+    "r.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto3", 3516);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -7197,7 +7197,7 @@ void BfContractData::clear_minmartet() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfNotificationData::kTypeFieldNumber;
-const int BfNotificationData::kIcodeFieldNumber;
+const int BfNotificationData::kCodeFieldNumber;
 const int BfNotificationData::kMessageFieldNumber;
 const int BfNotificationData::kMessageExFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -7225,7 +7225,7 @@ void BfNotificationData::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   type_ = 0;
-  icode_ = 0;
+  code_ = 0;
   message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   messageex_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7276,7 +7276,7 @@ void BfNotificationData::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(type_, icode_);
+  ZR_(type_, code_);
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
@@ -7306,17 +7306,17 @@ bool BfNotificationData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_icode;
+        if (input->ExpectTag(16)) goto parse_code;
         break;
       }
 
-      // optional int32 icode = 2;
+      // optional int32 code = 2;
       case 2: {
         if (tag == 16) {
-         parse_icode:
+         parse_code:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &icode_)));
+                 input, &code_)));
 
         } else {
           goto handle_unusual;
@@ -7389,9 +7389,9 @@ void BfNotificationData::SerializeWithCachedSizes(
       1, this->type(), output);
   }
 
-  // optional int32 icode = 2;
-  if (this->icode() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->icode(), output);
+  // optional int32 code = 2;
+  if (this->code() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->code(), output);
   }
 
   // optional string message = 3;
@@ -7426,9 +7426,9 @@ void BfNotificationData::SerializeWithCachedSizes(
       1, this->type(), target);
   }
 
-  // optional int32 icode = 2;
-  if (this->icode() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->icode(), target);
+  // optional int32 code = 2;
+  if (this->code() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->code(), target);
   }
 
   // optional string message = 3;
@@ -7466,11 +7466,11 @@ int BfNotificationData::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
-  // optional int32 icode = 2;
-  if (this->icode() != 0) {
+  // optional int32 code = 2;
+  if (this->code() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->icode());
+        this->code());
   }
 
   // optional string message = 3;
@@ -7510,8 +7510,8 @@ void BfNotificationData::MergeFrom(const BfNotificationData& from) {
   if (from.type() != 0) {
     set_type(from.type());
   }
-  if (from.icode() != 0) {
-    set_icode(from.icode());
+  if (from.code() != 0) {
+    set_code(from.code());
   }
   if (from.message().size() > 0) {
 
@@ -7546,7 +7546,7 @@ void BfNotificationData::Swap(BfNotificationData* other) {
 }
 void BfNotificationData::InternalSwap(BfNotificationData* other) {
   std::swap(type_, other->type_);
-  std::swap(icode_, other->icode_);
+  std::swap(code_, other->code_);
   message_.Swap(&other->message_);
   messageex_.Swap(&other->messageex_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -7578,18 +7578,18 @@ void BfNotificationData::clear_type() {
   // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.type)
 }
 
-// optional int32 icode = 2;
-void BfNotificationData::clear_icode() {
-  icode_ = 0;
+// optional int32 code = 2;
+void BfNotificationData::clear_code() {
+  code_ = 0;
 }
- ::google::protobuf::int32 BfNotificationData::icode() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.icode)
-  return icode_;
+ ::google::protobuf::int32 BfNotificationData::code() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
+  return code_;
 }
- void BfNotificationData::set_icode(::google::protobuf::int32 value) {
+ void BfNotificationData::set_code(::google::protobuf::int32 value) {
   
-  icode_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.icode)
+  code_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
 }
 
 // optional string message = 3;

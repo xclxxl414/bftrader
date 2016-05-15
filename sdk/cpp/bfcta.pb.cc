@@ -21,6 +21,19 @@ namespace bftrader {
 
 namespace {
 
+const ::google::protobuf::Descriptor* BfModelData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfModelData_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfRobotData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfRobotData_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfGatewayData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfGatewayData_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BfOrderExData_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BfOrderExData_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* BfModelLangType_descriptor_ = NULL;
 
 }  // namespace
 
@@ -31,6 +44,76 @@ void protobuf_AssignDesc_bfcta_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "bfcta.proto");
   GOOGLE_CHECK(file != NULL);
+  BfModelData_descriptor_ = file->message_type(0);
+  static const int BfModelData_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, modelid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, langtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, path_),
+  };
+  BfModelData_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfModelData_descriptor_,
+      BfModelData::default_instance_,
+      BfModelData_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfModelData),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, _is_default_instance_));
+  BfRobotData_descriptor_ = file->message_type(1);
+  static const int BfRobotData_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, robotid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, modelid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, gatewayid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, symbolwildcard_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, exchangewildcard_),
+  };
+  BfRobotData_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfRobotData_descriptor_,
+      BfRobotData::default_instance_,
+      BfRobotData_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfRobotData),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, _is_default_instance_));
+  BfGatewayData_descriptor_ = file->message_type(2);
+  static const int BfGatewayData_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, gatewayid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, port_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, ip_),
+  };
+  BfGatewayData_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfGatewayData_descriptor_,
+      BfGatewayData::default_instance_,
+      BfGatewayData_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfGatewayData),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, _is_default_instance_));
+  BfOrderExData_descriptor_ = file->message_type(3);
+  static const int BfOrderExData_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderExData, bforderid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderExData, robotid_),
+  };
+  BfOrderExData_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BfOrderExData_descriptor_,
+      BfOrderExData::default_instance_,
+      BfOrderExData_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BfOrderExData),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderExData, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfOrderExData, _is_default_instance_));
+  BfModelLangType_descriptor_ = file->enum_type(0);
 }
 
 namespace {
@@ -43,11 +126,27 @@ inline void protobuf_AssignDescriptorsOnce() {
 
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfModelData_descriptor_, &BfModelData::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfRobotData_descriptor_, &BfRobotData::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfGatewayData_descriptor_, &BfGatewayData::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BfOrderExData_descriptor_, &BfOrderExData::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_bfcta_2eproto() {
+  delete BfModelData::default_instance_;
+  delete BfModelData_reflection_;
+  delete BfRobotData::default_instance_;
+  delete BfRobotData_reflection_;
+  delete BfGatewayData::default_instance_;
+  delete BfGatewayData_reflection_;
+  delete BfOrderExData::default_instance_;
+  delete BfOrderExData_reflection_;
 }
 
 void protobuf_AddDesc_bfcta_2eproto() {
@@ -60,19 +159,38 @@ void protobuf_AddDesc_bfcta_2eproto() {
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\013bfcta.proto\022\010bftrader\032\017bfgateway.proto"
-    "\032\031google/protobuf/any.proto2\362\002\n\014BfCtaSer"
-    "vice\022;\n\007Connect\022\026.bftrader.BfConnectReq\032"
-    "\024.google.protobuf.Any\"\0000\001\0222\n\nDisconnect\022"
-    "\020.bftrader.BfVoid\032\020.bftrader.BfVoid\"\000\0224\n"
-    "\004Ping\022\024.bftrader.BfPingData\032\024.bftrader.B"
-    "fPingData\"\000\0228\n\014GetRobotInfo\022\022.bftrader.B"
-    "fKvData\032\022.bftrader.BfKvData\"\000\022B\n\tSendOrd"
-    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
-    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
-    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
-    "b\006proto3", 448);
+    "\032\031google/protobuf/any.proto\"Y\n\013BfModelDa"
+    "ta\022\017\n\007modelId\030\001 \001(\t\022+\n\010langType\030\002 \001(\0162\031."
+    "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"t"
+    "\n\013BfRobotData\022\017\n\007robotId\030\001 \001(\t\022\017\n\007modelI"
+    "d\030\002 \001(\t\022\021\n\tgatewayId\030\003 \001(\t\022\026\n\016symbolWild"
+    "card\030\004 \001(\t\022\030\n\020exchangeWildcard\030\005 \001(\t\"<\n\r"
+    "BfGatewayData\022\021\n\tgatewayId\030\001 \001(\t\022\014\n\004port"
+    "\030\002 \001(\005\022\n\n\002ip\030\003 \001(\t\"3\n\rBfOrderExData\022\021\n\tb"
+    "fOrderId\030\001 \001(\t\022\017\n\007robotId\030\002 \001(\t*\211\001\n\017BfMo"
+    "delLangType\022\025\n\021MODELLANG_UNKNOWN\020\000\022\032\n\026MO"
+    "DELLANG_PYTHONSCRIPT\020\001\022\027\n\023MODELLANG_GOLA"
+    "NGEXE\020\002\022\024\n\020MODELLANG_CPPEXE\020\003\022\024\n\020MODELLA"
+    "NG_CPPDLL\020\0042\362\002\n\014BfCtaService\022;\n\007Connect\022"
+    "\026.bftrader.BfConnectReq\032\024.google.protobu"
+    "f.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfVoi"
+    "d\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrader"
+    ".BfPingData\032\024.bftrader.BfPingData\"\000\0228\n\014G"
+    "etRobotInfo\022\022.bftrader.BfKvData\032\022.bftrad"
+    "er.BfKvData\"\000\022B\n\tSendOrder\022\030.bftrader.Bf"
+    "SendOrderReq\032\031.bftrader.BfSendOrderResp\""
+    "\000\022=\n\013CancelOrder\022\032.bftrader.BfCancelOrde"
+    "rReq\032\020.bftrader.BfVoid\"\000b\006proto3", 912);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
+  BfModelData::default_instance_ = new BfModelData();
+  BfRobotData::default_instance_ = new BfRobotData();
+  BfGatewayData::default_instance_ = new BfGatewayData();
+  BfOrderExData::default_instance_ = new BfOrderExData();
+  BfModelData::default_instance_->InitAsDefaultInstance();
+  BfRobotData::default_instance_->InitAsDefaultInstance();
+  BfGatewayData::default_instance_->InitAsDefaultInstance();
+  BfOrderExData::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfcta_2eproto);
 }
 
@@ -82,6 +200,1904 @@ struct StaticDescriptorInitializer_bfcta_2eproto {
     protobuf_AddDesc_bfcta_2eproto();
   }
 } static_descriptor_initializer_bfcta_2eproto_;
+const ::google::protobuf::EnumDescriptor* BfModelLangType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfModelLangType_descriptor_;
+}
+bool BfModelLangType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+
+namespace {
+
+static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
+static void MergeFromFail(int line) {
+  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+}
+
+}  // namespace
+
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfModelData::kModelIdFieldNumber;
+const int BfModelData::kLangTypeFieldNumber;
+const int BfModelData::kPathFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfModelData::BfModelData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfModelData)
+}
+
+void BfModelData::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfModelData::BfModelData(const BfModelData& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfModelData)
+}
+
+void BfModelData::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  modelid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  langtype_ = 0;
+  path_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfModelData::~BfModelData() {
+  // @@protoc_insertion_point(destructor:bftrader.BfModelData)
+  SharedDtor();
+}
+
+void BfModelData::SharedDtor() {
+  modelid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  path_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfModelData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfModelData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfModelData_descriptor_;
+}
+
+const BfModelData& BfModelData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bfcta_2eproto();
+  return *default_instance_;
+}
+
+BfModelData* BfModelData::default_instance_ = NULL;
+
+BfModelData* BfModelData::New(::google::protobuf::Arena* arena) const {
+  BfModelData* n = new BfModelData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfModelData::Clear() {
+  modelid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  langtype_ = 0;
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfModelData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfModelData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string modelId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_modelid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->modelid().data(), this->modelid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfModelData.modelId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_langType;
+        break;
+      }
+
+      // optional .bftrader.BfModelLangType langType = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_langType:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_langtype(static_cast< ::bftrader::BfModelLangType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_path;
+        break;
+      }
+
+      // optional string path = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_path:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_path()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->path().data(), this->path().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfModelData.path"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfModelData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfModelData)
+  return false;
+#undef DO_
+}
+
+void BfModelData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfModelData)
+  // optional string modelId = 1;
+  if (this->modelid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelid().data(), this->modelid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfModelData.modelId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->modelid(), output);
+  }
+
+  // optional .bftrader.BfModelLangType langType = 2;
+  if (this->langtype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->langtype(), output);
+  }
+
+  // optional string path = 3;
+  if (this->path().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfModelData.path");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->path(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfModelData)
+}
+
+::google::protobuf::uint8* BfModelData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfModelData)
+  // optional string modelId = 1;
+  if (this->modelid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelid().data(), this->modelid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfModelData.modelId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->modelid(), target);
+  }
+
+  // optional .bftrader.BfModelLangType langType = 2;
+  if (this->langtype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->langtype(), target);
+  }
+
+  // optional string path = 3;
+  if (this->path().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfModelData.path");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->path(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfModelData)
+  return target;
+}
+
+int BfModelData::ByteSize() const {
+  int total_size = 0;
+
+  // optional string modelId = 1;
+  if (this->modelid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->modelid());
+  }
+
+  // optional .bftrader.BfModelLangType langType = 2;
+  if (this->langtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->langtype());
+  }
+
+  // optional string path = 3;
+  if (this->path().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->path());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfModelData::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfModelData* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfModelData>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfModelData::MergeFrom(const BfModelData& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.modelid().size() > 0) {
+
+    modelid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.modelid_);
+  }
+  if (from.langtype() != 0) {
+    set_langtype(from.langtype());
+  }
+  if (from.path().size() > 0) {
+
+    path_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.path_);
+  }
+}
+
+void BfModelData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfModelData::CopyFrom(const BfModelData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfModelData::IsInitialized() const {
+
+  return true;
+}
+
+void BfModelData::Swap(BfModelData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfModelData::InternalSwap(BfModelData* other) {
+  modelid_.Swap(&other->modelid_);
+  std::swap(langtype_, other->langtype_);
+  path_.Swap(&other->path_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfModelData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfModelData_descriptor_;
+  metadata.reflection = BfModelData_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfModelData
+
+// optional string modelId = 1;
+void BfModelData::clear_modelid() {
+  modelid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfModelData::modelid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfModelData.modelId)
+  return modelid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfModelData::set_modelid(const ::std::string& value) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfModelData.modelId)
+}
+ void BfModelData::set_modelid(const char* value) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfModelData.modelId)
+}
+ void BfModelData::set_modelid(const char* value, size_t size) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfModelData.modelId)
+}
+ ::std::string* BfModelData::mutable_modelid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfModelData.modelId)
+  return modelid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfModelData::release_modelid() {
+  
+  return modelid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfModelData::set_allocated_modelid(::std::string* modelid) {
+  if (modelid != NULL) {
+    
+  } else {
+    
+  }
+  modelid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfModelData.modelId)
+}
+
+// optional .bftrader.BfModelLangType langType = 2;
+void BfModelData::clear_langtype() {
+  langtype_ = 0;
+}
+ ::bftrader::BfModelLangType BfModelData::langtype() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfModelData.langType)
+  return static_cast< ::bftrader::BfModelLangType >(langtype_);
+}
+ void BfModelData::set_langtype(::bftrader::BfModelLangType value) {
+  
+  langtype_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfModelData.langType)
+}
+
+// optional string path = 3;
+void BfModelData::clear_path() {
+  path_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfModelData::path() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfModelData.path)
+  return path_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfModelData::set_path(const ::std::string& value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfModelData.path)
+}
+ void BfModelData::set_path(const char* value) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfModelData.path)
+}
+ void BfModelData::set_path(const char* value, size_t size) {
+  
+  path_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfModelData.path)
+}
+ ::std::string* BfModelData::mutable_path() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfModelData.path)
+  return path_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfModelData::release_path() {
+  
+  return path_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfModelData::set_allocated_path(::std::string* path) {
+  if (path != NULL) {
+    
+  } else {
+    
+  }
+  path_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), path);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfModelData.path)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfRobotData::kRobotIdFieldNumber;
+const int BfRobotData::kModelIdFieldNumber;
+const int BfRobotData::kGatewayIdFieldNumber;
+const int BfRobotData::kSymbolWildcardFieldNumber;
+const int BfRobotData::kExchangeWildcardFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfRobotData::BfRobotData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfRobotData)
+}
+
+void BfRobotData::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfRobotData::BfRobotData(const BfRobotData& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfRobotData)
+}
+
+void BfRobotData::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  robotid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  gatewayid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbolwildcard_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangewildcard_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfRobotData::~BfRobotData() {
+  // @@protoc_insertion_point(destructor:bftrader.BfRobotData)
+  SharedDtor();
+}
+
+void BfRobotData::SharedDtor() {
+  robotid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  gatewayid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbolwildcard_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangewildcard_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfRobotData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfRobotData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfRobotData_descriptor_;
+}
+
+const BfRobotData& BfRobotData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bfcta_2eproto();
+  return *default_instance_;
+}
+
+BfRobotData* BfRobotData::default_instance_ = NULL;
+
+BfRobotData* BfRobotData::New(::google::protobuf::Arena* arena) const {
+  BfRobotData* n = new BfRobotData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfRobotData::Clear() {
+  robotid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  symbolwildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  exchangewildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfRobotData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfRobotData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string robotId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_robotid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->robotid().data(), this->robotid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.robotId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_modelId;
+        break;
+      }
+
+      // optional string modelId = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_modelId:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_modelid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->modelid().data(), this->modelid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.modelId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_gatewayId;
+        break;
+      }
+
+      // optional string gatewayId = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_gatewayId:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_gatewayid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->gatewayid().data(), this->gatewayid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.gatewayId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_symbolWildcard;
+        break;
+      }
+
+      // optional string symbolWildcard = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_symbolWildcard:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_symbolwildcard()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->symbolwildcard().data(), this->symbolwildcard().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.symbolWildcard"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_exchangeWildcard;
+        break;
+      }
+
+      // optional string exchangeWildcard = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_exchangeWildcard:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_exchangewildcard()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->exchangewildcard().data(), this->exchangewildcard().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.exchangeWildcard"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfRobotData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfRobotData)
+  return false;
+#undef DO_
+}
+
+void BfRobotData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfRobotData)
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->robotid().data(), this->robotid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.robotId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->robotid(), output);
+  }
+
+  // optional string modelId = 2;
+  if (this->modelid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelid().data(), this->modelid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.modelId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->modelid(), output);
+  }
+
+  // optional string gatewayId = 3;
+  if (this->gatewayid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->gatewayid().data(), this->gatewayid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.gatewayId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->gatewayid(), output);
+  }
+
+  // optional string symbolWildcard = 4;
+  if (this->symbolwildcard().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbolwildcard().data(), this->symbolwildcard().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.symbolWildcard");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->symbolwildcard(), output);
+  }
+
+  // optional string exchangeWildcard = 5;
+  if (this->exchangewildcard().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchangewildcard().data(), this->exchangewildcard().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.exchangeWildcard");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->exchangewildcard(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfRobotData)
+}
+
+::google::protobuf::uint8* BfRobotData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfRobotData)
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->robotid().data(), this->robotid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.robotId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->robotid(), target);
+  }
+
+  // optional string modelId = 2;
+  if (this->modelid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelid().data(), this->modelid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.modelId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->modelid(), target);
+  }
+
+  // optional string gatewayId = 3;
+  if (this->gatewayid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->gatewayid().data(), this->gatewayid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.gatewayId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->gatewayid(), target);
+  }
+
+  // optional string symbolWildcard = 4;
+  if (this->symbolwildcard().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->symbolwildcard().data(), this->symbolwildcard().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.symbolWildcard");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->symbolwildcard(), target);
+  }
+
+  // optional string exchangeWildcard = 5;
+  if (this->exchangewildcard().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->exchangewildcard().data(), this->exchangewildcard().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.exchangeWildcard");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->exchangewildcard(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfRobotData)
+  return target;
+}
+
+int BfRobotData::ByteSize() const {
+  int total_size = 0;
+
+  // optional string robotId = 1;
+  if (this->robotid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->robotid());
+  }
+
+  // optional string modelId = 2;
+  if (this->modelid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->modelid());
+  }
+
+  // optional string gatewayId = 3;
+  if (this->gatewayid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->gatewayid());
+  }
+
+  // optional string symbolWildcard = 4;
+  if (this->symbolwildcard().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->symbolwildcard());
+  }
+
+  // optional string exchangeWildcard = 5;
+  if (this->exchangewildcard().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->exchangewildcard());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfRobotData::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfRobotData* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfRobotData>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfRobotData::MergeFrom(const BfRobotData& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.robotid().size() > 0) {
+
+    robotid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.robotid_);
+  }
+  if (from.modelid().size() > 0) {
+
+    modelid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.modelid_);
+  }
+  if (from.gatewayid().size() > 0) {
+
+    gatewayid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.gatewayid_);
+  }
+  if (from.symbolwildcard().size() > 0) {
+
+    symbolwildcard_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbolwildcard_);
+  }
+  if (from.exchangewildcard().size() > 0) {
+
+    exchangewildcard_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchangewildcard_);
+  }
+}
+
+void BfRobotData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfRobotData::CopyFrom(const BfRobotData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfRobotData::IsInitialized() const {
+
+  return true;
+}
+
+void BfRobotData::Swap(BfRobotData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfRobotData::InternalSwap(BfRobotData* other) {
+  robotid_.Swap(&other->robotid_);
+  modelid_.Swap(&other->modelid_);
+  gatewayid_.Swap(&other->gatewayid_);
+  symbolwildcard_.Swap(&other->symbolwildcard_);
+  exchangewildcard_.Swap(&other->exchangewildcard_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfRobotData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfRobotData_descriptor_;
+  metadata.reflection = BfRobotData_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfRobotData
+
+// optional string robotId = 1;
+void BfRobotData::clear_robotid() {
+  robotid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::robotid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.robotId)
+  return robotid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_robotid(const ::std::string& value) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.robotId)
+}
+ void BfRobotData::set_robotid(const char* value) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.robotId)
+}
+ void BfRobotData::set_robotid(const char* value, size_t size) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.robotId)
+}
+ ::std::string* BfRobotData::mutable_robotid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.robotId)
+  return robotid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_robotid() {
+  
+  return robotid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_robotid(::std::string* robotid) {
+  if (robotid != NULL) {
+    
+  } else {
+    
+  }
+  robotid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robotid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.robotId)
+}
+
+// optional string modelId = 2;
+void BfRobotData::clear_modelid() {
+  modelid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::modelid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.modelId)
+  return modelid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_modelid(const ::std::string& value) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.modelId)
+}
+ void BfRobotData::set_modelid(const char* value) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.modelId)
+}
+ void BfRobotData::set_modelid(const char* value, size_t size) {
+  
+  modelid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.modelId)
+}
+ ::std::string* BfRobotData::mutable_modelid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.modelId)
+  return modelid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_modelid() {
+  
+  return modelid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_modelid(::std::string* modelid) {
+  if (modelid != NULL) {
+    
+  } else {
+    
+  }
+  modelid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.modelId)
+}
+
+// optional string gatewayId = 3;
+void BfRobotData::clear_gatewayid() {
+  gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::gatewayid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.gatewayId)
+  return gatewayid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_gatewayid(const ::std::string& value) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.gatewayId)
+}
+ void BfRobotData::set_gatewayid(const char* value) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.gatewayId)
+}
+ void BfRobotData::set_gatewayid(const char* value, size_t size) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.gatewayId)
+}
+ ::std::string* BfRobotData::mutable_gatewayid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.gatewayId)
+  return gatewayid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_gatewayid() {
+  
+  return gatewayid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_gatewayid(::std::string* gatewayid) {
+  if (gatewayid != NULL) {
+    
+  } else {
+    
+  }
+  gatewayid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gatewayid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.gatewayId)
+}
+
+// optional string symbolWildcard = 4;
+void BfRobotData::clear_symbolwildcard() {
+  symbolwildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::symbolwildcard() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.symbolWildcard)
+  return symbolwildcard_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_symbolwildcard(const ::std::string& value) {
+  
+  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.symbolWildcard)
+}
+ void BfRobotData::set_symbolwildcard(const char* value) {
+  
+  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.symbolWildcard)
+}
+ void BfRobotData::set_symbolwildcard(const char* value, size_t size) {
+  
+  symbolwildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.symbolWildcard)
+}
+ ::std::string* BfRobotData::mutable_symbolwildcard() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.symbolWildcard)
+  return symbolwildcard_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_symbolwildcard() {
+  
+  return symbolwildcard_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_symbolwildcard(::std::string* symbolwildcard) {
+  if (symbolwildcard != NULL) {
+    
+  } else {
+    
+  }
+  symbolwildcard_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolwildcard);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.symbolWildcard)
+}
+
+// optional string exchangeWildcard = 5;
+void BfRobotData::clear_exchangewildcard() {
+  exchangewildcard_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::exchangewildcard() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.exchangeWildcard)
+  return exchangewildcard_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_exchangewildcard(const ::std::string& value) {
+  
+  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.exchangeWildcard)
+}
+ void BfRobotData::set_exchangewildcard(const char* value) {
+  
+  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.exchangeWildcard)
+}
+ void BfRobotData::set_exchangewildcard(const char* value, size_t size) {
+  
+  exchangewildcard_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.exchangeWildcard)
+}
+ ::std::string* BfRobotData::mutable_exchangewildcard() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.exchangeWildcard)
+  return exchangewildcard_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_exchangewildcard() {
+  
+  return exchangewildcard_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_exchangewildcard(::std::string* exchangewildcard) {
+  if (exchangewildcard != NULL) {
+    
+  } else {
+    
+  }
+  exchangewildcard_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchangewildcard);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.exchangeWildcard)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfGatewayData::kGatewayIdFieldNumber;
+const int BfGatewayData::kPortFieldNumber;
+const int BfGatewayData::kIpFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfGatewayData::BfGatewayData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfGatewayData)
+}
+
+void BfGatewayData::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfGatewayData::BfGatewayData(const BfGatewayData& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfGatewayData)
+}
+
+void BfGatewayData::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  gatewayid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  port_ = 0;
+  ip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfGatewayData::~BfGatewayData() {
+  // @@protoc_insertion_point(destructor:bftrader.BfGatewayData)
+  SharedDtor();
+}
+
+void BfGatewayData::SharedDtor() {
+  gatewayid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfGatewayData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfGatewayData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfGatewayData_descriptor_;
+}
+
+const BfGatewayData& BfGatewayData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bfcta_2eproto();
+  return *default_instance_;
+}
+
+BfGatewayData* BfGatewayData::default_instance_ = NULL;
+
+BfGatewayData* BfGatewayData::New(::google::protobuf::Arena* arena) const {
+  BfGatewayData* n = new BfGatewayData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfGatewayData::Clear() {
+  gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  port_ = 0;
+  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfGatewayData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfGatewayData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string gatewayId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_gatewayid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->gatewayid().data(), this->gatewayid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfGatewayData.gatewayId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_port;
+        break;
+      }
+
+      // optional int32 port = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_port:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &port_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_ip;
+        break;
+      }
+
+      // optional string ip = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_ip:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_ip()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->ip().data(), this->ip().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfGatewayData.ip"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfGatewayData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfGatewayData)
+  return false;
+#undef DO_
+}
+
+void BfGatewayData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfGatewayData)
+  // optional string gatewayId = 1;
+  if (this->gatewayid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->gatewayid().data(), this->gatewayid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.gatewayId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->gatewayid(), output);
+  }
+
+  // optional int32 port = 2;
+  if (this->port() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->port(), output);
+  }
+
+  // optional string ip = 3;
+  if (this->ip().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->ip().data(), this->ip().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.ip");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->ip(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfGatewayData)
+}
+
+::google::protobuf::uint8* BfGatewayData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfGatewayData)
+  // optional string gatewayId = 1;
+  if (this->gatewayid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->gatewayid().data(), this->gatewayid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.gatewayId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->gatewayid(), target);
+  }
+
+  // optional int32 port = 2;
+  if (this->port() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->port(), target);
+  }
+
+  // optional string ip = 3;
+  if (this->ip().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->ip().data(), this->ip().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.ip");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->ip(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfGatewayData)
+  return target;
+}
+
+int BfGatewayData::ByteSize() const {
+  int total_size = 0;
+
+  // optional string gatewayId = 1;
+  if (this->gatewayid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->gatewayid());
+  }
+
+  // optional int32 port = 2;
+  if (this->port() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->port());
+  }
+
+  // optional string ip = 3;
+  if (this->ip().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->ip());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfGatewayData::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfGatewayData* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfGatewayData>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfGatewayData::MergeFrom(const BfGatewayData& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.gatewayid().size() > 0) {
+
+    gatewayid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.gatewayid_);
+  }
+  if (from.port() != 0) {
+    set_port(from.port());
+  }
+  if (from.ip().size() > 0) {
+
+    ip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.ip_);
+  }
+}
+
+void BfGatewayData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfGatewayData::CopyFrom(const BfGatewayData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfGatewayData::IsInitialized() const {
+
+  return true;
+}
+
+void BfGatewayData::Swap(BfGatewayData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfGatewayData::InternalSwap(BfGatewayData* other) {
+  gatewayid_.Swap(&other->gatewayid_);
+  std::swap(port_, other->port_);
+  ip_.Swap(&other->ip_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfGatewayData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfGatewayData_descriptor_;
+  metadata.reflection = BfGatewayData_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfGatewayData
+
+// optional string gatewayId = 1;
+void BfGatewayData::clear_gatewayid() {
+  gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfGatewayData::gatewayid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.gatewayId)
+  return gatewayid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_gatewayid(const ::std::string& value) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.gatewayId)
+}
+ void BfGatewayData::set_gatewayid(const char* value) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfGatewayData.gatewayId)
+}
+ void BfGatewayData::set_gatewayid(const char* value, size_t size) {
+  
+  gatewayid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGatewayData.gatewayId)
+}
+ ::std::string* BfGatewayData::mutable_gatewayid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfGatewayData.gatewayId)
+  return gatewayid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfGatewayData::release_gatewayid() {
+  
+  return gatewayid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_allocated_gatewayid(::std::string* gatewayid) {
+  if (gatewayid != NULL) {
+    
+  } else {
+    
+  }
+  gatewayid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gatewayid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.gatewayId)
+}
+
+// optional int32 port = 2;
+void BfGatewayData::clear_port() {
+  port_ = 0;
+}
+ ::google::protobuf::int32 BfGatewayData::port() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.port)
+  return port_;
+}
+ void BfGatewayData::set_port(::google::protobuf::int32 value) {
+  
+  port_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.port)
+}
+
+// optional string ip = 3;
+void BfGatewayData::clear_ip() {
+  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfGatewayData::ip() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.ip)
+  return ip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_ip(const ::std::string& value) {
+  
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.ip)
+}
+ void BfGatewayData::set_ip(const char* value) {
+  
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfGatewayData.ip)
+}
+ void BfGatewayData::set_ip(const char* value, size_t size) {
+  
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGatewayData.ip)
+}
+ ::std::string* BfGatewayData::mutable_ip() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfGatewayData.ip)
+  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfGatewayData::release_ip() {
+  
+  return ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_allocated_ip(::std::string* ip) {
+  if (ip != NULL) {
+    
+  } else {
+    
+  }
+  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.ip)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BfOrderExData::kBfOrderIdFieldNumber;
+const int BfOrderExData::kRobotIdFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BfOrderExData::BfOrderExData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:bftrader.BfOrderExData)
+}
+
+void BfOrderExData::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BfOrderExData::BfOrderExData(const BfOrderExData& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:bftrader.BfOrderExData)
+}
+
+void BfOrderExData::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  bforderid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BfOrderExData::~BfOrderExData() {
+  // @@protoc_insertion_point(destructor:bftrader.BfOrderExData)
+  SharedDtor();
+}
+
+void BfOrderExData::SharedDtor() {
+  bforderid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BfOrderExData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BfOrderExData::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BfOrderExData_descriptor_;
+}
+
+const BfOrderExData& BfOrderExData::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_bfcta_2eproto();
+  return *default_instance_;
+}
+
+BfOrderExData* BfOrderExData::default_instance_ = NULL;
+
+BfOrderExData* BfOrderExData::New(::google::protobuf::Arena* arena) const {
+  BfOrderExData* n = new BfOrderExData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BfOrderExData::Clear() {
+  bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  robotid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool BfOrderExData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:bftrader.BfOrderExData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string bfOrderId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_bforderid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->bforderid().data(), this->bforderid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfOrderExData.bfOrderId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_robotId;
+        break;
+      }
+
+      // optional string robotId = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_robotId:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_robotid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->robotid().data(), this->robotid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfOrderExData.robotId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:bftrader.BfOrderExData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:bftrader.BfOrderExData)
+  return false;
+#undef DO_
+}
+
+void BfOrderExData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:bftrader.BfOrderExData)
+  // optional string bfOrderId = 1;
+  if (this->bforderid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->bforderid().data(), this->bforderid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfOrderExData.bfOrderId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->bforderid(), output);
+  }
+
+  // optional string robotId = 2;
+  if (this->robotid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->robotid().data(), this->robotid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfOrderExData.robotId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->robotid(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:bftrader.BfOrderExData)
+}
+
+::google::protobuf::uint8* BfOrderExData::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfOrderExData)
+  // optional string bfOrderId = 1;
+  if (this->bforderid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->bforderid().data(), this->bforderid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfOrderExData.bfOrderId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->bforderid(), target);
+  }
+
+  // optional string robotId = 2;
+  if (this->robotid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->robotid().data(), this->robotid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfOrderExData.robotId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->robotid(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfOrderExData)
+  return target;
+}
+
+int BfOrderExData::ByteSize() const {
+  int total_size = 0;
+
+  // optional string bfOrderId = 1;
+  if (this->bforderid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->bforderid());
+  }
+
+  // optional string robotId = 2;
+  if (this->robotid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->robotid());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BfOrderExData::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BfOrderExData* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BfOrderExData>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BfOrderExData::MergeFrom(const BfOrderExData& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.bforderid().size() > 0) {
+
+    bforderid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bforderid_);
+  }
+  if (from.robotid().size() > 0) {
+
+    robotid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.robotid_);
+  }
+}
+
+void BfOrderExData::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BfOrderExData::CopyFrom(const BfOrderExData& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BfOrderExData::IsInitialized() const {
+
+  return true;
+}
+
+void BfOrderExData::Swap(BfOrderExData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BfOrderExData::InternalSwap(BfOrderExData* other) {
+  bforderid_.Swap(&other->bforderid_);
+  robotid_.Swap(&other->robotid_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BfOrderExData::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BfOrderExData_descriptor_;
+  metadata.reflection = BfOrderExData_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BfOrderExData
+
+// optional string bfOrderId = 1;
+void BfOrderExData::clear_bforderid() {
+  bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfOrderExData::bforderid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderExData.bfOrderId)
+  return bforderid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfOrderExData::set_bforderid(const ::std::string& value) {
+  
+  bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderExData.bfOrderId)
+}
+ void BfOrderExData::set_bforderid(const char* value) {
+  
+  bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderExData.bfOrderId)
+}
+ void BfOrderExData::set_bforderid(const char* value, size_t size) {
+  
+  bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderExData.bfOrderId)
+}
+ ::std::string* BfOrderExData::mutable_bforderid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderExData.bfOrderId)
+  return bforderid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfOrderExData::release_bforderid() {
+  
+  return bforderid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfOrderExData::set_allocated_bforderid(::std::string* bforderid) {
+  if (bforderid != NULL) {
+    
+  } else {
+    
+  }
+  bforderid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bforderid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderExData.bfOrderId)
+}
+
+// optional string robotId = 2;
+void BfOrderExData::clear_robotid() {
+  robotid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfOrderExData::robotid() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfOrderExData.robotId)
+  return robotid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfOrderExData::set_robotid(const ::std::string& value) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfOrderExData.robotId)
+}
+ void BfOrderExData::set_robotid(const char* value) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderExData.robotId)
+}
+ void BfOrderExData::set_robotid(const char* value, size_t size) {
+  
+  robotid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderExData.robotId)
+}
+ ::std::string* BfOrderExData::mutable_robotid() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderExData.robotId)
+  return robotid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfOrderExData::release_robotid() {
+  
+  return robotid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfOrderExData::set_allocated_robotid(::std::string* robotid) {
+  if (robotid != NULL) {
+    
+  } else {
+    
+  }
+  robotid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), robotid);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderExData.robotId)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 

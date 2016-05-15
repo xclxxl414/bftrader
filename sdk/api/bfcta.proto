@@ -10,6 +10,48 @@ package bftrader;
 import "bfgateway.proto";
 import "google/protobuf/any.proto";
 
+//============================
+
+// 模型实现采用的语言和发布方式
+enum BfModelLangType{
+    MODELLANG_UNKNOWN = 0;          // 未知
+    MODELLANG_PYTHONSCRIPT = 1;     // python脚本
+    MODELLANG_GOLANGEXE = 2;        // golang可执行程序
+    MODELLANG_CPPEXE = 3;           // cpp可执行程序
+    MODELLANG_CPPDLL = 4;           // cpp动态链接库
+}
+
+// 模型信息类
+message BfModelData{
+    string modelId = 1;             // 模型id
+    BfModelLangType langType = 2;   // 模型语言和实现类型
+    string path= 3;                 // 模型可运行文件路径
+}
+
+// 机器人信息类
+message BfRobotData{
+    string robotId = 1;             // 机器人id
+    string modelId = 2;             // 模型id
+    string gatewayId = 3;           // 网关id
+    string symbolWildcard = 4;      // 合约通配符
+    string exchangeWildcard = 5;    // 交易所通配符
+}
+
+// 网关信息类
+message BfGatewayData{
+    string gatewayId = 1;           // 网关id
+    int32 port = 2;                 // 网关端口
+    string ip = 3;                  // 网关ip
+}
+
+// 委托<-->机器人映射信息类
+message BfOrderExData{
+    string bfOrderId = 1;           // 委托id
+    string robotId = 2;             // 机器人id
+}
+
+//============================
+
 //
 // Cta服务，必须先connect然后才可以调用其他api
 //

@@ -1516,11 +1516,11 @@ class BfNotificationData : public ::google::protobuf::Message {
   ::bftrader::BfNoticationType type() const;
   void set_type(::bftrader::BfNoticationType value);
 
-  // optional int32 icode = 2;
-  void clear_icode();
-  static const int kIcodeFieldNumber = 2;
-  ::google::protobuf::int32 icode() const;
-  void set_icode(::google::protobuf::int32 value);
+  // optional int32 code = 2;
+  void clear_code();
+  static const int kCodeFieldNumber = 2;
+  ::google::protobuf::int32 code() const;
+  void set_code(::google::protobuf::int32 value);
 
   // optional string message = 3;
   void clear_message();
@@ -1550,7 +1550,7 @@ class BfNotificationData : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   int type_;
-  ::google::protobuf::int32 icode_;
+  ::google::protobuf::int32 code_;
   ::google::protobuf::internal::ArenaStringPtr message_;
   ::google::protobuf::internal::ArenaStringPtr messageex_;
   mutable int _cached_size_;
@@ -4107,18 +4107,18 @@ inline void BfNotificationData::set_type(::bftrader::BfNoticationType value) {
   // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.type)
 }
 
-// optional int32 icode = 2;
-inline void BfNotificationData::clear_icode() {
-  icode_ = 0;
+// optional int32 code = 2;
+inline void BfNotificationData::clear_code() {
+  code_ = 0;
 }
-inline ::google::protobuf::int32 BfNotificationData::icode() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.icode)
-  return icode_;
+inline ::google::protobuf::int32 BfNotificationData::code() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
+  return code_;
 }
-inline void BfNotificationData::set_icode(::google::protobuf::int32 value) {
+inline void BfNotificationData::set_code(::google::protobuf::int32 value) {
   
-  icode_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.icode)
+  code_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
 }
 
 // optional string message = 3;
