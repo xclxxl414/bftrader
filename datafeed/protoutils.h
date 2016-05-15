@@ -1,7 +1,8 @@
 #ifndef PROTOUTILS_H
 #define PROTOUTILS_H
 
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
+#include "bfdatafeed.pb.h"
 #include <QString>
 
 using namespace bftrader;

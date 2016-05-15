@@ -1,7 +1,7 @@
 #ifndef TdSm_H
 #define TdSm_H
 
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
 #include <QObject>
 
 using namespace bftrader;

@@ -1,11 +1,115 @@
 syntax = "proto3";
 
-package bftrader.bfdatafeed;
+//package bftrader.bfdatafeed;
+package bftrader;
 
 // option optimize_for = CODE_SIZE;
 // option cc_enable_arenas = true;
 
-import "bftrader.proto";
+//import "bftrader.proto";
+import "bfgateway.proto";
+
+//============================
+
+// Bar周期类型
+enum BfBarPeriod{
+    PERIOD_UNKNOWN = 0;         // 未知
+    PERIOD_S1 = 1;              // 1秒
+    PERIOD_S3 = 2;              // 3秒
+    PERIOD_S5 = 3;              // 5秒
+    PERIOD_S10 = 4;             // 10秒
+    PERIOD_S15 = 5;             // 15秒
+    PERIOD_S30 = 6;             // 30秒
+    PERIOD_M1 = 7;              // 1分钟
+    PERIOD_M3 = 8;              // 3分钟
+    PERIOD_M5 = 9;              // 5分钟
+    PERIOD_M10 = 10;            // 10分钟
+    PERIOD_M15 = 11;            // 15分钟
+    PERIOD_M30 = 12;            // 30分钟
+    PERIOD_H1 = 13;             // 1小时
+    PERIOD_D1 = 14;             // 1天
+    PERIOD_W1 = 15;             // 1周
+}
+
+// Bar行情数据类
+message BfBarData{
+
+    // 代码相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+
+    // 周期   
+    BfBarPeriod period = 3;       
+    
+    // 成交数据
+    string actionDate = 4;      // 日期 20151009
+    string barTime = 5;         // 时间 11:20:56
+    int32 volume = 6;           // 今天总成交量
+    double openInterest = 7;    // 持仓量
+    int32 lastVolume = 8;       // 本bar成交量，本笔增减
+    
+    // OHLC
+    double openPrice = 9;       // 开盘价
+    double highPrice = 10;      // 最高价
+    double lowPrice = 11;       // 最低价
+    double closePrice = 12;     // 收盘价 
+}
+
+message BfGetTickReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
+    int32 count = 5;                // 获取条数
+}
+
+message BfDeleteTickReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
+}
+
+message BfGetBarReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    BfBarPeriod period = 3;         // 周期
+    
+    string toDate = 4;              // 截止日期
+    string toTime = 5;              // 截止时间
+    int32 count = 6;                // 获取条数
+}
+
+message BfDeleteBarReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    BfBarPeriod period = 3;         // 周期
+    
+    string toDate = 4;              // 截止日期
+    string toTime = 5;              // 截止时间
+}
+
+message BfDatafeedGetContractReq{
+    // 代码编号相关
+    string symbolPattern = 1;       // 合约代码,支持模式匹配 * . ?
+    string exchangePattern = 2;     // 交易所代码,支持模式匹配 * . ?
+}
+
+message BfDatafeedDeleteContractReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码，
+    string exchange = 2;            // 交易所代码
+}
+
+//============================
 
 // 历史数据服务
 service BfDatafeedService{
@@ -40,3 +144,5 @@ service BfDatafeedService{
     // 删除contract
     rpc DeleteContract(BfDatafeedDeleteContractReq) returns (BfVoid) {}    
 }
+
+//============================

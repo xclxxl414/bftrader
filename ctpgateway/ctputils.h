@@ -1,7 +1,7 @@
 #ifndef CTPUTILS_H
 #define CTPUTILS_H
 
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
 #include <QString>
 
 using namespace bftrader;

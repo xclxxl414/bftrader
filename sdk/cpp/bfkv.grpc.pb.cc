@@ -14,15 +14,14 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace bftrader {
-namespace bfkv {
 
 static const char* BfKvService_method_names[] = {
-  "/bftrader.bfkv.BfKvService/Ping",
-  "/bftrader.bfkv.BfKvService/PingStreamCS",
-  "/bftrader.bfkv.BfKvService/PingStreamC",
-  "/bftrader.bfkv.BfKvService/PingStreamS",
-  "/bftrader.bfkv.BfKvService/SetKv",
-  "/bftrader.bfkv.BfKvService/GetKv",
+  "/bftrader.BfKvService/Ping",
+  "/bftrader.BfKvService/PingStreamCS",
+  "/bftrader.BfKvService/PingStreamC",
+  "/bftrader.BfKvService/PingStreamS",
+  "/bftrader.BfKvService/SetKv",
+  "/bftrader.BfKvService/GetKv",
 };
 
 std::unique_ptr< BfKvService::Stub> BfKvService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -167,5 +166,4 @@ BfKvService::Service::~Service() {
 
 
 }  // namespace bftrader
-}  // namespace bfkv
 

@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
+#include "bfdatafeed.pb.h"
+
 using namespace bftrader;
 
 class GatewayMgr : public QObject {

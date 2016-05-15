@@ -3,19 +3,21 @@
 // DO NOT EDIT!
 
 /*
-Package bftrader_bfcta is a generated protocol buffer package.
+Package bftrader is a generated protocol buffer package.
+
+package bftrader.bfcta;
 
 It is generated from these files:
 	bfcta.proto
 
 It has these top-level messages:
 */
-package bftrader_bfcta
+package bftrader
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import bftrader "."
+import bftrader1 "."
 import google_protobuf "google/protobuf"
 
 import (
@@ -44,17 +46,17 @@ const _ = grpc.SupportPackageIsVersion1
 
 type BfCtaServiceClient interface {
 	// 请求建立到robot的连接
-	Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (BfCtaService_ConnectClient, error)
+	Connect(ctx context.Context, in *bftrader1.BfConnectReq, opts ...grpc.CallOption) (BfCtaService_ConnectClient, error)
 	// 活跃检测
-	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	Ping(ctx context.Context, in *bftrader1.BfPingData, opts ...grpc.CallOption) (*bftrader1.BfPingData, error)
 	// 请求断开到robot的连接
-	Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	Disconnect(ctx context.Context, in *bftrader1.BfVoid, opts ...grpc.CallOption) (*bftrader1.BfVoid, error)
 	// 获取策略信息，如position，用kv最方便
-	GetRobotInfo(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error)
+	GetRobotInfo(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfKvData, error)
 	// 发单
-	SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error)
+	SendOrder(ctx context.Context, in *bftrader1.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader1.BfSendOrderResp, error)
 	// 撤单
-	CancelOrder(ctx context.Context, in *bftrader.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	CancelOrder(ctx context.Context, in *bftrader1.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader1.BfVoid, error)
 }
 
 type bfCtaServiceClient struct {
@@ -65,8 +67,8 @@ func NewBfCtaServiceClient(cc *grpc.ClientConn) BfCtaServiceClient {
 	return &bfCtaServiceClient{cc}
 }
 
-func (c *bfCtaServiceClient) Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (BfCtaService_ConnectClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfCtaService_serviceDesc.Streams[0], c.cc, "/bftrader.bfcta.BfCtaService/Connect", opts...)
+func (c *bfCtaServiceClient) Connect(ctx context.Context, in *bftrader1.BfConnectReq, opts ...grpc.CallOption) (BfCtaService_ConnectClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_BfCtaService_serviceDesc.Streams[0], c.cc, "/bftrader.BfCtaService/Connect", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,45 +99,45 @@ func (x *bfCtaServiceConnectClient) Recv() (*google_protobuf.Any, error) {
 	return m, nil
 }
 
-func (c *bfCtaServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error) {
-	out := new(bftrader.BfPingData)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Ping", in, out, c.cc, opts...)
+func (c *bfCtaServiceClient) Ping(ctx context.Context, in *bftrader1.BfPingData, opts ...grpc.CallOption) (*bftrader1.BfPingData, error) {
+	out := new(bftrader1.BfPingData)
+	err := grpc.Invoke(ctx, "/bftrader.BfCtaService/Ping", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfCtaServiceClient) Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/Disconnect", in, out, c.cc, opts...)
+func (c *bfCtaServiceClient) Disconnect(ctx context.Context, in *bftrader1.BfVoid, opts ...grpc.CallOption) (*bftrader1.BfVoid, error) {
+	out := new(bftrader1.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfCtaService/Disconnect", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfCtaServiceClient) GetRobotInfo(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error) {
-	out := new(bftrader.BfKvData)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/GetRobotInfo", in, out, c.cc, opts...)
+func (c *bfCtaServiceClient) GetRobotInfo(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfKvData, error) {
+	out := new(bftrader1.BfKvData)
+	err := grpc.Invoke(ctx, "/bftrader.BfCtaService/GetRobotInfo", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfCtaServiceClient) SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error) {
-	out := new(bftrader.BfSendOrderResp)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/SendOrder", in, out, c.cc, opts...)
+func (c *bfCtaServiceClient) SendOrder(ctx context.Context, in *bftrader1.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader1.BfSendOrderResp, error) {
+	out := new(bftrader1.BfSendOrderResp)
+	err := grpc.Invoke(ctx, "/bftrader.BfCtaService/SendOrder", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfCtaServiceClient) CancelOrder(ctx context.Context, in *bftrader.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfcta.BfCtaService/CancelOrder", in, out, c.cc, opts...)
+func (c *bfCtaServiceClient) CancelOrder(ctx context.Context, in *bftrader1.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader1.BfVoid, error) {
+	out := new(bftrader1.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfCtaService/CancelOrder", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -146,17 +148,17 @@ func (c *bfCtaServiceClient) CancelOrder(ctx context.Context, in *bftrader.BfCan
 
 type BfCtaServiceServer interface {
 	// 请求建立到robot的连接
-	Connect(*bftrader.BfConnectReq, BfCtaService_ConnectServer) error
+	Connect(*bftrader1.BfConnectReq, BfCtaService_ConnectServer) error
 	// 活跃检测
-	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	Ping(context.Context, *bftrader1.BfPingData) (*bftrader1.BfPingData, error)
 	// 请求断开到robot的连接
-	Disconnect(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	Disconnect(context.Context, *bftrader1.BfVoid) (*bftrader1.BfVoid, error)
 	// 获取策略信息，如position，用kv最方便
-	GetRobotInfo(context.Context, *bftrader.BfKvData) (*bftrader.BfKvData, error)
+	GetRobotInfo(context.Context, *bftrader1.BfKvData) (*bftrader1.BfKvData, error)
 	// 发单
-	SendOrder(context.Context, *bftrader.BfSendOrderReq) (*bftrader.BfSendOrderResp, error)
+	SendOrder(context.Context, *bftrader1.BfSendOrderReq) (*bftrader1.BfSendOrderResp, error)
 	// 撤单
-	CancelOrder(context.Context, *bftrader.BfCancelOrderReq) (*bftrader.BfVoid, error)
+	CancelOrder(context.Context, *bftrader1.BfCancelOrderReq) (*bftrader1.BfVoid, error)
 }
 
 func RegisterBfCtaServiceServer(s *grpc.Server, srv BfCtaServiceServer) {
@@ -164,7 +166,7 @@ func RegisterBfCtaServiceServer(s *grpc.Server, srv BfCtaServiceServer) {
 }
 
 func _BfCtaService_Connect_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(bftrader.BfConnectReq)
+	m := new(bftrader1.BfConnectReq)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -185,7 +187,7 @@ func (x *bfCtaServiceConnectServer) Send(m *google_protobuf.Any) error {
 }
 
 func _BfCtaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfPingData)
+	in := new(bftrader1.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -197,7 +199,7 @@ func _BfCtaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _BfCtaService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfVoid)
+	in := new(bftrader1.BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -209,7 +211,7 @@ func _BfCtaService_Disconnect_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _BfCtaService_GetRobotInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfKvData)
+	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -221,7 +223,7 @@ func _BfCtaService_GetRobotInfo_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _BfCtaService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfSendOrderReq)
+	in := new(bftrader1.BfSendOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -233,7 +235,7 @@ func _BfCtaService_SendOrder_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _BfCtaService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfCancelOrderReq)
+	in := new(bftrader1.BfCancelOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -245,7 +247,7 @@ func _BfCtaService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec
 }
 
 var _BfCtaService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "bftrader.bfcta.BfCtaService",
+	ServiceName: "bftrader.BfCtaService",
 	HandlerType: (*BfCtaServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -279,21 +281,22 @@ var _BfCtaService_serviceDesc = grpc.ServiceDesc{
 }
 
 var fileDescriptor0 = []byte{
-	// 253 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x90, 0xcd, 0x4a, 0x03, 0x31,
-	0x10, 0xc7, 0xab, 0x88, 0xe2, 0xb4, 0x88, 0x0c, 0x45, 0x6c, 0x8e, 0x7d, 0x80, 0x54, 0xaa, 0x07,
-	0x41, 0x3c, 0xd8, 0x2d, 0x88, 0x78, 0x50, 0x5a, 0xf0, 0x9e, 0x64, 0x27, 0xcb, 0x42, 0xc9, 0xd4,
-	0x34, 0x16, 0xfa, 0xda, 0x3e, 0x81, 0xd9, 0xac, 0x76, 0x57, 0x5c, 0x8f, 0xf9, 0xfd, 0x3f, 0x66,
-	0x32, 0xd0, 0xd7, 0xd6, 0x04, 0x25, 0xd7, 0x9e, 0x03, 0xe3, 0x99, 0xb6, 0xc1, 0xab, 0x9c, 0xbc,
-	0x4c, 0x54, 0x34, 0xef, 0xa4, 0x8b, 0x51, 0xc1, 0x5c, 0xac, 0x68, 0x92, 0x5e, 0xfa, 0xc3, 0x4e,
-	0x94, 0xdb, 0xd5, 0xd2, 0xf4, 0xf3, 0x10, 0x06, 0x33, 0x9b, 0x05, 0xb5, 0x24, 0xbf, 0x2d, 0x0d,
-	0xe1, 0x1d, 0x9c, 0x64, 0xec, 0x1c, 0x99, 0x80, 0x17, 0x72, 0xdf, 0x13, 0x2d, 0x35, 0x5c, 0xd0,
-	0xbb, 0x18, 0xca, 0xba, 0x4f, 0xfe, 0xf4, 0xc9, 0x07, 0xb7, 0x1b, 0xf7, 0xae, 0x0e, 0xf0, 0x06,
-	0x8e, 0x5e, 0x4b, 0x57, 0xe0, 0xb0, 0x9d, 0xac, 0xc8, 0x5c, 0xc5, 0xb5, 0x3a, 0xe9, 0xb8, 0x87,
-	0x53, 0x80, 0x79, 0xb9, 0x31, 0xdf, 0x53, 0xcf, 0xdb, 0xae, 0x37, 0x2e, 0x73, 0xf1, 0x87, 0xc4,
-	0xcc, 0x2d, 0x0c, 0x1e, 0x29, 0x2c, 0x58, 0x73, 0x78, 0x72, 0x96, 0x11, 0xdb, 0x9e, 0xe7, 0x6d,
-	0x9a, 0xd7, 0xc1, 0x62, 0x72, 0x06, 0xa7, 0x4b, 0x72, 0xf9, 0x8b, 0x8f, 0x1c, 0x2f, 0xdb, 0x96,
-	0x3d, 0xae, 0x3e, 0x39, 0xfa, 0x47, 0xd9, 0xac, 0x63, 0xc7, 0x3d, 0xf4, 0x33, 0xe5, 0x0c, 0xad,
-	0xea, 0x16, 0xf1, 0xeb, 0x50, 0x8d, 0x50, 0xf5, 0x74, 0x2c, 0xaf, 0x8f, 0xd3, 0xe1, 0xae, 0xbf,
-	0x02, 0x00, 0x00, 0xff, 0xff, 0xa5, 0x16, 0xdb, 0x98, 0xc5, 0x01, 0x00, 0x00,
+	// 258 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x74, 0x90, 0xcf, 0x4a, 0xc3, 0x40,
+	0x10, 0xc6, 0xab, 0x88, 0x7f, 0xb6, 0x05, 0x65, 0x28, 0x62, 0xf7, 0xd8, 0x07, 0xd8, 0x4a, 0xf5,
+	0x20, 0x88, 0x07, 0x9b, 0x82, 0x88, 0x07, 0xa5, 0x05, 0xef, 0xb3, 0xc9, 0x6c, 0x08, 0x94, 0x9d,
+	0xba, 0x1d, 0x2b, 0x7d, 0x6d, 0x9f, 0xc0, 0x4d, 0xd2, 0x6a, 0xc4, 0x78, 0xcc, 0xef, 0xfb, 0xe6,
+	0x37, 0xd9, 0x51, 0x5d, 0xeb, 0x52, 0x41, 0xb3, 0x0c, 0x2c, 0x0c, 0xc7, 0xd6, 0x49, 0xc0, 0x8c,
+	0x82, 0x3e, 0xb5, 0x2e, 0x47, 0xa1, 0x0f, 0xdc, 0xd4, 0x91, 0x1e, 0xe4, 0xcc, 0xf9, 0x82, 0x46,
+	0xd5, 0x97, 0x7d, 0x77, 0x23, 0xf4, 0xdb, 0x68, 0xfc, 0xb9, 0xaf, 0x7a, 0x13, 0x97, 0x08, 0xce,
+	0x29, 0xac, 0x8b, 0x94, 0xe0, 0x56, 0x1d, 0x25, 0xec, 0x3d, 0xa5, 0x02, 0xe7, 0x66, 0xa7, 0x34,
+	0xb1, 0x52, 0xc3, 0x19, 0xbd, 0xe9, 0xbe, 0xa9, 0x7d, 0x66, 0xe7, 0x33, 0xf7, 0x7e, 0x33, 0xec,
+	0x5c, 0xee, 0xc1, 0xb5, 0x3a, 0x78, 0x29, 0x7c, 0x0e, 0xfd, 0xe6, 0x64, 0x49, 0xa6, 0x28, 0xa8,
+	0x5b, 0xe9, 0xb0, 0x03, 0x63, 0xa5, 0xa6, 0xc5, 0x2a, 0xdd, 0x6e, 0x3d, 0x6b, 0xb6, 0x5e, 0xb9,
+	0xc8, 0xf4, 0x1f, 0x12, 0x67, 0x6e, 0x54, 0xef, 0x81, 0x64, 0xc6, 0x96, 0xe5, 0xd1, 0x3b, 0x06,
+	0x68, 0x76, 0x9e, 0xd6, 0xd5, 0xbe, 0x16, 0x16, 0x27, 0x27, 0xea, 0x64, 0x4e, 0x3e, 0x7b, 0x0e,
+	0x91, 0xc3, 0x45, 0xb3, 0xf2, 0x8d, 0xcb, 0x47, 0x0e, 0xfe, 0x49, 0x56, 0xcb, 0xe8, 0xb8, 0x53,
+	0xdd, 0x04, 0x7d, 0x4a, 0x8b, 0xda, 0xa2, 0x7f, 0x1d, 0xea, 0x27, 0x28, 0x3d, 0x2d, 0x3f, 0x6f,
+	0x0f, 0xab, 0xc3, 0x5d, 0x7d, 0x05, 0x00, 0x00, 0xff, 0xff, 0x4d, 0xcf, 0x4b, 0x07, 0xc0, 0x01,
+	0x00, 0x00,
 }

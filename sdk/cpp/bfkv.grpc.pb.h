@@ -23,7 +23,6 @@ class ServerContext;
 }  // namespace grpc
 
 namespace bftrader {
-namespace bfkv {
 
 class BfKvService GRPC_FINAL {
  public:
@@ -361,7 +360,6 @@ class BfKvService GRPC_FINAL {
   };
 };
 
-}  // namespace bfkv
 }  // namespace bftrader
 
 

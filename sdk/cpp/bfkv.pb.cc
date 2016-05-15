@@ -18,7 +18,6 @@
 // @@protoc_insertion_point(includes)
 
 namespace bftrader {
-namespace bfkv {
 
 namespace {
 
@@ -57,20 +56,20 @@ void protobuf_AddDesc_bfkv_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::bftrader::protobuf_AddDesc_bftrader_2eproto();
+  ::bftrader::protobuf_AddDesc_bfgateway_2eproto();
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\nbfkv.proto\022\rbftrader.bfkv\032\016bftrader.pr"
-    "oto\032\031google/protobuf/any.proto2\347\002\n\013BfKvS"
-    "ervice\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.b"
-    "ftrader.BfPingData\"\000\022@\n\014PingStreamCS\022\024.g"
-    "oogle.protobuf.Any\032\024.google.protobuf.Any"
-    "\"\000(\0010\001\022=\n\013PingStreamC\022\024.google.protobuf."
-    "Any\032\024.google.protobuf.Any\"\000(\001\022=\n\013PingStr"
-    "eamS\022\024.google.protobuf.Any\032\024.google.prot"
-    "obuf.Any\"\0000\001\022/\n\005SetKv\022\022.bftrader.BfKvDat"
-    "a\032\020.bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.bftrade"
-    "r.BfKvData\032\022.bftrader.BfKvData\"\000b\006proto3", 440);
+    "\n\nbfkv.proto\022\010bftrader\032\017bfgateway.proto\032"
+    "\031google/protobuf/any.proto2\347\002\n\013BfKvServi"
+    "ce\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.bftra"
+    "der.BfPingData\"\000\022@\n\014PingStreamCS\022\024.googl"
+    "e.protobuf.Any\032\024.google.protobuf.Any\"\000(\001"
+    "0\001\022=\n\013PingStreamC\022\024.google.protobuf.Any\032"
+    "\024.google.protobuf.Any\"\000(\001\022=\n\013PingStreamS"
+    "\022\024.google.protobuf.Any\032\024.google.protobuf"
+    ".Any\"\0000\001\022/\n\005SetKv\022\022.bftrader.BfKvData\032\020."
+    "bftrader.BfVoid\"\000\0221\n\005GetKv\022\022.bftrader.Bf"
+    "KvData\032\022.bftrader.BfKvData\"\000b\006proto3", 436);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfkv.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfkv_2eproto);
@@ -85,7 +84,6 @@ struct StaticDescriptorInitializer_bfkv_2eproto {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace bfkv
 }  // namespace bftrader
 
 // @@protoc_insertion_point(global_scope)

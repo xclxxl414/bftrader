@@ -6,9 +6,6 @@
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
-using namespace bftrader;
-using namespace bftrader::bfcta;
-
 //
 // cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
 //
@@ -167,7 +164,7 @@ void RpcService::onCtaThreadStarted()
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
-    std::string server_address("0.0.0.0:50054");
+    std::string server_address("0.0.0.0:50053");
     Cta cta("cta");
 
     grpc::ServerBuilder builder;

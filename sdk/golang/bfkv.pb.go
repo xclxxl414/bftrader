@@ -3,19 +3,21 @@
 // DO NOT EDIT!
 
 /*
-Package bftrader_bfkv is a generated protocol buffer package.
+Package bftrader is a generated protocol buffer package.
+
+package bftrader.bfkv;
 
 It is generated from these files:
 	bfkv.proto
 
 It has these top-level messages:
 */
-package bftrader_bfkv
+package bftrader
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import bftrader "."
+import bftrader1 "."
 import google_protobuf "google/protobuf"
 
 import (
@@ -44,14 +46,14 @@ const _ = grpc.SupportPackageIsVersion1
 
 type BfKvServiceClient interface {
 	// 活跃检测
-	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	Ping(ctx context.Context, in *bftrader1.BfPingData, opts ...grpc.CallOption) (*bftrader1.BfPingData, error)
 	// stream测试
 	PingStreamCS(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCSClient, error)
 	PingStreamC(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCClient, error)
 	PingStreamS(ctx context.Context, in *google_protobuf.Any, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error)
 	// Kv服务
-	SetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
-	GetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error)
+	SetKv(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfVoid, error)
+	GetKv(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfKvData, error)
 }
 
 type bfKvServiceClient struct {
@@ -62,9 +64,9 @@ func NewBfKvServiceClient(cc *grpc.ClientConn) BfKvServiceClient {
 	return &bfKvServiceClient{cc}
 }
 
-func (c *bfKvServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error) {
-	out := new(bftrader.BfPingData)
-	err := grpc.Invoke(ctx, "/bftrader.bfkv.BfKvService/Ping", in, out, c.cc, opts...)
+func (c *bfKvServiceClient) Ping(ctx context.Context, in *bftrader1.BfPingData, opts ...grpc.CallOption) (*bftrader1.BfPingData, error) {
+	out := new(bftrader1.BfPingData)
+	err := grpc.Invoke(ctx, "/bftrader.BfKvService/Ping", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +74,7 @@ func (c *bfKvServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, o
 }
 
 func (c *bfKvServiceClient) PingStreamCS(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCSClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[0], c.cc, "/bftrader.bfkv.BfKvService/PingStreamCS", opts...)
+	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[0], c.cc, "/bftrader.BfKvService/PingStreamCS", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +105,7 @@ func (x *bfKvServicePingStreamCSClient) Recv() (*google_protobuf.Any, error) {
 }
 
 func (c *bfKvServiceClient) PingStreamC(ctx context.Context, opts ...grpc.CallOption) (BfKvService_PingStreamCClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[1], c.cc, "/bftrader.bfkv.BfKvService/PingStreamC", opts...)
+	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[1], c.cc, "/bftrader.BfKvService/PingStreamC", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +139,7 @@ func (x *bfKvServicePingStreamCClient) CloseAndRecv() (*google_protobuf.Any, err
 }
 
 func (c *bfKvServiceClient) PingStreamS(ctx context.Context, in *google_protobuf.Any, opts ...grpc.CallOption) (BfKvService_PingStreamSClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[2], c.cc, "/bftrader.bfkv.BfKvService/PingStreamS", opts...)
+	stream, err := grpc.NewClientStream(ctx, &_BfKvService_serviceDesc.Streams[2], c.cc, "/bftrader.BfKvService/PingStreamS", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -168,18 +170,18 @@ func (x *bfKvServicePingStreamSClient) Recv() (*google_protobuf.Any, error) {
 	return m, nil
 }
 
-func (c *bfKvServiceClient) SetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfkv.BfKvService/SetKv", in, out, c.cc, opts...)
+func (c *bfKvServiceClient) SetKv(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfVoid, error) {
+	out := new(bftrader1.BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfKvService/SetKv", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfKvServiceClient) GetKv(ctx context.Context, in *bftrader.BfKvData, opts ...grpc.CallOption) (*bftrader.BfKvData, error) {
-	out := new(bftrader.BfKvData)
-	err := grpc.Invoke(ctx, "/bftrader.bfkv.BfKvService/GetKv", in, out, c.cc, opts...)
+func (c *bfKvServiceClient) GetKv(ctx context.Context, in *bftrader1.BfKvData, opts ...grpc.CallOption) (*bftrader1.BfKvData, error) {
+	out := new(bftrader1.BfKvData)
+	err := grpc.Invoke(ctx, "/bftrader.BfKvService/GetKv", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -190,14 +192,14 @@ func (c *bfKvServiceClient) GetKv(ctx context.Context, in *bftrader.BfKvData, op
 
 type BfKvServiceServer interface {
 	// 活跃检测
-	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	Ping(context.Context, *bftrader1.BfPingData) (*bftrader1.BfPingData, error)
 	// stream测试
 	PingStreamCS(BfKvService_PingStreamCSServer) error
 	PingStreamC(BfKvService_PingStreamCServer) error
 	PingStreamS(*google_protobuf.Any, BfKvService_PingStreamSServer) error
 	// Kv服务
-	SetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfVoid, error)
-	GetKv(context.Context, *bftrader.BfKvData) (*bftrader.BfKvData, error)
+	SetKv(context.Context, *bftrader1.BfKvData) (*bftrader1.BfVoid, error)
+	GetKv(context.Context, *bftrader1.BfKvData) (*bftrader1.BfKvData, error)
 }
 
 func RegisterBfKvServiceServer(s *grpc.Server, srv BfKvServiceServer) {
@@ -205,7 +207,7 @@ func RegisterBfKvServiceServer(s *grpc.Server, srv BfKvServiceServer) {
 }
 
 func _BfKvService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfPingData)
+	in := new(bftrader1.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -290,7 +292,7 @@ func (x *bfKvServicePingStreamSServer) Send(m *google_protobuf.Any) error {
 }
 
 func _BfKvService_SetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfKvData)
+	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -302,7 +304,7 @@ func _BfKvService_SetKv_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _BfKvService_GetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfKvData)
+	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -314,7 +316,7 @@ func _BfKvService_GetKv_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 var _BfKvService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "bftrader.bfkv.BfKvService",
+	ServiceName: "bftrader.BfKvService",
 	HandlerType: (*BfKvServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -351,18 +353,19 @@ var _BfKvService_serviceDesc = grpc.ServiceDesc{
 }
 
 var fileDescriptor0 = []byte{
-	// 207 bytes of a gzipped FileDescriptorProto
+	// 212 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0x4a, 0xcb, 0x2e,
-	0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x4d, 0x4a, 0x2b, 0x29, 0x4a, 0x4c, 0x49, 0x2d,
-	0xd2, 0x03, 0x09, 0x4a, 0xf1, 0xc1, 0xb9, 0x60, 0x69, 0x29, 0xc9, 0xf4, 0xfc, 0xfc, 0xf4, 0x9c,
-	0x54, 0x7d, 0x30, 0x2f, 0xa9, 0x34, 0x4d, 0x3f, 0x31, 0xaf, 0x12, 0x22, 0x65, 0xf4, 0x9c, 0x89,
-	0x8b, 0xdb, 0x29, 0xcd, 0xbb, 0x2c, 0x38, 0xb5, 0xa8, 0x2c, 0x33, 0x39, 0x55, 0xc8, 0x84, 0x8b,
-	0x25, 0x20, 0x33, 0x2f, 0x5d, 0x48, 0x44, 0x0f, 0x6e, 0x86, 0x53, 0x1a, 0x48, 0xc4, 0x25, 0xb1,
-	0x24, 0x51, 0x0a, 0xab, 0xa8, 0x12, 0x83, 0x90, 0x03, 0x17, 0x0f, 0x88, 0x17, 0x5c, 0x52, 0x94,
-	0x9a, 0x98, 0xeb, 0x1c, 0x0c, 0xd4, 0x0d, 0xb1, 0x51, 0x0f, 0x66, 0xa3, 0x9e, 0x63, 0x5e, 0xa5,
-	0x14, 0x56, 0x51, 0x25, 0x06, 0x0d, 0x46, 0x03, 0x46, 0x21, 0x5b, 0x2e, 0x6e, 0x24, 0x13, 0x48,
-	0x35, 0x00, 0x55, 0x3b, 0x89, 0xf6, 0x03, 0x6d, 0xd7, 0xe7, 0x62, 0x0d, 0x4e, 0x2d, 0xf1, 0x2e,
-	0x13, 0x12, 0x42, 0xf6, 0xa0, 0x77, 0x19, 0xd8, 0xd3, 0x02, 0xc8, 0x62, 0x61, 0xf9, 0x99, 0x29,
-	0x40, 0x0f, 0x1b, 0x72, 0xb1, 0xba, 0xe3, 0xd4, 0x80, 0x45, 0x4c, 0x89, 0x21, 0x89, 0x0d, 0x6c,
-	0xab, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xb5, 0xaa, 0xab, 0x14, 0xb8, 0x01, 0x00, 0x00,
+	0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x48, 0x4a, 0x2b, 0x29, 0x4a, 0x4c, 0x49, 0x2d,
+	0x92, 0xe2, 0x4f, 0x4a, 0x4b, 0x4f, 0x2c, 0x49, 0x2d, 0x4f, 0xac, 0x84, 0x48, 0x49, 0x49, 0xa6,
+	0xe7, 0xe7, 0xa7, 0xe7, 0xa4, 0xea, 0x83, 0x79, 0x49, 0xa5, 0x69, 0xfa, 0x89, 0x79, 0x50, 0x29,
+	0xa3, 0xe7, 0x4c, 0x5c, 0xdc, 0x4e, 0x69, 0xde, 0x65, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9,
+	0x42, 0x26, 0x5c, 0x2c, 0x01, 0x99, 0x79, 0xe9, 0x42, 0x22, 0x7a, 0x30, 0xe3, 0xf4, 0x9c, 0xd2,
+	0x40, 0x22, 0x2e, 0x89, 0x25, 0x89, 0x52, 0x58, 0x45, 0x95, 0x18, 0x84, 0x1c, 0xb8, 0x78, 0x40,
+	0xbc, 0xe0, 0x92, 0xa2, 0xd4, 0xc4, 0x5c, 0xe7, 0x60, 0xa0, 0x6e, 0x88, 0x8d, 0x7a, 0x30, 0x1b,
+	0xf5, 0x1c, 0xf3, 0x2a, 0xa5, 0xb0, 0x8a, 0x2a, 0x31, 0x68, 0x30, 0x1a, 0x30, 0x0a, 0xd9, 0x72,
+	0x71, 0x23, 0x99, 0x40, 0xaa, 0x01, 0xa8, 0xda, 0x49, 0xb4, 0x1f, 0x68, 0xbb, 0x3e, 0x17, 0x6b,
+	0x70, 0x6a, 0x89, 0x77, 0x99, 0x90, 0x10, 0xb2, 0x07, 0xbd, 0xcb, 0xc0, 0x9e, 0x16, 0x40, 0x16,
+	0x0b, 0xcb, 0xcf, 0x4c, 0x01, 0x7a, 0xd8, 0x90, 0x8b, 0xd5, 0x1d, 0xa7, 0x06, 0x2c, 0x62, 0x4a,
+	0x0c, 0x49, 0x6c, 0x60, 0x5b, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa1, 0x16, 0x32, 0x87,
+	0xb4, 0x01, 0x00, 0x00,
 }

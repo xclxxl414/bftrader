@@ -3,19 +3,38 @@
 // DO NOT EDIT!
 
 /*
-Package bftrader_bfgateway is a generated protocol buffer package.
+Package bftrader is a generated protocol buffer package.
+
+package bftrader.bfgateway;
 
 It is generated from these files:
 	bfgateway.proto
 
 It has these top-level messages:
+	BfVoid
+	BfTickData
+	BfTradeData
+	BfOrderData
+	BfPositionData
+	BfAccountData
+	BfErrorData
+	BfLogData
+	BfContractData
+	BfNotificationData
+	BfPingData
+	BfKvData
+	BfSendOrderReq
+	BfSendOrderResp
+	BfCancelOrderReq
+	BfConnectReq
+	BfConnectResp
+	BfGetContractReq
 */
-package bftrader_bfgateway
+package bftrader
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import bftrader "."
 import google_protobuf "google/protobuf"
 
 import (
@@ -32,6 +51,491 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 const _ = proto.ProtoPackageIsVersion1
 
+// 方向常量
+type BfDirection int32
+
+const (
+	BfDirection_DIRECTION_UNKNOWN BfDirection = 0
+	BfDirection_DIRECTION_LONG    BfDirection = 1
+	BfDirection_DIRECTION_SHORT   BfDirection = 2
+	BfDirection_DIRECTION_NET     BfDirection = 3
+)
+
+var BfDirection_name = map[int32]string{
+	0: "DIRECTION_UNKNOWN",
+	1: "DIRECTION_LONG",
+	2: "DIRECTION_SHORT",
+	3: "DIRECTION_NET",
+}
+var BfDirection_value = map[string]int32{
+	"DIRECTION_UNKNOWN": 0,
+	"DIRECTION_LONG":    1,
+	"DIRECTION_SHORT":   2,
+	"DIRECTION_NET":     3,
+}
+
+func (x BfDirection) String() string {
+	return proto.EnumName(BfDirection_name, int32(x))
+}
+func (BfDirection) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+// 开平常量
+type BfOffset int32
+
+const (
+	BfOffset_OFFSET_UNKNOWN        BfOffset = 0
+	BfOffset_OFFSET_OPEN           BfOffset = 1
+	BfOffset_OFFSET_CLOSE          BfOffset = 2
+	BfOffset_OFFSET_CLOSETODAY     BfOffset = 3
+	BfOffset_OFFSET_CLOSEYESTERDAY BfOffset = 4
+)
+
+var BfOffset_name = map[int32]string{
+	0: "OFFSET_UNKNOWN",
+	1: "OFFSET_OPEN",
+	2: "OFFSET_CLOSE",
+	3: "OFFSET_CLOSETODAY",
+	4: "OFFSET_CLOSEYESTERDAY",
+}
+var BfOffset_value = map[string]int32{
+	"OFFSET_UNKNOWN":        0,
+	"OFFSET_OPEN":           1,
+	"OFFSET_CLOSE":          2,
+	"OFFSET_CLOSETODAY":     3,
+	"OFFSET_CLOSEYESTERDAY": 4,
+}
+
+func (x BfOffset) String() string {
+	return proto.EnumName(BfOffset_name, int32(x))
+}
+func (BfOffset) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+// 状态常量
+type BfStatus int32
+
+const (
+	BfStatus_STATUS_UNKNOWN    BfStatus = 0
+	BfStatus_STATUS_NOTTRADED  BfStatus = 1
+	BfStatus_STATUS_PARTTRADED BfStatus = 2
+	BfStatus_STATUS_ALLTRADED  BfStatus = 3
+	BfStatus_STATUS_CANCELLED  BfStatus = 4
+)
+
+var BfStatus_name = map[int32]string{
+	0: "STATUS_UNKNOWN",
+	1: "STATUS_NOTTRADED",
+	2: "STATUS_PARTTRADED",
+	3: "STATUS_ALLTRADED",
+	4: "STATUS_CANCELLED",
+}
+var BfStatus_value = map[string]int32{
+	"STATUS_UNKNOWN":    0,
+	"STATUS_NOTTRADED":  1,
+	"STATUS_PARTTRADED": 2,
+	"STATUS_ALLTRADED":  3,
+	"STATUS_CANCELLED":  4,
+}
+
+func (x BfStatus) String() string {
+	return proto.EnumName(BfStatus_name, int32(x))
+}
+func (BfStatus) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+// 合约类型常量
+type BfProduct int32
+
+const (
+	BfProduct_PRODUCT_UNKNOWN BfProduct = 0
+	BfProduct_PRODUCT_EQUITY  BfProduct = 1
+	BfProduct_PRODUCT_FUTURES BfProduct = 2
+)
+
+var BfProduct_name = map[int32]string{
+	0: "PRODUCT_UNKNOWN",
+	1: "PRODUCT_EQUITY",
+	2: "PRODUCT_FUTURES",
+}
+var BfProduct_value = map[string]int32{
+	"PRODUCT_UNKNOWN": 0,
+	"PRODUCT_EQUITY":  1,
+	"PRODUCT_FUTURES": 2,
+}
+
+func (x BfProduct) String() string {
+	return proto.EnumName(BfProduct_name, int32(x))
+}
+func (BfProduct) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+// 价格类型常量
+type BfPriceType int32
+
+const (
+	BfPriceType_PRICETYPE_UNKONWN     BfPriceType = 0
+	BfPriceType_PRICETYPE_LIMITPRICE  BfPriceType = 1
+	BfPriceType_PRICETYPE_MARKETPRICE BfPriceType = 2
+)
+
+var BfPriceType_name = map[int32]string{
+	0: "PRICETYPE_UNKONWN",
+	1: "PRICETYPE_LIMITPRICE",
+	2: "PRICETYPE_MARKETPRICE",
+}
+var BfPriceType_value = map[string]int32{
+	"PRICETYPE_UNKONWN":     0,
+	"PRICETYPE_LIMITPRICE":  1,
+	"PRICETYPE_MARKETPRICE": 2,
+}
+
+func (x BfPriceType) String() string {
+	return proto.EnumName(BfPriceType_name, int32(x))
+}
+func (BfPriceType) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+// Notification
+type BfNoticationType int32
+
+const (
+	BfNoticationType_NOTIFICATION_UNKNOWN        BfNoticationType = 0
+	BfNoticationType_NOTIFICATION_TRADEWILLBEGIN BfNoticationType = 1
+	BfNoticationType_NOTIFICATION_GOTCONTRACTS   BfNoticationType = 2
+)
+
+var BfNoticationType_name = map[int32]string{
+	0: "NOTIFICATION_UNKNOWN",
+	1: "NOTIFICATION_TRADEWILLBEGIN",
+	2: "NOTIFICATION_GOTCONTRACTS",
+}
+var BfNoticationType_value = map[string]int32{
+	"NOTIFICATION_UNKNOWN":        0,
+	"NOTIFICATION_TRADEWILLBEGIN": 1,
+	"NOTIFICATION_GOTCONTRACTS":   2,
+}
+
+func (x BfNoticationType) String() string {
+	return proto.EnumName(BfNoticationType_name, int32(x))
+}
+func (BfNoticationType) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+// 空参数
+type BfVoid struct {
+}
+
+func (m *BfVoid) Reset()                    { *m = BfVoid{} }
+func (m *BfVoid) String() string            { return proto.CompactTextString(m) }
+func (*BfVoid) ProtoMessage()               {}
+func (*BfVoid) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+// Tick行情数据类
+type BfTickData struct {
+	// 代码相关
+	Symbol   string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	// 成交数据
+	ActionDate   string  `protobuf:"bytes,3,opt,name=actionDate" json:"actionDate,omitempty"`
+	TickTime     string  `protobuf:"bytes,4,opt,name=tickTime" json:"tickTime,omitempty"`
+	LastPrice    float64 `protobuf:"fixed64,5,opt,name=lastPrice" json:"lastPrice,omitempty"`
+	Volume       int32   `protobuf:"varint,6,opt,name=volume" json:"volume,omitempty"`
+	OpenInterest float64 `protobuf:"fixed64,7,opt,name=openInterest" json:"openInterest,omitempty"`
+	LastVolume   int32   `protobuf:"varint,8,opt,name=lastVolume" json:"lastVolume,omitempty"`
+	// 常规行情
+	OpenPrice     float64 `protobuf:"fixed64,9,opt,name=openPrice" json:"openPrice,omitempty"`
+	HighPrice     float64 `protobuf:"fixed64,10,opt,name=highPrice" json:"highPrice,omitempty"`
+	LowPrice      float64 `protobuf:"fixed64,11,opt,name=lowPrice" json:"lowPrice,omitempty"`
+	PreClosePrice float64 `protobuf:"fixed64,12,opt,name=preClosePrice" json:"preClosePrice,omitempty"`
+	UpperLimit    float64 `protobuf:"fixed64,13,opt,name=upperLimit" json:"upperLimit,omitempty"`
+	LowerLimit    float64 `protobuf:"fixed64,14,opt,name=lowerLimit" json:"lowerLimit,omitempty"`
+	// x档行情
+	BidPrice1  float64 `protobuf:"fixed64,15,opt,name=bidPrice1" json:"bidPrice1,omitempty"`
+	AskPrice1  float64 `protobuf:"fixed64,16,opt,name=askPrice1" json:"askPrice1,omitempty"`
+	BidVolume1 int32   `protobuf:"varint,17,opt,name=bidVolume1" json:"bidVolume1,omitempty"`
+	AskVolume1 int32   `protobuf:"varint,18,opt,name=askVolume1" json:"askVolume1,omitempty"`
+}
+
+func (m *BfTickData) Reset()                    { *m = BfTickData{} }
+func (m *BfTickData) String() string            { return proto.CompactTextString(m) }
+func (*BfTickData) ProtoMessage()               {}
+func (*BfTickData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+// 成交数据类
+type BfTradeData struct {
+	// 代码编号相关
+	Symbol   string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	TradeId  string `protobuf:"bytes,3,opt,name=tradeId" json:"tradeId,omitempty"`
+	// 对于ctp/lts是frontid.sessioni.orderref
+	// ctp/lts的trade里面没有frontid+sessionid
+	// 内部通过sysOrderId是做了映射trade到Order
+	BfOrderId string `protobuf:"bytes,4,opt,name=bfOrderId" json:"bfOrderId,omitempty"`
+	// 成交相关
+	Direction BfDirection `protobuf:"varint,5,opt,name=direction,enum=bftrader.BfDirection" json:"direction,omitempty"`
+	Offset    BfOffset    `protobuf:"varint,6,opt,name=offset,enum=bftrader.BfOffset" json:"offset,omitempty"`
+	Price     float64     `protobuf:"fixed64,7,opt,name=price" json:"price,omitempty"`
+	Volume    int32       `protobuf:"varint,8,opt,name=volume" json:"volume,omitempty"`
+	TradeDate string      `protobuf:"bytes,9,opt,name=tradeDate" json:"tradeDate,omitempty"`
+	TradeTime string      `protobuf:"bytes,10,opt,name=tradeTime" json:"tradeTime,omitempty"`
+}
+
+func (m *BfTradeData) Reset()                    { *m = BfTradeData{} }
+func (m *BfTradeData) String() string            { return proto.CompactTextString(m) }
+func (*BfTradeData) ProtoMessage()               {}
+func (*BfTradeData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+// 订单数据类
+type BfOrderData struct {
+	// 代码编号相关
+	Symbol    string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange  string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	BfOrderId string `protobuf:"bytes,3,opt,name=bfOrderId" json:"bfOrderId,omitempty"`
+	// 报单相关
+	Direction    BfDirection `protobuf:"varint,4,opt,name=direction,enum=bftrader.BfDirection" json:"direction,omitempty"`
+	Offset       BfOffset    `protobuf:"varint,5,opt,name=offset,enum=bftrader.BfOffset" json:"offset,omitempty"`
+	Price        float64     `protobuf:"fixed64,6,opt,name=price" json:"price,omitempty"`
+	TotalVolume  int32       `protobuf:"varint,7,opt,name=totalVolume" json:"totalVolume,omitempty"`
+	TradedVolume int32       `protobuf:"varint,8,opt,name=tradedVolume" json:"tradedVolume,omitempty"`
+	Status       BfStatus    `protobuf:"varint,9,opt,name=status,enum=bftrader.BfStatus" json:"status,omitempty"`
+	InsertDate   string      `protobuf:"bytes,10,opt,name=insertDate" json:"insertDate,omitempty"`
+	InsertTime   string      `protobuf:"bytes,11,opt,name=insertTime" json:"insertTime,omitempty"`
+	CancelTime   string      `protobuf:"bytes,12,opt,name=cancelTime" json:"cancelTime,omitempty"`
+}
+
+func (m *BfOrderData) Reset()                    { *m = BfOrderData{} }
+func (m *BfOrderData) String() string            { return proto.CompactTextString(m) }
+func (*BfOrderData) ProtoMessage()               {}
+func (*BfOrderData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+// 持仓数据类
+type BfPositionData struct {
+	// 代码编号相关
+	Symbol   string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	// 持仓相关
+	Direction  BfDirection `protobuf:"varint,3,opt,name=direction,enum=bftrader.BfDirection" json:"direction,omitempty"`
+	Position   int32       `protobuf:"varint,4,opt,name=position" json:"position,omitempty"`
+	Frozen     int32       `protobuf:"varint,5,opt,name=frozen" json:"frozen,omitempty"`
+	Price      float64     `protobuf:"fixed64,6,opt,name=price" json:"price,omitempty"`
+	YdPosition int32       `protobuf:"varint,7,opt,name=ydPosition" json:"ydPosition,omitempty"`
+}
+
+func (m *BfPositionData) Reset()                    { *m = BfPositionData{} }
+func (m *BfPositionData) String() string            { return proto.CompactTextString(m) }
+func (*BfPositionData) ProtoMessage()               {}
+func (*BfPositionData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+// 账户数据类
+type BfAccountData struct {
+	// 账号代码相关
+	AccountId string `protobuf:"bytes,1,opt,name=accountId" json:"accountId,omitempty"`
+	// 数值相关
+	PreBalance     float64 `protobuf:"fixed64,2,opt,name=preBalance" json:"preBalance,omitempty"`
+	Balance        float64 `protobuf:"fixed64,3,opt,name=balance" json:"balance,omitempty"`
+	Available      float64 `protobuf:"fixed64,4,opt,name=available" json:"available,omitempty"`
+	Commission     float64 `protobuf:"fixed64,5,opt,name=commission" json:"commission,omitempty"`
+	FrozenMargin   float64 `protobuf:"fixed64,6,opt,name=frozenMargin" json:"frozenMargin,omitempty"`
+	CloseProfit    float64 `protobuf:"fixed64,7,opt,name=closeProfit" json:"closeProfit,omitempty"`
+	PositionProfit float64 `protobuf:"fixed64,8,opt,name=positionProfit" json:"positionProfit,omitempty"`
+}
+
+func (m *BfAccountData) Reset()                    { *m = BfAccountData{} }
+func (m *BfAccountData) String() string            { return proto.CompactTextString(m) }
+func (*BfAccountData) ProtoMessage()               {}
+func (*BfAccountData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+// 错误数据类
+type BfErrorData struct {
+	Code      int32  `protobuf:"varint,1,opt,name=code" json:"code,omitempty"`
+	Message   string `protobuf:"bytes,2,opt,name=message" json:"message,omitempty"`
+	MessageEx string `protobuf:"bytes,3,opt,name=messageEx" json:"messageEx,omitempty"`
+}
+
+func (m *BfErrorData) Reset()                    { *m = BfErrorData{} }
+func (m *BfErrorData) String() string            { return proto.CompactTextString(m) }
+func (*BfErrorData) ProtoMessage()               {}
+func (*BfErrorData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+// 日志数据类
+type BfLogData struct {
+	When    string `protobuf:"bytes,1,opt,name=when" json:"when,omitempty"`
+	Message string `protobuf:"bytes,2,opt,name=message" json:"message,omitempty"`
+}
+
+func (m *BfLogData) Reset()                    { *m = BfLogData{} }
+func (m *BfLogData) String() string            { return proto.CompactTextString(m) }
+func (*BfLogData) ProtoMessage()               {}
+func (*BfLogData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+// 合约详细信息类
+type BfContractData struct {
+	// 代码编号相关
+	Symbol         string    `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange       string    `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	Name           string    `protobuf:"bytes,3,opt,name=name" json:"name,omitempty"`
+	ProductClass   BfProduct `protobuf:"varint,4,opt,name=productClass,enum=bftrader.BfProduct" json:"productClass,omitempty"`
+	VolumeMultiple int32     `protobuf:"varint,5,opt,name=volumeMultiple" json:"volumeMultiple,omitempty"`
+	PriceTick      float64   `protobuf:"fixed64,6,opt,name=priceTick" json:"priceTick,omitempty"`
+	MaxLimit       int32     `protobuf:"varint,7,opt,name=maxLimit" json:"maxLimit,omitempty"`
+	MinLimit       int32     `protobuf:"varint,8,opt,name=minLimit" json:"minLimit,omitempty"`
+	MaxMarket      int32     `protobuf:"varint,9,opt,name=maxMarket" json:"maxMarket,omitempty"`
+	MinMartet      int32     `protobuf:"varint,10,opt,name=minMartet" json:"minMartet,omitempty"`
+}
+
+func (m *BfContractData) Reset()                    { *m = BfContractData{} }
+func (m *BfContractData) String() string            { return proto.CompactTextString(m) }
+func (*BfContractData) ProtoMessage()               {}
+func (*BfContractData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
+
+// Notification
+type BfNotificationData struct {
+	Code      BfNoticationType `protobuf:"varint,1,opt,name=code,enum=bftrader.BfNoticationType" json:"code,omitempty"`
+	Message   string           `protobuf:"bytes,2,opt,name=message" json:"message,omitempty"`
+	MessageEx string           `protobuf:"bytes,3,opt,name=messageEx" json:"messageEx,omitempty"`
+}
+
+func (m *BfNotificationData) Reset()                    { *m = BfNotificationData{} }
+func (m *BfNotificationData) String() string            { return proto.CompactTextString(m) }
+func (*BfNotificationData) ProtoMessage()               {}
+func (*BfNotificationData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+
+// Ping/Pong检测传入的对象类
+// 同ctp一样，5秒一次
+type BfPingData struct {
+	Message string `protobuf:"bytes,1,opt,name=message" json:"message,omitempty"`
+}
+
+func (m *BfPingData) Reset()                    { *m = BfPingData{} }
+func (m *BfPingData) String() string            { return proto.CompactTextString(m) }
+func (*BfPingData) ProtoMessage()               {}
+func (*BfPingData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
+
+// K/V数据交换传入传出的数据类
+// 策略间交换数据服务
+// 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
+type BfKvData struct {
+	// kv对
+	Key   string `protobuf:"bytes,1,opt,name=key" json:"key,omitempty"`
+	Value string `protobuf:"bytes,2,opt,name=value" json:"value,omitempty"`
+}
+
+func (m *BfKvData) Reset()                    { *m = BfKvData{} }
+func (m *BfKvData) String() string            { return proto.CompactTextString(m) }
+func (*BfKvData) ProtoMessage()               {}
+func (*BfKvData) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
+
+// 发单时传入的对象类
+type BfSendOrderReq struct {
+	// 代码编号相关
+	Symbol    string      `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange  string      `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	Price     float64     `protobuf:"fixed64,3,opt,name=price" json:"price,omitempty"`
+	Volume    int32       `protobuf:"varint,4,opt,name=volume" json:"volume,omitempty"`
+	PriceType BfPriceType `protobuf:"varint,5,opt,name=priceType,enum=bftrader.BfPriceType" json:"priceType,omitempty"`
+	Direction BfDirection `protobuf:"varint,6,opt,name=direction,enum=bftrader.BfDirection" json:"direction,omitempty"`
+	Offset    BfOffset    `protobuf:"varint,7,opt,name=offset,enum=bftrader.BfOffset" json:"offset,omitempty"`
+}
+
+func (m *BfSendOrderReq) Reset()                    { *m = BfSendOrderReq{} }
+func (m *BfSendOrderReq) String() string            { return proto.CompactTextString(m) }
+func (*BfSendOrderReq) ProtoMessage()               {}
+func (*BfSendOrderReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
+
+// 发单本地返回的对象类
+type BfSendOrderResp struct {
+	BfOrderId string `protobuf:"bytes,1,opt,name=bfOrderId" json:"bfOrderId,omitempty"`
+}
+
+func (m *BfSendOrderResp) Reset()                    { *m = BfSendOrderResp{} }
+func (m *BfSendOrderResp) String() string            { return proto.CompactTextString(m) }
+func (*BfSendOrderResp) ProtoMessage()               {}
+func (*BfSendOrderResp) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
+
+// 撤单时传入的对象类
+type BfCancelOrderReq struct {
+	// 代码编号相关
+	Symbol    string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange  string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	BfOrderId string `protobuf:"bytes,3,opt,name=bfOrderId" json:"bfOrderId,omitempty"`
+}
+
+func (m *BfCancelOrderReq) Reset()                    { *m = BfCancelOrderReq{} }
+func (m *BfCancelOrderReq) String() string            { return proto.CompactTextString(m) }
+func (*BfCancelOrderReq) ProtoMessage()               {}
+func (*BfCancelOrderReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{14} }
+
+// 连接时传入的对象类
+type BfConnectReq struct {
+	// 唯一英文代号
+	ClientId string `protobuf:"bytes,1,opt,name=clientId" json:"clientId,omitempty"`
+	// 服务地址和端口
+	ClientIp   string `protobuf:"bytes,2,opt,name=clientIp" json:"clientIp,omitempty"`
+	ClientPort int32  `protobuf:"varint,3,opt,name=clientPort" json:"clientPort,omitempty"`
+	// 角色类别，可多选
+	// 注意：OnTradeWillBegin OnGotContracts OnPing 都必须实现
+	TickHandler  bool `protobuf:"varint,4,opt,name=tickHandler" json:"tickHandler,omitempty"`
+	TradeHandler bool `protobuf:"varint,5,opt,name=tradeHandler" json:"tradeHandler,omitempty"`
+	LogHandler   bool `protobuf:"varint,6,opt,name=logHandler" json:"logHandler,omitempty"`
+	// tickHandler相关
+	Symbol   string `protobuf:"bytes,7,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange string `protobuf:"bytes,8,opt,name=exchange" json:"exchange,omitempty"`
+}
+
+func (m *BfConnectReq) Reset()                    { *m = BfConnectReq{} }
+func (m *BfConnectReq) String() string            { return proto.CompactTextString(m) }
+func (*BfConnectReq) ProtoMessage()               {}
+func (*BfConnectReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{15} }
+
+// 连接时返回的对象类
+type BfConnectResp struct {
+	ErrorCode int32  `protobuf:"varint,1,opt,name=errorCode" json:"errorCode,omitempty"`
+	ErrorMsg  string `protobuf:"bytes,2,opt,name=errorMsg" json:"errorMsg,omitempty"`
+}
+
+func (m *BfConnectResp) Reset()                    { *m = BfConnectResp{} }
+func (m *BfConnectResp) String() string            { return proto.CompactTextString(m) }
+func (*BfConnectResp) ProtoMessage()               {}
+func (*BfConnectResp) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{16} }
+
+// 获取合约信息传入的对象类
+type BfGetContractReq struct {
+	// 代码编号相关
+	Symbol   string `protobuf:"bytes,1,opt,name=symbol" json:"symbol,omitempty"`
+	Exchange string `protobuf:"bytes,2,opt,name=exchange" json:"exchange,omitempty"`
+	// 获取全部合约时候可以用index来枚举，从1开始，返回空结束
+	Index int32 `protobuf:"varint,3,opt,name=index" json:"index,omitempty"`
+	// 过滤条件，指定是否要求已经订阅
+	Subscribled bool `protobuf:"varint,4,opt,name=subscribled" json:"subscribled,omitempty"`
+}
+
+func (m *BfGetContractReq) Reset()                    { *m = BfGetContractReq{} }
+func (m *BfGetContractReq) String() string            { return proto.CompactTextString(m) }
+func (*BfGetContractReq) ProtoMessage()               {}
+func (*BfGetContractReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{17} }
+
+func init() {
+	proto.RegisterType((*BfVoid)(nil), "bftrader.BfVoid")
+	proto.RegisterType((*BfTickData)(nil), "bftrader.BfTickData")
+	proto.RegisterType((*BfTradeData)(nil), "bftrader.BfTradeData")
+	proto.RegisterType((*BfOrderData)(nil), "bftrader.BfOrderData")
+	proto.RegisterType((*BfPositionData)(nil), "bftrader.BfPositionData")
+	proto.RegisterType((*BfAccountData)(nil), "bftrader.BfAccountData")
+	proto.RegisterType((*BfErrorData)(nil), "bftrader.BfErrorData")
+	proto.RegisterType((*BfLogData)(nil), "bftrader.BfLogData")
+	proto.RegisterType((*BfContractData)(nil), "bftrader.BfContractData")
+	proto.RegisterType((*BfNotificationData)(nil), "bftrader.BfNotificationData")
+	proto.RegisterType((*BfPingData)(nil), "bftrader.BfPingData")
+	proto.RegisterType((*BfKvData)(nil), "bftrader.BfKvData")
+	proto.RegisterType((*BfSendOrderReq)(nil), "bftrader.BfSendOrderReq")
+	proto.RegisterType((*BfSendOrderResp)(nil), "bftrader.BfSendOrderResp")
+	proto.RegisterType((*BfCancelOrderReq)(nil), "bftrader.BfCancelOrderReq")
+	proto.RegisterType((*BfConnectReq)(nil), "bftrader.BfConnectReq")
+	proto.RegisterType((*BfConnectResp)(nil), "bftrader.BfConnectResp")
+	proto.RegisterType((*BfGetContractReq)(nil), "bftrader.BfGetContractReq")
+	proto.RegisterEnum("bftrader.BfDirection", BfDirection_name, BfDirection_value)
+	proto.RegisterEnum("bftrader.BfOffset", BfOffset_name, BfOffset_value)
+	proto.RegisterEnum("bftrader.BfStatus", BfStatus_name, BfStatus_value)
+	proto.RegisterEnum("bftrader.BfProduct", BfProduct_name, BfProduct_value)
+	proto.RegisterEnum("bftrader.BfPriceType", BfPriceType_name, BfPriceType_value)
+	proto.RegisterEnum("bftrader.BfNoticationType", BfNoticationType_name, BfNoticationType_value)
+}
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
 var _ grpc.ClientConn
@@ -44,21 +548,21 @@ const _ = grpc.SupportPackageIsVersion1
 
 type BfGatewayServiceClient interface {
 	// 请求建立到proxy的连接
-	Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (BfGatewayService_ConnectClient, error)
+	Connect(ctx context.Context, in *BfConnectReq, opts ...grpc.CallOption) (BfGatewayService_ConnectClient, error)
 	// 活跃检测
-	Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error)
+	Ping(ctx context.Context, in *BfPingData, opts ...grpc.CallOption) (*BfPingData, error)
 	// 请求断开到proxy的连接
-	Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	Disconnect(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error)
 	// 获取交易合约信息
-	GetContract(ctx context.Context, in *bftrader.BfGetContractReq, opts ...grpc.CallOption) (*bftrader.BfContractData, error)
+	GetContract(ctx context.Context, in *BfGetContractReq, opts ...grpc.CallOption) (*BfContractData, error)
 	// 发单
-	SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error)
+	SendOrder(ctx context.Context, in *BfSendOrderReq, opts ...grpc.CallOption) (*BfSendOrderResp, error)
 	// 撤单
-	CancelOrder(ctx context.Context, in *bftrader.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	CancelOrder(ctx context.Context, in *BfCancelOrderReq, opts ...grpc.CallOption) (*BfVoid, error)
 	// 查询账户信息
-	QueryAccount(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	QueryAccount(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error)
 	// 查询持仓信息
-	QueryPosition(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error)
+	QueryPosition(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error)
 }
 
 type bfGatewayServiceClient struct {
@@ -69,8 +573,8 @@ func NewBfGatewayServiceClient(cc *grpc.ClientConn) BfGatewayServiceClient {
 	return &bfGatewayServiceClient{cc}
 }
 
-func (c *bfGatewayServiceClient) Connect(ctx context.Context, in *bftrader.BfConnectReq, opts ...grpc.CallOption) (BfGatewayService_ConnectClient, error) {
-	stream, err := grpc.NewClientStream(ctx, &_BfGatewayService_serviceDesc.Streams[0], c.cc, "/bftrader.bfgateway.BfGatewayService/Connect", opts...)
+func (c *bfGatewayServiceClient) Connect(ctx context.Context, in *BfConnectReq, opts ...grpc.CallOption) (BfGatewayService_ConnectClient, error) {
+	stream, err := grpc.NewClientStream(ctx, &_BfGatewayService_serviceDesc.Streams[0], c.cc, "/bftrader.BfGatewayService/Connect", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,63 +605,63 @@ func (x *bfGatewayServiceConnectClient) Recv() (*google_protobuf.Any, error) {
 	return m, nil
 }
 
-func (c *bfGatewayServiceClient) Ping(ctx context.Context, in *bftrader.BfPingData, opts ...grpc.CallOption) (*bftrader.BfPingData, error) {
-	out := new(bftrader.BfPingData)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/Ping", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) Ping(ctx context.Context, in *BfPingData, opts ...grpc.CallOption) (*BfPingData, error) {
+	out := new(BfPingData)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/Ping", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) Disconnect(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/Disconnect", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) Disconnect(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error) {
+	out := new(BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/Disconnect", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) GetContract(ctx context.Context, in *bftrader.BfGetContractReq, opts ...grpc.CallOption) (*bftrader.BfContractData, error) {
-	out := new(bftrader.BfContractData)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/GetContract", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) GetContract(ctx context.Context, in *BfGetContractReq, opts ...grpc.CallOption) (*BfContractData, error) {
+	out := new(BfContractData)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/GetContract", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) SendOrder(ctx context.Context, in *bftrader.BfSendOrderReq, opts ...grpc.CallOption) (*bftrader.BfSendOrderResp, error) {
-	out := new(bftrader.BfSendOrderResp)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/SendOrder", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) SendOrder(ctx context.Context, in *BfSendOrderReq, opts ...grpc.CallOption) (*BfSendOrderResp, error) {
+	out := new(BfSendOrderResp)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/SendOrder", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) CancelOrder(ctx context.Context, in *bftrader.BfCancelOrderReq, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/CancelOrder", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) CancelOrder(ctx context.Context, in *BfCancelOrderReq, opts ...grpc.CallOption) (*BfVoid, error) {
+	out := new(BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/CancelOrder", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) QueryAccount(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/QueryAccount", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) QueryAccount(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error) {
+	out := new(BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/QueryAccount", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bfGatewayServiceClient) QueryPosition(ctx context.Context, in *bftrader.BfVoid, opts ...grpc.CallOption) (*bftrader.BfVoid, error) {
-	out := new(bftrader.BfVoid)
-	err := grpc.Invoke(ctx, "/bftrader.bfgateway.BfGatewayService/QueryPosition", in, out, c.cc, opts...)
+func (c *bfGatewayServiceClient) QueryPosition(ctx context.Context, in *BfVoid, opts ...grpc.CallOption) (*BfVoid, error) {
+	out := new(BfVoid)
+	err := grpc.Invoke(ctx, "/bftrader.BfGatewayService/QueryPosition", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -168,21 +672,21 @@ func (c *bfGatewayServiceClient) QueryPosition(ctx context.Context, in *bftrader
 
 type BfGatewayServiceServer interface {
 	// 请求建立到proxy的连接
-	Connect(*bftrader.BfConnectReq, BfGatewayService_ConnectServer) error
+	Connect(*BfConnectReq, BfGatewayService_ConnectServer) error
 	// 活跃检测
-	Ping(context.Context, *bftrader.BfPingData) (*bftrader.BfPingData, error)
+	Ping(context.Context, *BfPingData) (*BfPingData, error)
 	// 请求断开到proxy的连接
-	Disconnect(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	Disconnect(context.Context, *BfVoid) (*BfVoid, error)
 	// 获取交易合约信息
-	GetContract(context.Context, *bftrader.BfGetContractReq) (*bftrader.BfContractData, error)
+	GetContract(context.Context, *BfGetContractReq) (*BfContractData, error)
 	// 发单
-	SendOrder(context.Context, *bftrader.BfSendOrderReq) (*bftrader.BfSendOrderResp, error)
+	SendOrder(context.Context, *BfSendOrderReq) (*BfSendOrderResp, error)
 	// 撤单
-	CancelOrder(context.Context, *bftrader.BfCancelOrderReq) (*bftrader.BfVoid, error)
+	CancelOrder(context.Context, *BfCancelOrderReq) (*BfVoid, error)
 	// 查询账户信息
-	QueryAccount(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	QueryAccount(context.Context, *BfVoid) (*BfVoid, error)
 	// 查询持仓信息
-	QueryPosition(context.Context, *bftrader.BfVoid) (*bftrader.BfVoid, error)
+	QueryPosition(context.Context, *BfVoid) (*BfVoid, error)
 }
 
 func RegisterBfGatewayServiceServer(s *grpc.Server, srv BfGatewayServiceServer) {
@@ -190,7 +694,7 @@ func RegisterBfGatewayServiceServer(s *grpc.Server, srv BfGatewayServiceServer) 
 }
 
 func _BfGatewayService_Connect_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(bftrader.BfConnectReq)
+	m := new(BfConnectReq)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -211,7 +715,7 @@ func (x *bfGatewayServiceConnectServer) Send(m *google_protobuf.Any) error {
 }
 
 func _BfGatewayService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfPingData)
+	in := new(BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -223,7 +727,7 @@ func _BfGatewayService_Ping_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _BfGatewayService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfVoid)
+	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -235,7 +739,7 @@ func _BfGatewayService_Disconnect_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _BfGatewayService_GetContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfGetContractReq)
+	in := new(BfGetContractReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -247,7 +751,7 @@ func _BfGatewayService_GetContract_Handler(srv interface{}, ctx context.Context,
 }
 
 func _BfGatewayService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfSendOrderReq)
+	in := new(BfSendOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -259,7 +763,7 @@ func _BfGatewayService_SendOrder_Handler(srv interface{}, ctx context.Context, d
 }
 
 func _BfGatewayService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfCancelOrderReq)
+	in := new(BfCancelOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -271,7 +775,7 @@ func _BfGatewayService_CancelOrder_Handler(srv interface{}, ctx context.Context,
 }
 
 func _BfGatewayService_QueryAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfVoid)
+	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -283,7 +787,7 @@ func _BfGatewayService_QueryAccount_Handler(srv interface{}, ctx context.Context
 }
 
 func _BfGatewayService_QueryPosition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
-	in := new(bftrader.BfVoid)
+	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -295,7 +799,7 @@ func _BfGatewayService_QueryPosition_Handler(srv interface{}, ctx context.Contex
 }
 
 var _BfGatewayService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "bftrader.bfgateway.BfGatewayService",
+	ServiceName: "bftrader.BfGatewayService",
 	HandlerType: (*BfGatewayServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -337,23 +841,108 @@ var _BfGatewayService_serviceDesc = grpc.ServiceDesc{
 }
 
 var fileDescriptor0 = []byte{
-	// 281 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x8c, 0x91, 0xdd, 0x4e, 0xc2, 0x30,
-	0x14, 0xc7, 0x31, 0x1a, 0x8d, 0x07, 0x3f, 0x48, 0x43, 0x8c, 0xf4, 0x92, 0x07, 0x28, 0x06, 0xf1,
-	0xca, 0x78, 0xc1, 0xc0, 0x70, 0x29, 0x4a, 0xe2, 0x7d, 0xd7, 0x9d, 0x2d, 0x4d, 0x48, 0x8b, 0x5d,
-	0xa7, 0xd9, 0x5b, 0xfb, 0x08, 0x76, 0xdd, 0x5c, 0x8a, 0x42, 0xc2, 0x65, 0xff, 0x1f, 0xbf, 0x73,
-	0x4e, 0x0a, 0xd7, 0x71, 0x9a, 0x71, 0x8b, 0x5f, 0xbc, 0x64, 0x1b, 0xa3, 0xad, 0x26, 0x24, 0x4e,
-	0xad, 0xe1, 0x09, 0x1a, 0xd6, 0x3a, 0xf4, 0xaa, 0xd5, 0x7c, 0x86, 0x0e, 0x32, 0xad, 0xb3, 0x35,
-	0x8e, 0xfc, 0x2b, 0x2e, 0xd2, 0x11, 0x57, 0x4d, 0x7d, 0xfc, 0x7d, 0x0c, 0xbd, 0x28, 0x5d, 0xd4,
-	0xc5, 0x15, 0x9a, 0x4f, 0x29, 0x90, 0x3c, 0xc2, 0xd9, 0x4c, 0x2b, 0x85, 0xc2, 0x92, 0x1b, 0xd6,
-	0xb2, 0xa2, 0xb4, 0x11, 0xdf, 0xf0, 0x83, 0xf6, 0x59, 0xcd, 0x64, 0xbf, 0x4c, 0x36, 0x55, 0xe5,
-	0xb0, 0x73, 0x77, 0x44, 0x26, 0x70, 0xb2, 0x94, 0x2a, 0x23, 0xfd, 0xb0, 0x59, 0x29, 0x73, 0x6e,
-	0x39, 0xdd, 0xa9, 0x0e, 0x3b, 0x64, 0x0c, 0x30, 0x97, 0xb9, 0x68, 0xa6, 0xf6, 0xc2, 0xd4, 0xbb,
-	0x96, 0x09, 0xfd, 0xa7, 0xb8, 0xce, 0x33, 0x74, 0x17, 0x68, 0xdd, 0x52, 0xce, 0x70, 0x25, 0x1a,
-	0x46, 0x02, 0xa3, 0x5a, 0xf7, 0xf6, 0xcf, 0x19, 0xde, 0x68, 0x46, 0x47, 0x70, 0xbe, 0x42, 0x95,
-	0xbc, 0x18, 0xe7, 0x92, 0xad, 0x60, 0x2b, 0x57, 0x88, 0xc1, 0x1e, 0x27, 0xdf, 0x38, 0xc6, 0x13,
-	0x74, 0x67, 0x5c, 0x09, 0x5c, 0xd7, 0x94, 0xad, 0x55, 0x02, 0xa3, 0xe2, 0xec, 0xba, 0x64, 0x02,
-	0x17, 0xaf, 0x05, 0x9a, 0x72, 0x2a, 0x84, 0x2e, 0xd4, 0xa1, 0xf7, 0x3f, 0xc0, 0xa5, 0x6f, 0x2d,
-	0x75, 0x2e, 0xad, 0xd4, 0xea, 0xb0, 0x5a, 0x7c, 0xea, 0xbf, 0xec, 0xfe, 0x27, 0x00, 0x00, 0xff,
-	0xff, 0xf9, 0x80, 0xaf, 0xd9, 0x4b, 0x02, 0x00, 0x00,
+	// 1639 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xa4, 0x58, 0xdb, 0x6e, 0xdb, 0x46,
+	0x13, 0x8e, 0x0e, 0x96, 0xe5, 0xf5, 0x49, 0x61, 0x9c, 0x40, 0xd6, 0xff, 0xb7, 0x0d, 0x88, 0x22,
+	0x28, 0x7c, 0xe1, 0x34, 0x4e, 0x8a, 0xa2, 0x28, 0x7a, 0xa1, 0x03, 0xed, 0x08, 0x91, 0x25, 0x85,
+	0xa2, 0x13, 0xf8, 0xaa, 0xa5, 0xa8, 0xa5, 0x4c, 0x98, 0x22, 0x55, 0x92, 0xf2, 0xa1, 0x28, 0x8a,
+	0x5e, 0xf6, 0xbe, 0x2f, 0xd1, 0xcb, 0x3e, 0x44, 0xef, 0xfa, 0x18, 0x7d, 0x81, 0x3e, 0x42, 0x77,
+	0x66, 0x77, 0xc9, 0xa5, 0x6b, 0xa7, 0x8e, 0x73, 0xa7, 0xf9, 0xbe, 0xd9, 0xd9, 0xdd, 0x99, 0x6f,
+	0x67, 0x68, 0x93, 0xcd, 0xb1, 0x3b, 0xb5, 0x13, 0x7a, 0x6e, 0x5f, 0xee, 0xce, 0xa3, 0x30, 0x09,
+	0xb5, 0xea, 0xd8, 0x4d, 0x22, 0x7b, 0x42, 0xa3, 0xc6, 0xf6, 0x34, 0x0c, 0xa7, 0x3e, 0x7d, 0x8a,
+	0xf8, 0x78, 0xe1, 0x3e, 0xb5, 0x03, 0xe1, 0xa4, 0x57, 0x49, 0xa5, 0xe5, 0xbe, 0x09, 0xbd, 0x89,
+	0xfe, 0x7b, 0x99, 0x90, 0x96, 0x6b, 0x79, 0xce, 0x69, 0xc7, 0x4e, 0x6c, 0xed, 0x11, 0xa9, 0xc4,
+	0x97, 0xb3, 0x71, 0xe8, 0xd7, 0x0b, 0x8f, 0x0b, 0x9f, 0xad, 0x98, 0xc2, 0xd2, 0x1a, 0xa4, 0x4a,
+	0x2f, 0x9c, 0x13, 0x3b, 0x98, 0xd2, 0x7a, 0x11, 0x99, 0xd4, 0xd6, 0x3e, 0x26, 0xc4, 0x76, 0x12,
+	0x2f, 0x0c, 0x58, 0x04, 0x5a, 0x2f, 0x21, 0xab, 0x20, 0xb0, 0x36, 0x61, 0xf1, 0x2d, 0x6f, 0x46,
+	0xeb, 0x65, 0xbe, 0x56, 0xda, 0xda, 0xff, 0xc9, 0x8a, 0x6f, 0xc7, 0xc9, 0x30, 0xf2, 0x1c, 0x5a,
+	0x5f, 0x62, 0x64, 0xc1, 0xcc, 0x00, 0x38, 0xcd, 0x59, 0xe8, 0x2f, 0xd8, 0xba, 0x0a, 0xa3, 0x96,
+	0x4c, 0x61, 0x69, 0x3a, 0x59, 0x0b, 0xe7, 0x34, 0xe8, 0x06, 0x09, 0x8d, 0x68, 0x9c, 0xd4, 0x97,
+	0x71, 0x61, 0x0e, 0x83, 0x53, 0x41, 0xa0, 0x37, 0x7c, 0x7d, 0x15, 0xd7, 0x2b, 0x08, 0xec, 0x0c,
+	0xfe, 0x7c, 0xe7, 0x15, 0xbe, 0x73, 0x0a, 0x00, 0x7b, 0xe2, 0x4d, 0x4f, 0x38, 0x4b, 0x38, 0x9b,
+	0x02, 0x70, 0x23, 0x3f, 0x3c, 0xe7, 0xe4, 0x2a, 0x92, 0xa9, 0xad, 0x7d, 0x4a, 0xd6, 0xe7, 0x11,
+	0x6d, 0xfb, 0x61, 0x4c, 0xb9, 0xc3, 0x1a, 0x3a, 0xe4, 0x41, 0x38, 0xdd, 0x62, 0x3e, 0xa7, 0x51,
+	0xcf, 0x9b, 0x79, 0x49, 0x7d, 0x1d, 0x5d, 0x14, 0x04, 0x4f, 0x1f, 0x9e, 0x4b, 0x7e, 0x83, 0xf3,
+	0x19, 0x02, 0xe7, 0x1b, 0x7b, 0x13, 0x8c, 0xf5, 0xac, 0xbe, 0xc9, 0xcf, 0x97, 0x02, 0xc0, 0xda,
+	0xf1, 0xa9, 0x60, 0x6b, 0x9c, 0x4d, 0x01, 0x88, 0xcd, 0x5c, 0x79, 0x1a, 0x9e, 0xd5, 0xef, 0xf3,
+	0xcc, 0x64, 0x08, 0xd6, 0x33, 0x3e, 0x95, 0xbc, 0xc6, 0xf9, 0x0c, 0xd1, 0xff, 0x28, 0x92, 0x55,
+	0x26, 0x19, 0x10, 0xd9, 0x9d, 0x35, 0x53, 0x27, 0xcb, 0xa8, 0xd2, 0xee, 0x44, 0x08, 0x46, 0x9a,
+	0x78, 0x33, 0x77, 0x10, 0x31, 0x01, 0x33, 0x8e, 0xcb, 0x25, 0x03, 0xb4, 0xe7, 0x64, 0x65, 0xe2,
+	0x45, 0x14, 0xc5, 0x85, 0x7a, 0xd9, 0xd8, 0x7b, 0xb8, 0x2b, 0x15, 0xbf, 0xdb, 0x72, 0x3b, 0x92,
+	0x34, 0x33, 0x3f, 0x6d, 0x87, 0x54, 0x42, 0xd7, 0x8d, 0x69, 0x82, 0x32, 0xda, 0xd8, 0xd3, 0xd4,
+	0x15, 0x03, 0x64, 0x4c, 0xe1, 0xa1, 0x6d, 0x91, 0xa5, 0x39, 0x96, 0x8d, 0x6b, 0x8a, 0x1b, 0x8a,
+	0x10, 0xab, 0x39, 0x21, 0xb2, 0xc3, 0x26, 0x22, 0x0f, 0x5c, 0x44, 0xec, 0xb0, 0x29, 0x90, 0xb2,
+	0xa8, 0x7c, 0xa2, 0xb0, 0x00, 0xe8, 0xbf, 0x95, 0x20, 0x8d, 0x78, 0xb1, 0x3b, 0xa7, 0x31, 0x97,
+	0xac, 0xd2, 0x3b, 0x93, 0x55, 0x7e, 0xef, 0x64, 0x2d, 0xdd, 0x3e, 0x59, 0x15, 0x35, 0x59, 0x8f,
+	0xc9, 0x6a, 0x12, 0x26, 0xb6, 0x2f, 0x9e, 0xde, 0x32, 0x66, 0x4c, 0x85, 0xe0, 0xfd, 0x62, 0xc8,
+	0x49, 0xee, 0x75, 0xe6, 0x30, 0x38, 0x47, 0x9c, 0xd8, 0xc9, 0x22, 0xc6, 0xbc, 0x5e, 0x39, 0xc7,
+	0x08, 0x19, 0x53, 0x78, 0x80, 0x62, 0xbd, 0x20, 0xa6, 0x51, 0x82, 0x75, 0xe0, 0x99, 0x56, 0x90,
+	0x8c, 0xc7, 0x4a, 0xac, 0xaa, 0x3c, 0x76, 0x21, 0xc6, 0x3b, 0x76, 0xe0, 0x50, 0x1f, 0xf9, 0x35,
+	0xce, 0x67, 0x88, 0xfe, 0x57, 0x81, 0x6c, 0xb4, 0xdc, 0x61, 0x18, 0x7b, 0xa2, 0xa9, 0xdd, 0xad,
+	0x5a, 0xb9, 0x7a, 0x94, 0x6e, 0x59, 0x0f, 0x16, 0x70, 0x2e, 0x36, 0xc6, 0x1a, 0x2e, 0x99, 0xa9,
+	0x0d, 0x87, 0x70, 0xa3, 0xf0, 0x07, 0xca, 0x9f, 0x02, 0x93, 0x25, 0xb7, 0x6e, 0xa8, 0x0b, 0xbb,
+	0xe5, 0xe5, 0x44, 0x5e, 0x42, 0x94, 0x45, 0x41, 0xf4, 0x5f, 0x8b, 0x64, 0xbd, 0xe5, 0x36, 0x1d,
+	0x27, 0x5c, 0x04, 0x09, 0x5e, 0x12, 0xfa, 0x08, 0x37, 0x99, 0xbc, 0xf8, 0x3d, 0x33, 0x00, 0xe2,
+	0xb1, 0xa6, 0xd6, 0xb2, 0x7d, 0x48, 0x14, 0x5e, 0x96, 0xf5, 0xa8, 0x0c, 0x81, 0x37, 0x3e, 0x16,
+	0x64, 0x09, 0x49, 0x69, 0x62, 0xdc, 0x33, 0xdb, 0xf3, 0xed, 0xb1, 0xcf, 0x47, 0x02, 0xf4, 0x27,
+	0x09, 0x60, 0x35, 0xc2, 0xd9, 0xcc, 0x8b, 0x63, 0xf9, 0xc8, 0x59, 0xdc, 0x0c, 0x01, 0xf5, 0xf0,
+	0x7b, 0x1e, 0xda, 0xd1, 0xd4, 0x0b, 0xc4, 0x25, 0x73, 0x18, 0x68, 0xd0, 0xe1, 0xdd, 0x36, 0x74,
+	0x3d, 0x39, 0x20, 0x54, 0x48, 0x7b, 0x42, 0x36, 0x64, 0x1e, 0x85, 0x53, 0x15, 0x9d, 0xae, 0xa0,
+	0xfa, 0x31, 0xbc, 0x52, 0x23, 0x8a, 0x42, 0xfe, 0x4a, 0x35, 0x52, 0x76, 0xc2, 0x09, 0xc5, 0x6c,
+	0x2c, 0x99, 0xf8, 0x1b, 0x2e, 0x3a, 0xa3, 0x71, 0x6c, 0xa7, 0x25, 0x97, 0x26, 0x5c, 0x54, 0xfc,
+	0x34, 0x2e, 0xe4, 0xfb, 0x4c, 0x01, 0xfd, 0x2b, 0xb2, 0xd2, 0x72, 0x7b, 0xe1, 0x54, 0x06, 0x3e,
+	0x3f, 0x61, 0x95, 0xe4, 0x69, 0xc6, 0xdf, 0x37, 0x07, 0xd6, 0xff, 0x2c, 0x82, 0x22, 0xdb, 0x61,
+	0xc0, 0xc4, 0xe3, 0x24, 0x77, 0x56, 0x24, 0xdb, 0x34, 0xb0, 0x67, 0x72, 0x68, 0xe3, 0x6f, 0xed,
+	0x4b, 0xb2, 0xc6, 0x3e, 0x12, 0x26, 0x0b, 0x27, 0x69, 0xb3, 0x71, 0x19, 0x8b, 0xc6, 0xf1, 0x40,
+	0x15, 0xea, 0x90, 0xf3, 0x66, 0xce, 0x11, 0x32, 0xca, 0xdb, 0xe2, 0xe1, 0xc2, 0x4f, 0xbc, 0xb9,
+	0x4f, 0x85, 0x2a, 0xaf, 0xa0, 0x90, 0x14, 0x14, 0x24, 0x7c, 0x74, 0x88, 0xe2, 0x65, 0x00, 0x1c,
+	0x77, 0x66, 0x5f, 0xf0, 0xb9, 0xc7, 0x35, 0x9a, 0xda, 0xc8, 0x79, 0x01, 0xe7, 0xaa, 0x82, 0x13,
+	0x36, 0xa6, 0xda, 0xbe, 0x60, 0xe5, 0x3f, 0x65, 0xad, 0x6b, 0x05, 0xc9, 0x0c, 0x40, 0xd6, 0x03,
+	0x71, 0x24, 0x8c, 0x25, 0x82, 0x95, 0x80, 0xfe, 0x23, 0xd1, 0x5a, 0x6e, 0x3f, 0x4c, 0x3c, 0xd7,
+	0x73, 0xec, 0xf4, 0x89, 0xef, 0x2a, 0xa5, 0xde, 0xd8, 0x6b, 0xa8, 0x09, 0x00, 0x5f, 0xee, 0x69,
+	0x5d, 0xce, 0xe9, 0x07, 0xca, 0xe0, 0x09, 0x7c, 0x81, 0x0d, 0xbd, 0x80, 0xeb, 0x40, 0x89, 0x52,
+	0xc8, 0xd7, 0x7c, 0x8f, 0x54, 0x5b, 0xee, 0xab, 0x33, 0xf4, 0xaa, 0x91, 0xd2, 0x29, 0xbd, 0x14,
+	0x1e, 0xf0, 0x13, 0xde, 0xfc, 0x99, 0xed, 0x2f, 0xe4, 0xde, 0xdc, 0xd0, 0x7f, 0x41, 0x9d, 0x8c,
+	0x68, 0x30, 0xc1, 0xa1, 0x60, 0xd2, 0xef, 0xef, 0xa4, 0x93, 0xb4, 0xa1, 0x94, 0xae, 0x9f, 0x8a,
+	0xe5, 0xdc, 0x54, 0x7c, 0x2e, 0x0b, 0xcc, 0x72, 0x73, 0xdd, 0x90, 0x1e, 0x4a, 0xd2, 0xcc, 0xfc,
+	0xf2, 0xcd, 0xb1, 0xf2, 0xde, 0xc3, 0x6a, 0xf9, 0xbf, 0x86, 0x95, 0xfe, 0x94, 0x6c, 0xe6, 0x32,
+	0x11, 0xcf, 0xf3, 0xe3, 0xb3, 0x70, 0x65, 0x7c, 0xea, 0x13, 0x52, 0x63, 0x4f, 0x0c, 0xa7, 0xc0,
+	0x07, 0x25, 0xef, 0x9d, 0x43, 0x5a, 0xff, 0xb9, 0x48, 0xd6, 0xf0, 0x25, 0x07, 0xec, 0x4e, 0xb0,
+	0x05, 0x0b, 0xe5, 0xf8, 0x1e, 0x55, 0x7a, 0x6e, 0x6a, 0x2b, 0xdc, 0x5c, 0x6e, 0x23, 0x6d, 0x6c,
+	0x9b, 0xf8, 0x7b, 0x18, 0x46, 0x09, 0xee, 0xc3, 0xda, 0x7b, 0x86, 0xe0, 0x58, 0x66, 0x0f, 0xec,
+	0xa5, 0x1d, 0x4c, 0x7c, 0x1a, 0x61, 0xc9, 0xaa, 0xa6, 0x0a, 0xa5, 0x63, 0x59, 0xba, 0x2c, 0xa1,
+	0x4b, 0x0e, 0xe3, 0x1f, 0xa6, 0x53, 0xe9, 0x51, 0x41, 0x0f, 0x05, 0x51, 0x12, 0xb4, 0x7c, 0x63,
+	0x82, 0xaa, 0xf9, 0x04, 0xe9, 0x5d, 0x98, 0x3b, 0x69, 0x06, 0x78, 0x5d, 0x28, 0x74, 0xdc, 0x76,
+	0xd6, 0x69, 0x33, 0x00, 0x43, 0x81, 0x71, 0x18, 0x4f, 0xd3, 0x5c, 0x0b, 0x5b, 0xff, 0x09, 0x6a,
+	0x76, 0x40, 0x13, 0xd9, 0x19, 0x3f, 0x40, 0xf0, 0x5e, 0x30, 0xa1, 0x17, 0x22, 0x8f, 0xdc, 0x80,
+	0x14, 0xc6, 0x8b, 0x71, 0xec, 0x44, 0x1e, 0x9b, 0x53, 0x13, 0x99, 0x42, 0x05, 0xda, 0xf9, 0x0e,
+	0xa6, 0x45, 0x2a, 0x55, 0xed, 0x21, 0xb9, 0xdf, 0xe9, 0x9a, 0x46, 0xdb, 0xea, 0x0e, 0xfa, 0xdf,
+	0x1e, 0xf5, 0x5f, 0xf5, 0x07, 0x6f, 0xfb, 0xb5, 0x7b, 0xac, 0xed, 0x6e, 0x64, 0x70, 0x6f, 0xd0,
+	0x3f, 0xa8, 0x15, 0xb4, 0x07, 0x64, 0x33, 0xc3, 0x46, 0x2f, 0x07, 0xa6, 0x55, 0x2b, 0x6a, 0xf7,
+	0xc9, 0x7a, 0x06, 0xf6, 0x0d, 0xab, 0x56, 0xda, 0x89, 0xa1, 0x0b, 0x70, 0x69, 0x43, 0x9c, 0xc1,
+	0xfe, 0xfe, 0xc8, 0xb0, 0x94, 0xd8, 0x9b, 0x64, 0x55, 0x60, 0x83, 0xa1, 0xd1, 0x67, 0x81, 0x6b,
+	0x64, 0x4d, 0x00, 0xed, 0xde, 0x60, 0x64, 0xb0, 0xa8, 0xec, 0x54, 0x2a, 0x62, 0x0d, 0x3a, 0xcd,
+	0xe3, 0x5a, 0x49, 0xdb, 0x26, 0x0f, 0x55, 0xf8, 0xd8, 0x18, 0x59, 0x86, 0x09, 0x54, 0x79, 0xe7,
+	0x1c, 0x36, 0xe5, 0x1f, 0x5d, 0xb0, 0xe9, 0xc8, 0x6a, 0x5a, 0x47, 0x23, 0x65, 0xd3, 0x2d, 0x52,
+	0x13, 0x58, 0x7f, 0x60, 0x59, 0x66, 0xb3, 0x63, 0x74, 0xd8, 0xce, 0x6c, 0x1f, 0x81, 0x0e, 0x9b,
+	0xa6, 0x84, 0x8b, 0x8a, 0x73, 0xb3, 0xd7, 0x13, 0x68, 0x49, 0x41, 0xdb, 0xcd, 0x7e, 0xdb, 0xe8,
+	0xf5, 0x18, 0x5a, 0xde, 0xe9, 0xc2, 0x88, 0x14, 0xe3, 0x06, 0x52, 0x34, 0x34, 0x07, 0x9d, 0xa3,
+	0xb6, 0x95, 0xcf, 0xa5, 0x04, 0x8d, 0xd7, 0x47, 0x5d, 0xeb, 0x98, 0xe7, 0x52, 0x62, 0xfb, 0x47,
+	0xd6, 0x91, 0x69, 0x8c, 0x6a, 0xc5, 0x1d, 0x1c, 0xe4, 0x69, 0xeb, 0x81, 0xc3, 0x0d, 0xcd, 0x6e,
+	0xdb, 0xb0, 0x8e, 0x87, 0x06, 0x84, 0x1b, 0xf4, 0x31, 0x5c, 0x9d, 0x6c, 0x65, 0x70, 0xaf, 0x7b,
+	0xd8, 0xb5, 0xd0, 0x64, 0x41, 0x59, 0x7a, 0x32, 0xe6, 0xb0, 0x69, 0xbe, 0x32, 0x04, 0x55, 0xdc,
+	0xf1, 0x41, 0x75, 0xf9, 0x99, 0x00, 0x81, 0x58, 0x2e, 0xba, 0xfb, 0xdd, 0x76, 0xf3, 0x4a, 0xf5,
+	0x3f, 0x21, 0xff, 0xcb, 0x31, 0x98, 0x82, 0xb7, 0xdd, 0x5e, 0xaf, 0x65, 0x1c, 0x74, 0xa1, 0x62,
+	0x1f, 0x91, 0xed, 0x9c, 0xc3, 0xc1, 0xc0, 0x6a, 0x0f, 0xfa, 0xcc, 0xad, 0x6d, 0xb1, 0x8b, 0xec,
+	0xfd, 0x5d, 0x42, 0x91, 0xf3, 0xbf, 0xfa, 0x47, 0x34, 0x3a, 0x83, 0x5e, 0xfc, 0x35, 0x59, 0x16,
+	0x2f, 0x48, 0x7b, 0xa4, 0x36, 0xc1, 0xac, 0xb1, 0x34, 0xb6, 0x76, 0xf9, 0x3f, 0x04, 0x76, 0xe5,
+	0x3f, 0x04, 0x76, 0x9b, 0xc1, 0xa5, 0x7e, 0xef, 0xf3, 0x82, 0xf6, 0x82, 0x94, 0x61, 0xfe, 0x68,
+	0x5b, 0xb9, 0x2e, 0x2d, 0x26, 0x52, 0xe3, 0x5a, 0x54, 0xbf, 0xa7, 0xed, 0x11, 0xd2, 0xf1, 0x62,
+	0x47, 0xec, 0x5a, 0x53, 0xbd, 0xe0, 0x5f, 0x0b, 0x8d, 0x7f, 0x21, 0x6c, 0x8d, 0x41, 0x56, 0x95,
+	0xd7, 0xa9, 0xe5, 0x86, 0x6a, 0xfe, 0xd9, 0x36, 0xea, 0x57, 0xae, 0x91, 0x7e, 0xe9, 0xb0, 0x30,
+	0x2d, 0xb2, 0x92, 0x76, 0x72, 0x2d, 0xe7, 0xa8, 0x8e, 0xba, 0xc6, 0xf6, 0x0d, 0x4c, 0x3c, 0x67,
+	0x31, 0xbe, 0x21, 0xab, 0x4a, 0x73, 0xcf, 0x1f, 0x25, 0xdf, 0xf5, 0xaf, 0xbd, 0xc9, 0x0b, 0xb2,
+	0xf6, 0x7a, 0x41, 0xa3, 0x4b, 0xf1, 0xbd, 0x7c, 0xcb, 0xfb, 0x7f, 0x41, 0xd6, 0x71, 0x95, 0xfc,
+	0xe8, 0xbe, 0xdd, 0xb2, 0x71, 0x05, 0x4b, 0xf6, 0xfc, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x9e,
+	0x5a, 0x4e, 0x67, 0xee, 0x11, 0x00, 0x00,
 }

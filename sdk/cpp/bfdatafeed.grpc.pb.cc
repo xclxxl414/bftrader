@@ -14,19 +14,18 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace bftrader {
-namespace bfdatafeed {
 
 static const char* BfDatafeedService_method_names[] = {
-  "/bftrader.bfdatafeed.BfDatafeedService/Ping",
-  "/bftrader.bfdatafeed.BfDatafeedService/InsertTick",
-  "/bftrader.bfdatafeed.BfDatafeedService/GetTick",
-  "/bftrader.bfdatafeed.BfDatafeedService/DeleteTick",
-  "/bftrader.bfdatafeed.BfDatafeedService/InsertBar",
-  "/bftrader.bfdatafeed.BfDatafeedService/GetBar",
-  "/bftrader.bfdatafeed.BfDatafeedService/DeleteBar",
-  "/bftrader.bfdatafeed.BfDatafeedService/InsertContract",
-  "/bftrader.bfdatafeed.BfDatafeedService/GetContract",
-  "/bftrader.bfdatafeed.BfDatafeedService/DeleteContract",
+  "/bftrader.BfDatafeedService/Ping",
+  "/bftrader.BfDatafeedService/InsertTick",
+  "/bftrader.BfDatafeedService/GetTick",
+  "/bftrader.BfDatafeedService/DeleteTick",
+  "/bftrader.BfDatafeedService/InsertBar",
+  "/bftrader.BfDatafeedService/GetBar",
+  "/bftrader.BfDatafeedService/DeleteBar",
+  "/bftrader.BfDatafeedService/InsertContract",
+  "/bftrader.BfDatafeedService/GetContract",
+  "/bftrader.BfDatafeedService/DeleteContract",
 };
 
 std::unique_ptr< BfDatafeedService::Stub> BfDatafeedService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -256,5 +255,4 @@ BfDatafeedService::Service::~Service() {
 
 
 }  // namespace bftrader
-}  // namespace bfdatafeed
 

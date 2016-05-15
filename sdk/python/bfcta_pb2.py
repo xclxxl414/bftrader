@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-import bftrader_pb2 as bftrader__pb2
+import bfgateway_pb2 as bfgateway__pb2
 from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfcta.proto',
-  package='bftrader.bfcta',
+  package='bftrader',
   syntax='proto3',
-  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x0e\x62\x66trader.bfcta\x1a\x0e\x62\x66trader.proto\x1a\x19google/protobuf/any.proto2\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto2\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
-  dependencies=[bftrader__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
+  dependencies=[bfgateway__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -85,73 +85,73 @@ class BetaBfCtaServiceStub(object):
   CancelOrder.future = None
 
 def beta_create_BfCtaService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-  import bftrader_pb2
+  import bfgateway_pb2
   import google.protobuf.any_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
   request_deserializers = {
-    ('bftrader.bfcta.BfCtaService', 'CancelOrder'): bftrader_pb2.BfCancelOrderReq.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Connect'): bftrader_pb2.BfConnectReq.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Disconnect'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfcta.BfCtaService', 'GetRobotInfo'): bftrader_pb2.BfKvData.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Ping'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfcta.BfCtaService', 'SendOrder'): bftrader_pb2.BfSendOrderReq.FromString,
+    ('bftrader.BfCtaService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.FromString,
+    ('bftrader.BfCtaService', 'Connect'): bfgateway_pb2.BfConnectReq.FromString,
+    ('bftrader.BfCtaService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bftrader.BfCtaService', 'GetRobotInfo'): bfgateway_pb2.BfKvData.FromString,
+    ('bftrader.BfCtaService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bftrader.BfCtaService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.FromString,
   }
   response_serializers = {
-    ('bftrader.bfcta.BfCtaService', 'CancelOrder'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Disconnect'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'GetRobotInfo'): bftrader_pb2.BfKvData.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'SendOrder'): bftrader_pb2.BfSendOrderResp.SerializeToString,
+    ('bftrader.BfCtaService', 'CancelOrder'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bftrader.BfCtaService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bftrader.BfCtaService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bftrader.BfCtaService', 'GetRobotInfo'): bfgateway_pb2.BfKvData.SerializeToString,
+    ('bftrader.BfCtaService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bftrader.BfCtaService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.SerializeToString,
   }
   method_implementations = {
-    ('bftrader.bfcta.BfCtaService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
-    ('bftrader.bfcta.BfCtaService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
-    ('bftrader.bfcta.BfCtaService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
-    ('bftrader.bfcta.BfCtaService', 'GetRobotInfo'): face_utilities.unary_unary_inline(servicer.GetRobotInfo),
-    ('bftrader.bfcta.BfCtaService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
-    ('bftrader.bfcta.BfCtaService', 'SendOrder'): face_utilities.unary_unary_inline(servicer.SendOrder),
+    ('bftrader.BfCtaService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
+    ('bftrader.BfCtaService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
+    ('bftrader.BfCtaService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
+    ('bftrader.BfCtaService', 'GetRobotInfo'): face_utilities.unary_unary_inline(servicer.GetRobotInfo),
+    ('bftrader.BfCtaService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
+    ('bftrader.BfCtaService', 'SendOrder'): face_utilities.unary_unary_inline(servicer.SendOrder),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
 
 def beta_create_BfCtaService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-  import bftrader_pb2
+  import bfgateway_pb2
   import google.protobuf.any_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
-  import bftrader_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
   request_serializers = {
-    ('bftrader.bfcta.BfCtaService', 'CancelOrder'): bftrader_pb2.BfCancelOrderReq.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Connect'): bftrader_pb2.BfConnectReq.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Disconnect'): bftrader_pb2.BfVoid.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'GetRobotInfo'): bftrader_pb2.BfKvData.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'Ping'): bftrader_pb2.BfPingData.SerializeToString,
-    ('bftrader.bfcta.BfCtaService', 'SendOrder'): bftrader_pb2.BfSendOrderReq.SerializeToString,
+    ('bftrader.BfCtaService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.SerializeToString,
+    ('bftrader.BfCtaService', 'Connect'): bfgateway_pb2.BfConnectReq.SerializeToString,
+    ('bftrader.BfCtaService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bftrader.BfCtaService', 'GetRobotInfo'): bfgateway_pb2.BfKvData.SerializeToString,
+    ('bftrader.BfCtaService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bftrader.BfCtaService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.SerializeToString,
   }
   response_deserializers = {
-    ('bftrader.bfcta.BfCtaService', 'CancelOrder'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Disconnect'): bftrader_pb2.BfVoid.FromString,
-    ('bftrader.bfcta.BfCtaService', 'GetRobotInfo'): bftrader_pb2.BfKvData.FromString,
-    ('bftrader.bfcta.BfCtaService', 'Ping'): bftrader_pb2.BfPingData.FromString,
-    ('bftrader.bfcta.BfCtaService', 'SendOrder'): bftrader_pb2.BfSendOrderResp.FromString,
+    ('bftrader.BfCtaService', 'CancelOrder'): bfgateway_pb2.BfVoid.FromString,
+    ('bftrader.BfCtaService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
+    ('bftrader.BfCtaService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bftrader.BfCtaService', 'GetRobotInfo'): bfgateway_pb2.BfKvData.FromString,
+    ('bftrader.BfCtaService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bftrader.BfCtaService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.FromString,
   }
   cardinalities = {
     'CancelOrder': cardinality.Cardinality.UNARY_UNARY,
@@ -162,5 +162,5 @@ def beta_create_BfCtaService_stub(channel, host=None, metadata_transformer=None,
     'SendOrder': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'bftrader.bfcta.BfCtaService', cardinalities, options=stub_options)
+  return beta_implementations.dynamic_stub(channel, 'bftrader.BfCtaService', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)

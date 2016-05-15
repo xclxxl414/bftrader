@@ -3,7 +3,7 @@
 import time
 import random
 
-from bftrader_pb2 import *
+from bfgateway_pb2 import *
 from bfkv_pb2 import *
 from google.protobuf.any_pb2 import *
 

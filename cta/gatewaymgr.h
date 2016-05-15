@@ -1,7 +1,7 @@
 #ifndef GATEWAYMGR_H
 #define GATEWAYMGR_H
 
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
 #include <QMap>
 #include <QMutex>
 #include <QObject>

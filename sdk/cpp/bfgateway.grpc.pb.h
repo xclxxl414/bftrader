@@ -23,7 +23,6 @@ class ServerContext;
 }  // namespace grpc
 
 namespace bftrader {
-namespace bfgateway {
 
 class BfGatewayService GRPC_FINAL {
  public:
@@ -447,7 +446,6 @@ class BfGatewayService GRPC_FINAL {
   };
 };
 
-}  // namespace bfgateway
 }  // namespace bftrader
 
 

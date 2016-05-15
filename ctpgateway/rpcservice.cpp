@@ -10,9 +10,6 @@
 #include <QtCore/QDebug>
 #include <grpc++/grpc++.h>
 
-using namespace bftrader;
-using namespace bftrader::bfgateway;
-
 //
 // Gateway,动态多线程服务器=
 //

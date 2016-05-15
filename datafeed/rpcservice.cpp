@@ -5,9 +5,6 @@
 #include <QThread>
 #include <grpc++/grpc++.h>
 
-using namespace bftrader;
-using namespace bftrader::bfdatafeed;
-
 //
 // Datafeed
 //

@@ -18,7 +18,6 @@
 // @@protoc_insertion_point(includes)
 
 namespace bftrader {
-namespace bfcta {
 
 namespace {
 
@@ -57,21 +56,21 @@ void protobuf_AddDesc_bfcta_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::bftrader::protobuf_AddDesc_bftrader_2eproto();
+  ::bftrader::protobuf_AddDesc_bfgateway_2eproto();
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\013bfcta.proto\022\016bftrader.bfcta\032\016bftrader."
-    "proto\032\031google/protobuf/any.proto2\362\002\n\014BfC"
-    "taService\022;\n\007Connect\022\026.bftrader.BfConnec"
-    "tReq\032\024.google.protobuf.Any\"\0000\001\0224\n\004Ping\022\024"
-    ".bftrader.BfPingData\032\024.bftrader.BfPingDa"
-    "ta\"\000\0222\n\nDisconnect\022\020.bftrader.BfVoid\032\020.b"
-    "ftrader.BfVoid\"\000\0228\n\014GetRobotInfo\022\022.bftra"
-    "der.BfKvData\032\022.bftrader.BfKvData\"\000\022B\n\tSe"
-    "ndOrder\022\030.bftrader.BfSendOrderReq\032\031.bftr"
-    "ader.BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032."
-    "bftrader.BfCancelOrderReq\032\020.bftrader.BfV"
-    "oid\"\000b\006proto3", 453);
+    "\n\013bfcta.proto\022\010bftrader\032\017bfgateway.proto"
+    "\032\031google/protobuf/any.proto2\362\002\n\014BfCtaSer"
+    "vice\022;\n\007Connect\022\026.bftrader.BfConnectReq\032"
+    "\024.google.protobuf.Any\"\0000\001\0224\n\004Ping\022\024.bftr"
+    "ader.BfPingData\032\024.bftrader.BfPingData\"\000\022"
+    "2\n\nDisconnect\022\020.bftrader.BfVoid\032\020.bftrad"
+    "er.BfVoid\"\000\0228\n\014GetRobotInfo\022\022.bftrader.B"
+    "fKvData\032\022.bftrader.BfKvData\"\000\022B\n\tSendOrd"
+    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
+    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
+    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
+    "b\006proto3", 448);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfcta_2eproto);
@@ -86,7 +85,6 @@ struct StaticDescriptorInitializer_bfcta_2eproto {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace bfcta
 }  // namespace bftrader
 
 // @@protoc_insertion_point(global_scope)

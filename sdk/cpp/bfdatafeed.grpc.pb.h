@@ -23,7 +23,6 @@ class ServerContext;
 }  // namespace grpc
 
 namespace bftrader {
-namespace bfdatafeed {
 
 class BfDatafeedService GRPC_FINAL {
  public:
@@ -557,7 +556,6 @@ class BfDatafeedService GRPC_FINAL {
   };
 };
 
-}  // namespace bfdatafeed
 }  // namespace bftrader
 
 

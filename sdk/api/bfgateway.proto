@@ -1,12 +1,304 @@
 syntax = "proto3";
 
-package bftrader.bfgateway;
+//package bftrader.bfgateway;
+package bftrader;
 
 // option optimize_for = CODE_SIZE;
 // option cc_enable_arenas = true;
 
-import "bftrader.proto";
+// import "bftrader.proto";
 import "google/protobuf/any.proto";
+
+//============================
+
+// 方向常量
+enum BfDirection{
+    DIRECTION_UNKNOWN = 0;  // 未知
+    DIRECTION_LONG = 1;     // 多
+    DIRECTION_SHORT = 2;    // 空
+    DIRECTION_NET = 3;      // 净
+}
+
+// 开平常量
+enum BfOffset{
+    OFFSET_UNKNOWN = 0;         // 未知
+    OFFSET_OPEN = 1;            // 开仓
+    OFFSET_CLOSE = 2;           // 平仓
+    OFFSET_CLOSETODAY = 3;      // 平今
+    OFFSET_CLOSEYESTERDAY = 4;  // 平昨
+}
+
+// 状态常量
+enum BfStatus{
+    STATUS_UNKNOWN = 0;         // 未知
+    STATUS_NOTTRADED = 1;       // 未成交
+    STATUS_PARTTRADED = 2;      // 部分成交
+    STATUS_ALLTRADED = 3;       // 全部成交
+    STATUS_CANCELLED = 4;       // 已撤销
+}
+
+// 合约类型常量
+enum BfProduct{
+    PRODUCT_UNKNOWN = 0;        // 未知
+    PRODUCT_EQUITY = 1;         // 股票
+    PRODUCT_FUTURES = 2;        // 期货
+}
+
+// 价格类型常量
+enum BfPriceType{
+    PRICETYPE_UNKONWN = 0;      // 未知
+    PRICETYPE_LIMITPRICE = 1;   // 限价
+    PRICETYPE_MARKETPRICE = 2;  // 市价
+}
+
+// Notification
+enum BfNoticationType{
+    NOTIFICATION_UNKNOWN = 0;           //未知
+    NOTIFICATION_TRADEWILLBEGIN = 1;    //登录成功准备查询可交易合约列表
+    NOTIFICATION_GOTCONTRACTS = 2;      //查询可交易合约列表成功
+    
+}
+
+//============================
+
+// 空参数
+message BfVoid{
+}
+  
+//============================
+
+// Tick行情数据类
+message BfTickData{
+
+    // 代码相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    // 成交数据
+    string actionDate = 3;      // 日期 yyyyMMdd
+    string tickTime = 4;        // 时间 hh:mm:ss.zzz,其他时间都是hh::mm::ss
+    double lastPrice = 5;       // 最新成交价
+    int32 volume = 6;           // 今天总成交量
+    double openInterest = 7;    // 今天总持仓量
+    int32 lastVolume = 8;       // 本笔成交量，无法计算时用1代替
+
+    // 常规行情
+    double openPrice = 9;       // 今日开盘价
+    double highPrice = 10;      // 今日最高价
+    double lowPrice = 11;       // 今日最低价
+    double preClosePrice = 12;  // 昨日收盘价
+    double upperLimit = 13;     // 涨停价
+    double lowerLimit = 14;     // 跌停价
+
+    // x档行情
+    double bidPrice1 = 15;      // 买价
+    double askPrice1 = 16;      // 卖价
+    int32 bidVolume1 = 17;      // 买量
+    int32 askVolume1 = 18;      // 卖量  
+}
+
+// 成交数据类
+message BfTradeData{
+    
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+
+    string tradeId = 3;         // 成交编号
+    // 对于ctp/lts是frontid.sessioni.orderref
+    // ctp/lts的trade里面没有frontid+sessionid
+    // 内部通过sysOrderId是做了映射trade到Order
+    string bfOrderId = 4;       // 订单编号,是本地自己分配的
+    
+    // 成交相关
+    BfDirection direction = 5;  // 成交方向
+    BfOffset offset =  6;       // 成交开平仓
+    double price = 7;           // 成交价格
+    int32 volume = 8;           // 成交数量
+    string tradeDate = 9;       // 成交日期
+    string tradeTime = 10;      // 成交时间
+}
+
+// 订单数据类
+message BfOrderData{
+
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    string bfOrderId = 3;       // 订单编号,是本地自己分配的
+   
+    // 报单相关
+    BfDirection direction = 4;  // 报单方向
+    BfOffset offset = 5;        // 报单开平仓
+    double price = 6;           // 报单价格
+    int32 totalVolume = 7;      // 报单总数量
+    int32 tradedVolume = 8;     // 报单成交数量
+    BfStatus status = 9;        // 报单状态
+    
+    string insertDate = 10;     // 发单日期
+    string insertTime = 11;     // 发单时间
+    string cancelTime = 12;     // 撤单时间
+}
+
+// 持仓数据类
+message BfPositionData{
+
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+
+    // 持仓相关
+    BfDirection direction = 3;  // 持仓方向
+    int32 position = 4;         // 持仓量
+    int32 frozen = 5;           // 冻结数量
+    double price = 6;           // 持仓均价
+    int32 ydPosition = 7;       // 昨持仓
+}
+
+// 账户数据类
+message BfAccountData{
+
+    // 账号代码相关
+    string accountId = 1;       // 账户代码
+    
+    // 数值相关
+    double preBalance = 2;      // 昨日账户结算净值
+    double balance = 3;         // 账户净值
+    double available = 4;       // 可用资金
+    double commission = 5;      // 今日手续费
+    double frozenMargin = 6;    // 保证金占用
+    double closeProfit = 7;     // 平仓盈亏
+    double positionProfit = 8;  // 持仓盈亏
+}
+
+// 错误数据类
+message BfErrorData{
+
+    int32 code = 1;             // 错误代码
+    string message = 2;         // 错误信息
+    string messageEx = 3;       // 补充信息
+}
+
+// 日志数据类
+message BfLogData{
+
+    string when = 1;            // 日志生成时间
+    string message = 2;         // 日志信息
+}
+
+// 合约详细信息类
+message BfContractData{
+
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    string name = 3;            // 合约中文名(utf16)
+    
+    BfProduct productClass = 4; // 合约类型
+    int32 volumeMultiple = 5;   // 合约数量乘数
+    double priceTick = 6;       // 合约最小价格TICK
+    
+    int32 maxLimit = 7;         // 限价单最大下单量
+    int32 minLimit = 8;         // 限价单最小下单量
+    int32 maxMarket = 9;        // 市价单最大下单量
+    int32 minMartet = 10;       // 市价单最小下单量
+}
+
+// Notification
+message BfNotificationData{
+    BfNoticationType code = 1;  // 代码
+    string message = 2;         // 信息    
+    string messageEx = 3;       // 补充信息
+}
+
+// Ping/Pong检测传入的对象类
+// 同ctp一样，5秒一次
+message BfPingData{
+    string message = 1;         // 内容
+}
+
+// K/V数据交换传入传出的数据类
+// 策略间交换数据服务
+// 由于涉及交易，交易又分实盘和回测，所以放到网关比较合适
+message BfKvData{
+
+    //kv对
+    string key = 1;                 // key
+    string value = 2;               // val，any？=
+}
+
+//============================
+
+// 发单时传入的对象类
+message BfSendOrderReq{
+
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    double price = 3;           // 价格
+    int32 volume = 4;           // 数量
+    BfPriceType priceType = 5;  // 价格类型
+    BfDirection direction = 6;  // 买卖
+    BfOffset offset = 7;        // 开平    
+}
+
+// 发单本地返回的对象类
+message BfSendOrderResp{
+    string bfOrderId = 1;       // 报单号,是本地自己分配的
+}
+
+// 撤单时传入的对象类
+message BfCancelOrderReq{
+
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    string bfOrderId = 3;       // 报单号,是本地自己分配的
+}
+
+// 连接时传入的对象类
+message BfConnectReq{
+    // 唯一英文代号
+    string clientId = 1;         // 用于日志分析和ui显示
+    
+    // 服务地址和端口
+    string clientIp = 2;         // 机器人服务,"localhost"
+    int32 clientPort = 3;        // 机器人端口,50053
+
+    // 角色类别，可多选
+    // 注意：OnTradeWillBegin OnGotContracts OnPing 都必须实现
+    bool tickHandler = 4;       // OnTick
+    bool tradeHandler = 5;      // OnAccount OnPosition OnTrade OnOrder 
+    bool logHandler = 6;        // OnError OnLog(可扩展做日志分析)
+    
+    // tickHandler相关
+    string symbol = 7;          // 指定订阅的合约，都填*订阅所有
+    string exchange = 8;        // 合约exchange
+}
+
+// 连接时返回的对象类
+message BfConnectResp{
+    int32 errorCode = 1;        // 错误代码,0成功
+    string errorMsg = 2;        // 错误信息
+}
+
+// 获取合约信息传入的对象类
+message BfGetContractReq{
+    // 代码编号相关
+    string symbol = 1;          // 合约代码
+    string exchange = 2;        // 交易所代码
+    
+    // 获取全部合约时候可以用index来枚举，从1开始，返回空结束
+    int32 index = 3;            // 枚举下标
+    
+    // 过滤条件，指定是否要求已经订阅
+    bool subscribled = 4;       // 是否要求已经订阅
+}
+
+//============================
 
 //
 // 网关服务，必须先connect然后才可以调用其他api
@@ -38,3 +330,5 @@ service BfGatewayService{
     // 查询持仓信息
     rpc QueryPosition(BfVoid) returns (BfVoid) {}
 }
+
+//============================

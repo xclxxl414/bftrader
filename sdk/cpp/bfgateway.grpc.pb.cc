@@ -14,17 +14,16 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace bftrader {
-namespace bfgateway {
 
 static const char* BfGatewayService_method_names[] = {
-  "/bftrader.bfgateway.BfGatewayService/Connect",
-  "/bftrader.bfgateway.BfGatewayService/Ping",
-  "/bftrader.bfgateway.BfGatewayService/Disconnect",
-  "/bftrader.bfgateway.BfGatewayService/GetContract",
-  "/bftrader.bfgateway.BfGatewayService/SendOrder",
-  "/bftrader.bfgateway.BfGatewayService/CancelOrder",
-  "/bftrader.bfgateway.BfGatewayService/QueryAccount",
-  "/bftrader.bfgateway.BfGatewayService/QueryPosition",
+  "/bftrader.BfGatewayService/Connect",
+  "/bftrader.BfGatewayService/Ping",
+  "/bftrader.BfGatewayService/Disconnect",
+  "/bftrader.BfGatewayService/GetContract",
+  "/bftrader.BfGatewayService/SendOrder",
+  "/bftrader.BfGatewayService/CancelOrder",
+  "/bftrader.BfGatewayService/QueryAccount",
+  "/bftrader.BfGatewayService/QueryPosition",
 };
 
 std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -212,5 +211,4 @@ BfGatewayService::Service::~Service() {
 
 
 }  // namespace bftrader
-}  // namespace bfgateway
 

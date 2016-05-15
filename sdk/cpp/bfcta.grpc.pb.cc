@@ -14,15 +14,14 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace bftrader {
-namespace bfcta {
 
 static const char* BfCtaService_method_names[] = {
-  "/bftrader.bfcta.BfCtaService/Connect",
-  "/bftrader.bfcta.BfCtaService/Ping",
-  "/bftrader.bfcta.BfCtaService/Disconnect",
-  "/bftrader.bfcta.BfCtaService/GetRobotInfo",
-  "/bftrader.bfcta.BfCtaService/SendOrder",
-  "/bftrader.bfcta.BfCtaService/CancelOrder",
+  "/bftrader.BfCtaService/Connect",
+  "/bftrader.BfCtaService/Ping",
+  "/bftrader.BfCtaService/Disconnect",
+  "/bftrader.BfCtaService/GetRobotInfo",
+  "/bftrader.BfCtaService/SendOrder",
+  "/bftrader.BfCtaService/CancelOrder",
 };
 
 std::unique_ptr< BfCtaService::Stub> BfCtaService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -168,5 +167,4 @@ BfCtaService::Service::~Service() {
 
 
 }  // namespace bftrader
-}  // namespace bfcta
 

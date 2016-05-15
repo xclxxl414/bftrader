@@ -25,12 +25,11 @@
 #include <google/protobuf/metadata.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
-#include "bftrader.pb.h"
+#include "bfgateway.pb.h"
 #include <google/protobuf/any.pb.h>
 // @@protoc_insertion_point(includes)
 
 namespace bftrader {
-namespace bfkv {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_bfkv_2eproto();
@@ -51,7 +50,6 @@ void protobuf_ShutdownFile_bfkv_2eproto();
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace bfkv
 }  // namespace bftrader
 
 // @@protoc_insertion_point(global_scope)
