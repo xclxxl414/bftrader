@@ -17,8 +17,8 @@ namespace bftrader {
 
 static const char* BfGatewayService_method_names[] = {
   "/bftrader.BfGatewayService/Connect",
-  "/bftrader.BfGatewayService/Ping",
   "/bftrader.BfGatewayService/Disconnect",
+  "/bftrader.BfGatewayService/Ping",
   "/bftrader.BfGatewayService/GetContract",
   "/bftrader.BfGatewayService/SendOrder",
   "/bftrader.BfGatewayService/CancelOrder",
@@ -33,8 +33,8 @@ std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::sh
 
 BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_Ping_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Disconnect_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Disconnect_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Ping_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_SendOrder_(BfGatewayService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_CancelOrder_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
@@ -50,20 +50,20 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncReader< ::google::protobuf::Any>(channel_.get(), cq, rpcmethod_Connect_, context, request, tag);
 }
 
-::grpc::Status BfGatewayService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfGatewayService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
-}
-
 ::grpc::Status BfGatewayService::Stub::Disconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Disconnect_, context, request, response);
 }
 
 ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfGatewayService::Stub::AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Disconnect_, context, request);
+}
+
+::grpc::Status BfGatewayService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfGatewayService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
 ::grpc::Status BfGatewayService::Stub::GetContract(::grpc::ClientContext* context, const ::bftrader::BfGetContractReq& request, ::bftrader::BfContractData* response) {
@@ -116,13 +116,13 @@ BfGatewayService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
-          std::mem_fn(&BfGatewayService::Service::Ping), this)));
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+          std::mem_fn(&BfGatewayService::Service::Disconnect), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::Disconnect), this)));
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+          std::mem_fn(&BfGatewayService::Service::Ping), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
@@ -160,14 +160,14 @@ BfGatewayService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+::grpc::Status BfGatewayService::Service::Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+::grpc::Status BfGatewayService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
   (void) context;
   (void) request;
   (void) response;

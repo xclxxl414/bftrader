@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfcta.proto',
   package='bftrader',
   syntax='proto3',
-  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto2\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto2\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bfgateway__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -42,10 +42,10 @@ class BetaBfCtaServiceServicer(object):
   def Connect(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def Ping(self, request, context):
+  def Disconnect(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def Disconnect(self, request, context):
+  def Ping(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
   def GetRobotInfo(self, request, context):
@@ -64,13 +64,13 @@ class BetaBfCtaServiceStub(object):
   def Connect(self, request, timeout):
     raise NotImplementedError()
   @abc.abstractmethod
-  def Ping(self, request, timeout):
-    raise NotImplementedError()
-  Ping.future = None
-  @abc.abstractmethod
   def Disconnect(self, request, timeout):
     raise NotImplementedError()
   Disconnect.future = None
+  @abc.abstractmethod
+  def Ping(self, request, timeout):
+    raise NotImplementedError()
+  Ping.future = None
   @abc.abstractmethod
   def GetRobotInfo(self, request, timeout):
     raise NotImplementedError()

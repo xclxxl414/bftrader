@@ -279,12 +279,6 @@ message BfConnectReq{
     string exchange = 8;        // 合约exchange
 }
 
-// 连接时返回的对象类
-message BfConnectResp{
-    int32 errorCode = 1;        // 错误代码,0成功
-    string errorMsg = 2;        // 错误信息
-}
-
 // 获取合约信息传入的对象类
 message BfGetContractReq{
     // 代码编号相关
@@ -306,15 +300,15 @@ message BfGetContractReq{
 // 不想做远程策略引擎的，可使用内置的Cta引擎
 // 
 service BfGatewayService{    
-    // 请求建立到proxy的连接
+    // 请求push
     rpc Connect(BfConnectReq) returns (stream google.protobuf.Any) {}
+
+    // 断开push
+    rpc Disconnect(BfVoid) returns (BfVoid) {}
     
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}
         
-    // 请求断开到proxy的连接
-    rpc Disconnect(BfVoid) returns (BfVoid) {}
-
     // 获取交易合约信息
     rpc GetContract(BfGetContractReq) returns (BfContractData) {}
        

@@ -41,7 +41,6 @@ void protobuf_ShutdownFile_bfgateway_2eproto();
 class BfAccountData;
 class BfCancelOrderReq;
 class BfConnectReq;
-class BfConnectResp;
 class BfContractData;
 class BfErrorData;
 class BfGetContractReq;
@@ -2199,96 +2198,6 @@ class BfConnectReq : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfConnectReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class BfConnectResp : public ::google::protobuf::Message {
- public:
-  BfConnectResp();
-  virtual ~BfConnectResp();
-
-  BfConnectResp(const BfConnectResp& from);
-
-  inline BfConnectResp& operator=(const BfConnectResp& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BfConnectResp& default_instance();
-
-  void Swap(BfConnectResp* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BfConnectResp* New() const { return New(NULL); }
-
-  BfConnectResp* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfConnectResp& from);
-  void MergeFrom(const BfConnectResp& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BfConnectResp* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional int32 errorCode = 1;
-  void clear_errorcode();
-  static const int kErrorCodeFieldNumber = 1;
-  ::google::protobuf::int32 errorcode() const;
-  void set_errorcode(::google::protobuf::int32 value);
-
-  // optional string errorMsg = 2;
-  void clear_errormsg();
-  static const int kErrorMsgFieldNumber = 2;
-  const ::std::string& errormsg() const;
-  void set_errormsg(const ::std::string& value);
-  void set_errormsg(const char* value);
-  void set_errormsg(const char* value, size_t size);
-  ::std::string* mutable_errormsg();
-  ::std::string* release_errormsg();
-  void set_allocated_errormsg(::std::string* errormsg);
-
-  // @@protoc_insertion_point(class_scope:bftrader.BfConnectResp)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr errormsg_;
-  ::google::protobuf::int32 errorcode_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_bfgateway_2eproto();
-  friend void protobuf_AssignDesc_bfgateway_2eproto();
-  friend void protobuf_ShutdownFile_bfgateway_2eproto();
-
-  void InitAsDefaultInstance();
-  static BfConnectResp* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4988,67 +4897,6 @@ inline void BfConnectReq::set_allocated_exchange(::std::string* exchange) {
 
 // -------------------------------------------------------------------
 
-// BfConnectResp
-
-// optional int32 errorCode = 1;
-inline void BfConnectResp::clear_errorcode() {
-  errorcode_ = 0;
-}
-inline ::google::protobuf::int32 BfConnectResp::errorcode() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectResp.errorCode)
-  return errorcode_;
-}
-inline void BfConnectResp::set_errorcode(::google::protobuf::int32 value) {
-  
-  errorcode_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectResp.errorCode)
-}
-
-// optional string errorMsg = 2;
-inline void BfConnectResp::clear_errormsg() {
-  errormsg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BfConnectResp::errormsg() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectResp.errorMsg)
-  return errormsg_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectResp::set_errormsg(const ::std::string& value) {
-  
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectResp.errorMsg)
-}
-inline void BfConnectResp::set_errormsg(const char* value) {
-  
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectResp.errorMsg)
-}
-inline void BfConnectResp::set_errormsg(const char* value, size_t size) {
-  
-  errormsg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectResp.errorMsg)
-}
-inline ::std::string* BfConnectResp::mutable_errormsg() {
-  
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectResp.errorMsg)
-  return errormsg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BfConnectResp::release_errormsg() {
-  
-  return errormsg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectResp::set_allocated_errormsg(::std::string* errormsg) {
-  if (errormsg != NULL) {
-    
-  } else {
-    
-  }
-  errormsg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), errormsg);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectResp.errorMsg)
-}
-
-// -------------------------------------------------------------------
-
 // BfGetContractReq
 
 // optional string symbol = 1;
@@ -5166,8 +5014,6 @@ inline void BfGetContractReq::set_subscribled(bool value) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

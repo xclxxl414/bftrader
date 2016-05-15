@@ -14,15 +14,15 @@ import "google/protobuf/any.proto";
 // Cta服务，必须先connect然后才可以调用其他api
 //
 service BfCtaService{    
-    // 请求建立到robot的连接
+    // 请求push
     rpc Connect(BfConnectReq) returns (stream google.protobuf.Any) {}
+
+    // 断开push
+    rpc Disconnect(BfVoid) returns (BfVoid) {}
     
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}
-        
-    // 请求断开到robot的连接
-    rpc Disconnect(BfVoid) returns (BfVoid) {}
-    
+            
     // 获取策略信息，如position，用kv最方便
     rpc GetRobotInfo(BfKvData) returns (BfKvData) {}
 
