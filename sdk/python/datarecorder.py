@@ -141,9 +141,9 @@ def dispatchPush(client,resp):
     elif resp.Is(_NOTIFICATION_TYPE):
         resp_data = BfNotificationData()
         resp.Unpack(resp_data)
-        if resp_data.type() == NOTIFICATION_GOTCONTRACTS:
+        if resp_data.type == NOTIFICATION_GOTCONTRACTS:
             client.OnGotContracts(resp_data)
-        elif resp_data.type() == NOTIFICATION_TRADEWILLBEGIN:
+        elif resp_data.type == NOTIFICATION_TRADEWILLBEGIN:
             client.OnTradeWillBegin(resp_data)
         else:
             print "invliad notification type"
