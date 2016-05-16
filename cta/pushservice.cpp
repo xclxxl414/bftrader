@@ -26,21 +26,6 @@ public:
         shutdown();
     }
 
-    // TODO(hege):增加notification=
-    void OnInit(const BfVoid& data)
-    {
-    }
-
-    // TODO(hege):增加notification=
-    void OnStart(const BfVoid& data)
-    {
-    }
-
-    // TODO(hege):增加notification=
-    void OnStop(const BfVoid& data)
-    {
-    }
-
     void OnPing(const BfPingData& data)
     {
         auto any = new google::protobuf::Any();
@@ -241,26 +226,5 @@ void PushService::onGotOrder(QString gatewayId, const BfOrderData& data)
             client->OnOrder(data);
         }
         return;
-    }
-}
-
-void PushService::onAutoTradingStart()
-{
-    g_sm->checkCurrentOn(ServiceMgr::PUSH);
-
-    BfVoid data;
-    for (auto client : clients_) {
-        client->OnInit(data);
-        client->OnStart(data);
-    }
-}
-
-void PushService::onAutoTradingStop()
-{
-    g_sm->checkCurrentOn(ServiceMgr::PUSH);
-
-    BfVoid data;
-    for (auto client : clients_) {
-        client->OnStop(data);
     }
 }

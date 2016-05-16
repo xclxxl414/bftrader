@@ -1,20 +1,17 @@
-#include "robotform.h"
+#include "modelform.h"
 #include "tablewidget_helper.h"
-#include "ui_robotform.h"
+#include "ui_modelform.h"
 
-RobotForm::RobotForm(QWidget* parent)
+ModelForm::ModelForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::RobotForm)
+    , ui(new Ui::ModelForm)
 {
     ui->setupUi(this);
 
     //设置列=
-    table_col_ << "robotId"
-               << "modelId"
-               << "gatewayId"
-               << "symbol"
-               << "exchange"
-               << "status";
+    table_col_ << "modelId"
+               << "langType"
+               << "path";
 
     this->ui->tableWidget->setColumnCount(table_col_.length());
     for (int i = 0; i < table_col_.length(); i++) {
@@ -25,15 +22,15 @@ RobotForm::RobotForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-RobotForm::~RobotForm()
+ModelForm::~ModelForm()
 {
     delete ui;
 }
 
-void RobotForm::init()
+void ModelForm::init()
 {
 }
 
-void RobotForm::shutdown()
+void ModelForm::shutdown()
 {
 }

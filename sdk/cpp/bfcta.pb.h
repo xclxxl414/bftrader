@@ -283,6 +283,17 @@ class BfRobotData : public ::google::protobuf::Message {
   ::std::string* release_exchange();
   void set_allocated_exchange(::std::string* exchange);
 
+  // optional string status = 6;
+  void clear_status();
+  static const int kStatusFieldNumber = 6;
+  const ::std::string& status() const;
+  void set_status(const ::std::string& value);
+  void set_status(const char* value);
+  void set_status(const char* value, size_t size);
+  ::std::string* mutable_status();
+  ::std::string* release_status();
+  void set_allocated_status(::std::string* status);
+
   // @@protoc_insertion_point(class_scope:bftrader.BfRobotData)
  private:
 
@@ -293,6 +304,7 @@ class BfRobotData : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr gatewayid_;
   ::google::protobuf::internal::ArenaStringPtr symbol_;
   ::google::protobuf::internal::ArenaStringPtr exchange_;
+  ::google::protobuf::internal::ArenaStringPtr status_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bfcta_2eproto();
   friend void protobuf_AssignDesc_bfcta_2eproto();
@@ -823,6 +835,49 @@ inline void BfRobotData::set_allocated_exchange(::std::string* exchange) {
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.exchange)
+}
+
+// optional string status = 6;
+inline void BfRobotData::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BfRobotData::status() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfRobotData::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.status)
+}
+inline void BfRobotData::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.status)
+}
+inline void BfRobotData::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.status)
+}
+inline ::std::string* BfRobotData::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BfRobotData::release_status() {
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfRobotData::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.status)
 }
 
 // -------------------------------------------------------------------

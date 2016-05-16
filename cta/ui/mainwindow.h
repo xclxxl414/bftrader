@@ -11,6 +11,8 @@ class MainWindow;
 
 class Profile;
 class RobotForm;
+class GatewayForm;
+class ModelForm;
 class PositionForm;
 class InfoForm;
 class DebugForm;
@@ -41,16 +43,11 @@ private slots:
     void on_actionCrashExit_triggered();
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
-    void on_actionCtpConnect_triggered();
-    void on_actionCtpDisconnect_triggered();
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
-    void on_actionStopAutoTrading_triggered();
-    void on_actionStartAutoTrading_triggered();
-    void on_actionShowRobotOrder_triggered();
-    void on_actionShowRobotTrade_triggered();
-    void on_actionAddRobot_triggered();
-    void on_actionDeleteRobot_triggered();
+    void on_actionRobotAdd_triggered();
+    void on_actionGatewayAdd_triggered();
+    void on_actionModelAdd_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
@@ -73,6 +70,8 @@ private:
 
     //tabs
     RobotForm* robotForm_;
+    GatewayForm* gatewayForm_;
+    ModelForm* modelForm_;
     PositionForm* positionForm_;
     InfoForm* infoForm_;
     DebugForm* debugForm_;

@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfcta.proto',
   package='bftrader',
   syntax='proto3',
-  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto\"Y\n\x0b\x42\x66ModelData\x12\x0f\n\x07modelId\x18\x01 \x01(\t\x12+\n\x08langType\x18\x02 \x01(\x0e\x32\x19.bftrader.BfModelLangType\x12\x0c\n\x04path\x18\x03 \x01(\t\"d\n\x0b\x42\x66RobotData\x12\x0f\n\x07robotId\x18\x01 \x01(\t\x12\x0f\n\x07modelId\x18\x02 \x01(\t\x12\x11\n\tgatewayId\x18\x03 \x01(\t\x12\x0e\n\x06symbol\x18\x04 \x01(\t\x12\x10\n\x08\x65xchange\x18\x05 \x01(\t\"<\n\rBfGatewayData\x12\x11\n\tgatewayId\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\n\n\x02ip\x18\x03 \x01(\t\"3\n\rBfOrderExData\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\x12\x0f\n\x07robotId\x18\x02 \x01(\t*\x89\x01\n\x0f\x42\x66ModelLangType\x12\x15\n\x11MODELLANG_UNKNOWN\x10\x00\x12\x1a\n\x16MODELLANG_PYTHONSCRIPT\x10\x01\x12\x17\n\x13MODELLANG_GOLANGEXE\x10\x02\x12\x14\n\x10MODELLANG_CPPEXE\x10\x03\x12\x14\n\x10MODELLANG_CPPDLL\x10\x04\x32\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x62\x66\x63ta.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto\"Y\n\x0b\x42\x66ModelData\x12\x0f\n\x07modelId\x18\x01 \x01(\t\x12+\n\x08langType\x18\x02 \x01(\x0e\x32\x19.bftrader.BfModelLangType\x12\x0c\n\x04path\x18\x03 \x01(\t\"t\n\x0b\x42\x66RobotData\x12\x0f\n\x07robotId\x18\x01 \x01(\t\x12\x0f\n\x07modelId\x18\x02 \x01(\t\x12\x11\n\tgatewayId\x18\x03 \x01(\t\x12\x0e\n\x06symbol\x18\x04 \x01(\t\x12\x10\n\x08\x65xchange\x18\x05 \x01(\t\x12\x0e\n\x06status\x18\x06 \x01(\t\"<\n\rBfGatewayData\x12\x11\n\tgatewayId\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\x05\x12\n\n\x02ip\x18\x03 \x01(\t\"3\n\rBfOrderExData\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\x12\x0f\n\x07robotId\x18\x02 \x01(\t*\x89\x01\n\x0f\x42\x66ModelLangType\x12\x15\n\x11MODELLANG_UNKNOWN\x10\x00\x12\x1a\n\x16MODELLANG_PYTHONSCRIPT\x10\x01\x12\x17\n\x13MODELLANG_GOLANGEXE\x10\x02\x12\x14\n\x10MODELLANG_CPPEXE\x10\x03\x12\x14\n\x10MODELLANG_CPPDLL\x10\x04\x32\xf2\x02\n\x0c\x42\x66\x43taService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x38\n\x0cGetRobotInfo\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
   ,
   dependencies=[bfgateway__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -56,8 +56,8 @@ _BFMODELLANGTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=378,
-  serialized_end=515,
+  serialized_start=394,
+  serialized_end=531,
 )
 _sym_db.RegisterEnumDescriptor(_BFMODELLANGTYPE)
 
@@ -157,6 +157,13 @@ _BFROBOTDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='bftrader.BfRobotData.status', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -170,7 +177,7 @@ _BFROBOTDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=160,
-  serialized_end=260,
+  serialized_end=276,
 )
 
 
@@ -214,8 +221,8 @@ _BFGATEWAYDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=262,
-  serialized_end=322,
+  serialized_start=278,
+  serialized_end=338,
 )
 
 
@@ -252,8 +259,8 @@ _BFORDEREXDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=324,
-  serialized_end=375,
+  serialized_start=340,
+  serialized_end=391,
 )
 
 _BFMODELDATA.fields_by_name['langType'].enum_type = _BFMODELLANGTYPE

@@ -12,7 +12,7 @@ WorkingOrderForm::WorkingOrderForm(QWidget* parent)
     table_col_ << "robotId"
                << "symbol"
                << "exchange"
-               << "positioin"
+               << "position"
                << "price"
                << "volume";
 

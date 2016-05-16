@@ -62,12 +62,13 @@ void protobuf_AssignDesc_bfcta_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfModelData, _is_default_instance_));
   BfRobotData_descriptor_ = file->message_type(1);
-  static const int BfRobotData_offsets_[5] = {
+  static const int BfRobotData_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, robotid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, modelid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, gatewayid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, symbol_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, exchange_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, status_),
   };
   BfRobotData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -161,26 +162,26 @@ void protobuf_AddDesc_bfcta_2eproto() {
     "\n\013bfcta.proto\022\010bftrader\032\017bfgateway.proto"
     "\032\031google/protobuf/any.proto\"Y\n\013BfModelDa"
     "ta\022\017\n\007modelId\030\001 \001(\t\022+\n\010langType\030\002 \001(\0162\031."
-    "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"d"
+    "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"t"
     "\n\013BfRobotData\022\017\n\007robotId\030\001 \001(\t\022\017\n\007modelI"
     "d\030\002 \001(\t\022\021\n\tgatewayId\030\003 \001(\t\022\016\n\006symbol\030\004 \001"
-    "(\t\022\020\n\010exchange\030\005 \001(\t\"<\n\rBfGatewayData\022\021\n"
-    "\tgatewayId\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\n\n\002ip\030\003 \001"
-    "(\t\"3\n\rBfOrderExData\022\021\n\tbfOrderId\030\001 \001(\t\022\017"
-    "\n\007robotId\030\002 \001(\t*\211\001\n\017BfModelLangType\022\025\n\021M"
-    "ODELLANG_UNKNOWN\020\000\022\032\n\026MODELLANG_PYTHONSC"
-    "RIPT\020\001\022\027\n\023MODELLANG_GOLANGEXE\020\002\022\024\n\020MODEL"
-    "LANG_CPPEXE\020\003\022\024\n\020MODELLANG_CPPDLL\020\0042\362\002\n\014"
-    "BfCtaService\022;\n\007Connect\022\026.bftrader.BfCon"
-    "nectReq\032\024.google.protobuf.Any\"\0000\001\0222\n\nDis"
-    "connect\022\020.bftrader.BfVoid\032\020.bftrader.BfV"
-    "oid\"\000\0224\n\004Ping\022\024.bftrader.BfPingData\032\024.bf"
-    "trader.BfPingData\"\000\0228\n\014GetRobotInfo\022\022.bf"
-    "trader.BfKvData\032\022.bftrader.BfKvData\"\000\022B\n"
-    "\tSendOrder\022\030.bftrader.BfSendOrderReq\032\031.b"
-    "ftrader.BfSendOrderResp\"\000\022=\n\013CancelOrder"
-    "\022\032.bftrader.BfCancelOrderReq\032\020.bftrader."
-    "BfVoid\"\000b\006proto3", 896);
+    "(\t\022\020\n\010exchange\030\005 \001(\t\022\016\n\006status\030\006 \001(\t\"<\n\r"
+    "BfGatewayData\022\021\n\tgatewayId\030\001 \001(\t\022\014\n\004port"
+    "\030\002 \001(\005\022\n\n\002ip\030\003 \001(\t\"3\n\rBfOrderExData\022\021\n\tb"
+    "fOrderId\030\001 \001(\t\022\017\n\007robotId\030\002 \001(\t*\211\001\n\017BfMo"
+    "delLangType\022\025\n\021MODELLANG_UNKNOWN\020\000\022\032\n\026MO"
+    "DELLANG_PYTHONSCRIPT\020\001\022\027\n\023MODELLANG_GOLA"
+    "NGEXE\020\002\022\024\n\020MODELLANG_CPPEXE\020\003\022\024\n\020MODELLA"
+    "NG_CPPDLL\020\0042\362\002\n\014BfCtaService\022;\n\007Connect\022"
+    "\026.bftrader.BfConnectReq\032\024.google.protobu"
+    "f.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfVoi"
+    "d\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrader"
+    ".BfPingData\032\024.bftrader.BfPingData\"\000\0228\n\014G"
+    "etRobotInfo\022\022.bftrader.BfKvData\032\022.bftrad"
+    "er.BfKvData\"\000\022B\n\tSendOrder\022\030.bftrader.Bf"
+    "SendOrderReq\032\031.bftrader.BfSendOrderResp\""
+    "\000\022=\n\013CancelOrder\022\032.bftrader.BfCancelOrde"
+    "rReq\032\020.bftrader.BfVoid\"\000b\006proto3", 912);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   BfModelData::default_instance_ = new BfModelData();
@@ -659,6 +660,7 @@ const int BfRobotData::kModelIdFieldNumber;
 const int BfRobotData::kGatewayIdFieldNumber;
 const int BfRobotData::kSymbolFieldNumber;
 const int BfRobotData::kExchangeFieldNumber;
+const int BfRobotData::kStatusFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfRobotData::BfRobotData()
@@ -688,6 +690,7 @@ void BfRobotData::SharedCtor() {
   gatewayid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 BfRobotData::~BfRobotData() {
@@ -701,6 +704,7 @@ void BfRobotData::SharedDtor() {
   gatewayid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -736,6 +740,7 @@ void BfRobotData::Clear() {
   gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfRobotData::MergePartialFromCodedStream(
@@ -828,6 +833,23 @@ bool BfRobotData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(50)) goto parse_status;
+        break;
+      }
+
+      // optional string status = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_status:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_status()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->status().data(), this->status().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfRobotData.status"));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -906,6 +928,16 @@ void BfRobotData::SerializeWithCachedSizes(
       5, this->exchange(), output);
   }
 
+  // optional string status = 6;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.status");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->status(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:bftrader.BfRobotData)
 }
 
@@ -967,6 +999,17 @@ void BfRobotData::SerializeWithCachedSizes(
         5, this->exchange(), target);
   }
 
+  // optional string status = 6;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfRobotData.status");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->status(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfRobotData)
   return target;
 }
@@ -1009,6 +1052,13 @@ int BfRobotData::ByteSize() const {
         this->exchange());
   }
 
+  // optional string status = 6;
+  if (this->status().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->status());
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -1049,6 +1099,10 @@ void BfRobotData::MergeFrom(const BfRobotData& from) {
 
     exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
   }
+  if (from.status().size() > 0) {
+
+    status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.status_);
+  }
 }
 
 void BfRobotData::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1078,6 +1132,7 @@ void BfRobotData::InternalSwap(BfRobotData* other) {
   gatewayid_.Swap(&other->gatewayid_);
   symbol_.Swap(&other->symbol_);
   exchange_.Swap(&other->exchange_);
+  status_.Swap(&other->status_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1306,6 +1361,49 @@ void BfRobotData::clear_exchange() {
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.exchange)
+}
+
+// optional string status = 6;
+void BfRobotData::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfRobotData::status() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfRobotData.status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfRobotData.status)
+}
+ void BfRobotData::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfRobotData.status)
+}
+ void BfRobotData::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfRobotData.status)
+}
+ ::std::string* BfRobotData::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfRobotData.status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfRobotData::release_status() {
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfRobotData::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfRobotData.status)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

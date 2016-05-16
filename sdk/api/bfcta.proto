@@ -35,13 +35,15 @@ message BfRobotData{
     string gatewayId = 3;           // 网关id
     string symbol = 4;              // 合约,换月时候手动修改
     string exchange = 5;            // 交易所
+    string status = 6;              // 状态
 }
 
 // 网关信息类
 message BfGatewayData{
     string gatewayId = 1;           // 网关id
-    int32 port = 2;                 // 网关端口
-    string ip = 3;                  // 网关ip
+    string ip = 2;                  // 网关ip
+    int32 port = 3;                 // 网关端口
+    string status = 4;              // 状态
 }
 
 // 委托<-->机器人映射信息类

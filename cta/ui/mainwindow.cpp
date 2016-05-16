@@ -2,18 +2,18 @@
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
-#include "gatewaymgr.h"
 #include "infoform.h"
 #include "logger.h"
 #include "positionform.h"
 #include "profile.h"
-#include "pushservice.h"
 #include "robotform.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
+#include "gatewayform.h"
+#include "modelform.h"
 
 #include <windows.h>
 
@@ -32,9 +32,6 @@ MainWindow::MainWindow(QWidget* parent)
     this->createTrayIcon();
 
     // actions
-    ui->actionCtpConnect->setEnabled(true);
-    ui->actionCtpDisconnect->setEnabled(false);
-
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
 
@@ -45,8 +42,12 @@ MainWindow::MainWindow(QWidget* parent)
     robotForm_ = new RobotForm(this);
     positionForm_ = new PositionForm(this);
     workingOrderForm_ = new WorkingOrderForm(this);
+    gatewayForm_ = new GatewayForm(this);
+    modelForm_ = new ModelForm(this);
 
     ui->tabWidgetRobot->addTab(robotForm_, "robot");
+    ui->tabWidgetRobot->addTab(modelForm_,"model");
+    ui->tabWidgetRobot->addTab(gatewayForm_,"gateway");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");
@@ -65,6 +66,8 @@ void MainWindow::init()
     errorForm_->init();
     debugForm_->init();
     robotForm_->init();
+    gatewayForm_->init();
+    modelForm_->init();
     positionForm_->init();
     workingOrderForm_->init();
 }
@@ -75,6 +78,8 @@ void MainWindow::shutdown()
     errorForm_->shutdown();
     debugForm_->shutdown();
     robotForm_->shutdown();
+    gatewayForm_->shutdown();
+    modelForm_->shutdown();
     positionForm_->shutdown();
     workingOrderForm_->shutdown();
 }
@@ -204,27 +209,6 @@ void MainWindow::on_actionCrashTerminateProcess_triggered()
     ::TerminateProcess(::GetCurrentProcess(), 1);
 }
 
-void MainWindow::on_actionCtpConnect_triggered()
-{
-    ui->actionCtpConnect->setEnabled(false);
-    ui->actionCtpDisconnect->setEnabled(true);
-
-    QString gatewayId = "ctpgateway";
-    QString endpoint = "localhost:50051";
-    BfConnectReq req;
-    req.set_clientid("cta");
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "connectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(QString, endpoint), Q_ARG(BfConnectReq, req));
-}
-
-void MainWindow::on_actionCtpDisconnect_triggered()
-{
-    ui->actionCtpConnect->setEnabled(true);
-    ui->actionCtpDisconnect->setEnabled(false);
-
-    QString gatewayId = "ctpgateway";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
-}
-
 void MainWindow::on_actionNetStart_triggered()
 {
     ui->actionNetStart->setEnabled(false);
@@ -239,28 +223,17 @@ void MainWindow::on_actionNetStop_triggered()
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 
-void MainWindow::on_actionStopAutoTrading_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->pushService(), "onAutoTradingStop", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionStartAutoTrading_triggered()
-{
-    QMetaObject::invokeMethod(g_sm->pushService(), "onAutoTradingStart", Qt::QueuedConnection);
-}
-
-void MainWindow::on_actionShowRobotOrder_triggered()
+// TODO(hege): do it
+void MainWindow::on_actionRobotAdd_triggered()
 {
 }
 
-void MainWindow::on_actionShowRobotTrade_triggered()
+// TODO(hege): do it
+void MainWindow::on_actionGatewayAdd_triggered()
 {
 }
 
-void MainWindow::on_actionAddRobot_triggered()
-{
-}
-
-void MainWindow::on_actionDeleteRobot_triggered()
+// TODO(hege): do it
+void MainWindow::on_actionModelAdd_triggered()
 {
 }
