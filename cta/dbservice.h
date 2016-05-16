@@ -30,11 +30,10 @@ public:
     leveldb::DB* getDb();
 
     //多线程安全的辅助函数=
-    QString getRobotId(const BfOrderData& bfItem);
-    QString getRobotId(const BfTradeData& bfItem);
+    QString getRobotId(const QString& bfOrderId);
     QString getGatewayId(const QString& robotId);
     QString getModelId(const QString& robotId);
-    void putOrderEx(const QString robotId, const QString bfOrderId);
+    void putOrderEx(const QString& robotId, const QString& bfOrderId);
 
 signals:
 

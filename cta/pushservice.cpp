@@ -216,7 +216,7 @@ void PushService::onGotTrade(QString gatewayId, const BfTradeData& data)
         if (client->gatewayId() != gatewayId) {
             continue;
         }
-        QString robotId = g_sm->dbService()->getRobotId(data);
+        QString robotId = g_sm->dbService()->getRobotId(data.bforderid().c_str());
         if (client->clientId() != robotId) {
             continue;
         }
@@ -233,7 +233,7 @@ void PushService::onGotOrder(QString gatewayId, const BfOrderData& data)
         if (client->gatewayId() != gatewayId) {
             continue;
         }
-        QString robotId = g_sm->dbService()->getRobotId(data);
+        QString robotId = g_sm->dbService()->getRobotId(data.bforderid().c_str());
         if (client->clientId() != robotId) {
             continue;
         }

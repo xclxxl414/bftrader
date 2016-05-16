@@ -348,6 +348,7 @@ private:
     // 重连之后，要重新查一下order，也可以重建隐射=
     virtual void OnRtnTrade(CThostFtdcTradeField* pTrade)
     {
+        // TODO(hege):trim OrderSysID
         QString sysOrderId = QString().sprintf("%s.%s", pTrade->ExchangeID, pTrade->OrderSysID);
         BfDebug("%s: sysOrderId=(%s)", __FUNCTION__, qPrintable(sysOrderId));
         if (!sysid2bfid_.contains(sysOrderId)) {
@@ -363,7 +364,7 @@ private:
         trade.set_exchange(pTrade->ExchangeID);
         trade.set_symbol(pTrade->InstrumentID);
         trade.set_bforderid(bfOrderId.toStdString());
-        // TODO(hege):trim
+        // TODO(hege):trim tradeId
         trade.set_tradeid(pTrade->TradeID);
         trade.set_direction(CtpUtils::translateDirection(pTrade->Direction)); //方向=
         trade.set_offset(CtpUtils::translateOffset(pTrade->OffsetFlag)); //开平=

@@ -175,31 +175,89 @@ void DbService::dbInit()
     db_->Write(options, &batch);
 }
 
-// TODO(hege):do it
-QString DbService::getRobotId(const BfOrderData& bfItem)
+QString DbService::getRobotId(const QString& bfOrderId)
 {
-    return "demo";
+    QString robotId;
+
+    // key: orderex-bforderid
+    QString key = QString().sprintf("orderex-%s", bfOrderId.toStdString().c_str());
+    leveldb::ReadOptions options;
+    std::string val;
+    leveldb::Status status = db_->Get(options, key.toStdString(), &val);
+    if (status.ok()) {
+        BfOrderExData bfItem;
+        if (!bfItem.ParseFromString(val)) {
+            qFatal("ParseFromString fail");
+        }
+        robotId = bfItem.robotid().c_str();
+    } else {
+        QString errStr = QString::fromStdString(status.ToString());
+        BfError(errStr);
+    }
+
+    return robotId;
 }
 
-// TODO(hege):do it
-QString DbService::getRobotId(const BfTradeData& bfItem)
-{
-    return "demo";
-}
-
-// TODO(hege):do it
 QString DbService::getGatewayId(const QString& robotId)
 {
-    return "ctpGateway";
+    QString gatewayId;
+
+    // key: robot-robotid
+    QString key = QString().sprintf("robot-%s", robotId.toStdString().c_str());
+    leveldb::ReadOptions options;
+    std::string val;
+    leveldb::Status status = db_->Get(options, key.toStdString(), &val);
+    if (status.ok()) {
+        BfRobotData bfItem;
+        if (!bfItem.ParseFromString(val)) {
+            qFatal("ParseFromString fail");
+        }
+        gatewayId = bfItem.gatewayid().c_str();
+    } else {
+        QString errStr = QString::fromStdString(status.ToString());
+        BfError(errStr);
+    }
+
+    return gatewayId;
 }
 
-// TODO(hege):do it
 QString DbService::getModelId(const QString& robotId)
 {
-    return "demo";
+    QString modelId;
+
+    // key: robot-robotid
+    QString key = QString().sprintf("robot-%s", robotId.toStdString().c_str());
+    leveldb::ReadOptions options;
+    std::string val;
+    leveldb::Status status = db_->Get(options, key.toStdString(), &val);
+    if (status.ok()) {
+        BfRobotData bfItem;
+        if (!bfItem.ParseFromString(val)) {
+            qFatal("ParseFromString fail");
+        }
+        modelId = bfItem.modelid().c_str();
+    } else {
+        QString errStr = QString::fromStdString(status.ToString());
+        BfError(errStr);
+    }
+
+    return modelId;
 }
 
-// TODO(hege):do it
-void DbService::putOrderEx(const QString robotId, const QString bfOrderId)
+void DbService::putOrderEx(const QString& robotId, const QString& bfOrderId)
 {
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    if (1) {
+        // key: orderex-bforderid
+        BfOrderExData bfItem;
+        bfItem.set_bforderid(bfOrderId.toStdString());
+        bfItem.set_robotid(robotId.toStdString());
+        QString key = QString().sprintf("orderex-%s", qPrintable(bfOrderId));
+        std::string val = bfItem.SerializeAsString();
+        batch.Put(key.toStdString(), val);
+    }
+
+    db_->Write(options, &batch);
 }
