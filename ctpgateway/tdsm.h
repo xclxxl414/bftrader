@@ -29,7 +29,7 @@ public:
     static QString version();
 
 public:
-    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString symbolPrefixs);
+    bool init(QString userId, QString password, QString brokerId, QString frontTd, QString flowPathTd, QString symbolPrefixes);
     void start();
     void stop();
     void resetData();
