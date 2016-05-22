@@ -23,6 +23,10 @@ GatewayForm::GatewayForm(QWidget* parent)
 
     // 调整参数=
     bfAdjustTableWidget(ui->tableWidget);
+
+    // buttons
+    this->ui->pushButtonConnect->setEnabled(true);
+    this->ui->pushButtonDisconnect->setEnabled(false);
 }
 
 GatewayForm::~GatewayForm()
@@ -40,6 +44,9 @@ void GatewayForm::shutdown()
 
 void GatewayForm::on_pushButtonConnect_clicked()
 {
+    this->ui->pushButtonConnect->setEnabled(false);
+    this->ui->pushButtonDisconnect->setEnabled(true);
+
     QString gatewayId = "ctpgateway";
     QString endpoint = "localhost:50051";
     BfConnectReq req;
@@ -49,6 +56,9 @@ void GatewayForm::on_pushButtonConnect_clicked()
 
 void GatewayForm::on_pushButtonDisconnect_clicked()
 {
+    this->ui->pushButtonConnect->setEnabled(true);
+    this->ui->pushButtonDisconnect->setEnabled(false);
+
     QString gatewayId = "ctpgateway";
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
 }

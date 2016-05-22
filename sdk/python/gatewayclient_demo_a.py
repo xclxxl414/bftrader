@@ -11,7 +11,8 @@ from grpc.beta import interfaces
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
-_MT = [("clientid","gatewayclient_mock")]
+_CLIENT_ID = "gatewayclient_demo_a"
+_MT = [("clientid",_CLIENT_ID)]
 
 _PING_TYPE = BfPingData().DESCRIPTOR
 _ACCOUNT_TYPE = BfAccountData().DESCRIPTOR
@@ -147,7 +148,7 @@ def dispatchPush(client,resp):
     
 def connect(client):
     print "connect gateway"
-    req = BfConnectReq(clientId="datarecorder",tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
+    req = BfConnectReq(clientId=_CLIENT_ID,tickHandler=True,tradeHandler=True,logHandler=True,symbol="*",exchange="*")
     responses = client.gateway.Connect(req,timeout=_ONE_DAY_IN_SECONDS)
     for resp in responses:
         dispatchPush(client,resp)            
