@@ -12,9 +12,9 @@ from grpc.beta import interfaces
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 _TIMEOUT_SECONDS = 1
-_CLIENT_ID = "datarecorder"
+_CLIENT_ID = "dualcross"
 _MT = [("clientid",_CLIENT_ID)]
-    
+
 _PING_TYPE = BfPingData().DESCRIPTOR
 _ACCOUNT_TYPE = BfAccountData().DESCRIPTOR
 _POSITION_TYPE = BfPositionData().DESCRIPTOR
@@ -25,16 +25,15 @@ _LOG_TYPE = BfLogData().DESCRIPTOR
 _ERROR_TYPE = BfErrorData().DESCRIPTOR
 _NOTIFICATION_TYPE = BfNotificationData().DESCRIPTOR
 
-
-class DataRecorder(object):
+class DualCross(object):
     def __init__(self):
-        print "init datarecorder"
+        print "init dualcross"
         self.gateway_channel = implementations.insecure_channel('localhost', 50051)
         self.gateway = beta_create_BfGatewayService_stub(self.gateway_channel)
         self.datafeed_channel = implementations.insecure_channel('localhost',50052)
         self.datafeed = beta_create_BfDatafeedService_stub(self.datafeed_channel)
         self.connectivity = interfaces.ChannelConnectivity.IDLE
-        
+    
     def update(self,connectivity):
         '''C:\projects\grpc\src\python\grpcio\tests\unit\beta\_connectivity_channel_test.py'''
         print connectivity
@@ -45,6 +44,15 @@ class DataRecorder(object):
     
     def unsubscribe(self):
         self.gateway_channel.unsubscribe(self.update)
+        
+    def OnInit(self):
+        # load tick
+        # tick-rb1609-SHFE-20160429-14:39:07.000
+        print "OnInit-->loadTick"
+        req = BfGetTickReq(symbol="rb1609",exchange="SHFE",toDate="20160429",toTime="14:39:07.000",count=100)
+        responses = self.datafeed.GetTick(req,timeout=_ONE_DAY_IN_SECONDS,metadata=_MT)
+        for resp in responses:
+            print resp            
         
     def OnTradeWillBegin(self, request):
         print "OnTradeWillBegin"
@@ -60,7 +68,6 @@ class DataRecorder(object):
             resp = self.gateway.GetContract(req,_TIMEOUT_SECONDS,metadata=_MT)
             if (resp.symbol):
                 print resp
-                df = self.datafeed.InsertContract(resp,_TIMEOUT_SECONDS,metadata=_MT)
             else:
                 break
         
@@ -73,15 +80,14 @@ class DataRecorder(object):
         req = BfVoid()
         resp = self.gateway.QueryAccount(req,_TIMEOUT_SECONDS,metadata=_MT)
         print resp
-    
-    def OnPing(self, request):
+            
+    def OnPing(self, request,):
         print "OnPing"
         print request
 
     def OnTick(self, request):
         print "OnTick"
         print request
-        df = self.datafeed.InsertTick(request,_TIMEOUT_SECONDS,metadata=_MT)
         
     def OnError(self, request):
         print "OnError"
@@ -177,9 +183,10 @@ def tryconnect(client):
     time.sleep(_TIMEOUT_SECONDS)
     
 def run():
-    print "start DataRecorder"
-    client = DataRecorder()
+    print "start dualcross"
+    client = DualCross()
     client.subscribe()
+    client.OnInit()
 
     try:
         while True:
@@ -192,7 +199,7 @@ def run():
     if client.connectivity == interfaces.ChannelConnectivity.READY:
         disconnect(client)
     
-    print "stop DataRecorder"
+    print "stop dualcross"
     client.unsubscribe()
     
 if __name__ == '__main__':

@@ -65,15 +65,6 @@ message BfGetTickReq{
     int32 count = 5;                // 获取条数
 }
 
-message BfDeleteTickReq{
-    // 代码编号相关
-    string symbol = 1;              // 合约代码
-    string exchange = 2;            // 交易所代码
-
-    string toDate = 3;              // 截止日期
-    string toTime = 4;              // 截止时间
-}
-
 message BfGetBarReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码
@@ -84,6 +75,22 @@ message BfGetBarReq{
     string toDate = 4;              // 截止日期
     string toTime = 5;              // 截止时间
     int32 count = 6;                // 获取条数
+}
+
+message BfDatafeedGetContractReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+}
+
+/*
+message BfDeleteTickReq{
+    // 代码编号相关
+    string symbol = 1;              // 合约代码
+    string exchange = 2;            // 交易所代码
+
+    string toDate = 3;              // 截止日期
+    string toTime = 4;              // 截止时间
 }
 
 message BfDeleteBarReq{
@@ -97,17 +104,12 @@ message BfDeleteBarReq{
     string toTime = 5;              // 截止时间
 }
 
-message BfDatafeedGetContractReq{
-    // 代码编号相关
-    string symbolPattern = 1;       // 合约代码,支持模式匹配 * . ?
-    string exchangePattern = 2;     // 交易所代码,支持模式匹配 * . ?
-}
-
 message BfDatafeedDeleteContractReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码，
     string exchange = 2;            // 交易所代码
 }
+*/
 
 //============================
 
@@ -119,30 +121,25 @@ service BfDatafeedService{
 
     // 保存tick
     rpc InsertTick(BfTickData) returns (BfVoid) {}
+    // 保存bar
+    rpc InsertBar(BfBarData) returns (BfVoid) {}
+    // 保存contract
+    rpc InsertContract(BfContractData) returns (BfVoid) {}
 
     // 获取tick
     rpc GetTick(BfGetTickReq) returns (stream BfTickData){}
-
-    // 删除tick
-    rpc DeleteTick(BfDeleteTickReq) returns (BfVoid) {}
-    
-    // 保存bar
-    rpc InsertBar(BfBarData) returns (BfVoid) {}
-       
     // 获取bar
     rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
-    
-    // 删除bar
-    rpc DeleteBar(BfDeleteBarReq) returns (BfVoid) {}
-    
-    // 保存contract
-    rpc InsertContract(BfContractData) returns (BfVoid) {}
-       
     // 获取contract
     rpc GetContract(BfDatafeedGetContractReq) returns (stream BfContractData) {}
-    
+/*
+    // 删除tick
+    rpc DeleteTick(BfDeleteTickReq) returns (BfVoid) {}
+    // 删除bar
+    rpc DeleteBar(BfDeleteBarReq) returns (BfVoid) {}
     // 删除contract
-    rpc DeleteContract(BfDatafeedDeleteContractReq) returns (BfVoid) {}    
+    rpc DeleteContract(BfDatafeedDeleteContractReq) returns (BfVoid) {}
+*/    
 }
 
 //============================

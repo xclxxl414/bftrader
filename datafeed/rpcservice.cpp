@@ -39,25 +39,6 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-        g_sm->dbService()->getTick(request, writer);
-        return grpc::Status::OK;
-    }
-
-    virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-
-        QMetaObject::invokeMethod(g_sm->dbService(), "deleteTick", Qt::QueuedConnection, Q_ARG(BfDeleteTickReq, *request));
-        return grpc::Status::OK;
-    }
-
     virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
@@ -65,26 +46,6 @@ public:
         QString clientId = getClientId(context);
 
         QMetaObject::invokeMethod(g_sm->dbService(), "insertBar", Qt::QueuedConnection, Q_ARG(BfBarData, *request));
-        return grpc::Status::OK;
-    }
-
-    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-
-        g_sm->dbService()->getBar(request, writer);
-        return grpc::Status::OK;
-    }
-
-    virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-
-        QMetaObject::invokeMethod(g_sm->dbService(), "deleteBar", Qt::QueuedConnection, Q_ARG(BfDeleteBarReq, *request));
         return grpc::Status::OK;
     }
 
@@ -98,6 +59,25 @@ public:
         return grpc::Status::OK;
     }
 
+    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+        g_sm->dbService()->getTick(request, writer);
+        return grpc::Status::OK;
+    }
+
+    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+
+        g_sm->dbService()->getBar(request, writer);
+        return grpc::Status::OK;
+    }
+
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
@@ -105,6 +85,27 @@ public:
         QString clientId = getClientId(context);
 
         g_sm->dbService()->getContract(request, writer);
+        return grpc::Status::OK;
+    }
+
+/*
+    virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+
+        QMetaObject::invokeMethod(g_sm->dbService(), "deleteTick", Qt::QueuedConnection, Q_ARG(BfDeleteTickReq, *request));
+        return grpc::Status::OK;
+    }
+
+    virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+
+        QMetaObject::invokeMethod(g_sm->dbService(), "deleteBar", Qt::QueuedConnection, Q_ARG(BfDeleteBarReq, *request));
         return grpc::Status::OK;
     }
 
@@ -117,7 +118,7 @@ public:
         QMetaObject::invokeMethod(g_sm->dbService(), "deleteContract", Qt::QueuedConnection, Q_ARG(BfDatafeedDeleteContractReq, *request));
         return grpc::Status::OK;
     }
-
+*/
 private:
     // metadata-key只能是小写的=
     QString getClientId(::grpc::ServerContext* context)

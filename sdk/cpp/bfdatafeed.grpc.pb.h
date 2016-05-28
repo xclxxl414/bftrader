@@ -37,19 +37,19 @@ class BfDatafeedService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertTickRaw(context, request, cq));
     }
+    virtual ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
+    }
+    virtual ::grpc::Status InsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertContractRaw(context, request, cq));
+    }
     std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickData>> GetTick(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfTickData>>(GetTickRaw(context, request));
     }
     std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>> AsyncGetTick(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>>(AsyncGetTickRaw(context, request, cq, tag));
-    }
-    virtual ::grpc::Status DeleteTick(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncDeleteTick(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncDeleteTickRaw(context, request, cq));
-    }
-    virtual ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
     }
     std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfBarData>> GetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfBarData>>(GetBarRaw(context, request));
@@ -57,38 +57,23 @@ class BfDatafeedService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfBarData>> AsyncGetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfBarData>>(AsyncGetBarRaw(context, request, cq, tag));
     }
-    virtual ::grpc::Status DeleteBar(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncDeleteBar(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncDeleteBarRaw(context, request, cq));
-    }
-    virtual ::grpc::Status InsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncInsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncInsertContractRaw(context, request, cq));
-    }
     std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfContractData>> GetContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::bftrader::BfContractData>>(GetContractRaw(context, request));
     }
     std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>> AsyncGetContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>>(AsyncGetContractRaw(context, request, cq, tag));
     }
-    virtual ::grpc::Status DeleteContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncDeleteContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncDeleteContractRaw(context, request, cq));
-    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::bftrader::BfTickData>* GetTickRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfTickData>* AsyncGetTickRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncDeleteTickRaw(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::bftrader::BfBarData>* GetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfBarData>* AsyncGetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncDeleteBarRaw(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncInsertContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::bftrader::BfContractData>* GetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::bftrader::BfContractData>* AsyncGetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncDeleteContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -101,19 +86,19 @@ class BfDatafeedService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertTick(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertTickRaw(context, request, cq));
     }
+    ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
+    }
+    ::grpc::Status InsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertContractRaw(context, request, cq));
+    }
     std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickData>> GetTick(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfTickData>>(GetTickRaw(context, request));
     }
     std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickData>> AsyncGetTick(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfTickData>>(AsyncGetTickRaw(context, request, cq, tag));
-    }
-    ::grpc::Status DeleteTick(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncDeleteTick(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncDeleteTickRaw(context, request, cq));
-    }
-    ::grpc::Status InsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertBar(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertBarRaw(context, request, cq));
     }
     std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfBarData>> GetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfBarData>>(GetBarRaw(context, request));
@@ -121,50 +106,32 @@ class BfDatafeedService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfBarData>> AsyncGetBar(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfBarData>>(AsyncGetBarRaw(context, request, cq, tag));
     }
-    ::grpc::Status DeleteBar(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncDeleteBar(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncDeleteBarRaw(context, request, cq));
-    }
-    ::grpc::Status InsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncInsertContract(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncInsertContractRaw(context, request, cq));
-    }
     std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfContractData>> GetContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::bftrader::BfContractData>>(GetContractRaw(context, request));
     }
     std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfContractData>> AsyncGetContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReader< ::bftrader::BfContractData>>(AsyncGetContractRaw(context, request, cq, tag));
     }
-    ::grpc::Status DeleteContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncDeleteContract(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncDeleteContractRaw(context, request, cq));
-    }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertTickRaw(::grpc::ClientContext* context, const ::bftrader::BfTickData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientReader< ::bftrader::BfTickData>* GetTickRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request) GRPC_OVERRIDE;
     ::grpc::ClientAsyncReader< ::bftrader::BfTickData>* AsyncGetTickRaw(::grpc::ClientContext* context, const ::bftrader::BfGetTickReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncDeleteTickRaw(::grpc::ClientContext* context, const ::bftrader::BfDeleteTickReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertBarRaw(::grpc::ClientContext* context, const ::bftrader::BfBarData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientReader< ::bftrader::BfBarData>* GetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request) GRPC_OVERRIDE;
     ::grpc::ClientAsyncReader< ::bftrader::BfBarData>* AsyncGetBarRaw(::grpc::ClientContext* context, const ::bftrader::BfGetBarReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncDeleteBarRaw(::grpc::ClientContext* context, const ::bftrader::BfDeleteBarReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncInsertContractRaw(::grpc::ClientContext* context, const ::bftrader::BfContractData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientReader< ::bftrader::BfContractData>* GetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request) GRPC_OVERRIDE;
     ::grpc::ClientAsyncReader< ::bftrader::BfContractData>* AsyncGetContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncDeleteContractRaw(::grpc::ClientContext* context, const ::bftrader::BfDatafeedDeleteContractReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Ping_;
     const ::grpc::RpcMethod rpcmethod_InsertTick_;
-    const ::grpc::RpcMethod rpcmethod_GetTick_;
-    const ::grpc::RpcMethod rpcmethod_DeleteTick_;
     const ::grpc::RpcMethod rpcmethod_InsertBar_;
-    const ::grpc::RpcMethod rpcmethod_GetBar_;
-    const ::grpc::RpcMethod rpcmethod_DeleteBar_;
     const ::grpc::RpcMethod rpcmethod_InsertContract_;
+    const ::grpc::RpcMethod rpcmethod_GetTick_;
+    const ::grpc::RpcMethod rpcmethod_GetBar_;
     const ::grpc::RpcMethod rpcmethod_GetContract_;
-    const ::grpc::RpcMethod rpcmethod_DeleteContract_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -174,14 +141,11 @@ class BfDatafeedService GRPC_FINAL {
     virtual ~Service();
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response);
     virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer);
-    virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer);
-    virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response);
     virtual ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response);
+    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer);
+    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer);
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer);
-    virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedDeleteContractReq* request, ::bftrader::BfVoid* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Ping : public BaseClass {
@@ -224,52 +188,12 @@ class BfDatafeedService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_GetTick : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_GetTick() {
-      ::grpc::Service::MarkMethodAsync(2);
-    }
-    ~WithAsyncMethod_GetTick() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestGetTick(::grpc::ServerContext* context, ::bftrader::BfGetTickReq* request, ::grpc::ServerAsyncWriter< ::bftrader::BfTickData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(2, context, request, writer, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_DeleteTick : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_DeleteTick() {
-      ::grpc::Service::MarkMethodAsync(3);
-    }
-    ~WithAsyncMethod_DeleteTick() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestDeleteTick(::grpc::ServerContext* context, ::bftrader::BfDeleteTickReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithAsyncMethod_InsertBar : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_InsertBar() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_InsertBar() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -280,7 +204,47 @@ class BfDatafeedService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestInsertBar(::grpc::ServerContext* context, ::bftrader::BfBarData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_InsertContract : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithAsyncMethod_InsertContract() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_InsertContract() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestInsertContract(::grpc::ServerContext* context, ::bftrader::BfContractData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetTick : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithAsyncMethod_GetTick() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_GetTick() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetTick(::grpc::ServerContext* context, ::bftrader::BfGetTickReq* request, ::grpc::ServerAsyncWriter< ::bftrader::BfTickData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(4, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -304,52 +268,12 @@ class BfDatafeedService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_DeleteBar : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_DeleteBar() {
-      ::grpc::Service::MarkMethodAsync(6);
-    }
-    ~WithAsyncMethod_DeleteBar() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestDeleteBar(::grpc::ServerContext* context, ::bftrader::BfDeleteBarReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_InsertContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_InsertContract() {
-      ::grpc::Service::MarkMethodAsync(7);
-    }
-    ~WithAsyncMethod_InsertContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestInsertContract(::grpc::ServerContext* context, ::bftrader::BfContractData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithAsyncMethod_GetContract : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_GetContract() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_GetContract() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -360,30 +284,10 @@ class BfDatafeedService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetContract(::grpc::ServerContext* context, ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerAsyncWriter< ::bftrader::BfContractData>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(8, context, request, writer, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncServerStreaming(6, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
-  template <class BaseClass>
-  class WithAsyncMethod_DeleteContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithAsyncMethod_DeleteContract() {
-      ::grpc::Service::MarkMethodAsync(9);
-    }
-    ~WithAsyncMethod_DeleteContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedDeleteContractReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestDeleteContract(::grpc::ServerContext* context, ::bftrader::BfDatafeedDeleteContractReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  typedef WithAsyncMethod_Ping<WithAsyncMethod_InsertTick<WithAsyncMethod_GetTick<WithAsyncMethod_DeleteTick<WithAsyncMethod_InsertBar<WithAsyncMethod_GetBar<WithAsyncMethod_DeleteBar<WithAsyncMethod_InsertContract<WithAsyncMethod_GetContract<WithAsyncMethod_DeleteContract<Service > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_Ping<WithAsyncMethod_InsertTick<WithAsyncMethod_InsertBar<WithAsyncMethod_InsertContract<WithAsyncMethod_GetTick<WithAsyncMethod_GetBar<WithAsyncMethod_GetContract<Service > > > > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_Ping : public BaseClass {
    private:
@@ -419,52 +323,52 @@ class BfDatafeedService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_GetTick : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_GetTick() {
-      ::grpc::Service::MarkMethodGeneric(2);
-    }
-    ~WithGenericMethod_GetTick() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_DeleteTick : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_DeleteTick() {
-      ::grpc::Service::MarkMethodGeneric(3);
-    }
-    ~WithGenericMethod_DeleteTick() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_InsertBar : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_InsertBar() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_InsertBar() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
     ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_InsertContract : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithGenericMethod_InsertContract() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_InsertContract() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetTick : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(Service *service) {}
+   public:
+    WithGenericMethod_GetTick() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_GetTick() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -487,69 +391,18 @@ class BfDatafeedService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_DeleteBar : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_DeleteBar() {
-      ::grpc::Service::MarkMethodGeneric(6);
-    }
-    ~WithGenericMethod_DeleteBar() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_InsertContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_InsertContract() {
-      ::grpc::Service::MarkMethodGeneric(7);
-    }
-    ~WithGenericMethod_InsertContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_GetContract : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_GetContract() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_GetContract() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
     ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_DeleteContract : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
-   public:
-    WithGenericMethod_DeleteContract() {
-      ::grpc::Service::MarkMethodGeneric(9);
-    }
-    ~WithGenericMethod_DeleteContract() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status DeleteContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedDeleteContractReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

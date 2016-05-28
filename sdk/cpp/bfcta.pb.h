@@ -382,15 +382,9 @@ class BfGatewayData : public ::google::protobuf::Message {
   ::std::string* release_gatewayid();
   void set_allocated_gatewayid(::std::string* gatewayid);
 
-  // optional int32 port = 2;
-  void clear_port();
-  static const int kPortFieldNumber = 2;
-  ::google::protobuf::int32 port() const;
-  void set_port(::google::protobuf::int32 value);
-
-  // optional string ip = 3;
+  // optional string ip = 2;
   void clear_ip();
-  static const int kIpFieldNumber = 3;
+  static const int kIpFieldNumber = 2;
   const ::std::string& ip() const;
   void set_ip(const ::std::string& value);
   void set_ip(const char* value);
@@ -399,6 +393,23 @@ class BfGatewayData : public ::google::protobuf::Message {
   ::std::string* release_ip();
   void set_allocated_ip(::std::string* ip);
 
+  // optional int32 port = 3;
+  void clear_port();
+  static const int kPortFieldNumber = 3;
+  ::google::protobuf::int32 port() const;
+  void set_port(::google::protobuf::int32 value);
+
+  // optional string status = 4;
+  void clear_status();
+  static const int kStatusFieldNumber = 4;
+  const ::std::string& status() const;
+  void set_status(const ::std::string& value);
+  void set_status(const char* value);
+  void set_status(const char* value, size_t size);
+  ::std::string* mutable_status();
+  ::std::string* release_status();
+  void set_allocated_status(::std::string* status);
+
   // @@protoc_insertion_point(class_scope:bftrader.BfGatewayData)
  private:
 
@@ -406,6 +417,7 @@ class BfGatewayData : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr gatewayid_;
   ::google::protobuf::internal::ArenaStringPtr ip_;
+  ::google::protobuf::internal::ArenaStringPtr status_;
   ::google::protobuf::int32 port_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bfcta_2eproto();
@@ -927,21 +939,7 @@ inline void BfGatewayData::set_allocated_gatewayid(::std::string* gatewayid) {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.gatewayId)
 }
 
-// optional int32 port = 2;
-inline void BfGatewayData::clear_port() {
-  port_ = 0;
-}
-inline ::google::protobuf::int32 BfGatewayData::port() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.port)
-  return port_;
-}
-inline void BfGatewayData::set_port(::google::protobuf::int32 value) {
-  
-  port_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.port)
-}
-
-// optional string ip = 3;
+// optional string ip = 2;
 inline void BfGatewayData::clear_ip() {
   ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -982,6 +980,63 @@ inline void BfGatewayData::set_allocated_ip(::std::string* ip) {
   }
   ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.ip)
+}
+
+// optional int32 port = 3;
+inline void BfGatewayData::clear_port() {
+  port_ = 0;
+}
+inline ::google::protobuf::int32 BfGatewayData::port() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.port)
+  return port_;
+}
+inline void BfGatewayData::set_port(::google::protobuf::int32 value) {
+  
+  port_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.port)
+}
+
+// optional string status = 4;
+inline void BfGatewayData::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BfGatewayData::status() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfGatewayData::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.status)
+}
+inline void BfGatewayData::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfGatewayData.status)
+}
+inline void BfGatewayData::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGatewayData.status)
+}
+inline ::std::string* BfGatewayData::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfGatewayData.status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BfGatewayData::release_status() {
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BfGatewayData::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.status)
 }
 
 // -------------------------------------------------------------------

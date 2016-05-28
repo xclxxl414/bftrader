@@ -82,10 +82,11 @@ void protobuf_AssignDesc_bfcta_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfRobotData, _is_default_instance_));
   BfGatewayData_descriptor_ = file->message_type(2);
-  static const int BfGatewayData_offsets_[3] = {
+  static const int BfGatewayData_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, gatewayid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, port_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, ip_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, port_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGatewayData, status_),
   };
   BfGatewayData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -165,23 +166,24 @@ void protobuf_AddDesc_bfcta_2eproto() {
     "bftrader.BfModelLangType\022\014\n\004path\030\003 \001(\t\"t"
     "\n\013BfRobotData\022\017\n\007robotId\030\001 \001(\t\022\017\n\007modelI"
     "d\030\002 \001(\t\022\021\n\tgatewayId\030\003 \001(\t\022\016\n\006symbol\030\004 \001"
-    "(\t\022\020\n\010exchange\030\005 \001(\t\022\016\n\006status\030\006 \001(\t\"<\n\r"
-    "BfGatewayData\022\021\n\tgatewayId\030\001 \001(\t\022\014\n\004port"
-    "\030\002 \001(\005\022\n\n\002ip\030\003 \001(\t\"3\n\rBfOrderExData\022\021\n\tb"
-    "fOrderId\030\001 \001(\t\022\017\n\007robotId\030\002 \001(\t*\211\001\n\017BfMo"
-    "delLangType\022\025\n\021MODELLANG_UNKNOWN\020\000\022\032\n\026MO"
-    "DELLANG_PYTHONSCRIPT\020\001\022\027\n\023MODELLANG_GOLA"
-    "NGEXE\020\002\022\024\n\020MODELLANG_CPPEXE\020\003\022\024\n\020MODELLA"
-    "NG_CPPDLL\020\0042\362\002\n\014BfCtaService\022;\n\007Connect\022"
-    "\026.bftrader.BfConnectReq\032\024.google.protobu"
-    "f.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfVoi"
-    "d\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrader"
-    ".BfPingData\032\024.bftrader.BfPingData\"\000\0228\n\014G"
-    "etRobotInfo\022\022.bftrader.BfKvData\032\022.bftrad"
-    "er.BfKvData\"\000\022B\n\tSendOrder\022\030.bftrader.Bf"
-    "SendOrderReq\032\031.bftrader.BfSendOrderResp\""
-    "\000\022=\n\013CancelOrder\022\032.bftrader.BfCancelOrde"
-    "rReq\032\020.bftrader.BfVoid\"\000b\006proto3", 912);
+    "(\t\022\020\n\010exchange\030\005 \001(\t\022\016\n\006status\030\006 \001(\t\"L\n\r"
+    "BfGatewayData\022\021\n\tgatewayId\030\001 \001(\t\022\n\n\002ip\030\002"
+    " \001(\t\022\014\n\004port\030\003 \001(\005\022\016\n\006status\030\004 \001(\t\"3\n\rBf"
+    "OrderExData\022\021\n\tbfOrderId\030\001 \001(\t\022\017\n\007robotI"
+    "d\030\002 \001(\t*\211\001\n\017BfModelLangType\022\025\n\021MODELLANG"
+    "_UNKNOWN\020\000\022\032\n\026MODELLANG_PYTHONSCRIPT\020\001\022\027"
+    "\n\023MODELLANG_GOLANGEXE\020\002\022\024\n\020MODELLANG_CPP"
+    "EXE\020\003\022\024\n\020MODELLANG_CPPDLL\020\0042\362\002\n\014BfCtaSer"
+    "vice\022;\n\007Connect\022\026.bftrader.BfConnectReq\032"
+    "\024.google.protobuf.Any\"\0000\001\0222\n\nDisconnect\022"
+    "\020.bftrader.BfVoid\032\020.bftrader.BfVoid\"\000\0224\n"
+    "\004Ping\022\024.bftrader.BfPingData\032\024.bftrader.B"
+    "fPingData\"\000\0228\n\014GetRobotInfo\022\022.bftrader.B"
+    "fKvData\032\022.bftrader.BfKvData\"\000\022B\n\tSendOrd"
+    "er\022\030.bftrader.BfSendOrderReq\032\031.bftrader."
+    "BfSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftra"
+    "der.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000"
+    "b\006proto3", 928);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfcta.proto", &protobuf_RegisterTypes);
   BfModelData::default_instance_ = new BfModelData();
@@ -1412,8 +1414,9 @@ void BfRobotData::clear_status() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BfGatewayData::kGatewayIdFieldNumber;
-const int BfGatewayData::kPortFieldNumber;
 const int BfGatewayData::kIpFieldNumber;
+const int BfGatewayData::kPortFieldNumber;
+const int BfGatewayData::kStatusFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfGatewayData::BfGatewayData()
@@ -1439,8 +1442,9 @@ void BfGatewayData::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   gatewayid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  port_ = 0;
   ip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  port_ = 0;
+  status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 BfGatewayData::~BfGatewayData() {
@@ -1451,6 +1455,7 @@ BfGatewayData::~BfGatewayData() {
 void BfGatewayData::SharedDtor() {
   gatewayid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -1482,8 +1487,9 @@ BfGatewayData* BfGatewayData::New(::google::protobuf::Arena* arena) const {
 
 void BfGatewayData::Clear() {
   gatewayid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  port_ = 0;
   ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  port_ = 0;
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfGatewayData::MergePartialFromCodedStream(
@@ -1508,13 +1514,30 @@ bool BfGatewayData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_port;
+        if (input->ExpectTag(18)) goto parse_ip;
         break;
       }
 
-      // optional int32 port = 2;
+      // optional string ip = 2;
       case 2: {
-        if (tag == 16) {
+        if (tag == 18) {
+         parse_ip:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_ip()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->ip().data(), this->ip().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "bftrader.BfGatewayData.ip"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_port;
+        break;
+      }
+
+      // optional int32 port = 3;
+      case 3: {
+        if (tag == 24) {
          parse_port:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1523,20 +1546,20 @@ bool BfGatewayData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_ip;
+        if (input->ExpectTag(34)) goto parse_status;
         break;
       }
 
-      // optional string ip = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_ip:
+      // optional string status = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_status:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_ip()));
+                input, this->mutable_status()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->ip().data(), this->ip().length(),
+            this->status().data(), this->status().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfGatewayData.ip"));
+            "bftrader.BfGatewayData.status"));
         } else {
           goto handle_unusual;
         }
@@ -1578,19 +1601,29 @@ void BfGatewayData::SerializeWithCachedSizes(
       1, this->gatewayid(), output);
   }
 
-  // optional int32 port = 2;
-  if (this->port() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->port(), output);
-  }
-
-  // optional string ip = 3;
+  // optional string ip = 2;
   if (this->ip().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "bftrader.BfGatewayData.ip");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->ip(), output);
+      2, this->ip(), output);
+  }
+
+  // optional int32 port = 3;
+  if (this->port() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->port(), output);
+  }
+
+  // optional string status = 4;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.status");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->status(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfGatewayData)
@@ -1610,12 +1643,7 @@ void BfGatewayData::SerializeWithCachedSizes(
         1, this->gatewayid(), target);
   }
 
-  // optional int32 port = 2;
-  if (this->port() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->port(), target);
-  }
-
-  // optional string ip = 3;
+  // optional string ip = 2;
   if (this->ip().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->ip().data(), this->ip().length(),
@@ -1623,7 +1651,23 @@ void BfGatewayData::SerializeWithCachedSizes(
       "bftrader.BfGatewayData.ip");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->ip(), target);
+        2, this->ip(), target);
+  }
+
+  // optional int32 port = 3;
+  if (this->port() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->port(), target);
+  }
+
+  // optional string status = 4;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "bftrader.BfGatewayData.status");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->status(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfGatewayData)
@@ -1640,18 +1684,25 @@ int BfGatewayData::ByteSize() const {
         this->gatewayid());
   }
 
-  // optional int32 port = 2;
+  // optional string ip = 2;
+  if (this->ip().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->ip());
+  }
+
+  // optional int32 port = 3;
   if (this->port() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->port());
   }
 
-  // optional string ip = 3;
-  if (this->ip().size() > 0) {
+  // optional string status = 4;
+  if (this->status().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->ip());
+        this->status());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1678,12 +1729,16 @@ void BfGatewayData::MergeFrom(const BfGatewayData& from) {
 
     gatewayid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.gatewayid_);
   }
-  if (from.port() != 0) {
-    set_port(from.port());
-  }
   if (from.ip().size() > 0) {
 
     ip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.ip_);
+  }
+  if (from.port() != 0) {
+    set_port(from.port());
+  }
+  if (from.status().size() > 0) {
+
+    status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.status_);
   }
 }
 
@@ -1710,8 +1765,9 @@ void BfGatewayData::Swap(BfGatewayData* other) {
 }
 void BfGatewayData::InternalSwap(BfGatewayData* other) {
   gatewayid_.Swap(&other->gatewayid_);
-  std::swap(port_, other->port_);
   ip_.Swap(&other->ip_);
+  std::swap(port_, other->port_);
+  status_.Swap(&other->status_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1770,21 +1826,7 @@ void BfGatewayData::clear_gatewayid() {
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.gatewayId)
 }
 
-// optional int32 port = 2;
-void BfGatewayData::clear_port() {
-  port_ = 0;
-}
- ::google::protobuf::int32 BfGatewayData::port() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.port)
-  return port_;
-}
- void BfGatewayData::set_port(::google::protobuf::int32 value) {
-  
-  port_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.port)
-}
-
-// optional string ip = 3;
+// optional string ip = 2;
 void BfGatewayData::clear_ip() {
   ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1825,6 +1867,63 @@ void BfGatewayData::clear_ip() {
   }
   ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
   // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.ip)
+}
+
+// optional int32 port = 3;
+void BfGatewayData::clear_port() {
+  port_ = 0;
+}
+ ::google::protobuf::int32 BfGatewayData::port() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.port)
+  return port_;
+}
+ void BfGatewayData::set_port(::google::protobuf::int32 value) {
+  
+  port_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.port)
+}
+
+// optional string status = 4;
+void BfGatewayData::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BfGatewayData::status() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfGatewayData.status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:bftrader.BfGatewayData.status)
+}
+ void BfGatewayData::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:bftrader.BfGatewayData.status)
+}
+ void BfGatewayData::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGatewayData.status)
+}
+ ::std::string* BfGatewayData::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:bftrader.BfGatewayData.status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BfGatewayData::release_status() {
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BfGatewayData::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGatewayData.status)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
