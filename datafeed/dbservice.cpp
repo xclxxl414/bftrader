@@ -252,7 +252,13 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
             break;
         }
         if (bfItem.symbol().length() == 0) {
-            break;
+            std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+            std::string itKey = it->key().ToString();
+            if (itKey == lastestKey){
+                continue;
+            }else{
+                break;
+            }
         }
 
         count++;
@@ -291,7 +297,13 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
             break;
         }
         if (bfItem.symbol().length() == 0) {
-            break;
+            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
+            std::string itKey = it->key().ToString();
+            if (itKey == lastestKey){
+                continue;
+            }else{
+                break;
+            }
         }
 
         count++;
