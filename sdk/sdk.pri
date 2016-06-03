@@ -1,4 +1,4 @@
-SOURCE_DIR = $$PWD\cpp
+SOURCE_DIR = $$PWD\cpp\bftrader
 INCLUDEPATH += \
     $$SOURCE_DIR
 
@@ -7,4 +7,4 @@ SOURCES += \
 
 
 HEADERS += \
-    $$SOURCE_DIR/*.h \
+    $$SOURCE_DIR/*.h
