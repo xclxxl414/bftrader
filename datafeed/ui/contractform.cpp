@@ -116,7 +116,7 @@ void ContractForm::onGotContract(QString key, const BfContractData& bfItem)
     vItem.insert("maxLimit", bfItem.maxlimit());
     vItem.insert("minLimit", bfItem.minlimit());
     vItem.insert("maxMarket", bfItem.maxmarket());
-    vItem.insert("minMarket", bfItem.minmartet());
+    vItem.insert("minMarket", bfItem.minmarket());
 
     vItem.insert("key", key);
 

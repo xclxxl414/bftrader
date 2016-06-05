@@ -1423,11 +1423,11 @@ class BfContractData : public ::google::protobuf::Message {
   ::google::protobuf::int32 maxmarket() const;
   void set_maxmarket(::google::protobuf::int32 value);
 
-  // optional int32 minMartet = 10;
-  void clear_minmartet();
-  static const int kMinMartetFieldNumber = 10;
-  ::google::protobuf::int32 minmartet() const;
-  void set_minmartet(::google::protobuf::int32 value);
+  // optional int32 minMarket = 10;
+  void clear_minmarket();
+  static const int kMinMarketFieldNumber = 10;
+  ::google::protobuf::int32 minmarket() const;
+  void set_minmarket(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:bftrader.BfContractData)
  private:
@@ -1443,7 +1443,7 @@ class BfContractData : public ::google::protobuf::Message {
   ::google::protobuf::int32 maxlimit_;
   ::google::protobuf::int32 minlimit_;
   ::google::protobuf::int32 maxmarket_;
-  ::google::protobuf::int32 minmartet_;
+  ::google::protobuf::int32 minmarket_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bfgateway_2eproto();
   friend void protobuf_AssignDesc_bfgateway_2eproto();
@@ -4075,18 +4075,18 @@ inline void BfContractData::set_maxmarket(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxMarket)
 }
 
-// optional int32 minMartet = 10;
-inline void BfContractData::clear_minmartet() {
-  minmartet_ = 0;
+// optional int32 minMarket = 10;
+inline void BfContractData::clear_minmarket() {
+  minmarket_ = 0;
 }
-inline ::google::protobuf::int32 BfContractData::minmartet() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMartet)
-  return minmartet_;
+inline ::google::protobuf::int32 BfContractData::minmarket() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMarket)
+  return minmarket_;
 }
-inline void BfContractData::set_minmartet(::google::protobuf::int32 value) {
+inline void BfContractData::set_minmarket(::google::protobuf::int32 value) {
   
-  minmartet_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMartet)
+  minmarket_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMarket)
 }
 
 // -------------------------------------------------------------------

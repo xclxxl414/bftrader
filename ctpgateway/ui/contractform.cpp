@@ -91,7 +91,7 @@ void ContractForm::onGotContract(void* contract)
     vItem.insert("maxLimit", bfItem.maxlimit());
     vItem.insert("minLimit", bfItem.minlimit());
     vItem.insert("maxMarket", bfItem.maxmarket());
-    vItem.insert("minMarket", bfItem.minmartet());
+    vItem.insert("minMarket", bfItem.minmarket());
 
     //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
     QString id = vItem.value("symbol").toString();

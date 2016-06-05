@@ -252,7 +252,7 @@ void translateContract(void* from, BfContractData* to)
     to->set_maxlimit(data->MaxLimitOrderVolume);
     to->set_minlimit(data->MinLimitOrderVolume);
     to->set_maxmarket(data->MaxMarketOrderVolume);
-    to->set_minmartet(data->MinMarketOrderVolume);
+    to->set_minmarket(data->MinMarketOrderVolume);
 }
 
 /*

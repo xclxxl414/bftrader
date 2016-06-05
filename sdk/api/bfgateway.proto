@@ -76,7 +76,7 @@ message BfTickData{
     
     // 成交数据
     string actionDate = 3;      // 日期 yyyyMMdd
-    string tickTime = 4;        // 时间 hh:mm:ss.zzz,其他时间都是hh::mm::ss
+    string tickTime = 4;        // 时间 hh:mm:ss.zzz,其他时间都是hh:mm:ss
     double lastPrice = 5;       // 最新成交价
     int32 volume = 6;           // 今天总成交量
     double openInterest = 7;    // 今天总持仓量
@@ -203,7 +203,7 @@ message BfContractData{
     int32 maxLimit = 7;         // 限价单最大下单量
     int32 minLimit = 8;         // 限价单最小下单量
     int32 maxMarket = 9;        // 市价单最大下单量
-    int32 minMartet = 10;       // 市价单最小下单量
+    int32 minMarket = 10;       // 市价单最小下单量
 }
 
 // Notification

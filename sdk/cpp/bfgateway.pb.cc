@@ -271,7 +271,7 @@ void protobuf_AssignDesc_bfgateway_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, maxlimit_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, minlimit_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, maxmarket_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, minmartet_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfContractData, minmarket_),
   };
   BfContractData_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -567,7 +567,7 @@ void protobuf_AddDesc_bfgateway_2eproto() {
     ")\n\014productClass\030\004 \001(\0162\023.bftrader.BfProdu"
     "ct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021\n\tpriceTick\030"
     "\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010minLimit\030\010 \001("
-    "\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMartet\030\n \001(\005\""
+    "\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMarket\030\n \001(\005\""
     "p\n\022BfNotificationData\022(\n\004type\030\001 \001(\0162\032.bf"
     "trader.BfNoticationType\022\014\n\004code\030\002 \001(\005\022\017\n"
     "\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001(\t\"\035\n\nBfP"
@@ -6362,7 +6362,7 @@ const int BfContractData::kPriceTickFieldNumber;
 const int BfContractData::kMaxLimitFieldNumber;
 const int BfContractData::kMinLimitFieldNumber;
 const int BfContractData::kMaxMarketFieldNumber;
-const int BfContractData::kMinMartetFieldNumber;
+const int BfContractData::kMinMarketFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BfContractData::BfContractData()
@@ -6396,7 +6396,7 @@ void BfContractData::SharedCtor() {
   maxlimit_ = 0;
   minlimit_ = 0;
   maxmarket_ = 0;
-  minmartet_ = 0;
+  minmarket_ = 0;
 }
 
 BfContractData::~BfContractData() {
@@ -6450,7 +6450,7 @@ void BfContractData::Clear() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ZR_(maxmarket_, minmartet_);
+  ZR_(maxmarket_, minmarket_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -6604,17 +6604,17 @@ bool BfContractData::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(80)) goto parse_minMartet;
+        if (input->ExpectTag(80)) goto parse_minMarket;
         break;
       }
 
-      // optional int32 minMartet = 10;
+      // optional int32 minMarket = 10;
       case 10: {
         if (tag == 80) {
-         parse_minMartet:
+         parse_minMarket:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &minmartet_)));
+                 input, &minmarket_)));
 
         } else {
           goto handle_unusual;
@@ -6708,9 +6708,9 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->maxmarket(), output);
   }
 
-  // optional int32 minMartet = 10;
-  if (this->minmartet() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->minmartet(), output);
+  // optional int32 minMarket = 10;
+  if (this->minmarket() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->minmarket(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:bftrader.BfContractData)
@@ -6783,9 +6783,9 @@ void BfContractData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->maxmarket(), target);
   }
 
-  // optional int32 minMartet = 10;
-  if (this->minmartet() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->minmartet(), target);
+  // optional int32 minMarket = 10;
+  if (this->minmarket() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->minmarket(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfContractData)
@@ -6855,11 +6855,11 @@ int BfContractData::ByteSize() const {
         this->maxmarket());
   }
 
-  // optional int32 minMartet = 10;
-  if (this->minmartet() != 0) {
+  // optional int32 minMarket = 10;
+  if (this->minmarket() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->minmartet());
+        this->minmarket());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6912,8 +6912,8 @@ void BfContractData::MergeFrom(const BfContractData& from) {
   if (from.maxmarket() != 0) {
     set_maxmarket(from.maxmarket());
   }
-  if (from.minmartet() != 0) {
-    set_minmartet(from.minmartet());
+  if (from.minmarket() != 0) {
+    set_minmarket(from.minmarket());
   }
 }
 
@@ -6948,7 +6948,7 @@ void BfContractData::InternalSwap(BfContractData* other) {
   std::swap(maxlimit_, other->maxlimit_);
   std::swap(minlimit_, other->minlimit_);
   std::swap(maxmarket_, other->maxmarket_);
-  std::swap(minmartet_, other->minmartet_);
+  std::swap(minmarket_, other->minmarket_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -7177,18 +7177,18 @@ void BfContractData::clear_maxmarket() {
   // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxMarket)
 }
 
-// optional int32 minMartet = 10;
-void BfContractData::clear_minmartet() {
-  minmartet_ = 0;
+// optional int32 minMarket = 10;
+void BfContractData::clear_minmarket() {
+  minmarket_ = 0;
 }
- ::google::protobuf::int32 BfContractData::minmartet() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMartet)
-  return minmartet_;
+ ::google::protobuf::int32 BfContractData::minmarket() const {
+  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMarket)
+  return minmarket_;
 }
- void BfContractData::set_minmartet(::google::protobuf::int32 value) {
+ void BfContractData::set_minmarket(::google::protobuf::int32 value) {
   
-  minmartet_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMartet)
+  minmarket_ = value;
+  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMarket)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

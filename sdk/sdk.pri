@@ -1,4 +1,4 @@
-SOURCE_DIR = $$PWD\cpp\bftrader
+SOURCE_DIR = $$PWD\cpp
 INCLUDEPATH += \
     $$SOURCE_DIR
 

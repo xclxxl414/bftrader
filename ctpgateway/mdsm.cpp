@@ -133,6 +133,12 @@ private:
 
     bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
     {
+        // 对于一些特殊的sim如周末回放tick的，不做过滤=
+        static bool sim = qEnvironmentVariableIsSet("bftrader_sim");
+        if(sim){
+            return true;
+        }
+
         auto preTick = (CThostFtdcDepthMarketDataField*)rb->get(rb->head());
         if (!preTick || preTick->Volume == curTick->Volume) {
             // ActionDay 指当时的系统日期
