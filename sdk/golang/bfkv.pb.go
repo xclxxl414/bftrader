@@ -5,8 +5,6 @@
 /*
 Package bftrader is a generated protocol buffer package.
 
-package bftrader.bfkv;
-
 It is generated from these files:
 	bfkv.proto
 
@@ -32,7 +30,9 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-const _ = proto.ProtoPackageIsVersion1
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
@@ -40,7 +40,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion1
+const _ = grpc.SupportPackageIsVersion2
 
 // Client API for BfKvService service
 
@@ -206,16 +206,22 @@ func RegisterBfKvServiceServer(s *grpc.Server, srv BfKvServiceServer) {
 	s.RegisterService(&_BfKvService_serviceDesc, srv)
 }
 
-func _BfKvService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfKvService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfKvServiceServer).Ping(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfKvServiceServer).Ping(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfKvService/Ping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfKvServiceServer).Ping(ctx, req.(*bftrader1.BfPingData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _BfKvService_PingStreamCS_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -291,28 +297,40 @@ func (x *bfKvServicePingStreamSServer) Send(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _BfKvService_SetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfKvService_SetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfKvServiceServer).SetKv(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfKvServiceServer).SetKv(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfKvService/SetKv",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfKvServiceServer).SetKv(ctx, req.(*bftrader1.BfKvData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfKvService_GetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfKvService_GetKv_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfKvServiceServer).GetKv(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfKvServiceServer).GetKv(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfKvService/GetKv",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfKvServiceServer).GetKv(ctx, req.(*bftrader1.BfKvData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _BfKvService_serviceDesc = grpc.ServiceDesc{

@@ -5,8 +5,6 @@
 /*
 Package bftrader is a generated protocol buffer package.
 
-package bftrader.bfgateway;
-
 It is generated from these files:
 	bfgateway.proto
 
@@ -48,7 +46,9 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-const _ = proto.ProtoPackageIsVersion1
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // 方向常量
 type BfDirection int32
@@ -531,7 +531,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion1
+const _ = grpc.SupportPackageIsVersion2
 
 // Client API for BfGatewayService service
 
@@ -703,88 +703,130 @@ func (x *bfGatewayServiceConnectServer) Send(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _BfGatewayService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).Disconnect(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).Disconnect(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/Disconnect",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).Disconnect(ctx, req.(*BfVoid))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).Ping(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).Ping(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/Ping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).Ping(ctx, req.(*BfPingData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_GetContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_GetContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfGetContractReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).GetContract(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).GetContract(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/GetContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).GetContract(ctx, req.(*BfGetContractReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfSendOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).SendOrder(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).SendOrder(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/SendOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).SendOrder(ctx, req.(*BfSendOrderReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfCancelOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).CancelOrder(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).CancelOrder(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/CancelOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).CancelOrder(ctx, req.(*BfCancelOrderReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_QueryAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_QueryAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).QueryAccount(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).QueryAccount(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/QueryAccount",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).QueryAccount(ctx, req.(*BfVoid))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfGatewayService_QueryPosition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfGatewayService_QueryPosition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfGatewayServiceServer).QueryPosition(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfGatewayServiceServer).QueryPosition(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfGatewayService/QueryPosition",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfGatewayServiceServer).QueryPosition(ctx, req.(*BfVoid))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _BfGatewayService_serviceDesc = grpc.ServiceDesc{

@@ -5,8 +5,6 @@
 /*
 Package bftrader is a generated protocol buffer package.
 
-package bftrader.bfdatafeed;
-
 It is generated from these files:
 	bfdatafeed.proto
 
@@ -35,7 +33,9 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-const _ = proto.ProtoPackageIsVersion1
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // Bar周期类型
 type BfBarPeriod int32
@@ -180,7 +180,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion1
+const _ = grpc.SupportPackageIsVersion2
 
 // Client API for BfDatafeedService service
 
@@ -364,52 +364,76 @@ func RegisterBfDatafeedServiceServer(s *grpc.Server, srv BfDatafeedServiceServer
 	s.RegisterService(&_BfDatafeedService_serviceDesc, srv)
 }
 
-func _BfDatafeedService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfDatafeedService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfDatafeedServiceServer).Ping(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfDatafeedServiceServer).Ping(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfDatafeedService/Ping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfDatafeedServiceServer).Ping(ctx, req.(*bftrader1.BfPingData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfDatafeedService_InsertTick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfDatafeedService_InsertTick_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfTickData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfDatafeedServiceServer).InsertTick(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfDatafeedServiceServer).InsertTick(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfDatafeedService/InsertTick",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfDatafeedServiceServer).InsertTick(ctx, req.(*bftrader1.BfTickData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfDatafeedService_InsertBar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfDatafeedService_InsertBar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BfBarData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfDatafeedServiceServer).InsertBar(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfDatafeedServiceServer).InsertBar(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfDatafeedService/InsertBar",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfDatafeedServiceServer).InsertBar(ctx, req.(*BfBarData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfDatafeedService_InsertContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfDatafeedService_InsertContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfContractData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfDatafeedServiceServer).InsertContract(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfDatafeedServiceServer).InsertContract(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfDatafeedService/InsertContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfDatafeedServiceServer).InsertContract(ctx, req.(*bftrader1.BfContractData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _BfDatafeedService_GetTick_Handler(srv interface{}, stream grpc.ServerStream) error {

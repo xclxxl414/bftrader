@@ -5,8 +5,6 @@
 /*
 Package bftrader is a generated protocol buffer package.
 
-package bftrader.bfcta;
-
 It is generated from these files:
 	bfcta.proto
 
@@ -36,7 +34,9 @@ var _ = math.Inf
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
-const _ = proto.ProtoPackageIsVersion1
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // 模型实现采用的语言和发布方式
 type BfModelLangType int32
@@ -134,7 +134,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion1
+const _ = grpc.SupportPackageIsVersion2
 
 // Client API for BfCtaService service
 
@@ -280,64 +280,94 @@ func (x *bfCtaServiceConnectServer) Send(m *google_protobuf.Any) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _BfCtaService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfCtaService_Disconnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfVoid)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfCtaServiceServer).Disconnect(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfCtaServiceServer).Disconnect(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfCtaService/Disconnect",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfCtaServiceServer).Disconnect(ctx, req.(*bftrader1.BfVoid))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfCtaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfCtaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfPingData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfCtaServiceServer).Ping(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfCtaServiceServer).Ping(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfCtaService/Ping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfCtaServiceServer).Ping(ctx, req.(*bftrader1.BfPingData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfCtaService_GetRobotInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfCtaService_GetRobotInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfKvData)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfCtaServiceServer).GetRobotInfo(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfCtaServiceServer).GetRobotInfo(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfCtaService/GetRobotInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfCtaServiceServer).GetRobotInfo(ctx, req.(*bftrader1.BfKvData))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfCtaService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfCtaService_SendOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfSendOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfCtaServiceServer).SendOrder(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfCtaServiceServer).SendOrder(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfCtaService/SendOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfCtaServiceServer).SendOrder(ctx, req.(*bftrader1.BfSendOrderReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func _BfCtaService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _BfCtaService_CancelOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(bftrader1.BfCancelOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(BfCtaServiceServer).CancelOrder(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(BfCtaServiceServer).CancelOrder(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bftrader.BfCtaService/CancelOrder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BfCtaServiceServer).CancelOrder(ctx, req.(*bftrader1.BfCancelOrderReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _BfCtaService_serviceDesc = grpc.ServiceDesc{
