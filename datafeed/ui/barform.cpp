@@ -334,7 +334,7 @@ void BarForm::onGotTick(QString key, const BfBarData& bfItem)
     vItem.insert("period", ProtoUtils::formatPeriod(bfItem.period()));
 
     vItem.insert("actionDate", bfItem.actiondate().c_str());
-    vItem.insert("tickTime", bfItem.bartime().c_str());
+    vItem.insert("barTime", bfItem.bartime().c_str());
     vItem.insert("volume", bfItem.volume());
     vItem.insert("openInterest", bfItem.openinterest());
     vItem.insert("lastVolume", bfItem.lastvolume());
