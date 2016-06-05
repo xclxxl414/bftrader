@@ -1,9 +1,6 @@
 聚焦于写策略
 ======
-源代码移到了https://bitbucket.org/sunwangme/bftrader ,github只放编译好的程序
-和sdk，便于聚焦于写策略。
-用python写策略：https://github.com/sunwangme/bfpy
-用golang写策略：https://github.com/sunwangme/bfgo
+源代码暂时只对QQ群友开放了 ,github只放编译好的程序和sdk，便于聚焦于写策略。
 
 QQ交流群340195342，点击加入：http://jq.qq.com/?_wv=1027&k=2ADNTk3
 [入群条件：使用bftrader和python或者golang，写出1分钟的双均线策略，发邮件给
