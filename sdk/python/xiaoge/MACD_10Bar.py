@@ -200,10 +200,10 @@ class DualCross(object):
     def OnToHold(self):
         req1 = 0
         req2 = 0
-        if (self.ToHold < 0) & (self.ToHold >= 0) :
+        if (self.LastHold < 0) & (self.ToHold >= 0) :
             req1 = BfSendOrderReq(symbol=SYMBOL, exchange=EXCHANGE, price=self.last_bar.closePrice, volume=1,
                                   priceType=PRICETYPE_LIMITPRICE, direction=DIRECTION_LONG, offset=OFFSET_CLOSE)
-        elif (self.ToHold > 0) & (self.ToHold <= 0) :
+        elif (self.LastHold > 0) & (self.ToHold <= 0) :
             req1 = BfSendOrderReq(symbol=SYMBOL, exchange=EXCHANGE, price=self.last_bar.closePrice, volume=1,
                                   priceType=PRICETYPE_LIMITPRICE, direction=DIRECTION_SHORT, offset=OFFSET_CLOSE)
         if (self.ToHold > 0):
@@ -218,6 +218,7 @@ class DualCross(object):
             self.gateway.SendOrder(req1, _TIMEOUT_SECONDS, metadata=_MT)
         if req2 != 0:
             self.gateway.SendOrder(req2, _TIMEOUT_SECONDS, metadata=_MT)
+        self.LastHold = self.ToHold
 
         
     def OnError(self, request):
