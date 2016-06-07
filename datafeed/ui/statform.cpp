@@ -165,6 +165,71 @@ void StatForm::statTick(QString symbol, QString exchange, QString name)
 
 void StatForm::statBar(QString symbol, QString exchange, QString name)
 {
+    QString startDate, startTime, endDate, endTime;
+
+    for (int period = PERIOD_S01; period <= PERIOD_W01; period++) {
+        if (1) {
+            leveldb::DB* db = g_sm->dbService()->getDb();
+            leveldb::ReadOptions options;
+            options.fill_cache = false;
+            leveldb::Iterator* it = db->NewIterator(options);
+            if (!it) {
+                qFatal("NewIterator == nullptr");
+            }
+
+            //第一个是bar-symbol-exchange-period+
+            //最后一个是bar-symbol-exchange-period=
+            QString key = QString().sprintf("bar-%s-%s-%s+", qPrintable(symbol), qPrintable(exchange), qPrintable(ProtoUtils::formatPeriod((BfBarPeriod)period)));
+            it->Seek(leveldb::Slice(key.toStdString()));
+            if (it->Valid()) {
+                it->Next();
+            }
+            if (it->Valid()) {
+                //遇到了前后两个结束item
+                const char* buf = it->value().data();
+                int len = it->value().size();
+                BfBarData bfItem;
+                if (bfItem.ParseFromArray(buf, len) && bfItem.symbol().length() != 0) {
+                    startDate = bfItem.actiondate().c_str();
+                    startTime = bfItem.bartime().c_str();
+                }
+            }
+            delete it;
+        }
+
+        if (startDate.length() != 0) {
+            leveldb::DB* db = g_sm->dbService()->getDb();
+            leveldb::ReadOptions options;
+            options.fill_cache = false;
+            leveldb::Iterator* it = db->NewIterator(options);
+            if (!it) {
+                qFatal("NewIterator == nullptr");
+            }
+
+            //第一个是bar-symbol-exchange-period+
+            //最后一个是bar-symbol-exchange-period=
+            QString key = QString().sprintf("bar-%s-%s-%s=", qPrintable(symbol), qPrintable(exchange), qPrintable(ProtoUtils::formatPeriod((BfBarPeriod)period)));
+            it->Seek(leveldb::Slice(key.toStdString()));
+            if (it->Valid()) {
+                it->Prev();
+            }
+            if (it->Valid()) {
+                //遇到了前后两个结束item
+                const char* buf = it->value().data();
+                int len = it->value().size();
+                BfBarData bfItem;
+                if (bfItem.ParseFromArray(buf, len) && bfItem.symbol().length() != 0) {
+                    endDate = bfItem.actiondate().c_str();
+                    endTime = bfItem.bartime().c_str();
+                }
+            }
+            delete it;
+        }
+
+        if (startDate.length() != 0 && endDate.length() != 0) {
+            onGotData(symbol, exchange, name, ProtoUtils::formatPeriod((BfBarPeriod)period), startDate, startTime, endDate, endTime);
+        }
+    }
 }
 
 void StatForm::onGotData(QString symbol, QString exchange, QString name, QString period, QString startDate, QString startTime, QString endDate, QString endTime)
@@ -215,6 +280,11 @@ void StatForm::on_pushButtonShowData_clicked()
             centerWindow(form);
             form->show();
         } else {
+            BarForm* form = new BarForm();
+            form->setWindowFlags(Qt::Window);
+            form->init(symbol, exchange, ProtoUtils::translatePeriod(period));
+            centerWindow(form);
+            form->show();
         }
     }
 }

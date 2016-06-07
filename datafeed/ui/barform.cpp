@@ -107,7 +107,7 @@ void BarForm::on_first128_clicked()
         count++;
         x_.append(count);
         y_.append(bfItem.closeprice());
-        onGotTick(QString::fromStdString(it->key().ToString()), bfItem);
+        onGotBar(QString::fromStdString(it->key().ToString()), bfItem);
     }
     delete it;
     drawGraph();
@@ -158,7 +158,7 @@ void BarForm::on_next128_clicked()
         count++;
         x_.append(count);
         y_.append(bfItem.closeprice());
-        onGotTick(QString::fromStdString(it->key().ToString()), bfItem);
+        onGotBar(QString::fromStdString(it->key().ToString()), bfItem);
     }
     delete it;
     drawGraph();
@@ -209,7 +209,7 @@ void BarForm::on_pre128_clicked()
         count++;
         x_.append(count);
         y_.append(bfItem.closeprice());
-        onGotTick(QString::fromStdString(it->key().ToString()), bfItem);
+        onGotBar(QString::fromStdString(it->key().ToString()), bfItem);
     }
     delete it;
     drawGraph();
@@ -255,7 +255,7 @@ void BarForm::on_last128_clicked()
         count++;
         x_.append(count);
         y_.append(bfItem.closeprice());
-        onGotTick(QString::fromStdString(it->key().ToString()), bfItem);
+        onGotBar(QString::fromStdString(it->key().ToString()), bfItem);
     }
     delete it;
     drawGraph();
@@ -278,7 +278,7 @@ void BarForm::on_seekButton_clicked()
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    QString msg("not found,input format:\nbar-IF1511-CFFEX-\nbar-IF1511-CFFEX-m1-20151023-1304\nbar-IF1511-CFFEX-m1-20151023-13:04:00");
+    QString msg("not found,input format:\nbar-IF1511-CFFEX-\nbar-IF1511-CFFEX-m01-20151023-1304\nbar-IF1511-CFFEX-m01-20151023-13:04:00");
     it->Seek(leveldb::Slice(key.toStdString()));
     if (!it->Valid()) {
         BfError(msg);
@@ -300,7 +300,7 @@ void BarForm::on_seekButton_clicked()
         count++;
         x_.append(count);
         y_.append(bfItem.closeprice());
-        onGotTick(QString::fromStdString(it->key().ToString()), bfItem);
+        onGotBar(QString::fromStdString(it->key().ToString()), bfItem);
     }
     delete it;
     drawGraph();
@@ -326,7 +326,7 @@ void BarForm::on_delButton_clicked()
     }
 }
 
-void BarForm::onGotTick(QString key, const BfBarData& bfItem)
+void BarForm::onGotBar(QString key, const BfBarData& bfItem)
 {
     QVariantMap vItem;
     vItem.insert("symbol", bfItem.symbol().c_str());

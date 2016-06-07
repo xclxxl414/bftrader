@@ -1,8 +1,8 @@
 #include "gatewayform.h"
+#include "gatewaymgr.h"
+#include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_gatewayform.h"
-#include "servicemgr.h"
-#include "gatewaymgr.h"
 
 GatewayForm::GatewayForm(QWidget* parent)
     : QWidget(parent)

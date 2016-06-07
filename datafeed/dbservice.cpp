@@ -1,4 +1,5 @@
 #include "dbservice.h"
+#include "bfdatafeed.grpc.pb.h"
 #include "encode_utils.h"
 #include "file_utils.h"
 #include "gatewaymgr.h"
@@ -9,7 +10,6 @@
 #include "profile.h"
 #include "protoutils.h"
 #include "servicemgr.h"
-#include "bfdatafeed.grpc.pb.h"
 
 DbService::DbService(QObject* parent)
     : QObject(parent)
@@ -49,7 +49,7 @@ void DbService::shutdown()
 
 leveldb::DB* DbService::getDb()
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
 
     if (!db_) {
         qFatal("db not open yet");
@@ -150,7 +150,7 @@ void DbService::insertBar(const BfBarData& bfItem)
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period()==PERIOD_UNKNOWN) {
+    if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period() == PERIOD_UNKNOWN) {
         BfDebug("invalid bar,ignore");
         return;
     }
@@ -242,7 +242,7 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     std::string key = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
     it->Seek(leveldb::Slice(key));
     int count = 0;
-    for (;it->Valid() && count < request->count(); it->Prev()) {
+    for (; it->Valid() && count < request->count(); it->Prev()) {
         //遇到了前后两个结束item
         const char* buf = it->value().data();
         int len = it->value().size();
@@ -254,16 +254,15 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
         if (bfItem.symbol().length() == 0) {
             std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
             std::string itKey = it->key().ToString();
-            if (itKey == lastestKey){
+            if (itKey == lastestKey) {
                 continue;
-            }else{
+            } else {
                 break;
             }
         }
 
         count++;
         writer->Write(bfItem);
-
     }
     delete it;
 }
@@ -271,7 +270,7 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
 void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0 || request->period()==PERIOD_UNKNOWN) {
+    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0 || request->period() == PERIOD_UNKNOWN) {
         BfDebug("invalid parm,ignore");
         return;
     }
@@ -287,7 +286,7 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     std::string key = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period())), request->todate().c_str(), request->totime().c_str()).toStdString();
     it->Seek(leveldb::Slice(key));
     int count = 0;
-    for (;it->Valid() && count < request->count(); it->Prev()) {
+    for (; it->Valid() && count < request->count(); it->Prev()) {
         //遇到了前后两个结束item
         const char* buf = it->value().data();
         int len = it->value().size();
@@ -297,18 +296,17 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
             break;
         }
         if (bfItem.symbol().length() == 0) {
-            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
+            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
             std::string itKey = it->key().ToString();
-            if (itKey == lastestKey){
+            if (itKey == lastestKey) {
                 continue;
-            }else{
+            } else {
                 break;
             }
         }
 
         count++;
         writer->Write(bfItem);
-
     }
     delete it;
 }
@@ -316,7 +314,7 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
 void DbService::getContract(const BfDatafeedGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 ){
+    if (request->symbol().length() == 0 || request->exchange().length() == 0) {
         BfDebug("invalid parm,ignore");
         return;
     }

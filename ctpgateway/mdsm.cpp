@@ -135,7 +135,7 @@ private:
     {
         // 对于一些特殊的sim如周末回放tick的，不做过滤=
         static bool sim = qEnvironmentVariableIsSet("bftrader_sim");
-        if(sim){
+        if (sim) {
             return true;
         }
 

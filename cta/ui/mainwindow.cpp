@@ -2,8 +2,10 @@
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
+#include "gatewayform.h"
 #include "infoform.h"
 #include "logger.h"
+#include "modelform.h"
 #include "positionform.h"
 #include "profile.h"
 #include "robotform.h"
@@ -12,8 +14,6 @@
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
-#include "gatewayform.h"
-#include "modelform.h"
 
 #include <windows.h>
 
@@ -46,8 +46,8 @@ MainWindow::MainWindow(QWidget* parent)
     modelForm_ = new ModelForm(this);
 
     ui->tabWidgetRobot->addTab(robotForm_, "robot");
-    ui->tabWidgetRobot->addTab(modelForm_,"model");
-    ui->tabWidgetRobot->addTab(gatewayForm_,"gateway");
+    ui->tabWidgetRobot->addTab(modelForm_, "model");
+    ui->tabWidgetRobot->addTab(gatewayForm_, "gateway");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");

@@ -89,17 +89,17 @@
       <widget class="QComboBox" name="comboBox">
        <item>
         <property name="text">
-         <string>s1</string>
+         <string>s01</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>s3</string>
+         <string>s03</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>s5</string>
+         <string>s05</string>
         </property>
        </item>
        <item>
@@ -119,17 +119,17 @@
        </item>
        <item>
         <property name="text">
-         <string>m1</string>
+         <string>m01</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>m3</string>
+         <string>m03</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>m5</string>
+         <string>m05</string>
         </property>
        </item>
        <item>
@@ -149,17 +149,17 @@
        </item>
        <item>
         <property name="text">
-         <string>h1</string>
+         <string>h01</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>d1</string>
+         <string>d01</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>w1</string>
+         <string>w01</string>
         </property>
        </item>
       </widget>

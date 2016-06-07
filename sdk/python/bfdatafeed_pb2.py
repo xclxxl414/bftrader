@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfdatafeed.proto',
   package='bftrader',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\"\xff\x01\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x12\n\nactionDate\x18\x04 \x01(\t\x12\x0f\n\x07\x62\x61rTime\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x12\n\nclosePrice\x18\x0c \x01(\x01\"_\n\x0c\x42\x66GetTickReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x85\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\"<\n\x18\x42\x66\x44\x61tafeedGetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t*\x88\x02\n\x0b\x42\x66\x42\x61rPeriod\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\r\n\tPERIOD_S1\x10\x01\x12\r\n\tPERIOD_S3\x10\x02\x12\r\n\tPERIOD_S5\x10\x03\x12\x0e\n\nPERIOD_S10\x10\x04\x12\x0e\n\nPERIOD_S15\x10\x05\x12\x0e\n\nPERIOD_S30\x10\x06\x12\r\n\tPERIOD_M1\x10\x07\x12\r\n\tPERIOD_M3\x10\x08\x12\r\n\tPERIOD_M5\x10\t\x12\x0e\n\nPERIOD_M10\x10\n\x12\x0e\n\nPERIOD_M15\x10\x0b\x12\x0e\n\nPERIOD_M30\x10\x0c\x12\r\n\tPERIOD_H1\x10\r\x12\r\n\tPERIOD_D1\x10\x0e\x12\r\n\tPERIOD_W1\x10\x0f\x32\xbf\x03\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\"\xff\x01\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x12\n\nactionDate\x18\x04 \x01(\t\x12\x0f\n\x07\x62\x61rTime\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x12\n\nclosePrice\x18\x0c \x01(\x01\"_\n\x0c\x42\x66GetTickReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x85\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\"<\n\x18\x42\x66\x44\x61tafeedGetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t*\x91\x02\n\x0b\x42\x66\x42\x61rPeriod\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\x0e\n\nPERIOD_S01\x10\x01\x12\x0e\n\nPERIOD_S03\x10\x02\x12\x0e\n\nPERIOD_S05\x10\x03\x12\x0e\n\nPERIOD_S10\x10\x04\x12\x0e\n\nPERIOD_S15\x10\x05\x12\x0e\n\nPERIOD_S30\x10\x06\x12\x0e\n\nPERIOD_M01\x10\x07\x12\x0e\n\nPERIOD_M03\x10\x08\x12\x0e\n\nPERIOD_M05\x10\t\x12\x0e\n\nPERIOD_M10\x10\n\x12\x0e\n\nPERIOD_M15\x10\x0b\x12\x0e\n\nPERIOD_M30\x10\x0c\x12\x0e\n\nPERIOD_H01\x10\r\x12\x0e\n\nPERIOD_D01\x10\x0e\x12\x0e\n\nPERIOD_W01\x10\x0f\x32\xbf\x03\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x62\x06proto3')
   ,
   dependencies=[bfgateway__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -37,15 +37,15 @@ _BFBARPERIOD = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_S1', index=1, number=1,
+      name='PERIOD_S01', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_S3', index=2, number=2,
+      name='PERIOD_S03', index=2, number=2,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_S5', index=3, number=3,
+      name='PERIOD_S05', index=3, number=3,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -61,15 +61,15 @@ _BFBARPERIOD = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_M1', index=7, number=7,
+      name='PERIOD_M01', index=7, number=7,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_M3', index=8, number=8,
+      name='PERIOD_M03', index=8, number=8,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_M5', index=9, number=9,
+      name='PERIOD_M05', index=9, number=9,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -85,42 +85,42 @@ _BFBARPERIOD = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_H1', index=13, number=13,
+      name='PERIOD_H01', index=13, number=13,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_D1', index=14, number=14,
+      name='PERIOD_D01', index=14, number=14,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='PERIOD_W1', index=15, number=15,
+      name='PERIOD_W01', index=15, number=15,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=601,
-  serialized_end=865,
+  serialized_end=874,
 )
 _sym_db.RegisterEnumDescriptor(_BFBARPERIOD)
 
 BfBarPeriod = enum_type_wrapper.EnumTypeWrapper(_BFBARPERIOD)
 PERIOD_UNKNOWN = 0
-PERIOD_S1 = 1
-PERIOD_S3 = 2
-PERIOD_S5 = 3
+PERIOD_S01 = 1
+PERIOD_S03 = 2
+PERIOD_S05 = 3
 PERIOD_S10 = 4
 PERIOD_S15 = 5
 PERIOD_S30 = 6
-PERIOD_M1 = 7
-PERIOD_M3 = 8
-PERIOD_M5 = 9
+PERIOD_M01 = 7
+PERIOD_M03 = 8
+PERIOD_M05 = 9
 PERIOD_M10 = 10
 PERIOD_M15 = 11
 PERIOD_M30 = 12
-PERIOD_H1 = 13
-PERIOD_D1 = 14
-PERIOD_W1 = 15
+PERIOD_H01 = 13
+PERIOD_D01 = 14
+PERIOD_W01 = 15
 
 
 

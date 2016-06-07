@@ -88,7 +88,7 @@ public:
         return grpc::Status::OK;
     }
 
-/*
+    /*
     virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());

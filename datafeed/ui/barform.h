@@ -28,7 +28,7 @@ private slots:
     void on_tableWidget_cellClicked(int row, int column);
 
 private:
-    void onGotTick(QString key, const BfBarData& bfItem);
+    void onGotBar(QString key, const BfBarData& bfItem);
     void initGraph();
     void drawGraph();
     QString getPeriod();

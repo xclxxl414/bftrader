@@ -45,27 +45,27 @@ class BfGetTickReq;
 
 enum BfBarPeriod {
   PERIOD_UNKNOWN = 0,
-  PERIOD_S1 = 1,
-  PERIOD_S3 = 2,
-  PERIOD_S5 = 3,
+  PERIOD_S01 = 1,
+  PERIOD_S03 = 2,
+  PERIOD_S05 = 3,
   PERIOD_S10 = 4,
   PERIOD_S15 = 5,
   PERIOD_S30 = 6,
-  PERIOD_M1 = 7,
-  PERIOD_M3 = 8,
-  PERIOD_M5 = 9,
+  PERIOD_M01 = 7,
+  PERIOD_M03 = 8,
+  PERIOD_M05 = 9,
   PERIOD_M10 = 10,
   PERIOD_M15 = 11,
   PERIOD_M30 = 12,
-  PERIOD_H1 = 13,
-  PERIOD_D1 = 14,
-  PERIOD_W1 = 15,
+  PERIOD_H01 = 13,
+  PERIOD_D01 = 14,
+  PERIOD_W01 = 15,
   BfBarPeriod_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   BfBarPeriod_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool BfBarPeriod_IsValid(int value);
 const BfBarPeriod BfBarPeriod_MIN = PERIOD_UNKNOWN;
-const BfBarPeriod BfBarPeriod_MAX = PERIOD_W1;
+const BfBarPeriod BfBarPeriod_MAX = PERIOD_W01;
 const int BfBarPeriod_ARRAYSIZE = BfBarPeriod_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* BfBarPeriod_descriptor();
