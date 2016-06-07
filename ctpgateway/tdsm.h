@@ -4,7 +4,7 @@
 #include "bfgateway.pb.h"
 #include <QObject>
 
-using namespace bftrader;
+using namespace bfgateway;
 
 class CThostFtdcTraderApi;
 

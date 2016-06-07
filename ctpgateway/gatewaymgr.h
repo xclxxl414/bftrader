@@ -11,7 +11,7 @@
 #include <QTimer>
 #include <functional>
 
-using namespace bftrader;
+using namespace bfgateway;
 
 class MdSm;
 class TdSm;

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package bftrader;
+package bfkv;
+option go_package = "github.com/sunwangme/bfgo/api/bfkv";
 
 import "bfgateway.proto";
 import "google/protobuf/any.proto";
@@ -13,7 +14,7 @@ import "google/protobuf/any.proto";
 //
 service BfKvService{    
     // 活跃检测
-    rpc Ping(BfPingData) returns (BfPingData) {}
+    rpc Ping(bfgateway.BfPingData) returns (bfgateway.BfPingData) {}
     
     // stream测试
     rpc PingStreamCS(stream google.protobuf.Any) returns (stream google.protobuf.Any) {}
@@ -21,8 +22,8 @@ service BfKvService{
     rpc PingStreamS(google.protobuf.Any) returns (stream google.protobuf.Any) {}
 
     // Kv服务
-    rpc SetKv(BfKvData) returns (BfVoid){}
-    rpc GetKv(BfKvData) returns (BfKvData){}
+    rpc SetKv(bfgateway.BfKvData) returns (bfgateway.BfVoid){}
+    rpc GetKv(bfgateway.BfKvData) returns (bfgateway.BfKvData){}
 }
 
 //============================

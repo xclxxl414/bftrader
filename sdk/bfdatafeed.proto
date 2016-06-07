@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package bftrader;
+package bfdatafeed;
+option go_package = "github.com/sunwangme/bfgo/api/bfdatafeed";
 
 import "bfgateway.proto";
 
@@ -112,28 +113,28 @@ message BfDatafeedDeleteContractReq{
 service BfDatafeedService{
 
     // 活跃检测
-    rpc Ping(BfPingData) returns (BfPingData) {}
+    rpc Ping(bfgateway.BfPingData) returns (bfgateway.BfPingData) {}
 
     // 保存tick
-    rpc InsertTick(BfTickData) returns (BfVoid) {}
+    rpc InsertTick(bfgateway.BfTickData) returns (bfgateway.BfVoid) {}
     // 保存bar
-    rpc InsertBar(BfBarData) returns (BfVoid) {}
+    rpc InsertBar(BfBarData) returns (bfgateway.BfVoid) {}
     // 保存contract
-    rpc InsertContract(BfContractData) returns (BfVoid) {}
+    rpc InsertContract(bfgateway.BfContractData) returns (bfgateway.BfVoid) {}
 
     // 获取tick
-    rpc GetTick(BfGetTickReq) returns (stream BfTickData){}
+    rpc GetTick(BfGetTickReq) returns (stream bfgateway.BfTickData){}
     // 获取bar
     rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
     // 获取contract
-    rpc GetContract(BfDatafeedGetContractReq) returns (stream BfContractData) {}
+    rpc GetContract(BfDatafeedGetContractReq) returns (stream bfgateway.BfContractData) {}
 /*
     // 删除tick
-    rpc DeleteTick(BfDeleteTickReq) returns (BfVoid) {}
+    rpc DeleteTick(BfDeleteTickReq) returns (bfgateway.BfVoid) {}
     // 删除bar
-    rpc DeleteBar(BfDeleteBarReq) returns (BfVoid) {}
+    rpc DeleteBar(BfDeleteBarReq) returns (bfgateway.BfVoid) {}
     // 删除contract
-    rpc DeleteContract(BfDatafeedDeleteContractReq) returns (BfVoid) {}
+    rpc DeleteContract(BfDatafeedDeleteContractReq) returns (bfgateway.BfVoid) {}
 */    
 }
 

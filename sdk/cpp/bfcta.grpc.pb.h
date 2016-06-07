@@ -22,87 +22,87 @@ class ServerCompletionQueue;
 class ServerContext;
 }  // namespace grpc
 
-namespace bftrader {
+namespace bfcta {
 
 class BfCtaService GRPC_FINAL {
  public:
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    std::unique_ptr< ::grpc::ClientReaderInterface< ::google::protobuf::Any>> Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) {
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::google::protobuf::Any>> Connect(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::google::protobuf::Any>>(ConnectRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>> AsyncConnect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>> AsyncConnect(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>>(AsyncConnectRaw(context, request, cq, tag));
     }
-    virtual ::grpc::Status Disconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncDisconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncDisconnectRaw(context, request, cq));
+    virtual ::grpc::Status Disconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::bfgateway::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>> AsyncDisconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>>(AsyncDisconnectRaw(context, request, cq));
     }
-    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
+    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::bfgateway::BfPingData* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
-    virtual ::grpc::Status GetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>> AsyncGetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>>(AsyncGetRobotInfoRaw(context, request, cq));
+    virtual ::grpc::Status GetRobotInfo(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::bfgateway::BfKvData* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfKvData>> AsyncGetRobotInfo(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfKvData>>(AsyncGetRobotInfoRaw(context, request, cq));
     }
-    virtual ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
+    virtual ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::bfgateway::BfSendOrderResp* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
     }
-    virtual ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>>(AsyncCancelOrderRaw(context, request, cq));
+    virtual ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::bfgateway::BfVoid* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>>(AsyncCancelOrderRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientReaderInterface< ::google::protobuf::Any>* ConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) = 0;
-    virtual ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfKvData>* AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::google::protobuf::Any>* ConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::protobuf::Any>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>* AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfKvData>* AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bfgateway::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>> Connect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) {
+    std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>> Connect(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::google::protobuf::Any>>(ConnectRaw(context, request));
     }
-    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::protobuf::Any>> AsyncConnect(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::protobuf::Any>> AsyncConnect(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
       return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::protobuf::Any>>(AsyncConnectRaw(context, request, cq, tag));
     }
-    ::grpc::Status Disconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncDisconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncDisconnectRaw(context, request, cq));
+    ::grpc::Status Disconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::bfgateway::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>> AsyncDisconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>>(AsyncDisconnectRaw(context, request, cq));
     }
-    ::grpc::Status Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>>(AsyncPingRaw(context, request, cq));
+    ::grpc::Status Ping(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::bfgateway::BfPingData* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>> AsyncPing(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>>(AsyncPingRaw(context, request, cq));
     }
-    ::grpc::Status GetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>> AsyncGetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>>(AsyncGetRobotInfoRaw(context, request, cq));
+    ::grpc::Status GetRobotInfo(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::bfgateway::BfKvData* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfKvData>> AsyncGetRobotInfo(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfKvData>>(AsyncGetRobotInfoRaw(context, request, cq));
     }
-    ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
+    ::grpc::Status SendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::bfgateway::BfSendOrderResp* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfSendOrderResp>> AsyncSendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfSendOrderResp>>(AsyncSendOrderRaw(context, request, cq));
     }
-    ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>>(AsyncCancelOrderRaw(context, request, cq));
+    ::grpc::Status CancelOrder(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::bfgateway::BfVoid* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>> AsyncCancelOrder(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>>(AsyncCancelOrderRaw(context, request, cq));
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientReader< ::google::protobuf::Any>* ConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncReader< ::google::protobuf::Any>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientReader< ::google::protobuf::Any>* ConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReader< ::google::protobuf::Any>* AsyncConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>* AsyncPingRaw(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bfgateway::BfKvData>* AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bfgateway::BfSendOrderResp>* AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Connect_;
     const ::grpc::RpcMethod rpcmethod_Disconnect_;
     const ::grpc::RpcMethod rpcmethod_Ping_;
@@ -116,12 +116,12 @@ class BfCtaService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer);
-    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response);
-    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response);
-    virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response);
-    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response);
-    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response);
+    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bfgateway::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer);
+    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response);
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bfgateway::BfPingData* request, ::bfgateway::BfPingData* response);
+    virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bfgateway::BfKvData* request, ::bfgateway::BfKvData* response);
+    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bfgateway::BfSendOrderReq* request, ::bfgateway::BfSendOrderResp* response);
+    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bfgateway::BfCancelOrderReq* request, ::bfgateway::BfVoid* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Connect : public BaseClass {
@@ -135,11 +135,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Connect(::grpc::ServerContext* context, const ::bfgateway::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestConnect(::grpc::ServerContext* context, ::bftrader::BfConnectReq* request, ::grpc::ServerAsyncWriter< ::google::protobuf::Any>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestConnect(::grpc::ServerContext* context, ::bfgateway::BfConnectReq* request, ::grpc::ServerAsyncWriter< ::google::protobuf::Any>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncServerStreaming(0, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
@@ -155,11 +155,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDisconnect(::grpc::ServerContext* context, ::bftrader::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDisconnect(::grpc::ServerContext* context, ::bfgateway::BfVoid* request, ::grpc::ServerAsyncResponseWriter< ::bfgateway::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -175,11 +175,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bfgateway::BfPingData* request, ::bfgateway::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPing(::grpc::ServerContext* context, ::bftrader::BfPingData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfPingData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPing(::grpc::ServerContext* context, ::bfgateway::BfPingData* request, ::grpc::ServerAsyncResponseWriter< ::bfgateway::BfPingData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -195,11 +195,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bfgateway::BfKvData* request, ::bfgateway::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetRobotInfo(::grpc::ServerContext* context, ::bftrader::BfKvData* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfKvData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetRobotInfo(::grpc::ServerContext* context, ::bfgateway::BfKvData* request, ::grpc::ServerAsyncResponseWriter< ::bfgateway::BfKvData>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -215,11 +215,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bfgateway::BfSendOrderReq* request, ::bfgateway::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSendOrder(::grpc::ServerContext* context, ::bftrader::BfSendOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfSendOrderResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestSendOrder(::grpc::ServerContext* context, ::bfgateway::BfSendOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bfgateway::BfSendOrderResp>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -235,11 +235,11 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bfgateway::BfCancelOrderReq* request, ::bfgateway::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCancelOrder(::grpc::ServerContext* context, ::bftrader::BfCancelOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bftrader::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCancelOrder(::grpc::ServerContext* context, ::bfgateway::BfCancelOrderReq* request, ::grpc::ServerAsyncResponseWriter< ::bfgateway::BfVoid>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -256,7 +256,7 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Connect(::grpc::ServerContext* context, const ::bfgateway::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -273,7 +273,7 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -290,7 +290,7 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::bfgateway::BfPingData* request, ::bfgateway::BfPingData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -307,7 +307,7 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bfgateway::BfKvData* request, ::bfgateway::BfKvData* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -324,7 +324,7 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bfgateway::BfSendOrderReq* request, ::bfgateway::BfSendOrderResp* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -341,14 +341,14 @@ class BfCtaService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bfgateway::BfCancelOrderReq* request, ::bfgateway::BfVoid* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
 };
 
-}  // namespace bftrader
+}  // namespace bfcta
 
 
 #endif  // GRPC_bfcta_2eproto__INCLUDED

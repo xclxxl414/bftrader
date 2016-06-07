@@ -8,6 +8,8 @@
 #include "profile.h"
 #include "servicemgr.h"
 
+using namespace bfcta;
+
 DbService::DbService(QObject* parent)
     : QObject(parent)
 {

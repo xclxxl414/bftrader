@@ -7,7 +7,7 @@
 #include <QThread>
 #include <atomic>
 
-using namespace bftrader;
+using namespace bfcta;
 
 class CtaClient {
 public:

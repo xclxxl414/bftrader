@@ -17,7 +17,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace bftrader {
+namespace bfgateway {
 
 namespace {
 
@@ -527,94 +527,96 @@ void protobuf_AddDesc_bfgateway_2eproto() {
 
   ::google::protobuf::protobuf_AddDesc_google_2fprotobuf_2fany_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\017bfgateway.proto\022\010bftrader\032\031google/prot"
-    "obuf/any.proto\"\010\n\006BfVoid\"\346\002\n\nBfTickData\022"
-    "\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\022\n\nact"
-    "ionDate\030\003 \001(\t\022\020\n\010tickTime\030\004 \001(\t\022\021\n\tlastP"
-    "rice\030\005 \001(\001\022\016\n\006volume\030\006 \001(\005\022\024\n\014openIntere"
-    "st\030\007 \001(\001\022\022\n\nlastVolume\030\010 \001(\005\022\021\n\topenPric"
-    "e\030\t \001(\001\022\021\n\thighPrice\030\n \001(\001\022\020\n\010lowPrice\030\013"
-    " \001(\001\022\025\n\rpreClosePrice\030\014 \001(\001\022\022\n\nupperLimi"
-    "t\030\r \001(\001\022\022\n\nlowerLimit\030\016 \001(\001\022\021\n\tbidPrice1"
-    "\030\017 \001(\001\022\021\n\taskPrice1\030\020 \001(\001\022\022\n\nbidVolume1\030"
-    "\021 \001(\005\022\022\n\naskVolume1\030\022 \001(\005\"\346\001\n\013BfTradeDat"
-    "a\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007t"
-    "radeId\030\003 \001(\t\022\021\n\tbfOrderId\030\004 \001(\t\022(\n\tdirec"
-    "tion\030\005 \001(\0162\025.bftrader.BfDirection\022\"\n\006off"
-    "set\030\006 \001(\0162\022.bftrader.BfOffset\022\r\n\005price\030\007"
-    " \001(\001\022\016\n\006volume\030\010 \001(\005\022\021\n\ttradeDate\030\t \001(\t\022"
-    "\021\n\ttradeTime\030\n \001(\t\"\252\002\n\013BfOrderData\022\016\n\006sy"
-    "mbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrderI"
-    "d\030\003 \001(\t\022(\n\tdirection\030\004 \001(\0162\025.bftrader.Bf"
-    "Direction\022\"\n\006offset\030\005 \001(\0162\022.bftrader.BfO"
-    "ffset\022\r\n\005price\030\006 \001(\001\022\023\n\013totalVolume\030\007 \001("
-    "\005\022\024\n\014tradedVolume\030\010 \001(\005\022\"\n\006status\030\t \001(\0162"
-    "\022.bftrader.BfStatus\022\022\n\ninsertDate\030\n \001(\t\022"
-    "\022\n\ninsertTime\030\013 \001(\t\022\022\n\ncancelTime\030\014 \001(\t\""
-    "\241\001\n\016BfPositionData\022\016\n\006symbol\030\001 \001(\t\022\020\n\010ex"
-    "change\030\002 \001(\t\022(\n\tdirection\030\003 \001(\0162\025.bftrad"
-    "er.BfDirection\022\020\n\010position\030\004 \001(\005\022\016\n\006froz"
-    "en\030\005 \001(\005\022\r\n\005price\030\006 \001(\001\022\022\n\nydPosition\030\007 "
-    "\001(\005\"\261\001\n\rBfAccountData\022\021\n\taccountId\030\001 \001(\t"
-    "\022\022\n\npreBalance\030\002 \001(\001\022\017\n\007balance\030\003 \001(\001\022\021\n"
-    "\tavailable\030\004 \001(\001\022\022\n\ncommission\030\005 \001(\001\022\024\n\014"
-    "frozenMargin\030\006 \001(\001\022\023\n\013closeProfit\030\007 \001(\001\022"
-    "\026\n\016positionProfit\030\010 \001(\001\"\?\n\013BfErrorData\022\014"
-    "\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\021\n\tmessage"
-    "Ex\030\003 \001(\t\"*\n\tBfLogData\022\014\n\004when\030\001 \001(\t\022\017\n\007m"
-    "essage\030\002 \001(\t\"\340\001\n\016BfContractData\022\016\n\006symbo"
-    "l\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022"
-    ")\n\014productClass\030\004 \001(\0162\023.bftrader.BfProdu"
-    "ct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021\n\tpriceTick\030"
-    "\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010minLimit\030\010 \001("
-    "\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMarket\030\n \001(\005\""
-    "p\n\022BfNotificationData\022(\n\004type\030\001 \001(\0162\032.bf"
-    "trader.BfNoticationType\022\014\n\004code\030\002 \001(\005\022\017\n"
-    "\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001(\t\"\035\n\nBfP"
-    "ingData\022\017\n\007message\030\001 \001(\t\"&\n\010BfKvData\022\013\n\003"
-    "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\311\001\n\016BfSendOrder"
-    "Req\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\r\n"
-    "\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022(\n\tpriceTyp"
-    "e\030\005 \001(\0162\025.bftrader.BfPriceType\022(\n\tdirect"
-    "ion\030\006 \001(\0162\025.bftrader.BfDirection\022\"\n\006offs"
-    "et\030\007 \001(\0162\022.bftrader.BfOffset\"$\n\017BfSendOr"
-    "derResp\022\021\n\tbfOrderId\030\001 \001(\t\"G\n\020BfCancelOr"
-    "derReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t"
-    "\022\021\n\tbfOrderId\030\003 \001(\t\"\245\001\n\014BfConnectReq\022\020\n\010"
-    "clientId\030\001 \001(\t\022\020\n\010intParam\030\002 \001(\005\022\020\n\010strP"
-    "aram\030\003 \001(\t\022\023\n\013tickHandler\030\004 \001(\010\022\024\n\014trade"
-    "Handler\030\005 \001(\010\022\022\n\nlogHandler\030\006 \001(\010\022\016\n\006sym"
-    "bol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\"X\n\020BfGetCont"
-    "ractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001("
-    "\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscribled\030\004 \001(\010*`\n"
-    "\013BfDirection\022\025\n\021DIRECTION_UNKNOWN\020\000\022\022\n\016D"
-    "IRECTION_LONG\020\001\022\023\n\017DIRECTION_SHORT\020\002\022\021\n\r"
-    "DIRECTION_NET\020\003*s\n\010BfOffset\022\022\n\016OFFSET_UN"
-    "KNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014OFFSET_CLOSE"
-    "\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n\025OFFSET_CLOS"
-    "EYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016STATUS_UNKNO"
-    "WN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025\n\021STATUS_PAR"
-    "TTRADED\020\002\022\024\n\020STATUS_ALLTRADED\020\003\022\024\n\020STATU"
-    "S_CANCELLED\020\004*I\n\tBfProduct\022\023\n\017PRODUCT_UN"
-    "KNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022\023\n\017PRODUCT_F"
-    "UTURES\020\002*Y\n\013BfPriceType\022\025\n\021PRICETYPE_UNK"
-    "ONWN\020\000\022\030\n\024PRICETYPE_LIMITPRICE\020\001\022\031\n\025PRIC"
-    "ETYPE_MARKETPRICE\020\002*l\n\020BfNoticationType\022"
-    "\030\n\024NOTIFICATION_UNKNOWN\020\000\022\037\n\033NOTIFICATIO"
-    "N_TRADEWILLBEGIN\020\001\022\035\n\031NOTIFICATION_GOTCO"
-    "NTRACTS\020\0022\360\003\n\020BfGatewayService\022;\n\007Connec"
-    "t\022\026.bftrader.BfConnectReq\032\024.google.proto"
-    "buf.Any\"\0000\001\0222\n\nDisconnect\022\020.bftrader.BfV"
-    "oid\032\020.bftrader.BfVoid\"\000\0224\n\004Ping\022\024.bftrad"
-    "er.BfPingData\032\024.bftrader.BfPingData\"\000\022E\n"
-    "\013GetContract\022\032.bftrader.BfGetContractReq"
-    "\032\030.bftrader.BfContractData\"\000\022B\n\tSendOrde"
-    "r\022\030.bftrader.BfSendOrderReq\032\031.bftrader.B"
-    "fSendOrderResp\"\000\022=\n\013CancelOrder\022\032.bftrad"
-    "er.BfCancelOrderReq\032\020.bftrader.BfVoid\"\000\022"
-    "4\n\014QueryAccount\022\020.bftrader.BfVoid\032\020.bftr"
-    "ader.BfVoid\"\000\0225\n\rQueryPosition\022\020.bftrade"
-    "r.BfVoid\032\020.bftrader.BfVoid\"\000b\006proto3", 3516);
+    "\n\017bfgateway.proto\022\tbfgateway\032\031google/pro"
+    "tobuf/any.proto\"\010\n\006BfVoid\"\346\002\n\nBfTickData"
+    "\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\022\n\nac"
+    "tionDate\030\003 \001(\t\022\020\n\010tickTime\030\004 \001(\t\022\021\n\tlast"
+    "Price\030\005 \001(\001\022\016\n\006volume\030\006 \001(\005\022\024\n\014openInter"
+    "est\030\007 \001(\001\022\022\n\nlastVolume\030\010 \001(\005\022\021\n\topenPri"
+    "ce\030\t \001(\001\022\021\n\thighPrice\030\n \001(\001\022\020\n\010lowPrice\030"
+    "\013 \001(\001\022\025\n\rpreClosePrice\030\014 \001(\001\022\022\n\nupperLim"
+    "it\030\r \001(\001\022\022\n\nlowerLimit\030\016 \001(\001\022\021\n\tbidPrice"
+    "1\030\017 \001(\001\022\021\n\taskPrice1\030\020 \001(\001\022\022\n\nbidVolume1"
+    "\030\021 \001(\005\022\022\n\naskVolume1\030\022 \001(\005\"\350\001\n\013BfTradeDa"
+    "ta\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\017\n\007"
+    "tradeId\030\003 \001(\t\022\021\n\tbfOrderId\030\004 \001(\t\022)\n\tdire"
+    "ction\030\005 \001(\0162\026.bfgateway.BfDirection\022#\n\006o"
+    "ffset\030\006 \001(\0162\023.bfgateway.BfOffset\022\r\n\005pric"
+    "e\030\007 \001(\001\022\016\n\006volume\030\010 \001(\005\022\021\n\ttradeDate\030\t \001"
+    "(\t\022\021\n\ttradeTime\030\n \001(\t\"\255\002\n\013BfOrderData\022\016\n"
+    "\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\021\n\tbfOrd"
+    "erId\030\003 \001(\t\022)\n\tdirection\030\004 \001(\0162\026.bfgatewa"
+    "y.BfDirection\022#\n\006offset\030\005 \001(\0162\023.bfgatewa"
+    "y.BfOffset\022\r\n\005price\030\006 \001(\001\022\023\n\013totalVolume"
+    "\030\007 \001(\005\022\024\n\014tradedVolume\030\010 \001(\005\022#\n\006status\030\t"
+    " \001(\0162\023.bfgateway.BfStatus\022\022\n\ninsertDate\030"
+    "\n \001(\t\022\022\n\ninsertTime\030\013 \001(\t\022\022\n\ncancelTime\030"
+    "\014 \001(\t\"\242\001\n\016BfPositionData\022\016\n\006symbol\030\001 \001(\t"
+    "\022\020\n\010exchange\030\002 \001(\t\022)\n\tdirection\030\003 \001(\0162\026."
+    "bfgateway.BfDirection\022\020\n\010position\030\004 \001(\005\022"
+    "\016\n\006frozen\030\005 \001(\005\022\r\n\005price\030\006 \001(\001\022\022\n\nydPosi"
+    "tion\030\007 \001(\005\"\261\001\n\rBfAccountData\022\021\n\taccountI"
+    "d\030\001 \001(\t\022\022\n\npreBalance\030\002 \001(\001\022\017\n\007balance\030\003"
+    " \001(\001\022\021\n\tavailable\030\004 \001(\001\022\022\n\ncommission\030\005 "
+    "\001(\001\022\024\n\014frozenMargin\030\006 \001(\001\022\023\n\013closeProfit"
+    "\030\007 \001(\001\022\026\n\016positionProfit\030\010 \001(\001\"\?\n\013BfErro"
+    "rData\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\022\021\n\t"
+    "messageEx\030\003 \001(\t\"*\n\tBfLogData\022\014\n\004when\030\001 \001"
+    "(\t\022\017\n\007message\030\002 \001(\t\"\341\001\n\016BfContractData\022\016"
+    "\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002 \001(\t\022\014\n\004name"
+    "\030\003 \001(\t\022*\n\014productClass\030\004 \001(\0162\024.bfgateway"
+    ".BfProduct\022\026\n\016volumeMultiple\030\005 \001(\005\022\021\n\tpr"
+    "iceTick\030\006 \001(\001\022\020\n\010maxLimit\030\007 \001(\005\022\020\n\010minLi"
+    "mit\030\010 \001(\005\022\021\n\tmaxMarket\030\t \001(\005\022\021\n\tminMarke"
+    "t\030\n \001(\005\"q\n\022BfNotificationData\022)\n\004type\030\001 "
+    "\001(\0162\033.bfgateway.BfNoticationType\022\014\n\004code"
+    "\030\002 \001(\005\022\017\n\007message\030\003 \001(\t\022\021\n\tmessageEx\030\004 \001"
+    "(\t\"\035\n\nBfPingData\022\017\n\007message\030\001 \001(\t\"&\n\010BfK"
+    "vData\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\314\001\n\016Bf"
+    "SendOrderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange"
+    "\030\002 \001(\t\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\005\022)\n"
+    "\tpriceType\030\005 \001(\0162\026.bfgateway.BfPriceType"
+    "\022)\n\tdirection\030\006 \001(\0162\026.bfgateway.BfDirect"
+    "ion\022#\n\006offset\030\007 \001(\0162\023.bfgateway.BfOffset"
+    "\"$\n\017BfSendOrderResp\022\021\n\tbfOrderId\030\001 \001(\t\"G"
+    "\n\020BfCancelOrderReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010ex"
+    "change\030\002 \001(\t\022\021\n\tbfOrderId\030\003 \001(\t\"\245\001\n\014BfCo"
+    "nnectReq\022\020\n\010clientId\030\001 \001(\t\022\020\n\010intParam\030\002"
+    " \001(\005\022\020\n\010strParam\030\003 \001(\t\022\023\n\013tickHandler\030\004 "
+    "\001(\010\022\024\n\014tradeHandler\030\005 \001(\010\022\022\n\nlogHandler\030"
+    "\006 \001(\010\022\016\n\006symbol\030\007 \001(\t\022\020\n\010exchange\030\010 \001(\t\""
+    "X\n\020BfGetContractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010e"
+    "xchange\030\002 \001(\t\022\r\n\005index\030\003 \001(\005\022\023\n\013subscrib"
+    "led\030\004 \001(\010*`\n\013BfDirection\022\025\n\021DIRECTION_UN"
+    "KNOWN\020\000\022\022\n\016DIRECTION_LONG\020\001\022\023\n\017DIRECTION"
+    "_SHORT\020\002\022\021\n\rDIRECTION_NET\020\003*s\n\010BfOffset\022"
+    "\022\n\016OFFSET_UNKNOWN\020\000\022\017\n\013OFFSET_OPEN\020\001\022\020\n\014"
+    "OFFSET_CLOSE\020\002\022\025\n\021OFFSET_CLOSETODAY\020\003\022\031\n"
+    "\025OFFSET_CLOSEYESTERDAY\020\004*w\n\010BfStatus\022\022\n\016"
+    "STATUS_UNKNOWN\020\000\022\024\n\020STATUS_NOTTRADED\020\001\022\025"
+    "\n\021STATUS_PARTTRADED\020\002\022\024\n\020STATUS_ALLTRADE"
+    "D\020\003\022\024\n\020STATUS_CANCELLED\020\004*I\n\tBfProduct\022\023"
+    "\n\017PRODUCT_UNKNOWN\020\000\022\022\n\016PRODUCT_EQUITY\020\001\022"
+    "\023\n\017PRODUCT_FUTURES\020\002*Y\n\013BfPriceType\022\025\n\021P"
+    "RICETYPE_UNKONWN\020\000\022\030\n\024PRICETYPE_LIMITPRI"
+    "CE\020\001\022\031\n\025PRICETYPE_MARKETPRICE\020\002*l\n\020BfNot"
+    "icationType\022\030\n\024NOTIFICATION_UNKNOWN\020\000\022\037\n"
+    "\033NOTIFICATION_TRADEWILLBEGIN\020\001\022\035\n\031NOTIFI"
+    "CATION_GOTCONTRACTS\020\0022\377\003\n\020BfGatewayServi"
+    "ce\022<\n\007Connect\022\027.bfgateway.BfConnectReq\032\024"
+    ".google.protobuf.Any\"\0000\001\0224\n\nDisconnect\022\021"
+    ".bfgateway.BfVoid\032\021.bfgateway.BfVoid\"\000\0226"
+    "\n\004Ping\022\025.bfgateway.BfPingData\032\025.bfgatewa"
+    "y.BfPingData\"\000\022G\n\013GetContract\022\033.bfgatewa"
+    "y.BfGetContractReq\032\031.bfgateway.BfContrac"
+    "tData\"\000\022D\n\tSendOrder\022\031.bfgateway.BfSendO"
+    "rderReq\032\032.bfgateway.BfSendOrderResp\"\000\022\?\n"
+    "\013CancelOrder\022\033.bfgateway.BfCancelOrderRe"
+    "q\032\021.bfgateway.BfVoid\"\000\0226\n\014QueryAccount\022\021"
+    ".bfgateway.BfVoid\032\021.bfgateway.BfVoid\"\000\0227"
+    "\n\rQueryPosition\022\021.bfgateway.BfVoid\032\021.bfg"
+    "ateway.BfVoid\"\000B)Z\'github.com/sunwangme/"
+    "bfgo/api/bfgatewayb\006proto3", 3586);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfgateway.proto", &protobuf_RegisterTypes);
   BfVoid::default_instance_ = new BfVoid();
@@ -774,7 +776,7 @@ static void MergeFromFail(int line) {
 BfVoid::BfVoid()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfVoid)
+  // @@protoc_insertion_point(constructor:bfgateway.BfVoid)
 }
 
 void BfVoid::InitAsDefaultInstance() {
@@ -786,7 +788,7 @@ BfVoid::BfVoid(const BfVoid& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfVoid)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfVoid)
 }
 
 void BfVoid::SharedCtor() {
@@ -795,7 +797,7 @@ void BfVoid::SharedCtor() {
 }
 
 BfVoid::~BfVoid() {
-  // @@protoc_insertion_point(destructor:bftrader.BfVoid)
+  // @@protoc_insertion_point(destructor:bfgateway.BfVoid)
   SharedDtor();
 }
 
@@ -830,13 +832,14 @@ BfVoid* BfVoid::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfVoid::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfVoid)
 }
 
 bool BfVoid::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfVoid)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfVoid)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -850,28 +853,29 @@ bool BfVoid::MergePartialFromCodedStream(
     DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfVoid)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfVoid)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfVoid)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfVoid)
   return false;
 #undef DO_
 }
 
 void BfVoid::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfVoid)
-  // @@protoc_insertion_point(serialize_end:bftrader.BfVoid)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfVoid)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfVoid)
 }
 
 ::google::protobuf::uint8* BfVoid::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfVoid)
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfVoid)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfVoid)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfVoid)
   return target;
 }
 
 int BfVoid::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfVoid)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -881,28 +885,34 @@ int BfVoid::ByteSize() const {
 }
 
 void BfVoid::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfVoid)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfVoid* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfVoid>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfVoid)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfVoid)
     MergeFrom(*source);
   }
 }
 
 void BfVoid::MergeFrom(const BfVoid& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfVoid)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void BfVoid::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfVoid)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfVoid::CopyFrom(const BfVoid& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfVoid)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -961,7 +971,7 @@ const int BfTickData::kAskVolume1FieldNumber;
 BfTickData::BfTickData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfTickData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfTickData)
 }
 
 void BfTickData::InitAsDefaultInstance() {
@@ -973,7 +983,7 @@ BfTickData::BfTickData(const BfTickData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfTickData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfTickData)
 }
 
 void BfTickData::SharedCtor() {
@@ -1001,7 +1011,7 @@ void BfTickData::SharedCtor() {
 }
 
 BfTickData::~BfTickData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfTickData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfTickData)
   SharedDtor();
 }
 
@@ -1040,8 +1050,17 @@ BfTickData* BfTickData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfTickData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfTickData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfTickData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfTickData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -1063,9 +1082,9 @@ void BfTickData::Clear() {
 
 bool BfTickData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfTickData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfTickData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
@@ -1079,7 +1098,7 @@ bool BfTickData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTickData.symbol"));
+            "bfgateway.BfTickData.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -1096,7 +1115,7 @@ bool BfTickData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTickData.exchange"));
+            "bfgateway.BfTickData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -1113,7 +1132,7 @@ bool BfTickData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->actiondate().data(), this->actiondate().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTickData.actionDate"));
+            "bfgateway.BfTickData.actionDate"));
         } else {
           goto handle_unusual;
         }
@@ -1130,7 +1149,7 @@ bool BfTickData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->ticktime().data(), this->ticktime().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTickData.tickTime"));
+            "bfgateway.BfTickData.tickTime"));
         } else {
           goto handle_unusual;
         }
@@ -1361,23 +1380,23 @@ bool BfTickData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfTickData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfTickData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfTickData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfTickData)
   return false;
 #undef DO_
 }
 
 void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfTickData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfTickData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.symbol");
+      "bfgateway.BfTickData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -1387,7 +1406,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.exchange");
+      "bfgateway.BfTickData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -1397,7 +1416,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->actiondate().data(), this->actiondate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.actionDate");
+      "bfgateway.BfTickData.actionDate");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->actiondate(), output);
   }
@@ -1407,7 +1426,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->ticktime().data(), this->ticktime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.tickTime");
+      "bfgateway.BfTickData.tickTime");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->ticktime(), output);
   }
@@ -1482,18 +1501,18 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(18, this->askvolume1(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfTickData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfTickData)
 }
 
 ::google::protobuf::uint8* BfTickData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfTickData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfTickData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.symbol");
+      "bfgateway.BfTickData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -1504,7 +1523,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.exchange");
+      "bfgateway.BfTickData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -1515,7 +1534,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->actiondate().data(), this->actiondate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.actionDate");
+      "bfgateway.BfTickData.actionDate");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->actiondate(), target);
@@ -1526,7 +1545,7 @@ void BfTickData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->ticktime().data(), this->ticktime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTickData.tickTime");
+      "bfgateway.BfTickData.tickTime");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->ticktime(), target);
@@ -1602,11 +1621,12 @@ void BfTickData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(18, this->askvolume1(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfTickData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfTickData)
   return target;
 }
 
 int BfTickData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfTickData)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -1722,18 +1742,22 @@ int BfTickData::ByteSize() const {
 }
 
 void BfTickData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfTickData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfTickData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfTickData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfTickData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfTickData)
     MergeFrom(*source);
   }
 }
 
 void BfTickData::MergeFrom(const BfTickData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfTickData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -1796,12 +1820,14 @@ void BfTickData::MergeFrom(const BfTickData& from) {
 }
 
 void BfTickData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfTickData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfTickData::CopyFrom(const BfTickData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfTickData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1855,31 +1881,32 @@ void BfTickData::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTickData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTickData::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.symbol)
 }
  void BfTickData::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTickData.symbol)
 }
  void BfTickData::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTickData.symbol)
 }
  ::std::string* BfTickData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTickData.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTickData::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTickData.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1890,7 +1917,7 @@ void BfTickData::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickData.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTickData.symbol)
 }
 
 // optional string exchange = 2;
@@ -1898,31 +1925,32 @@ void BfTickData::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTickData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTickData::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.exchange)
 }
  void BfTickData::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTickData.exchange)
 }
  void BfTickData::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTickData.exchange)
 }
  ::std::string* BfTickData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTickData.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTickData::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTickData.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1933,7 +1961,7 @@ void BfTickData::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickData.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTickData.exchange)
 }
 
 // optional string actionDate = 3;
@@ -1941,31 +1969,32 @@ void BfTickData::clear_actiondate() {
   actiondate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTickData::actiondate() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.actionDate)
   return actiondate_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTickData::set_actiondate(const ::std::string& value) {
   
   actiondate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.actionDate)
 }
  void BfTickData::set_actiondate(const char* value) {
   
   actiondate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTickData.actionDate)
 }
  void BfTickData::set_actiondate(const char* value, size_t size) {
   
   actiondate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTickData.actionDate)
 }
  ::std::string* BfTickData::mutable_actiondate() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTickData.actionDate)
   return actiondate_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTickData::release_actiondate() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTickData.actionDate)
   
   return actiondate_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1976,7 +2005,7 @@ void BfTickData::clear_actiondate() {
     
   }
   actiondate_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), actiondate);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickData.actionDate)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTickData.actionDate)
 }
 
 // optional string tickTime = 4;
@@ -1984,31 +2013,32 @@ void BfTickData::clear_ticktime() {
   ticktime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTickData::ticktime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.tickTime)
   return ticktime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTickData::set_ticktime(const ::std::string& value) {
   
   ticktime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.tickTime)
 }
  void BfTickData::set_ticktime(const char* value) {
   
   ticktime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTickData.tickTime)
 }
  void BfTickData::set_ticktime(const char* value, size_t size) {
   
   ticktime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTickData.tickTime)
 }
  ::std::string* BfTickData::mutable_ticktime() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTickData.tickTime)
   return ticktime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTickData::release_ticktime() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTickData.tickTime)
   
   return ticktime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2019,7 +2049,7 @@ void BfTickData::clear_ticktime() {
     
   }
   ticktime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ticktime);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTickData.tickTime)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTickData.tickTime)
 }
 
 // optional double lastPrice = 5;
@@ -2027,13 +2057,13 @@ void BfTickData::clear_lastprice() {
   lastprice_ = 0;
 }
  double BfTickData::lastprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.lastPrice)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.lastPrice)
   return lastprice_;
 }
  void BfTickData::set_lastprice(double value) {
   
   lastprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.lastPrice)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.lastPrice)
 }
 
 // optional int32 volume = 6;
@@ -2041,13 +2071,13 @@ void BfTickData::clear_volume() {
   volume_ = 0;
 }
  ::google::protobuf::int32 BfTickData::volume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.volume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.volume)
   return volume_;
 }
  void BfTickData::set_volume(::google::protobuf::int32 value) {
   
   volume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.volume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.volume)
 }
 
 // optional double openInterest = 7;
@@ -2055,13 +2085,13 @@ void BfTickData::clear_openinterest() {
   openinterest_ = 0;
 }
  double BfTickData::openinterest() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.openInterest)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.openInterest)
   return openinterest_;
 }
  void BfTickData::set_openinterest(double value) {
   
   openinterest_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.openInterest)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.openInterest)
 }
 
 // optional int32 lastVolume = 8;
@@ -2069,13 +2099,13 @@ void BfTickData::clear_lastvolume() {
   lastvolume_ = 0;
 }
  ::google::protobuf::int32 BfTickData::lastvolume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.lastVolume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.lastVolume)
   return lastvolume_;
 }
  void BfTickData::set_lastvolume(::google::protobuf::int32 value) {
   
   lastvolume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.lastVolume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.lastVolume)
 }
 
 // optional double openPrice = 9;
@@ -2083,13 +2113,13 @@ void BfTickData::clear_openprice() {
   openprice_ = 0;
 }
  double BfTickData::openprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.openPrice)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.openPrice)
   return openprice_;
 }
  void BfTickData::set_openprice(double value) {
   
   openprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.openPrice)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.openPrice)
 }
 
 // optional double highPrice = 10;
@@ -2097,13 +2127,13 @@ void BfTickData::clear_highprice() {
   highprice_ = 0;
 }
  double BfTickData::highprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.highPrice)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.highPrice)
   return highprice_;
 }
  void BfTickData::set_highprice(double value) {
   
   highprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.highPrice)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.highPrice)
 }
 
 // optional double lowPrice = 11;
@@ -2111,13 +2141,13 @@ void BfTickData::clear_lowprice() {
   lowprice_ = 0;
 }
  double BfTickData::lowprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.lowPrice)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.lowPrice)
   return lowprice_;
 }
  void BfTickData::set_lowprice(double value) {
   
   lowprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.lowPrice)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.lowPrice)
 }
 
 // optional double preClosePrice = 12;
@@ -2125,13 +2155,13 @@ void BfTickData::clear_precloseprice() {
   precloseprice_ = 0;
 }
  double BfTickData::precloseprice() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.preClosePrice)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.preClosePrice)
   return precloseprice_;
 }
  void BfTickData::set_precloseprice(double value) {
   
   precloseprice_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.preClosePrice)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.preClosePrice)
 }
 
 // optional double upperLimit = 13;
@@ -2139,13 +2169,13 @@ void BfTickData::clear_upperlimit() {
   upperlimit_ = 0;
 }
  double BfTickData::upperlimit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.upperLimit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.upperLimit)
   return upperlimit_;
 }
  void BfTickData::set_upperlimit(double value) {
   
   upperlimit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.upperLimit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.upperLimit)
 }
 
 // optional double lowerLimit = 14;
@@ -2153,13 +2183,13 @@ void BfTickData::clear_lowerlimit() {
   lowerlimit_ = 0;
 }
  double BfTickData::lowerlimit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.lowerLimit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.lowerLimit)
   return lowerlimit_;
 }
  void BfTickData::set_lowerlimit(double value) {
   
   lowerlimit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.lowerLimit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.lowerLimit)
 }
 
 // optional double bidPrice1 = 15;
@@ -2167,13 +2197,13 @@ void BfTickData::clear_bidprice1() {
   bidprice1_ = 0;
 }
  double BfTickData::bidprice1() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.bidPrice1)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.bidPrice1)
   return bidprice1_;
 }
  void BfTickData::set_bidprice1(double value) {
   
   bidprice1_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.bidPrice1)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.bidPrice1)
 }
 
 // optional double askPrice1 = 16;
@@ -2181,13 +2211,13 @@ void BfTickData::clear_askprice1() {
   askprice1_ = 0;
 }
  double BfTickData::askprice1() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.askPrice1)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.askPrice1)
   return askprice1_;
 }
  void BfTickData::set_askprice1(double value) {
   
   askprice1_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.askPrice1)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.askPrice1)
 }
 
 // optional int32 bidVolume1 = 17;
@@ -2195,13 +2225,13 @@ void BfTickData::clear_bidvolume1() {
   bidvolume1_ = 0;
 }
  ::google::protobuf::int32 BfTickData::bidvolume1() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.bidVolume1)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.bidVolume1)
   return bidvolume1_;
 }
  void BfTickData::set_bidvolume1(::google::protobuf::int32 value) {
   
   bidvolume1_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.bidVolume1)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.bidVolume1)
 }
 
 // optional int32 askVolume1 = 18;
@@ -2209,13 +2239,13 @@ void BfTickData::clear_askvolume1() {
   askvolume1_ = 0;
 }
  ::google::protobuf::int32 BfTickData::askvolume1() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTickData.askVolume1)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTickData.askVolume1)
   return askvolume1_;
 }
  void BfTickData::set_askvolume1(::google::protobuf::int32 value) {
   
   askvolume1_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTickData.askVolume1)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTickData.askVolume1)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2238,7 +2268,7 @@ const int BfTradeData::kTradeTimeFieldNumber;
 BfTradeData::BfTradeData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfTradeData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfTradeData)
 }
 
 void BfTradeData::InitAsDefaultInstance() {
@@ -2250,7 +2280,7 @@ BfTradeData::BfTradeData(const BfTradeData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfTradeData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfTradeData)
 }
 
 void BfTradeData::SharedCtor() {
@@ -2270,7 +2300,7 @@ void BfTradeData::SharedCtor() {
 }
 
 BfTradeData::~BfTradeData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfTradeData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfTradeData)
   SharedDtor();
 }
 
@@ -2311,8 +2341,17 @@ BfTradeData* BfTradeData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfTradeData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfTradeData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfTradeData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfTradeData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -2335,9 +2374,9 @@ void BfTradeData::Clear() {
 
 bool BfTradeData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfTradeData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfTradeData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2351,7 +2390,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.symbol"));
+            "bfgateway.BfTradeData.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -2368,7 +2407,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.exchange"));
+            "bfgateway.BfTradeData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -2385,7 +2424,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->tradeid().data(), this->tradeid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.tradeId"));
+            "bfgateway.BfTradeData.tradeId"));
         } else {
           goto handle_unusual;
         }
@@ -2402,7 +2441,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->bforderid().data(), this->bforderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.bfOrderId"));
+            "bfgateway.BfTradeData.bfOrderId"));
         } else {
           goto handle_unusual;
         }
@@ -2410,7 +2449,7 @@ bool BfTradeData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfDirection direction = 5;
+      // optional .bfgateway.BfDirection direction = 5;
       case 5: {
         if (tag == 40) {
          parse_direction:
@@ -2418,7 +2457,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_direction(static_cast< ::bftrader::BfDirection >(value));
+          set_direction(static_cast< ::bfgateway::BfDirection >(value));
         } else {
           goto handle_unusual;
         }
@@ -2426,7 +2465,7 @@ bool BfTradeData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfOffset offset = 6;
+      // optional .bfgateway.BfOffset offset = 6;
       case 6: {
         if (tag == 48) {
          parse_offset:
@@ -2434,7 +2473,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_offset(static_cast< ::bftrader::BfOffset >(value));
+          set_offset(static_cast< ::bfgateway::BfOffset >(value));
         } else {
           goto handle_unusual;
         }
@@ -2481,7 +2520,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->tradedate().data(), this->tradedate().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.tradeDate"));
+            "bfgateway.BfTradeData.tradeDate"));
         } else {
           goto handle_unusual;
         }
@@ -2498,7 +2537,7 @@ bool BfTradeData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->tradetime().data(), this->tradetime().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfTradeData.tradeTime"));
+            "bfgateway.BfTradeData.tradeTime"));
         } else {
           goto handle_unusual;
         }
@@ -2519,23 +2558,23 @@ bool BfTradeData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfTradeData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfTradeData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfTradeData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfTradeData)
   return false;
 #undef DO_
 }
 
 void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfTradeData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfTradeData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.symbol");
+      "bfgateway.BfTradeData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -2545,7 +2584,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.exchange");
+      "bfgateway.BfTradeData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -2555,7 +2594,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradeid().data(), this->tradeid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeId");
+      "bfgateway.BfTradeData.tradeId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->tradeid(), output);
   }
@@ -2565,18 +2604,18 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.bfOrderId");
+      "bfgateway.BfTradeData.bfOrderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->bforderid(), output);
   }
 
-  // optional .bftrader.BfDirection direction = 5;
+  // optional .bfgateway.BfDirection direction = 5;
   if (this->direction() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       5, this->direction(), output);
   }
 
-  // optional .bftrader.BfOffset offset = 6;
+  // optional .bfgateway.BfOffset offset = 6;
   if (this->offset() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       6, this->offset(), output);
@@ -2597,7 +2636,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradedate().data(), this->tradedate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeDate");
+      "bfgateway.BfTradeData.tradeDate");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       9, this->tradedate(), output);
   }
@@ -2607,23 +2646,23 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradetime().data(), this->tradetime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeTime");
+      "bfgateway.BfTradeData.tradeTime");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       10, this->tradetime(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfTradeData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfTradeData)
 }
 
 ::google::protobuf::uint8* BfTradeData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfTradeData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfTradeData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.symbol");
+      "bfgateway.BfTradeData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -2634,7 +2673,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.exchange");
+      "bfgateway.BfTradeData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -2645,7 +2684,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradeid().data(), this->tradeid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeId");
+      "bfgateway.BfTradeData.tradeId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->tradeid(), target);
@@ -2656,19 +2695,19 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.bfOrderId");
+      "bfgateway.BfTradeData.bfOrderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->bforderid(), target);
   }
 
-  // optional .bftrader.BfDirection direction = 5;
+  // optional .bfgateway.BfDirection direction = 5;
   if (this->direction() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       5, this->direction(), target);
   }
 
-  // optional .bftrader.BfOffset offset = 6;
+  // optional .bfgateway.BfOffset offset = 6;
   if (this->offset() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       6, this->offset(), target);
@@ -2689,7 +2728,7 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradedate().data(), this->tradedate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeDate");
+      "bfgateway.BfTradeData.tradeDate");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         9, this->tradedate(), target);
@@ -2700,17 +2739,18 @@ void BfTradeData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->tradetime().data(), this->tradetime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfTradeData.tradeTime");
+      "bfgateway.BfTradeData.tradeTime");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         10, this->tradetime(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfTradeData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfTradeData)
   return target;
 }
 
 int BfTradeData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfTradeData)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -2741,13 +2781,13 @@ int BfTradeData::ByteSize() const {
         this->bforderid());
   }
 
-  // optional .bftrader.BfDirection direction = 5;
+  // optional .bfgateway.BfDirection direction = 5;
   if (this->direction() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->direction());
   }
 
-  // optional .bftrader.BfOffset offset = 6;
+  // optional .bfgateway.BfOffset offset = 6;
   if (this->offset() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->offset());
@@ -2786,18 +2826,22 @@ int BfTradeData::ByteSize() const {
 }
 
 void BfTradeData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfTradeData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfTradeData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfTradeData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfTradeData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfTradeData)
     MergeFrom(*source);
   }
 }
 
 void BfTradeData::MergeFrom(const BfTradeData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfTradeData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -2838,12 +2882,14 @@ void BfTradeData::MergeFrom(const BfTradeData& from) {
 }
 
 void BfTradeData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfTradeData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfTradeData::CopyFrom(const BfTradeData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfTradeData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2889,31 +2935,32 @@ void BfTradeData::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.symbol)
 }
  void BfTradeData::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.symbol)
 }
  void BfTradeData::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.symbol)
 }
  ::std::string* BfTradeData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2924,7 +2971,7 @@ void BfTradeData::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.symbol)
 }
 
 // optional string exchange = 2;
@@ -2932,31 +2979,32 @@ void BfTradeData::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.exchange)
 }
  void BfTradeData::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.exchange)
 }
  void BfTradeData::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.exchange)
 }
  ::std::string* BfTradeData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2967,7 +3015,7 @@ void BfTradeData::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.exchange)
 }
 
 // optional string tradeId = 3;
@@ -2975,31 +3023,32 @@ void BfTradeData::clear_tradeid() {
   tradeid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::tradeid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.tradeId)
   return tradeid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_tradeid(const ::std::string& value) {
   
   tradeid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.tradeId)
 }
  void BfTradeData::set_tradeid(const char* value) {
   
   tradeid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.tradeId)
 }
  void BfTradeData::set_tradeid(const char* value, size_t size) {
   
   tradeid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.tradeId)
 }
  ::std::string* BfTradeData::mutable_tradeid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.tradeId)
   return tradeid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_tradeid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.tradeId)
   
   return tradeid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3010,7 +3059,7 @@ void BfTradeData::clear_tradeid() {
     
   }
   tradeid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tradeid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.tradeId)
 }
 
 // optional string bfOrderId = 4;
@@ -3018,31 +3067,32 @@ void BfTradeData::clear_bforderid() {
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::bforderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.bfOrderId)
   return bforderid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_bforderid(const ::std::string& value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.bfOrderId)
 }
  void BfTradeData::set_bforderid(const char* value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.bfOrderId)
 }
  void BfTradeData::set_bforderid(const char* value, size_t size) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.bfOrderId)
 }
  ::std::string* BfTradeData::mutable_bforderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.bfOrderId)
   return bforderid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_bforderid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.bfOrderId)
   
   return bforderid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3053,35 +3103,35 @@ void BfTradeData::clear_bforderid() {
     
   }
   bforderid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bforderid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.bfOrderId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.bfOrderId)
 }
 
-// optional .bftrader.BfDirection direction = 5;
+// optional .bfgateway.BfDirection direction = 5;
 void BfTradeData::clear_direction() {
   direction_ = 0;
 }
- ::bftrader::BfDirection BfTradeData::direction() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.direction)
-  return static_cast< ::bftrader::BfDirection >(direction_);
+ ::bfgateway::BfDirection BfTradeData::direction() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.direction)
+  return static_cast< ::bfgateway::BfDirection >(direction_);
 }
- void BfTradeData::set_direction(::bftrader::BfDirection value) {
+ void BfTradeData::set_direction(::bfgateway::BfDirection value) {
   
   direction_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.direction)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.direction)
 }
 
-// optional .bftrader.BfOffset offset = 6;
+// optional .bfgateway.BfOffset offset = 6;
 void BfTradeData::clear_offset() {
   offset_ = 0;
 }
- ::bftrader::BfOffset BfTradeData::offset() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.offset)
-  return static_cast< ::bftrader::BfOffset >(offset_);
+ ::bfgateway::BfOffset BfTradeData::offset() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.offset)
+  return static_cast< ::bfgateway::BfOffset >(offset_);
 }
- void BfTradeData::set_offset(::bftrader::BfOffset value) {
+ void BfTradeData::set_offset(::bfgateway::BfOffset value) {
   
   offset_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.offset)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.offset)
 }
 
 // optional double price = 7;
@@ -3089,13 +3139,13 @@ void BfTradeData::clear_price() {
   price_ = 0;
 }
  double BfTradeData::price() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.price)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.price)
   return price_;
 }
  void BfTradeData::set_price(double value) {
   
   price_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.price)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.price)
 }
 
 // optional int32 volume = 8;
@@ -3103,13 +3153,13 @@ void BfTradeData::clear_volume() {
   volume_ = 0;
 }
  ::google::protobuf::int32 BfTradeData::volume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.volume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.volume)
   return volume_;
 }
  void BfTradeData::set_volume(::google::protobuf::int32 value) {
   
   volume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.volume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.volume)
 }
 
 // optional string tradeDate = 9;
@@ -3117,31 +3167,32 @@ void BfTradeData::clear_tradedate() {
   tradedate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::tradedate() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.tradeDate)
   return tradedate_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_tradedate(const ::std::string& value) {
   
   tradedate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.tradeDate)
 }
  void BfTradeData::set_tradedate(const char* value) {
   
   tradedate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.tradeDate)
 }
  void BfTradeData::set_tradedate(const char* value, size_t size) {
   
   tradedate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.tradeDate)
 }
  ::std::string* BfTradeData::mutable_tradedate() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.tradeDate)
   return tradedate_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_tradedate() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.tradeDate)
   
   return tradedate_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3152,7 +3203,7 @@ void BfTradeData::clear_tradedate() {
     
   }
   tradedate_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tradedate);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeDate)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.tradeDate)
 }
 
 // optional string tradeTime = 10;
@@ -3160,31 +3211,32 @@ void BfTradeData::clear_tradetime() {
   tradetime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfTradeData::tradetime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_get:bfgateway.BfTradeData.tradeTime)
   return tradetime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfTradeData::set_tradetime(const ::std::string& value) {
   
   tradetime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_set:bfgateway.BfTradeData.tradeTime)
 }
  void BfTradeData::set_tradetime(const char* value) {
   
   tradetime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfTradeData.tradeTime)
 }
  void BfTradeData::set_tradetime(const char* value, size_t size) {
   
   tradetime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfTradeData.tradeTime)
 }
  ::std::string* BfTradeData::mutable_tradetime() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfTradeData.tradeTime)
   return tradetime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfTradeData::release_tradetime() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfTradeData.tradeTime)
   
   return tradetime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3195,7 +3247,7 @@ void BfTradeData::clear_tradetime() {
     
   }
   tradetime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tradetime);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfTradeData.tradeTime)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfTradeData.tradeTime)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3220,7 +3272,7 @@ const int BfOrderData::kCancelTimeFieldNumber;
 BfOrderData::BfOrderData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfOrderData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfOrderData)
 }
 
 void BfOrderData::InitAsDefaultInstance() {
@@ -3232,7 +3284,7 @@ BfOrderData::BfOrderData(const BfOrderData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfOrderData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfOrderData)
 }
 
 void BfOrderData::SharedCtor() {
@@ -3254,7 +3306,7 @@ void BfOrderData::SharedCtor() {
 }
 
 BfOrderData::~BfOrderData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfOrderData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfOrderData)
   SharedDtor();
 }
 
@@ -3295,8 +3347,17 @@ BfOrderData* BfOrderData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfOrderData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfOrderData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfOrderData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfOrderData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -3319,9 +3380,9 @@ void BfOrderData::Clear() {
 
 bool BfOrderData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfOrderData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfOrderData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -3335,7 +3396,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.symbol"));
+            "bfgateway.BfOrderData.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -3352,7 +3413,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.exchange"));
+            "bfgateway.BfOrderData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -3369,7 +3430,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->bforderid().data(), this->bforderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.bfOrderId"));
+            "bfgateway.BfOrderData.bfOrderId"));
         } else {
           goto handle_unusual;
         }
@@ -3377,7 +3438,7 @@ bool BfOrderData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfDirection direction = 4;
+      // optional .bfgateway.BfDirection direction = 4;
       case 4: {
         if (tag == 32) {
          parse_direction:
@@ -3385,7 +3446,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_direction(static_cast< ::bftrader::BfDirection >(value));
+          set_direction(static_cast< ::bfgateway::BfDirection >(value));
         } else {
           goto handle_unusual;
         }
@@ -3393,7 +3454,7 @@ bool BfOrderData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfOffset offset = 5;
+      // optional .bfgateway.BfOffset offset = 5;
       case 5: {
         if (tag == 40) {
          parse_offset:
@@ -3401,7 +3462,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_offset(static_cast< ::bftrader::BfOffset >(value));
+          set_offset(static_cast< ::bfgateway::BfOffset >(value));
         } else {
           goto handle_unusual;
         }
@@ -3454,7 +3515,7 @@ bool BfOrderData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfStatus status = 9;
+      // optional .bfgateway.BfStatus status = 9;
       case 9: {
         if (tag == 72) {
          parse_status:
@@ -3462,7 +3523,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_status(static_cast< ::bftrader::BfStatus >(value));
+          set_status(static_cast< ::bfgateway::BfStatus >(value));
         } else {
           goto handle_unusual;
         }
@@ -3479,7 +3540,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->insertdate().data(), this->insertdate().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.insertDate"));
+            "bfgateway.BfOrderData.insertDate"));
         } else {
           goto handle_unusual;
         }
@@ -3496,7 +3557,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->inserttime().data(), this->inserttime().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.insertTime"));
+            "bfgateway.BfOrderData.insertTime"));
         } else {
           goto handle_unusual;
         }
@@ -3513,7 +3574,7 @@ bool BfOrderData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->canceltime().data(), this->canceltime().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfOrderData.cancelTime"));
+            "bfgateway.BfOrderData.cancelTime"));
         } else {
           goto handle_unusual;
         }
@@ -3534,23 +3595,23 @@ bool BfOrderData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfOrderData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfOrderData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfOrderData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfOrderData)
   return false;
 #undef DO_
 }
 
 void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfOrderData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfOrderData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.symbol");
+      "bfgateway.BfOrderData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -3560,7 +3621,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.exchange");
+      "bfgateway.BfOrderData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -3570,18 +3631,18 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.bfOrderId");
+      "bfgateway.BfOrderData.bfOrderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->bforderid(), output);
   }
 
-  // optional .bftrader.BfDirection direction = 4;
+  // optional .bfgateway.BfDirection direction = 4;
   if (this->direction() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       4, this->direction(), output);
   }
 
-  // optional .bftrader.BfOffset offset = 5;
+  // optional .bfgateway.BfOffset offset = 5;
   if (this->offset() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       5, this->offset(), output);
@@ -3602,7 +3663,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->tradedvolume(), output);
   }
 
-  // optional .bftrader.BfStatus status = 9;
+  // optional .bfgateway.BfStatus status = 9;
   if (this->status() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       9, this->status(), output);
@@ -3613,7 +3674,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->insertdate().data(), this->insertdate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.insertDate");
+      "bfgateway.BfOrderData.insertDate");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       10, this->insertdate(), output);
   }
@@ -3623,7 +3684,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->inserttime().data(), this->inserttime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.insertTime");
+      "bfgateway.BfOrderData.insertTime");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       11, this->inserttime(), output);
   }
@@ -3633,23 +3694,23 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->canceltime().data(), this->canceltime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.cancelTime");
+      "bfgateway.BfOrderData.cancelTime");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       12, this->canceltime(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfOrderData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfOrderData)
 }
 
 ::google::protobuf::uint8* BfOrderData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfOrderData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfOrderData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.symbol");
+      "bfgateway.BfOrderData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -3660,7 +3721,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.exchange");
+      "bfgateway.BfOrderData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -3671,19 +3732,19 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.bfOrderId");
+      "bfgateway.BfOrderData.bfOrderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->bforderid(), target);
   }
 
-  // optional .bftrader.BfDirection direction = 4;
+  // optional .bfgateway.BfDirection direction = 4;
   if (this->direction() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       4, this->direction(), target);
   }
 
-  // optional .bftrader.BfOffset offset = 5;
+  // optional .bfgateway.BfOffset offset = 5;
   if (this->offset() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       5, this->offset(), target);
@@ -3704,7 +3765,7 @@ void BfOrderData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->tradedvolume(), target);
   }
 
-  // optional .bftrader.BfStatus status = 9;
+  // optional .bfgateway.BfStatus status = 9;
   if (this->status() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       9, this->status(), target);
@@ -3715,7 +3776,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->insertdate().data(), this->insertdate().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.insertDate");
+      "bfgateway.BfOrderData.insertDate");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         10, this->insertdate(), target);
@@ -3726,7 +3787,7 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->inserttime().data(), this->inserttime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.insertTime");
+      "bfgateway.BfOrderData.insertTime");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         11, this->inserttime(), target);
@@ -3737,17 +3798,18 @@ void BfOrderData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->canceltime().data(), this->canceltime().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfOrderData.cancelTime");
+      "bfgateway.BfOrderData.cancelTime");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         12, this->canceltime(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfOrderData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfOrderData)
   return target;
 }
 
 int BfOrderData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfOrderData)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -3771,13 +3833,13 @@ int BfOrderData::ByteSize() const {
         this->bforderid());
   }
 
-  // optional .bftrader.BfDirection direction = 4;
+  // optional .bfgateway.BfDirection direction = 4;
   if (this->direction() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->direction());
   }
 
-  // optional .bftrader.BfOffset offset = 5;
+  // optional .bfgateway.BfOffset offset = 5;
   if (this->offset() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->offset());
@@ -3802,7 +3864,7 @@ int BfOrderData::ByteSize() const {
         this->tradedvolume());
   }
 
-  // optional .bftrader.BfStatus status = 9;
+  // optional .bfgateway.BfStatus status = 9;
   if (this->status() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->status());
@@ -3836,18 +3898,22 @@ int BfOrderData::ByteSize() const {
 }
 
 void BfOrderData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfOrderData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfOrderData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfOrderData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfOrderData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfOrderData)
     MergeFrom(*source);
   }
 }
 
 void BfOrderData::MergeFrom(const BfOrderData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfOrderData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -3894,12 +3960,14 @@ void BfOrderData::MergeFrom(const BfOrderData& from) {
 }
 
 void BfOrderData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfOrderData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfOrderData::CopyFrom(const BfOrderData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfOrderData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3947,31 +4015,32 @@ void BfOrderData::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.symbol)
 }
  void BfOrderData::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.symbol)
 }
  void BfOrderData::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.symbol)
 }
  ::std::string* BfOrderData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3982,7 +4051,7 @@ void BfOrderData::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.symbol)
 }
 
 // optional string exchange = 2;
@@ -3990,31 +4059,32 @@ void BfOrderData::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.exchange)
 }
  void BfOrderData::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.exchange)
 }
  void BfOrderData::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.exchange)
 }
  ::std::string* BfOrderData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4025,7 +4095,7 @@ void BfOrderData::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.exchange)
 }
 
 // optional string bfOrderId = 3;
@@ -4033,31 +4103,32 @@ void BfOrderData::clear_bforderid() {
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::bforderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.bfOrderId)
   return bforderid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_bforderid(const ::std::string& value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.bfOrderId)
 }
  void BfOrderData::set_bforderid(const char* value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.bfOrderId)
 }
  void BfOrderData::set_bforderid(const char* value, size_t size) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.bfOrderId)
 }
  ::std::string* BfOrderData::mutable_bforderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.bfOrderId)
   return bforderid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_bforderid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.bfOrderId)
   
   return bforderid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4068,35 +4139,35 @@ void BfOrderData::clear_bforderid() {
     
   }
   bforderid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bforderid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.bfOrderId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.bfOrderId)
 }
 
-// optional .bftrader.BfDirection direction = 4;
+// optional .bfgateway.BfDirection direction = 4;
 void BfOrderData::clear_direction() {
   direction_ = 0;
 }
- ::bftrader::BfDirection BfOrderData::direction() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.direction)
-  return static_cast< ::bftrader::BfDirection >(direction_);
+ ::bfgateway::BfDirection BfOrderData::direction() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.direction)
+  return static_cast< ::bfgateway::BfDirection >(direction_);
 }
- void BfOrderData::set_direction(::bftrader::BfDirection value) {
+ void BfOrderData::set_direction(::bfgateway::BfDirection value) {
   
   direction_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.direction)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.direction)
 }
 
-// optional .bftrader.BfOffset offset = 5;
+// optional .bfgateway.BfOffset offset = 5;
 void BfOrderData::clear_offset() {
   offset_ = 0;
 }
- ::bftrader::BfOffset BfOrderData::offset() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.offset)
-  return static_cast< ::bftrader::BfOffset >(offset_);
+ ::bfgateway::BfOffset BfOrderData::offset() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.offset)
+  return static_cast< ::bfgateway::BfOffset >(offset_);
 }
- void BfOrderData::set_offset(::bftrader::BfOffset value) {
+ void BfOrderData::set_offset(::bfgateway::BfOffset value) {
   
   offset_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.offset)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.offset)
 }
 
 // optional double price = 6;
@@ -4104,13 +4175,13 @@ void BfOrderData::clear_price() {
   price_ = 0;
 }
  double BfOrderData::price() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.price)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.price)
   return price_;
 }
  void BfOrderData::set_price(double value) {
   
   price_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.price)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.price)
 }
 
 // optional int32 totalVolume = 7;
@@ -4118,13 +4189,13 @@ void BfOrderData::clear_totalvolume() {
   totalvolume_ = 0;
 }
  ::google::protobuf::int32 BfOrderData::totalvolume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.totalVolume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.totalVolume)
   return totalvolume_;
 }
  void BfOrderData::set_totalvolume(::google::protobuf::int32 value) {
   
   totalvolume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.totalVolume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.totalVolume)
 }
 
 // optional int32 tradedVolume = 8;
@@ -4132,27 +4203,27 @@ void BfOrderData::clear_tradedvolume() {
   tradedvolume_ = 0;
 }
  ::google::protobuf::int32 BfOrderData::tradedvolume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.tradedVolume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.tradedVolume)
   return tradedvolume_;
 }
  void BfOrderData::set_tradedvolume(::google::protobuf::int32 value) {
   
   tradedvolume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.tradedVolume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.tradedVolume)
 }
 
-// optional .bftrader.BfStatus status = 9;
+// optional .bfgateway.BfStatus status = 9;
 void BfOrderData::clear_status() {
   status_ = 0;
 }
- ::bftrader::BfStatus BfOrderData::status() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.status)
-  return static_cast< ::bftrader::BfStatus >(status_);
+ ::bfgateway::BfStatus BfOrderData::status() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.status)
+  return static_cast< ::bfgateway::BfStatus >(status_);
 }
- void BfOrderData::set_status(::bftrader::BfStatus value) {
+ void BfOrderData::set_status(::bfgateway::BfStatus value) {
   
   status_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.status)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.status)
 }
 
 // optional string insertDate = 10;
@@ -4160,31 +4231,32 @@ void BfOrderData::clear_insertdate() {
   insertdate_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::insertdate() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.insertDate)
   return insertdate_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_insertdate(const ::std::string& value) {
   
   insertdate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.insertDate)
 }
  void BfOrderData::set_insertdate(const char* value) {
   
   insertdate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.insertDate)
 }
  void BfOrderData::set_insertdate(const char* value, size_t size) {
   
   insertdate_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.insertDate)
 }
  ::std::string* BfOrderData::mutable_insertdate() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.insertDate)
   return insertdate_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_insertdate() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.insertDate)
   
   return insertdate_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4195,7 +4267,7 @@ void BfOrderData::clear_insertdate() {
     
   }
   insertdate_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), insertdate);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.insertDate)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.insertDate)
 }
 
 // optional string insertTime = 11;
@@ -4203,31 +4275,32 @@ void BfOrderData::clear_inserttime() {
   inserttime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::inserttime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.insertTime)
   return inserttime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_inserttime(const ::std::string& value) {
   
   inserttime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.insertTime)
 }
  void BfOrderData::set_inserttime(const char* value) {
   
   inserttime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.insertTime)
 }
  void BfOrderData::set_inserttime(const char* value, size_t size) {
   
   inserttime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.insertTime)
 }
  ::std::string* BfOrderData::mutable_inserttime() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.insertTime)
   return inserttime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_inserttime() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.insertTime)
   
   return inserttime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4238,7 +4311,7 @@ void BfOrderData::clear_inserttime() {
     
   }
   inserttime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), inserttime);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.insertTime)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.insertTime)
 }
 
 // optional string cancelTime = 12;
@@ -4246,31 +4319,32 @@ void BfOrderData::clear_canceltime() {
   canceltime_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfOrderData::canceltime() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_get:bfgateway.BfOrderData.cancelTime)
   return canceltime_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfOrderData::set_canceltime(const ::std::string& value) {
   
   canceltime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_set:bfgateway.BfOrderData.cancelTime)
 }
  void BfOrderData::set_canceltime(const char* value) {
   
   canceltime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfOrderData.cancelTime)
 }
  void BfOrderData::set_canceltime(const char* value, size_t size) {
   
   canceltime_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfOrderData.cancelTime)
 }
  ::std::string* BfOrderData::mutable_canceltime() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfOrderData.cancelTime)
   return canceltime_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfOrderData::release_canceltime() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfOrderData.cancelTime)
   
   return canceltime_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4281,7 +4355,7 @@ void BfOrderData::clear_canceltime() {
     
   }
   canceltime_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), canceltime);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfOrderData.cancelTime)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfOrderData.cancelTime)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4301,7 +4375,7 @@ const int BfPositionData::kYdPositionFieldNumber;
 BfPositionData::BfPositionData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfPositionData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfPositionData)
 }
 
 void BfPositionData::InitAsDefaultInstance() {
@@ -4313,7 +4387,7 @@ BfPositionData::BfPositionData(const BfPositionData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfPositionData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfPositionData)
 }
 
 void BfPositionData::SharedCtor() {
@@ -4330,7 +4404,7 @@ void BfPositionData::SharedCtor() {
 }
 
 BfPositionData::~BfPositionData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfPositionData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfPositionData)
   SharedDtor();
 }
 
@@ -4367,8 +4441,17 @@ BfPositionData* BfPositionData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfPositionData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfPositionData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfPositionData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfPositionData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -4386,9 +4469,9 @@ void BfPositionData::Clear() {
 
 bool BfPositionData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfPositionData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfPositionData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -4402,7 +4485,7 @@ bool BfPositionData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfPositionData.symbol"));
+            "bfgateway.BfPositionData.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -4419,7 +4502,7 @@ bool BfPositionData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfPositionData.exchange"));
+            "bfgateway.BfPositionData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -4427,7 +4510,7 @@ bool BfPositionData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfDirection direction = 3;
+      // optional .bfgateway.BfDirection direction = 3;
       case 3: {
         if (tag == 24) {
          parse_direction:
@@ -4435,7 +4518,7 @@ bool BfPositionData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_direction(static_cast< ::bftrader::BfDirection >(value));
+          set_direction(static_cast< ::bfgateway::BfDirection >(value));
         } else {
           goto handle_unusual;
         }
@@ -4516,23 +4599,23 @@ bool BfPositionData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfPositionData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfPositionData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfPositionData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfPositionData)
   return false;
 #undef DO_
 }
 
 void BfPositionData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfPositionData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfPositionData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPositionData.symbol");
+      "bfgateway.BfPositionData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -4542,12 +4625,12 @@ void BfPositionData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPositionData.exchange");
+      "bfgateway.BfPositionData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
 
-  // optional .bftrader.BfDirection direction = 3;
+  // optional .bfgateway.BfDirection direction = 3;
   if (this->direction() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       3, this->direction(), output);
@@ -4573,18 +4656,18 @@ void BfPositionData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->ydposition(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfPositionData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfPositionData)
 }
 
 ::google::protobuf::uint8* BfPositionData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfPositionData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfPositionData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPositionData.symbol");
+      "bfgateway.BfPositionData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -4595,13 +4678,13 @@ void BfPositionData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPositionData.exchange");
+      "bfgateway.BfPositionData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
   }
 
-  // optional .bftrader.BfDirection direction = 3;
+  // optional .bfgateway.BfDirection direction = 3;
   if (this->direction() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       3, this->direction(), target);
@@ -4627,11 +4710,12 @@ void BfPositionData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->ydposition(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfPositionData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfPositionData)
   return target;
 }
 
 int BfPositionData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfPositionData)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -4648,7 +4732,7 @@ int BfPositionData::ByteSize() const {
         this->exchange());
   }
 
-  // optional .bftrader.BfDirection direction = 3;
+  // optional .bfgateway.BfDirection direction = 3;
   if (this->direction() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->direction());
@@ -4687,18 +4771,22 @@ int BfPositionData::ByteSize() const {
 }
 
 void BfPositionData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfPositionData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfPositionData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfPositionData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfPositionData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfPositionData)
     MergeFrom(*source);
   }
 }
 
 void BfPositionData::MergeFrom(const BfPositionData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfPositionData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -4726,12 +4814,14 @@ void BfPositionData::MergeFrom(const BfPositionData& from) {
 }
 
 void BfPositionData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfPositionData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfPositionData::CopyFrom(const BfPositionData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfPositionData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4774,31 +4864,32 @@ void BfPositionData::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfPositionData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfPositionData::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.symbol)
 }
  void BfPositionData::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfPositionData.symbol)
 }
  void BfPositionData::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfPositionData.symbol)
 }
  ::std::string* BfPositionData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfPositionData.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfPositionData::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfPositionData.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4809,7 +4900,7 @@ void BfPositionData::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfPositionData.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfPositionData.symbol)
 }
 
 // optional string exchange = 2;
@@ -4817,31 +4908,32 @@ void BfPositionData::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfPositionData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfPositionData::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.exchange)
 }
  void BfPositionData::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfPositionData.exchange)
 }
  void BfPositionData::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfPositionData.exchange)
 }
  ::std::string* BfPositionData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfPositionData.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfPositionData::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfPositionData.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4852,21 +4944,21 @@ void BfPositionData::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfPositionData.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfPositionData.exchange)
 }
 
-// optional .bftrader.BfDirection direction = 3;
+// optional .bfgateway.BfDirection direction = 3;
 void BfPositionData::clear_direction() {
   direction_ = 0;
 }
- ::bftrader::BfDirection BfPositionData::direction() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.direction)
-  return static_cast< ::bftrader::BfDirection >(direction_);
+ ::bfgateway::BfDirection BfPositionData::direction() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.direction)
+  return static_cast< ::bfgateway::BfDirection >(direction_);
 }
- void BfPositionData::set_direction(::bftrader::BfDirection value) {
+ void BfPositionData::set_direction(::bfgateway::BfDirection value) {
   
   direction_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.direction)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.direction)
 }
 
 // optional int32 position = 4;
@@ -4874,13 +4966,13 @@ void BfPositionData::clear_position() {
   position_ = 0;
 }
  ::google::protobuf::int32 BfPositionData::position() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.position)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.position)
   return position_;
 }
  void BfPositionData::set_position(::google::protobuf::int32 value) {
   
   position_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.position)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.position)
 }
 
 // optional int32 frozen = 5;
@@ -4888,13 +4980,13 @@ void BfPositionData::clear_frozen() {
   frozen_ = 0;
 }
  ::google::protobuf::int32 BfPositionData::frozen() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.frozen)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.frozen)
   return frozen_;
 }
  void BfPositionData::set_frozen(::google::protobuf::int32 value) {
   
   frozen_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.frozen)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.frozen)
 }
 
 // optional double price = 6;
@@ -4902,13 +4994,13 @@ void BfPositionData::clear_price() {
   price_ = 0;
 }
  double BfPositionData::price() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.price)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.price)
   return price_;
 }
  void BfPositionData::set_price(double value) {
   
   price_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.price)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.price)
 }
 
 // optional int32 ydPosition = 7;
@@ -4916,13 +5008,13 @@ void BfPositionData::clear_ydposition() {
   ydposition_ = 0;
 }
  ::google::protobuf::int32 BfPositionData::ydposition() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPositionData.ydPosition)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPositionData.ydPosition)
   return ydposition_;
 }
  void BfPositionData::set_ydposition(::google::protobuf::int32 value) {
   
   ydposition_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfPositionData.ydPosition)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPositionData.ydPosition)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4943,7 +5035,7 @@ const int BfAccountData::kPositionProfitFieldNumber;
 BfAccountData::BfAccountData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfAccountData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfAccountData)
 }
 
 void BfAccountData::InitAsDefaultInstance() {
@@ -4955,7 +5047,7 @@ BfAccountData::BfAccountData(const BfAccountData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfAccountData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfAccountData)
 }
 
 void BfAccountData::SharedCtor() {
@@ -4973,7 +5065,7 @@ void BfAccountData::SharedCtor() {
 }
 
 BfAccountData::~BfAccountData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfAccountData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfAccountData)
   SharedDtor();
 }
 
@@ -5009,8 +5101,17 @@ BfAccountData* BfAccountData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfAccountData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfAccountData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfAccountData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfAccountData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -5027,9 +5128,9 @@ void BfAccountData::Clear() {
 
 bool BfAccountData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfAccountData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfAccountData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -5043,7 +5144,7 @@ bool BfAccountData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->accountid().data(), this->accountid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfAccountData.accountId"));
+            "bfgateway.BfAccountData.accountId"));
         } else {
           goto handle_unusual;
         }
@@ -5169,23 +5270,23 @@ bool BfAccountData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfAccountData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfAccountData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfAccountData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfAccountData)
   return false;
 #undef DO_
 }
 
 void BfAccountData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfAccountData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfAccountData)
   // optional string accountId = 1;
   if (this->accountid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->accountid().data(), this->accountid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfAccountData.accountId");
+      "bfgateway.BfAccountData.accountId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->accountid(), output);
   }
@@ -5225,18 +5326,18 @@ void BfAccountData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->positionprofit(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfAccountData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfAccountData)
 }
 
 ::google::protobuf::uint8* BfAccountData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfAccountData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfAccountData)
   // optional string accountId = 1;
   if (this->accountid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->accountid().data(), this->accountid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfAccountData.accountId");
+      "bfgateway.BfAccountData.accountId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->accountid(), target);
@@ -5277,11 +5378,12 @@ void BfAccountData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->positionprofit(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfAccountData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfAccountData)
   return target;
 }
 
 int BfAccountData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfAccountData)
   int total_size = 0;
 
   // optional string accountId = 1;
@@ -5333,18 +5435,22 @@ int BfAccountData::ByteSize() const {
 }
 
 void BfAccountData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfAccountData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfAccountData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfAccountData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfAccountData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfAccountData)
     MergeFrom(*source);
   }
 }
 
 void BfAccountData::MergeFrom(const BfAccountData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfAccountData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.accountid().size() > 0) {
 
@@ -5374,12 +5480,14 @@ void BfAccountData::MergeFrom(const BfAccountData& from) {
 }
 
 void BfAccountData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfAccountData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfAccountData::CopyFrom(const BfAccountData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfAccountData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5423,31 +5531,32 @@ void BfAccountData::clear_accountid() {
   accountid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfAccountData::accountid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.accountId)
   return accountid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfAccountData::set_accountid(const ::std::string& value) {
   
   accountid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.accountId)
 }
  void BfAccountData::set_accountid(const char* value) {
   
   accountid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfAccountData.accountId)
 }
  void BfAccountData::set_accountid(const char* value, size_t size) {
   
   accountid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfAccountData.accountId)
 }
  ::std::string* BfAccountData::mutable_accountid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfAccountData.accountId)
   return accountid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfAccountData::release_accountid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfAccountData.accountId)
   
   return accountid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5458,7 +5567,7 @@ void BfAccountData::clear_accountid() {
     
   }
   accountid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), accountid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfAccountData.accountId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfAccountData.accountId)
 }
 
 // optional double preBalance = 2;
@@ -5466,13 +5575,13 @@ void BfAccountData::clear_prebalance() {
   prebalance_ = 0;
 }
  double BfAccountData::prebalance() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.preBalance)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.preBalance)
   return prebalance_;
 }
  void BfAccountData::set_prebalance(double value) {
   
   prebalance_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.preBalance)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.preBalance)
 }
 
 // optional double balance = 3;
@@ -5480,13 +5589,13 @@ void BfAccountData::clear_balance() {
   balance_ = 0;
 }
  double BfAccountData::balance() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.balance)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.balance)
   return balance_;
 }
  void BfAccountData::set_balance(double value) {
   
   balance_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.balance)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.balance)
 }
 
 // optional double available = 4;
@@ -5494,13 +5603,13 @@ void BfAccountData::clear_available() {
   available_ = 0;
 }
  double BfAccountData::available() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.available)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.available)
   return available_;
 }
  void BfAccountData::set_available(double value) {
   
   available_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.available)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.available)
 }
 
 // optional double commission = 5;
@@ -5508,13 +5617,13 @@ void BfAccountData::clear_commission() {
   commission_ = 0;
 }
  double BfAccountData::commission() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.commission)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.commission)
   return commission_;
 }
  void BfAccountData::set_commission(double value) {
   
   commission_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.commission)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.commission)
 }
 
 // optional double frozenMargin = 6;
@@ -5522,13 +5631,13 @@ void BfAccountData::clear_frozenmargin() {
   frozenmargin_ = 0;
 }
  double BfAccountData::frozenmargin() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.frozenMargin)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.frozenMargin)
   return frozenmargin_;
 }
  void BfAccountData::set_frozenmargin(double value) {
   
   frozenmargin_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.frozenMargin)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.frozenMargin)
 }
 
 // optional double closeProfit = 7;
@@ -5536,13 +5645,13 @@ void BfAccountData::clear_closeprofit() {
   closeprofit_ = 0;
 }
  double BfAccountData::closeprofit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.closeProfit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.closeProfit)
   return closeprofit_;
 }
  void BfAccountData::set_closeprofit(double value) {
   
   closeprofit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.closeProfit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.closeProfit)
 }
 
 // optional double positionProfit = 8;
@@ -5550,13 +5659,13 @@ void BfAccountData::clear_positionprofit() {
   positionprofit_ = 0;
 }
  double BfAccountData::positionprofit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfAccountData.positionProfit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfAccountData.positionProfit)
   return positionprofit_;
 }
  void BfAccountData::set_positionprofit(double value) {
   
   positionprofit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfAccountData.positionProfit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfAccountData.positionProfit)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5572,7 +5681,7 @@ const int BfErrorData::kMessageExFieldNumber;
 BfErrorData::BfErrorData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfErrorData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfErrorData)
 }
 
 void BfErrorData::InitAsDefaultInstance() {
@@ -5584,7 +5693,7 @@ BfErrorData::BfErrorData(const BfErrorData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfErrorData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfErrorData)
 }
 
 void BfErrorData::SharedCtor() {
@@ -5597,7 +5706,7 @@ void BfErrorData::SharedCtor() {
 }
 
 BfErrorData::~BfErrorData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfErrorData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfErrorData)
   SharedDtor();
 }
 
@@ -5634,6 +5743,7 @@ BfErrorData* BfErrorData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfErrorData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfErrorData)
   code_ = 0;
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -5641,9 +5751,9 @@ void BfErrorData::Clear() {
 
 bool BfErrorData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfErrorData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfErrorData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -5672,7 +5782,7 @@ bool BfErrorData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfErrorData.message"));
+            "bfgateway.BfErrorData.message"));
         } else {
           goto handle_unusual;
         }
@@ -5689,7 +5799,7 @@ bool BfErrorData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->messageex().data(), this->messageex().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfErrorData.messageEx"));
+            "bfgateway.BfErrorData.messageEx"));
         } else {
           goto handle_unusual;
         }
@@ -5710,17 +5820,17 @@ bool BfErrorData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfErrorData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfErrorData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfErrorData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfErrorData)
   return false;
 #undef DO_
 }
 
 void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfErrorData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfErrorData)
   // optional int32 code = 1;
   if (this->code() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->code(), output);
@@ -5731,7 +5841,7 @@ void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.message");
+      "bfgateway.BfErrorData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->message(), output);
   }
@@ -5741,17 +5851,17 @@ void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.messageEx");
+      "bfgateway.BfErrorData.messageEx");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->messageex(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfErrorData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfErrorData)
 }
 
 ::google::protobuf::uint8* BfErrorData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfErrorData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfErrorData)
   // optional int32 code = 1;
   if (this->code() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->code(), target);
@@ -5762,7 +5872,7 @@ void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.message");
+      "bfgateway.BfErrorData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->message(), target);
@@ -5773,17 +5883,18 @@ void BfErrorData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfErrorData.messageEx");
+      "bfgateway.BfErrorData.messageEx");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->messageex(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfErrorData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfErrorData)
   return target;
 }
 
 int BfErrorData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfErrorData)
   int total_size = 0;
 
   // optional int32 code = 1;
@@ -5814,18 +5925,22 @@ int BfErrorData::ByteSize() const {
 }
 
 void BfErrorData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfErrorData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfErrorData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfErrorData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfErrorData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfErrorData)
     MergeFrom(*source);
   }
 }
 
 void BfErrorData::MergeFrom(const BfErrorData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfErrorData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.code() != 0) {
     set_code(from.code());
@@ -5841,12 +5956,14 @@ void BfErrorData::MergeFrom(const BfErrorData& from) {
 }
 
 void BfErrorData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfErrorData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfErrorData::CopyFrom(const BfErrorData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfErrorData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5885,13 +6002,13 @@ void BfErrorData::clear_code() {
   code_ = 0;
 }
  ::google::protobuf::int32 BfErrorData::code() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.code)
+  // @@protoc_insertion_point(field_get:bfgateway.BfErrorData.code)
   return code_;
 }
  void BfErrorData::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.code)
+  // @@protoc_insertion_point(field_set:bfgateway.BfErrorData.code)
 }
 
 // optional string message = 2;
@@ -5899,31 +6016,32 @@ void BfErrorData::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfErrorData::message() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_get:bfgateway.BfErrorData.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfErrorData::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_set:bfgateway.BfErrorData.message)
 }
  void BfErrorData::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfErrorData.message)
 }
  void BfErrorData::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfErrorData.message)
 }
  ::std::string* BfErrorData::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfErrorData.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfErrorData::release_message() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfErrorData.message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5934,7 +6052,7 @@ void BfErrorData::clear_message() {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.message)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfErrorData.message)
 }
 
 // optional string messageEx = 3;
@@ -5942,31 +6060,32 @@ void BfErrorData::clear_messageex() {
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfErrorData::messageex() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_get:bfgateway.BfErrorData.messageEx)
   return messageex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfErrorData::set_messageex(const ::std::string& value) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_set:bfgateway.BfErrorData.messageEx)
 }
  void BfErrorData::set_messageex(const char* value) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfErrorData.messageEx)
 }
  void BfErrorData::set_messageex(const char* value, size_t size) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfErrorData.messageEx)
 }
  ::std::string* BfErrorData::mutable_messageex() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfErrorData.messageEx)
   return messageex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfErrorData::release_messageex() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfErrorData.messageEx)
   
   return messageex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5977,7 +6096,7 @@ void BfErrorData::clear_messageex() {
     
   }
   messageex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), messageex);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfErrorData.messageEx)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfErrorData.messageEx)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5992,7 +6111,7 @@ const int BfLogData::kMessageFieldNumber;
 BfLogData::BfLogData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfLogData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfLogData)
 }
 
 void BfLogData::InitAsDefaultInstance() {
@@ -6004,7 +6123,7 @@ BfLogData::BfLogData(const BfLogData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfLogData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfLogData)
 }
 
 void BfLogData::SharedCtor() {
@@ -6016,7 +6135,7 @@ void BfLogData::SharedCtor() {
 }
 
 BfLogData::~BfLogData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfLogData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfLogData)
   SharedDtor();
 }
 
@@ -6053,15 +6172,16 @@ BfLogData* BfLogData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfLogData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfLogData)
   when_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfLogData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfLogData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfLogData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -6075,7 +6195,7 @@ bool BfLogData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->when().data(), this->when().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfLogData.when"));
+            "bfgateway.BfLogData.when"));
         } else {
           goto handle_unusual;
         }
@@ -6092,7 +6212,7 @@ bool BfLogData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfLogData.message"));
+            "bfgateway.BfLogData.message"));
         } else {
           goto handle_unusual;
         }
@@ -6113,23 +6233,23 @@ bool BfLogData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfLogData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfLogData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfLogData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfLogData)
   return false;
 #undef DO_
 }
 
 void BfLogData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfLogData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfLogData)
   // optional string when = 1;
   if (this->when().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->when().data(), this->when().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfLogData.when");
+      "bfgateway.BfLogData.when");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->when(), output);
   }
@@ -6139,23 +6259,23 @@ void BfLogData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfLogData.message");
+      "bfgateway.BfLogData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->message(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfLogData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfLogData)
 }
 
 ::google::protobuf::uint8* BfLogData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfLogData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfLogData)
   // optional string when = 1;
   if (this->when().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->when().data(), this->when().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfLogData.when");
+      "bfgateway.BfLogData.when");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->when(), target);
@@ -6166,17 +6286,18 @@ void BfLogData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfLogData.message");
+      "bfgateway.BfLogData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->message(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfLogData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfLogData)
   return target;
 }
 
 int BfLogData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfLogData)
   int total_size = 0;
 
   // optional string when = 1;
@@ -6200,18 +6321,22 @@ int BfLogData::ByteSize() const {
 }
 
 void BfLogData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfLogData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfLogData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfLogData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfLogData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfLogData)
     MergeFrom(*source);
   }
 }
 
 void BfLogData::MergeFrom(const BfLogData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfLogData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.when().size() > 0) {
 
@@ -6224,12 +6349,14 @@ void BfLogData::MergeFrom(const BfLogData& from) {
 }
 
 void BfLogData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfLogData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfLogData::CopyFrom(const BfLogData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfLogData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6267,31 +6394,32 @@ void BfLogData::clear_when() {
   when_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfLogData::when() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_get:bfgateway.BfLogData.when)
   return when_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfLogData::set_when(const ::std::string& value) {
   
   when_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_set:bfgateway.BfLogData.when)
 }
  void BfLogData::set_when(const char* value) {
   
   when_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfLogData.when)
 }
  void BfLogData::set_when(const char* value, size_t size) {
   
   when_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfLogData.when)
 }
  ::std::string* BfLogData::mutable_when() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfLogData.when)
   return when_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfLogData::release_when() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfLogData.when)
   
   return when_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6302,7 +6430,7 @@ void BfLogData::clear_when() {
     
   }
   when_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), when);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfLogData.when)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfLogData.when)
 }
 
 // optional string message = 2;
@@ -6310,31 +6438,32 @@ void BfLogData::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfLogData::message() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_get:bfgateway.BfLogData.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfLogData::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_set:bfgateway.BfLogData.message)
 }
  void BfLogData::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfLogData.message)
 }
  void BfLogData::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfLogData.message)
 }
  ::std::string* BfLogData::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfLogData.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfLogData::release_message() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfLogData.message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6345,7 +6474,7 @@ void BfLogData::clear_message() {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfLogData.message)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfLogData.message)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6368,7 +6497,7 @@ const int BfContractData::kMinMarketFieldNumber;
 BfContractData::BfContractData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfContractData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfContractData)
 }
 
 void BfContractData::InitAsDefaultInstance() {
@@ -6380,7 +6509,7 @@ BfContractData::BfContractData(const BfContractData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfContractData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfContractData)
 }
 
 void BfContractData::SharedCtor() {
@@ -6400,7 +6529,7 @@ void BfContractData::SharedCtor() {
 }
 
 BfContractData::~BfContractData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfContractData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfContractData)
   SharedDtor();
 }
 
@@ -6438,8 +6567,17 @@ BfContractData* BfContractData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfContractData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfContractData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfContractData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfContractData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -6459,9 +6597,9 @@ void BfContractData::Clear() {
 
 bool BfContractData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfContractData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfContractData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -6475,7 +6613,7 @@ bool BfContractData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfContractData.symbol"));
+            "bfgateway.BfContractData.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -6492,7 +6630,7 @@ bool BfContractData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfContractData.exchange"));
+            "bfgateway.BfContractData.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -6509,7 +6647,7 @@ bool BfContractData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), this->name().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfContractData.name"));
+            "bfgateway.BfContractData.name"));
         } else {
           goto handle_unusual;
         }
@@ -6517,7 +6655,7 @@ bool BfContractData::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfProduct productClass = 4;
+      // optional .bfgateway.BfProduct productClass = 4;
       case 4: {
         if (tag == 32) {
          parse_productClass:
@@ -6525,7 +6663,7 @@ bool BfContractData::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_productclass(static_cast< ::bftrader::BfProduct >(value));
+          set_productclass(static_cast< ::bfgateway::BfProduct >(value));
         } else {
           goto handle_unusual;
         }
@@ -6636,23 +6774,23 @@ bool BfContractData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfContractData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfContractData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfContractData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfContractData)
   return false;
 #undef DO_
 }
 
 void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfContractData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfContractData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.symbol");
+      "bfgateway.BfContractData.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -6662,7 +6800,7 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.exchange");
+      "bfgateway.BfContractData.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -6672,12 +6810,12 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.name");
+      "bfgateway.BfContractData.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->name(), output);
   }
 
-  // optional .bftrader.BfProduct productClass = 4;
+  // optional .bfgateway.BfProduct productClass = 4;
   if (this->productclass() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       4, this->productclass(), output);
@@ -6713,18 +6851,18 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->minmarket(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfContractData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfContractData)
 }
 
 ::google::protobuf::uint8* BfContractData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfContractData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfContractData)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.symbol");
+      "bfgateway.BfContractData.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -6735,7 +6873,7 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.exchange");
+      "bfgateway.BfContractData.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -6746,13 +6884,13 @@ void BfContractData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfContractData.name");
+      "bfgateway.BfContractData.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->name(), target);
   }
 
-  // optional .bftrader.BfProduct productClass = 4;
+  // optional .bfgateway.BfProduct productClass = 4;
   if (this->productclass() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       4, this->productclass(), target);
@@ -6788,11 +6926,12 @@ void BfContractData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->minmarket(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfContractData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfContractData)
   return target;
 }
 
 int BfContractData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfContractData)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -6816,7 +6955,7 @@ int BfContractData::ByteSize() const {
         this->name());
   }
 
-  // optional .bftrader.BfProduct productClass = 4;
+  // optional .bfgateway.BfProduct productClass = 4;
   if (this->productclass() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->productclass());
@@ -6869,18 +7008,22 @@ int BfContractData::ByteSize() const {
 }
 
 void BfContractData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfContractData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfContractData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfContractData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfContractData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfContractData)
     MergeFrom(*source);
   }
 }
 
 void BfContractData::MergeFrom(const BfContractData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfContractData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -6918,12 +7061,14 @@ void BfContractData::MergeFrom(const BfContractData& from) {
 }
 
 void BfContractData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfContractData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfContractData::CopyFrom(const BfContractData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfContractData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6969,31 +7114,32 @@ void BfContractData::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfContractData::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfContractData::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.symbol)
 }
  void BfContractData::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfContractData.symbol)
 }
  void BfContractData::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfContractData.symbol)
 }
  ::std::string* BfContractData::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfContractData.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfContractData::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfContractData.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7004,7 +7150,7 @@ void BfContractData::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfContractData.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfContractData.symbol)
 }
 
 // optional string exchange = 2;
@@ -7012,31 +7158,32 @@ void BfContractData::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfContractData::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfContractData::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.exchange)
 }
  void BfContractData::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfContractData.exchange)
 }
  void BfContractData::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfContractData.exchange)
 }
  ::std::string* BfContractData::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfContractData.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfContractData::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfContractData.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7047,7 +7194,7 @@ void BfContractData::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfContractData.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfContractData.exchange)
 }
 
 // optional string name = 3;
@@ -7055,31 +7202,32 @@ void BfContractData::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfContractData::name() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.name)
   return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfContractData::set_name(const ::std::string& value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.name)
 }
  void BfContractData::set_name(const char* value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfContractData.name)
 }
  void BfContractData::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfContractData.name)
 }
  ::std::string* BfContractData::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfContractData.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfContractData::release_name() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfContractData.name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7090,21 +7238,21 @@ void BfContractData::clear_name() {
     
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfContractData.name)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfContractData.name)
 }
 
-// optional .bftrader.BfProduct productClass = 4;
+// optional .bfgateway.BfProduct productClass = 4;
 void BfContractData::clear_productclass() {
   productclass_ = 0;
 }
- ::bftrader::BfProduct BfContractData::productclass() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.productClass)
-  return static_cast< ::bftrader::BfProduct >(productclass_);
+ ::bfgateway::BfProduct BfContractData::productclass() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.productClass)
+  return static_cast< ::bfgateway::BfProduct >(productclass_);
 }
- void BfContractData::set_productclass(::bftrader::BfProduct value) {
+ void BfContractData::set_productclass(::bfgateway::BfProduct value) {
   
   productclass_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.productClass)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.productClass)
 }
 
 // optional int32 volumeMultiple = 5;
@@ -7112,13 +7260,13 @@ void BfContractData::clear_volumemultiple() {
   volumemultiple_ = 0;
 }
  ::google::protobuf::int32 BfContractData::volumemultiple() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.volumeMultiple)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.volumeMultiple)
   return volumemultiple_;
 }
  void BfContractData::set_volumemultiple(::google::protobuf::int32 value) {
   
   volumemultiple_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.volumeMultiple)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.volumeMultiple)
 }
 
 // optional double priceTick = 6;
@@ -7126,13 +7274,13 @@ void BfContractData::clear_pricetick() {
   pricetick_ = 0;
 }
  double BfContractData::pricetick() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.priceTick)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.priceTick)
   return pricetick_;
 }
  void BfContractData::set_pricetick(double value) {
   
   pricetick_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.priceTick)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.priceTick)
 }
 
 // optional int32 maxLimit = 7;
@@ -7140,13 +7288,13 @@ void BfContractData::clear_maxlimit() {
   maxlimit_ = 0;
 }
  ::google::protobuf::int32 BfContractData::maxlimit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.maxLimit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.maxLimit)
   return maxlimit_;
 }
  void BfContractData::set_maxlimit(::google::protobuf::int32 value) {
   
   maxlimit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxLimit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.maxLimit)
 }
 
 // optional int32 minLimit = 8;
@@ -7154,13 +7302,13 @@ void BfContractData::clear_minlimit() {
   minlimit_ = 0;
 }
  ::google::protobuf::int32 BfContractData::minlimit() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minLimit)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.minLimit)
   return minlimit_;
 }
  void BfContractData::set_minlimit(::google::protobuf::int32 value) {
   
   minlimit_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minLimit)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.minLimit)
 }
 
 // optional int32 maxMarket = 9;
@@ -7168,13 +7316,13 @@ void BfContractData::clear_maxmarket() {
   maxmarket_ = 0;
 }
  ::google::protobuf::int32 BfContractData::maxmarket() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.maxMarket)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.maxMarket)
   return maxmarket_;
 }
  void BfContractData::set_maxmarket(::google::protobuf::int32 value) {
   
   maxmarket_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.maxMarket)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.maxMarket)
 }
 
 // optional int32 minMarket = 10;
@@ -7182,13 +7330,13 @@ void BfContractData::clear_minmarket() {
   minmarket_ = 0;
 }
  ::google::protobuf::int32 BfContractData::minmarket() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfContractData.minMarket)
+  // @@protoc_insertion_point(field_get:bfgateway.BfContractData.minMarket)
   return minmarket_;
 }
  void BfContractData::set_minmarket(::google::protobuf::int32 value) {
   
   minmarket_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfContractData.minMarket)
+  // @@protoc_insertion_point(field_set:bfgateway.BfContractData.minMarket)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7205,7 +7353,7 @@ const int BfNotificationData::kMessageExFieldNumber;
 BfNotificationData::BfNotificationData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfNotificationData)
 }
 
 void BfNotificationData::InitAsDefaultInstance() {
@@ -7217,7 +7365,7 @@ BfNotificationData::BfNotificationData(const BfNotificationData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfNotificationData)
 }
 
 void BfNotificationData::SharedCtor() {
@@ -7231,7 +7379,7 @@ void BfNotificationData::SharedCtor() {
 }
 
 BfNotificationData::~BfNotificationData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfNotificationData)
   SharedDtor();
 }
 
@@ -7268,8 +7416,17 @@ BfNotificationData* BfNotificationData::New(::google::protobuf::Arena* arena) co
 }
 
 void BfNotificationData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfNotificationData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfNotificationData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfNotificationData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -7287,22 +7444,22 @@ void BfNotificationData::Clear() {
 
 bool BfNotificationData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfNotificationData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .bftrader.BfNoticationType type = 1;
+      // optional .bfgateway.BfNoticationType type = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::bftrader::BfNoticationType >(value));
+          set_type(static_cast< ::bfgateway::BfNoticationType >(value));
         } else {
           goto handle_unusual;
         }
@@ -7334,7 +7491,7 @@ bool BfNotificationData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfNotificationData.message"));
+            "bfgateway.BfNotificationData.message"));
         } else {
           goto handle_unusual;
         }
@@ -7351,7 +7508,7 @@ bool BfNotificationData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->messageex().data(), this->messageex().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfNotificationData.messageEx"));
+            "bfgateway.BfNotificationData.messageEx"));
         } else {
           goto handle_unusual;
         }
@@ -7372,18 +7529,18 @@ bool BfNotificationData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfNotificationData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfNotificationData)
   return false;
 #undef DO_
 }
 
 void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfNotificationData)
-  // optional .bftrader.BfNoticationType type = 1;
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfNotificationData)
+  // optional .bfgateway.BfNoticationType type = 1;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->type(), output);
@@ -7399,7 +7556,7 @@ void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfNotificationData.message");
+      "bfgateway.BfNotificationData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->message(), output);
   }
@@ -7409,18 +7566,18 @@ void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfNotificationData.messageEx");
+      "bfgateway.BfNotificationData.messageEx");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->messageex(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfNotificationData)
 }
 
 ::google::protobuf::uint8* BfNotificationData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfNotificationData)
-  // optional .bftrader.BfNoticationType type = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfNotificationData)
+  // optional .bfgateway.BfNoticationType type = 1;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->type(), target);
@@ -7436,7 +7593,7 @@ void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfNotificationData.message");
+      "bfgateway.BfNotificationData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->message(), target);
@@ -7447,20 +7604,21 @@ void BfNotificationData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->messageex().data(), this->messageex().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfNotificationData.messageEx");
+      "bfgateway.BfNotificationData.messageEx");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->messageex(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfNotificationData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfNotificationData)
   return target;
 }
 
 int BfNotificationData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfNotificationData)
   int total_size = 0;
 
-  // optional .bftrader.BfNoticationType type = 1;
+  // optional .bfgateway.BfNoticationType type = 1;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
@@ -7494,18 +7652,22 @@ int BfNotificationData::ByteSize() const {
 }
 
 void BfNotificationData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfNotificationData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfNotificationData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfNotificationData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfNotificationData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfNotificationData)
     MergeFrom(*source);
   }
 }
 
 void BfNotificationData::MergeFrom(const BfNotificationData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfNotificationData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.type() != 0) {
     set_type(from.type());
@@ -7524,12 +7686,14 @@ void BfNotificationData::MergeFrom(const BfNotificationData& from) {
 }
 
 void BfNotificationData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfNotificationData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfNotificationData::CopyFrom(const BfNotificationData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfNotificationData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7564,18 +7728,18 @@ void BfNotificationData::InternalSwap(BfNotificationData* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BfNotificationData
 
-// optional .bftrader.BfNoticationType type = 1;
+// optional .bfgateway.BfNoticationType type = 1;
 void BfNotificationData::clear_type() {
   type_ = 0;
 }
- ::bftrader::BfNoticationType BfNotificationData::type() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.type)
-  return static_cast< ::bftrader::BfNoticationType >(type_);
+ ::bfgateway::BfNoticationType BfNotificationData::type() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfNotificationData.type)
+  return static_cast< ::bfgateway::BfNoticationType >(type_);
 }
- void BfNotificationData::set_type(::bftrader::BfNoticationType value) {
+ void BfNotificationData::set_type(::bfgateway::BfNoticationType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.type)
+  // @@protoc_insertion_point(field_set:bfgateway.BfNotificationData.type)
 }
 
 // optional int32 code = 2;
@@ -7583,13 +7747,13 @@ void BfNotificationData::clear_code() {
   code_ = 0;
 }
  ::google::protobuf::int32 BfNotificationData::code() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.code)
+  // @@protoc_insertion_point(field_get:bfgateway.BfNotificationData.code)
   return code_;
 }
  void BfNotificationData::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.code)
+  // @@protoc_insertion_point(field_set:bfgateway.BfNotificationData.code)
 }
 
 // optional string message = 3;
@@ -7597,31 +7761,32 @@ void BfNotificationData::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfNotificationData::message() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_get:bfgateway.BfNotificationData.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfNotificationData::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_set:bfgateway.BfNotificationData.message)
 }
  void BfNotificationData::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfNotificationData.message)
 }
  void BfNotificationData::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfNotificationData.message)
 }
  ::std::string* BfNotificationData::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfNotificationData.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfNotificationData::release_message() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfNotificationData.message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7632,7 +7797,7 @@ void BfNotificationData::clear_message() {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.message)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfNotificationData.message)
 }
 
 // optional string messageEx = 4;
@@ -7640,31 +7805,32 @@ void BfNotificationData::clear_messageex() {
   messageex_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfNotificationData::messageex() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_get:bfgateway.BfNotificationData.messageEx)
   return messageex_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfNotificationData::set_messageex(const ::std::string& value) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_set:bfgateway.BfNotificationData.messageEx)
 }
  void BfNotificationData::set_messageex(const char* value) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfNotificationData.messageEx)
 }
  void BfNotificationData::set_messageex(const char* value, size_t size) {
   
   messageex_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfNotificationData.messageEx)
 }
  ::std::string* BfNotificationData::mutable_messageex() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfNotificationData.messageEx)
   return messageex_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfNotificationData::release_messageex() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfNotificationData.messageEx)
   
   return messageex_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7675,7 +7841,7 @@ void BfNotificationData::clear_messageex() {
     
   }
   messageex_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), messageex);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfNotificationData.messageEx)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfNotificationData.messageEx)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7689,7 +7855,7 @@ const int BfPingData::kMessageFieldNumber;
 BfPingData::BfPingData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfPingData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfPingData)
 }
 
 void BfPingData::InitAsDefaultInstance() {
@@ -7701,7 +7867,7 @@ BfPingData::BfPingData(const BfPingData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfPingData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfPingData)
 }
 
 void BfPingData::SharedCtor() {
@@ -7712,7 +7878,7 @@ void BfPingData::SharedCtor() {
 }
 
 BfPingData::~BfPingData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfPingData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfPingData)
   SharedDtor();
 }
 
@@ -7748,14 +7914,15 @@ BfPingData* BfPingData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfPingData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfPingData)
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfPingData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfPingData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfPingData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -7769,7 +7936,7 @@ bool BfPingData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfPingData.message"));
+            "bfgateway.BfPingData.message"));
         } else {
           goto handle_unusual;
         }
@@ -7790,49 +7957,50 @@ bool BfPingData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfPingData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfPingData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfPingData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfPingData)
   return false;
 #undef DO_
 }
 
 void BfPingData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfPingData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfPingData)
   // optional string message = 1;
   if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPingData.message");
+      "bfgateway.BfPingData.message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->message(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfPingData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfPingData)
 }
 
 ::google::protobuf::uint8* BfPingData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfPingData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfPingData)
   // optional string message = 1;
   if (this->message().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfPingData.message");
+      "bfgateway.BfPingData.message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->message(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfPingData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfPingData)
   return target;
 }
 
 int BfPingData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfPingData)
   int total_size = 0;
 
   // optional string message = 1;
@@ -7849,18 +8017,22 @@ int BfPingData::ByteSize() const {
 }
 
 void BfPingData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfPingData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfPingData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfPingData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfPingData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfPingData)
     MergeFrom(*source);
   }
 }
 
 void BfPingData::MergeFrom(const BfPingData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfPingData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.message().size() > 0) {
 
@@ -7869,12 +8041,14 @@ void BfPingData::MergeFrom(const BfPingData& from) {
 }
 
 void BfPingData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfPingData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfPingData::CopyFrom(const BfPingData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfPingData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7911,31 +8085,32 @@ void BfPingData::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfPingData::message() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_get:bfgateway.BfPingData.message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfPingData::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_set:bfgateway.BfPingData.message)
 }
  void BfPingData::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfPingData.message)
 }
  void BfPingData::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfPingData.message)
 }
  ::std::string* BfPingData::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfPingData.message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfPingData::release_message() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfPingData.message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7946,7 +8121,7 @@ void BfPingData::clear_message() {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfPingData.message)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfPingData.message)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7961,7 +8136,7 @@ const int BfKvData::kValueFieldNumber;
 BfKvData::BfKvData()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfKvData)
+  // @@protoc_insertion_point(constructor:bfgateway.BfKvData)
 }
 
 void BfKvData::InitAsDefaultInstance() {
@@ -7973,7 +8148,7 @@ BfKvData::BfKvData(const BfKvData& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfKvData)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfKvData)
 }
 
 void BfKvData::SharedCtor() {
@@ -7985,7 +8160,7 @@ void BfKvData::SharedCtor() {
 }
 
 BfKvData::~BfKvData() {
-  // @@protoc_insertion_point(destructor:bftrader.BfKvData)
+  // @@protoc_insertion_point(destructor:bfgateway.BfKvData)
   SharedDtor();
 }
 
@@ -8022,15 +8197,16 @@ BfKvData* BfKvData::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfKvData::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfKvData)
   key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfKvData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfKvData)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfKvData)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -8044,7 +8220,7 @@ bool BfKvData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->key().data(), this->key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfKvData.key"));
+            "bfgateway.BfKvData.key"));
         } else {
           goto handle_unusual;
         }
@@ -8061,7 +8237,7 @@ bool BfKvData::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->value().data(), this->value().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfKvData.value"));
+            "bfgateway.BfKvData.value"));
         } else {
           goto handle_unusual;
         }
@@ -8082,23 +8258,23 @@ bool BfKvData::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfKvData)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfKvData)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfKvData)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfKvData)
   return false;
 #undef DO_
 }
 
 void BfKvData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfKvData)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfKvData)
   // optional string key = 1;
   if (this->key().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), this->key().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfKvData.key");
+      "bfgateway.BfKvData.key");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->key(), output);
   }
@@ -8108,23 +8284,23 @@ void BfKvData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfKvData.value");
+      "bfgateway.BfKvData.value");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->value(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfKvData)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfKvData)
 }
 
 ::google::protobuf::uint8* BfKvData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfKvData)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfKvData)
   // optional string key = 1;
   if (this->key().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->key().data(), this->key().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfKvData.key");
+      "bfgateway.BfKvData.key");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->key(), target);
@@ -8135,17 +8311,18 @@ void BfKvData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->value().data(), this->value().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfKvData.value");
+      "bfgateway.BfKvData.value");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->value(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfKvData)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfKvData)
   return target;
 }
 
 int BfKvData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfKvData)
   int total_size = 0;
 
   // optional string key = 1;
@@ -8169,18 +8346,22 @@ int BfKvData::ByteSize() const {
 }
 
 void BfKvData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfKvData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfKvData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfKvData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfKvData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfKvData)
     MergeFrom(*source);
   }
 }
 
 void BfKvData::MergeFrom(const BfKvData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfKvData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.key().size() > 0) {
 
@@ -8193,12 +8374,14 @@ void BfKvData::MergeFrom(const BfKvData& from) {
 }
 
 void BfKvData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfKvData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfKvData::CopyFrom(const BfKvData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfKvData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8236,31 +8419,32 @@ void BfKvData::clear_key() {
   key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfKvData::key() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_get:bfgateway.BfKvData.key)
   return key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfKvData::set_key(const ::std::string& value) {
   
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_set:bfgateway.BfKvData.key)
 }
  void BfKvData::set_key(const char* value) {
   
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfKvData.key)
 }
  void BfKvData::set_key(const char* value, size_t size) {
   
   key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfKvData.key)
 }
  ::std::string* BfKvData::mutable_key() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfKvData.key)
   return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfKvData::release_key() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfKvData.key)
   
   return key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8271,7 +8455,7 @@ void BfKvData::clear_key() {
     
   }
   key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfKvData.key)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfKvData.key)
 }
 
 // optional string value = 2;
@@ -8279,31 +8463,32 @@ void BfKvData::clear_value() {
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfKvData::value() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_get:bfgateway.BfKvData.value)
   return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfKvData::set_value(const ::std::string& value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_set:bfgateway.BfKvData.value)
 }
  void BfKvData::set_value(const char* value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfKvData.value)
 }
  void BfKvData::set_value(const char* value, size_t size) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfKvData.value)
 }
  ::std::string* BfKvData::mutable_value() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfKvData.value)
   return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfKvData::release_value() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfKvData.value)
   
   return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8314,7 +8499,7 @@ void BfKvData::clear_value() {
     
   }
   value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfKvData.value)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfKvData.value)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8334,7 +8519,7 @@ const int BfSendOrderReq::kOffsetFieldNumber;
 BfSendOrderReq::BfSendOrderReq()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(constructor:bfgateway.BfSendOrderReq)
 }
 
 void BfSendOrderReq::InitAsDefaultInstance() {
@@ -8346,7 +8531,7 @@ BfSendOrderReq::BfSendOrderReq(const BfSendOrderReq& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfSendOrderReq)
 }
 
 void BfSendOrderReq::SharedCtor() {
@@ -8363,7 +8548,7 @@ void BfSendOrderReq::SharedCtor() {
 }
 
 BfSendOrderReq::~BfSendOrderReq() {
-  // @@protoc_insertion_point(destructor:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(destructor:bfgateway.BfSendOrderReq)
   SharedDtor();
 }
 
@@ -8400,8 +8585,17 @@ BfSendOrderReq* BfSendOrderReq::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfSendOrderReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfSendOrderReq)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfSendOrderReq, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfSendOrderReq*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -8419,9 +8613,9 @@ void BfSendOrderReq::Clear() {
 
 bool BfSendOrderReq::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfSendOrderReq)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -8435,7 +8629,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfSendOrderReq.symbol"));
+            "bfgateway.BfSendOrderReq.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -8452,7 +8646,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfSendOrderReq.exchange"));
+            "bfgateway.BfSendOrderReq.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -8490,7 +8684,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfPriceType priceType = 5;
+      // optional .bfgateway.BfPriceType priceType = 5;
       case 5: {
         if (tag == 40) {
          parse_priceType:
@@ -8498,7 +8692,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_pricetype(static_cast< ::bftrader::BfPriceType >(value));
+          set_pricetype(static_cast< ::bfgateway::BfPriceType >(value));
         } else {
           goto handle_unusual;
         }
@@ -8506,7 +8700,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfDirection direction = 6;
+      // optional .bfgateway.BfDirection direction = 6;
       case 6: {
         if (tag == 48) {
          parse_direction:
@@ -8514,7 +8708,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_direction(static_cast< ::bftrader::BfDirection >(value));
+          set_direction(static_cast< ::bfgateway::BfDirection >(value));
         } else {
           goto handle_unusual;
         }
@@ -8522,7 +8716,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .bftrader.BfOffset offset = 7;
+      // optional .bfgateway.BfOffset offset = 7;
       case 7: {
         if (tag == 56) {
          parse_offset:
@@ -8530,7 +8724,7 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_offset(static_cast< ::bftrader::BfOffset >(value));
+          set_offset(static_cast< ::bfgateway::BfOffset >(value));
         } else {
           goto handle_unusual;
         }
@@ -8551,23 +8745,23 @@ bool BfSendOrderReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfSendOrderReq)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfSendOrderReq)
   return false;
 #undef DO_
 }
 
 void BfSendOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfSendOrderReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderReq.symbol");
+      "bfgateway.BfSendOrderReq.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -8577,7 +8771,7 @@ void BfSendOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderReq.exchange");
+      "bfgateway.BfSendOrderReq.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -8592,36 +8786,36 @@ void BfSendOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->volume(), output);
   }
 
-  // optional .bftrader.BfPriceType priceType = 5;
+  // optional .bfgateway.BfPriceType priceType = 5;
   if (this->pricetype() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       5, this->pricetype(), output);
   }
 
-  // optional .bftrader.BfDirection direction = 6;
+  // optional .bfgateway.BfDirection direction = 6;
   if (this->direction() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       6, this->direction(), output);
   }
 
-  // optional .bftrader.BfOffset offset = 7;
+  // optional .bfgateway.BfOffset offset = 7;
   if (this->offset() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       7, this->offset(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfSendOrderReq)
 }
 
 ::google::protobuf::uint8* BfSendOrderReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfSendOrderReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderReq.symbol");
+      "bfgateway.BfSendOrderReq.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -8632,7 +8826,7 @@ void BfSendOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderReq.exchange");
+      "bfgateway.BfSendOrderReq.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -8648,29 +8842,30 @@ void BfSendOrderReq::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->volume(), target);
   }
 
-  // optional .bftrader.BfPriceType priceType = 5;
+  // optional .bfgateway.BfPriceType priceType = 5;
   if (this->pricetype() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       5, this->pricetype(), target);
   }
 
-  // optional .bftrader.BfDirection direction = 6;
+  // optional .bfgateway.BfDirection direction = 6;
   if (this->direction() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       6, this->direction(), target);
   }
 
-  // optional .bftrader.BfOffset offset = 7;
+  // optional .bfgateway.BfOffset offset = 7;
   if (this->offset() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       7, this->offset(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfSendOrderReq)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfSendOrderReq)
   return target;
 }
 
 int BfSendOrderReq::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfSendOrderReq)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -8699,19 +8894,19 @@ int BfSendOrderReq::ByteSize() const {
         this->volume());
   }
 
-  // optional .bftrader.BfPriceType priceType = 5;
+  // optional .bfgateway.BfPriceType priceType = 5;
   if (this->pricetype() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->pricetype());
   }
 
-  // optional .bftrader.BfDirection direction = 6;
+  // optional .bfgateway.BfDirection direction = 6;
   if (this->direction() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->direction());
   }
 
-  // optional .bftrader.BfOffset offset = 7;
+  // optional .bfgateway.BfOffset offset = 7;
   if (this->offset() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->offset());
@@ -8724,18 +8919,22 @@ int BfSendOrderReq::ByteSize() const {
 }
 
 void BfSendOrderReq::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfSendOrderReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfSendOrderReq* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfSendOrderReq>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfSendOrderReq)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfSendOrderReq)
     MergeFrom(*source);
   }
 }
 
 void BfSendOrderReq::MergeFrom(const BfSendOrderReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfSendOrderReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -8763,12 +8962,14 @@ void BfSendOrderReq::MergeFrom(const BfSendOrderReq& from) {
 }
 
 void BfSendOrderReq::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfSendOrderReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfSendOrderReq::CopyFrom(const BfSendOrderReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfSendOrderReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8811,31 +9012,32 @@ void BfSendOrderReq::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfSendOrderReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfSendOrderReq::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.symbol)
 }
  void BfSendOrderReq::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfSendOrderReq.symbol)
 }
  void BfSendOrderReq::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfSendOrderReq.symbol)
 }
  ::std::string* BfSendOrderReq::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfSendOrderReq.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfSendOrderReq::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfSendOrderReq.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8846,7 +9048,7 @@ void BfSendOrderReq::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSendOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfSendOrderReq.symbol)
 }
 
 // optional string exchange = 2;
@@ -8854,31 +9056,32 @@ void BfSendOrderReq::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfSendOrderReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfSendOrderReq::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.exchange)
 }
  void BfSendOrderReq::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfSendOrderReq.exchange)
 }
  void BfSendOrderReq::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfSendOrderReq.exchange)
 }
  ::std::string* BfSendOrderReq::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfSendOrderReq.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfSendOrderReq::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfSendOrderReq.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8889,7 +9092,7 @@ void BfSendOrderReq::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSendOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfSendOrderReq.exchange)
 }
 
 // optional double price = 3;
@@ -8897,13 +9100,13 @@ void BfSendOrderReq::clear_price() {
   price_ = 0;
 }
  double BfSendOrderReq::price() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.price)
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.price)
   return price_;
 }
  void BfSendOrderReq::set_price(double value) {
   
   price_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.price)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.price)
 }
 
 // optional int32 volume = 4;
@@ -8911,55 +9114,55 @@ void BfSendOrderReq::clear_volume() {
   volume_ = 0;
 }
  ::google::protobuf::int32 BfSendOrderReq::volume() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.volume)
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.volume)
   return volume_;
 }
  void BfSendOrderReq::set_volume(::google::protobuf::int32 value) {
   
   volume_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.volume)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.volume)
 }
 
-// optional .bftrader.BfPriceType priceType = 5;
+// optional .bfgateway.BfPriceType priceType = 5;
 void BfSendOrderReq::clear_pricetype() {
   pricetype_ = 0;
 }
- ::bftrader::BfPriceType BfSendOrderReq::pricetype() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.priceType)
-  return static_cast< ::bftrader::BfPriceType >(pricetype_);
+ ::bfgateway::BfPriceType BfSendOrderReq::pricetype() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.priceType)
+  return static_cast< ::bfgateway::BfPriceType >(pricetype_);
 }
- void BfSendOrderReq::set_pricetype(::bftrader::BfPriceType value) {
+ void BfSendOrderReq::set_pricetype(::bfgateway::BfPriceType value) {
   
   pricetype_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.priceType)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.priceType)
 }
 
-// optional .bftrader.BfDirection direction = 6;
+// optional .bfgateway.BfDirection direction = 6;
 void BfSendOrderReq::clear_direction() {
   direction_ = 0;
 }
- ::bftrader::BfDirection BfSendOrderReq::direction() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.direction)
-  return static_cast< ::bftrader::BfDirection >(direction_);
+ ::bfgateway::BfDirection BfSendOrderReq::direction() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.direction)
+  return static_cast< ::bfgateway::BfDirection >(direction_);
 }
- void BfSendOrderReq::set_direction(::bftrader::BfDirection value) {
+ void BfSendOrderReq::set_direction(::bfgateway::BfDirection value) {
   
   direction_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.direction)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.direction)
 }
 
-// optional .bftrader.BfOffset offset = 7;
+// optional .bfgateway.BfOffset offset = 7;
 void BfSendOrderReq::clear_offset() {
   offset_ = 0;
 }
- ::bftrader::BfOffset BfSendOrderReq::offset() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderReq.offset)
-  return static_cast< ::bftrader::BfOffset >(offset_);
+ ::bfgateway::BfOffset BfSendOrderReq::offset() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderReq.offset)
+  return static_cast< ::bfgateway::BfOffset >(offset_);
 }
- void BfSendOrderReq::set_offset(::bftrader::BfOffset value) {
+ void BfSendOrderReq::set_offset(::bfgateway::BfOffset value) {
   
   offset_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderReq.offset)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderReq.offset)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8973,7 +9176,7 @@ const int BfSendOrderResp::kBfOrderIdFieldNumber;
 BfSendOrderResp::BfSendOrderResp()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(constructor:bfgateway.BfSendOrderResp)
 }
 
 void BfSendOrderResp::InitAsDefaultInstance() {
@@ -8985,7 +9188,7 @@ BfSendOrderResp::BfSendOrderResp(const BfSendOrderResp& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfSendOrderResp)
 }
 
 void BfSendOrderResp::SharedCtor() {
@@ -8996,7 +9199,7 @@ void BfSendOrderResp::SharedCtor() {
 }
 
 BfSendOrderResp::~BfSendOrderResp() {
-  // @@protoc_insertion_point(destructor:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(destructor:bfgateway.BfSendOrderResp)
   SharedDtor();
 }
 
@@ -9032,14 +9235,15 @@ BfSendOrderResp* BfSendOrderResp::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfSendOrderResp::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfSendOrderResp)
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool BfSendOrderResp::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfSendOrderResp)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -9053,7 +9257,7 @@ bool BfSendOrderResp::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->bforderid().data(), this->bforderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfSendOrderResp.bfOrderId"));
+            "bfgateway.BfSendOrderResp.bfOrderId"));
         } else {
           goto handle_unusual;
         }
@@ -9074,49 +9278,50 @@ bool BfSendOrderResp::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfSendOrderResp)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfSendOrderResp)
   return false;
 #undef DO_
 }
 
 void BfSendOrderResp::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfSendOrderResp)
   // optional string bfOrderId = 1;
   if (this->bforderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderResp.bfOrderId");
+      "bfgateway.BfSendOrderResp.bfOrderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->bforderid(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfSendOrderResp)
 }
 
 ::google::protobuf::uint8* BfSendOrderResp::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfSendOrderResp)
   // optional string bfOrderId = 1;
   if (this->bforderid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfSendOrderResp.bfOrderId");
+      "bfgateway.BfSendOrderResp.bfOrderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->bforderid(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfSendOrderResp)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfSendOrderResp)
   return target;
 }
 
 int BfSendOrderResp::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfSendOrderResp)
   int total_size = 0;
 
   // optional string bfOrderId = 1;
@@ -9133,18 +9338,22 @@ int BfSendOrderResp::ByteSize() const {
 }
 
 void BfSendOrderResp::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfSendOrderResp)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfSendOrderResp* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfSendOrderResp>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfSendOrderResp)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfSendOrderResp)
     MergeFrom(*source);
   }
 }
 
 void BfSendOrderResp::MergeFrom(const BfSendOrderResp& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfSendOrderResp)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.bforderid().size() > 0) {
 
@@ -9153,12 +9362,14 @@ void BfSendOrderResp::MergeFrom(const BfSendOrderResp& from) {
 }
 
 void BfSendOrderResp::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfSendOrderResp)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfSendOrderResp::CopyFrom(const BfSendOrderResp& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfSendOrderResp)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -9195,31 +9406,32 @@ void BfSendOrderResp::clear_bforderid() {
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfSendOrderResp::bforderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfSendOrderResp.bfOrderId)
   return bforderid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfSendOrderResp::set_bforderid(const ::std::string& value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfSendOrderResp.bfOrderId)
 }
  void BfSendOrderResp::set_bforderid(const char* value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfSendOrderResp.bfOrderId)
 }
  void BfSendOrderResp::set_bforderid(const char* value, size_t size) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfSendOrderResp.bfOrderId)
 }
  ::std::string* BfSendOrderResp::mutable_bforderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfSendOrderResp.bfOrderId)
   return bforderid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfSendOrderResp::release_bforderid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfSendOrderResp.bfOrderId)
   
   return bforderid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9230,7 +9442,7 @@ void BfSendOrderResp::clear_bforderid() {
     
   }
   bforderid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bforderid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfSendOrderResp.bfOrderId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfSendOrderResp.bfOrderId)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -9246,7 +9458,7 @@ const int BfCancelOrderReq::kBfOrderIdFieldNumber;
 BfCancelOrderReq::BfCancelOrderReq()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(constructor:bfgateway.BfCancelOrderReq)
 }
 
 void BfCancelOrderReq::InitAsDefaultInstance() {
@@ -9258,7 +9470,7 @@ BfCancelOrderReq::BfCancelOrderReq(const BfCancelOrderReq& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfCancelOrderReq)
 }
 
 void BfCancelOrderReq::SharedCtor() {
@@ -9271,7 +9483,7 @@ void BfCancelOrderReq::SharedCtor() {
 }
 
 BfCancelOrderReq::~BfCancelOrderReq() {
-  // @@protoc_insertion_point(destructor:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(destructor:bfgateway.BfCancelOrderReq)
   SharedDtor();
 }
 
@@ -9309,6 +9521,7 @@ BfCancelOrderReq* BfCancelOrderReq::New(::google::protobuf::Arena* arena) const 
 }
 
 void BfCancelOrderReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfCancelOrderReq)
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -9316,9 +9529,9 @@ void BfCancelOrderReq::Clear() {
 
 bool BfCancelOrderReq::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfCancelOrderReq)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -9332,7 +9545,7 @@ bool BfCancelOrderReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfCancelOrderReq.symbol"));
+            "bfgateway.BfCancelOrderReq.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -9349,7 +9562,7 @@ bool BfCancelOrderReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfCancelOrderReq.exchange"));
+            "bfgateway.BfCancelOrderReq.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -9366,7 +9579,7 @@ bool BfCancelOrderReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->bforderid().data(), this->bforderid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfCancelOrderReq.bfOrderId"));
+            "bfgateway.BfCancelOrderReq.bfOrderId"));
         } else {
           goto handle_unusual;
         }
@@ -9387,23 +9600,23 @@ bool BfCancelOrderReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfCancelOrderReq)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfCancelOrderReq)
   return false;
 #undef DO_
 }
 
 void BfCancelOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfCancelOrderReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.symbol");
+      "bfgateway.BfCancelOrderReq.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -9413,7 +9626,7 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.exchange");
+      "bfgateway.BfCancelOrderReq.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -9423,23 +9636,23 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.bfOrderId");
+      "bfgateway.BfCancelOrderReq.bfOrderId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->bforderid(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfCancelOrderReq)
 }
 
 ::google::protobuf::uint8* BfCancelOrderReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfCancelOrderReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.symbol");
+      "bfgateway.BfCancelOrderReq.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -9450,7 +9663,7 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.exchange");
+      "bfgateway.BfCancelOrderReq.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -9461,17 +9674,18 @@ void BfCancelOrderReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->bforderid().data(), this->bforderid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfCancelOrderReq.bfOrderId");
+      "bfgateway.BfCancelOrderReq.bfOrderId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->bforderid(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfCancelOrderReq)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfCancelOrderReq)
   return target;
 }
 
 int BfCancelOrderReq::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfCancelOrderReq)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -9502,18 +9716,22 @@ int BfCancelOrderReq::ByteSize() const {
 }
 
 void BfCancelOrderReq::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfCancelOrderReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfCancelOrderReq* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfCancelOrderReq>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfCancelOrderReq)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfCancelOrderReq)
     MergeFrom(*source);
   }
 }
 
 void BfCancelOrderReq::MergeFrom(const BfCancelOrderReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfCancelOrderReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -9530,12 +9748,14 @@ void BfCancelOrderReq::MergeFrom(const BfCancelOrderReq& from) {
 }
 
 void BfCancelOrderReq::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfCancelOrderReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfCancelOrderReq::CopyFrom(const BfCancelOrderReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfCancelOrderReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -9574,31 +9794,32 @@ void BfCancelOrderReq::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfCancelOrderReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfCancelOrderReq.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfCancelOrderReq::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfCancelOrderReq.symbol)
 }
  void BfCancelOrderReq::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfCancelOrderReq.symbol)
 }
  void BfCancelOrderReq::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfCancelOrderReq.symbol)
 }
  ::std::string* BfCancelOrderReq::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfCancelOrderReq.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfCancelOrderReq::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfCancelOrderReq.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9609,7 +9830,7 @@ void BfCancelOrderReq::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfCancelOrderReq.symbol)
 }
 
 // optional string exchange = 2;
@@ -9617,31 +9838,32 @@ void BfCancelOrderReq::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfCancelOrderReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfCancelOrderReq.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfCancelOrderReq::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfCancelOrderReq.exchange)
 }
  void BfCancelOrderReq::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfCancelOrderReq.exchange)
 }
  void BfCancelOrderReq::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfCancelOrderReq.exchange)
 }
  ::std::string* BfCancelOrderReq::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfCancelOrderReq.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfCancelOrderReq::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfCancelOrderReq.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9652,7 +9874,7 @@ void BfCancelOrderReq::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfCancelOrderReq.exchange)
 }
 
 // optional string bfOrderId = 3;
@@ -9660,31 +9882,32 @@ void BfCancelOrderReq::clear_bforderid() {
   bforderid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfCancelOrderReq::bforderid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfCancelOrderReq.bfOrderId)
   return bforderid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfCancelOrderReq::set_bforderid(const ::std::string& value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfCancelOrderReq.bfOrderId)
 }
  void BfCancelOrderReq::set_bforderid(const char* value) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfCancelOrderReq.bfOrderId)
 }
  void BfCancelOrderReq::set_bforderid(const char* value, size_t size) {
   
   bforderid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfCancelOrderReq.bfOrderId)
 }
  ::std::string* BfCancelOrderReq::mutable_bforderid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfCancelOrderReq.bfOrderId)
   return bforderid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfCancelOrderReq::release_bforderid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfCancelOrderReq.bfOrderId)
   
   return bforderid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9695,7 +9918,7 @@ void BfCancelOrderReq::clear_bforderid() {
     
   }
   bforderid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bforderid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfCancelOrderReq.bfOrderId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfCancelOrderReq.bfOrderId)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -9716,7 +9939,7 @@ const int BfConnectReq::kExchangeFieldNumber;
 BfConnectReq::BfConnectReq()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(constructor:bfgateway.BfConnectReq)
 }
 
 void BfConnectReq::InitAsDefaultInstance() {
@@ -9728,7 +9951,7 @@ BfConnectReq::BfConnectReq(const BfConnectReq& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfConnectReq)
 }
 
 void BfConnectReq::SharedCtor() {
@@ -9746,7 +9969,7 @@ void BfConnectReq::SharedCtor() {
 }
 
 BfConnectReq::~BfConnectReq() {
-  // @@protoc_insertion_point(destructor:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(destructor:bfgateway.BfConnectReq)
   SharedDtor();
 }
 
@@ -9785,8 +10008,17 @@ BfConnectReq* BfConnectReq::New(::google::protobuf::Arena* arena) const {
 }
 
 void BfConnectReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfConnectReq)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfConnectReq, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfConnectReq*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -9806,9 +10038,9 @@ void BfConnectReq::Clear() {
 
 bool BfConnectReq::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfConnectReq)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -9822,7 +10054,7 @@ bool BfConnectReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->clientid().data(), this->clientid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.clientId"));
+            "bfgateway.BfConnectReq.clientId"));
         } else {
           goto handle_unusual;
         }
@@ -9854,7 +10086,7 @@ bool BfConnectReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->strparam().data(), this->strparam().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.strParam"));
+            "bfgateway.BfConnectReq.strParam"));
         } else {
           goto handle_unusual;
         }
@@ -9916,7 +10148,7 @@ bool BfConnectReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.symbol"));
+            "bfgateway.BfConnectReq.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -9933,7 +10165,7 @@ bool BfConnectReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfConnectReq.exchange"));
+            "bfgateway.BfConnectReq.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -9954,23 +10186,23 @@ bool BfConnectReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfConnectReq)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfConnectReq)
   return false;
 #undef DO_
 }
 
 void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfConnectReq)
   // optional string clientId = 1;
   if (this->clientid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->clientid().data(), this->clientid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.clientId");
+      "bfgateway.BfConnectReq.clientId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->clientid(), output);
   }
@@ -9985,7 +10217,7 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->strparam().data(), this->strparam().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.strParam");
+      "bfgateway.BfConnectReq.strParam");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->strparam(), output);
   }
@@ -10010,7 +10242,7 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.symbol");
+      "bfgateway.BfConnectReq.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->symbol(), output);
   }
@@ -10020,23 +10252,23 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.exchange");
+      "bfgateway.BfConnectReq.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       8, this->exchange(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfConnectReq)
 }
 
 ::google::protobuf::uint8* BfConnectReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfConnectReq)
   // optional string clientId = 1;
   if (this->clientid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->clientid().data(), this->clientid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.clientId");
+      "bfgateway.BfConnectReq.clientId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->clientid(), target);
@@ -10052,7 +10284,7 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->strparam().data(), this->strparam().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.strParam");
+      "bfgateway.BfConnectReq.strParam");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->strparam(), target);
@@ -10078,7 +10310,7 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.symbol");
+      "bfgateway.BfConnectReq.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->symbol(), target);
@@ -10089,17 +10321,18 @@ void BfConnectReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfConnectReq.exchange");
+      "bfgateway.BfConnectReq.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         8, this->exchange(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfConnectReq)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfConnectReq)
   return target;
 }
 
 int BfConnectReq::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfConnectReq)
   int total_size = 0;
 
   // optional string clientId = 1;
@@ -10159,18 +10392,22 @@ int BfConnectReq::ByteSize() const {
 }
 
 void BfConnectReq::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfConnectReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfConnectReq* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfConnectReq>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfConnectReq)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfConnectReq)
     MergeFrom(*source);
   }
 }
 
 void BfConnectReq::MergeFrom(const BfConnectReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfConnectReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.clientid().size() > 0) {
 
@@ -10203,12 +10440,14 @@ void BfConnectReq::MergeFrom(const BfConnectReq& from) {
 }
 
 void BfConnectReq::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfConnectReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfConnectReq::CopyFrom(const BfConnectReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfConnectReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -10252,31 +10491,32 @@ void BfConnectReq::clear_clientid() {
   clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfConnectReq::clientid() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.clientId)
   return clientid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfConnectReq::set_clientid(const ::std::string& value) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.clientId)
 }
  void BfConnectReq::set_clientid(const char* value) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.clientId)
 }
  void BfConnectReq::set_clientid(const char* value, size_t size) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.clientId)
 }
  ::std::string* BfConnectReq::mutable_clientid() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.clientId)
   return clientid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfConnectReq::release_clientid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.clientId)
   
   return clientid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10287,7 +10527,7 @@ void BfConnectReq::clear_clientid() {
     
   }
   clientid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientid);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.clientId)
 }
 
 // optional int32 intParam = 2;
@@ -10295,13 +10535,13 @@ void BfConnectReq::clear_intparam() {
   intparam_ = 0;
 }
  ::google::protobuf::int32 BfConnectReq::intparam() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.intParam)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.intParam)
   return intparam_;
 }
  void BfConnectReq::set_intparam(::google::protobuf::int32 value) {
   
   intparam_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.intParam)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.intParam)
 }
 
 // optional string strParam = 3;
@@ -10309,31 +10549,32 @@ void BfConnectReq::clear_strparam() {
   strparam_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfConnectReq::strparam() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.strParam)
   return strparam_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfConnectReq::set_strparam(const ::std::string& value) {
   
   strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.strParam)
 }
  void BfConnectReq::set_strparam(const char* value) {
   
   strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.strParam)
 }
  void BfConnectReq::set_strparam(const char* value, size_t size) {
   
   strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.strParam)
 }
  ::std::string* BfConnectReq::mutable_strparam() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.strParam)
   return strparam_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfConnectReq::release_strparam() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.strParam)
   
   return strparam_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10344,7 +10585,7 @@ void BfConnectReq::clear_strparam() {
     
   }
   strparam_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), strparam);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.strParam)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.strParam)
 }
 
 // optional bool tickHandler = 4;
@@ -10352,13 +10593,13 @@ void BfConnectReq::clear_tickhandler() {
   tickhandler_ = false;
 }
  bool BfConnectReq::tickhandler() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.tickHandler)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.tickHandler)
   return tickhandler_;
 }
  void BfConnectReq::set_tickhandler(bool value) {
   
   tickhandler_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.tickHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.tickHandler)
 }
 
 // optional bool tradeHandler = 5;
@@ -10366,13 +10607,13 @@ void BfConnectReq::clear_tradehandler() {
   tradehandler_ = false;
 }
  bool BfConnectReq::tradehandler() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.tradeHandler)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.tradeHandler)
   return tradehandler_;
 }
  void BfConnectReq::set_tradehandler(bool value) {
   
   tradehandler_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.tradeHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.tradeHandler)
 }
 
 // optional bool logHandler = 6;
@@ -10380,13 +10621,13 @@ void BfConnectReq::clear_loghandler() {
   loghandler_ = false;
 }
  bool BfConnectReq::loghandler() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.logHandler)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.logHandler)
   return loghandler_;
 }
  void BfConnectReq::set_loghandler(bool value) {
   
   loghandler_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.logHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.logHandler)
 }
 
 // optional string symbol = 7;
@@ -10394,31 +10635,32 @@ void BfConnectReq::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfConnectReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfConnectReq::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.symbol)
 }
  void BfConnectReq::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.symbol)
 }
  void BfConnectReq::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.symbol)
 }
  ::std::string* BfConnectReq::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfConnectReq::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10429,7 +10671,7 @@ void BfConnectReq::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.symbol)
 }
 
 // optional string exchange = 8;
@@ -10437,31 +10679,32 @@ void BfConnectReq::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfConnectReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfConnectReq::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.exchange)
 }
  void BfConnectReq::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.exchange)
 }
  void BfConnectReq::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.exchange)
 }
  ::std::string* BfConnectReq::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfConnectReq::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10472,7 +10715,7 @@ void BfConnectReq::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.exchange)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -10489,7 +10732,7 @@ const int BfGetContractReq::kSubscribledFieldNumber;
 BfGetContractReq::BfGetContractReq()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(constructor:bfgateway.BfGetContractReq)
 }
 
 void BfGetContractReq::InitAsDefaultInstance() {
@@ -10501,7 +10744,7 @@ BfGetContractReq::BfGetContractReq(const BfGetContractReq& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(copy_constructor:bfgateway.BfGetContractReq)
 }
 
 void BfGetContractReq::SharedCtor() {
@@ -10515,7 +10758,7 @@ void BfGetContractReq::SharedCtor() {
 }
 
 BfGetContractReq::~BfGetContractReq() {
-  // @@protoc_insertion_point(destructor:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(destructor:bfgateway.BfGetContractReq)
   SharedDtor();
 }
 
@@ -10552,8 +10795,17 @@ BfGetContractReq* BfGetContractReq::New(::google::protobuf::Arena* arena) const 
 }
 
 void BfGetContractReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:bfgateway.BfGetContractReq)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(BfGetContractReq, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<BfGetContractReq*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -10571,9 +10823,9 @@ void BfGetContractReq::Clear() {
 
 bool BfGetContractReq::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(parse_start:bfgateway.BfGetContractReq)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -10587,7 +10839,7 @@ bool BfGetContractReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbol().data(), this->symbol().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfGetContractReq.symbol"));
+            "bfgateway.BfGetContractReq.symbol"));
         } else {
           goto handle_unusual;
         }
@@ -10604,7 +10856,7 @@ bool BfGetContractReq::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->exchange().data(), this->exchange().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bftrader.BfGetContractReq.exchange"));
+            "bfgateway.BfGetContractReq.exchange"));
         } else {
           goto handle_unusual;
         }
@@ -10655,23 +10907,23 @@ bool BfGetContractReq::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(parse_success:bfgateway.BfGetContractReq)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(parse_failure:bfgateway.BfGetContractReq)
   return false;
 #undef DO_
 }
 
 void BfGetContractReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(serialize_start:bfgateway.BfGetContractReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfGetContractReq.symbol");
+      "bfgateway.BfGetContractReq.symbol");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->symbol(), output);
   }
@@ -10681,7 +10933,7 @@ void BfGetContractReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfGetContractReq.exchange");
+      "bfgateway.BfGetContractReq.exchange");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->exchange(), output);
   }
@@ -10696,18 +10948,18 @@ void BfGetContractReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->subscribled(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(serialize_end:bfgateway.BfGetContractReq)
 }
 
 ::google::protobuf::uint8* BfGetContractReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(serialize_to_array_start:bfgateway.BfGetContractReq)
   // optional string symbol = 1;
   if (this->symbol().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbol().data(), this->symbol().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfGetContractReq.symbol");
+      "bfgateway.BfGetContractReq.symbol");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->symbol(), target);
@@ -10718,7 +10970,7 @@ void BfGetContractReq::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->exchange().data(), this->exchange().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bftrader.BfGetContractReq.exchange");
+      "bfgateway.BfGetContractReq.exchange");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->exchange(), target);
@@ -10734,11 +10986,12 @@ void BfGetContractReq::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->subscribled(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:bftrader.BfGetContractReq)
+  // @@protoc_insertion_point(serialize_to_array_end:bfgateway.BfGetContractReq)
   return target;
 }
 
 int BfGetContractReq::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:bfgateway.BfGetContractReq)
   int total_size = 0;
 
   // optional string symbol = 1;
@@ -10774,18 +11027,22 @@ int BfGetContractReq::ByteSize() const {
 }
 
 void BfGetContractReq::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:bfgateway.BfGetContractReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BfGetContractReq* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BfGetContractReq>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfgateway.BfGetContractReq)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfgateway.BfGetContractReq)
     MergeFrom(*source);
   }
 }
 
 void BfGetContractReq::MergeFrom(const BfGetContractReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bfgateway.BfGetContractReq)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.symbol().size() > 0) {
 
@@ -10804,12 +11061,14 @@ void BfGetContractReq::MergeFrom(const BfGetContractReq& from) {
 }
 
 void BfGetContractReq::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:bfgateway.BfGetContractReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BfGetContractReq::CopyFrom(const BfGetContractReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bfgateway.BfGetContractReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -10849,31 +11108,32 @@ void BfGetContractReq::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfGetContractReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfGetContractReq::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.symbol)
 }
  void BfGetContractReq::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfGetContractReq.symbol)
 }
  void BfGetContractReq::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfGetContractReq.symbol)
 }
  ::std::string* BfGetContractReq::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfGetContractReq.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfGetContractReq::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfGetContractReq.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10884,7 +11144,7 @@ void BfGetContractReq::clear_symbol() {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGetContractReq.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfGetContractReq.symbol)
 }
 
 // optional string exchange = 2;
@@ -10892,31 +11152,32 @@ void BfGetContractReq::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& BfGetContractReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void BfGetContractReq::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.exchange)
 }
  void BfGetContractReq::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfGetContractReq.exchange)
 }
  void BfGetContractReq::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfGetContractReq.exchange)
 }
  ::std::string* BfGetContractReq::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfGetContractReq.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* BfGetContractReq::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfGetContractReq.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10927,7 +11188,7 @@ void BfGetContractReq::clear_exchange() {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bftrader.BfGetContractReq.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfGetContractReq.exchange)
 }
 
 // optional int32 index = 3;
@@ -10935,13 +11196,13 @@ void BfGetContractReq::clear_index() {
   index_ = 0;
 }
  ::google::protobuf::int32 BfGetContractReq::index() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGetContractReq.index)
+  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.index)
   return index_;
 }
  void BfGetContractReq::set_index(::google::protobuf::int32 value) {
   
   index_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfGetContractReq.index)
+  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.index)
 }
 
 // optional bool subscribled = 4;
@@ -10949,19 +11210,19 @@ void BfGetContractReq::clear_subscribled() {
   subscribled_ = false;
 }
  bool BfGetContractReq::subscribled() const {
-  // @@protoc_insertion_point(field_get:bftrader.BfGetContractReq.subscribled)
+  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.subscribled)
   return subscribled_;
 }
  void BfGetContractReq::set_subscribled(bool value) {
   
   subscribled_ = value;
-  // @@protoc_insertion_point(field_set:bftrader.BfGetContractReq.subscribled)
+  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.subscribled)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace bftrader
+}  // namespace bfgateway
 
 // @@protoc_insertion_point(global_scope)

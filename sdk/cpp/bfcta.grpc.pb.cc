@@ -13,15 +13,15 @@
 #include <grpc++/impl/codegen/rpc_service_method.h>
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
-namespace bftrader {
+namespace bfcta {
 
 static const char* BfCtaService_method_names[] = {
-  "/bftrader.BfCtaService/Connect",
-  "/bftrader.BfCtaService/Disconnect",
-  "/bftrader.BfCtaService/Ping",
-  "/bftrader.BfCtaService/GetRobotInfo",
-  "/bftrader.BfCtaService/SendOrder",
-  "/bftrader.BfCtaService/CancelOrder",
+  "/bfcta.BfCtaService/Connect",
+  "/bfcta.BfCtaService/Disconnect",
+  "/bfcta.BfCtaService/Ping",
+  "/bfcta.BfCtaService/GetRobotInfo",
+  "/bfcta.BfCtaService/SendOrder",
+  "/bfcta.BfCtaService/CancelOrder",
 };
 
 std::unique_ptr< BfCtaService::Stub> BfCtaService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -38,52 +38,52 @@ BfCtaService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chann
   , rpcmethod_CancelOrder_(BfCtaService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::ClientReader< ::google::protobuf::Any>* BfCtaService::Stub::ConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request) {
+::grpc::ClientReader< ::google::protobuf::Any>* BfCtaService::Stub::ConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) {
   return new ::grpc::ClientReader< ::google::protobuf::Any>(channel_.get(), rpcmethod_Connect_, context, request);
 }
 
-::grpc::ClientAsyncReader< ::google::protobuf::Any>* BfCtaService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bftrader::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+::grpc::ClientAsyncReader< ::google::protobuf::Any>* BfCtaService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
   return new ::grpc::ClientAsyncReader< ::google::protobuf::Any>(channel_.get(), cq, rpcmethod_Connect_, context, request, tag);
 }
 
-::grpc::Status BfCtaService::Stub::Disconnect(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::bftrader::BfVoid* response) {
+::grpc::Status BfCtaService::Stub::Disconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::bfgateway::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Disconnect_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfCtaService::Stub::AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bftrader::BfVoid& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_Disconnect_, context, request);
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* BfCtaService::Stub::AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>(channel_.get(), cq, rpcmethod_Disconnect_, context, request);
 }
 
-::grpc::Status BfCtaService::Stub::Ping(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::bftrader::BfPingData* response) {
+::grpc::Status BfCtaService::Stub::Ping(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::bfgateway::BfPingData* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>* BfCtaService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bftrader::BfPingData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>* BfCtaService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
-::grpc::Status BfCtaService::Stub::GetRobotInfo(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::bftrader::BfKvData* response) {
+::grpc::Status BfCtaService::Stub::GetRobotInfo(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::bfgateway::BfKvData* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRobotInfo_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>* BfCtaService::Stub::AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bftrader::BfKvData& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfKvData>(channel_.get(), cq, rpcmethod_GetRobotInfo_, context, request);
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfKvData>* BfCtaService::Stub::AsyncGetRobotInfoRaw(::grpc::ClientContext* context, const ::bfgateway::BfKvData& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfKvData>(channel_.get(), cq, rpcmethod_GetRobotInfo_, context, request);
 }
 
-::grpc::Status BfCtaService::Stub::SendOrder(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::bftrader::BfSendOrderResp* response) {
+::grpc::Status BfCtaService::Stub::SendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::bfgateway::BfSendOrderResp* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SendOrder_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>* BfCtaService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfSendOrderResp>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfSendOrderResp>* BfCtaService::Stub::AsyncSendOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfSendOrderResp>(channel_.get(), cq, rpcmethod_SendOrder_, context, request);
 }
 
-::grpc::Status BfCtaService::Stub::CancelOrder(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::bftrader::BfVoid* response) {
+::grpc::Status BfCtaService::Stub::CancelOrder(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::bfgateway::BfVoid* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_CancelOrder_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>* BfCtaService::Stub::AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bftrader::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bftrader::BfVoid>(channel_.get(), cq, rpcmethod_CancelOrder_, context, request);
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* BfCtaService::Stub::AsyncCancelOrderRaw(::grpc::ClientContext* context, const ::bfgateway::BfCancelOrderReq& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>(channel_.get(), cq, rpcmethod_CancelOrder_, context, request);
 }
 
 BfCtaService::Service::Service() {
@@ -91,74 +91,74 @@ BfCtaService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[0],
       ::grpc::RpcMethod::SERVER_STREAMING,
-      new ::grpc::ServerStreamingHandler< BfCtaService::Service, ::bftrader::BfConnectReq, ::google::protobuf::Any>(
+      new ::grpc::ServerStreamingHandler< BfCtaService::Service, ::bfgateway::BfConnectReq, ::google::protobuf::Any>(
           std::mem_fn(&BfCtaService::Service::Connect), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfVoid, ::bftrader::BfVoid>(
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bfgateway::BfVoid, ::bfgateway::BfVoid>(
           std::mem_fn(&BfCtaService::Service::Disconnect), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfPingData, ::bftrader::BfPingData>(
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bfgateway::BfPingData, ::bfgateway::BfPingData>(
           std::mem_fn(&BfCtaService::Service::Ping), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfKvData, ::bftrader::BfKvData>(
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bfgateway::BfKvData, ::bfgateway::BfKvData>(
           std::mem_fn(&BfCtaService::Service::GetRobotInfo), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfSendOrderReq, ::bftrader::BfSendOrderResp>(
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bfgateway::BfSendOrderReq, ::bfgateway::BfSendOrderResp>(
           std::mem_fn(&BfCtaService::Service::SendOrder), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfCtaService_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bftrader::BfCancelOrderReq, ::bftrader::BfVoid>(
+      new ::grpc::RpcMethodHandler< BfCtaService::Service, ::bfgateway::BfCancelOrderReq, ::bfgateway::BfVoid>(
           std::mem_fn(&BfCtaService::Service::CancelOrder), this)));
 }
 
 BfCtaService::Service::~Service() {
 }
 
-::grpc::Status BfCtaService::Service::Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) {
+::grpc::Status BfCtaService::Service::Connect(::grpc::ServerContext* context, const ::bfgateway::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) {
   (void) context;
   (void) request;
   (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfCtaService::Service::Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) {
+::grpc::Status BfCtaService::Service::Disconnect(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfCtaService::Service::Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) {
+::grpc::Status BfCtaService::Service::Ping(::grpc::ServerContext* context, const ::bfgateway::BfPingData* request, ::bfgateway::BfPingData* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfCtaService::Service::GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) {
+::grpc::Status BfCtaService::Service::GetRobotInfo(::grpc::ServerContext* context, const ::bfgateway::BfKvData* request, ::bfgateway::BfKvData* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfCtaService::Service::SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) {
+::grpc::Status BfCtaService::Service::SendOrder(::grpc::ServerContext* context, const ::bfgateway::BfSendOrderReq* request, ::bfgateway::BfSendOrderResp* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfCtaService::Service::CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) {
+::grpc::Status BfCtaService::Service::CancelOrder(::grpc::ServerContext* context, const ::bfgateway::BfCancelOrderReq* request, ::bfgateway::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -166,5 +166,5 @@ BfCtaService::Service::~Service() {
 }
 
 
-}  // namespace bftrader
+}  // namespace bfcta
 

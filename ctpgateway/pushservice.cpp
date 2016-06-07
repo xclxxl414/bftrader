@@ -8,7 +8,7 @@
 #include <atomic>
 #include <grpc++/grpc++.h>
 
-using namespace bftrader;
+using namespace bfgateway;
 
 class GatewayClient {
 public:

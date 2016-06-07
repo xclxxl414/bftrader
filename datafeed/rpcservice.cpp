@@ -20,7 +20,7 @@ public:
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
 
-    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -29,7 +29,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const ::bftrader::BfTickData* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const BfTickData* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -39,7 +39,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const ::bftrader::BfBarData* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const BfBarData* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -49,7 +49,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status InsertContract(::grpc::ServerContext* context, const ::bftrader::BfContractData* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status InsertContract(::grpc::ServerContext* context, const BfContractData* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -59,7 +59,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const ::bftrader::BfGetTickReq* request, ::grpc::ServerWriter< ::bftrader::BfTickData>* writer) override
+    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const BfGetTickReq* request, ::grpc::ServerWriter< BfTickData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -68,7 +68,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const ::bftrader::BfGetBarReq* request, ::grpc::ServerWriter< ::bftrader::BfBarData>* writer) override
+    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const BfGetBarReq* request, ::grpc::ServerWriter< BfBarData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -78,7 +78,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bftrader::BfContractData>* writer) override
+    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfDatafeedGetContractReq* request, ::grpc::ServerWriter< BfContractData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -89,7 +89,7 @@ public:
     }
 
     /*
-    virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const ::bftrader::BfDeleteTickReq* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const BfDeleteTickReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -99,7 +99,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const ::bftrader::BfDeleteBarReq* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const BfDeleteBarReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -109,7 +109,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const ::bftrader::BfDatafeedDeleteContractReq* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const BfDatafeedDeleteContractReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 

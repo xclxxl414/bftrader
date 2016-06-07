@@ -6,6 +6,8 @@
 #include "servicemgr.h"
 #include <grpc++/grpc++.h>
 
+using namespace bfcta;
+
 //
 // cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
 //
@@ -20,7 +22,7 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const ::bftrader::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
+    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         QString clientId = request->clientid().c_str();
@@ -50,13 +52,13 @@ public:
         BfDebug("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::bftrader::BfPingData* request, ::bftrader::BfPingData* response) override
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         response->set_message(request->message());
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const ::bftrader::BfVoid* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -67,12 +69,12 @@ public:
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const ::bftrader::BfKvData* request, ::bftrader::BfKvData* response) override
+    virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const BfKvData* request, BfKvData* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const ::bftrader::BfSendOrderReq* request, ::bftrader::BfSendOrderResp* response) override
+    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const BfSendOrderReq* request, BfSendOrderResp* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -89,7 +91,7 @@ public:
 
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const ::bftrader::BfCancelOrderReq* request, ::bftrader::BfVoid* response) override
+    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const BfCancelOrderReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 

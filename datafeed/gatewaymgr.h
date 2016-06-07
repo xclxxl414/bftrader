@@ -6,7 +6,8 @@
 #include "bfdatafeed.pb.h"
 #include "bfgateway.pb.h"
 
-using namespace bftrader;
+using namespace bfdatafeed;
+using namespace bfgateway;
 
 class GatewayMgr : public QObject {
     Q_OBJECT

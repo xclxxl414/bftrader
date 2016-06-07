@@ -19,16 +19,16 @@ from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfgateway.proto',
-  package='bftrader',
+  package='bfgateway',
   syntax='proto3',
-  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\x08\x62\x66trader\x1a\x19google/protobuf/any.proto\"\x08\n\x06\x42\x66Void\"\xe6\x02\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x12\n\nactionDate\x18\x03 \x01(\t\x12\x10\n\x08tickTime\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x15\n\rpreClosePrice\x18\x0c \x01(\x01\x12\x12\n\nupperLimit\x18\r \x01(\x01\x12\x12\n\nlowerLimit\x18\x0e \x01(\x01\x12\x11\n\tbidPrice1\x18\x0f \x01(\x01\x12\x11\n\taskPrice1\x18\x10 \x01(\x01\x12\x12\n\nbidVolume1\x18\x11 \x01(\x05\x12\x12\n\naskVolume1\x18\x12 \x01(\x05\"\xe6\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x11\n\tbfOrderId\x18\x04 \x01(\t\x12(\n\tdirection\x18\x05 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x06 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeDate\x18\t \x01(\t\x12\x11\n\ttradeTime\x18\n \x01(\t\"\xaa\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\x12(\n\tdirection\x18\x04 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x05 \x01(\x0e\x32\x12.bftrader.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12\"\n\x06status\x18\t \x01(\x0e\x32\x12.bftrader.BfStatus\x12\x12\n\ninsertDate\x18\n \x01(\t\x12\x12\n\ninsertTime\x18\x0b \x01(\t\x12\x12\n\ncancelTime\x18\x0c \x01(\t\"\xa1\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x12\n\nydPosition\x18\x07 \x01(\x05\"\xb1\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x14\n\x0c\x66rozenMargin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"?\n\x0b\x42\x66\x45rrorData\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\tmessageEx\x18\x03 \x01(\t\"*\n\tBfLogData\x12\x0c\n\x04when\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xe0\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12)\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x13.bftrader.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMarket\x18\n \x01(\x05\"p\n\x12\x42\x66NotificationData\x12(\n\x04type\x18\x01 \x01(\x0e\x32\x1a.bftrader.BfNoticationType\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x05\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x11\n\tmessageEx\x18\x04 \x01(\t\"\x1d\n\nBfPingData\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xc9\x01\n\x0e\x42\x66SendOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12(\n\tpriceType\x18\x05 \x01(\x0e\x32\x15.bftrader.BfPriceType\x12(\n\tdirection\x18\x06 \x01(\x0e\x32\x15.bftrader.BfDirection\x12\"\n\x06offset\x18\x07 \x01(\x0e\x32\x12.bftrader.BfOffset\"$\n\x0f\x42\x66SendOrderResp\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\"G\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\"\xa5\x01\n\x0c\x42\x66\x43onnectReq\x12\x10\n\x08\x63lientId\x18\x01 \x01(\t\x12\x10\n\x08intParam\x18\x02 \x01(\x05\x12\x10\n\x08strParam\x18\x03 \x01(\t\x12\x13\n\x0btickHandler\x18\x04 \x01(\x08\x12\x14\n\x0ctradeHandler\x18\x05 \x01(\x08\x12\x12\n\nlogHandler\x18\x06 \x01(\x08\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x65xchange\x18\x08 \x01(\t\"X\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05index\x18\x03 \x01(\x05\x12\x13\n\x0bsubscribled\x18\x04 \x01(\x08*`\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_LONG\x10\x01\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x02\x12\x11\n\rDIRECTION_NET\x10\x03*s\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_OPEN\x10\x01\x12\x10\n\x0cOFFSET_CLOSE\x10\x02\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x03\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x04*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*I\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x12\n\x0ePRODUCT_EQUITY\x10\x01\x12\x13\n\x0fPRODUCT_FUTURES\x10\x02*Y\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02*l\n\x10\x42\x66NoticationType\x12\x18\n\x14NOTIFICATION_UNKNOWN\x10\x00\x12\x1f\n\x1bNOTIFICATION_TRADEWILLBEGIN\x10\x01\x12\x1d\n\x19NOTIFICATION_GOTCONTRACTS\x10\x02\x32\xf0\x03\n\x10\x42\x66GatewayService\x12;\n\x07\x43onnect\x12\x16.bftrader.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x32\n\nDisconnect\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x45\n\x0bGetContract\x12\x1a.bftrader.BfGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x12\x42\n\tSendOrder\x12\x18.bftrader.BfSendOrderReq\x1a\x19.bftrader.BfSendOrderResp\"\x00\x12=\n\x0b\x43\x61ncelOrder\x12\x1a.bftrader.BfCancelOrderReq\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\x0cQueryAccount\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x12\x35\n\rQueryPosition\x12\x10.bftrader.BfVoid\x1a\x10.bftrader.BfVoid\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\tbfgateway\x1a\x19google/protobuf/any.proto\"\x08\n\x06\x42\x66Void\"\xe6\x02\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x12\n\nactionDate\x18\x03 \x01(\t\x12\x10\n\x08tickTime\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x15\n\rpreClosePrice\x18\x0c \x01(\x01\x12\x12\n\nupperLimit\x18\r \x01(\x01\x12\x12\n\nlowerLimit\x18\x0e \x01(\x01\x12\x11\n\tbidPrice1\x18\x0f \x01(\x01\x12\x11\n\taskPrice1\x18\x10 \x01(\x01\x12\x12\n\nbidVolume1\x18\x11 \x01(\x05\x12\x12\n\naskVolume1\x18\x12 \x01(\x05\"\xe8\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x11\n\tbfOrderId\x18\x04 \x01(\t\x12)\n\tdirection\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x06 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeDate\x18\t \x01(\t\x12\x11\n\ttradeTime\x18\n \x01(\t\"\xad\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\x12)\n\tdirection\x18\x04 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x05 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12#\n\x06status\x18\t \x01(\x0e\x32\x13.bfgateway.BfStatus\x12\x12\n\ninsertDate\x18\n \x01(\t\x12\x12\n\ninsertTime\x18\x0b \x01(\t\x12\x12\n\ncancelTime\x18\x0c \x01(\t\"\xa2\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12)\n\tdirection\x18\x03 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x12\n\nydPosition\x18\x07 \x01(\x05\"\xb1\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x14\n\x0c\x66rozenMargin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"?\n\x0b\x42\x66\x45rrorData\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\tmessageEx\x18\x03 \x01(\t\"*\n\tBfLogData\x12\x0c\n\x04when\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xe1\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12*\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x14.bfgateway.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMarket\x18\n \x01(\x05\"q\n\x12\x42\x66NotificationData\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.bfgateway.BfNoticationType\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x05\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x11\n\tmessageEx\x18\x04 \x01(\t\"\x1d\n\nBfPingData\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xcc\x01\n\x0e\x42\x66SendOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12)\n\tpriceType\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfPriceType\x12)\n\tdirection\x18\x06 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x07 \x01(\x0e\x32\x13.bfgateway.BfOffset\"$\n\x0f\x42\x66SendOrderResp\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\"G\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\"\xa5\x01\n\x0c\x42\x66\x43onnectReq\x12\x10\n\x08\x63lientId\x18\x01 \x01(\t\x12\x10\n\x08intParam\x18\x02 \x01(\x05\x12\x10\n\x08strParam\x18\x03 \x01(\t\x12\x13\n\x0btickHandler\x18\x04 \x01(\x08\x12\x14\n\x0ctradeHandler\x18\x05 \x01(\x08\x12\x12\n\nlogHandler\x18\x06 \x01(\x08\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x65xchange\x18\x08 \x01(\t\"X\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05index\x18\x03 \x01(\x05\x12\x13\n\x0bsubscribled\x18\x04 \x01(\x08*`\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_LONG\x10\x01\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x02\x12\x11\n\rDIRECTION_NET\x10\x03*s\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_OPEN\x10\x01\x12\x10\n\x0cOFFSET_CLOSE\x10\x02\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x03\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x04*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*I\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x12\n\x0ePRODUCT_EQUITY\x10\x01\x12\x13\n\x0fPRODUCT_FUTURES\x10\x02*Y\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02*l\n\x10\x42\x66NoticationType\x12\x18\n\x14NOTIFICATION_UNKNOWN\x10\x00\x12\x1f\n\x1bNOTIFICATION_TRADEWILLBEGIN\x10\x01\x12\x1d\n\x19NOTIFICATION_GOTCONTRACTS\x10\x02\x32\xff\x03\n\x10\x42\x66GatewayService\x12<\n\x07\x43onnect\x12\x17.bfgateway.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\nDisconnect\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12\x36\n\x04Ping\x12\x15.bfgateway.BfPingData\x1a\x15.bfgateway.BfPingData\"\x00\x12G\n\x0bGetContract\x12\x1b.bfgateway.BfGetContractReq\x1a\x19.bfgateway.BfContractData\"\x00\x12\x44\n\tSendOrder\x12\x19.bfgateway.BfSendOrderReq\x1a\x1a.bfgateway.BfSendOrderResp\"\x00\x12?\n\x0b\x43\x61ncelOrder\x12\x1b.bfgateway.BfCancelOrderReq\x1a\x11.bfgateway.BfVoid\"\x00\x12\x36\n\x0cQueryAccount\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12\x37\n\rQueryPosition\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x42)Z\'github.com/sunwangme/bfgo/api/bfgatewayb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _BFDIRECTION = _descriptor.EnumDescriptor(
   name='BfDirection',
-  full_name='bftrader.BfDirection',
+  full_name='bfgateway.BfDirection',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -51,15 +51,15 @@ _BFDIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2399,
-  serialized_end=2495,
+  serialized_start=2411,
+  serialized_end=2507,
 )
 _sym_db.RegisterEnumDescriptor(_BFDIRECTION)
 
 BfDirection = enum_type_wrapper.EnumTypeWrapper(_BFDIRECTION)
 _BFOFFSET = _descriptor.EnumDescriptor(
   name='BfOffset',
-  full_name='bftrader.BfOffset',
+  full_name='bfgateway.BfOffset',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -86,15 +86,15 @@ _BFOFFSET = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2497,
-  serialized_end=2612,
+  serialized_start=2509,
+  serialized_end=2624,
 )
 _sym_db.RegisterEnumDescriptor(_BFOFFSET)
 
 BfOffset = enum_type_wrapper.EnumTypeWrapper(_BFOFFSET)
 _BFSTATUS = _descriptor.EnumDescriptor(
   name='BfStatus',
-  full_name='bftrader.BfStatus',
+  full_name='bfgateway.BfStatus',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -121,15 +121,15 @@ _BFSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2614,
-  serialized_end=2733,
+  serialized_start=2626,
+  serialized_end=2745,
 )
 _sym_db.RegisterEnumDescriptor(_BFSTATUS)
 
 BfStatus = enum_type_wrapper.EnumTypeWrapper(_BFSTATUS)
 _BFPRODUCT = _descriptor.EnumDescriptor(
   name='BfProduct',
-  full_name='bftrader.BfProduct',
+  full_name='bfgateway.BfProduct',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -148,15 +148,15 @@ _BFPRODUCT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2735,
-  serialized_end=2808,
+  serialized_start=2747,
+  serialized_end=2820,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRODUCT)
 
 BfProduct = enum_type_wrapper.EnumTypeWrapper(_BFPRODUCT)
 _BFPRICETYPE = _descriptor.EnumDescriptor(
   name='BfPriceType',
-  full_name='bftrader.BfPriceType',
+  full_name='bfgateway.BfPriceType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -175,15 +175,15 @@ _BFPRICETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2810,
-  serialized_end=2899,
+  serialized_start=2822,
+  serialized_end=2911,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRICETYPE)
 
 BfPriceType = enum_type_wrapper.EnumTypeWrapper(_BFPRICETYPE)
 _BFNOTICATIONTYPE = _descriptor.EnumDescriptor(
   name='BfNoticationType',
-  full_name='bftrader.BfNoticationType',
+  full_name='bfgateway.BfNoticationType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -202,8 +202,8 @@ _BFNOTICATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2901,
-  serialized_end=3009,
+  serialized_start=2913,
+  serialized_end=3021,
 )
 _sym_db.RegisterEnumDescriptor(_BFNOTICATIONTYPE)
 
@@ -236,7 +236,7 @@ NOTIFICATION_GOTCONTRACTS = 2
 
 _BFVOID = _descriptor.Descriptor(
   name='BfVoid',
-  full_name='bftrader.BfVoid',
+  full_name='bfgateway.BfVoid',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -253,139 +253,139 @@ _BFVOID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=56,
-  serialized_end=64,
+  serialized_start=57,
+  serialized_end=65,
 )
 
 
 _BFTICKDATA = _descriptor.Descriptor(
   name='BfTickData',
-  full_name='bftrader.BfTickData',
+  full_name='bfgateway.BfTickData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfTickData.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfTickData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfTickData.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfTickData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='actionDate', full_name='bftrader.BfTickData.actionDate', index=2,
+      name='actionDate', full_name='bfgateway.BfTickData.actionDate', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tickTime', full_name='bftrader.BfTickData.tickTime', index=3,
+      name='tickTime', full_name='bfgateway.BfTickData.tickTime', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lastPrice', full_name='bftrader.BfTickData.lastPrice', index=4,
+      name='lastPrice', full_name='bfgateway.BfTickData.lastPrice', index=4,
       number=5, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='volume', full_name='bftrader.BfTickData.volume', index=5,
+      name='volume', full_name='bfgateway.BfTickData.volume', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='openInterest', full_name='bftrader.BfTickData.openInterest', index=6,
+      name='openInterest', full_name='bfgateway.BfTickData.openInterest', index=6,
       number=7, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lastVolume', full_name='bftrader.BfTickData.lastVolume', index=7,
+      name='lastVolume', full_name='bfgateway.BfTickData.lastVolume', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='openPrice', full_name='bftrader.BfTickData.openPrice', index=8,
+      name='openPrice', full_name='bfgateway.BfTickData.openPrice', index=8,
       number=9, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='highPrice', full_name='bftrader.BfTickData.highPrice', index=9,
+      name='highPrice', full_name='bfgateway.BfTickData.highPrice', index=9,
       number=10, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lowPrice', full_name='bftrader.BfTickData.lowPrice', index=10,
+      name='lowPrice', full_name='bfgateway.BfTickData.lowPrice', index=10,
       number=11, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='preClosePrice', full_name='bftrader.BfTickData.preClosePrice', index=11,
+      name='preClosePrice', full_name='bfgateway.BfTickData.preClosePrice', index=11,
       number=12, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='upperLimit', full_name='bftrader.BfTickData.upperLimit', index=12,
+      name='upperLimit', full_name='bfgateway.BfTickData.upperLimit', index=12,
       number=13, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lowerLimit', full_name='bftrader.BfTickData.lowerLimit', index=13,
+      name='lowerLimit', full_name='bfgateway.BfTickData.lowerLimit', index=13,
       number=14, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bidPrice1', full_name='bftrader.BfTickData.bidPrice1', index=14,
+      name='bidPrice1', full_name='bfgateway.BfTickData.bidPrice1', index=14,
       number=15, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='askPrice1', full_name='bftrader.BfTickData.askPrice1', index=15,
+      name='askPrice1', full_name='bfgateway.BfTickData.askPrice1', index=15,
       number=16, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bidVolume1', full_name='bftrader.BfTickData.bidVolume1', index=16,
+      name='bidVolume1', full_name='bfgateway.BfTickData.bidVolume1', index=16,
       number=17, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='askVolume1', full_name='bftrader.BfTickData.askVolume1', index=17,
+      name='askVolume1', full_name='bfgateway.BfTickData.askVolume1', index=17,
       number=18, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -403,83 +403,83 @@ _BFTICKDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=67,
-  serialized_end=425,
+  serialized_start=68,
+  serialized_end=426,
 )
 
 
 _BFTRADEDATA = _descriptor.Descriptor(
   name='BfTradeData',
-  full_name='bftrader.BfTradeData',
+  full_name='bfgateway.BfTradeData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfTradeData.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfTradeData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfTradeData.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfTradeData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradeId', full_name='bftrader.BfTradeData.tradeId', index=2,
+      name='tradeId', full_name='bfgateway.BfTradeData.tradeId', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bfOrderId', full_name='bftrader.BfTradeData.bfOrderId', index=3,
+      name='bfOrderId', full_name='bfgateway.BfTradeData.bfOrderId', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='bftrader.BfTradeData.direction', index=4,
+      name='direction', full_name='bfgateway.BfTradeData.direction', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='offset', full_name='bftrader.BfTradeData.offset', index=5,
+      name='offset', full_name='bfgateway.BfTradeData.offset', index=5,
       number=6, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='price', full_name='bftrader.BfTradeData.price', index=6,
+      name='price', full_name='bfgateway.BfTradeData.price', index=6,
       number=7, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='volume', full_name='bftrader.BfTradeData.volume', index=7,
+      name='volume', full_name='bfgateway.BfTradeData.volume', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradeDate', full_name='bftrader.BfTradeData.tradeDate', index=8,
+      name='tradeDate', full_name='bfgateway.BfTradeData.tradeDate', index=8,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradeTime', full_name='bftrader.BfTradeData.tradeTime', index=9,
+      name='tradeTime', full_name='bfgateway.BfTradeData.tradeTime', index=9,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -497,97 +497,97 @@ _BFTRADEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=428,
-  serialized_end=658,
+  serialized_start=429,
+  serialized_end=661,
 )
 
 
 _BFORDERDATA = _descriptor.Descriptor(
   name='BfOrderData',
-  full_name='bftrader.BfOrderData',
+  full_name='bfgateway.BfOrderData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfOrderData.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfOrderData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfOrderData.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfOrderData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bfOrderId', full_name='bftrader.BfOrderData.bfOrderId', index=2,
+      name='bfOrderId', full_name='bfgateway.BfOrderData.bfOrderId', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='bftrader.BfOrderData.direction', index=3,
+      name='direction', full_name='bfgateway.BfOrderData.direction', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='offset', full_name='bftrader.BfOrderData.offset', index=4,
+      name='offset', full_name='bfgateway.BfOrderData.offset', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='price', full_name='bftrader.BfOrderData.price', index=5,
+      name='price', full_name='bfgateway.BfOrderData.price', index=5,
       number=6, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='totalVolume', full_name='bftrader.BfOrderData.totalVolume', index=6,
+      name='totalVolume', full_name='bfgateway.BfOrderData.totalVolume', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradedVolume', full_name='bftrader.BfOrderData.tradedVolume', index=7,
+      name='tradedVolume', full_name='bfgateway.BfOrderData.tradedVolume', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='status', full_name='bftrader.BfOrderData.status', index=8,
+      name='status', full_name='bfgateway.BfOrderData.status', index=8,
       number=9, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='insertDate', full_name='bftrader.BfOrderData.insertDate', index=9,
+      name='insertDate', full_name='bfgateway.BfOrderData.insertDate', index=9,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='insertTime', full_name='bftrader.BfOrderData.insertTime', index=10,
+      name='insertTime', full_name='bfgateway.BfOrderData.insertTime', index=10,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cancelTime', full_name='bftrader.BfOrderData.cancelTime', index=11,
+      name='cancelTime', full_name='bfgateway.BfOrderData.cancelTime', index=11,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -605,62 +605,62 @@ _BFORDERDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=661,
-  serialized_end=959,
+  serialized_start=664,
+  serialized_end=965,
 )
 
 
 _BFPOSITIONDATA = _descriptor.Descriptor(
   name='BfPositionData',
-  full_name='bftrader.BfPositionData',
+  full_name='bfgateway.BfPositionData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfPositionData.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfPositionData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfPositionData.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfPositionData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='bftrader.BfPositionData.direction', index=2,
+      name='direction', full_name='bfgateway.BfPositionData.direction', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='position', full_name='bftrader.BfPositionData.position', index=3,
+      name='position', full_name='bfgateway.BfPositionData.position', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='frozen', full_name='bftrader.BfPositionData.frozen', index=4,
+      name='frozen', full_name='bfgateway.BfPositionData.frozen', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='price', full_name='bftrader.BfPositionData.price', index=5,
+      name='price', full_name='bfgateway.BfPositionData.price', index=5,
       number=6, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ydPosition', full_name='bftrader.BfPositionData.ydPosition', index=6,
+      name='ydPosition', full_name='bfgateway.BfPositionData.ydPosition', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -678,71 +678,71 @@ _BFPOSITIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=962,
-  serialized_end=1123,
+  serialized_start=968,
+  serialized_end=1130,
 )
 
 
 _BFACCOUNTDATA = _descriptor.Descriptor(
   name='BfAccountData',
-  full_name='bftrader.BfAccountData',
+  full_name='bfgateway.BfAccountData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='accountId', full_name='bftrader.BfAccountData.accountId', index=0,
+      name='accountId', full_name='bfgateway.BfAccountData.accountId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='preBalance', full_name='bftrader.BfAccountData.preBalance', index=1,
+      name='preBalance', full_name='bfgateway.BfAccountData.preBalance', index=1,
       number=2, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='balance', full_name='bftrader.BfAccountData.balance', index=2,
+      name='balance', full_name='bfgateway.BfAccountData.balance', index=2,
       number=3, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='available', full_name='bftrader.BfAccountData.available', index=3,
+      name='available', full_name='bfgateway.BfAccountData.available', index=3,
       number=4, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='commission', full_name='bftrader.BfAccountData.commission', index=4,
+      name='commission', full_name='bfgateway.BfAccountData.commission', index=4,
       number=5, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='frozenMargin', full_name='bftrader.BfAccountData.frozenMargin', index=5,
+      name='frozenMargin', full_name='bfgateway.BfAccountData.frozenMargin', index=5,
       number=6, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='closeProfit', full_name='bftrader.BfAccountData.closeProfit', index=6,
+      name='closeProfit', full_name='bfgateway.BfAccountData.closeProfit', index=6,
       number=7, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='positionProfit', full_name='bftrader.BfAccountData.positionProfit', index=7,
+      name='positionProfit', full_name='bfgateway.BfAccountData.positionProfit', index=7,
       number=8, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -758,34 +758,34 @@ _BFACCOUNTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1126,
-  serialized_end=1303,
+  serialized_start=1133,
+  serialized_end=1310,
 )
 
 
 _BFERRORDATA = _descriptor.Descriptor(
   name='BfErrorData',
-  full_name='bftrader.BfErrorData',
+  full_name='bfgateway.BfErrorData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='code', full_name='bftrader.BfErrorData.code', index=0,
+      name='code', full_name='bfgateway.BfErrorData.code', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message', full_name='bftrader.BfErrorData.message', index=1,
+      name='message', full_name='bfgateway.BfErrorData.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='messageEx', full_name='bftrader.BfErrorData.messageEx', index=2,
+      name='messageEx', full_name='bfgateway.BfErrorData.messageEx', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -803,27 +803,27 @@ _BFERRORDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1305,
-  serialized_end=1368,
+  serialized_start=1312,
+  serialized_end=1375,
 )
 
 
 _BFLOGDATA = _descriptor.Descriptor(
   name='BfLogData',
-  full_name='bftrader.BfLogData',
+  full_name='bfgateway.BfLogData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='when', full_name='bftrader.BfLogData.when', index=0,
+      name='when', full_name='bfgateway.BfLogData.when', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message', full_name='bftrader.BfLogData.message', index=1,
+      name='message', full_name='bfgateway.BfLogData.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -841,83 +841,83 @@ _BFLOGDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1370,
-  serialized_end=1412,
+  serialized_start=1377,
+  serialized_end=1419,
 )
 
 
 _BFCONTRACTDATA = _descriptor.Descriptor(
   name='BfContractData',
-  full_name='bftrader.BfContractData',
+  full_name='bfgateway.BfContractData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfContractData.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfContractData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfContractData.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfContractData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='name', full_name='bftrader.BfContractData.name', index=2,
+      name='name', full_name='bfgateway.BfContractData.name', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='productClass', full_name='bftrader.BfContractData.productClass', index=3,
+      name='productClass', full_name='bfgateway.BfContractData.productClass', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='volumeMultiple', full_name='bftrader.BfContractData.volumeMultiple', index=4,
+      name='volumeMultiple', full_name='bfgateway.BfContractData.volumeMultiple', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='priceTick', full_name='bftrader.BfContractData.priceTick', index=5,
+      name='priceTick', full_name='bfgateway.BfContractData.priceTick', index=5,
       number=6, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='maxLimit', full_name='bftrader.BfContractData.maxLimit', index=6,
+      name='maxLimit', full_name='bfgateway.BfContractData.maxLimit', index=6,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='minLimit', full_name='bftrader.BfContractData.minLimit', index=7,
+      name='minLimit', full_name='bfgateway.BfContractData.minLimit', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='maxMarket', full_name='bftrader.BfContractData.maxMarket', index=8,
+      name='maxMarket', full_name='bfgateway.BfContractData.maxMarket', index=8,
       number=9, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='minMarket', full_name='bftrader.BfContractData.minMarket', index=9,
+      name='minMarket', full_name='bfgateway.BfContractData.minMarket', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -935,41 +935,41 @@ _BFCONTRACTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1415,
-  serialized_end=1639,
+  serialized_start=1422,
+  serialized_end=1647,
 )
 
 
 _BFNOTIFICATIONDATA = _descriptor.Descriptor(
   name='BfNotificationData',
-  full_name='bftrader.BfNotificationData',
+  full_name='bfgateway.BfNotificationData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='bftrader.BfNotificationData.type', index=0,
+      name='type', full_name='bfgateway.BfNotificationData.type', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='code', full_name='bftrader.BfNotificationData.code', index=1,
+      name='code', full_name='bfgateway.BfNotificationData.code', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message', full_name='bftrader.BfNotificationData.message', index=2,
+      name='message', full_name='bfgateway.BfNotificationData.message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='messageEx', full_name='bftrader.BfNotificationData.messageEx', index=3,
+      name='messageEx', full_name='bfgateway.BfNotificationData.messageEx', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -987,20 +987,20 @@ _BFNOTIFICATIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1641,
-  serialized_end=1753,
+  serialized_start=1649,
+  serialized_end=1762,
 )
 
 
 _BFPINGDATA = _descriptor.Descriptor(
   name='BfPingData',
-  full_name='bftrader.BfPingData',
+  full_name='bfgateway.BfPingData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='bftrader.BfPingData.message', index=0,
+      name='message', full_name='bfgateway.BfPingData.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1018,27 +1018,27 @@ _BFPINGDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1755,
-  serialized_end=1784,
+  serialized_start=1764,
+  serialized_end=1793,
 )
 
 
 _BFKVDATA = _descriptor.Descriptor(
   name='BfKvData',
-  full_name='bftrader.BfKvData',
+  full_name='bfgateway.BfKvData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='bftrader.BfKvData.key', index=0,
+      name='key', full_name='bfgateway.BfKvData.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='value', full_name='bftrader.BfKvData.value', index=1,
+      name='value', full_name='bfgateway.BfKvData.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1056,62 +1056,62 @@ _BFKVDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1786,
-  serialized_end=1824,
+  serialized_start=1795,
+  serialized_end=1833,
 )
 
 
 _BFSENDORDERREQ = _descriptor.Descriptor(
   name='BfSendOrderReq',
-  full_name='bftrader.BfSendOrderReq',
+  full_name='bfgateway.BfSendOrderReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfSendOrderReq.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfSendOrderReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfSendOrderReq.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfSendOrderReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='price', full_name='bftrader.BfSendOrderReq.price', index=2,
+      name='price', full_name='bfgateway.BfSendOrderReq.price', index=2,
       number=3, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='volume', full_name='bftrader.BfSendOrderReq.volume', index=3,
+      name='volume', full_name='bfgateway.BfSendOrderReq.volume', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='priceType', full_name='bftrader.BfSendOrderReq.priceType', index=4,
+      name='priceType', full_name='bfgateway.BfSendOrderReq.priceType', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='bftrader.BfSendOrderReq.direction', index=5,
+      name='direction', full_name='bfgateway.BfSendOrderReq.direction', index=5,
       number=6, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='offset', full_name='bftrader.BfSendOrderReq.offset', index=6,
+      name='offset', full_name='bfgateway.BfSendOrderReq.offset', index=6,
       number=7, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -1129,20 +1129,20 @@ _BFSENDORDERREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1827,
-  serialized_end=2028,
+  serialized_start=1836,
+  serialized_end=2040,
 )
 
 
 _BFSENDORDERRESP = _descriptor.Descriptor(
   name='BfSendOrderResp',
-  full_name='bftrader.BfSendOrderResp',
+  full_name='bfgateway.BfSendOrderResp',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='bfOrderId', full_name='bftrader.BfSendOrderResp.bfOrderId', index=0,
+      name='bfOrderId', full_name='bfgateway.BfSendOrderResp.bfOrderId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1160,34 +1160,34 @@ _BFSENDORDERRESP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2030,
-  serialized_end=2066,
+  serialized_start=2042,
+  serialized_end=2078,
 )
 
 
 _BFCANCELORDERREQ = _descriptor.Descriptor(
   name='BfCancelOrderReq',
-  full_name='bftrader.BfCancelOrderReq',
+  full_name='bfgateway.BfCancelOrderReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfCancelOrderReq.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfCancelOrderReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfCancelOrderReq.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfCancelOrderReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='bfOrderId', full_name='bftrader.BfCancelOrderReq.bfOrderId', index=2,
+      name='bfOrderId', full_name='bfgateway.BfCancelOrderReq.bfOrderId', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1205,69 +1205,69 @@ _BFCANCELORDERREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2068,
-  serialized_end=2139,
+  serialized_start=2080,
+  serialized_end=2151,
 )
 
 
 _BFCONNECTREQ = _descriptor.Descriptor(
   name='BfConnectReq',
-  full_name='bftrader.BfConnectReq',
+  full_name='bfgateway.BfConnectReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='clientId', full_name='bftrader.BfConnectReq.clientId', index=0,
+      name='clientId', full_name='bfgateway.BfConnectReq.clientId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='intParam', full_name='bftrader.BfConnectReq.intParam', index=1,
+      name='intParam', full_name='bfgateway.BfConnectReq.intParam', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='strParam', full_name='bftrader.BfConnectReq.strParam', index=2,
+      name='strParam', full_name='bfgateway.BfConnectReq.strParam', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tickHandler', full_name='bftrader.BfConnectReq.tickHandler', index=3,
+      name='tickHandler', full_name='bfgateway.BfConnectReq.tickHandler', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradeHandler', full_name='bftrader.BfConnectReq.tradeHandler', index=4,
+      name='tradeHandler', full_name='bfgateway.BfConnectReq.tradeHandler', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='logHandler', full_name='bftrader.BfConnectReq.logHandler', index=5,
+      name='logHandler', full_name='bfgateway.BfConnectReq.logHandler', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfConnectReq.symbol', index=6,
+      name='symbol', full_name='bfgateway.BfConnectReq.symbol', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfConnectReq.exchange', index=7,
+      name='exchange', full_name='bfgateway.BfConnectReq.exchange', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1285,41 +1285,41 @@ _BFCONNECTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2142,
-  serialized_end=2307,
+  serialized_start=2154,
+  serialized_end=2319,
 )
 
 
 _BFGETCONTRACTREQ = _descriptor.Descriptor(
   name='BfGetContractReq',
-  full_name='bftrader.BfGetContractReq',
+  full_name='bfgateway.BfGetContractReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfGetContractReq.symbol', index=0,
+      name='symbol', full_name='bfgateway.BfGetContractReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfGetContractReq.exchange', index=1,
+      name='exchange', full_name='bfgateway.BfGetContractReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='index', full_name='bftrader.BfGetContractReq.index', index=2,
+      name='index', full_name='bfgateway.BfGetContractReq.index', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='subscribled', full_name='bftrader.BfGetContractReq.subscribled', index=3,
+      name='subscribled', full_name='bfgateway.BfGetContractReq.subscribled', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -1337,8 +1337,8 @@ _BFGETCONTRACTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2309,
-  serialized_end=2397,
+  serialized_start=2321,
+  serialized_end=2409,
 )
 
 _BFTRADEDATA.fields_by_name['direction'].enum_type = _BFDIRECTION
@@ -1379,123 +1379,125 @@ DESCRIPTOR.enum_types_by_name['BfNoticationType'] = _BFNOTICATIONTYPE
 BfVoid = _reflection.GeneratedProtocolMessageType('BfVoid', (_message.Message,), dict(
   DESCRIPTOR = _BFVOID,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfVoid)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfVoid)
   ))
 _sym_db.RegisterMessage(BfVoid)
 
 BfTickData = _reflection.GeneratedProtocolMessageType('BfTickData', (_message.Message,), dict(
   DESCRIPTOR = _BFTICKDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfTickData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfTickData)
   ))
 _sym_db.RegisterMessage(BfTickData)
 
 BfTradeData = _reflection.GeneratedProtocolMessageType('BfTradeData', (_message.Message,), dict(
   DESCRIPTOR = _BFTRADEDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfTradeData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfTradeData)
   ))
 _sym_db.RegisterMessage(BfTradeData)
 
 BfOrderData = _reflection.GeneratedProtocolMessageType('BfOrderData', (_message.Message,), dict(
   DESCRIPTOR = _BFORDERDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfOrderData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfOrderData)
   ))
 _sym_db.RegisterMessage(BfOrderData)
 
 BfPositionData = _reflection.GeneratedProtocolMessageType('BfPositionData', (_message.Message,), dict(
   DESCRIPTOR = _BFPOSITIONDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfPositionData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfPositionData)
   ))
 _sym_db.RegisterMessage(BfPositionData)
 
 BfAccountData = _reflection.GeneratedProtocolMessageType('BfAccountData', (_message.Message,), dict(
   DESCRIPTOR = _BFACCOUNTDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfAccountData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfAccountData)
   ))
 _sym_db.RegisterMessage(BfAccountData)
 
 BfErrorData = _reflection.GeneratedProtocolMessageType('BfErrorData', (_message.Message,), dict(
   DESCRIPTOR = _BFERRORDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfErrorData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfErrorData)
   ))
 _sym_db.RegisterMessage(BfErrorData)
 
 BfLogData = _reflection.GeneratedProtocolMessageType('BfLogData', (_message.Message,), dict(
   DESCRIPTOR = _BFLOGDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfLogData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfLogData)
   ))
 _sym_db.RegisterMessage(BfLogData)
 
 BfContractData = _reflection.GeneratedProtocolMessageType('BfContractData', (_message.Message,), dict(
   DESCRIPTOR = _BFCONTRACTDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfContractData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfContractData)
   ))
 _sym_db.RegisterMessage(BfContractData)
 
 BfNotificationData = _reflection.GeneratedProtocolMessageType('BfNotificationData', (_message.Message,), dict(
   DESCRIPTOR = _BFNOTIFICATIONDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfNotificationData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfNotificationData)
   ))
 _sym_db.RegisterMessage(BfNotificationData)
 
 BfPingData = _reflection.GeneratedProtocolMessageType('BfPingData', (_message.Message,), dict(
   DESCRIPTOR = _BFPINGDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfPingData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfPingData)
   ))
 _sym_db.RegisterMessage(BfPingData)
 
 BfKvData = _reflection.GeneratedProtocolMessageType('BfKvData', (_message.Message,), dict(
   DESCRIPTOR = _BFKVDATA,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfKvData)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfKvData)
   ))
 _sym_db.RegisterMessage(BfKvData)
 
 BfSendOrderReq = _reflection.GeneratedProtocolMessageType('BfSendOrderReq', (_message.Message,), dict(
   DESCRIPTOR = _BFSENDORDERREQ,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfSendOrderReq)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfSendOrderReq)
   ))
 _sym_db.RegisterMessage(BfSendOrderReq)
 
 BfSendOrderResp = _reflection.GeneratedProtocolMessageType('BfSendOrderResp', (_message.Message,), dict(
   DESCRIPTOR = _BFSENDORDERRESP,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfSendOrderResp)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfSendOrderResp)
   ))
 _sym_db.RegisterMessage(BfSendOrderResp)
 
 BfCancelOrderReq = _reflection.GeneratedProtocolMessageType('BfCancelOrderReq', (_message.Message,), dict(
   DESCRIPTOR = _BFCANCELORDERREQ,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfCancelOrderReq)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfCancelOrderReq)
   ))
 _sym_db.RegisterMessage(BfCancelOrderReq)
 
 BfConnectReq = _reflection.GeneratedProtocolMessageType('BfConnectReq', (_message.Message,), dict(
   DESCRIPTOR = _BFCONNECTREQ,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfConnectReq)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfConnectReq)
   ))
 _sym_db.RegisterMessage(BfConnectReq)
 
 BfGetContractReq = _reflection.GeneratedProtocolMessageType('BfGetContractReq', (_message.Message,), dict(
   DESCRIPTOR = _BFGETCONTRACTREQ,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfGetContractReq)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfGetContractReq)
   ))
 _sym_db.RegisterMessage(BfGetContractReq)
 
 
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('Z\'github.com/sunwangme/bfgo/api/bfgateway'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality
@@ -1582,34 +1584,34 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   import bfgateway_pb2
   import bfgateway_pb2
   request_deserializers = {
-    ('bftrader.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.FromString,
-    ('bftrader.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.FromString,
-    ('bftrader.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.FromString,
-    ('bftrader.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
-    ('bftrader.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.FromString,
+    ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.FromString,
+    ('bfgateway.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.FromString,
+    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.FromString,
+    ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.FromString,
   }
   response_serializers = {
-    ('bftrader.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.SerializeToString,
-    ('bftrader.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
-    ('bftrader.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.SerializeToString,
+    ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.SerializeToString,
   }
   method_implementations = {
-    ('bftrader.BfGatewayService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
-    ('bftrader.BfGatewayService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
-    ('bftrader.BfGatewayService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
-    ('bftrader.BfGatewayService', 'GetContract'): face_utilities.unary_unary_inline(servicer.GetContract),
-    ('bftrader.BfGatewayService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
-    ('bftrader.BfGatewayService', 'QueryAccount'): face_utilities.unary_unary_inline(servicer.QueryAccount),
-    ('bftrader.BfGatewayService', 'QueryPosition'): face_utilities.unary_unary_inline(servicer.QueryPosition),
-    ('bftrader.BfGatewayService', 'SendOrder'): face_utilities.unary_unary_inline(servicer.SendOrder),
+    ('bfgateway.BfGatewayService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
+    ('bfgateway.BfGatewayService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
+    ('bfgateway.BfGatewayService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
+    ('bfgateway.BfGatewayService', 'GetContract'): face_utilities.unary_unary_inline(servicer.GetContract),
+    ('bfgateway.BfGatewayService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
+    ('bfgateway.BfGatewayService', 'QueryAccount'): face_utilities.unary_unary_inline(servicer.QueryAccount),
+    ('bfgateway.BfGatewayService', 'QueryPosition'): face_utilities.unary_unary_inline(servicer.QueryPosition),
+    ('bfgateway.BfGatewayService', 'SendOrder'): face_utilities.unary_unary_inline(servicer.SendOrder),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -1632,24 +1634,24 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   import bfgateway_pb2
   import bfgateway_pb2
   request_serializers = {
-    ('bftrader.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.SerializeToString,
-    ('bftrader.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.SerializeToString,
-    ('bftrader.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.SerializeToString,
-    ('bftrader.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
-    ('bftrader.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.SerializeToString,
+    ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.SerializeToString,
+    ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderReq.SerializeToString,
   }
   response_deserializers = {
-    ('bftrader.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.FromString,
-    ('bftrader.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
-    ('bftrader.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.FromString,
+    ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
+    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.FromString,
+    ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'QueryPosition'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'SendOrder'): bfgateway_pb2.BfSendOrderResp.FromString,
   }
   cardinalities = {
     'CancelOrder': cardinality.Cardinality.UNARY_UNARY,
@@ -1662,5 +1664,5 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
     'SendOrder': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'bftrader.BfGatewayService', cardinalities, options=stub_options)
+  return beta_implementations.dynamic_stub(channel, 'bfgateway.BfGatewayService', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)

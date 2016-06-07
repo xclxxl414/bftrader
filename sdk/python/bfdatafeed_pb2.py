@@ -19,16 +19,16 @@ import bfgateway_pb2 as bfgateway__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfdatafeed.proto',
-  package='bftrader',
+  package='bfdatafeed',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\"\xff\x01\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x12\n\nactionDate\x18\x04 \x01(\t\x12\x0f\n\x07\x62\x61rTime\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x12\n\nclosePrice\x18\x0c \x01(\x01\"_\n\x0c\x42\x66GetTickReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x85\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12%\n\x06period\x18\x03 \x01(\x0e\x32\x15.bftrader.BfBarPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\"<\n\x18\x42\x66\x44\x61tafeedGetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t*\x91\x02\n\x0b\x42\x66\x42\x61rPeriod\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\x0e\n\nPERIOD_S01\x10\x01\x12\x0e\n\nPERIOD_S03\x10\x02\x12\x0e\n\nPERIOD_S05\x10\x03\x12\x0e\n\nPERIOD_S10\x10\x04\x12\x0e\n\nPERIOD_S15\x10\x05\x12\x0e\n\nPERIOD_S30\x10\x06\x12\x0e\n\nPERIOD_M01\x10\x07\x12\x0e\n\nPERIOD_M03\x10\x08\x12\x0e\n\nPERIOD_M05\x10\t\x12\x0e\n\nPERIOD_M10\x10\n\x12\x0e\n\nPERIOD_M15\x10\x0b\x12\x0e\n\nPERIOD_M30\x10\x0c\x12\x0e\n\nPERIOD_H01\x10\r\x12\x0e\n\nPERIOD_D01\x10\x0e\x12\x0e\n\nPERIOD_W01\x10\x0f\x32\xbf\x03\n\x11\x42\x66\x44\x61tafeedService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12\x36\n\nInsertTick\x12\x14.bftrader.BfTickData\x1a\x10.bftrader.BfVoid\"\x00\x12\x34\n\tInsertBar\x12\x13.bftrader.BfBarData\x1a\x10.bftrader.BfVoid\"\x00\x12>\n\x0eInsertContract\x12\x18.bftrader.BfContractData\x1a\x10.bftrader.BfVoid\"\x00\x12;\n\x07GetTick\x12\x16.bftrader.BfGetTickReq\x1a\x14.bftrader.BfTickData\"\x00\x30\x01\x12\x38\n\x06GetBar\x12\x15.bftrader.BfGetBarReq\x1a\x13.bftrader.BfBarData\"\x00\x30\x01\x12O\n\x0bGetContract\x12\".bftrader.BfDatafeedGetContractReq\x1a\x18.bftrader.BfContractData\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x62\x66\x64\x61tafeed.proto\x12\nbfdatafeed\x1a\x0f\x62\x66gateway.proto\"\x81\x02\n\tBfBarData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\'\n\x06period\x18\x03 \x01(\x0e\x32\x17.bfdatafeed.BfBarPeriod\x12\x12\n\nactionDate\x18\x04 \x01(\t\x12\x0f\n\x07\x62\x61rTime\x18\x05 \x01(\t\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x12\n\nclosePrice\x18\x0c \x01(\x01\"_\n\x0c\x42\x66GetTickReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0e\n\x06toDate\x18\x03 \x01(\t\x12\x0e\n\x06toTime\x18\x04 \x01(\t\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\"\x87\x01\n\x0b\x42\x66GetBarReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\'\n\x06period\x18\x03 \x01(\x0e\x32\x17.bfdatafeed.BfBarPeriod\x12\x0e\n\x06toDate\x18\x04 \x01(\t\x12\x0e\n\x06toTime\x18\x05 \x01(\t\x12\r\n\x05\x63ount\x18\x06 \x01(\x05\"<\n\x18\x42\x66\x44\x61tafeedGetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t*\x91\x02\n\x0b\x42\x66\x42\x61rPeriod\x12\x12\n\x0ePERIOD_UNKNOWN\x10\x00\x12\x0e\n\nPERIOD_S01\x10\x01\x12\x0e\n\nPERIOD_S03\x10\x02\x12\x0e\n\nPERIOD_S05\x10\x03\x12\x0e\n\nPERIOD_S10\x10\x04\x12\x0e\n\nPERIOD_S15\x10\x05\x12\x0e\n\nPERIOD_S30\x10\x06\x12\x0e\n\nPERIOD_M01\x10\x07\x12\x0e\n\nPERIOD_M03\x10\x08\x12\x0e\n\nPERIOD_M05\x10\t\x12\x0e\n\nPERIOD_M10\x10\n\x12\x0e\n\nPERIOD_M15\x10\x0b\x12\x0e\n\nPERIOD_M30\x10\x0c\x12\x0e\n\nPERIOD_H01\x10\r\x12\x0e\n\nPERIOD_D01\x10\x0e\x12\x0e\n\nPERIOD_W01\x10\x0f\x32\xd2\x03\n\x11\x42\x66\x44\x61tafeedService\x12\x36\n\x04Ping\x12\x15.bfgateway.BfPingData\x1a\x15.bfgateway.BfPingData\"\x00\x12\x38\n\nInsertTick\x12\x15.bfgateway.BfTickData\x1a\x11.bfgateway.BfVoid\"\x00\x12\x37\n\tInsertBar\x12\x15.bfdatafeed.BfBarData\x1a\x11.bfgateway.BfVoid\"\x00\x12@\n\x0eInsertContract\x12\x19.bfgateway.BfContractData\x1a\x11.bfgateway.BfVoid\"\x00\x12>\n\x07GetTick\x12\x18.bfdatafeed.BfGetTickReq\x1a\x15.bfgateway.BfTickData\"\x00\x30\x01\x12<\n\x06GetBar\x12\x17.bfdatafeed.BfGetBarReq\x1a\x15.bfdatafeed.BfBarData\"\x00\x30\x01\x12R\n\x0bGetContract\x12$.bfdatafeed.BfDatafeedGetContractReq\x1a\x19.bfgateway.BfContractData\"\x00\x30\x01\x42*Z(github.com/sunwangme/bfgo/api/bfdatafeedb\x06proto3')
   ,
   dependencies=[bfgateway__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _BFBARPERIOD = _descriptor.EnumDescriptor(
   name='BfBarPeriod',
-  full_name='bftrader.BfBarPeriod',
+  full_name='bfdatafeed.BfBarPeriod',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -99,8 +99,8 @@ _BFBARPERIOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=601,
-  serialized_end=874,
+  serialized_start=607,
+  serialized_end=880,
 )
 _sym_db.RegisterEnumDescriptor(_BFBARPERIOD)
 
@@ -126,92 +126,92 @@ PERIOD_W01 = 15
 
 _BFBARDATA = _descriptor.Descriptor(
   name='BfBarData',
-  full_name='bftrader.BfBarData',
+  full_name='bfdatafeed.BfBarData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfBarData.symbol', index=0,
+      name='symbol', full_name='bfdatafeed.BfBarData.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfBarData.exchange', index=1,
+      name='exchange', full_name='bfdatafeed.BfBarData.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='period', full_name='bftrader.BfBarData.period', index=2,
+      name='period', full_name='bfdatafeed.BfBarData.period', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='actionDate', full_name='bftrader.BfBarData.actionDate', index=3,
+      name='actionDate', full_name='bfdatafeed.BfBarData.actionDate', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='barTime', full_name='bftrader.BfBarData.barTime', index=4,
+      name='barTime', full_name='bfdatafeed.BfBarData.barTime', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='volume', full_name='bftrader.BfBarData.volume', index=5,
+      name='volume', full_name='bfdatafeed.BfBarData.volume', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='openInterest', full_name='bftrader.BfBarData.openInterest', index=6,
+      name='openInterest', full_name='bfdatafeed.BfBarData.openInterest', index=6,
       number=7, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lastVolume', full_name='bftrader.BfBarData.lastVolume', index=7,
+      name='lastVolume', full_name='bfdatafeed.BfBarData.lastVolume', index=7,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='openPrice', full_name='bftrader.BfBarData.openPrice', index=8,
+      name='openPrice', full_name='bfdatafeed.BfBarData.openPrice', index=8,
       number=9, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='highPrice', full_name='bftrader.BfBarData.highPrice', index=9,
+      name='highPrice', full_name='bfdatafeed.BfBarData.highPrice', index=9,
       number=10, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='lowPrice', full_name='bftrader.BfBarData.lowPrice', index=10,
+      name='lowPrice', full_name='bfdatafeed.BfBarData.lowPrice', index=10,
       number=11, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='closePrice', full_name='bftrader.BfBarData.closePrice', index=11,
+      name='closePrice', full_name='bfdatafeed.BfBarData.closePrice', index=11,
       number=12, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -227,48 +227,48 @@ _BFBARDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=48,
-  serialized_end=303,
+  serialized_start=50,
+  serialized_end=307,
 )
 
 
 _BFGETTICKREQ = _descriptor.Descriptor(
   name='BfGetTickReq',
-  full_name='bftrader.BfGetTickReq',
+  full_name='bfdatafeed.BfGetTickReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfGetTickReq.symbol', index=0,
+      name='symbol', full_name='bfdatafeed.BfGetTickReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfGetTickReq.exchange', index=1,
+      name='exchange', full_name='bfdatafeed.BfGetTickReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='toDate', full_name='bftrader.BfGetTickReq.toDate', index=2,
+      name='toDate', full_name='bfdatafeed.BfGetTickReq.toDate', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='toTime', full_name='bftrader.BfGetTickReq.toTime', index=3,
+      name='toTime', full_name='bfdatafeed.BfGetTickReq.toTime', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='count', full_name='bftrader.BfGetTickReq.count', index=4,
+      name='count', full_name='bfdatafeed.BfGetTickReq.count', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -286,55 +286,55 @@ _BFGETTICKREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=305,
-  serialized_end=400,
+  serialized_start=309,
+  serialized_end=404,
 )
 
 
 _BFGETBARREQ = _descriptor.Descriptor(
   name='BfGetBarReq',
-  full_name='bftrader.BfGetBarReq',
+  full_name='bfdatafeed.BfGetBarReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfGetBarReq.symbol', index=0,
+      name='symbol', full_name='bfdatafeed.BfGetBarReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfGetBarReq.exchange', index=1,
+      name='exchange', full_name='bfdatafeed.BfGetBarReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='period', full_name='bftrader.BfGetBarReq.period', index=2,
+      name='period', full_name='bfdatafeed.BfGetBarReq.period', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='toDate', full_name='bftrader.BfGetBarReq.toDate', index=3,
+      name='toDate', full_name='bfdatafeed.BfGetBarReq.toDate', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='toTime', full_name='bftrader.BfGetBarReq.toTime', index=4,
+      name='toTime', full_name='bfdatafeed.BfGetBarReq.toTime', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='count', full_name='bftrader.BfGetBarReq.count', index=5,
+      name='count', full_name='bfdatafeed.BfGetBarReq.count', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -352,27 +352,27 @@ _BFGETBARREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=403,
-  serialized_end=536,
+  serialized_start=407,
+  serialized_end=542,
 )
 
 
 _BFDATAFEEDGETCONTRACTREQ = _descriptor.Descriptor(
   name='BfDatafeedGetContractReq',
-  full_name='bftrader.BfDatafeedGetContractReq',
+  full_name='bfdatafeed.BfDatafeedGetContractReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='bftrader.BfDatafeedGetContractReq.symbol', index=0,
+      name='symbol', full_name='bfdatafeed.BfDatafeedGetContractReq.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bftrader.BfDatafeedGetContractReq.exchange', index=1,
+      name='exchange', full_name='bfdatafeed.BfDatafeedGetContractReq.exchange', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -390,8 +390,8 @@ _BFDATAFEEDGETCONTRACTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=538,
-  serialized_end=598,
+  serialized_start=544,
+  serialized_end=604,
 )
 
 _BFBARDATA.fields_by_name['period'].enum_type = _BFBARPERIOD
@@ -405,32 +405,34 @@ DESCRIPTOR.enum_types_by_name['BfBarPeriod'] = _BFBARPERIOD
 BfBarData = _reflection.GeneratedProtocolMessageType('BfBarData', (_message.Message,), dict(
   DESCRIPTOR = _BFBARDATA,
   __module__ = 'bfdatafeed_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfBarData)
+  # @@protoc_insertion_point(class_scope:bfdatafeed.BfBarData)
   ))
 _sym_db.RegisterMessage(BfBarData)
 
 BfGetTickReq = _reflection.GeneratedProtocolMessageType('BfGetTickReq', (_message.Message,), dict(
   DESCRIPTOR = _BFGETTICKREQ,
   __module__ = 'bfdatafeed_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfGetTickReq)
+  # @@protoc_insertion_point(class_scope:bfdatafeed.BfGetTickReq)
   ))
 _sym_db.RegisterMessage(BfGetTickReq)
 
 BfGetBarReq = _reflection.GeneratedProtocolMessageType('BfGetBarReq', (_message.Message,), dict(
   DESCRIPTOR = _BFGETBARREQ,
   __module__ = 'bfdatafeed_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfGetBarReq)
+  # @@protoc_insertion_point(class_scope:bfdatafeed.BfGetBarReq)
   ))
 _sym_db.RegisterMessage(BfGetBarReq)
 
 BfDatafeedGetContractReq = _reflection.GeneratedProtocolMessageType('BfDatafeedGetContractReq', (_message.Message,), dict(
   DESCRIPTOR = _BFDATAFEEDGETCONTRACTREQ,
   __module__ = 'bfdatafeed_pb2'
-  # @@protoc_insertion_point(class_scope:bftrader.BfDatafeedGetContractReq)
+  # @@protoc_insertion_point(class_scope:bfdatafeed.BfDatafeedGetContractReq)
   ))
 _sym_db.RegisterMessage(BfDatafeedGetContractReq)
 
 
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('Z(github.com/sunwangme/bfgo/api/bfdatafeed'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality
@@ -506,31 +508,31 @@ def beta_create_BfDatafeedService_server(servicer, pool=None, pool_size=None, de
   import bfdatafeed_pb2
   import bfgateway_pb2
   request_deserializers = {
-    ('bftrader.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfGetBarReq.FromString,
-    ('bftrader.BfDatafeedService', 'GetContract'): bfdatafeed_pb2.BfDatafeedGetContractReq.FromString,
-    ('bftrader.BfDatafeedService', 'GetTick'): bfdatafeed_pb2.BfGetTickReq.FromString,
-    ('bftrader.BfDatafeedService', 'InsertBar'): bfdatafeed_pb2.BfBarData.FromString,
-    ('bftrader.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfContractData.FromString,
-    ('bftrader.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfTickData.FromString,
-    ('bftrader.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfGetBarReq.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetContract'): bfdatafeed_pb2.BfDatafeedGetContractReq.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetTick'): bfdatafeed_pb2.BfGetTickReq.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertBar'): bfdatafeed_pb2.BfBarData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfContractData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfTickData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
   }
   response_serializers = {
-    ('bftrader.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfBarData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'GetContract'): bfgateway_pb2.BfContractData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'GetTick'): bfgateway_pb2.BfTickData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertBar'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bftrader.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfBarData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetContract'): bfgateway_pb2.BfContractData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetTick'): bfgateway_pb2.BfTickData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertBar'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
   }
   method_implementations = {
-    ('bftrader.BfDatafeedService', 'GetBar'): face_utilities.unary_stream_inline(servicer.GetBar),
-    ('bftrader.BfDatafeedService', 'GetContract'): face_utilities.unary_stream_inline(servicer.GetContract),
-    ('bftrader.BfDatafeedService', 'GetTick'): face_utilities.unary_stream_inline(servicer.GetTick),
-    ('bftrader.BfDatafeedService', 'InsertBar'): face_utilities.unary_unary_inline(servicer.InsertBar),
-    ('bftrader.BfDatafeedService', 'InsertContract'): face_utilities.unary_unary_inline(servicer.InsertContract),
-    ('bftrader.BfDatafeedService', 'InsertTick'): face_utilities.unary_unary_inline(servicer.InsertTick),
-    ('bftrader.BfDatafeedService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
+    ('bfdatafeed.BfDatafeedService', 'GetBar'): face_utilities.unary_stream_inline(servicer.GetBar),
+    ('bfdatafeed.BfDatafeedService', 'GetContract'): face_utilities.unary_stream_inline(servicer.GetContract),
+    ('bfdatafeed.BfDatafeedService', 'GetTick'): face_utilities.unary_stream_inline(servicer.GetTick),
+    ('bfdatafeed.BfDatafeedService', 'InsertBar'): face_utilities.unary_unary_inline(servicer.InsertBar),
+    ('bfdatafeed.BfDatafeedService', 'InsertContract'): face_utilities.unary_unary_inline(servicer.InsertContract),
+    ('bfdatafeed.BfDatafeedService', 'InsertTick'): face_utilities.unary_unary_inline(servicer.InsertTick),
+    ('bfdatafeed.BfDatafeedService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -551,22 +553,22 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
   import bfdatafeed_pb2
   import bfgateway_pb2
   request_serializers = {
-    ('bftrader.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfGetBarReq.SerializeToString,
-    ('bftrader.BfDatafeedService', 'GetContract'): bfdatafeed_pb2.BfDatafeedGetContractReq.SerializeToString,
-    ('bftrader.BfDatafeedService', 'GetTick'): bfdatafeed_pb2.BfGetTickReq.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertBar'): bfdatafeed_pb2.BfBarData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfContractData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfTickData.SerializeToString,
-    ('bftrader.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfGetBarReq.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetContract'): bfdatafeed_pb2.BfDatafeedGetContractReq.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'GetTick'): bfdatafeed_pb2.BfGetTickReq.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertBar'): bfdatafeed_pb2.BfBarData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfContractData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfTickData.SerializeToString,
+    ('bfdatafeed.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
   }
   response_deserializers = {
-    ('bftrader.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfBarData.FromString,
-    ('bftrader.BfDatafeedService', 'GetContract'): bfgateway_pb2.BfContractData.FromString,
-    ('bftrader.BfDatafeedService', 'GetTick'): bfgateway_pb2.BfTickData.FromString,
-    ('bftrader.BfDatafeedService', 'InsertBar'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfVoid.FromString,
-    ('bftrader.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetBar'): bfdatafeed_pb2.BfBarData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetContract'): bfgateway_pb2.BfContractData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'GetTick'): bfgateway_pb2.BfTickData.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertBar'): bfgateway_pb2.BfVoid.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertContract'): bfgateway_pb2.BfVoid.FromString,
+    ('bfdatafeed.BfDatafeedService', 'InsertTick'): bfgateway_pb2.BfVoid.FromString,
+    ('bfdatafeed.BfDatafeedService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
   }
   cardinalities = {
     'GetBar': cardinality.Cardinality.UNARY_STREAM,
@@ -578,5 +580,5 @@ def beta_create_BfDatafeedService_stub(channel, host=None, metadata_transformer=
     'Ping': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'bftrader.BfDatafeedService', cardinalities, options=stub_options)
+  return beta_implementations.dynamic_stub(channel, 'bfdatafeed.BfDatafeedService', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)

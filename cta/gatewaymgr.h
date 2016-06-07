@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QTimer>
 
-using namespace bftrader;
+using namespace bfgateway;
 
 class GatewayClient;
 

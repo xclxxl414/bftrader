@@ -19,9 +19,9 @@ from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfkv.proto',
-  package='bftrader',
+  package='bfkv',
   syntax='proto3',
-  serialized_pb=_b('\n\nbfkv.proto\x12\x08\x62\x66trader\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto2\xe7\x02\n\x0b\x42\x66KvService\x12\x34\n\x04Ping\x12\x14.bftrader.BfPingData\x1a\x14.bftrader.BfPingData\"\x00\x12@\n\x0cPingStreamCS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x30\x01\x12=\n\x0bPingStreamC\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x12=\n\x0bPingStreamS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12/\n\x05SetKv\x12\x12.bftrader.BfKvData\x1a\x10.bftrader.BfVoid\"\x00\x12\x31\n\x05GetKv\x12\x12.bftrader.BfKvData\x1a\x12.bftrader.BfKvData\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\nbfkv.proto\x12\x04\x62\x66kv\x1a\x0f\x62\x66gateway.proto\x1a\x19google/protobuf/any.proto2\xed\x02\n\x0b\x42\x66KvService\x12\x36\n\x04Ping\x12\x15.bfgateway.BfPingData\x1a\x15.bfgateway.BfPingData\"\x00\x12@\n\x0cPingStreamCS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x30\x01\x12=\n\x0bPingStreamC\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00(\x01\x12=\n\x0bPingStreamS\x12\x14.google.protobuf.Any\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x31\n\x05SetKv\x12\x13.bfgateway.BfKvData\x1a\x11.bfgateway.BfVoid\"\x00\x12\x33\n\x05GetKv\x12\x13.bfgateway.BfKvData\x1a\x13.bfgateway.BfKvData\"\x00\x42$Z\"github.com/sunwangme/bfgo/api/bfkvb\x06proto3')
   ,
   dependencies=[bfgateway__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -30,6 +30,8 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('Z\"github.com/sunwangme/bfgo/api/bfkv'))
 import abc
 from grpc.beta import implementations as beta_implementations
 from grpc.framework.common import cardinality
@@ -97,28 +99,28 @@ def beta_create_BfKvService_server(servicer, pool=None, pool_size=None, default_
   import bfgateway_pb2
   import bfgateway_pb2
   request_deserializers = {
-    ('bftrader.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.FromString,
-    ('bftrader.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
-    ('bftrader.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'SetKv'): bfgateway_pb2.BfKvData.FromString,
+    ('bfkv.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.FromString,
+    ('bfkv.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'SetKv'): bfgateway_pb2.BfKvData.FromString,
   }
   response_serializers = {
-    ('bftrader.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.SerializeToString,
-    ('bftrader.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'SetKv'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfkv.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.SerializeToString,
+    ('bfkv.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'SetKv'): bfgateway_pb2.BfVoid.SerializeToString,
   }
   method_implementations = {
-    ('bftrader.BfKvService', 'GetKv'): face_utilities.unary_unary_inline(servicer.GetKv),
-    ('bftrader.BfKvService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
-    ('bftrader.BfKvService', 'PingStreamC'): face_utilities.stream_unary_inline(servicer.PingStreamC),
-    ('bftrader.BfKvService', 'PingStreamCS'): face_utilities.stream_stream_inline(servicer.PingStreamCS),
-    ('bftrader.BfKvService', 'PingStreamS'): face_utilities.unary_stream_inline(servicer.PingStreamS),
-    ('bftrader.BfKvService', 'SetKv'): face_utilities.unary_unary_inline(servicer.SetKv),
+    ('bfkv.BfKvService', 'GetKv'): face_utilities.unary_unary_inline(servicer.GetKv),
+    ('bfkv.BfKvService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
+    ('bfkv.BfKvService', 'PingStreamC'): face_utilities.stream_unary_inline(servicer.PingStreamC),
+    ('bfkv.BfKvService', 'PingStreamCS'): face_utilities.stream_stream_inline(servicer.PingStreamCS),
+    ('bfkv.BfKvService', 'PingStreamS'): face_utilities.unary_stream_inline(servicer.PingStreamS),
+    ('bfkv.BfKvService', 'SetKv'): face_utilities.unary_unary_inline(servicer.SetKv),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -137,20 +139,20 @@ def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, 
   import bfgateway_pb2
   import bfgateway_pb2
   request_serializers = {
-    ('bftrader.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.SerializeToString,
-    ('bftrader.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bftrader.BfKvService', 'SetKv'): bfgateway_pb2.BfKvData.SerializeToString,
+    ('bfkv.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.SerializeToString,
+    ('bfkv.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfkv.BfKvService', 'SetKv'): bfgateway_pb2.BfKvData.SerializeToString,
   }
   response_deserializers = {
-    ('bftrader.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.FromString,
-    ('bftrader.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
-    ('bftrader.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
-    ('bftrader.BfKvService', 'SetKv'): bfgateway_pb2.BfVoid.FromString,
+    ('bfkv.BfKvService', 'GetKv'): bfgateway_pb2.BfKvData.FromString,
+    ('bfkv.BfKvService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
+    ('bfkv.BfKvService', 'PingStreamC'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'PingStreamCS'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'PingStreamS'): google.protobuf.any_pb2.Any.FromString,
+    ('bfkv.BfKvService', 'SetKv'): bfgateway_pb2.BfVoid.FromString,
   }
   cardinalities = {
     'GetKv': cardinality.Cardinality.UNARY_UNARY,
@@ -161,5 +163,5 @@ def beta_create_BfKvService_stub(channel, host=None, metadata_transformer=None, 
     'SetKv': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'bftrader.BfKvService', cardinalities, options=stub_options)
+  return beta_implementations.dynamic_stub(channel, 'bfkv.BfKvService', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)

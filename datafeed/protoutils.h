@@ -5,7 +5,8 @@
 #include "bfgateway.pb.h"
 #include <QString>
 
-using namespace bftrader;
+using namespace bfdatafeed;
+using namespace bfgateway;
 
 namespace ProtoUtils {
 

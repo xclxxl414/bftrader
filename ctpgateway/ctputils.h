@@ -4,7 +4,7 @@
 #include "bfgateway.pb.h"
 #include <QString>
 
-using namespace bftrader;
+using namespace bfgateway;
 
 namespace CtpUtils {
 char translatePriceType(BfPriceType priceType);

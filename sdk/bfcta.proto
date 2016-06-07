@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package bftrader;
+package bfcta;
+option go_package = "github.com/sunwangme/bfgo/api/bfcta";
 
 import "bfgateway.proto";
 import "google/protobuf/any.proto";
@@ -54,21 +55,21 @@ message BfOrderExData{
 //
 service BfCtaService{    
     // 请求push
-    rpc Connect(BfConnectReq) returns (stream google.protobuf.Any) {}
+    rpc Connect(bfgateway.BfConnectReq) returns (stream google.protobuf.Any) {}
 
     // 断开push
-    rpc Disconnect(BfVoid) returns (BfVoid) {}
+    rpc Disconnect(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
     
     // 活跃检测
-    rpc Ping(BfPingData) returns (BfPingData) {}
+    rpc Ping(bfgateway.BfPingData) returns (bfgateway.BfPingData) {}
             
     // 获取策略信息，如position，用kv最方便
-    rpc GetRobotInfo(BfKvData) returns (BfKvData) {}
+    rpc GetRobotInfo(bfgateway.BfKvData) returns (bfgateway.BfKvData) {}
 
     // 发单
-    rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}
+    rpc SendOrder(bfgateway.BfSendOrderReq) returns (bfgateway.BfSendOrderResp) {}
     
     // 撤单
-    rpc CancelOrder(BfCancelOrderReq) returns (BfVoid) {}
+    rpc CancelOrder(bfgateway.BfCancelOrderReq) returns (bfgateway.BfVoid) {}
             
 }
