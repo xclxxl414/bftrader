@@ -23,7 +23,7 @@ public:
     static QString version();
 
 public:
-    bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath);
+    bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath,bool filterTick);
     void start();
     void stop();
 
@@ -36,6 +36,7 @@ signals:
 
 private:
     QString userId_, password_, brokerId_, frontMd_, flowPathMd_;
+    bool filterTick_ = false;
     CThostFtdcMdApi* mdapi_ = nullptr;
     MdSmSpi* mdspi_ = nullptr;
 

@@ -31,7 +31,7 @@ public:
 
     virtual ::grpc::Status InsertTick(::grpc::ServerContext* context, const BfTickData* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 

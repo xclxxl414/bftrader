@@ -196,7 +196,8 @@ bool GatewayMgr::initMdSm()
         password_,
         profile()->get("brokerId").toString(),
         profile()->get("frontMd").toString(),
-        Profile::flowPathMd());
+        Profile::flowPathMd(),
+        profile()->get("filterTick").toBool());
     if (!res) {
         delete mdsm_;
         mdsm_ = nullptr;

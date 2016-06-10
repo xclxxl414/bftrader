@@ -134,8 +134,7 @@ private:
     bool isValidTick(RingBuffer* rb, CThostFtdcDepthMarketDataField* curTick)
     {
         // 对于一些特殊的sim如周末回放tick的，不做过滤=
-        static bool sim = qEnvironmentVariableIsSet("bftrader_sim");
-        if (sim) {
+        if (!sm_->filterTick_) {
             return true;
         }
 
@@ -173,13 +172,15 @@ bool MdSm::init(QString userId,
     QString password,
     QString brokerId,
     QString frontMd,
-    QString flowPathMd)
+    QString flowPathMd,
+    bool filterTick)
 {
     userId_ = userId;
     password_ = password;
     brokerId_ = brokerId;
     frontMd_ = frontMd;
     flowPathMd_ = flowPathMd;
+    filterTick_ = filterTick;
 
     // check
     if (userId_.length() == 0 || password_.length() == 0 || brokerId_.length() == 0 || frontMd_.length() == 0 || flowPathMd_.length() == 0) {

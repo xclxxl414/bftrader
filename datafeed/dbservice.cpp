@@ -120,7 +120,7 @@ void DbService::dbInit()
 
 void DbService::insertTick(const BfTickData& bfItem)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.ticktime().length() == 0) {
