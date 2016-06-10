@@ -165,9 +165,9 @@ void StatForm::statTick(QString symbol, QString exchange, QString name)
 
 void StatForm::statBar(QString symbol, QString exchange, QString name)
 {
-    QString startDate, startTime, endDate, endTime;
-
     for (int period = PERIOD_S01; period <= PERIOD_W01; period++) {
+        QString startDate, startTime, endDate, endTime;
+
         if (1) {
             leveldb::DB* db = g_sm->dbService()->getDb();
             leveldb::ReadOptions options;
