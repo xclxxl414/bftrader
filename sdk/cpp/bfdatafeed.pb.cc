@@ -30,9 +30,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* BfGetBarReq_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   BfGetBarReq_reflection_ = NULL;
-const ::google::protobuf::Descriptor* BfDatafeedGetContractReq_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  BfDatafeedGetContractReq_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* BfBarPeriod_descriptor_ = NULL;
 
 }  // namespace
@@ -109,22 +106,6 @@ void protobuf_AssignDesc_bfdatafeed_2eproto() {
       sizeof(BfGetBarReq),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfGetBarReq, _is_default_instance_));
-  BfDatafeedGetContractReq_descriptor_ = file->message_type(3);
-  static const int BfDatafeedGetContractReq_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, symbol_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, exchange_),
-  };
-  BfDatafeedGetContractReq_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      BfDatafeedGetContractReq_descriptor_,
-      BfDatafeedGetContractReq::default_instance_,
-      BfDatafeedGetContractReq_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(BfDatafeedGetContractReq),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BfDatafeedGetContractReq, _is_default_instance_));
   BfBarPeriod_descriptor_ = file->enum_type(0);
 }
 
@@ -144,8 +125,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
       BfGetTickReq_descriptor_, &BfGetTickReq::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       BfGetBarReq_descriptor_, &BfGetBarReq::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      BfDatafeedGetContractReq_descriptor_, &BfDatafeedGetContractReq::default_instance());
 }
 
 }  // namespace
@@ -157,8 +136,6 @@ void protobuf_ShutdownFile_bfdatafeed_2eproto() {
   delete BfGetTickReq_reflection_;
   delete BfGetBarReq::default_instance_;
   delete BfGetBarReq_reflection_;
-  delete BfDatafeedGetContractReq::default_instance_;
-  delete BfDatafeedGetContractReq_reflection_;
 }
 
 void protobuf_AddDesc_bfdatafeed_2eproto() {
@@ -182,39 +159,35 @@ void protobuf_AddDesc_bfdatafeed_2eproto() {
     " \001(\005\"\207\001\n\013BfGetBarReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010"
     "exchange\030\002 \001(\t\022\'\n\006period\030\003 \001(\0162\027.bfdataf"
     "eed.BfBarPeriod\022\016\n\006toDate\030\004 \001(\t\022\016\n\006toTim"
-    "e\030\005 \001(\t\022\r\n\005count\030\006 \001(\005\"<\n\030BfDatafeedGetC"
-    "ontractReq\022\016\n\006symbol\030\001 \001(\t\022\020\n\010exchange\030\002"
-    " \001(\t*\221\002\n\013BfBarPeriod\022\022\n\016PERIOD_UNKNOWN\020\000"
-    "\022\016\n\nPERIOD_S01\020\001\022\016\n\nPERIOD_S03\020\002\022\016\n\nPERI"
-    "OD_S05\020\003\022\016\n\nPERIOD_S10\020\004\022\016\n\nPERIOD_S15\020\005"
-    "\022\016\n\nPERIOD_S30\020\006\022\016\n\nPERIOD_M01\020\007\022\016\n\nPERI"
-    "OD_M03\020\010\022\016\n\nPERIOD_M05\020\t\022\016\n\nPERIOD_M10\020\n"
-    "\022\016\n\nPERIOD_M15\020\013\022\016\n\nPERIOD_M30\020\014\022\016\n\nPERI"
-    "OD_H01\020\r\022\016\n\nPERIOD_D01\020\016\022\016\n\nPERIOD_W01\020\017"
-    "2\322\003\n\021BfDatafeedService\0226\n\004Ping\022\025.bfgatew"
-    "ay.BfPingData\032\025.bfgateway.BfPingData\"\000\0228"
-    "\n\nInsertTick\022\025.bfgateway.BfTickData\032\021.bf"
-    "gateway.BfVoid\"\000\0227\n\tInsertBar\022\025.bfdatafe"
-    "ed.BfBarData\032\021.bfgateway.BfVoid\"\000\022@\n\016Ins"
-    "ertContract\022\031.bfgateway.BfContractData\032\021"
-    ".bfgateway.BfVoid\"\000\022>\n\007GetTick\022\030.bfdataf"
-    "eed.BfGetTickReq\032\025.bfgateway.BfTickData\""
-    "\0000\001\022<\n\006GetBar\022\027.bfdatafeed.BfGetBarReq\032\025"
-    ".bfdatafeed.BfBarData\"\0000\001\022R\n\013GetContract"
-    "\022$.bfdatafeed.BfDatafeedGetContractReq\032\031"
-    ".bfgateway.BfContractData\"\0000\001B*Z(github."
-    "com/sunwangme/bfgo/api/bfdatafeedb\006proto"
-    "3", 1401);
+    "e\030\005 \001(\t\022\r\n\005count\030\006 \001(\005*\221\002\n\013BfBarPeriod\022\022"
+    "\n\016PERIOD_UNKNOWN\020\000\022\016\n\nPERIOD_S01\020\001\022\016\n\nPE"
+    "RIOD_S03\020\002\022\016\n\nPERIOD_S05\020\003\022\016\n\nPERIOD_S10"
+    "\020\004\022\016\n\nPERIOD_S15\020\005\022\016\n\nPERIOD_S30\020\006\022\016\n\nPE"
+    "RIOD_M01\020\007\022\016\n\nPERIOD_M03\020\010\022\016\n\nPERIOD_M05"
+    "\020\t\022\016\n\nPERIOD_M10\020\n\022\016\n\nPERIOD_M15\020\013\022\016\n\nPE"
+    "RIOD_M30\020\014\022\016\n\nPERIOD_H01\020\r\022\016\n\nPERIOD_D01"
+    "\020\016\022\016\n\nPERIOD_W01\020\0172\311\003\n\021BfDatafeedService"
+    "\0226\n\004Ping\022\025.bfgateway.BfPingData\032\025.bfgate"
+    "way.BfPingData\"\000\0228\n\nInsertTick\022\025.bfgatew"
+    "ay.BfTickData\032\021.bfgateway.BfVoid\"\000\0227\n\tIn"
+    "sertBar\022\025.bfdatafeed.BfBarData\032\021.bfgatew"
+    "ay.BfVoid\"\000\022@\n\016InsertContract\022\031.bfgatewa"
+    "y.BfContractData\032\021.bfgateway.BfVoid\"\000\022>\n"
+    "\007GetTick\022\030.bfdatafeed.BfGetTickReq\032\025.bfg"
+    "ateway.BfTickData\"\0000\001\022<\n\006GetBar\022\027.bfdata"
+    "feed.BfGetBarReq\032\025.bfdatafeed.BfBarData\""
+    "\0000\001\022I\n\013GetContract\022\033.bfgateway.BfGetCont"
+    "ractReq\032\031.bfgateway.BfContractData\"\0000\001B*"
+    "Z(github.com/sunwangme/bfgo/api/bfdatafe"
+    "edb\006proto3", 1330);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "bfdatafeed.proto", &protobuf_RegisterTypes);
   BfBarData::default_instance_ = new BfBarData();
   BfGetTickReq::default_instance_ = new BfGetTickReq();
   BfGetBarReq::default_instance_ = new BfGetBarReq();
-  BfDatafeedGetContractReq::default_instance_ = new BfDatafeedGetContractReq();
   BfBarData::default_instance_->InitAsDefaultInstance();
   BfGetTickReq::default_instance_->InitAsDefaultInstance();
   BfGetBarReq::default_instance_->InitAsDefaultInstance();
-  BfDatafeedGetContractReq::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_bfdatafeed_2eproto);
 }
 
@@ -2593,384 +2566,6 @@ void BfGetBarReq::clear_count() {
   
   count_ = value;
   // @@protoc_insertion_point(field_set:bfdatafeed.BfGetBarReq.count)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int BfDatafeedGetContractReq::kSymbolFieldNumber;
-const int BfDatafeedGetContractReq::kExchangeFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-BfDatafeedGetContractReq::BfDatafeedGetContractReq()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:bfdatafeed.BfDatafeedGetContractReq)
-}
-
-void BfDatafeedGetContractReq::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-}
-
-BfDatafeedGetContractReq::BfDatafeedGetContractReq(const BfDatafeedGetContractReq& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:bfdatafeed.BfDatafeedGetContractReq)
-}
-
-void BfDatafeedGetContractReq::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  symbol_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchange_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-BfDatafeedGetContractReq::~BfDatafeedGetContractReq() {
-  // @@protoc_insertion_point(destructor:bfdatafeed.BfDatafeedGetContractReq)
-  SharedDtor();
-}
-
-void BfDatafeedGetContractReq::SharedDtor() {
-  symbol_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchange_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-  }
-}
-
-void BfDatafeedGetContractReq::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* BfDatafeedGetContractReq::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return BfDatafeedGetContractReq_descriptor_;
-}
-
-const BfDatafeedGetContractReq& BfDatafeedGetContractReq::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_bfdatafeed_2eproto();
-  return *default_instance_;
-}
-
-BfDatafeedGetContractReq* BfDatafeedGetContractReq::default_instance_ = NULL;
-
-BfDatafeedGetContractReq* BfDatafeedGetContractReq::New(::google::protobuf::Arena* arena) const {
-  BfDatafeedGetContractReq* n = new BfDatafeedGetContractReq;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void BfDatafeedGetContractReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:bfdatafeed.BfDatafeedGetContractReq)
-  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool BfDatafeedGetContractReq::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:bfdatafeed.BfDatafeedGetContractReq)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string symbol = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_symbol()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->symbol().data(), this->symbol().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bfdatafeed.BfDatafeedGetContractReq.symbol"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_exchange;
-        break;
-      }
-
-      // optional string exchange = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_exchange:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_exchange()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->exchange().data(), this->exchange().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "bfdatafeed.BfDatafeedGetContractReq.exchange"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:bfdatafeed.BfDatafeedGetContractReq)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:bfdatafeed.BfDatafeedGetContractReq)
-  return false;
-#undef DO_
-}
-
-void BfDatafeedGetContractReq::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:bfdatafeed.BfDatafeedGetContractReq)
-  // optional string symbol = 1;
-  if (this->symbol().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->symbol().data(), this->symbol().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bfdatafeed.BfDatafeedGetContractReq.symbol");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->symbol(), output);
-  }
-
-  // optional string exchange = 2;
-  if (this->exchange().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->exchange().data(), this->exchange().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bfdatafeed.BfDatafeedGetContractReq.exchange");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->exchange(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:bfdatafeed.BfDatafeedGetContractReq)
-}
-
-::google::protobuf::uint8* BfDatafeedGetContractReq::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:bfdatafeed.BfDatafeedGetContractReq)
-  // optional string symbol = 1;
-  if (this->symbol().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->symbol().data(), this->symbol().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bfdatafeed.BfDatafeedGetContractReq.symbol");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->symbol(), target);
-  }
-
-  // optional string exchange = 2;
-  if (this->exchange().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->exchange().data(), this->exchange().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "bfdatafeed.BfDatafeedGetContractReq.exchange");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->exchange(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:bfdatafeed.BfDatafeedGetContractReq)
-  return target;
-}
-
-int BfDatafeedGetContractReq::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:bfdatafeed.BfDatafeedGetContractReq)
-  int total_size = 0;
-
-  // optional string symbol = 1;
-  if (this->symbol().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->symbol());
-  }
-
-  // optional string exchange = 2;
-  if (this->exchange().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->exchange());
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void BfDatafeedGetContractReq::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:bfdatafeed.BfDatafeedGetContractReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const BfDatafeedGetContractReq* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const BfDatafeedGetContractReq>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:bfdatafeed.BfDatafeedGetContractReq)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:bfdatafeed.BfDatafeedGetContractReq)
-    MergeFrom(*source);
-  }
-}
-
-void BfDatafeedGetContractReq::MergeFrom(const BfDatafeedGetContractReq& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:bfdatafeed.BfDatafeedGetContractReq)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.symbol().size() > 0) {
-
-    symbol_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.symbol_);
-  }
-  if (from.exchange().size() > 0) {
-
-    exchange_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.exchange_);
-  }
-}
-
-void BfDatafeedGetContractReq::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:bfdatafeed.BfDatafeedGetContractReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void BfDatafeedGetContractReq::CopyFrom(const BfDatafeedGetContractReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:bfdatafeed.BfDatafeedGetContractReq)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool BfDatafeedGetContractReq::IsInitialized() const {
-
-  return true;
-}
-
-void BfDatafeedGetContractReq::Swap(BfDatafeedGetContractReq* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void BfDatafeedGetContractReq::InternalSwap(BfDatafeedGetContractReq* other) {
-  symbol_.Swap(&other->symbol_);
-  exchange_.Swap(&other->exchange_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata BfDatafeedGetContractReq::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = BfDatafeedGetContractReq_descriptor_;
-  metadata.reflection = BfDatafeedGetContractReq_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// BfDatafeedGetContractReq
-
-// optional string symbol = 1;
-void BfDatafeedGetContractReq::clear_symbol() {
-  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& BfDatafeedGetContractReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfDatafeedGetContractReq::set_symbol(const ::std::string& value) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
- void BfDatafeedGetContractReq::set_symbol(const char* value) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
- void BfDatafeedGetContractReq::set_symbol(const char* value, size_t size) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
- ::std::string* BfDatafeedGetContractReq::mutable_symbol() {
-  
-  // @@protoc_insertion_point(field_mutable:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* BfDatafeedGetContractReq::release_symbol() {
-  // @@protoc_insertion_point(field_release:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  
-  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfDatafeedGetContractReq::set_allocated_symbol(::std::string* symbol) {
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
-
-// optional string exchange = 2;
-void BfDatafeedGetContractReq::clear_exchange() {
-  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& BfDatafeedGetContractReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfDatafeedGetContractReq::set_exchange(const ::std::string& value) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
- void BfDatafeedGetContractReq::set_exchange(const char* value) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
- void BfDatafeedGetContractReq::set_exchange(const char* value, size_t size) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
- ::std::string* BfDatafeedGetContractReq::mutable_exchange() {
-  
-  // @@protoc_insertion_point(field_mutable:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* BfDatafeedGetContractReq::release_exchange() {
-  // @@protoc_insertion_point(field_release:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  
-  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void BfDatafeedGetContractReq::set_allocated_exchange(::std::string* exchange) {
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bfdatafeed.BfDatafeedGetContractReq.exchange)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

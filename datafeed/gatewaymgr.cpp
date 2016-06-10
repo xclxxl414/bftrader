@@ -17,12 +17,12 @@ void GatewayMgr::init()
 
     qRegisterMetaType<BfGetTickReq>("BfGetTickReq");
     qRegisterMetaType<BfGetBarReq>("BfGetBarReq");
-    qRegisterMetaType<BfDatafeedGetContractReq>("BfDatafeedGetContractReq");
+    qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
 
     /*
     qRegisterMetaType<BfDeleteTickReq>("BfDeleteTickReq");
     qRegisterMetaType<BfDeleteBarReq>("BfDeleteBarReq");
-    qRegisterMetaType<BfDatafeedDeleteContractReq>("BfDatafeedDeleteContractReq");
+    qRegisterMetaType<BfDeleteContractReq>("BfDeleteContractReq");
 */
 }
 

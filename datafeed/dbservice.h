@@ -25,7 +25,7 @@ public slots:
 
     void getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
     void getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
-    void getContract(const BfDatafeedGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
+    void getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
 
     /*
     void deleteTick(const BfDeleteTickReq& bfReq);

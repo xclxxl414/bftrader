@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='bfgateway.proto',
   package='bfgateway',
   syntax='proto3',
-  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\tbfgateway\x1a\x19google/protobuf/any.proto\"\x08\n\x06\x42\x66Void\"\xe6\x02\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x12\n\nactionDate\x18\x03 \x01(\t\x12\x10\n\x08tickTime\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x15\n\rpreClosePrice\x18\x0c \x01(\x01\x12\x12\n\nupperLimit\x18\r \x01(\x01\x12\x12\n\nlowerLimit\x18\x0e \x01(\x01\x12\x11\n\tbidPrice1\x18\x0f \x01(\x01\x12\x11\n\taskPrice1\x18\x10 \x01(\x01\x12\x12\n\nbidVolume1\x18\x11 \x01(\x05\x12\x12\n\naskVolume1\x18\x12 \x01(\x05\"\xe8\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x11\n\tbfOrderId\x18\x04 \x01(\t\x12)\n\tdirection\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x06 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeDate\x18\t \x01(\t\x12\x11\n\ttradeTime\x18\n \x01(\t\"\xad\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\x12)\n\tdirection\x18\x04 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x05 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12#\n\x06status\x18\t \x01(\x0e\x32\x13.bfgateway.BfStatus\x12\x12\n\ninsertDate\x18\n \x01(\t\x12\x12\n\ninsertTime\x18\x0b \x01(\t\x12\x12\n\ncancelTime\x18\x0c \x01(\t\"\xa2\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12)\n\tdirection\x18\x03 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x12\n\nydPosition\x18\x07 \x01(\x05\"\xb1\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x14\n\x0c\x66rozenMargin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"?\n\x0b\x42\x66\x45rrorData\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\tmessageEx\x18\x03 \x01(\t\"*\n\tBfLogData\x12\x0c\n\x04when\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xe1\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12*\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x14.bfgateway.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMarket\x18\n \x01(\x05\"q\n\x12\x42\x66NotificationData\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.bfgateway.BfNoticationType\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x05\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x11\n\tmessageEx\x18\x04 \x01(\t\"\x1d\n\nBfPingData\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xcc\x01\n\x0e\x42\x66SendOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12)\n\tpriceType\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfPriceType\x12)\n\tdirection\x18\x06 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x07 \x01(\x0e\x32\x13.bfgateway.BfOffset\"$\n\x0f\x42\x66SendOrderResp\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\"G\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\"\xa5\x01\n\x0c\x42\x66\x43onnectReq\x12\x10\n\x08\x63lientId\x18\x01 \x01(\t\x12\x10\n\x08intParam\x18\x02 \x01(\x05\x12\x10\n\x08strParam\x18\x03 \x01(\t\x12\x13\n\x0btickHandler\x18\x04 \x01(\x08\x12\x14\n\x0ctradeHandler\x18\x05 \x01(\x08\x12\x12\n\nlogHandler\x18\x06 \x01(\x08\x12\x0e\n\x06symbol\x18\x07 \x01(\t\x12\x10\n\x08\x65xchange\x18\x08 \x01(\t\"X\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05index\x18\x03 \x01(\x05\x12\x13\n\x0bsubscribled\x18\x04 \x01(\x08*`\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_LONG\x10\x01\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x02\x12\x11\n\rDIRECTION_NET\x10\x03*s\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_OPEN\x10\x01\x12\x10\n\x0cOFFSET_CLOSE\x10\x02\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x03\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x04*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*I\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x12\n\x0ePRODUCT_EQUITY\x10\x01\x12\x13\n\x0fPRODUCT_FUTURES\x10\x02*Y\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02*l\n\x10\x42\x66NoticationType\x12\x18\n\x14NOTIFICATION_UNKNOWN\x10\x00\x12\x1f\n\x1bNOTIFICATION_TRADEWILLBEGIN\x10\x01\x12\x1d\n\x19NOTIFICATION_GOTCONTRACTS\x10\x02\x32\xff\x03\n\x10\x42\x66GatewayService\x12<\n\x07\x43onnect\x12\x17.bfgateway.BfConnectReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x34\n\nDisconnect\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12\x36\n\x04Ping\x12\x15.bfgateway.BfPingData\x1a\x15.bfgateway.BfPingData\"\x00\x12G\n\x0bGetContract\x12\x1b.bfgateway.BfGetContractReq\x1a\x19.bfgateway.BfContractData\"\x00\x12\x44\n\tSendOrder\x12\x19.bfgateway.BfSendOrderReq\x1a\x1a.bfgateway.BfSendOrderResp\"\x00\x12?\n\x0b\x43\x61ncelOrder\x12\x1b.bfgateway.BfCancelOrderReq\x1a\x11.bfgateway.BfVoid\"\x00\x12\x36\n\x0cQueryAccount\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12\x37\n\rQueryPosition\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x42)Z\'github.com/sunwangme/bfgo/api/bfgatewayb\x06proto3')
+  serialized_pb=_b('\n\x0f\x62\x66gateway.proto\x12\tbfgateway\x1a\x19google/protobuf/any.proto\"\x08\n\x06\x42\x66Void\"\xe6\x02\n\nBfTickData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x12\n\nactionDate\x18\x03 \x01(\t\x12\x10\n\x08tickTime\x18\x04 \x01(\t\x12\x11\n\tlastPrice\x18\x05 \x01(\x01\x12\x0e\n\x06volume\x18\x06 \x01(\x05\x12\x14\n\x0copenInterest\x18\x07 \x01(\x01\x12\x12\n\nlastVolume\x18\x08 \x01(\x05\x12\x11\n\topenPrice\x18\t \x01(\x01\x12\x11\n\thighPrice\x18\n \x01(\x01\x12\x10\n\x08lowPrice\x18\x0b \x01(\x01\x12\x15\n\rpreClosePrice\x18\x0c \x01(\x01\x12\x12\n\nupperLimit\x18\r \x01(\x01\x12\x12\n\nlowerLimit\x18\x0e \x01(\x01\x12\x11\n\tbidPrice1\x18\x0f \x01(\x01\x12\x11\n\taskPrice1\x18\x10 \x01(\x01\x12\x12\n\nbidVolume1\x18\x11 \x01(\x05\x12\x12\n\naskVolume1\x18\x12 \x01(\x05\"\xe8\x01\n\x0b\x42\x66TradeData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0f\n\x07tradeId\x18\x03 \x01(\t\x12\x11\n\tbfOrderId\x18\x04 \x01(\t\x12)\n\tdirection\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x06 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x07 \x01(\x01\x12\x0e\n\x06volume\x18\x08 \x01(\x05\x12\x11\n\ttradeDate\x18\t \x01(\t\x12\x11\n\ttradeTime\x18\n \x01(\t\"\xad\x02\n\x0b\x42\x66OrderData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\x12)\n\tdirection\x18\x04 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x05 \x01(\x0e\x32\x13.bfgateway.BfOffset\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x13\n\x0btotalVolume\x18\x07 \x01(\x05\x12\x14\n\x0ctradedVolume\x18\x08 \x01(\x05\x12#\n\x06status\x18\t \x01(\x0e\x32\x13.bfgateway.BfStatus\x12\x12\n\ninsertDate\x18\n \x01(\t\x12\x12\n\ninsertTime\x18\x0b \x01(\t\x12\x12\n\ncancelTime\x18\x0c \x01(\t\"\xa2\x01\n\x0e\x42\x66PositionData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12)\n\tdirection\x18\x03 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12\x10\n\x08position\x18\x04 \x01(\x05\x12\x0e\n\x06\x66rozen\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x01\x12\x12\n\nydPosition\x18\x07 \x01(\x05\"\xb1\x01\n\rBfAccountData\x12\x11\n\taccountId\x18\x01 \x01(\t\x12\x12\n\npreBalance\x18\x02 \x01(\x01\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x01\x12\x11\n\tavailable\x18\x04 \x01(\x01\x12\x12\n\ncommission\x18\x05 \x01(\x01\x12\x14\n\x0c\x66rozenMargin\x18\x06 \x01(\x01\x12\x13\n\x0b\x63loseProfit\x18\x07 \x01(\x01\x12\x16\n\x0epositionProfit\x18\x08 \x01(\x01\"?\n\x0b\x42\x66\x45rrorData\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\tmessageEx\x18\x03 \x01(\t\"*\n\tBfLogData\x12\x0c\n\x04when\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xe1\x01\n\x0e\x42\x66\x43ontractData\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12*\n\x0cproductClass\x18\x04 \x01(\x0e\x32\x14.bfgateway.BfProduct\x12\x16\n\x0evolumeMultiple\x18\x05 \x01(\x05\x12\x11\n\tpriceTick\x18\x06 \x01(\x01\x12\x10\n\x08maxLimit\x18\x07 \x01(\x05\x12\x10\n\x08minLimit\x18\x08 \x01(\x05\x12\x11\n\tmaxMarket\x18\t \x01(\x05\x12\x11\n\tminMarket\x18\n \x01(\x05\"q\n\x12\x42\x66NotificationData\x12)\n\x04type\x18\x01 \x01(\x0e\x32\x1b.bfgateway.BfNoticationType\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x05\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x11\n\tmessageEx\x18\x04 \x01(\t\"\x1d\n\nBfPingData\x12\x0f\n\x07message\x18\x01 \x01(\t\"&\n\x08\x42\x66KvData\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xcc\x01\n\x0e\x42\x66SendOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\x12\x0e\n\x06volume\x18\x04 \x01(\x05\x12)\n\tpriceType\x18\x05 \x01(\x0e\x32\x16.bfgateway.BfPriceType\x12)\n\tdirection\x18\x06 \x01(\x0e\x32\x16.bfgateway.BfDirection\x12#\n\x06offset\x18\x07 \x01(\x0e\x32\x13.bfgateway.BfOffset\"$\n\x0f\x42\x66SendOrderResp\x12\x11\n\tbfOrderId\x18\x01 \x01(\t\"G\n\x10\x42\x66\x43\x61ncelOrderReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t\x12\x11\n\tbfOrderId\x18\x03 \x01(\t\"\x85\x01\n\x10\x42\x66\x43onnectPushReq\x12\x10\n\x08\x63lientId\x18\x01 \x01(\t\x12\x13\n\x0btickHandler\x18\x02 \x01(\x08\x12\x14\n\x0ctradeHandler\x18\x03 \x01(\x08\x12\x12\n\nlogHandler\x18\x04 \x01(\x08\x12\x0e\n\x06symbol\x18\x05 \x01(\t\x12\x10\n\x08\x65xchange\x18\x06 \x01(\t\"4\n\x10\x42\x66GetContractReq\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x10\n\x08\x65xchange\x18\x02 \x01(\t*`\n\x0b\x42\x66\x44irection\x12\x15\n\x11\x44IRECTION_UNKNOWN\x10\x00\x12\x12\n\x0e\x44IRECTION_LONG\x10\x01\x12\x13\n\x0f\x44IRECTION_SHORT\x10\x02\x12\x11\n\rDIRECTION_NET\x10\x03*s\n\x08\x42\x66Offset\x12\x12\n\x0eOFFSET_UNKNOWN\x10\x00\x12\x0f\n\x0bOFFSET_OPEN\x10\x01\x12\x10\n\x0cOFFSET_CLOSE\x10\x02\x12\x15\n\x11OFFSET_CLOSETODAY\x10\x03\x12\x19\n\x15OFFSET_CLOSEYESTERDAY\x10\x04*w\n\x08\x42\x66Status\x12\x12\n\x0eSTATUS_UNKNOWN\x10\x00\x12\x14\n\x10STATUS_NOTTRADED\x10\x01\x12\x15\n\x11STATUS_PARTTRADED\x10\x02\x12\x14\n\x10STATUS_ALLTRADED\x10\x03\x12\x14\n\x10STATUS_CANCELLED\x10\x04*I\n\tBfProduct\x12\x13\n\x0fPRODUCT_UNKNOWN\x10\x00\x12\x12\n\x0ePRODUCT_EQUITY\x10\x01\x12\x13\n\x0fPRODUCT_FUTURES\x10\x02*Y\n\x0b\x42\x66PriceType\x12\x15\n\x11PRICETYPE_UNKONWN\x10\x00\x12\x18\n\x14PRICETYPE_LIMITPRICE\x10\x01\x12\x19\n\x15PRICETYPE_MARKETPRICE\x10\x02*l\n\x10\x42\x66NoticationType\x12\x18\n\x14NOTIFICATION_UNKNOWN\x10\x00\x12\x1f\n\x1bNOTIFICATION_TRADEWILLBEGIN\x10\x01\x12\x1d\n\x19NOTIFICATION_GOTCONTRACTS\x10\x02\x32\x8d\x04\n\x10\x42\x66GatewayService\x12\x36\n\x04Ping\x12\x15.bfgateway.BfPingData\x1a\x15.bfgateway.BfPingData\"\x00\x12\x44\n\x0b\x43onnectPush\x12\x1b.bfgateway.BfConnectPushReq\x1a\x14.google.protobuf.Any\"\x00\x30\x01\x12\x38\n\x0e\x44isconnectPush\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12I\n\x0bGetContract\x12\x1b.bfgateway.BfGetContractReq\x1a\x19.bfgateway.BfContractData\"\x00\x30\x01\x12\x44\n\tSendOrder\x12\x19.bfgateway.BfSendOrderReq\x1a\x1a.bfgateway.BfSendOrderResp\"\x00\x12?\n\x0b\x43\x61ncelOrder\x12\x1b.bfgateway.BfCancelOrderReq\x1a\x11.bfgateway.BfVoid\"\x00\x12\x36\n\x0cQueryAccount\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x12\x37\n\rQueryPosition\x12\x11.bfgateway.BfVoid\x1a\x11.bfgateway.BfVoid\"\x00\x42)Z\'github.com/sunwangme/bfgo/api/bfgatewayb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_any__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -51,8 +51,8 @@ _BFDIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2411,
-  serialized_end=2507,
+  serialized_start=2343,
+  serialized_end=2439,
 )
 _sym_db.RegisterEnumDescriptor(_BFDIRECTION)
 
@@ -86,8 +86,8 @@ _BFOFFSET = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2509,
-  serialized_end=2624,
+  serialized_start=2441,
+  serialized_end=2556,
 )
 _sym_db.RegisterEnumDescriptor(_BFOFFSET)
 
@@ -121,8 +121,8 @@ _BFSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2626,
-  serialized_end=2745,
+  serialized_start=2558,
+  serialized_end=2677,
 )
 _sym_db.RegisterEnumDescriptor(_BFSTATUS)
 
@@ -148,8 +148,8 @@ _BFPRODUCT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2747,
-  serialized_end=2820,
+  serialized_start=2679,
+  serialized_end=2752,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRODUCT)
 
@@ -175,8 +175,8 @@ _BFPRICETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2822,
-  serialized_end=2911,
+  serialized_start=2754,
+  serialized_end=2843,
 )
 _sym_db.RegisterEnumDescriptor(_BFPRICETYPE)
 
@@ -202,8 +202,8 @@ _BFNOTICATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2913,
-  serialized_end=3021,
+  serialized_start=2845,
+  serialized_end=2953,
 )
 _sym_db.RegisterEnumDescriptor(_BFNOTICATIONTYPE)
 
@@ -1210,65 +1210,51 @@ _BFCANCELORDERREQ = _descriptor.Descriptor(
 )
 
 
-_BFCONNECTREQ = _descriptor.Descriptor(
-  name='BfConnectReq',
-  full_name='bfgateway.BfConnectReq',
+_BFCONNECTPUSHREQ = _descriptor.Descriptor(
+  name='BfConnectPushReq',
+  full_name='bfgateway.BfConnectPushReq',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='clientId', full_name='bfgateway.BfConnectReq.clientId', index=0,
+      name='clientId', full_name='bfgateway.BfConnectPushReq.clientId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='intParam', full_name='bfgateway.BfConnectReq.intParam', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='tickHandler', full_name='bfgateway.BfConnectPushReq.tickHandler', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='strParam', full_name='bfgateway.BfConnectReq.strParam', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='tradeHandler', full_name='bfgateway.BfConnectPushReq.tradeHandler', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tickHandler', full_name='bfgateway.BfConnectReq.tickHandler', index=3,
+      name='logHandler', full_name='bfgateway.BfConnectPushReq.logHandler', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tradeHandler', full_name='bfgateway.BfConnectReq.tradeHandler', index=4,
-      number=5, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='logHandler', full_name='bfgateway.BfConnectReq.logHandler', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='symbol', full_name='bfgateway.BfConnectReq.symbol', index=6,
-      number=7, type=9, cpp_type=9, label=1,
+      name='symbol', full_name='bfgateway.BfConnectPushReq.symbol', index=4,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='exchange', full_name='bfgateway.BfConnectReq.exchange', index=7,
-      number=8, type=9, cpp_type=9, label=1,
+      name='exchange', full_name='bfgateway.BfConnectPushReq.exchange', index=5,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1286,7 +1272,7 @@ _BFCONNECTREQ = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2154,
-  serialized_end=2319,
+  serialized_end=2287,
 )
 
 
@@ -1311,20 +1297,6 @@ _BFGETCONTRACTREQ = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-    _descriptor.FieldDescriptor(
-      name='index', full_name='bfgateway.BfGetContractReq.index', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='subscribled', full_name='bfgateway.BfGetContractReq.subscribled', index=3,
-      number=4, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
@@ -1337,8 +1309,8 @@ _BFGETCONTRACTREQ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2321,
-  serialized_end=2409,
+  serialized_start=2289,
+  serialized_end=2341,
 )
 
 _BFTRADEDATA.fields_by_name['direction'].enum_type = _BFDIRECTION
@@ -1367,7 +1339,7 @@ DESCRIPTOR.message_types_by_name['BfKvData'] = _BFKVDATA
 DESCRIPTOR.message_types_by_name['BfSendOrderReq'] = _BFSENDORDERREQ
 DESCRIPTOR.message_types_by_name['BfSendOrderResp'] = _BFSENDORDERRESP
 DESCRIPTOR.message_types_by_name['BfCancelOrderReq'] = _BFCANCELORDERREQ
-DESCRIPTOR.message_types_by_name['BfConnectReq'] = _BFCONNECTREQ
+DESCRIPTOR.message_types_by_name['BfConnectPushReq'] = _BFCONNECTPUSHREQ
 DESCRIPTOR.message_types_by_name['BfGetContractReq'] = _BFGETCONTRACTREQ
 DESCRIPTOR.enum_types_by_name['BfDirection'] = _BFDIRECTION
 DESCRIPTOR.enum_types_by_name['BfOffset'] = _BFOFFSET
@@ -1481,12 +1453,12 @@ BfCancelOrderReq = _reflection.GeneratedProtocolMessageType('BfCancelOrderReq', 
   ))
 _sym_db.RegisterMessage(BfCancelOrderReq)
 
-BfConnectReq = _reflection.GeneratedProtocolMessageType('BfConnectReq', (_message.Message,), dict(
-  DESCRIPTOR = _BFCONNECTREQ,
+BfConnectPushReq = _reflection.GeneratedProtocolMessageType('BfConnectPushReq', (_message.Message,), dict(
+  DESCRIPTOR = _BFCONNECTPUSHREQ,
   __module__ = 'bfgateway_pb2'
-  # @@protoc_insertion_point(class_scope:bfgateway.BfConnectReq)
+  # @@protoc_insertion_point(class_scope:bfgateway.BfConnectPushReq)
   ))
-_sym_db.RegisterMessage(BfConnectReq)
+_sym_db.RegisterMessage(BfConnectPushReq)
 
 BfGetContractReq = _reflection.GeneratedProtocolMessageType('BfGetContractReq', (_message.Message,), dict(
   DESCRIPTOR = _BFGETCONTRACTREQ,
@@ -1507,13 +1479,13 @@ class BetaBfGatewayServiceServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def Connect(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def Disconnect(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
   def Ping(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def ConnectPush(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def DisconnectPush(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
   def GetContract(self, request, context):
@@ -1535,20 +1507,19 @@ class BetaBfGatewayServiceStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def Connect(self, request, timeout):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def Disconnect(self, request, timeout):
-    raise NotImplementedError()
-  Disconnect.future = None
-  @abc.abstractmethod
   def Ping(self, request, timeout):
     raise NotImplementedError()
   Ping.future = None
   @abc.abstractmethod
+  def ConnectPush(self, request, timeout):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def DisconnectPush(self, request, timeout):
+    raise NotImplementedError()
+  DisconnectPush.future = None
+  @abc.abstractmethod
   def GetContract(self, request, timeout):
     raise NotImplementedError()
-  GetContract.future = None
   @abc.abstractmethod
   def SendOrder(self, request, timeout):
     raise NotImplementedError()
@@ -1568,9 +1539,9 @@ class BetaBfGatewayServiceStub(object):
 
 def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import bfgateway_pb2
+  import bfgateway_pb2
+  import bfgateway_pb2
   import google.protobuf.any_pb2
-  import bfgateway_pb2
-  import bfgateway_pb2
   import bfgateway_pb2
   import bfgateway_pb2
   import bfgateway_pb2
@@ -1585,8 +1556,8 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   import bfgateway_pb2
   request_deserializers = {
     ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.FromString,
-    ('bfgateway.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.FromString,
-    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'ConnectPush'): bfgateway_pb2.BfConnectPushReq.FromString,
+    ('bfgateway.BfGatewayService', 'DisconnectPush'): bfgateway_pb2.BfVoid.FromString,
     ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.FromString,
     ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
     ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
@@ -1595,8 +1566,8 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   }
   response_serializers = {
     ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.SerializeToString,
-    ('bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.SerializeToString,
-    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'ConnectPush'): google.protobuf.any_pb2.Any.SerializeToString,
+    ('bfgateway.BfGatewayService', 'DisconnectPush'): bfgateway_pb2.BfVoid.SerializeToString,
     ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.SerializeToString,
     ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
     ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
@@ -1605,9 +1576,9 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   }
   method_implementations = {
     ('bfgateway.BfGatewayService', 'CancelOrder'): face_utilities.unary_unary_inline(servicer.CancelOrder),
-    ('bfgateway.BfGatewayService', 'Connect'): face_utilities.unary_stream_inline(servicer.Connect),
-    ('bfgateway.BfGatewayService', 'Disconnect'): face_utilities.unary_unary_inline(servicer.Disconnect),
-    ('bfgateway.BfGatewayService', 'GetContract'): face_utilities.unary_unary_inline(servicer.GetContract),
+    ('bfgateway.BfGatewayService', 'ConnectPush'): face_utilities.unary_stream_inline(servicer.ConnectPush),
+    ('bfgateway.BfGatewayService', 'DisconnectPush'): face_utilities.unary_unary_inline(servicer.DisconnectPush),
+    ('bfgateway.BfGatewayService', 'GetContract'): face_utilities.unary_stream_inline(servicer.GetContract),
     ('bfgateway.BfGatewayService', 'Ping'): face_utilities.unary_unary_inline(servicer.Ping),
     ('bfgateway.BfGatewayService', 'QueryAccount'): face_utilities.unary_unary_inline(servicer.QueryAccount),
     ('bfgateway.BfGatewayService', 'QueryPosition'): face_utilities.unary_unary_inline(servicer.QueryPosition),
@@ -1617,6 +1588,8 @@ def beta_create_BfGatewayService_server(servicer, pool=None, pool_size=None, def
   return beta_implementations.server(method_implementations, options=server_options)
 
 def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+  import bfgateway_pb2
+  import bfgateway_pb2
   import bfgateway_pb2
   import google.protobuf.any_pb2
   import bfgateway_pb2
@@ -1631,12 +1604,10 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   import bfgateway_pb2
   import bfgateway_pb2
   import bfgateway_pb2
-  import bfgateway_pb2
-  import bfgateway_pb2
   request_serializers = {
     ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfCancelOrderReq.SerializeToString,
-    ('bfgateway.BfGatewayService', 'Connect'): bfgateway_pb2.BfConnectReq.SerializeToString,
-    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.SerializeToString,
+    ('bfgateway.BfGatewayService', 'ConnectPush'): bfgateway_pb2.BfConnectPushReq.SerializeToString,
+    ('bfgateway.BfGatewayService', 'DisconnectPush'): bfgateway_pb2.BfVoid.SerializeToString,
     ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfGetContractReq.SerializeToString,
     ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.SerializeToString,
     ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.SerializeToString,
@@ -1645,8 +1616,8 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   }
   response_deserializers = {
     ('bfgateway.BfGatewayService', 'CancelOrder'): bfgateway_pb2.BfVoid.FromString,
-    ('bfgateway.BfGatewayService', 'Connect'): google.protobuf.any_pb2.Any.FromString,
-    ('bfgateway.BfGatewayService', 'Disconnect'): bfgateway_pb2.BfVoid.FromString,
+    ('bfgateway.BfGatewayService', 'ConnectPush'): google.protobuf.any_pb2.Any.FromString,
+    ('bfgateway.BfGatewayService', 'DisconnectPush'): bfgateway_pb2.BfVoid.FromString,
     ('bfgateway.BfGatewayService', 'GetContract'): bfgateway_pb2.BfContractData.FromString,
     ('bfgateway.BfGatewayService', 'Ping'): bfgateway_pb2.BfPingData.FromString,
     ('bfgateway.BfGatewayService', 'QueryAccount'): bfgateway_pb2.BfVoid.FromString,
@@ -1655,9 +1626,9 @@ def beta_create_BfGatewayService_stub(channel, host=None, metadata_transformer=N
   }
   cardinalities = {
     'CancelOrder': cardinality.Cardinality.UNARY_UNARY,
-    'Connect': cardinality.Cardinality.UNARY_STREAM,
-    'Disconnect': cardinality.Cardinality.UNARY_UNARY,
-    'GetContract': cardinality.Cardinality.UNARY_UNARY,
+    'ConnectPush': cardinality.Cardinality.UNARY_STREAM,
+    'DisconnectPush': cardinality.Cardinality.UNARY_UNARY,
+    'GetContract': cardinality.Cardinality.UNARY_STREAM,
     'Ping': cardinality.Cardinality.UNARY_UNARY,
     'QueryAccount': cardinality.Cardinality.UNARY_UNARY,
     'QueryPosition': cardinality.Cardinality.UNARY_UNARY,

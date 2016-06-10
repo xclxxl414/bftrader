@@ -78,7 +78,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfDatafeedGetContractReq* request, ::grpc::ServerWriter< BfContractData>* writer) override
+    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter< BfContractData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 

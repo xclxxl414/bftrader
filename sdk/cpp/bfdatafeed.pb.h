@@ -39,7 +39,6 @@ void protobuf_AssignDesc_bfdatafeed_2eproto();
 void protobuf_ShutdownFile_bfdatafeed_2eproto();
 
 class BfBarData;
-class BfDatafeedGetContractReq;
 class BfGetBarReq;
 class BfGetTickReq;
 
@@ -511,101 +510,6 @@ class BfGetBarReq : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static BfGetBarReq* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class BfDatafeedGetContractReq : public ::google::protobuf::Message {
- public:
-  BfDatafeedGetContractReq();
-  virtual ~BfDatafeedGetContractReq();
-
-  BfDatafeedGetContractReq(const BfDatafeedGetContractReq& from);
-
-  inline BfDatafeedGetContractReq& operator=(const BfDatafeedGetContractReq& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const BfDatafeedGetContractReq& default_instance();
-
-  void Swap(BfDatafeedGetContractReq* other);
-
-  // implements Message ----------------------------------------------
-
-  inline BfDatafeedGetContractReq* New() const { return New(NULL); }
-
-  BfDatafeedGetContractReq* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfDatafeedGetContractReq& from);
-  void MergeFrom(const BfDatafeedGetContractReq& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BfDatafeedGetContractReq* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string symbol = 1;
-  void clear_symbol();
-  static const int kSymbolFieldNumber = 1;
-  const ::std::string& symbol() const;
-  void set_symbol(const ::std::string& value);
-  void set_symbol(const char* value);
-  void set_symbol(const char* value, size_t size);
-  ::std::string* mutable_symbol();
-  ::std::string* release_symbol();
-  void set_allocated_symbol(::std::string* symbol);
-
-  // optional string exchange = 2;
-  void clear_exchange();
-  static const int kExchangeFieldNumber = 2;
-  const ::std::string& exchange() const;
-  void set_exchange(const ::std::string& value);
-  void set_exchange(const char* value);
-  void set_exchange(const char* value, size_t size);
-  ::std::string* mutable_exchange();
-  ::std::string* release_exchange();
-  void set_allocated_exchange(::std::string* exchange);
-
-  // @@protoc_insertion_point(class_scope:bfdatafeed.BfDatafeedGetContractReq)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr symbol_;
-  ::google::protobuf::internal::ArenaStringPtr exchange_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_bfdatafeed_2eproto();
-  friend void protobuf_AssignDesc_bfdatafeed_2eproto();
-  friend void protobuf_ShutdownFile_bfdatafeed_2eproto();
-
-  void InitAsDefaultInstance();
-  static BfDatafeedGetContractReq* default_instance_;
 };
 // ===================================================================
 
@@ -1305,101 +1209,7 @@ inline void BfGetBarReq::set_count(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:bfdatafeed.BfGetBarReq.count)
 }
 
-// -------------------------------------------------------------------
-
-// BfDatafeedGetContractReq
-
-// optional string symbol = 1;
-inline void BfDatafeedGetContractReq::clear_symbol() {
-  symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BfDatafeedGetContractReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfDatafeedGetContractReq::set_symbol(const ::std::string& value) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
-inline void BfDatafeedGetContractReq::set_symbol(const char* value) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
-inline void BfDatafeedGetContractReq::set_symbol(const char* value, size_t size) {
-  
-  symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
-inline ::std::string* BfDatafeedGetContractReq::mutable_symbol() {
-  
-  // @@protoc_insertion_point(field_mutable:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BfDatafeedGetContractReq::release_symbol() {
-  // @@protoc_insertion_point(field_release:bfdatafeed.BfDatafeedGetContractReq.symbol)
-  
-  return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfDatafeedGetContractReq::set_allocated_symbol(::std::string* symbol) {
-  if (symbol != NULL) {
-    
-  } else {
-    
-  }
-  symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bfdatafeed.BfDatafeedGetContractReq.symbol)
-}
-
-// optional string exchange = 2;
-inline void BfDatafeedGetContractReq::clear_exchange() {
-  exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BfDatafeedGetContractReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfDatafeedGetContractReq::set_exchange(const ::std::string& value) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
-inline void BfDatafeedGetContractReq::set_exchange(const char* value) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
-inline void BfDatafeedGetContractReq::set_exchange(const char* value, size_t size) {
-  
-  exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
-inline ::std::string* BfDatafeedGetContractReq::mutable_exchange() {
-  
-  // @@protoc_insertion_point(field_mutable:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BfDatafeedGetContractReq::release_exchange() {
-  // @@protoc_insertion_point(field_release:bfdatafeed.BfDatafeedGetContractReq.exchange)
-  
-  return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfDatafeedGetContractReq::set_allocated_exchange(::std::string* exchange) {
-  if (exchange != NULL) {
-    
-  } else {
-    
-  }
-  exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bfdatafeed.BfDatafeedGetContractReq.exchange)
-}
-
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

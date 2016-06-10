@@ -25,14 +25,20 @@ public:
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
-    virtual ::grpc::Status Connect(::grpc::ServerContext* context, const BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
+    {
+        QString clientId = getClientId(context);
+        response->set_message(request->message());
+        return grpc::Status::OK;
+    }
+    virtual ::grpc::Status ConnectPush(::grpc::ServerContext* context, const BfConnectPushReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         QString clientId = request->clientid().c_str();
         BfDebug("(%s)->Connect", qPrintable(clientId));
 
         auto queue = new SafeQueue<google::protobuf::Any>;
-        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectReq, *request), Q_ARG(void*, (void*)queue));
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectPushReq, *request), Q_ARG(void*, (void*)queue));
         while (auto data = queue->dequeue()) {
             // NOTE(hege):客户端异常导致stream关闭
             bool ok = writer->Write(*data);
@@ -47,13 +53,7 @@ public:
         BfDebug("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
-    {
-        QString clientId = getClientId(context);
-        response->set_message(request->message());
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status Disconnect(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
+    virtual ::grpc::Status DisconnectPush(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -64,27 +64,30 @@ public:
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, BfContractData* response) override
+    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
 
-        int index = request->index();
-        if (index <= 0) {
+        if (request->symbol() == "*" && request->exchange() == "*") {
+            QStringList ids = g_sm->gatewayMgr()->getIds(); //g_sm->gatewayMgr()->getIdsAll();
+            for (int index = 0; index < ids.length(); index++) {
+                QString symbol = ids.at(index);
+                void* contract = g_sm->gatewayMgr()->getContract(symbol);
+                BfContractData bfItem;
+                CtpUtils::translateContract(contract, &bfItem);
+                writer->Write(bfItem);
+            }
+
+        } else {
             QString symbol = request->symbol().c_str();
             void* contract = g_sm->gatewayMgr()->getContract(symbol);
-            CtpUtils::translateContract(contract, response);
-        } else {
-            QStringList ids = request->subscribled() ? g_sm->gatewayMgr()->getIds() : g_sm->gatewayMgr()->getIdsAll();
-            if (ids.length() > index - 1) {
-                QString symbol = ids.at(index - 1);
-                void* contract = g_sm->gatewayMgr()->getContract(symbol);
-                CtpUtils::translateContract(contract, response);
-            }
+            BfContractData bfItem;
+            CtpUtils::translateContract(contract, &bfItem);
+            writer->Write(bfItem);
         }
-
         return grpc::Status::OK;
     }
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const BfSendOrderReq* request, BfSendOrderResp* response) override

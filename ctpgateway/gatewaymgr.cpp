@@ -30,7 +30,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
 
-    qRegisterMetaType<BfConnectReq>("BfConnectReq");
+    qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
     qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");

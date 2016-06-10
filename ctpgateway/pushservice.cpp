@@ -12,7 +12,7 @@ using namespace bfgateway;
 
 class GatewayClient {
 public:
-    GatewayClient(SafeQueue<google::protobuf::Any>* queue, QString gatewayId, const BfConnectReq& req)
+    GatewayClient(SafeQueue<google::protobuf::Any>* queue, QString gatewayId, const BfConnectPushReq& req)
         : queue_(queue)
         , gatewayId_(gatewayId)
         , req_(req)
@@ -130,7 +130,7 @@ private:
 private:
     SafeQueue<google::protobuf::Any>* queue_ = nullptr;
     QString gatewayId_;
-    BfConnectReq req_;
+    BfConnectPushReq req_;
 };
 
 //
@@ -183,7 +183,7 @@ void PushService::shutdown()
     clients_.clear();
 }
 
-void PushService::connectClient(QString gatewayId, const BfConnectReq& req, void* queue)
+void PushService::connectClient(QString gatewayId, const BfConnectPushReq& req, void* queue)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString clientId = req.clientid().c_str();

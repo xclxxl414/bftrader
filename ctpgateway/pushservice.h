@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-    void connectClient(QString gatewayId, const BfConnectReq& req, void* queue);
+    void connectClient(QString gatewayId, const BfConnectPushReq& req, void* queue);
     void disconnectClient(QString clientId);
     void onGatewayClosed();
     void onPing();

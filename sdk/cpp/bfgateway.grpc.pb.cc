@@ -16,9 +16,9 @@
 namespace bfgateway {
 
 static const char* BfGatewayService_method_names[] = {
-  "/bfgateway.BfGatewayService/Connect",
-  "/bfgateway.BfGatewayService/Disconnect",
   "/bfgateway.BfGatewayService/Ping",
+  "/bfgateway.BfGatewayService/ConnectPush",
+  "/bfgateway.BfGatewayService/DisconnectPush",
   "/bfgateway.BfGatewayService/GetContract",
   "/bfgateway.BfGatewayService/SendOrder",
   "/bfgateway.BfGatewayService/CancelOrder",
@@ -32,31 +32,15 @@ std::unique_ptr< BfGatewayService::Stub> BfGatewayService::NewStub(const std::sh
 }
 
 BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_Connect_(BfGatewayService_method_names[0], ::grpc::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_Disconnect_(BfGatewayService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Ping_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_Ping_(BfGatewayService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ConnectPush_(BfGatewayService_method_names[1], ::grpc::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_DisconnectPush_(BfGatewayService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContract_(BfGatewayService_method_names[3], ::grpc::RpcMethod::SERVER_STREAMING, channel)
   , rpcmethod_SendOrder_(BfGatewayService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_CancelOrder_(BfGatewayService_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_QueryAccount_(BfGatewayService_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_QueryPosition_(BfGatewayService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
-
-::grpc::ClientReader< ::google::protobuf::Any>* BfGatewayService::Stub::ConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request) {
-  return new ::grpc::ClientReader< ::google::protobuf::Any>(channel_.get(), rpcmethod_Connect_, context, request);
-}
-
-::grpc::ClientAsyncReader< ::google::protobuf::Any>* BfGatewayService::Stub::AsyncConnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectReq& request, ::grpc::CompletionQueue* cq, void* tag) {
-  return new ::grpc::ClientAsyncReader< ::google::protobuf::Any>(channel_.get(), cq, rpcmethod_Connect_, context, request, tag);
-}
-
-::grpc::Status BfGatewayService::Stub::Disconnect(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::bfgateway::BfVoid* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Disconnect_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* BfGatewayService::Stub::AsyncDisconnectRaw(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>(channel_.get(), cq, rpcmethod_Disconnect_, context, request);
-}
 
 ::grpc::Status BfGatewayService::Stub::Ping(::grpc::ClientContext* context, const ::bfgateway::BfPingData& request, ::bfgateway::BfPingData* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
@@ -66,12 +50,28 @@ BfGatewayService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& c
   return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfPingData>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
-::grpc::Status BfGatewayService::Stub::GetContract(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request, ::bfgateway::BfContractData* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetContract_, context, request, response);
+::grpc::ClientReader< ::google::protobuf::Any>* BfGatewayService::Stub::ConnectPushRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectPushReq& request) {
+  return new ::grpc::ClientReader< ::google::protobuf::Any>(channel_.get(), rpcmethod_ConnectPush_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::bfgateway::BfContractData>* BfGatewayService::Stub::AsyncGetContractRaw(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfContractData>(channel_.get(), cq, rpcmethod_GetContract_, context, request);
+::grpc::ClientAsyncReader< ::google::protobuf::Any>* BfGatewayService::Stub::AsyncConnectPushRaw(::grpc::ClientContext* context, const ::bfgateway::BfConnectPushReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return new ::grpc::ClientAsyncReader< ::google::protobuf::Any>(channel_.get(), cq, rpcmethod_ConnectPush_, context, request, tag);
+}
+
+::grpc::Status BfGatewayService::Stub::DisconnectPush(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::bfgateway::BfVoid* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_DisconnectPush_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>* BfGatewayService::Stub::AsyncDisconnectPushRaw(::grpc::ClientContext* context, const ::bfgateway::BfVoid& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::bfgateway::BfVoid>(channel_.get(), cq, rpcmethod_DisconnectPush_, context, request);
+}
+
+::grpc::ClientReader< ::bfgateway::BfContractData>* BfGatewayService::Stub::GetContractRaw(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request) {
+  return new ::grpc::ClientReader< ::bfgateway::BfContractData>(channel_.get(), rpcmethod_GetContract_, context, request);
+}
+
+::grpc::ClientAsyncReader< ::bfgateway::BfContractData>* BfGatewayService::Stub::AsyncGetContractRaw(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return new ::grpc::ClientAsyncReader< ::bfgateway::BfContractData>(channel_.get(), cq, rpcmethod_GetContract_, context, request, tag);
 }
 
 ::grpc::Status BfGatewayService::Stub::SendOrder(::grpc::ClientContext* context, const ::bfgateway::BfSendOrderReq& request, ::bfgateway::BfSendOrderResp* response) {
@@ -110,23 +110,23 @@ BfGatewayService::Service::Service() {
   (void)BfGatewayService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[0],
-      ::grpc::RpcMethod::SERVER_STREAMING,
-      new ::grpc::ServerStreamingHandler< BfGatewayService::Service, ::bfgateway::BfConnectReq, ::google::protobuf::Any>(
-          std::mem_fn(&BfGatewayService::Service::Connect), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[1],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bfgateway::BfVoid, ::bfgateway::BfVoid>(
-          std::mem_fn(&BfGatewayService::Service::Disconnect), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bfgateway::BfPingData, ::bfgateway::BfPingData>(
           std::mem_fn(&BfGatewayService::Service::Ping), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      BfGatewayService_method_names[3],
+      BfGatewayService_method_names[1],
+      ::grpc::RpcMethod::SERVER_STREAMING,
+      new ::grpc::ServerStreamingHandler< BfGatewayService::Service, ::bfgateway::BfConnectPushReq, ::google::protobuf::Any>(
+          std::mem_fn(&BfGatewayService::Service::ConnectPush), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfGatewayService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bfgateway::BfGetContractReq, ::bfgateway::BfContractData>(
+      new ::grpc::RpcMethodHandler< BfGatewayService::Service, ::bfgateway::BfVoid, ::bfgateway::BfVoid>(
+          std::mem_fn(&BfGatewayService::Service::DisconnectPush), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      BfGatewayService_method_names[3],
+      ::grpc::RpcMethod::SERVER_STREAMING,
+      new ::grpc::ServerStreamingHandler< BfGatewayService::Service, ::bfgateway::BfGetContractReq, ::bfgateway::BfContractData>(
           std::mem_fn(&BfGatewayService::Service::GetContract), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       BfGatewayService_method_names[4],
@@ -153,20 +153,6 @@ BfGatewayService::Service::Service() {
 BfGatewayService::Service::~Service() {
 }
 
-::grpc::Status BfGatewayService::Service::Connect(::grpc::ServerContext* context, const ::bfgateway::BfConnectReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) {
-  (void) context;
-  (void) request;
-  (void) writer;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status BfGatewayService::Service::Disconnect(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
 ::grpc::Status BfGatewayService::Service::Ping(::grpc::ServerContext* context, const ::bfgateway::BfPingData* request, ::bfgateway::BfPingData* response) {
   (void) context;
   (void) request;
@@ -174,10 +160,24 @@ BfGatewayService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfGatewayService::Service::GetContract(::grpc::ServerContext* context, const ::bfgateway::BfGetContractReq* request, ::bfgateway::BfContractData* response) {
+::grpc::Status BfGatewayService::Service::ConnectPush(::grpc::ServerContext* context, const ::bfgateway::BfConnectPushReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) {
+  (void) context;
+  (void) request;
+  (void) writer;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfGatewayService::Service::DisconnectPush(::grpc::ServerContext* context, const ::bfgateway::BfVoid* request, ::bfgateway::BfVoid* response) {
   (void) context;
   (void) request;
   (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status BfGatewayService::Service::GetContract(::grpc::ServerContext* context, const ::bfgateway::BfGetContractReq* request, ::grpc::ServerWriter< ::bfgateway::BfContractData>* writer) {
+  (void) context;
+  (void) request;
+  (void) writer;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 

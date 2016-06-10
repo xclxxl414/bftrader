@@ -311,7 +311,7 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     delete it;
 }
 
-void DbService::getContract(const BfDatafeedGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
+void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
@@ -319,21 +319,59 @@ void DbService::getContract(const BfDatafeedGetContractReq* request, ::grpc::Ser
         return;
     }
 
-    leveldb::ReadOptions options;
-    std::string val;
-    // key: contract-symbol-exchange
-    std::string key = QString().sprintf("contract-%s-%s", request->symbol().c_str(), request->exchange().c_str()).toStdString();
-    leveldb::Status status = db_->Get(options, key, &val);
-    if (status.ok()) {
-        BfContractData bfItem;
-        if (!bfItem.ParseFromString(val)) {
-            qFatal("ParseFromString error");
-            return;
+    if (request->symbol() == "*" && request->exchange() == "*") {
+        leveldb::DB* db = db_;
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
         }
-        if (bfItem.symbol().length() == 0) {
-            return;
+
+        //第一个是contract+
+        //最后一个是contract=
+        QString key = QStringLiteral("contract+");
+        it->Seek(leveldb::Slice(key.toStdString()));
+        if (it->Valid()) {
+            it->Next();
         }
-        writer->Write(bfItem);
+        for (; it->Valid(); it->Next()) {
+            //遇到了前后两个结束item
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfContractData bfContract;
+            //std::string stdKey = it->key().ToString();
+            //std::string stdVal = it->value().ToString();
+            //if(!bfContract.ParseFromString(stdVal)){
+            if (!bfContract.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray fail");
+                break;
+            }
+            if (bfContract.symbol().length() == 0) {
+                break;
+            }
+
+            writer->Write(bfContract);
+        }
+        delete it;
+
+    } else {
+        leveldb::ReadOptions options;
+        std::string val;
+        // key: contract-symbol-exchange
+        std::string key = QString().sprintf("contract-%s-%s", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+        leveldb::Status status = db_->Get(options, key, &val);
+        if (status.ok()) {
+            BfContractData bfItem;
+            if (!bfItem.ParseFromString(val)) {
+                qFatal("ParseFromString error");
+                return;
+            }
+            if (bfItem.symbol().length() == 0) {
+                return;
+            }
+            writer->Write(bfItem);
+        }
     }
 }
 

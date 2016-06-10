@@ -40,7 +40,7 @@ void protobuf_ShutdownFile_bfgateway_2eproto();
 
 class BfAccountData;
 class BfCancelOrderReq;
-class BfConnectReq;
+class BfConnectPushReq;
 class BfContractData;
 class BfErrorData;
 class BfGetContractReq;
@@ -2061,32 +2061,32 @@ class BfCancelOrderReq : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class BfConnectReq : public ::google::protobuf::Message {
+class BfConnectPushReq : public ::google::protobuf::Message {
  public:
-  BfConnectReq();
-  virtual ~BfConnectReq();
+  BfConnectPushReq();
+  virtual ~BfConnectPushReq();
 
-  BfConnectReq(const BfConnectReq& from);
+  BfConnectPushReq(const BfConnectPushReq& from);
 
-  inline BfConnectReq& operator=(const BfConnectReq& from) {
+  inline BfConnectPushReq& operator=(const BfConnectPushReq& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const BfConnectReq& default_instance();
+  static const BfConnectPushReq& default_instance();
 
-  void Swap(BfConnectReq* other);
+  void Swap(BfConnectPushReq* other);
 
   // implements Message ----------------------------------------------
 
-  inline BfConnectReq* New() const { return New(NULL); }
+  inline BfConnectPushReq* New() const { return New(NULL); }
 
-  BfConnectReq* New(::google::protobuf::Arena* arena) const;
+  BfConnectPushReq* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const BfConnectReq& from);
-  void MergeFrom(const BfConnectReq& from);
+  void CopyFrom(const BfConnectPushReq& from);
+  void MergeFrom(const BfConnectPushReq& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -2101,7 +2101,7 @@ class BfConnectReq : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(BfConnectReq* other);
+  void InternalSwap(BfConnectPushReq* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -2128,44 +2128,27 @@ class BfConnectReq : public ::google::protobuf::Message {
   ::std::string* release_clientid();
   void set_allocated_clientid(::std::string* clientid);
 
-  // optional int32 intParam = 2;
-  void clear_intparam();
-  static const int kIntParamFieldNumber = 2;
-  ::google::protobuf::int32 intparam() const;
-  void set_intparam(::google::protobuf::int32 value);
-
-  // optional string strParam = 3;
-  void clear_strparam();
-  static const int kStrParamFieldNumber = 3;
-  const ::std::string& strparam() const;
-  void set_strparam(const ::std::string& value);
-  void set_strparam(const char* value);
-  void set_strparam(const char* value, size_t size);
-  ::std::string* mutable_strparam();
-  ::std::string* release_strparam();
-  void set_allocated_strparam(::std::string* strparam);
-
-  // optional bool tickHandler = 4;
+  // optional bool tickHandler = 2;
   void clear_tickhandler();
-  static const int kTickHandlerFieldNumber = 4;
+  static const int kTickHandlerFieldNumber = 2;
   bool tickhandler() const;
   void set_tickhandler(bool value);
 
-  // optional bool tradeHandler = 5;
+  // optional bool tradeHandler = 3;
   void clear_tradehandler();
-  static const int kTradeHandlerFieldNumber = 5;
+  static const int kTradeHandlerFieldNumber = 3;
   bool tradehandler() const;
   void set_tradehandler(bool value);
 
-  // optional bool logHandler = 6;
+  // optional bool logHandler = 4;
   void clear_loghandler();
-  static const int kLogHandlerFieldNumber = 6;
+  static const int kLogHandlerFieldNumber = 4;
   bool loghandler() const;
   void set_loghandler(bool value);
 
-  // optional string symbol = 7;
+  // optional string symbol = 5;
   void clear_symbol();
-  static const int kSymbolFieldNumber = 7;
+  static const int kSymbolFieldNumber = 5;
   const ::std::string& symbol() const;
   void set_symbol(const ::std::string& value);
   void set_symbol(const char* value);
@@ -2174,9 +2157,9 @@ class BfConnectReq : public ::google::protobuf::Message {
   ::std::string* release_symbol();
   void set_allocated_symbol(::std::string* symbol);
 
-  // optional string exchange = 8;
+  // optional string exchange = 6;
   void clear_exchange();
-  static const int kExchangeFieldNumber = 8;
+  static const int kExchangeFieldNumber = 6;
   const ::std::string& exchange() const;
   void set_exchange(const ::std::string& value);
   void set_exchange(const char* value);
@@ -2185,26 +2168,24 @@ class BfConnectReq : public ::google::protobuf::Message {
   ::std::string* release_exchange();
   void set_allocated_exchange(::std::string* exchange);
 
-  // @@protoc_insertion_point(class_scope:bfgateway.BfConnectReq)
+  // @@protoc_insertion_point(class_scope:bfgateway.BfConnectPushReq)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr clientid_;
-  ::google::protobuf::internal::ArenaStringPtr strparam_;
-  ::google::protobuf::int32 intparam_;
+  ::google::protobuf::internal::ArenaStringPtr symbol_;
+  ::google::protobuf::internal::ArenaStringPtr exchange_;
   bool tickhandler_;
   bool tradehandler_;
   bool loghandler_;
-  ::google::protobuf::internal::ArenaStringPtr symbol_;
-  ::google::protobuf::internal::ArenaStringPtr exchange_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bfgateway_2eproto();
   friend void protobuf_AssignDesc_bfgateway_2eproto();
   friend void protobuf_ShutdownFile_bfgateway_2eproto();
 
   void InitAsDefaultInstance();
-  static BfConnectReq* default_instance_;
+  static BfConnectPushReq* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2286,18 +2267,6 @@ class BfGetContractReq : public ::google::protobuf::Message {
   ::std::string* release_exchange();
   void set_allocated_exchange(::std::string* exchange);
 
-  // optional int32 index = 3;
-  void clear_index();
-  static const int kIndexFieldNumber = 3;
-  ::google::protobuf::int32 index() const;
-  void set_index(::google::protobuf::int32 value);
-
-  // optional bool subscribled = 4;
-  void clear_subscribled();
-  static const int kSubscribledFieldNumber = 4;
-  bool subscribled() const;
-  void set_subscribled(bool value);
-
   // @@protoc_insertion_point(class_scope:bfgateway.BfGetContractReq)
  private:
 
@@ -2305,8 +2274,6 @@ class BfGetContractReq : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr symbol_;
   ::google::protobuf::internal::ArenaStringPtr exchange_;
-  ::google::protobuf::int32 index_;
-  bool subscribled_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_bfgateway_2eproto();
   friend void protobuf_AssignDesc_bfgateway_2eproto();
@@ -4723,238 +4690,180 @@ inline void BfCancelOrderReq::set_allocated_bforderid(::std::string* bforderid) 
 
 // -------------------------------------------------------------------
 
-// BfConnectReq
+// BfConnectPushReq
 
 // optional string clientId = 1;
-inline void BfConnectReq::clear_clientid() {
+inline void BfConnectPushReq::clear_clientid() {
   clientid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BfConnectReq::clientid() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.clientId)
+inline const ::std::string& BfConnectPushReq::clientid() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.clientId)
   return clientid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_clientid(const ::std::string& value) {
+inline void BfConnectPushReq::set_clientid(const ::std::string& value) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.clientId)
 }
-inline void BfConnectReq::set_clientid(const char* value) {
+inline void BfConnectPushReq::set_clientid(const char* value) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectPushReq.clientId)
 }
-inline void BfConnectReq::set_clientid(const char* value, size_t size) {
+inline void BfConnectPushReq::set_clientid(const char* value, size_t size) {
   
   clientid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectPushReq.clientId)
 }
-inline ::std::string* BfConnectReq::mutable_clientid() {
+inline ::std::string* BfConnectPushReq::mutable_clientid() {
   
-  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectPushReq.clientId)
   return clientid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BfConnectReq::release_clientid() {
-  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.clientId)
+inline ::std::string* BfConnectPushReq::release_clientid() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectPushReq.clientId)
   
   return clientid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_allocated_clientid(::std::string* clientid) {
+inline void BfConnectPushReq::set_allocated_clientid(::std::string* clientid) {
   if (clientid != NULL) {
     
   } else {
     
   }
   clientid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), clientid);
-  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.clientId)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectPushReq.clientId)
 }
 
-// optional int32 intParam = 2;
-inline void BfConnectReq::clear_intparam() {
-  intparam_ = 0;
-}
-inline ::google::protobuf::int32 BfConnectReq::intparam() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.intParam)
-  return intparam_;
-}
-inline void BfConnectReq::set_intparam(::google::protobuf::int32 value) {
-  
-  intparam_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.intParam)
-}
-
-// optional string strParam = 3;
-inline void BfConnectReq::clear_strparam() {
-  strparam_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& BfConnectReq::strparam() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.strParam)
-  return strparam_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectReq::set_strparam(const ::std::string& value) {
-  
-  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.strParam)
-}
-inline void BfConnectReq::set_strparam(const char* value) {
-  
-  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.strParam)
-}
-inline void BfConnectReq::set_strparam(const char* value, size_t size) {
-  
-  strparam_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.strParam)
-}
-inline ::std::string* BfConnectReq::mutable_strparam() {
-  
-  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.strParam)
-  return strparam_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* BfConnectReq::release_strparam() {
-  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.strParam)
-  
-  return strparam_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void BfConnectReq::set_allocated_strparam(::std::string* strparam) {
-  if (strparam != NULL) {
-    
-  } else {
-    
-  }
-  strparam_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), strparam);
-  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.strParam)
-}
-
-// optional bool tickHandler = 4;
-inline void BfConnectReq::clear_tickhandler() {
+// optional bool tickHandler = 2;
+inline void BfConnectPushReq::clear_tickhandler() {
   tickhandler_ = false;
 }
-inline bool BfConnectReq::tickhandler() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.tickHandler)
+inline bool BfConnectPushReq::tickhandler() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.tickHandler)
   return tickhandler_;
 }
-inline void BfConnectReq::set_tickhandler(bool value) {
+inline void BfConnectPushReq::set_tickhandler(bool value) {
   
   tickhandler_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.tickHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.tickHandler)
 }
 
-// optional bool tradeHandler = 5;
-inline void BfConnectReq::clear_tradehandler() {
+// optional bool tradeHandler = 3;
+inline void BfConnectPushReq::clear_tradehandler() {
   tradehandler_ = false;
 }
-inline bool BfConnectReq::tradehandler() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.tradeHandler)
+inline bool BfConnectPushReq::tradehandler() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.tradeHandler)
   return tradehandler_;
 }
-inline void BfConnectReq::set_tradehandler(bool value) {
+inline void BfConnectPushReq::set_tradehandler(bool value) {
   
   tradehandler_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.tradeHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.tradeHandler)
 }
 
-// optional bool logHandler = 6;
-inline void BfConnectReq::clear_loghandler() {
+// optional bool logHandler = 4;
+inline void BfConnectPushReq::clear_loghandler() {
   loghandler_ = false;
 }
-inline bool BfConnectReq::loghandler() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.logHandler)
+inline bool BfConnectPushReq::loghandler() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.logHandler)
   return loghandler_;
 }
-inline void BfConnectReq::set_loghandler(bool value) {
+inline void BfConnectPushReq::set_loghandler(bool value) {
   
   loghandler_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.logHandler)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.logHandler)
 }
 
-// optional string symbol = 7;
-inline void BfConnectReq::clear_symbol() {
+// optional string symbol = 5;
+inline void BfConnectPushReq::clear_symbol() {
   symbol_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BfConnectReq::symbol() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.symbol)
+inline const ::std::string& BfConnectPushReq::symbol() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.symbol)
   return symbol_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_symbol(const ::std::string& value) {
+inline void BfConnectPushReq::set_symbol(const ::std::string& value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.symbol)
 }
-inline void BfConnectReq::set_symbol(const char* value) {
+inline void BfConnectPushReq::set_symbol(const char* value) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectPushReq.symbol)
 }
-inline void BfConnectReq::set_symbol(const char* value, size_t size) {
+inline void BfConnectPushReq::set_symbol(const char* value, size_t size) {
   
   symbol_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectPushReq.symbol)
 }
-inline ::std::string* BfConnectReq::mutable_symbol() {
+inline ::std::string* BfConnectPushReq::mutable_symbol() {
   
-  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectPushReq.symbol)
   return symbol_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BfConnectReq::release_symbol() {
-  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.symbol)
+inline ::std::string* BfConnectPushReq::release_symbol() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectPushReq.symbol)
   
   return symbol_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_allocated_symbol(::std::string* symbol) {
+inline void BfConnectPushReq::set_allocated_symbol(::std::string* symbol) {
   if (symbol != NULL) {
     
   } else {
     
   }
   symbol_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbol);
-  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.symbol)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectPushReq.symbol)
 }
 
-// optional string exchange = 8;
-inline void BfConnectReq::clear_exchange() {
+// optional string exchange = 6;
+inline void BfConnectPushReq::clear_exchange() {
   exchange_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& BfConnectReq::exchange() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfConnectReq.exchange)
+inline const ::std::string& BfConnectPushReq::exchange() const {
+  // @@protoc_insertion_point(field_get:bfgateway.BfConnectPushReq.exchange)
   return exchange_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_exchange(const ::std::string& value) {
+inline void BfConnectPushReq::set_exchange(const ::std::string& value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:bfgateway.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set:bfgateway.BfConnectPushReq.exchange)
 }
-inline void BfConnectReq::set_exchange(const char* value) {
+inline void BfConnectPushReq::set_exchange(const char* value) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_char:bfgateway.BfConnectPushReq.exchange)
 }
-inline void BfConnectReq::set_exchange(const char* value, size_t size) {
+inline void BfConnectPushReq::set_exchange(const char* value, size_t size) {
   
   exchange_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_pointer:bfgateway.BfConnectPushReq.exchange)
 }
-inline ::std::string* BfConnectReq::mutable_exchange() {
+inline ::std::string* BfConnectPushReq::mutable_exchange() {
   
-  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_mutable:bfgateway.BfConnectPushReq.exchange)
   return exchange_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* BfConnectReq::release_exchange() {
-  // @@protoc_insertion_point(field_release:bfgateway.BfConnectReq.exchange)
+inline ::std::string* BfConnectPushReq::release_exchange() {
+  // @@protoc_insertion_point(field_release:bfgateway.BfConnectPushReq.exchange)
   
   return exchange_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void BfConnectReq::set_allocated_exchange(::std::string* exchange) {
+inline void BfConnectPushReq::set_allocated_exchange(::std::string* exchange) {
   if (exchange != NULL) {
     
   } else {
     
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
-  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectReq.exchange)
+  // @@protoc_insertion_point(field_set_allocated:bfgateway.BfConnectPushReq.exchange)
 }
 
 // -------------------------------------------------------------------
@@ -5047,34 +4956,6 @@ inline void BfGetContractReq::set_allocated_exchange(::std::string* exchange) {
   }
   exchange_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), exchange);
   // @@protoc_insertion_point(field_set_allocated:bfgateway.BfGetContractReq.exchange)
-}
-
-// optional int32 index = 3;
-inline void BfGetContractReq::clear_index() {
-  index_ = 0;
-}
-inline ::google::protobuf::int32 BfGetContractReq::index() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.index)
-  return index_;
-}
-inline void BfGetContractReq::set_index(::google::protobuf::int32 value) {
-  
-  index_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.index)
-}
-
-// optional bool subscribled = 4;
-inline void BfGetContractReq::clear_subscribled() {
-  subscribled_ = false;
-}
-inline bool BfGetContractReq::subscribled() const {
-  // @@protoc_insertion_point(field_get:bfgateway.BfGetContractReq.subscribled)
-  return subscribled_;
-}
-inline void BfGetContractReq::set_subscribled(bool value) {
-  
-  subscribled_ = value;
-  // @@protoc_insertion_point(field_set:bfgateway.BfGetContractReq.subscribled)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

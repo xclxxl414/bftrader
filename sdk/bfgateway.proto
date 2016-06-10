@@ -102,7 +102,7 @@ message BfTradeData{
     string exchange = 2;        // 交易所代码
 
     string tradeId = 3;         // 成交编号
-    // 对于ctp/lts是frontid.sessioni.orderref
+    // 对于ctp/lts是frontid.sessionid.orderref
     // ctp/lts的trade里面没有frontid+sessionid
     // 内部通过sysOrderId是做了映射trade到Order
     string bfOrderId = 4;       // 订单编号,是本地自己分配的
@@ -259,23 +259,24 @@ message BfCancelOrderReq{
 }
 
 // 连接时传入的对象类
-message BfConnectReq{
+message BfConnectPushReq{
     // 代号
-    string clientId = 1;        // robot Id
+    string clientId = 1;        // clientId
     
-    // 可扩展参数
-    int32 intParam = 2;         // 参数1
-    string strParam = 3;        // 参数2
-
     // 角色类别，可多选
-    // 注意：OnTradeWillBegin OnGotContracts OnPing 都必须实现
-    bool tickHandler = 4;       // OnTick
-    bool tradeHandler = 5;      // OnAccount OnPosition OnTrade OnOrder 
-    bool logHandler = 6;        // OnError OnLog(可扩展做日志分析)
+    // 注意：OnNotification OnPing都会收到
+    bool tickHandler = 2;       // OnTick
+    bool tradeHandler = 3;      // OnAccount OnPosition OnTrade OnOrder 
+    bool logHandler = 4;        // OnError OnLog(可扩展做日志分析)
     
     // tickHandler相关
-    string symbol = 7;          // 指定订阅的合约，都填*订阅所有
-    string exchange = 8;        // 合约exchange
+    string symbol = 5;          // 指定订阅的合约，都填*订阅所有
+    string exchange = 6;        // 合约exchange
+/*
+    // 可扩展参数
+    int32 intParam = 7;         // 参数1
+    string strParam = 8;        // 参数2
+*/    
 }
 
 // 获取合约信息传入的对象类
@@ -283,33 +284,32 @@ message BfGetContractReq{
     // 代码编号相关
     string symbol = 1;          // 合约代码
     string exchange = 2;        // 交易所代码
-    
+/*    
     // 获取全部合约时候可以用index来枚举，从1开始，返回空结束
     int32 index = 3;            // 枚举下标
     
     // 过滤条件，指定是否要求已经订阅
     bool subscribled = 4;       // 是否要求已经订阅
+*/    
 }
 
 //============================
 
 //
-// 网关服务，必须先connect然后才可以调用其他api
-// 本网关实现的是广播服务，用于做远程管理工具/远程策略引擎
-// 不想做远程策略引擎的，可使用内置的Cta引擎
+// 网关服务
 // 
-service BfGatewayService{    
-    // 请求push
-    rpc Connect(BfConnectReq) returns (stream google.protobuf.Any) {}
-
-    // 断开push
-    rpc Disconnect(BfVoid) returns (BfVoid) {}
-    
+service BfGatewayService{
     // 活跃检测
     rpc Ping(BfPingData) returns (BfPingData) {}
-        
-    // 获取交易合约信息
-    rpc GetContract(BfGetContractReq) returns (BfContractData) {}
+
+    // 开始/停止接收推送
+    // 1 接收异步调用的结果，如QueryAccount QueryPosition等
+    // 2 接收服务端的主动推送，如tick log notification等
+    rpc ConnectPush(BfConnectPushReq) returns (stream google.protobuf.Any) {}
+    rpc DisconnectPush(BfVoid) returns (BfVoid) {}
+            
+    // 获取交易合约信息，支持*获取全部订阅合约
+    rpc GetContract(BfGetContractReq) returns (stream BfContractData) {}
        
     // 发单
     rpc SendOrder(BfSendOrderReq) returns (BfSendOrderResp) {}

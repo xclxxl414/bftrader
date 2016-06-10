@@ -88,11 +88,11 @@ BfDatafeedService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   return new ::grpc::ClientAsyncReader< ::bfdatafeed::BfBarData>(channel_.get(), cq, rpcmethod_GetBar_, context, request, tag);
 }
 
-::grpc::ClientReader< ::bfgateway::BfContractData>* BfDatafeedService::Stub::GetContractRaw(::grpc::ClientContext* context, const ::bfdatafeed::BfDatafeedGetContractReq& request) {
+::grpc::ClientReader< ::bfgateway::BfContractData>* BfDatafeedService::Stub::GetContractRaw(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request) {
   return new ::grpc::ClientReader< ::bfgateway::BfContractData>(channel_.get(), rpcmethod_GetContract_, context, request);
 }
 
-::grpc::ClientAsyncReader< ::bfgateway::BfContractData>* BfDatafeedService::Stub::AsyncGetContractRaw(::grpc::ClientContext* context, const ::bfdatafeed::BfDatafeedGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) {
+::grpc::ClientAsyncReader< ::bfgateway::BfContractData>* BfDatafeedService::Stub::AsyncGetContractRaw(::grpc::ClientContext* context, const ::bfgateway::BfGetContractReq& request, ::grpc::CompletionQueue* cq, void* tag) {
   return new ::grpc::ClientAsyncReader< ::bfgateway::BfContractData>(channel_.get(), cq, rpcmethod_GetContract_, context, request, tag);
 }
 
@@ -131,7 +131,7 @@ BfDatafeedService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       BfDatafeedService_method_names[6],
       ::grpc::RpcMethod::SERVER_STREAMING,
-      new ::grpc::ServerStreamingHandler< BfDatafeedService::Service, ::bfdatafeed::BfDatafeedGetContractReq, ::bfgateway::BfContractData>(
+      new ::grpc::ServerStreamingHandler< BfDatafeedService::Service, ::bfgateway::BfGetContractReq, ::bfgateway::BfContractData>(
           std::mem_fn(&BfDatafeedService::Service::GetContract), this)));
 }
 
@@ -180,7 +180,7 @@ BfDatafeedService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status BfDatafeedService::Service::GetContract(::grpc::ServerContext* context, const ::bfdatafeed::BfDatafeedGetContractReq* request, ::grpc::ServerWriter< ::bfgateway::BfContractData>* writer) {
+::grpc::Status BfDatafeedService::Service::GetContract(::grpc::ServerContext* context, const ::bfgateway::BfGetContractReq* request, ::grpc::ServerWriter< ::bfgateway::BfContractData>* writer) {
   (void) context;
   (void) request;
   (void) writer;
