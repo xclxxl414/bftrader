@@ -9,4 +9,6 @@ third_party/ctp/bin/
 third_party/ctp/lib/
 third_party/grpc/bin/
 third_party/grpc/lib/
-
+sdk/python/
+sdk/github.com/
+sdk/cpp/
