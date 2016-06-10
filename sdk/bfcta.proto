@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package bfcta;
+option go_package = "github.com/sunwangme/bfgo/api/bfcta";
+
+import "bfgateway.proto";
+import "google/protobuf/any.proto";
+
+//============================
+
+// 模型实现采用的语言和发布方式
+enum BfModelLangType{
+    MODELLANG_UNKNOWN = 0;          // 未知
+    MODELLANG_PYTHONSCRIPT = 1;     // python脚本
+    MODELLANG_GOLANGEXE = 2;        // golang可执行程序
+    MODELLANG_CPPEXE = 3;           // cpp可执行程序
+    MODELLANG_CPPDLL = 4;           // cpp动态链接库
+}
+
+// 模型信息类
+message BfModelData{
+    string modelId = 1;             // 模型id
+    BfModelLangType langType = 2;   // 模型语言和实现类型
+    string path= 3;                 // 模型可运行文件路径
+}
+
+// 机器人信息类
+message BfRobotData{
+    string robotId = 1;             // 机器人id
+    string modelId = 2;             // 模型id
+    string gatewayId = 3;           // 网关id
+    string symbol = 4;              // 合约,换月时候手动修改
+    string exchange = 5;            // 交易所
+    string status = 6;              // 状态
+}
+
+// 网关信息类
+message BfGatewayData{
+    string gatewayId = 1;           // 网关id
+    string ip = 2;                  // 网关ip
+    int32 port = 3;                 // 网关端口
+    string status = 4;              // 状态
+}
+
+// 委托<-->机器人映射信息类
+message BfOrderExData{
+    string bfOrderId = 1;           // 委托id
+    string robotId = 2;             // 机器人id
+}
+
+//============================
+
+//
+// Cta服务，必须先connect然后才可以调用其他api
+//
+service BfCtaService{    
+    // 请求push
+    rpc ConnectPush(bfgateway.BfConnectPushReq) returns (stream google.protobuf.Any) {}
+
+    // 断开push
+    rpc DisconnectPush(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
+    
+    // 活跃检测
+    rpc Ping(bfgateway.BfPingData) returns (bfgateway.BfPingData) {}
+            
+    // 获取策略信息，如position，用kv最方便
+    rpc GetRobotInfo(bfgateway.BfKvData) returns (bfgateway.BfKvData) {}
+
+    // 发单
+    rpc SendOrder(bfgateway.BfSendOrderReq) returns (bfgateway.BfSendOrderResp) {}
+    
+    // 撤单
+    rpc CancelOrder(bfgateway.BfCancelOrderReq) returns (bfgateway.BfVoid) {}
+            
+}
