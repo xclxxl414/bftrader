@@ -16,9 +16,6 @@ golang策略范例（标价：500，无人数限制）
 1. datarecorder收集tick组装bar插入datafeed
 2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
 
-golang策略范例（标价：500，无人数限制）
-===
-
 交易相关 (标价：1k，限定2人内AB制)
 ===
 1. 保存通用数据的kv api
