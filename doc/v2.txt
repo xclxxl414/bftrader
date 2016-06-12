@@ -1,0 +1,29 @@
+v2需求列表
+
+交易相关
+===
+1. 保存通用数据的kv api
+2. 停止单/止盈止损stoporder api
+3. 条件单condorder api
+方案：
+单独做一个服务bfcloud，接受云条件单 云止盈止损单，类似文华财经的云条件单
+
+回测相关
+===
+1. 回测网关 btgateway
+方案：
+单独做一个服务btgateway，回放历史数据并模拟交易，提供回测统计报表
+
+策略相关
+===
+1. 自动生成多周期的datarecorder
+2. 自动生成加权指数的datarecorder
+方案：
+单独做一个策略datarecorder，负责收集数据
+
+数据相关
+===
+1. 提供删除数据的api
+方案：datafeed提供deletetick deletebar deletecontract
+
+欢迎讨论！
