@@ -128,7 +128,7 @@ private:
             auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
             clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
+            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
         }
         return clientId;
     }
