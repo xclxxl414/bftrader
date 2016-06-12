@@ -1,6 +1,25 @@
-v2需求列表
+﻿任务列表
+======
 
-交易相关 (标价：1k)
+文档相关(标价：100，限定2人内AB制)
+===
+1. 完善bftrader bfpy bfgo的readme
+2. markdown格式，配上插图
+
+python策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+golang策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+golang策略范例（标价：500，无人数限制）
+===
+
+交易相关 (标价：1k，限定2人内AB制)
 ===
 1. 保存通用数据的kv api
 2. 停止单/止盈止损stoporder api
@@ -9,25 +28,25 @@ v2需求列表
 单独做一个服务bfcloud，接受云条件单 云止盈止损单，类似文华财经的云条件单
 key按路径来，如果是/开头，就是绝对路径，不加上策略的名字
 
-回测相关(标价：1k)
+回测相关(标价：1k，限定2人内AB制)
 ===
 1. 回测网关 btgateway
 方案：
 单独做一个服务btgateway，回放历史数据并模拟交易，提供回测统计报表
 
-策略相关(标价：1k)
+策略相关(标价：1k，限定2人内AB制)
 ===
 1. 自动生成多周期的datarecorder
 2. 自动生成加权指数的datarecorder
 方案：
 单独做一个策略datarecorder，负责收集数据
 
-数据相关(标价：1k)
+数据相关(标价：1k，限定2人内AB制)
 ===
 1. 提供删除数据的api
 方案：datafeed提供deletetick deletebar deletecontract
 
-网关相关(标价：1k)
+网关相关(标价：1k，限定2人内AB制)
 ===
 1. 完善queryposition，将一次query的结果合并好后再推送(就是要判断reqId)
 2. 完善queryorders，和onorder分开，并将一次query的结果合并好后再推送(就是要判断reqId)
