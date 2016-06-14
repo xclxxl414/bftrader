@@ -1,4 +1,4 @@
-从源码编译
+﻿从源码编译
 ======
 1. 安装vs2015 社区版，主要一定要选择 web开发工具（不然会有framework找不到的问题），另外加上vc2015的公用工具，就这两项(会自动安装wsdk81)
 https://www.visualstudio.com/downloads/download-visual-studio-vs
@@ -22,7 +22,9 @@ third_party.7z
 C:\projects\bftrader\third_party\grpc\bin
 C:\projects\bftrader\third_party\ctp\bin
 
-6. 用qtcreator打开 c:/projects/bftrader/bftrader.pro
+6. 运行sdk/gencpp.bat
+
+7. 用qtcreator打开 c:/projects/bftrader/bftrader.pro
 编译！！！！
 
 （完）

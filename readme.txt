@@ -1,51 +1,30 @@
 QQ交流群340195342，点击加入：http://jq.qq.com/?_wv=1027&k=2ADNTk3
 ======
 
-2015-2016 by 和哥
-bftrader/福友量化: 支持手动交易，也支持程序化
-
-从源码编译
+简介
 ======
-照着做，很快能搞定。
+bftrader的bf，不是boyfriend，是bless friend，福友量化！
+bftrader支持手动交易，也支持程序化交易，目前只支持ctp！
+
+由gateway/网关+datafeed/数据+strategy/策略等几部分组成，
+这里是gateway/网关+datafeed/数据的c++开源实现。
+
+快速上手 （python）
+======
+https://github.com/sunwangme/bfpy
+
+快速上手（golang）
+======
+https://github.com/sunwangme/bfgo
+
+主程序编译(c++)
+======
+你没有必要自己编译，这里提供了预编译好的包：
+下载地址: https://github.com/sunwangme/bftrader/releases
+下载地址: http://pan.baidu.com/s/1nvgrNst
+
+如果你喜欢浪费时间，可以参考下面文档：
 doc\bftrader编译步骤-文字版.txt
 doc\bftrader编译步骤-图文版.docx
-
-手动交易
-======
-1. 下载bftrader发布包
-下载地址: https://github.com/sunwangme/bftrader/releases
-下载地址: http://pan.baidu.com/s/1nvgrNst
-
-2. 运行ctpgateway
-先ctp/config，注意地址前面加tcp://，其他和vnpy一致
-
-
-程序化交易
-======
-用python怎么写策略？（可以使用gateway接口，也可以使用cta接口，目前用gateway接口）
-这个就要看懂sdk！看懂sdk/api！
-进入sdk目录，运行例子，就明白了！
-
-1. 下载bftrader发布包
-下载地址: https://github.com/sunwangme/bftrader/releases
-下载地址: http://pan.baidu.com/s/1nvgrNst
-
-2. 安装grpc for python
-   2.1 安装python python-2.7.11.msi
-   2.2 安装python库,安装包在 sdk/python_libs目录下
-      2.2.1 pip install six-xxx
-      2.2.2 pip install setuptools-xxx
-      2.2.3 pip install enum34-xxx
-      2.2.4 pip install futures-xxx
-      2.2.5 pip install protobuf-xxx
-      2.2.6 pip install grpcio-xxx
-
-3. 写策略，调试策略  
-    3.1 运行ctpgateway.exe,datafeed.exe
-    3.2 点击ctpgateway的net/netStart,点击datafeed的net/netStart
-    3.3 运行python/datarecorder.py，以连接ctpgateway datafeed
-    3.4 点击ctpgateway的ctp/ctpStart
-    3.5 可以看到datarecorder.py跑起来啦
-
 
 （完）
