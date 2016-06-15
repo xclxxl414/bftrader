@@ -73,7 +73,6 @@ message BfGetBarReq{
     int32 count = 6;                // 获取条数
 }
 
-/*
 message BfDeleteTickReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码
@@ -81,6 +80,9 @@ message BfDeleteTickReq{
 
     string toDate = 3;              // 截止日期
     string toTime = 4;              // 截止时间
+    
+    string fromDate = 5;            // 开始日期
+    string fromTime = 6;            // 开始时间
 }
 
 message BfDeleteBarReq{
@@ -92,6 +94,9 @@ message BfDeleteBarReq{
     
     string toDate = 4;              // 截止日期
     string toTime = 5;              // 截止时间
+
+    string fromDate = 6;            // 开始日期
+    string fromTime = 7;            // 开始时间
 }
 
 message BfDeleteContractReq{
@@ -99,7 +104,6 @@ message BfDeleteContractReq{
     string symbol = 1;              // 合约代码，
     string exchange = 2;            // 交易所代码
 }
-*/
 
 //============================
 
@@ -122,14 +126,13 @@ service BfDatafeedService{
     rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
     // 获取contract, 支持*获取全部订阅合约
     rpc GetContract(bfgateway.BfGetContractReq) returns (stream bfgateway.BfContractData) {}
-/*
+
     // 删除tick
     rpc DeleteTick(BfDeleteTickReq) returns (bfgateway.BfVoid) {}
     // 删除bar
     rpc DeleteBar(BfDeleteBarReq) returns (bfgateway.BfVoid) {}
     // 删除contract
     rpc DeleteContract(BfDeleteContractReq) returns (bfgateway.BfVoid) {}
-*/    
 }
 
 //============================

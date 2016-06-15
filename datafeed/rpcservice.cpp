@@ -88,7 +88,6 @@ public:
         return grpc::Status::OK;
     }
 
-    /*
     virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const BfDeleteTickReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
@@ -109,16 +108,15 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const BfDatafeedDeleteContractReq* request, BfVoid* response) override
+    virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const BfDeleteContractReq* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
-        QMetaObject::invokeMethod(g_sm->dbService(), "deleteContract", Qt::QueuedConnection, Q_ARG(BfDatafeedDeleteContractReq, *request));
+        QMetaObject::invokeMethod(g_sm->dbService(), "deleteContract", Qt::QueuedConnection, Q_ARG(BfDeleteContractReq, *request));
         return grpc::Status::OK;
     }
-*/
 private:
     // metadata-key只能是小写的=
     QString getClientId(::grpc::ServerContext* context)

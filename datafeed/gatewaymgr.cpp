@@ -19,11 +19,9 @@ void GatewayMgr::init()
     qRegisterMetaType<BfGetBarReq>("BfGetBarReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
 
-    /*
     qRegisterMetaType<BfDeleteTickReq>("BfDeleteTickReq");
     qRegisterMetaType<BfDeleteBarReq>("BfDeleteBarReq");
     qRegisterMetaType<BfDeleteContractReq>("BfDeleteContractReq");
-*/
 }
 
 void GatewayMgr::shutdown()

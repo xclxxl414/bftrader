@@ -270,7 +270,9 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
 void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0 || request->period() == PERIOD_UNKNOWN) {
+    if (request->symbol().length() == 0 || request->exchange().length() == 0
+            || request->todate().length() == 0 || request->totime().length() == 0
+            || request->period() == PERIOD_UNKNOWN) {
         BfDebug("invalid parm,ignore");
         return;
     }
@@ -283,7 +285,9 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     }
 
     // key: bar-symbol-exchange-period-actiondate-bartime
-    std::string key = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period())), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string key = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                        request->todate().c_str(), request->totime().c_str()).toStdString();
     it->Seek(leveldb::Slice(key));
     int count = 0;
     for (; it->Valid() && count < request->count(); it->Prev()) {
@@ -296,7 +300,8 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
             break;
         }
         if (bfItem.symbol().length() == 0) {
-            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
+            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                                       qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
             std::string itKey = it->key().ToString();
             if (itKey == lastestKey) {
                 continue;
@@ -375,22 +380,123 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
     }
 }
 
-/*
-// TODO(hege): do it
-void DbService::deleteTick(const BfDeleteTickReq& bfReq)
+// 遍历构建batch，然后执行batch
+void DbService::deleteTick(const BfDeleteTickReq& request)
 {
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (request.symbol().length() == 0 || request.exchange().length() == 0
+            || request.todate().length() == 0 || request.totime().length() == 0
+            || request.fromdate().length() == 0 || request.fromtime().length() == 0) {
+        BfDebug("invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey,endKey,firstKey,lastestKey;
+    fromKey = QString().sprintf("tick-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(), request.fromdate().c_str(), request.fromtime().c_str()).toStdString();
+    endKey = QString().sprintf("tick-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(), request.todate().c_str(), request.totime().c_str()).toStdString();
+    firstKey = QString().sprintf("tick-%s-%s+", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+    lastestKey = QString().sprintf("tick-%s-%s=", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+
+    if (1) {
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db_->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
+        }
+
+        it->Seek(leveldb::Slice(fromKey));
+        for (; it->Valid(); it->Next()) {
+            std::string itKey = it->key().ToString();
+            if(itKey==firstKey){
+                continue;
+            }
+            if(itKey==lastestKey){
+                break;
+            }
+            if(itKey<=endKey){
+                batch.Delete(itKey);
+            }
+        }
+        delete it;
+    }
+
+    db_->Write(options, &batch);
 }
 
-// TODO(hege): do it
-void DbService::deleteBar(const BfDeleteBarReq& bfReq)
+// 遍历构建batch，然后执行batch
+void DbService::deleteBar(const BfDeleteBarReq& request)
 {
     g_sm->checkCurrentOn(ServiceMgr::DB);
+    if (request.symbol().length() == 0 || request.exchange().length() == 0
+            || request.todate().length() == 0 || request.totime().length() == 0
+            || request.fromdate().length() == 0 || request.fromtime().length() == 0
+            || request.period() == PERIOD_UNKNOWN) {
+        BfDebug("invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey,endKey,firstKey,lastestKey;
+    fromKey = QString().sprintf("tick-%s-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(),
+                                qPrintable(ProtoUtils::formatPeriod(request.period())),
+                                request.fromdate().c_str(), request.fromtime().c_str()).toStdString();
+    endKey = QString().sprintf("tick-%s-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(),
+                               qPrintable(ProtoUtils::formatPeriod(request.period())),
+                               request.todate().c_str(), request.totime().c_str()).toStdString();
+    firstKey = QString().sprintf("tick-%s-%s-%s+", request.symbol().c_str(), request.exchange().c_str(),
+                                 qPrintable(ProtoUtils::formatPeriod(request.period()))).toStdString();
+    lastestKey = QString().sprintf("tick-%s-%s-%s=", request.symbol().c_str(), request.exchange().c_str(),
+                                   qPrintable(ProtoUtils::formatPeriod(request.period()))).toStdString();
+
+    if (1) {
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db_->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
+        }
+
+        it->Seek(leveldb::Slice(fromKey));
+        for (; it->Valid(); it->Next()) {
+            std::string itKey = it->key().ToString();
+            if(itKey==firstKey){
+                continue;
+            }
+            if(itKey==lastestKey){
+                break;
+            }
+            if(itKey<=endKey){
+                batch.Delete(itKey);
+            }
+        }
+        delete it;
+    }
+
+    db_->Write(options, &batch);
 }
 
-// TODO(hege): do it
-void DbService::deleteContract(const BfDatafeedDeleteContractReq& bfReq)
+void DbService::deleteContract(const BfDeleteContractReq& request)
 {
     g_sm->checkCurrentOn(ServiceMgr::DB);
+    if (request.symbol().length() == 0 || request.exchange().length() == 0) {
+        BfDebug("invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    std::string key = QString().sprintf("contract-%s-%s", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+    batch.Delete(key);
+
+    db_->Write(options, &batch);
 }
-*/

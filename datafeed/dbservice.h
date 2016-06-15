@@ -27,11 +27,10 @@ public slots:
     void getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
     void getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
 
-    /*
     void deleteTick(const BfDeleteTickReq& bfReq);
     void deleteBar(const BfDeleteBarReq& bfReq);
-    void deleteContract(const BfDatafeedDeleteContractReq& bfReq);
-*/
+    void deleteContract(const BfDeleteContractReq& bfReq);
+
 private:
     void dbOpen();
     void dbClose();
