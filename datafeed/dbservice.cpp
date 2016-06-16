@@ -421,6 +421,8 @@ void DbService::deleteTick(const BfDeleteTickReq& request)
             }
             if(itKey<=endKey){
                 batch.Delete(itKey);
+            }else{
+                break;
             }
         }
         delete it;
@@ -476,6 +478,8 @@ void DbService::deleteBar(const BfDeleteBarReq& request)
             }
             if(itKey<=endKey){
                 batch.Delete(itKey);
+            }else{
+                break;
             }
         }
         delete it;
