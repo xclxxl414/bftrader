@@ -48,5 +48,7 @@ key按路径来，如果是/开头，就是绝对路径，不加上策略的名�
 1. 完善queryposition，将一次query的结果合并好后再推送(就是要判断reqId)
 2. 完善queryorders，和onorder分开，并将一次query的结果合并好后再推送(就是要判断reqId)
 3. 完善queryinstruments，将一次query的结果合并好后在处理(就是要判断reqId)
+方案：增加notification子项目，表示某一类query的beginquery endquery，明确区分前后两次的结果
+前一个query没结束，后一个同类query直接忽略=
 
 欢迎讨论！
