@@ -34,6 +34,7 @@ public slots:
     void onGotOrder(const BfOrderData& data);
     void onGotPosition(const BfPositionData& pos);
     void onGotAccount(const BfAccountData& account);
+    void onGotNotification(const BfNotificationData& note);
 
 private:
     QMap<QString, GatewayClient*> clients_;

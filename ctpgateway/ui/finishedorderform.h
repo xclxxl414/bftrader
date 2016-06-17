@@ -20,6 +20,10 @@ public:
 
 private slots:
     void onGotOrder(const BfOrderData& data);
+    void onGotNotification(const BfNotificationData& note);
+
+private:
+    void updateUI();
 
 private:
     Ui::FinishedOrderForm* ui;
@@ -27,6 +31,7 @@ private:
     QMap<QString, int> table_row_;
 
     QMap<QString, BfOrderData> orders_;
+    bool querying_ = false;
 };
 
 #endif // FINISHEDORDERFORM_H

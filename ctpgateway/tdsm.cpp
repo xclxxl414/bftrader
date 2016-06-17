@@ -188,11 +188,28 @@ private:
                 pos.ydposition(),
                 pInvestorPosition->TodayPosition);
 
+            // notification: begin query position
+            if (queryPositionReqId_ == 0){
+                queryPositionReqId_ = nRequestID;
+
+                BfNotificationData note;
+                note.set_type(NOTIFICATION_BEGINQUERYPOSITION);
+                emit g_sm->gatewayMgr()->gotNotification(note);
+            }
             emit g_sm->gatewayMgr()->gotPosition(pos);
         }
 
         if (bIsLast) {
             BfDebug(__FUNCTION__);
+
+            // notification: end query position
+            if (queryPositionReqId_ != 0){
+                queryPositionReqId_ = 0;
+
+                BfNotificationData note;
+                note.set_type(NOTIFICATION_ENDQUERYPOSITION);
+                emit g_sm->gatewayMgr()->gotNotification(note);
+            }
         }
     }
 
@@ -238,11 +255,28 @@ private:
             order.set_inserttime(pOrder->InsertTime);
             order.set_canceltime(pOrder->CancelTime);
 
+            // notification: begin query orders
+            if (queryOrdersReqId_ == 0){
+                queryOrdersReqId_ = nRequestID;
+
+                BfNotificationData note;
+                note.set_type(NOTIFICATION_BEGINQUERYORDERS);
+                emit g_sm->gatewayMgr()->gotNotification(note);
+            }
             emit g_sm->gatewayMgr()->gotOrder(order);
         }
 
         if (bIsLast) {
             BfDebug("%s: finished", __FUNCTION__);
+
+            // notification: end query orders
+            if (queryOrdersReqId_ != 0){
+                queryOrdersReqId_ = 0;
+
+                BfNotificationData note;
+                note.set_type(NOTIFICATION_ENDQUERYORDERS);
+                emit g_sm->gatewayMgr()->gotNotification(note);
+            }
         }
     }
 
@@ -418,10 +452,14 @@ private:
     QStringList symbols_my_;
     QStringList symbols_all_;
     QStringList symbolPrefixList_;
+
     std::atomic_int32_t orderRef_ = 0;
     int frontId_ = 0;
     int sessionId_ = 0;
     QMap<QString, QString> sysid2bfid_;
+
+    int queryPositionReqId_ = 0;
+    int queryOrdersReqId_ = 0;
 
     friend TdSm;
 };
@@ -576,7 +614,7 @@ void TdSm::queryInstrument(unsigned int delayTick)
         memset(&req, 0, sizeof(req));
 
         int result = tdapi_->ReqQryInstrument(&req, reqId);
-        BfDebug("CmdTdQueryInstrument,reqId=%d,result=%d", reqId, result);
+        BfDebug("CmdTdReqQryInstrument,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->gatewayMgr()->requestSent(reqId);
         }
@@ -601,7 +639,7 @@ void TdSm::queryAccount(unsigned int delayTick)
         strncpy(req.InvestorID, userId_.toStdString().c_str(), sizeof(req.InvestorID) - 1);
 
         int result = tdapi_->ReqQryTradingAccount(&req, reqId);
-        BfDebug("CmdTdQueryInvestorPosition,reqId=%d,result=%d", reqId, result);
+        BfDebug("CmdTdReqQryTradingAccount,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->gatewayMgr()->requestSent(reqId);
         }

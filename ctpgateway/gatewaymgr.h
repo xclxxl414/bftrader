@@ -68,6 +68,7 @@ signals:
     void gotTrade(const BfTradeData& trade);
     void gotPosition(const BfPositionData& pos);
     void gotGatewayError(int code, QString msg, QString msgEx);
+    void gotNotification(const BfNotificationData& note);
 
 public slots:
     void showVersion();
@@ -77,9 +78,9 @@ public slots:
     void queryAccount();
     void sendOrderWithId(QString byOrderId, const BfSendOrderReq& req);
     void sendOrder(const BfSendOrderReq& req);
-    void queryPosition();
+    void queryPosition(); //TODO(hege):多个同时query的问题=
     void cancelOrder(const BfCancelOrderReq& req);
-    void queryOrders();
+    void queryOrders();//TODO(hege):多个同时query的问题=
 
 private slots:
     void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);

@@ -26,14 +26,7 @@ public:
         shutdown();
     }
 
-    void OnTradeWillBegin(const BfNotificationData& data)
-    {
-        auto any = new google::protobuf::Any();
-        any->PackFrom(data);
-        queue_->enqueue(any);
-    }
-
-    void OnGotContracts(const BfNotificationData& data)
+    void OnNotification(const BfNotificationData& data)
     {
         auto any = new google::protobuf::Any();
         any->PackFrom(data);
@@ -162,6 +155,8 @@ void PushService::init()
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PushService::onGotPosition);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotAccount, this, &PushService::onGotAccount);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotGatewayError, this, &PushService::onGatewayError);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &PushService::onGotNotification);
+
     QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
     QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
 }
@@ -272,7 +267,7 @@ void PushService::onTradeWillBegin()
     BfNotificationData data;
     data.set_type(NOTIFICATION_TRADEWILLBEGIN);
     for (auto client : clients_) {
-        client->OnTradeWillBegin(data);
+        client->OnNotification(data);
     }
 }
 
@@ -283,7 +278,7 @@ void PushService::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
     BfNotificationData data;
     data.set_type(NOTIFICATION_GOTCONTRACTS);
     for (auto client : clients_) {
-        client->OnGotContracts(data);
+        client->OnNotification(data);
     }
 }
 
@@ -347,4 +342,24 @@ void PushService::onGatewayError(int code, QString msg, QString msgEx)
             client->OnError(data);
         }
     }
+}
+
+void PushService::onGotNotification(const BfNotificationData& note)
+{
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    BfNotificationType type = note.type();
+    if (type == NOTIFICATION_BEGINQUERYORDERS ||
+        type == NOTIFICATION_BEGINQUERYPOSITION ||
+            type == NOTIFICATION_ENDQUERYORDERS ||
+            type == NOTIFICATION_ENDQUERYPOSITION){
+        for (auto client : clients_) {
+            if(client->tradehandler()){
+                client->OnNotification(note);
+            }
+        }
+    }else{
+        BfInfo("invalid notification type");
+    }
+
 }

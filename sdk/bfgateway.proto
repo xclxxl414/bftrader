@@ -49,11 +49,14 @@ enum BfPriceType{
 }
 
 // Notification
-enum BfNoticationType{
+enum BfNotificationType{
     NOTIFICATION_UNKNOWN = 0;           //未知
     NOTIFICATION_TRADEWILLBEGIN = 1;    //登录成功准备查询可交易合约列表
     NOTIFICATION_GOTCONTRACTS = 2;      //查询可交易合约列表成功
-    
+    NOTIFICATION_BEGINQUERYORDERS = 3;  //开始查询挂单
+    NOTIFICATION_ENDQUERYORDERS = 4;    //查询挂单结束
+    NOTIFICATION_BEGINQUERYPOSITION = 5;//开始查询持仓
+    NOTIFICATION_ENDQUERYPOSITION = 6;  //查询持仓结束
 }
 
 //============================
@@ -205,7 +208,7 @@ message BfContractData{
 
 // Notification
 message BfNotificationData{
-    BfNoticationType type = 1;  // 类别
+    BfNotificationType type = 1;// 类别
     int32 code = 2;             // 代码
     string message = 3;         // 信息
     string messageEx = 4;       // 补充信息
@@ -322,6 +325,9 @@ service BfGatewayService{
     
     // 查询持仓信息
     rpc QueryPosition(BfVoid) returns (BfVoid) {}
+    
+    // 查询挂单信息
+    rpc QueryOrders(BfVoid) returns (BfVoid) {}
 }
 
 //============================

@@ -133,6 +133,16 @@ public:
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
+    virtual ::grpc::Status QueryOrders(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+        BfDebug("clientId=%s", qPrintable(clientId));
+
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection);
+        return grpc::Status::OK;
+    }
 
 private:
     // metadata-key只能是小写的=

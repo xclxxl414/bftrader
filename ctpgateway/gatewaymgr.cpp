@@ -494,9 +494,9 @@ void GatewayMgr::runCmd(CtpCmd* cmd)
 
     if (cmd->delayTick == 0) {
         int result = cmd->fn(++reqId_);
-        if (result == -3) {
+        if (result == -3 || result == -2) {
             BfError("sendcmd toofast,reqId=%d", reqId_);
-            emit gotGatewayError(-3, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
+            emit gotGatewayError(result, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
             cmd->expires = ::GetTickCount() + 1000;
             cmds_.append(cmd);
         } else {

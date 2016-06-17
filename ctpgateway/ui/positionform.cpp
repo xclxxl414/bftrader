@@ -40,6 +40,7 @@ void PositionForm::init()
     // gatewaymgr
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PositionForm::onGotPosition);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &PositionForm::onGotContracts);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &PositionForm::onGotNotification);
 }
 
 void PositionForm::shutdown()
@@ -84,54 +85,7 @@ void PositionForm::onGotPosition(const BfPositionData& newPos)
         positions_[newKey] = combPos;
     }
 
-    // 更新界面=
-    table_row_.clear();
-    ui->tableWidget->clearContents();
-    ui->tableWidget->setRowCount(positions_.size());
-    QStringList keys = positions_.keys();
-    keys.sort();
-    for (int i = 0; i < keys.length(); i++) {
-        QString key = keys.at(i);
-        table_row_[key] = i;
-
-        QTableWidgetItem* item = new QTableWidgetItem(key);
-        ui->tableWidget->setItem(i, table_col_.indexOf("key"), item);
-    }
-
-    for (auto pos : positions_) {
-        QString symbol = QString::fromStdString(pos.symbol());
-        QString exchange = QString::fromStdString(pos.exchange()); //ctp里面没有提供=
-        int volumeMultiple = 1;
-        void* contract = g_sm->gatewayMgr()->getContract(symbol);
-        exchange = CtpUtils::getExchangeFromContract(contract);
-        volumeMultiple = CtpUtils::getVolumeMultipleFromContract(contract);
-
-        QVariantMap vItem;
-        vItem.insert("symbol", symbol);
-        vItem.insert("exchange", exchange);
-
-        vItem.insert("direction", CtpUtils::formatDirection(pos.direction()));
-        vItem.insert("position", pos.position());
-        vItem.insert("ydPosition", pos.ydposition());
-        vItem.insert("price", pos.price() / volumeMultiple);
-        vItem.insert("frozen", pos.frozen());
-
-        QString key = QString().sprintf("%s.%s.%d", symbol.toStdString().c_str(), exchange.toStdString().c_str(), pos.direction());
-        vItem.insert("key", key);
-
-        //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
-        int row = table_row_.value(key);
-        for (int i = 0; i < table_col_.count(); i++) {
-            QVariant raw_val = vItem.value(table_col_.at(i));
-            QString str_val = raw_val.toString();
-            if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
-                str_val = QString().sprintf("%6.3f", raw_val.toDouble());
-            }
-
-            QTableWidgetItem* item = new QTableWidgetItem(str_val);
-            ui->tableWidget->setItem(row, i, item);
-        }
-    }
+    updateUI();
 }
 
 void PositionForm::on_pushButtonQueryPosition_clicked()
@@ -238,6 +192,74 @@ void PositionForm::on_pushButtonCloseAll_clicked()
             req.set_pricetype(priceType);
 
             QMetaObject::invokeMethod(g_sm->gatewayMgr(), "sendOrder", Qt::QueuedConnection, Q_ARG(BfSendOrderReq, req));
+        }
+    }
+}
+
+void PositionForm::onGotNotification(const BfNotificationData &note){
+    if(note.type()==NOTIFICATION_BEGINQUERYPOSITION){
+        BfDebug("NOTIFICATION_BEGINQUERYPOSITION");
+        positions_.clear();
+        querying_ = true;
+    }else if(note.type()==NOTIFICATION_ENDQUERYPOSITION){
+        BfDebug("NOTIFICATION_ENDQUERYPOSITION");
+        querying_ = false;
+
+        updateUI();
+    }
+}
+
+void PositionForm::updateUI(){
+    if(querying_){
+        return;
+    }
+
+    // 更新界面=
+    table_row_.clear();
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(positions_.size());
+    QStringList keys = positions_.keys();
+    keys.sort();
+    for (int i = 0; i < keys.length(); i++) {
+        QString key = keys.at(i);
+        table_row_[key] = i;
+
+        QTableWidgetItem* item = new QTableWidgetItem(key);
+        ui->tableWidget->setItem(i, table_col_.indexOf("key"), item);
+    }
+
+    for (auto pos : positions_) {
+        QString symbol = QString::fromStdString(pos.symbol());
+        QString exchange = QString::fromStdString(pos.exchange()); //ctp里面没有提供=
+        int volumeMultiple = 1;
+        void* contract = g_sm->gatewayMgr()->getContract(symbol);
+        exchange = CtpUtils::getExchangeFromContract(contract);
+        volumeMultiple = CtpUtils::getVolumeMultipleFromContract(contract);
+
+        QVariantMap vItem;
+        vItem.insert("symbol", symbol);
+        vItem.insert("exchange", exchange);
+
+        vItem.insert("direction", CtpUtils::formatDirection(pos.direction()));
+        vItem.insert("position", pos.position());
+        vItem.insert("ydPosition", pos.ydposition());
+        vItem.insert("price", pos.price() / volumeMultiple);
+        vItem.insert("frozen", pos.frozen());
+
+        QString key = QString().sprintf("%s.%s.%d", symbol.toStdString().c_str(), exchange.toStdString().c_str(), pos.direction());
+        vItem.insert("key", key);
+
+        //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
+        int row = table_row_.value(key);
+        for (int i = 0; i < table_col_.count(); i++) {
+            QVariant raw_val = vItem.value(table_col_.at(i));
+            QString str_val = raw_val.toString();
+            if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
+                str_val = QString().sprintf("%6.3f", raw_val.toDouble());
+            }
+
+            QTableWidgetItem* item = new QTableWidgetItem(str_val);
+            ui->tableWidget->setItem(row, i, item);
         }
     }
 }

@@ -21,8 +21,12 @@ public:
 
 private slots:
     void onGotOrder(const BfOrderData& data);
+    void onGotNotification(const BfNotificationData& note);
     void on_pushButtonQueryOrders_clicked();
     void on_pushButtonCancelAll_clicked();
+
+private:
+    void updateUI();
 
 private:
     Ui::WorkingOrderForm* ui;
@@ -30,6 +34,8 @@ private:
     QMap<QString, int> table_row_;
 
     QMap<QString, BfOrderData> orders_;
+
+    bool querying_ = false;
 };
 
 #endif // WORKINGORDERFORM_H
