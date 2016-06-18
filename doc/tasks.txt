@@ -1,14 +1,12 @@
 ﻿任务列表（发邮件给42489549@qq.com提交结果）
 ======
 
+进行中
+======
+
 修身相关(标价：100，无人数限制，每周有效)
 ===
 1. 完成 每周作业.doc 每周工作.doc 每周反省.doc
-
-文档相关(标价：100，限定2人内AB制)
-===
-1. 完善bftrader bfpy bfgo的readme
-2. markdown格式，配上插图
 
 python策略范例（标价：500，无人数限制）
 ===
@@ -35,17 +33,53 @@ key按路径来，如果是/开头，就是绝对路径，不加上策略的名�
 方案：
 单独做一个服务btgateway，回放历史数据并模拟交易，提供回测统计报表
 
-策略相关(标价：1k，限定2人内AB制)
+主数据库(标价：1k+5k采购费，限定1人)
 ===
-1. 自动生成多周期的datarecorder
-2. 自动生成加权指数的datarecorder
-方案：
-单独做一个策略datarecorder，负责收集数据
+1. 基于网际风或者Wind或者传说中的xxx
+2. 每天下午5点提供服务，能导出如下几个csv：
+当天的tick 或者当天的1分钟k
+最近30天的5分钟k
+所有日线k
+所有周线k
 
-数据相关(标价：1k，限定2人内AB制)
+dataframe(标价：500，限定2人内AB制，golang python)
 ===
-1. 提供删除数据的api
-方案：datafeed提供deletetick deletebar deletecontract
+1. 提供模块化的指标库
+2. 方案
+df = newDataframe(period,timesection) //分配某周期的dataframe
+df.appendBar(bar)    //增加一行数据，同时计算macd ma15/30/60；初始补数据用
+df.appendTick(tick)  //增加一行数据，同时计算macd ma15/30/60；返回是否新bar产生；盘中推tick用
+df.count()        //bar个数
+df.bar(index):    //bar
+df.macd(priceType)      //获取最新macd,priceType是OHCL一种
+df.ma15(priceType)      //获取最新ma15
+df.ma30(priceType)      //获取最新ma30
+df.ma60(priceType)      //获取最新ma60
+df.max(priceType)       //最高价
+df.min(priceType)       //最低价
+...
+df.free()      //释放
+3. 策略例子
+onstart
+   初始化各周期dataframe如dfs
+   
+   补最近60根k到dfs
+ontick
+   推tick到dfs
+   
+   捕捉行情任务运行一次，基于order的，order成交后，要明确定义止盈止损条件，形成止盈止损任务
+   TradeTaskRunOnce(dfs)
+   
+   止盈止损任务运行一次，基于order的，而不是基于pos
+   StopTaskRunOnce(dfs)
+
+已完成
+======
+
+文档相关(标价：100，限定2人内AB制)
+===
+1. 完善bftrader bfpy bfgo的readme
+2. markdown格式，配上插图
 
 网关相关(标价：1k，限定2人内AB制)
 ===
@@ -55,13 +89,16 @@ key按路径来，如果是/开头，就是绝对路径，不加上策略的名�
 方案：增加notification子项目，表示某一类query的beginquery endquery，明确区分前后两次的结果
 前一个query没结束，后一个同类query直接忽略=
 
-主数据库(标价：1k，限定2人内AB制)
+数据相关(标价：1k，限定2人内AB制)
 ===
-1. 基于网际风或者Wind或者传说中的xxx
-2. 每天下午5点提供服务，能导出如下几个csv：
-当天的tick 或者当天的1分钟k
-最近30天的5分钟k
-所有日线k
-所有周线k
+1. 提供删除数据的api
+方案：datafeed提供deletetick deletebar deletecontract
+
+策略相关(标价：1k，限定2人内AB制)
+===
+1. 自动生成多周期的datarecorder
+2. 自动生成加权指数的datarecorder
+方案：
+单独做一个策略datarecorder，负责收集数据
 
 欢迎讨论！
