@@ -7,15 +7,28 @@ import "bfgateway.proto";
 
 //============================
 
-// Bar周期类型
+// Bar周期类型，和文华财经保持一致
 enum BfBarPeriod{
     PERIOD_UNKNOWN = 0;         // 未知
-    PERIOD_M01 = 1;             // 1分钟
-    PERIOD_M03 = 2;             // 3分钟
-    PERIOD_M15 = 3;             // 15分钟
-    PERIOD_H01 = 4;             // 1小时
-    PERIOD_D01 = 5;             // 1天
-    PERIOD_W01 = 6;             // 1周
+    PERIOD_S01 = 1;             // 1秒
+    PERIOD_S03 = 2;             // 3秒
+    PERIOD_S05 = 3;             // 5秒
+    PERIOD_S10 = 4;             // 10秒
+    PERIOD_S15 = 5;             // 15秒
+    PERIOD_S30 = 6;             // 30秒
+    PERIOD_M01 = 7;             // 1分
+    PERIOD_M03 = 8;             // 3分
+    PERIOD_M05 = 9;             // 5分
+    PERIOD_M10 = 10;            // 10分
+    PERIOD_M15 = 11;            // 15分
+    PERIOD_M30 = 12;            // 30分
+    PERIOD_H01 = 13;            // 1小时
+    PERIOD_H02 = 14;            // 2小时
+    PERIOD_H03 = 15;            // 3小时
+    PERIOD_H04 = 16;            // 4小时
+    PERIOD_D01 = 17;            // 1天
+    PERIOD_W01 = 18;            // 1周
+    PERIOD_X01 = 19;            // 1月
 }
 
 // Bar行情数据类

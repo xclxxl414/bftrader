@@ -79,18 +79,44 @@ QString formatProduct(BfProduct product)
 QString formatPeriod(BfBarPeriod period)
 {
     switch (period) {
+    case PERIOD_S01:
+        return "s01";
+    case PERIOD_S03:
+        return "s03";
+    case PERIOD_S05:
+        return "s05";
+    case PERIOD_S10:
+        return "s10";
+    case PERIOD_S15:
+        return "s15";
+    case PERIOD_S30:
+        return "s30";
     case PERIOD_M01:
         return "m01";
     case PERIOD_M03:
         return "m03";
+    case PERIOD_M05:
+        return "m05";
+    case PERIOD_M10:
+        return "m10";
     case PERIOD_M15:
         return "m15";
+    case PERIOD_M30:
+        return "m30";
     case PERIOD_H01:
         return "h01";
+    case PERIOD_H02:
+        return "h02";
+    case PERIOD_H03:
+        return "h04";
+    case PERIOD_H04:
+        return "h04";
     case PERIOD_D01:
         return "d01";
     case PERIOD_W01:
         return "w01";
+    case PERIOD_X01:
+        return "x01";
     case PERIOD_UNKNOWN:
         return "unknown";
     default:
@@ -102,18 +128,44 @@ QString formatPeriod(BfBarPeriod period)
 
 BfBarPeriod translatePeriod(QString period)
 {
-    if (period == "m01")
+    if (period == "s01")
+        return PERIOD_S01;
+    else if (period == "s03")
+        return PERIOD_S03;
+    else if (period == "s05")
+        return PERIOD_S05;
+    else if (period == "s10")
+        return PERIOD_S10;
+    else if (period == "s15")
+        return PERIOD_S15;
+    else if (period == "s30")
+        return PERIOD_S30;
+    else if (period == "m01")
         return PERIOD_M01;
     else if (period == "m03")
         return PERIOD_M03;
+    else if (period == "m05")
+        return PERIOD_M05;
+    else if (period == "m10")
+        return PERIOD_M10;
     else if (period == "m15")
         return PERIOD_M15;
+    else if (period == "m30")
+        return PERIOD_M30;
     else if (period == "h01")
         return PERIOD_H01;
+    else if (period == "h02")
+        return PERIOD_H02;
+    else if (period == "h03")
+        return PERIOD_H03;
+    else if (period == "h04")
+        return PERIOD_H04;
     else if (period == "d01")
         return PERIOD_D01;
     else if (period == "w01")
         return PERIOD_W01;
+    else if (period == "x01")
+        return PERIOD_X01;
     else
         qFatal("invalid period");
     return PERIOD_UNKNOWN;
