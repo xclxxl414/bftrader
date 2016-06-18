@@ -10,21 +10,12 @@ import "bfgateway.proto";
 // Bar周期类型
 enum BfBarPeriod{
     PERIOD_UNKNOWN = 0;         // 未知
-    PERIOD_S01 = 1;             // 1秒
-    PERIOD_S03 = 2;             // 3秒
-    PERIOD_S05 = 3;             // 5秒
-    PERIOD_S10 = 4;             // 10秒
-    PERIOD_S15 = 5;             // 15秒
-    PERIOD_S30 = 6;             // 30秒
-    PERIOD_M01 = 7;             // 1分钟
-    PERIOD_M03 = 8;             // 3分钟
-    PERIOD_M05 = 9;             // 5分钟
-    PERIOD_M10 = 10;            // 10分钟
-    PERIOD_M15 = 11;            // 15分钟
-    PERIOD_M30 = 12;            // 30分钟
-    PERIOD_H01 = 13;            // 1小时
-    PERIOD_D01 = 14;            // 1天
-    PERIOD_W01 = 15;            // 1周
+    PERIOD_M01 = 1;             // 1分钟
+    PERIOD_M03 = 2;             // 3分钟
+    PERIOD_M15 = 3;             // 15分钟
+    PERIOD_H01 = 4;             // 1小时
+    PERIOD_D01 = 5;             // 1天
+    PERIOD_W01 = 6;             // 1周
 }
 
 // Bar行情数据类

@@ -89,36 +89,6 @@
       <widget class="QComboBox" name="comboBox">
        <item>
         <property name="text">
-         <string>s01</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>s03</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>s05</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>s10</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>s15</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>s30</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>m01</string>
         </property>
        </item>
@@ -129,22 +99,7 @@
        </item>
        <item>
         <property name="text">
-         <string>m05</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>m10</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>m15</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>m30</string>
         </property>
        </item>
        <item>

@@ -165,7 +165,7 @@ void StatForm::statTick(QString symbol, QString exchange, QString name)
 
 void StatForm::statBar(QString symbol, QString exchange, QString name)
 {
-    for (int period = PERIOD_S01; period <= PERIOD_W01; period++) {
+    for (int period = BfBarPeriod_MIN + 1; period <= BfBarPeriod_MAX; period++) {
         QString startDate, startTime, endDate, endTime;
 
         if (1) {

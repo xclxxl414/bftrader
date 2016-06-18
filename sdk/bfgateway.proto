@@ -13,10 +13,19 @@ enum BfDirection{
     DIRECTION_UNKNOWN = 0;  // 未知
     DIRECTION_LONG = 1;     // 多
     DIRECTION_SHORT = 2;    // 空
-    DIRECTION_NET = 3;      // 净
+    DIRECTION_NET = 3;      // 净，持仓方向等同DIRECTION_LONG
 }
 
 // 开平常量
+//
+// 如果不是上期所：
+//    平今仓可用close或closeToday
+//    平昨仓可用close或closeYesterday
+// 如果是上期所:
+//    平今仓只可用closeToday
+//    平昨仓可用close或closeYesterday
+// 综合：
+// 平仓先平昨，用close，然后平今用closeToday
 enum BfOffset{
     OFFSET_UNKNOWN = 0;         // 未知
     OFFSET_OPEN = 1;            // 开仓
@@ -142,6 +151,8 @@ message BfOrderData{
 }
 
 // 持仓数据类
+// queryposition会返回多个positiondata
+// 需要对这些做累加合并，key=symbol+exchange+direction
 message BfPositionData{
 
     // 代码编号相关
@@ -150,10 +161,10 @@ message BfPositionData{
 
     // 持仓相关
     BfDirection direction = 3;  // 持仓方向
-    int32 position = 4;         // 持仓量
+    int32 position = 4;         // 总持仓
     int32 frozen = 5;           // 冻结数量
     double price = 6;           // 持仓均价
-    int32 ydPosition = 7;       // 昨持仓
+    int32 ydPosition = 7;       // 昨持仓，今持仓=总持仓-昨持仓
 }
 
 // 账户数据类
@@ -227,7 +238,7 @@ message BfKvData{
 
     //kv对
     string key = 1;                 // key
-    string value = 2;               // val，any？=
+    string value = 2;               // val
 }
 
 //============================
