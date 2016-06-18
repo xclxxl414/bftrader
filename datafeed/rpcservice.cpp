@@ -117,6 +117,15 @@ public:
         QMetaObject::invokeMethod(g_sm->dbService(), "deleteContract", Qt::QueuedConnection, Q_ARG(BfDeleteContractReq, *request));
         return grpc::Status::OK;
     }
+    virtual ::grpc::Status CleanAll(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
+    {
+        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+
+        QString clientId = getClientId(context);
+
+        QMetaObject::invokeMethod(g_sm->dbService(), "cleanAll", Qt::QueuedConnection);
+        return grpc::Status::OK;
+    }
 private:
     // metadata-key只能是小写的=
     QString getClientId(::grpc::ServerContext* context)

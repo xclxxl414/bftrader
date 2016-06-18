@@ -31,10 +31,12 @@ public slots:
     void deleteBar(const BfDeleteBarReq& bfReq);
     void deleteContract(const BfDeleteContractReq& bfReq);
 
+    void cleanAll();
 private:
     void dbOpen();
     void dbClose();
     void dbInit();
+    void dbReset();
 
 private:
     leveldb::DB* db_ = nullptr;

@@ -107,7 +107,7 @@ message BfDeleteContractReq{
 
 //============================
 
-// 历史数据服务
+// 支撑交易的数据服务，交易前从主数据库导入初始化数据=
 service BfDatafeedService{
 
     // 活跃检测
@@ -124,15 +124,18 @@ service BfDatafeedService{
     rpc GetTick(BfGetTickReq) returns (stream bfgateway.BfTickData){}
     // 获取bar
     rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
-    // 获取contract, 支持*获取全部订阅合约
+    // 获取contract, 支持* *获取全部订阅合约
     rpc GetContract(bfgateway.BfGetContractReq) returns (stream bfgateway.BfContractData) {}
 
     // 删除tick
     rpc DeleteTick(BfDeleteTickReq) returns (bfgateway.BfVoid) {}
     // 删除bar
     rpc DeleteBar(BfDeleteBarReq) returns (bfgateway.BfVoid) {}
-    // 删除contract
+    // 删除contract，支持* *删除全部合约
     rpc DeleteContract(BfDeleteContractReq) returns (bfgateway.BfVoid) {}
+    
+    // 重置数据库
+    rpc CleanAll(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
 }
 
 //============================
