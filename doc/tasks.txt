@@ -68,10 +68,20 @@ ontick
    推tick到dfs
    
    捕捉行情任务运行一次，基于order的，order成交后，要明确定义止盈止损条件，形成止盈止损任务
-   TradeTaskRunOnce(dfs)
+   OpenTaskRunOnce(dfs)
    
    止盈止损任务运行一次，基于order的，而不是基于pos
-   StopTaskRunOnce(dfs)
+   CloseTaskRunOnce(dfs)
+4. 说明：基于order的task设计
+
+说明:
+1. 由于同时有多个task在运行，task都是基于技术指标驱动的，所以封装技术指标处理在一起，各个task用就行了，那个东西就叫dataframe吧
+2. 流程:状态策略产生交易策略，交易策略产生开仓任务，开仓成交完成，产生平仓任务...
+statemodel:
+statemodel-->ontick-->trademodel.start/stop
+trademodel:
+opentask-->ontick/ontrade-->openorder
+-->closetask(s)-->ontick/ontrade-->closeorder(s)
 
 已完成
 ======
