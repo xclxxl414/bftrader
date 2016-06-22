@@ -57,7 +57,7 @@ trademodel:
 opentask-->ontick/ontrade-->openorder
 -->closetask(s)-->ontick/ontrade-->closeorder(s)
 
-主数据库提供（标价：1000，限定2人内AB制）
+交易数据库提供（标价：1000，限定2人内AB制）
 ===
 1. tick - 当天 （用于btgateway做回测）
 2. m01 - 30日 （用于交易初始化）
