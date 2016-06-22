@@ -8,39 +8,14 @@
 ===
 1. 完成 每周作业.doc 每周工作.doc 每周反省.doc
 
-python策略范例（标价：500，无人数限制）
-===
-1. datarecorder收集tick组装bar插入datafeed
-2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
-
-golang策略范例（标价：500，无人数限制）
-===
-1. datarecorder收集tick组装bar插入datafeed
-2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
-
-交易相关 (标价：1k，限定2人内AB制)
-===
-1. 保存通用数据的kv api
-2. 停止单/止盈止损stoporder api
-3. 条件单condorder api
-方案：
-单独做一个服务bfcloud，接受云条件单 云止盈止损单，类似文华财经的云条件单
-key按路径来，如果是/开头，就是绝对路径，不加上策略的名字
-
 回测相关(标价：1k，限定2人内AB制)
 ===
 1. 回测网关 btgateway
-方案：
-单独做一个服务btgateway，回放历史数据并模拟交易，提供回测统计报表
+2. 当天的tick级别回放
+3. 可选提供回测统计报表
 
-主数据库(标价：1k+5k采购费，限定1人)
-===
-1. 基于网际风或者Wind或者传说中的xxx
-2. 每天下午5点提供服务，能导出如下几个csv：
-当天的tick 或者当天的1分钟k
-最近30天的5分钟k
-所有日线k
-所有周线k
+方案：
+1.单独做一个服务btgateway，回放历史数据并模拟交易
 
 dataframe和基于order的task写简易震荡策略(标价：500，人数不限，golang python)
 ===
@@ -73,16 +48,23 @@ ontick
    止盈止损任务运行一次，基于order的，而不是基于pos
    CloseTaskRunOnce(dfs)
 4. 说明：基于order的task设计
-
-说明:
-1. 由于同时有多个task在运行，task都是基于技术指标驱动的，所以封装技术指标处理在一起，各个task用就行了，
+ 4.1. 由于同时有多个task在运行，task都是基于技术指标驱动的，所以封装技术指标处理在一起，各个task用就行了，
    那个东西就叫dataframe吧
-2. 流程:状态策略产生交易策略，交易策略产生开仓任务，开仓成交完成，产生平仓任务...
+ 4.2. 流程:状态策略产生交易策略，交易策略产生开仓任务，开仓成交完成，产生平仓任务...
 statemodel:
 statemodel-->ontick-->trademodel.start/stop
 trademodel:
 opentask-->ontick/ontrade-->openorder
 -->closetask(s)-->ontick/ontrade-->closeorder(s)
+
+主数据库提供（标价：1000，限定2人内AB制）
+===
+1. tick - 当天 （用于btgateway做回测）
+2. m01 - 30日 （用于交易初始化）
+3. d01 - 全部（用于交易初始化）
+方案：
+1.每天下午5点作为datafeed数据库发布
+2.暂只做白糖，要求白糖所有合约的，或者tick m01是主力/全部合约，d01是加权指数
 
 已完成
 ======
@@ -91,6 +73,25 @@ opentask-->ontick/ontrade-->openorder
 ===
 1. 完善bftrader bfpy bfgo的readme
 2. markdown格式，配上插图
+
+python策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+golang策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+交易相关 (标价：1k，限定2人内AB制)(调整为策略内置)
+===
+1. 保存通用数据的kv api
+2. 停止单/止盈止损stoporder api
+3. 条件单condorder api
+方案：
+单独做一个服务bfcloud，接受云条件单 云止盈止损单，类似文华财经的云条件单
+key按路径来，如果是/开头，就是绝对路径，不加上策略的名字
 
 网关相关(标价：1k，限定2人内AB制)
 ===
@@ -111,5 +112,14 @@ opentask-->ontick/ontrade-->openorder
 2. 自动生成加权指数的datarecorder
 方案：
 单独做一个策略datarecorder，负责收集数据
+
+主数据库(标价：1k+1.4k采购费，限定1人)
+===
+1. 基于网际风或者Wind或者传说中的xxx
+2. 每天下午5点提供服务，能导出如下几个csv：
+当天的tick 或者当天的1分钟k
+最近30天的5分钟k
+所有日线k
+所有周线k
 
 欢迎讨论！
