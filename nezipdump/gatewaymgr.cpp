@@ -61,19 +61,19 @@ void GatewayMgr::askData(const AskDataTag& tag)
 
     //askServer设置为true则向远程服器同步数据，完成后主动推送数据=
     KLINETYPE klineType = TRACE_KLINE;
-    nezip_->askdata(qPrintable(tag.nezipCode), klineType, false, true, 1, true);
+    nezip_->askdata(qPrintable(tag.nezipCode), klineType, true, true, 1, true);
 
     //askServer设置为true则向远程服器同步数据，完成后主动推送数据=
     klineType = MIN1_KLINE;
-    nezip_->askdata(qPrintable(tag.nezipCode), klineType, false, true, 1, true);
+    nezip_->askdata(qPrintable(tag.nezipCode), klineType, true, true, 1, true);
 
     //askServer设置为true则向远程服器同步数据，完成后主动推送数据=
     klineType = MIN5_KLINE;
-    nezip_->askdata(qPrintable(tag.nezipCode), klineType, false, true, 1, true);
+    nezip_->askdata(qPrintable(tag.nezipCode), klineType, true, true, 1, true);
 
     //askServer设置为true则向远程服器同步数据，完成后主动推送数据=
     klineType = DAY_KLINE;
-    nezip_->askdata(qPrintable(tag.nezipCode), klineType, false, true, 1, true);
+    nezip_->askdata(qPrintable(tag.nezipCode), klineType, true, true, 1, true);
 }
 
 QMap<QString, AskDataTag> GatewayMgr::tags()

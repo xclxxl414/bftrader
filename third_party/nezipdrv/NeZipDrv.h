@@ -13,13 +13,13 @@ typedef BOOL (WINAPI *_AskData)(TCP_DATA_HEAD* pTcpHead);	//向网际风接口�
 /*
  * NOTE(hege): askServer设置为true，这样就只有一个notify；不要tick要trace可以读取一天的=
 klineType = TRACE_KLINE;
-AskData("ZJIC07", klineType,false,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
+AskData("ZJIC07", klineType,true,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
 klineType = MIN1_KLINE;
-AskData("ZJIC07", klineType,false,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
+AskData("ZJIC07", klineType,true,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
 klineType = MIN5_KLINE;
-AskData("ZJIC07", klineType,false,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
+AskData("ZJIC07", klineType,true,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
 klineType = DAY_KLINE;
-AskData("ZJIC07", klineType,false,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
+AskData("ZJIC07", klineType,true,true,1,true);		//askServer设置为true则向远程服器同步数据，完成后主动推送数据
 */
 
 class NeZipDrv
