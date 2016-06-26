@@ -59,7 +59,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const BfGetTickReq* request, ::grpc::ServerWriter< BfTickData>* writer) override
+    virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer) override
     {
         //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -68,7 +68,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const BfGetBarReq* request, ::grpc::ServerWriter< BfBarData>* writer) override
+    virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer) override
     {
         //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -78,7 +78,7 @@ public:
         return grpc::Status::OK;
     }
 
-    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter< BfContractData>* writer) override
+    virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer) override
     {
         //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
@@ -126,6 +126,7 @@ public:
         QMetaObject::invokeMethod(g_sm->dbService(), "cleanAll", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
+
 private:
     // metadata-key只能是小写的=
     QString getClientId(::grpc::ServerContext* context)

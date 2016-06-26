@@ -83,12 +83,13 @@ void WorkingOrderForm::on_pushButtonCancelAll_clicked()
     }
 }
 
-void WorkingOrderForm::onGotNotification(const BfNotificationData &note){
-    if(note.type()==NOTIFICATION_BEGINQUERYORDERS){
+void WorkingOrderForm::onGotNotification(const BfNotificationData& note)
+{
+    if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
         BfDebug("NOTIFICATION_BEGINQUERYORDERS");
         orders_.clear();
         querying_ = true;
-    }else if(note.type()==NOTIFICATION_ENDQUERYORDERS){
+    } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
         BfDebug("NOTIFICATION_ENDQUERYORDERS");
         querying_ = false;
 
@@ -96,8 +97,9 @@ void WorkingOrderForm::onGotNotification(const BfNotificationData &note){
     }
 }
 
-void WorkingOrderForm::updateUI(){
-    if (querying_){
+void WorkingOrderForm::updateUI()
+{
+    if (querying_) {
         return;
     }
 

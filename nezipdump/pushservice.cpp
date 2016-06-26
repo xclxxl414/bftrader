@@ -1,10 +1,10 @@
 #include "pushservice.h"
-#include "servicemgr.h"
 #include "DataWriteQueue.h"
-#include "grpc++/grpc++.h"
-#include "bfgateway.pb.h"
 #include "bfdatafeed.grpc.pb.h"
+#include "bfgateway.pb.h"
 #include "gatewaymgr.h"
+#include "grpc++/grpc++.h"
+#include "servicemgr.h"
 #include <QDateTime>
 
 using namespace bfdatafeed;
@@ -35,6 +35,7 @@ public:
         }
         return false;
     }
+
 public:
     // ref: grpc\test\cpp\interop\interop_client.cc
     bool Ping(const BfPingData& req)
@@ -110,20 +111,20 @@ public:
         return true;
     }
 
-    bool GetContract(const BfGetContractReq& req,QList<BfContractData>& resps)
+    bool GetContract(const BfGetContractReq& req, QList<BfContractData>& resps)
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(5 * deadline_);
         ctx.set_deadline(deadline);
         ctx.AddMetadata("clientid", clientId_.toStdString());
 
-        std::unique_ptr< ::grpc::ClientReader< BfContractData >> reader = stub_->GetContract(&ctx, req);
-        for(;;){
+        std::unique_ptr< ::grpc::ClientReader<BfContractData> > reader = stub_->GetContract(&ctx, req);
+        for (;;) {
             BfContractData resp;
             bool ok = reader->Read(&resp);
             if (ok) {
                 resps.append(resp);
-            }else{
+            } else {
                 grpc::Status status = reader->Finish();
                 if (!status.ok()) {
                     BfError("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
@@ -143,7 +144,7 @@ public:
         ctx.set_deadline(deadline);
         ctx.AddMetadata("clientid", clientId_.toStdString());
 
-        BfVoid req,resp;
+        BfVoid req, resp;
         grpc::Status status = stub_->CleanAll(&ctx, req, &resp);
         if (!status.ok()) {
             BfError("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
@@ -172,7 +173,7 @@ void PushService::init()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // datafeed client
-    client_ = new DatafeedClient(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()),"nezipdump");
+    client_ = new DatafeedClient(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()), "nezipdump");
 
     // start timer
     this->pingTimer_ = new QTimer(this);
@@ -201,19 +202,19 @@ void PushService::onPing()
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // check
-    if(!recvFinished_){
+    if (!recvFinished_) {
         recvFinished_ = checkRecvFinished();
     }
 
     // push
-    if(recvFinished_){
+    if (recvFinished_) {
         // ping datafeed
         BfPingData req;
         req.set_message("nezipdump");
         bool ok = client_->Ping(req);
 
         // ready是没必要的，用ping检测最好=
-        if(ok  || client_->ready()){
+        if (ok || client_->ready()) {
             pushToDatafeed();
         }
     }
@@ -225,17 +226,17 @@ bool PushService::checkRecvFinished()
     int min1size = 0;
     int min5size = 0;
     int ticksize = 0;
-    gDataWriteQueue.getdatasize(daysize,min1size,min5size,ticksize);
+    gDataWriteQueue.getdatasize(daysize, min1size, min5size, ticksize);
 
-    if(daysize != daysize_ || min1size!=min1size_ || min5size!=min5size_ || ticksize!=ticksize_){
-        BfInfo("recv: tick(%d),m01(%d),m05(%d),day(%d)",ticksize,min1size,min5size,daysize);
+    if (daysize != daysize_ || min1size != min1size_ || min5size != min5size_ || ticksize != ticksize_) {
+        BfInfo("recv: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
         daysize_ = daysize;
         min1size_ = min1size;
         min5size_ = min5size;
         ticksize_ = ticksize;
-     }else{
+    } else {
         //5秒内无新数据接收到，认为接收完毕
-        if(daysize_!=0 || min1size_!=0 || min5size_!=0 || ticksize_!=0){
+        if (daysize_ != 0 || min1size_ != 0 || min5size_ != 0 || ticksize_ != 0) {
             BfInfo("recv finished!");
             return true;
         }
@@ -249,37 +250,37 @@ void PushService::pushToDatafeed()
     BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    if(!pushIndexFinished_){
-        pushIndexFinished_ =  pushIndexData();
-        if(!pushIndexFinished_){
+    if (!pushIndexFinished_) {
+        pushIndexFinished_ = pushIndexData();
+        if (!pushIndexFinished_) {
             return;
         }
     }
 
-    for(;;){
+    for (;;) {
         int daysize = 0;
         int min1size = 0;
         int min5size = 0;
         int ticksize = 0;
-        gDataWriteQueue.getdatasize(daysize,min1size,min5size,ticksize);
+        gDataWriteQueue.getdatasize(daysize, min1size, min5size, ticksize);
 
-        if(daysize == 0 && min1size==0 && min5size==0 && ticksize==0){
+        if (daysize == 0 && min1size == 0 && min5size == 0 && ticksize == 0) {
             BfInfo("push finished,please exit app!");
             this->pingTimer_->stop();
             break;
         }
-        BfInfo("rest: tick(%d),m01(%d),m05(%d),day(%d)",ticksize,min1size,min5size,daysize);
+        BfInfo("rest: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
 
-        if(daysize){
+        if (daysize) {
             pushDayData();
         }
-        if(min1size){
+        if (min1size) {
             pushMin1Data();
         }
-        if(min5size){
+        if (min5size) {
             pushMin5Data();
         }
-        if(ticksize){
+        if (ticksize) {
             pushTickData();
         }
     }
@@ -290,19 +291,19 @@ bool PushService::pushIndexData()
     BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    QMap<QString,AskDataTag> tags = g_sm->gatewayMgr()->tags();
-    for(auto tag: tags){
-        if(tag.index){
+    QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
+    for (auto tag : tags) {
+        if (tag.index) {
             QList<BfContractData> resps;
             BfGetContractReq req;
             req.set_symbol(tag.ctpCloner.toStdString());
             req.set_exchange(tag.ctpExchange.toStdString());
-            bool ok = client_->GetContract(req,resps);
-            if(!ok){
+            bool ok = client_->GetContract(req, resps);
+            if (!ok) {
                 BfError("GetContract error");
                 return false;
             }
-            if(resps.length()==0){
+            if (resps.length() == 0) {
                 BfError("GetContract return item:0");
                 return false;
             }
@@ -310,7 +311,7 @@ bool PushService::pushIndexData()
             resp.set_symbol(tag.ctpSymbol.toStdString());
             resp.set_name("index");
             ok = client_->InsertContract(resp);
-            if(!ok){
+            if (!ok) {
                 BfError("InsertContract error");
                 return false;
             }
@@ -328,11 +329,11 @@ void PushService::pushDayData()
     std::list<KLineData> dayData;
     gDataWriteQueue.get_daydata(dayData);
 
-    QMap<QString,AskDataTag> tags = g_sm->gatewayMgr()->tags();
-    for(auto data:dayData){
+    QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
+    for (auto data : dayData) {
         BfBarData req;
         std::string label = data.mkt + data.code;
-        if(tags.contains(label.c_str())){
+        if (tags.contains(label.c_str())) {
             AskDataTag tag = tags.value(label.c_str());
 
             //代码相关=
@@ -356,7 +357,7 @@ void PushService::pushDayData()
             req.set_closeprice(data.close);
 
             bool ok = client_->InsertBar(req);
-            if(!ok){
+            if (!ok) {
                 BfError("InsertBar error");
                 return;
             }
@@ -372,11 +373,11 @@ void PushService::pushMin1Data()
     std::list<KLineData> m1Data;
     gDataWriteQueue.get_min1data(m1Data);
 
-    QMap<QString,AskDataTag> tags = g_sm->gatewayMgr()->tags();
-    for(auto data:m1Data){
+    QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
+    for (auto data : m1Data) {
         BfBarData req;
         std::string label = data.mkt + data.code;
-        if(tags.contains(label.c_str())){
+        if (tags.contains(label.c_str())) {
             AskDataTag tag = tags.value(label.c_str());
 
             //代码相关=
@@ -400,7 +401,7 @@ void PushService::pushMin1Data()
             req.set_closeprice(data.close);
 
             bool ok = client_->InsertBar(req);
-            if(!ok){
+            if (!ok) {
                 BfError("InsertBar error");
                 return;
             }
@@ -416,11 +417,11 @@ void PushService::pushMin5Data()
     std::list<KLineData> m5Data;
     gDataWriteQueue.get_min5data(m5Data);
 
-    QMap<QString,AskDataTag> tags = g_sm->gatewayMgr()->tags();
-    for(auto data:m5Data){
+    QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
+    for (auto data : m5Data) {
         BfBarData req;
         std::string label = data.mkt + data.code;
-        if(tags.contains(label.c_str())){
+        if (tags.contains(label.c_str())) {
             AskDataTag tag = tags.value(label.c_str());
 
             //代码相关=
@@ -444,7 +445,7 @@ void PushService::pushMin5Data()
             req.set_closeprice(data.close);
 
             bool ok = client_->InsertBar(req);
-            if(!ok){
+            if (!ok) {
                 BfError("InsertBar error");
                 return;
             }
@@ -460,11 +461,11 @@ void PushService::pushTickData()
     std::list<TickData> tickData;
     gDataWriteQueue.get_tickdata(tickData);
 
-    QMap<QString,AskDataTag> tags = g_sm->gatewayMgr()->tags();
-    for(auto data:tickData){
+    QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
+    for (auto data : tickData) {
         BfTickData req;
         std::string label = data.mkt + data.code;
-        if(tags.contains(label.c_str())){
+        if (tags.contains(label.c_str())) {
             AskDataTag tag = tags.value(label.c_str());
 
             //代码相关=
@@ -494,7 +495,7 @@ void PushService::pushTickData()
             req.set_askvolume1(data.volbuy[0]);
 
             bool ok = client_->InsertTick(req);
-            if(!ok){
+            if (!ok) {
                 BfError("InsertTick error");
                 return;
             }

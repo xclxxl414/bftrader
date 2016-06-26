@@ -2,7 +2,6 @@
 
 #include <QObject>
 
-
 class DbService : public QObject {
     Q_OBJECT
 public:

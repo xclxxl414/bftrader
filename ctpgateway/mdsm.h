@@ -23,7 +23,7 @@ public:
     static QString version();
 
 public:
-    bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath,bool filterTick);
+    bool init(QString name, QString pwd, QString brokerId, QString front, QString flowPath, bool filterTick);
     void start();
     void stop();
 

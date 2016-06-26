@@ -1,9 +1,9 @@
 #ifndef GATEWAYMGR_H
 #define GATEWAYMGR_H
 
-#include <QObject>
 #include <QMap>
 #include <QMutex>
+#include <QObject>
 
 class NeZipDrv;
 
@@ -25,7 +25,7 @@ class NeZipDrv;
 //     string ctpCloner
 // 3.nezipCode参考 nezip/system/stklabel.csv
 //   ctp参考ctpgateway的contract
-struct AskDataTag{
+struct AskDataTag {
     QString nezipCode;
     QString ctpSymbol;
     QString ctpExchange;
@@ -40,7 +40,7 @@ public:
     void init();
     void shutdown();
 
-    QMap<QString,AskDataTag> tags();
+    QMap<QString, AskDataTag> tags();
 
 signals:
 
@@ -49,8 +49,8 @@ public slots:
     void loadDrv();
 
 private:
-    NeZipDrv *nezip_ = nullptr;
-    QMap<QString,AskDataTag> tags_;
+    NeZipDrv* nezip_ = nullptr;
+    QMap<QString, AskDataTag> tags_;
     QMutex mu_;
 };
 

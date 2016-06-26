@@ -349,17 +349,13 @@ void PushService::onGotNotification(const BfNotificationData& note)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     BfNotificationType type = note.type();
-    if (type == NOTIFICATION_BEGINQUERYORDERS ||
-        type == NOTIFICATION_BEGINQUERYPOSITION ||
-            type == NOTIFICATION_ENDQUERYORDERS ||
-            type == NOTIFICATION_ENDQUERYPOSITION){
+    if (type == NOTIFICATION_BEGINQUERYORDERS || type == NOTIFICATION_BEGINQUERYPOSITION || type == NOTIFICATION_ENDQUERYORDERS || type == NOTIFICATION_ENDQUERYPOSITION) {
         for (auto client : clients_) {
-            if(client->tradehandler()){
+            if (client->tradehandler()) {
                 client->OnNotification(note);
             }
         }
-    }else{
+    } else {
         BfInfo("invalid notification type");
     }
-
 }

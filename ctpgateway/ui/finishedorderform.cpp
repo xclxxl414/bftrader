@@ -62,13 +62,14 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
     updateUI();
 }
 
-void FinishedOrderForm::onGotNotification(const BfNotificationData &note){
-    if(note.type()==NOTIFICATION_BEGINQUERYORDERS){
+void FinishedOrderForm::onGotNotification(const BfNotificationData& note)
+{
+    if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
         BfDebug("NOTIFICATION_BEGINQUERYORDERS");
         orders_.clear();
         querying_ = true;
 
-    }else if(note.type()==NOTIFICATION_ENDQUERYORDERS){
+    } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
         BfDebug("NOTIFICATION_ENDQUERYORDERS");
         querying_ = false;
 
@@ -76,8 +77,9 @@ void FinishedOrderForm::onGotNotification(const BfNotificationData &note){
     }
 }
 
-void FinishedOrderForm::updateUI(){
-    if (querying_){
+void FinishedOrderForm::updateUI()
+{
+    if (querying_) {
         return;
     }
 

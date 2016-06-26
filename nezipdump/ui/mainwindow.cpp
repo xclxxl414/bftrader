@@ -202,14 +202,14 @@ void MainWindow::on_actionNezipAskData_triggered()
     tag.ctpExchange = "CFFEX";
     tag.index = false;
     tag.ctpCloner = "IC1607";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     tag.nezipCode = "ZJIC";
     tag.ctpSymbol = "IC8888";
     tag.ctpExchange = "CFFEX";
     tag.index = true;
     tag.ctpCloner = "IC1607";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     // sr 609 & index
     tag.nezipCode = "ZZSRS09";
@@ -217,14 +217,14 @@ void MainWindow::on_actionNezipAskData_triggered()
     tag.ctpExchange = "CZCE";
     tag.index = false;
     tag.ctpCloner = "SR609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     tag.nezipCode = "ZZSRS";
     tag.ctpSymbol = "SR888";
     tag.ctpExchange = "CZCE";
     tag.index = true;
     tag.ctpCloner = "SR609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     // rb 1610 & index
     tag.nezipCode = "SQrb10";
@@ -232,14 +232,14 @@ void MainWindow::on_actionNezipAskData_triggered()
     tag.ctpExchange = "SHFE";
     tag.index = false;
     tag.ctpCloner = "rb1610";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     tag.nezipCode = "SQrb";
     tag.ctpSymbol = "rb8888";
     tag.ctpExchange = "SHFE";
     tag.index = true;
     tag.ctpCloner = "rb1610";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     // pp 1609 & index
     tag.nezipCode = "DLpp09";
@@ -247,14 +247,14 @@ void MainWindow::on_actionNezipAskData_triggered()
     tag.ctpExchange = "DCE";
     tag.index = false;
     tag.ctpCloner = "pp1609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     tag.nezipCode = "DLpp";
     tag.ctpSymbol = "pp8888";
     tag.ctpExchange = "DCE";
     tag.index = true;
     tag.ctpCloner = "pp1609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     // m 1609 & index
     tag.nezipCode = "DLm09";
@@ -262,17 +262,17 @@ void MainWindow::on_actionNezipAskData_triggered()
     tag.ctpExchange = "DCE";
     tag.index = false;
     tag.ctpCloner = "m1609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 
     tag.nezipCode = "DLm";
     tag.ctpSymbol = "m8888";
     tag.ctpExchange = "DCE";
     tag.index = true;
     tag.ctpCloner = "m1609";
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"askData",Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "askData", Qt::QueuedConnection, Q_ARG(AskDataTag, tag));
 }
 
 void MainWindow::on_actionNezipLoadDrv_triggered()
 {
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(),"loadDrv",Qt::QueuedConnection);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "loadDrv", Qt::QueuedConnection);
 }

@@ -189,7 +189,7 @@ private:
                 pInvestorPosition->TodayPosition);
 
             // notification: begin query position
-            if (queryPositionReqId_ == 0){
+            if (queryPositionReqId_ == 0) {
                 queryPositionReqId_ = nRequestID;
 
                 BfNotificationData note;
@@ -203,7 +203,7 @@ private:
             BfDebug(__FUNCTION__);
 
             // notification: end query position
-            if (queryPositionReqId_ != 0){
+            if (queryPositionReqId_ != 0) {
                 queryPositionReqId_ = 0;
 
                 BfNotificationData note;
@@ -256,7 +256,7 @@ private:
             order.set_canceltime(pOrder->CancelTime);
 
             // notification: begin query orders
-            if (queryOrdersReqId_ == 0){
+            if (queryOrdersReqId_ == 0) {
                 queryOrdersReqId_ = nRequestID;
 
                 BfNotificationData note;
@@ -270,7 +270,7 @@ private:
             BfDebug("%s: finished", __FUNCTION__);
 
             // notification: end query orders
-            if (queryOrdersReqId_ != 0){
+            if (queryOrdersReqId_ != 0) {
                 queryOrdersReqId_ = 0;
 
                 BfNotificationData note;

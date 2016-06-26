@@ -196,12 +196,13 @@ void PositionForm::on_pushButtonCloseAll_clicked()
     }
 }
 
-void PositionForm::onGotNotification(const BfNotificationData &note){
-    if(note.type()==NOTIFICATION_BEGINQUERYPOSITION){
+void PositionForm::onGotNotification(const BfNotificationData& note)
+{
+    if (note.type() == NOTIFICATION_BEGINQUERYPOSITION) {
         BfDebug("NOTIFICATION_BEGINQUERYPOSITION");
         positions_.clear();
         querying_ = true;
-    }else if(note.type()==NOTIFICATION_ENDQUERYPOSITION){
+    } else if (note.type() == NOTIFICATION_ENDQUERYPOSITION) {
         BfDebug("NOTIFICATION_ENDQUERYPOSITION");
         querying_ = false;
 
@@ -209,8 +210,9 @@ void PositionForm::onGotNotification(const BfNotificationData &note){
     }
 }
 
-void PositionForm::updateUI(){
-    if(querying_){
+void PositionForm::updateUI()
+{
+    if (querying_) {
         return;
     }
 

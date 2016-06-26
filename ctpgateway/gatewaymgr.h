@@ -80,7 +80,7 @@ public slots:
     void sendOrder(const BfSendOrderReq& req);
     void queryPosition(); //TODO(hege):多个同时query的问题=
     void cancelOrder(const BfCancelOrderReq& req);
-    void queryOrders();//TODO(hege):多个同时query的问题=
+    void queryOrders(); //TODO(hege):多个同时query的问题=
 
 private slots:
     void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
