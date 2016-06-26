@@ -286,11 +286,10 @@ message BfConnectPushReq{
     // tickHandler相关
     string symbol = 5;          // 指定订阅的合约，都填*订阅所有
     string exchange = 6;        // 合约exchange
-/*
+
     // 可扩展参数
     int32 intParam = 7;         // 参数1
     string strParam = 8;        // 参数2
-*/    
 }
 
 // 获取合约信息传入的对象类
