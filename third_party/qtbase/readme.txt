@@ -5,7 +5,8 @@
 1 安装vs2015 社区版，主要一定要选择 web开发工具（不然会有framework找不到的问题），另外加上vc2015的公用工具，就这两项(会自动安装wsdk81)
 https://www.visualstudio.com/downloads/download-visual-studio-vs
 
-2. 安装调试器 windbg/x64
+//2. 安装调试器 windbg/x64
+2. 安装调试器 windbg/x86
 http://pan.baidu.com/s/1nvgrNst
 
 3 安装python27-x86 和activeperl512-x86
@@ -17,7 +18,8 @@ http://pan.baidu.com/s/1nvgrNst
 http://download.qt.io/official_releases/qt/5.6/5.6.0/submodules/
 http://pan.baidu.com/s/1nvgrNst
 
-qtbase：x64 shared+debug+release编译
+//qtbase：x64 shared+debug+release编译
+qtbase：x86 shared+debug+release编译
 ======
 configure -prefix "C:\qtbase" -confirm-license -opensource -debug-and-release -force-debug-info -shared -accessibility -nomake tests -nomake examples -no-compile-examples -c++11 -ltcg -qt-sql-sqlite -plugin-sql-sqlite -no-freetype -no-opengl -no-qml-debug -no-icu -no-angle -qt-zlib -qt-libpng -qt-libjpeg -no-openssl -no-dbus -no-audio-backend -no-wmf-backend -no-style-fusion -mp -platform win32-msvc2015
 nmake
