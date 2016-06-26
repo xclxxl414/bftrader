@@ -22,7 +22,7 @@ public:
 
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
         response->set_message(request->message());
@@ -41,7 +41,7 @@ public:
 
     virtual ::grpc::Status InsertBar(::grpc::ServerContext* context, const BfBarData* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -51,7 +51,7 @@ public:
 
     virtual ::grpc::Status InsertContract(::grpc::ServerContext* context, const BfContractData* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -61,7 +61,7 @@ public:
 
     virtual ::grpc::Status GetTick(::grpc::ServerContext* context, const BfGetTickReq* request, ::grpc::ServerWriter< BfTickData>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
         g_sm->dbService()->getTick(request, writer);
@@ -70,7 +70,7 @@ public:
 
     virtual ::grpc::Status GetBar(::grpc::ServerContext* context, const BfGetBarReq* request, ::grpc::ServerWriter< BfBarData>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -80,7 +80,7 @@ public:
 
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter< BfContractData>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -90,7 +90,7 @@ public:
 
     virtual ::grpc::Status DeleteTick(::grpc::ServerContext* context, const BfDeleteTickReq* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -100,7 +100,7 @@ public:
 
     virtual ::grpc::Status DeleteBar(::grpc::ServerContext* context, const BfDeleteBarReq* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -110,7 +110,7 @@ public:
 
     virtual ::grpc::Status DeleteContract(::grpc::ServerContext* context, const BfDeleteContractReq* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 
@@ -119,7 +119,7 @@ public:
     }
     virtual ::grpc::Status CleanAll(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        //BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
 

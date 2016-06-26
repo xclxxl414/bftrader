@@ -136,7 +136,7 @@ private:
                 account.set_prebalance(pTradingAccount->PreBalance);
                 double balance = pTradingAccount->PreBalance - pTradingAccount->PreCredit - pTradingAccount->PreMortgage + pTradingAccount->Mortgage - pTradingAccount->Withdraw + pTradingAccount->Deposit + pTradingAccount->CloseProfit + pTradingAccount->PositionProfit + pTradingAccount->CashIn - pTradingAccount->Commission;
                 account.set_balance(balance);
-                account.set_balance(pTradingAccount->Balance);
+                //account.set_balance(pTradingAccount->Balance);
                 account.set_available(pTradingAccount->Available);
                 account.set_commission(pTradingAccount->Commission);
                 double frozenMargin = pTradingAccount->FrozenMargin;

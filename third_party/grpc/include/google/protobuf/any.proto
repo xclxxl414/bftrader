@@ -31,7 +31,6 @@
 syntax = "proto3";
 
 package google.protobuf;
-option go_package = "github.com/golang/protobuf/ptypes/any";
 
 option csharp_namespace = "Google.Protobuf.WellKnownTypes";
 option java_package = "com.google.protobuf";

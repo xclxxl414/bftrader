@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+   <file>images/gateway.png</file>
+   <file>images/datafeed.png</file>
+   <file>images/cta.png</file>
+   <file>images/assist.png</file>
+   <file>images/heart.png</file>
+</qresource>
+</RCC>

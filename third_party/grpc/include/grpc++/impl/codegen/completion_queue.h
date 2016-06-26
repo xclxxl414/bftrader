@@ -36,12 +36,9 @@
 #ifndef GRPCXX_IMPL_CODEGEN_COMPLETION_QUEUE_H
 #define GRPCXX_IMPL_CODEGEN_COMPLETION_QUEUE_H
 
-#include <grpc++/impl/codegen/completion_queue_tag.h>
-#include <grpc++/impl/codegen/core_codegen_interface.h>
 #include <grpc++/impl/codegen/grpc_library.h>
 #include <grpc++/impl/codegen/status.h>
 #include <grpc++/impl/codegen/time.h>
-#include <grpc/impl/codegen/time.h>
 
 struct grpc_completion_queue;
 
@@ -79,17 +76,13 @@ class Server;
 class ServerBuilder;
 class ServerContext;
 
-extern CoreCodegenInterface* g_core_codegen_interface;
-
 /// A thin wrapper around \a grpc_completion_queue (see / \a
 /// src/core/surface/completion_queue.h).
-class CompletionQueue : private GrpcLibraryCodegen {
+class CompletionQueue : private GrpcLibrary {
  public:
   /// Default constructor. Implicitly creates a \a grpc_completion_queue
   /// instance.
-  CompletionQueue() {
-    cq_ = g_core_codegen_interface->grpc_completion_queue_create(nullptr);
-  }
+  CompletionQueue();
 
   /// Wrap \a take, taking ownership of the instance.
   ///
@@ -97,9 +90,7 @@ class CompletionQueue : private GrpcLibraryCodegen {
   explicit CompletionQueue(grpc_completion_queue* take);
 
   /// Destructor. Destroys the owned wrapped completion queue / instance.
-  ~CompletionQueue() {
-    g_core_codegen_interface->grpc_completion_queue_destroy(cq_);
-  }
+  ~CompletionQueue();
 
   /// Tri-state return for AsyncNext: SHUTDOWN, GOT_EVENT, TIMEOUT.
   enum NextStatus {
@@ -133,8 +124,8 @@ class CompletionQueue : private GrpcLibraryCodegen {
   ///
   /// \return true if read a regular event, false if the queue is shutting down.
   bool Next(void** tag, bool* ok) {
-    return (AsyncNextInternal(tag, ok, g_core_codegen_interface->gpr_inf_future(
-                                           GPR_CLOCK_REALTIME)) != SHUTDOWN);
+    return (AsyncNextInternal(tag, ok, gpr_inf_future(GPR_CLOCK_REALTIME)) !=
+            SHUTDOWN);
   }
 
   /// Request the shutdown of the queue.
@@ -190,31 +181,10 @@ class CompletionQueue : private GrpcLibraryCodegen {
 
   /// Wraps \a grpc_completion_queue_pluck.
   /// \warning Must not be mixed with calls to \a Next.
-  bool Pluck(CompletionQueueTag* tag) {
-    auto deadline =
-        g_core_codegen_interface->gpr_inf_future(GPR_CLOCK_REALTIME);
-    auto ev = g_core_codegen_interface->grpc_completion_queue_pluck(
-        cq_, tag, deadline, nullptr);
-    bool ok = ev.success != 0;
-    void* ignored = tag;
-    GPR_CODEGEN_ASSERT(tag->FinalizeResult(&ignored, &ok));
-    GPR_CODEGEN_ASSERT(ignored == tag);
-    // Ignore mutations by FinalizeResult: Pluck returns the C API status
-    return ev.success != 0;
-  }
+  bool Pluck(CompletionQueueTag* tag);
 
   /// Performs a single polling pluck on \a tag.
-  /// \warning Must not be mixed with calls to \a Next.
-  void TryPluck(CompletionQueueTag* tag) {
-    auto deadline = gpr_time_0(GPR_CLOCK_REALTIME);
-    auto ev = g_core_codegen_interface->grpc_completion_queue_pluck(
-        cq_, tag, deadline, nullptr);
-    if (ev.type == GRPC_QUEUE_TIMEOUT) return;
-    bool ok = ev.success != 0;
-    void* ignored = tag;
-    // the tag must be swallowed if using TryPluck
-    GPR_CODEGEN_ASSERT(!tag->FinalizeResult(&ignored, &ok));
-  }
+  void TryPluck(CompletionQueueTag* tag);
 
   grpc_completion_queue* cq_;  // owned
 };

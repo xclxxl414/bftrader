@@ -54,7 +54,6 @@
 #include <string>
 
 #include <grpc++/impl/codegen/config.h>
-#include <grpc++/impl/codegen/core_codegen_interface.h>
 #include <grpc++/impl/codegen/security/auth_context.h>
 #include <grpc++/impl/codegen/status.h>
 #include <grpc++/impl/codegen/string_ref.h>
@@ -193,7 +192,7 @@ class ClientContext {
   /// \return A multimap of initial metadata key-value pairs from the server.
   const std::multimap<grpc::string_ref, grpc::string_ref>&
   GetServerInitialMetadata() {
-    GPR_CODEGEN_ASSERT(initial_metadata_received_);
+    GPR_ASSERT(initial_metadata_received_);
     return recv_initial_metadata_;
   }
 

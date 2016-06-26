@@ -45,10 +45,14 @@ contains(QT_ARCH, i386) {
     DEFINES += WIN32
     DEFINES += _WIN32
     DEFINES += __WIN32__
-    error("dont support x86")
+    #error("dont support x86")
 } else {
     #message("64-bit")
     DEFINES += WIN64
     DEFINES += _WIN64
     DEFINES += __WIN64__
 }
+
+# UNICODE
+DEFINES += UNICODE
+DEFINES += _UNICODE

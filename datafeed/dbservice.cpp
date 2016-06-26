@@ -171,7 +171,7 @@ void DbService::insertTick(const BfTickData& bfItem)
 
 void DbService::insertBar(const BfBarData& bfItem)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period() == PERIOD_UNKNOWN) {
@@ -198,7 +198,7 @@ void DbService::insertBar(const BfBarData& bfItem)
 
 void DbService::insertContract(const BfContractData& bfItem)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.name().length() == 0) {
@@ -248,7 +248,7 @@ void DbService::insertContract(const BfContractData& bfItem)
 
 void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0) {
@@ -295,7 +295,7 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
 
 void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     if (request->symbol().length() == 0 || request->exchange().length() == 0
             || request->todate().length() == 0 || request->totime().length() == 0
@@ -346,7 +346,7 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
 
 void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
         BfDebug("invalid parm,ignore");
@@ -412,7 +412,7 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
 // 遍历构建batch，然后执行batch
 void DbService::deleteTick(const BfDeleteTickReq& request)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (request.symbol().length() == 0 || request.exchange().length() == 0
@@ -464,7 +464,7 @@ void DbService::deleteTick(const BfDeleteTickReq& request)
 // 遍历构建batch，然后执行batch
 void DbService::deleteBar(const BfDeleteBarReq& request)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
     if (request.symbol().length() == 0 || request.exchange().length() == 0
             || request.todate().length() == 0 || request.totime().length() == 0
@@ -521,7 +521,7 @@ void DbService::deleteBar(const BfDeleteBarReq& request)
 
 void DbService::deleteContract(const BfDeleteContractReq& request)
 {
-    BfDebug(__FUNCTION__);
+    //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
     if (request.symbol().length() == 0 || request.exchange().length() == 0) {
         BfDebug("invalid parm,ignore");

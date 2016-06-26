@@ -1135,7 +1135,7 @@ inline void CodedOutputStream::WriteVarint32(uint32 value) {
     // this write won't cross the end, so we can skip the checks.
     uint8* target = buffer_;
     uint8* end = WriteVarint32ToArray(value, target);
-    int size = int(end - target);
+    int size = end - target;
     Advance(size);
   } else {
     WriteVarint32SlowPath(value);
