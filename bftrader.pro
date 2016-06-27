@@ -5,5 +5,6 @@ SUBDIRS = \
     btgateway \
     cta \
     datafeed \
+    datarecorder \
     nezipdump \
     tools

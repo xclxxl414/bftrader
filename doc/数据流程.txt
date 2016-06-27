@@ -1,0 +1,15 @@
+数据流程
+======
+1. 每天收盘后5点整理datafeed，包含1天的tick 5天的1分 30天的5分 所有的日线；
+计算出5天的3分 30天的15分的数据；tick数据由datarecorder提供，用于做回放模
+拟交易如btgateway；分钟和日线数据由第三方提供如nezipdump，用于初始化策略
+
+2. 开盘前，运行ctpgateway datafeed datarecorder，收集tick；用于策略补tick
+和回放模拟交易
+
+3. 开盘前/后，运行策略，先补各周期120根bar初始化dataframe，然后补当天的tick
+继续初始化dataframe。注意：盘中中断后，策略重新运行逻辑和盘前运行都是一样的。
+
+4. ontick驱动dataframe，开始基于dataframe驱动状态策略和交易策略
+
+(ends)
