@@ -594,3 +594,11 @@ void DbService::cleanAll()
 
     emit this->opened();
 }
+
+void DbService::dbCompact()
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    db_->CompactRange(nullptr,nullptr);
+}

@@ -32,6 +32,7 @@ public slots:
     void deleteContract(const BfDeleteContractReq& bfReq);
 
     void cleanAll();
+    void dbCompact();
 
 private:
     void dbOpen();

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "contractform.h"
+#include "dbservice.h"
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
@@ -210,5 +211,5 @@ void MainWindow::on_actionNetStop_triggered()
 
 void MainWindow::on_actionDbCompact_triggered()
 {
-    //垃圾回收=
+    QMetaObject::invokeMethod(g_sm->dbService(), "dbCompact", Qt::QueuedConnection);
 }
