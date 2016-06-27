@@ -12,4 +12,31 @@
 
 4. ontick驱动dataframe，开始基于dataframe驱动状态策略和交易策略
 
+dataframe
+======
+//
+//appendBar对应补bar，appendTick对应补和接受tick
+//
+class dataframe{
+public:
+    void appendBar(double close,double open,double high,double low,std::string date,std::string time);
+    void appendTick(double price,std::string date,std::string time);
+public:
+    double macd(int idx);
+    double ma15(int idx);
+    double ma30(int idx);
+    double ma60(int idx);
+    int count();
+private:
+    int count_ = 0;
+    double close_[1024];
+    double open_[1024];
+    double high_[1024];
+    double low_[1024];
+    double macd_[1024];
+    double ma15_[1024];
+    double ma30_[1024];
+    double ma60_[1024];
+};
+
 (ends)
