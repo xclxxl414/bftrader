@@ -57,6 +57,22 @@ trademodel:
 opentask-->ontick/ontrade-->openorder
 -->closetask(s)-->ontick/ontrade-->closeorder(s)
 
+ie:
+OrderMgr
+    all:map<id,*BfOrderData>
+
+CloseOrderInfo
+   idSelf: bforderdata id
+   idOpener:BfOrderData id
+   
+OpenOrderInfo
+   idSelf: bforderdata id
+   idsCloser:list<BfOrderData id>
+
+TradeRound
+   CloseOrderList
+   OpenOrderList
+   
 交易数据库提供（标价：1000，限定2人内AB制）
 ===
 1. tick - 当天 （用于btgateway做回测）

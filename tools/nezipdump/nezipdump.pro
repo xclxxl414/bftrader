@@ -9,7 +9,7 @@ QT       += core gui widgets
 
 TEMPLATE = app
 
-include(../bftrader.pri)
+include(../../bftrader.pri)
 
 SOURCES += main.cpp\
     ui/mainwindow.cpp \
@@ -32,12 +32,12 @@ HEADERS  += ui/mainwindow.h \
 
 FORMS    += ui/mainwindow.ui
 
-include(../base/base.pri)
-include(../sdk/sdk.pri)
-include(../third_party/breakpad.pri)
-include(../third_party/mhook.pri)
-include(../third_party/nezipdrv.pri)
-include(../third_party/grpc.pri)
+include(../../base/base.pri)
+include(../../sdk/sdk.pri)
+include(../../third_party/breakpad.pri)
+include(../../third_party/mhook.pri)
+include(../../third_party/nezipdrv.pri)
+include(../../third_party/grpc.pri)
 
 RESOURCES += \
     systray.qrc

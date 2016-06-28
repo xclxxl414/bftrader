@@ -3,13 +3,15 @@
 1. 安装vs2015 社区版，主要一定要选择 web开发工具（不然会有framework找不到的问题），另外加上vc2015的公用工具，就这两项(会自动安装wsdk81)
 https://www.visualstudio.com/downloads/download-visual-studio-vs
 
-2. 安装调试器 windbg/x64
+//2. 安装调试器 windbg/x64
+2. 安装调试器 windbg/x86
 http://pan.baidu.com/s/1nvgrNst
-tools/dbg_amd64.msi
+tools/dbg_x86.msi
 
 3. 安装qt-5.6.0 (内置了qtcreator，bftrader使用qtcreator做c++开发环境)，配置好qtcreator，新建对话框试试！
 http://download.qt.io/official_releases/qt/5.6/5.6.0/
-qt-opensource-windows-x86-msvc2015_64-5.6.0.exe
+//qt-opensource-windows-x86-msvc2015_64-5.6.0.exe
+qt-opensource-windows-x86-msvc2015_32-5.6.0.exe
 添加qt的bin目录到系统PATH
 
 4. 下载源代码，解压到c:/projects/bftrader目录
