@@ -600,5 +600,5 @@ void DbService::dbCompact()
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
-    db_->CompactRange(nullptr,nullptr);
+    db_->CompactRange(nullptr, nullptr);
 }

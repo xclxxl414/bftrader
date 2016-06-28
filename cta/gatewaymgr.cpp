@@ -3,7 +3,6 @@
 #include "servicemgr.h"
 #include <QThread>
 #include <grpc++/grpc++.h>
-
 //
 // GatewayClient
 //
@@ -64,15 +63,9 @@ public:
 
         grpc::Status status = stub_->Ping(&ctx, req, &resp);
         if (!status.ok()) {
-            pingfail_count_++;
-            BfError("(%s)->Ping fail(%d),code:%d,msg:%s", qPrintable(gatewayId_), pingfail_count_, status.error_code(), status.error_message().c_str());
-            //if (pingfail_count_ > 3) {
-            //    BfError("(%s)->Ping fail too long,so kill it", qPrintable(gatewayId_));
-            //    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId_));
-            //}
+            BfError("(%s)->Ping fail,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
             return;
         }
-        pingfail_count_ = 0;
 
         if (req.message() != resp.message()) {
             BfError("(%s)->Ping fail,ping:%s,pong:%s", qPrintable(gatewayId_), req.message().c_str(), resp.message().c_str());
@@ -124,19 +117,30 @@ public:
         }
     }
 
-    // TODO(hege): 基于stream的实现=
-    void GetContract(const BfGetContractReq& req, BfContractData& resp)
+    bool GetContract(const BfGetContractReq& req, QList<BfContractData>& resps)
     {
         grpc::ClientContext ctx;
-        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(5 * deadline_);
         ctx.set_deadline(deadline);
         ctx.AddMetadata("clientid", req_.clientid());
-        /*
-        grpc::Status status = stub_->GetContract(&ctx, req, &resp);
-        if (!status.ok()) {
-            BfError("(%s)->GetContract,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+
+        std::unique_ptr< ::grpc::ClientReader<BfContractData> > reader = stub_->GetContract(&ctx, req);
+        for (;;) {
+            BfContractData resp;
+            bool ok = reader->Read(&resp);
+            if (ok) {
+                resps.append(resp);
+            } else {
+                grpc::Status status = reader->Finish();
+                if (!status.ok()) {
+                    BfError("gateway->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    return false;
+                }
+                break;
+            }
         }
-*/
+
+        return true;
     }
 
     void SendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp)
@@ -201,7 +205,7 @@ private:
         } else if (any.Is<BfPingData>()) {
             BfPingData data;
             any.UnpackTo(&data);
-            BfInfo("(%s)->Connect,gotPing:%s", qPrintable(this->gatewayId_), data.message().c_str());
+            //BfInfo("(%s)->dispatchPush,gotPing:%s", qPrintable(this->gatewayId_), data.message().c_str());
             emit g_sm->gatewayMgr()->gotPing(gatewayId_, data);
         } else if (any.Is<BfOrderData>()) {
             BfOrderData data;
@@ -230,20 +234,7 @@ private:
         } else if (any.Is<BfNotificationData>()) {
             BfNotificationData data;
             any.UnpackTo(&data);
-            switch (data.type()) {
-            case NOTIFICATION_GOTCONTRACTS: {
-                emit g_sm->gatewayMgr()->gotContracts(gatewayId_);
-                break;
-            }
-            case NOTIFICATION_TRADEWILLBEGIN: {
-                emit g_sm->gatewayMgr()->tradeWillBegin(gatewayId_);
-                break;
-            }
-            default: {
-                qFatal("invalid notification type");
-                break;
-            }
-            }
+            emit g_sm->gatewayMgr()->gotNotification(gatewayId_, data);
         } else {
             qFatal("invalid push type");
         }
@@ -252,8 +243,7 @@ private:
 private:
     std::unique_ptr<BfGatewayService::Stub> stub_;
     ::grpc::ChannelInterface* channel_;
-    int pingfail_count_ = 0;
-    const int deadline_ = 500;
+    const int deadline_ = 1000;
     QString gatewayId_;
     BfConnectPushReq req_;
 
@@ -379,7 +369,7 @@ void GatewayMgr::onPing()
     }
 }
 
-void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, BfContractData& resp)
+void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     QMutexLocker lock(&clients_mutex_);

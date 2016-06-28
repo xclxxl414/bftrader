@@ -56,7 +56,23 @@
     <addaction name="actionAppVersion"/>
     <addaction name="menu_NO_MONEY"/>
    </widget>
+   <widget class="QMenu" name="menuGateway">
+    <property name="title">
+     <string>gateway</string>
+    </property>
+    <addaction name="actionGatewayConnect"/>
+    <addaction name="actionGatewayDisconnect"/>
+   </widget>
+   <widget class="QMenu" name="menuDatafeed">
+    <property name="title">
+     <string>datafeed</string>
+    </property>
+    <addaction name="actionDatafeedConnect"/>
+    <addaction name="actionDatafeedDisconnect"/>
+   </widget>
    <addaction name="menuApp"/>
+   <addaction name="menuGateway"/>
+   <addaction name="menuDatafeed"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -112,6 +128,26 @@
   <action name="actionCrashTerminateProcess">
    <property name="text">
     <string>Crash_TerminateProcess</string>
+   </property>
+  </action>
+  <action name="actionGatewayConnect">
+   <property name="text">
+    <string>gatewayConnect</string>
+   </property>
+  </action>
+  <action name="actionGatewayDisconnect">
+   <property name="text">
+    <string>gatewayDisconnect</string>
+   </property>
+  </action>
+  <action name="actionDatafeedConnect">
+   <property name="text">
+    <string>datafeedConnect</string>
+   </property>
+  </action>
+  <action name="actionDatafeedDisconnect">
+   <property name="text">
+    <string>datafeedDisconnect</string>
    </property>
   </action>
  </widget>

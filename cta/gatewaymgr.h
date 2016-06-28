@@ -30,15 +30,13 @@ public slots:
 
     // channel&stub is threadsafe,sendorder/getcontract可以任意线程调用=
 public slots:
-    void getContract(QString gatewayId, const BfGetContractReq& req, BfContractData& resp);
+    void getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
     void sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
     void cancelOrder(QString gatewayId, const BfCancelOrderReq& req);
     void queryAccount(QString gatewayId);
     void queryPosition(QString gatewayId);
 
 signals:
-    void tradeWillBegin(QString gatewayId);
-    void gotContracts(QString gatewayId);
     void gotPing(QString gatewayId, const BfPingData& data);
     void gotTick(QString gatewayId, const BfTickData& data);
     void gotAccount(QString gatewayId, const BfAccountData& data);
@@ -47,6 +45,7 @@ signals:
     void gotPosition(QString gatewayId, const BfPositionData& data);
     void gotError(QString gatewayId, const BfErrorData& data);
     void gotLog(QString gatewayId, const BfLogData& data);
+    void gotNotification(QString gatewayId, const BfNotificationData& data);
 
 private:
     QMap<QString, GatewayClient*> clients_;

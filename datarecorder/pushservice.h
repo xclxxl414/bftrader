@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QTimer>
 
+#include "gatewaymgr.h"
+
 class DatafeedClient;
 // PUSH
 class PushService : public QObject {
@@ -13,10 +15,16 @@ public:
     void init();
     void shutdown();
 
-signals:
+public slots:
+    void connectDatafeed(QString endpoint, QString clientId);
+    void disconnectDatafeed();
+    void onPing();
 
 public slots:
-    void onPing();
+    void onGotTick(QString gatewayId, const BfTickData& data);
+    void onGotNotification(QString gatewayId, const BfNotificationData& data);
+
+signals:
 
 private:
     QTimer* pingTimer_ = nullptr;

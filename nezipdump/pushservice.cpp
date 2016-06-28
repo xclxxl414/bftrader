@@ -493,12 +493,13 @@ void PushService::pushTickData()
             req.set_askprice1(data.pricebuy[0]);
             req.set_bidvolume1(data.volsell[0]);
             req.set_askvolume1(data.volbuy[0]);
-
+            /*
             bool ok = client_->InsertTick(req);
             if (!ok) {
                 BfError("InsertTick error");
                 return;
             }
+*/
         }
     }
 }

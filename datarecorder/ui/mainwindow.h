@@ -41,6 +41,11 @@ private slots:
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
 
+    void on_actionGatewayConnect_triggered();
+    void on_actionGatewayDisconnect_triggered();
+    void on_actionDatafeedConnect_triggered();
+    void on_actionDatafeedDisconnect_triggered();
+
 private:
     void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();

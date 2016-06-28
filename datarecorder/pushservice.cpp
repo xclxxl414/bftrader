@@ -34,6 +34,7 @@ public:
         }
         return false;
     }
+    QString clientId() { return clientId_; }
 
 public:
     // ref: grpc\test\cpp\interop\interop_client.cc
@@ -171,8 +172,9 @@ void PushService::init()
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    // datafeed client
-    client_ = new DatafeedClient(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()), "nezipdump");
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &PushService::onGotTick);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &PushService::onGotNotification);
 
     // start timer
     this->pingTimer_ = new QTimer(this);
@@ -192,20 +194,82 @@ void PushService::shutdown()
     this->pingTimer_ = nullptr;
 
     // free client
-    delete client_;
-    client_ = nullptr;
+    if (client_) {
+        delete client_;
+        client_ = nullptr;
+    }
+}
+
+void PushService::connectDatafeed(QString endpoint, QString clientId)
+{
+    BfInfo(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    // datafeed client
+    DatafeedClient* client = new DatafeedClient(
+        grpc::CreateChannel(endpoint.toStdString(), grpc::InsecureChannelCredentials()),
+        clientId);
+
+    if (client_) {
+        delete client_;
+        client_ = nullptr;
+    }
+
+    client_ = client;
+}
+
+void PushService::disconnectDatafeed()
+{
+    BfInfo(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    if (client_) {
+        delete client_;
+        client_ = nullptr;
+    }
 }
 
 void PushService::onPing()
 {
+    //BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
-    // ping datafeed
-    BfPingData req;
-    req.set_message("datarecorder");
-    bool ok = client_->Ping(req);
+    if (client_) {
+        // ping datafeed
+        BfPingData req;
+        req.set_message(client_->clientId().toStdString());
+        bool ok = client_->Ping(req);
 
-    // ready是没必要的，用ping检测最好=
-    if (ok || client_->ready()) {
+        // ready是没必要的，用ping检测最好=
+        if (ok || client_->ready()) {
+        }
+    }
+}
+
+void PushService::onGotTick(QString gatewayId, const BfTickData& data)
+{
+    //BfInfo(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    if (client_) {
+        client_->InsertTick(data);
+    }
+}
+
+void PushService::onGotNotification(QString gatewayId, const BfNotificationData& data)
+{
+    //BfInfo(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::PUSH);
+
+    if (client_ && data.type() == NOTIFICATION_GOTCONTRACTS) {
+        QList<BfContractData> resps;
+        BfGetContractReq req;
+        req.set_exchange("*");
+        req.set_symbol("*");
+        g_sm->gatewayMgr()->getContract(gatewayId, req, resps);
+
+        for (auto resp : resps) {
+            client_->InsertContract(resp);
+        }
     }
 }

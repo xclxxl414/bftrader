@@ -3,6 +3,7 @@
 #include "gatewaymgr.h"
 #include "logger.h"
 #include "profile.h"
+#include "pushservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
@@ -21,6 +22,13 @@ MainWindow::MainWindow(QWidget* parent)
     //设置trayicon
     this->createActions();
     this->createTrayIcon();
+
+    // ui actions
+    ui->actionGatewayConnect->setEnabled(true);
+    ui->actionGatewayDisconnect->setEnabled(false);
+
+    ui->actionDatafeedConnect->setEnabled(true);
+    ui->actionDatafeedDisconnect->setEnabled(false);
 
     //设置列=
     table_col_ << "when"
@@ -190,4 +198,48 @@ void MainWindow::on_actionCrashExitProcess_triggered()
 void MainWindow::on_actionCrashTerminateProcess_triggered()
 {
     ::TerminateProcess(::GetCurrentProcess(), 1);
+}
+
+void MainWindow::on_actionGatewayConnect_triggered()
+{
+    ui->actionGatewayConnect->setEnabled(false);
+    ui->actionGatewayDisconnect->setEnabled(true);
+
+    QString gatewayId = "ctpgateway";
+    QString endpoint = "localhost:50051";
+    BfConnectPushReq req;
+    req.set_clientid("datarecorder");
+    req.set_exchange("*");
+    req.set_symbol("*");
+    req.set_tradehandler(false);
+    req.set_tickhandler(true);
+    req.set_loghandler(false);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "connectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(QString, endpoint), Q_ARG(BfConnectPushReq, req));
+}
+
+void MainWindow::on_actionGatewayDisconnect_triggered()
+{
+    ui->actionGatewayConnect->setEnabled(true);
+    ui->actionGatewayDisconnect->setEnabled(false);
+
+    QString gatewayId = "ctpgateway";
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
+}
+
+void MainWindow::on_actionDatafeedConnect_triggered()
+{
+    ui->actionDatafeedConnect->setEnabled(false);
+    ui->actionDatafeedDisconnect->setEnabled(true);
+
+    QString endpoint = "localhost:50052";
+    QString clientId = "datarecorder";
+    QMetaObject::invokeMethod(g_sm->pushService(), "connectDatafeed", Qt::QueuedConnection, Q_ARG(QString, endpoint), Q_ARG(QString, clientId));
+}
+
+void MainWindow::on_actionDatafeedDisconnect_triggered()
+{
+    ui->actionDatafeedConnect->setEnabled(true);
+    ui->actionDatafeedDisconnect->setEnabled(false);
+
+    QMetaObject::invokeMethod(g_sm->pushService(), "disconnectDatafeed", Qt::QueuedConnection);
 }
