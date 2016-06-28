@@ -1,0 +1,10 @@
+OrderMgr
+    all:map<id,*BfOrderData>
+
+CloseOrderInfo
+   idSelf: bforderdata id
+   idOpener:BfOrderData id
+   
+OpenOrderInfo
+   idSelf: bforderdata id
+   idsCloser:list<BfOrderData id>
