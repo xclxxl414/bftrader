@@ -1,5 +1,6 @@
 #include "rpcservice.h"
 #include "bfgateway.grpc.pb.h"
+#include "dbservice.h"
 #include "encode_utils.h"
 #include "gatewaymgr.h"
 #include "pushservice.h"
@@ -63,32 +64,19 @@ public:
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
-    //TODO(hege):fix it
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
         BfDebug("clientId=%s", qPrintable(clientId));
-        /*
-        if (request->symbol() == "*" && request->exchange() == "*") {
-            QStringList ids = g_sm->gatewayMgr()->getIds(); //g_sm->gatewayMgr()->getIdsAll();
-            for (int index = 0; index < ids.length(); index++) {
-                QString symbol = ids.at(index);
-                void* contract = g_sm->gatewayMgr()->getContract(symbol);
-                BfContractData bfItem;
-                CtpUtils::translateContract(contract, &bfItem);
-                writer->Write(bfItem);
-            }
 
-        } else {
-            QString symbol = request->symbol().c_str();
-            void* contract = g_sm->gatewayMgr()->getContract(symbol);
-            BfContractData bfItem;
-            CtpUtils::translateContract(contract, &bfItem);
-            writer->Write(bfItem);
+        QList<BfContractData> resps;
+        g_sm->dbService()->getContract(*request, resps);
+        for (auto resp : resps) {
+            writer->Write(resp);
         }
-*/
+
         return grpc::Status::OK;
     }
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const BfSendOrderReq* request, BfSendOrderResp* response) override

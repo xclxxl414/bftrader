@@ -25,11 +25,11 @@ public slots:
     void onGatewayClosed();
     void onPing();
 
-    void onTradeWillBegin();
-    void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
+    void onTradeWillBegin(const BfGetTickReq& req);
+    void onGotContracts();
     void onGatewayError(int code, QString msg, QString msgEx);
     void onLog(QString when, QString msg);
-    void onGotTick(void* curTick, void* preTick);
+    void onGotTick(const BfTickData& tick);
     void onGotTrade(const BfTradeData& trade);
     void onGotOrder(const BfOrderData& data);
     void onGotPosition(const BfPositionData& pos);

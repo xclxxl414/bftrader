@@ -1,4 +1,5 @@
 #include "gatewaymgr.h"
+#include "dbservice.h"
 #include "logger.h"
 #include "servicemgr.h"
 
@@ -25,6 +26,9 @@ void GatewayMgr::init()
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
     qRegisterMetaType<BfSendOrderReq>("BfSendOrderReq");
     qRegisterMetaType<BfCancelOrderReq>("BfCancelOrderReq");
+
+    // dbservice
+    QObject::connect(g_sm->dbService(), &DbService::gotTick, this, &GatewayMgr::onGotTick);
 }
 
 void GatewayMgr::shutdown()
@@ -72,10 +76,6 @@ void GatewayMgr::resetData()
         delete trade;
     }
     trades_.clear();
-
-    //symbols
-    symbol_all_.clear();
-    symbol_my_.clear();
 }
 
 QString GatewayMgr::genOrderId()
@@ -88,14 +88,13 @@ QString GatewayMgr::genOrderId()
     return bfOrderId;
 }
 
-void GatewayMgr::start()
+void GatewayMgr::start(const BfGetTickReq& req)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     resetData();
-    emit this->tradeWillBegin();
-    emit this->gotContracts(symbol_my_, symbol_all_);
+    emit this->tradeWillBegin(req);
 }
 
 void GatewayMgr::stop()
@@ -104,6 +103,7 @@ void GatewayMgr::stop()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     resetData();
+    emit this->tradeStopped();
 }
 
 void GatewayMgr::queryAccount()
@@ -166,6 +166,13 @@ void GatewayMgr::sendOrderWithId(QString byOrderId, const BfSendOrderReq& req)
 
 //TODO(hege): do it
 void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
+{
+    BfDebug(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+}
+
+//TODO(hege): do it
+void GatewayMgr::onGotTick(const BfTickData& tick)
 {
     BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);

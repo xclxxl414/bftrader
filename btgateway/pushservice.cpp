@@ -1,5 +1,6 @@
 #include "pushservice.h"
 #include "bfgateway.grpc.pb.h"
+#include "dbservice.h"
 #include "logger.h"
 #include "safequeue.h"
 #include "servicemgr.h"
@@ -147,13 +148,17 @@ void PushService::init()
 
     // gatewaymgr...
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::tradeWillBegin, this, &PushService::onTradeWillBegin);
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotContracts, this, &PushService::onGotContracts);
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &PushService::onGotTick);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &PushService::onGotOrder);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &PushService::onGotTrade);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotPosition, this, &PushService::onGotPosition);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotAccount, this, &PushService::onGotAccount);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotGatewayError, this, &PushService::onGatewayError);
+
+    // dbservice
+    QObject::connect(g_sm->dbService(), &DbService::gotContracts, this, &PushService::onGotContracts);
+    QObject::connect(g_sm->dbService(), &DbService::gotTick, this, &PushService::onGotTick);
+
+    // logger
     QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
     QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
 }
@@ -235,31 +240,18 @@ void PushService::onGotTrade(const BfTradeData& data)
     }
 }
 
-// TODO(hege):fix it
-void PushService::onGotTick(void* curTick, void* preTick)
+void PushService::onGotTick(const BfTickData& data)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
-    /*
-    BfTickData data;
-    CtpUtils::translateTick(curTick, preTick, &data);
-
-    // tick里面的exchange不一定有=
-    QString exchange = data.exchange().c_str();
-    if (exchange.trimmed().length() == 0) {
-        void* contract = g_sm->gatewayMgr()->getContract(data.symbol().c_str());
-        exchange = CtpUtils::getExchangeFromContract(contract);
-        data.set_exchange(exchange.toStdString());
-    }
 
     for (auto client : clients_) {
         if (client->tickHandler() && client->subscribled(data.symbol(), data.exchange())) {
             client->OnTick(data);
         }
     }
-*/
 }
 
-void PushService::onTradeWillBegin()
+void PushService::onTradeWillBegin(const BfGetTickReq& req)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
@@ -270,7 +262,7 @@ void PushService::onTradeWillBegin()
     }
 }
 
-void PushService::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
+void PushService::onGotContracts()
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 

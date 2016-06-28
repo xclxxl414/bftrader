@@ -209,7 +209,9 @@ void MainWindow::on_actionBtStart_triggered()
     ui->actionBtConfig->setEnabled(false);
     ui->actionBtStop->setEnabled(true);
 
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "start", Qt::QueuedConnection);
+    //TODO(hege):do it
+    BfGetTickReq req;
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "start", Qt::QueuedConnection, Q_ARG(BfGetTickReq, req));
 }
 
 void MainWindow::on_actionBtStop_triggered()

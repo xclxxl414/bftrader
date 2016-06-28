@@ -1,6 +1,7 @@
 #ifndef GATEWAYMGR_H
 #define GATEWAYMGR_H
 
+#include "bfdatafeed.pb.h"
 #include "bfgateway.pb.h"
 
 #include <QMap>
@@ -8,6 +9,7 @@
 #include <atomic>
 
 using namespace bfgateway;
+using namespace bfdatafeed;
 
 // 每次回测都初始化一些数据，里面放
 // 1.account信息
@@ -42,9 +44,8 @@ public:
     QString genOrderId();
 
 signals:
-    void tradeWillBegin();
-    void gotContracts(QStringList symbolsMy, QStringList symbolsAll);
-    void gotTick(void* curTick, void* preTick);
+    void tradeWillBegin(const BfGetTickReq& req);
+    void tradeStopped();
     void gotAccount(const BfAccountData& account);
     void gotOrder(const BfOrderData& order);
     void gotTrade(const BfTradeData& trade);
@@ -53,7 +54,7 @@ signals:
     void gotNotification(const BfNotificationData& note);
 
 public slots:
-    void start();
+    void start(const BfGetTickReq& req);
     void stop();
     void queryAccount();
     void sendOrderWithId(QString byOrderId, const BfSendOrderReq& req);
@@ -61,6 +62,8 @@ public slots:
     void queryPosition();
     void cancelOrder(const BfCancelOrderReq& req);
     void queryOrders();
+
+    void onGotTick(const BfTickData& tick);
 
 private:
     void resetData();
@@ -73,8 +76,6 @@ private:
     QMap<QString, BfPositionData*> positions_;
     QMap<QString, BfOrderData*> orders_;
     QMap<QString, BfTradeData*> trades_;
-    QStringList symbol_my_;
-    QStringList symbol_all_;
 };
 
 #endif // GATEWAYMGR_H
