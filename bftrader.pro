@@ -6,5 +6,4 @@ SUBDIRS = \
     cta \
     datafeed \
     datarecorder \
-    nezipdump \
     tools

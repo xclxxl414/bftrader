@@ -76,7 +76,7 @@ public slots:
     void start(QString password);
     void stop();
     void queryAccount();
-    void sendOrderWithId(QString byOrderId, const BfSendOrderReq& req);
+    void sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req);
     void sendOrder(const BfSendOrderReq& req);
     void queryPosition(); //TODO(hege):多个同时query的问题=
     void cancelOrder(const BfCancelOrderReq& req);

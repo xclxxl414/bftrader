@@ -11,28 +11,13 @@
 using namespace bfgateway;
 using namespace bfdatafeed;
 
-// 每次回测都初始化一些数据，里面放
-// 1.account信息
-// 2.contract信息
-// 3.每笔交易
-// 4.每笔盈亏
-// 5.回测参数
-// ....
-// 回测报告根据这些数据来算=
-// 盈亏曲线计算方法:（Beta1）
-// 1. 按成交信息，记录所有的开仓，现金-=开仓数量*合约乘数*价格
-// 2. 按成交信息，记录所有的平仓，现金+=平仓数量*合约乘数*价格
 //
-// 盈亏分布计算方法：依赖于每笔盈亏（beta2）
-// 1. 按成交信息，记录所有的开仓，记录总pos 和 平均price
-// 2. 按成交信息，记录所有的平仓，如多：盈亏 = 平仓数量*（当前价格-持仓价格）*合约乘数
-// 3. 找出最大盈利 和 最大亏损，做出分布区间，平均为20个子区间来求分布
-
-// 价格撮合：
-// 1. 委托价格被触发后，以委托价格+-滑点来作为成交价格
-// 2. 平仓 开仓都要计算一次滑点
+// 只支持一个品种
+// 只支持平今
+// 只支持限价单
+// 只支持1-500手/每单
+// 资金无限制,除account信息无效外，其他都有效=
 //
-
 class GatewayMgr : public QObject {
     Q_OBJECT
 public:
@@ -57,7 +42,7 @@ public slots:
     void start(const BfGetTickReq& req);
     void stop();
     void queryAccount();
-    void sendOrderWithId(QString byOrderId, const BfSendOrderReq& req);
+    void sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req);
     void sendOrder(const BfSendOrderReq& req);
     void queryPosition();
     void cancelOrder(const BfCancelOrderReq& req);
@@ -68,6 +53,13 @@ public slots:
 private:
     void resetData();
     int getOrderId();
+    int getTradeId();
+    QString genTradeId();
+
+    void onLongOpen(BfOrderData* order, const BfTickData& tick);
+    void onShortOpen(BfOrderData* order, const BfTickData& tick);
+    void onLongClose(BfOrderData* order, const BfTickData& tick);
+    void onShortClose(BfOrderData* order, const BfTickData& tick);
 
 private:
     std::atomic_int32_t orderId_ = 0;
