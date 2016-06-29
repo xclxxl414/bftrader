@@ -165,7 +165,7 @@ public:
                 BfTickData resp;
                 bool ok = reader->Read(&resp);
                 if (!this->isPushTickStopped() && ok) {
-                    BfInfo("gotTick");
+                    //BfInfo("gotTick");
                     count++;
                     emit g_sm->dbService()->gotTick(resp);
                     Sleep(500);
