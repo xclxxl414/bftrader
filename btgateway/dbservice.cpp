@@ -176,7 +176,6 @@ public:
                             BfError("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                         }
                     }else{
-                        //TODO(hege):怎么取消一个服务端stream=
                         BfInfo("!!!PushTick cancel, NOT call (reader->Finish), and (writer->Write) will hang!!!");
                     }
                     break;
