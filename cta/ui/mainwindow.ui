@@ -56,7 +56,7 @@
         <number>2</number>
        </property>
        <widget class="QTabWidget" name="tabWidgetLog"/>
-       <widget class="QTabWidget" name="tabWidgetRobot"/>
+       <widget class="QTabWidget" name="tabWidgetTrade"/>
       </widget>
      </widget>
     </item>
@@ -102,7 +102,8 @@
     <property name="title">
      <string>gateway</string>
     </property>
-    <addaction name="actionGatewayAdd"/>
+    <addaction name="actionGatewayConnect"/>
+    <addaction name="actionGatewayDisconnect"/>
    </widget>
    <widget class="QMenu" name="menuNet">
     <property name="title">
@@ -111,22 +112,24 @@
     <addaction name="actionNetStart"/>
     <addaction name="actionNetStop"/>
    </widget>
-   <widget class="QMenu" name="menuRobot">
+   <widget class="QMenu" name="menuDatafeed">
     <property name="title">
-     <string>robot</string>
+     <string>datafeed</string>
     </property>
-    <addaction name="actionRobotAdd"/>
+    <addaction name="actionDatafeedConnect"/>
+    <addaction name="actionDatafeedDisconnect"/>
    </widget>
-   <widget class="QMenu" name="menuModel">
+   <widget class="QMenu" name="menuCta">
     <property name="title">
-     <string>model</string>
+     <string>cta</string>
     </property>
-    <addaction name="actionModelAdd"/>
+    <addaction name="actionCtaStart"/>
+    <addaction name="actionCtaStop"/>
    </widget>
    <addaction name="menuApp"/>
+   <addaction name="menuCta"/>
    <addaction name="menuNet"/>
-   <addaction name="menuRobot"/>
-   <addaction name="menuModel"/>
+   <addaction name="menuDatafeed"/>
    <addaction name="menuGateway"/>
    <addaction name="menuAbout"/>
   </widget>
@@ -195,19 +198,34 @@
     <string>netStop</string>
    </property>
   </action>
-  <action name="actionRobotAdd">
+  <action name="actionDatafeedConnect">
    <property name="text">
-    <string>robotAdd</string>
+    <string>datafeedConnect</string>
    </property>
   </action>
-  <action name="actionGatewayAdd">
+  <action name="actionDatafeedDisconnect">
    <property name="text">
-    <string>gatewayAdd</string>
+    <string>datafeedDisconnect</string>
    </property>
   </action>
-  <action name="actionModelAdd">
+  <action name="actionGatewayConnect">
    <property name="text">
-    <string>modelAdd</string>
+    <string>gatewayConnect</string>
+   </property>
+  </action>
+  <action name="actionGatewayDisconnect">
+   <property name="text">
+    <string>gatewayDisconnect</string>
+   </property>
+  </action>
+  <action name="actionCtaStart">
+   <property name="text">
+    <string>ctaStart</string>
+   </property>
+  </action>
+  <action name="actionCtaStop">
+   <property name="text">
+    <string>ctaStop</string>
    </property>
   </action>
  </widget>

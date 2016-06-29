@@ -2,18 +2,16 @@
 #include "debug_utils.h"
 #include "debugform.h"
 #include "errorform.h"
-#include "gatewayform.h"
 #include "infoform.h"
 #include "logger.h"
-#include "modelform.h"
 #include "positionform.h"
 #include "profile.h"
-#include "robotform.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
+#include "tradeform.h"
 
 #include <windows.h>
 
@@ -39,15 +37,11 @@ MainWindow::MainWindow(QWidget* parent)
     infoForm_ = new InfoForm(this);
     errorForm_ = new ErrorForm(this);
     debugForm_ = new DebugForm(this);
-    robotForm_ = new RobotForm(this);
     positionForm_ = new PositionForm(this);
     workingOrderForm_ = new WorkingOrderForm(this);
-    gatewayForm_ = new GatewayForm(this);
-    modelForm_ = new ModelForm(this);
+    tradeForm_ = new TradeForm(this);
 
-    ui->tabWidgetRobot->addTab(robotForm_, "robot");
-    ui->tabWidgetRobot->addTab(modelForm_, "model");
-    ui->tabWidgetRobot->addTab(gatewayForm_, "gateway");
+    ui->tabWidgetTrade->addTab(tradeForm_,"trade");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");
@@ -65,11 +59,9 @@ void MainWindow::init()
     infoForm_->init();
     errorForm_->init();
     debugForm_->init();
-    robotForm_->init();
-    gatewayForm_->init();
-    modelForm_->init();
     positionForm_->init();
     workingOrderForm_->init();
+    tradeForm_->init();
 }
 
 void MainWindow::shutdown()
@@ -77,11 +69,9 @@ void MainWindow::shutdown()
     infoForm_->shutdown();
     errorForm_->shutdown();
     debugForm_->shutdown();
-    robotForm_->shutdown();
-    gatewayForm_->shutdown();
-    modelForm_->shutdown();
     positionForm_->shutdown();
     workingOrderForm_->shutdown();
+    tradeForm_->shutdown();
 }
 
 void MainWindow::on_actionAppVersion_triggered()
@@ -224,16 +214,37 @@ void MainWindow::on_actionNetStop_triggered()
 }
 
 // TODO(hege): do it
-void MainWindow::on_actionRobotAdd_triggered()
+void MainWindow::on_actionDatafeedConnect_triggered()
 {
+
 }
 
 // TODO(hege): do it
-void MainWindow::on_actionGatewayAdd_triggered()
+void MainWindow::on_actionDatafeedDisconnect_triggered()
 {
+
 }
 
 // TODO(hege): do it
-void MainWindow::on_actionModelAdd_triggered()
+void MainWindow::on_actionCtaStart_triggered()
 {
+
+}
+
+// TODO(hege): do it
+void MainWindow::on_actionCtaStop_triggered()
+{
+
+}
+
+// TODO(hege): do it
+void MainWindow::on_actionGatewayConnect_triggered()
+{
+
+}
+
+// TODO(hege): do it
+void MainWindow::on_actionGatewayDisconnect_triggered()
+{
+
 }

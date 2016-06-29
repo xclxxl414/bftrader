@@ -19,12 +19,11 @@ public:
 signals:
 
 public slots:
-    void connectClient(QString ctaId, const BfConnectPushReq& req, void* queue);
+    void connectClient(const BfConnectPushReq& req, void* queue);
     void disconnectClient(QString clientId);
     void onCtaClosed();
     void onPing();
 
-    void onGotTick(QString gatewayId, const BfTickData& bfItem);
     void onGotTrade(QString gatewayId, const BfTradeData& bfItem);
     void onGotOrder(QString gatewayId, const BfOrderData& bfItem);
 

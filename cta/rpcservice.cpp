@@ -13,8 +13,7 @@ using namespace bfcta;
 //
 class Cta final : public BfCtaService::Service {
 public:
-    explicit Cta(QString ctaId)
-        : ctaId_(ctaId)
+    explicit Cta()
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
@@ -28,16 +27,9 @@ public:
         QString clientId = request->clientid().c_str();
         BfDebug("(%s)->Connect", qPrintable(clientId));
 
-        // check modelid
-        QString modelId = g_sm->dbService()->getModelId(clientId);
-        if (modelId.length() == 0 || modelId != request->strparam().c_str()) {
-            BfDebug("(%s)->Connect,invalid param: modelId!", qPrintable(clientId));
-            return grpc::Status::OK;
-        }
-
         // push now
         auto queue = new SafeQueue<google::protobuf::Any>;
-        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, ctaId_), Q_ARG(BfConnectPushReq, *request), Q_ARG(void*, (void*)queue));
+        QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(BfConnectPushReq, *request), Q_ARG(void*, (void*)queue));
         while (auto data = queue->dequeue()) {
             // NOTE(hege):客户端异常导致stream关闭
             bool ok = writer->Write(*data);
@@ -69,38 +61,16 @@ public:
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status GetRobotInfo(::grpc::ServerContext* context, const BfKvData* request, BfKvData* response) override
+    //TODO(hege):do it
+    virtual ::grpc::Status Start(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         return grpc::Status::OK;
     }
-    virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const BfSendOrderReq* request, BfSendOrderResp* response) override
+    //TODO(hege):do it
+    virtual ::grpc::Status Stop(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
         BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
-
-        QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
-        g_sm->gatewayMgr()->sendOrder(gatewayId, *request, *response);
-
-        // update map
-        if (response->bforderid().length() != 0) {
-            g_sm->dbService()->putOrderEx(clientId, response->bforderid().c_str());
-        }
-
-        return grpc::Status::OK;
-    }
-    virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const BfCancelOrderReq* request, BfVoid* response) override
-    {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
-
-        QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
-
-        QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
-        g_sm->gatewayMgr()->cancelOrder(gatewayId, *request);
-
         return grpc::Status::OK;
     }
 
@@ -117,9 +87,6 @@ private:
         }
         return clientId;
     }
-
-private:
-    QString ctaId_;
 };
 
 //
@@ -178,7 +145,7 @@ void RpcService::onCtaThreadStarted()
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     std::string server_address("0.0.0.0:50053");
-    Cta cta("cta");
+    Cta cta;
 
     grpc::ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());

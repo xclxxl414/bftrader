@@ -10,14 +10,12 @@ class MainWindow;
 }
 
 class Profile;
-class RobotForm;
-class GatewayForm;
-class ModelForm;
 class PositionForm;
+class WorkingOrderForm;
+class TradeForm;
 class InfoForm;
 class DebugForm;
 class ErrorForm;
-class WorkingOrderForm;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -43,11 +41,15 @@ private slots:
     void on_actionCrashExit_triggered();
     void on_actionCrashExitProcess_triggered();
     void on_actionCrashTerminateProcess_triggered();
+
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
-    void on_actionRobotAdd_triggered();
-    void on_actionGatewayAdd_triggered();
-    void on_actionModelAdd_triggered();
+    void on_actionDatafeedConnect_triggered();
+    void on_actionDatafeedDisconnect_triggered();
+    void on_actionCtaStart_triggered();
+    void on_actionCtaStop_triggered();
+    void on_actionGatewayDisconnect_triggered();
+    void on_actionGatewayConnect_triggered();
 
 private:
     void closeEvent(QCloseEvent* event) override;
@@ -69,14 +71,12 @@ private:
     QIcon icon_;
 
     //tabs
-    RobotForm* robotForm_;
-    GatewayForm* gatewayForm_;
-    ModelForm* modelForm_;
     PositionForm* positionForm_;
+    WorkingOrderForm* workingOrderForm_;
+    TradeForm* tradeForm_;
     InfoForm* infoForm_;
     DebugForm* debugForm_;
     ErrorForm* errorForm_;
-    WorkingOrderForm* workingOrderForm_;
 };
 
 #endif // MAINWINDOW_H

@@ -44,12 +44,9 @@ private slots:
     void on_actionBtStart_triggered();
     void on_actionBtStop_triggered();
     void on_actionBtConfig_triggered();
-
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
-
     void on_actionDfConnect_triggered();
-
     void on_actionDfDisconnect_triggered();
 
 private:

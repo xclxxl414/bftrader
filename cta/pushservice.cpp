@@ -11,10 +11,8 @@ using namespace bfcta;
 
 class CtaClient {
 public:
-    CtaClient(SafeQueue<google::protobuf::Any>* queue, QString gatewayId, QString ctaId, const BfConnectPushReq& req)
+    CtaClient(SafeQueue<google::protobuf::Any>* queue, const BfConnectPushReq& req)
         : queue_(queue)
-        , ctaId_(ctaId)
-        , gatewayId_(gatewayId)
         , req_(req)
     {
         BfDebug("(%s)->CtaClient", qPrintable(clientId()));
@@ -27,13 +25,6 @@ public:
     }
 
     void OnPing(const BfPingData& data)
-    {
-        auto any = new google::protobuf::Any();
-        any->PackFrom(data);
-        queue_->enqueue(any);
-    }
-
-    void OnTick(const BfTickData& data)
     {
         auto any = new google::protobuf::Any();
         any->PackFrom(data);
@@ -68,9 +59,7 @@ public:
         }
         return false;
     }
-    QString ctaId() { return ctaId_; }
     QString clientId() { return req_.clientid().c_str(); }
-    const QString& gatewayId() { return gatewayId_; }
 
 private:
     //NOTE(hege):由于跨线程，这里shutdown后等1秒钟=
@@ -86,8 +75,6 @@ private:
 
 private:
     SafeQueue<google::protobuf::Any>* queue_ = nullptr;
-    QString ctaId_;
-    QString gatewayId_;
     BfConnectPushReq req_;
 };
 
@@ -111,7 +98,6 @@ void PushService::init()
     this->pingTimer_->start();
 
     // gatewaymgr
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTick, this, &PushService::onGotTick);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &PushService::onGotOrder);
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &PushService::onGotTrade);
 }
@@ -133,14 +119,13 @@ void PushService::shutdown()
     clients_.clear();
 }
 
-void PushService::connectClient(QString ctaId, const BfConnectPushReq& req, void* queue)
+void PushService::connectClient(const BfConnectPushReq& req, void* queue)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString clientId = req.clientid().c_str();
     BfDebug("(%s)->connectClient", qPrintable(clientId));
 
-    QString gatewayId = g_sm->dbService()->getGatewayId(clientId);
-    auto client = new CtaClient((SafeQueue<google::protobuf::Any>*)queue, gatewayId, ctaId, req);
+    auto client = new CtaClient((SafeQueue<google::protobuf::Any>*)queue, req);
     if (clients_.contains(clientId)) {
         auto it = clients_[clientId];
         delete it;
@@ -183,28 +168,9 @@ void PushService::onPing()
     }
 }
 
-void PushService::onGotTick(QString gatewayId, const BfTickData& data)
-{
-    for (auto client : clients_) {
-        if (client->gatewayId() != gatewayId) {
-            continue;
-        }
-        if (client->tickHandler() && client->subscribled(data.symbol(), data.exchange())) {
-            client->OnTick(data);
-        }
-    }
-}
-
 void PushService::onGotTrade(QString gatewayId, const BfTradeData& data)
 {
     for (auto client : clients_) {
-        if (client->gatewayId() != gatewayId) {
-            continue;
-        }
-        QString robotId = g_sm->dbService()->getRobotId(data.bforderid().c_str());
-        if (client->clientId() != robotId) {
-            continue;
-        }
         if (client->tradehandler()) {
             client->OnTrade(data);
         }
@@ -215,13 +181,6 @@ void PushService::onGotTrade(QString gatewayId, const BfTradeData& data)
 void PushService::onGotOrder(QString gatewayId, const BfOrderData& data)
 {
     for (auto client : clients_) {
-        if (client->gatewayId() != gatewayId) {
-            continue;
-        }
-        QString robotId = g_sm->dbService()->getRobotId(data.bforderid().c_str());
-        if (client->clientId() != robotId) {
-            continue;
-        }
         if (client->tradehandler()) {
             client->OnOrder(data);
         }

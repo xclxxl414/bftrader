@@ -18,16 +18,14 @@ SOURCES += main.cpp\
     pushservice.cpp \
     rpcservice.cpp \
     dbservice.cpp \
+    gatewaymgr.cpp \
     ui/tablewidget_helper.cpp \
     ui/debugform.cpp \
     ui/errorform.cpp \
     ui/infoform.cpp \
-    ui/robotform.cpp \
-    gatewaymgr.cpp \
     ui/positionform.cpp \
     ui/workingorderform.cpp \
-    ui/gatewayform.cpp \
-    ui/modelform.cpp
+    ui/tradeform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -35,26 +33,22 @@ HEADERS  += ui/mainwindow.h \
     pushservice.h \
     rpcservice.h \
     dbservice.h \
+    gatewaymgr.h \
     ui/tablewidget_helper.h \
     ui/debugform.h \
     ui/errorform.h \
     ui/infoform.h \
-    ui/robotform.h \
-    gatewaymgr.h \
     ui/positionform.h \
-    ui/workingorderform.h \
-    ui/gatewayform.h \
-    ui/modelform.h
+    ui/workingorderform.h \ 
+    ui/tradeform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \
     ui/errorform.ui \
     ui/infoform.ui \
-    ui/robotform.ui \
     ui/positionform.ui \
-    ui/workingorderform.ui \
-    ui/gatewayform.ui \
-    ui/modelform.ui
+    ui/workingorderform.ui \ 
+    ui/tradeform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)
@@ -66,5 +60,3 @@ include(../third_party/grpc.pri)
 RESOURCES += \
     systray.qrc
 
-DISTFILES += \
-    cta.qmodel
