@@ -9,9 +9,9 @@
 #include "rpcservice.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
+#include "tradeform.h"
 #include "ui_mainwindow.h"
 #include "workingorderform.h"
-#include "tradeform.h"
 
 #include <windows.h>
 
@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget* parent)
     workingOrderForm_ = new WorkingOrderForm(this);
     tradeForm_ = new TradeForm(this);
 
-    ui->tabWidgetTrade->addTab(tradeForm_,"trade");
+    ui->tabWidgetTrade->addTab(tradeForm_, "trade");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(infoForm_, "info");
@@ -216,35 +216,29 @@ void MainWindow::on_actionNetStop_triggered()
 // TODO(hege): do it
 void MainWindow::on_actionDatafeedConnect_triggered()
 {
-
 }
 
 // TODO(hege): do it
 void MainWindow::on_actionDatafeedDisconnect_triggered()
 {
-
 }
 
 // TODO(hege): do it
 void MainWindow::on_actionCtaStart_triggered()
 {
-
 }
 
 // TODO(hege): do it
 void MainWindow::on_actionCtaStop_triggered()
 {
-
 }
 
 // TODO(hege): do it
 void MainWindow::on_actionGatewayConnect_triggered()
 {
-
 }
 
 // TODO(hege): do it
 void MainWindow::on_actionGatewayDisconnect_triggered()
 {
-
 }

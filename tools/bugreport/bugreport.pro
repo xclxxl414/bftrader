@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = bugreport
 TEMPLATE = app
 
+include(../../bftrader.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp
