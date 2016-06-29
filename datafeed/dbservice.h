@@ -19,6 +19,7 @@ signals:
     void opened();
 
 public slots:
+    // RPC
     void insertTick(const BfTickData& bfItem);
     void insertBar(const BfBarData& bfItem);
     void insertContract(const BfContractData& bfItem);
@@ -32,6 +33,8 @@ public slots:
     void deleteContract(const BfDeleteContractReq& bfReq);
 
     void cleanAll();
+
+    // UI
     void dbCompact();
 
 private:
@@ -39,6 +42,14 @@ private:
     void dbClose();
     void dbInit();
     void dbReset();
+
+    void getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
+    void getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
+    void getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
+
+    void getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
+    void getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
+    void getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
 
 private:
     leveldb::DB* db_ = nullptr;

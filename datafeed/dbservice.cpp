@@ -252,11 +252,28 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0) {
+    if (request->symbol().length() == 0 || request->exchange().length() == 0) {
         BfDebug("invalid parm,ignore");
         return;
     }
 
+    const std::string& toDate = request->todate();
+    const std::string& fromDate = request->fromdate();
+
+    if (toDate.length() != 0 && fromDate.length() != 0) {
+        this->getTickFromTo(request, writer);
+    } else if (toDate.length() != 0) {
+        this->getTickCountTo(request, writer);
+    } else if (fromDate.length() != 0) {
+        this->getTickFromCount(request, writer);
+    } else {
+        BfDebug("invalid parm,ignore");
+        return;
+    }
+}
+
+void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
     leveldb::ReadOptions options;
     options.fill_cache = false;
     leveldb::Iterator* it = db_->NewIterator(options);
@@ -265,31 +282,114 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     }
 
     // key: tick-symbol-exchange-actiondate-ticktime
-    std::string key = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string toKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
     std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
     std::string itKey;
-    it->Seek(leveldb::Slice(key));
+
     int count = 0;
+    QList<BfTickData> ticks;
+    it->Seek(leveldb::Slice(toKey));
     for (; it->Valid() && count < request->count(); it->Prev()) {
-        //遇到了前后两个结束item
-        const char* buf = it->value().data();
-        int len = it->value().size();
-        BfTickData bfItem;
-        if (!bfItem.ParseFromArray(buf, len)) {
-            qFatal("ParseFromArray error");
+        itKey = it->key().ToString();
+        if (itKey == lastestKey) {
+            continue;
+        } else if (itKey == firstKey) {
             break;
-        }
-        if (bfItem.symbol().length() == 0) {
-            itKey = it->key().ToString();
-            if (itKey == lastestKey) {
-                continue;
-            } else {
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
                 break;
             }
+            count++;
+            ticks.append(bfItem);
         }
+    }
+    delete it;
 
-        count++;
-        writer->Write(bfItem);
+    for (int i = ticks.length() - 1; i >= 0; i--) {
+        writer->Write(ticks.at(i));
+    }
+}
+
+void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->fromdate().c_str(), request->fromtime().c_str()).toStdString();
+    std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            writer->Write(bfItem);
+        }
+    }
+    delete it;
+}
+
+void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->fromdate().c_str(), request->fromtime().c_str()).toStdString();
+    std::string toKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else if (itKey <= toKey) {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            writer->Write(bfItem);
+        } else {
+            break;
+        }
     }
     delete it;
 }
@@ -298,13 +398,30 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
 {
     //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
     if (request->symbol().length() == 0 || request->exchange().length() == 0
-        || request->todate().length() == 0 || request->totime().length() == 0
         || request->period() == PERIOD_UNKNOWN) {
         BfDebug("invalid parm,ignore");
         return;
     }
 
+    const std::string& toDate = request->todate();
+    const std::string& fromDate = request->fromdate();
+
+    if (toDate.length() != 0 && fromDate.length() != 0) {
+        this->getBarFromTo(request, writer);
+    } else if (toDate.length() != 0) {
+        this->getBarCountTo(request, writer);
+    } else if (fromDate.length() != 0) {
+        this->getBarFromCount(request, writer);
+    } else {
+        BfDebug("invalid parm,ignore");
+        return;
+    }
+}
+
+void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
     leveldb::ReadOptions options;
     options.fill_cache = false;
     leveldb::Iterator* it = db_->NewIterator(options);
@@ -313,36 +430,138 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     }
 
     // key: bar-symbol-exchange-period-actiondate-bartime
-    std::string key = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
-                                   qPrintable(ProtoUtils::formatPeriod(request->period())),
-                                   request->todate().c_str(), request->totime().c_str())
-                          .toStdString();
+    std::string toKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                     qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                     request->todate().c_str(), request->totime().c_str())
+                            .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
     std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
                                           qPrintable(ProtoUtils::formatPeriod(request->period())))
                                  .toStdString();
     std::string itKey;
-    it->Seek(leveldb::Slice(key));
+
     int count = 0;
+    QList<BfBarData> bars;
+    it->Seek(leveldb::Slice(toKey));
     for (; it->Valid() && count < request->count(); it->Prev()) {
-        //遇到了前后两个结束item
-        const char* buf = it->value().data();
-        int len = it->value().size();
-        BfBarData bfItem;
-        if (!bfItem.ParseFromArray(buf, len)) {
-            qFatal("ParseFromArray error");
+        itKey = it->key().ToString();
+        if (itKey == lastestKey) {
+            continue;
+        } else if (itKey == firstKey) {
             break;
-        }
-        if (bfItem.symbol().length() == 0) {
-            itKey = it->key().ToString();
-            if (itKey == lastestKey) {
-                continue;
-            } else {
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
                 break;
             }
+            count++;
+            bars.append(bfItem);
         }
+    }
+    delete it;
 
-        count++;
-        writer->Write(bfItem);
+    for (int i = bars.length() - 1; i >= 0; i--) {
+        writer->Write(bars.at(i));
+    }
+}
+
+void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                       qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                       request->fromdate().c_str(), request->fromtime().c_str())
+                              .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
+    std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                          qPrintable(ProtoUtils::formatPeriod(request->period())))
+                                 .toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            writer->Write(bfItem);
+        }
+    }
+    delete it;
+}
+
+void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                       qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                       request->fromdate().c_str(), request->fromtime().c_str())
+                              .toStdString();
+    std::string toKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                     qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                     request->todate().c_str(), request->totime().c_str())
+                            .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
+    std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                          qPrintable(ProtoUtils::formatPeriod(request->period())))
+                                 .toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else if (itKey <= toKey) {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            writer->Write(bfItem);
+        } else {
+            break;
+        }
     }
     delete it;
 }

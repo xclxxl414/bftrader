@@ -63,6 +63,9 @@ message BfGetTickReq{
     string toDate = 3;              // 截止日期
     string toTime = 4;              // 截止时间
     int32 count = 5;                // 获取条数
+ 
+    string fromDate = 6;            // 开始日期
+    string fromTime = 7;            // 开始时间
 }
 
 message BfGetBarReq{
@@ -75,6 +78,9 @@ message BfGetBarReq{
     string toDate = 4;              // 截止日期
     string toTime = 5;              // 截止时间
     int32 count = 6;                // 获取条数
+
+    string fromDate = 7;            // 开始日期
+    string fromTime = 8;            // 开始时间
 }
 
 message BfDeleteTickReq{
@@ -124,16 +130,16 @@ service BfDatafeedService{
     // 保存contract
     rpc InsertContract(bfgateway.BfContractData) returns (bfgateway.BfVoid) {}
 
-    // 获取tick
+    // 获取tick,支持count+to，支持from+count，支持from+to三种模式，按时间顺序返回
     rpc GetTick(BfGetTickReq) returns (stream bfgateway.BfTickData){}
-    // 获取bar
-    rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
+    // 获取bar,,支持count+to，支持from+count，支持from+to三种模式，按时间顺序返回
+    rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}    
     // 获取contract, 支持* *获取全部订阅合约
     rpc GetContract(bfgateway.BfGetContractReq) returns (stream bfgateway.BfContractData) {}
 
-    // 删除tick
+    // 删除tick，支持from+to模式
     rpc DeleteTick(BfDeleteTickReq) returns (bfgateway.BfVoid) {}
-    // 删除bar
+    // 删除bar，支持from+to模式
     rpc DeleteBar(BfDeleteBarReq) returns (bfgateway.BfVoid) {}
     // 删除contract，支持* *删除全部合约
     rpc DeleteContract(BfDeleteContractReq) returns (bfgateway.BfVoid) {}
