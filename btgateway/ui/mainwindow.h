@@ -48,6 +48,10 @@ private slots:
     void on_actionNetStart_triggered();
     void on_actionNetStop_triggered();
 
+    void on_actionDfConnect_triggered();
+
+    void on_actionDfDisconnect_triggered();
+
 private:
     void closeEvent(QCloseEvent* event) override;
     void createTrayIcon();

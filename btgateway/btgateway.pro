@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     rpcservice.cpp \
     dbservice.cpp \
     ui/tablewidget_helper.cpp \
-    gatewaymgr.cpp
+    gatewaymgr.cpp \
+    ui/configdialog.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -28,9 +29,11 @@ HEADERS  += ui/mainwindow.h \
     rpcservice.h \
     dbservice.h \
     ui/tablewidget_helper.h \
-    gatewaymgr.h
+    gatewaymgr.h \
+    ui/configdialog.h
 
-FORMS    += ui/mainwindow.ui
+FORMS    += ui/mainwindow.ui \
+    ui/configdialog.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

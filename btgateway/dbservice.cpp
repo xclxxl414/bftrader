@@ -16,11 +16,11 @@ public:
         , clientId_(clientId)
         , channel_(channel.get())
     {
-        BfDebug(__FUNCTION__);
+        BfInfo(__FUNCTION__);
     }
     ~DatafeedClient()
     {
-        BfDebug(__FUNCTION__);
+        BfInfo(__FUNCTION__);
 
         stopPushTick();
     }
@@ -208,7 +208,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // gatewaymgr...
@@ -224,7 +224,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // close timer

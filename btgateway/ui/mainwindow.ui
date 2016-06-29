@@ -72,9 +72,17 @@
     <addaction name="actionNetStart"/>
     <addaction name="actionNetStop"/>
    </widget>
+   <widget class="QMenu" name="menuDatafeed">
+    <property name="title">
+     <string>datafeed</string>
+    </property>
+    <addaction name="actionDfConnect"/>
+    <addaction name="actionDfDisconnect"/>
+   </widget>
    <addaction name="menuApp"/>
    <addaction name="menuBacktest"/>
    <addaction name="menuNet"/>
+   <addaction name="menuDatafeed"/>
    <addaction name="menuAbout"/>
   </widget>
   <action name="actionAppQuit">
@@ -155,6 +163,16 @@
   <action name="actionBtConfig">
    <property name="text">
     <string>btConfig</string>
+   </property>
+  </action>
+  <action name="actionDfConnect">
+   <property name="text">
+    <string>dfConnect</string>
+   </property>
+  </action>
+  <action name="actionDfDisconnect">
+   <property name="text">
+    <string>dfDisconnect</string>
    </property>
   </action>
  </widget>

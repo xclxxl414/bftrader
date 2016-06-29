@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "configdialog.h"
 #include "dbservice.h"
 #include "debug_utils.h"
 #include "gatewaymgr.h"
@@ -31,6 +32,9 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
+
+    ui->actionDfConnect->setEnabled(true);
+    ui->actionDfDisconnect->setEnabled(false);
 
     //设置列=
     table_col_ << "when"
@@ -209,8 +213,14 @@ void MainWindow::on_actionBtStart_triggered()
     ui->actionBtConfig->setEnabled(false);
     ui->actionBtStop->setEnabled(true);
 
-    //TODO(hege):do it
     BfGetTickReq req;
+    req.set_symbol(g_sm->profile()->get("symbol").toString().toStdString());
+    req.set_exchange(g_sm->profile()->get("exchange").toString().toStdString());
+    req.set_fromdate(g_sm->profile()->get("fromDate").toString().toStdString());
+    req.set_fromtime(g_sm->profile()->get("fromTime").toString().toStdString());
+    req.set_todate(g_sm->profile()->get("toDate").toString().toStdString());
+    req.set_totime(g_sm->profile()->get("toTime").toString().toStdString());
+
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "start", Qt::QueuedConnection, Q_ARG(BfGetTickReq, req));
 }
 
@@ -224,10 +234,13 @@ void MainWindow::on_actionBtStop_triggered()
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "stop", Qt::QueuedConnection);
 }
 
-//TODO(hege): do it
 void MainWindow::on_actionBtConfig_triggered()
 {
-    BfDebug(__FUNCTION__);
+    ConfigDialog dlg(this);
+    dlg.load();
+    if (dlg.exec()) {
+        dlg.save();
+    }
 }
 
 void MainWindow::on_actionNetStart_triggered()
@@ -242,4 +255,21 @@ void MainWindow::on_actionNetStop_triggered()
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
+}
+
+void MainWindow::on_actionDfConnect_triggered()
+{
+    ui->actionDfConnect->setEnabled(false);
+    ui->actionDfDisconnect->setEnabled(true);
+
+    QString endpoint = "localhost:50052";
+    QString clientId = "btgateway";
+    QMetaObject::invokeMethod(g_sm->dbService(), "connectDatafeed", Qt::QueuedConnection, Q_ARG(QString, endpoint), Q_ARG(QString, clientId));
+}
+
+void MainWindow::on_actionDfDisconnect_triggered()
+{
+    ui->actionDfConnect->setEnabled(true);
+    ui->actionDfDisconnect->setEnabled(false);
+    QMetaObject::invokeMethod(g_sm->dbService(), "disconnectDatafeed", Qt::QueuedConnection);
 }
