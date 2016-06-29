@@ -272,6 +272,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfContractData>("BfContractData");
     qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
+    qRegisterMetaType<BfTickData>("BfTickData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
@@ -371,7 +372,9 @@ void GatewayMgr::onPing()
 
 void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
 {
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+        qFatal("invalid caller");
+    }
     QMutexLocker lock(&clients_mutex_);
 
     auto client = clients_.value(gatewayId, nullptr);

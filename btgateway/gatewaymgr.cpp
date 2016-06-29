@@ -23,6 +23,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfContractData>("BfContractData");
     qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
+    qRegisterMetaType<BfTickData>("BfTickData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
@@ -112,6 +113,10 @@ void GatewayMgr::start(const BfGetTickReq& req)
 {
     BfInfo(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    BfInfo("tradeWillBegin:(%s.%s:%s %s-%s %s)",
+           req.symbol().c_str(),req.exchange().c_str(),
+           req.fromdate().c_str(),req.fromtime().c_str(),
+           req.todate().c_str(),req.totime().c_str());
 
     resetData();
     emit this->tradeWillBegin(req);

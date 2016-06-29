@@ -176,7 +176,7 @@ void DbService::insertBar(const BfBarData& bfItem)
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period() == PERIOD_UNKNOWN) {
-        BfDebug("invalid bar,ignore");
+        BfDebug("insertBar:invalid bar,ignore");
         return;
     }
 
@@ -203,7 +203,7 @@ void DbService::insertContract(const BfContractData& bfItem)
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.name().length() == 0) {
-        BfDebug("invalid contract,ignore");
+        BfDebug("insertContract:invalid contract,ignore");
         return;
     }
 
@@ -253,7 +253,7 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("getTick:invalid parm,ignore");
         return;
     }
 
@@ -311,7 +311,11 @@ void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter
     delete it;
 
     for (int i = ticks.length() - 1; i >= 0; i--) {
-        writer->Write(ticks.at(i));
+        bool ok = writer->Write(ticks.at(i));
+        if(!ok){
+            BfInfo("getTickCountTo : stream closed!");
+            break;
+        }
     }
 }
 
@@ -347,7 +351,11 @@ void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWrit
                 break;
             }
             count++;
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if(!ok){
+                BfInfo("getTickFromCount : stream closed!");
+                break;
+            }
         }
     }
     delete it;
@@ -371,7 +379,7 @@ void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<
 
     int count = 0;
     it->Seek(leveldb::Slice(fromKey));
-    for (; it->Valid() && count < request->count(); it->Next()) {
+    for (; it->Valid(); it->Next()) {
         itKey = it->key().ToString();
         if (itKey == firstKey) {
             continue;
@@ -386,7 +394,11 @@ void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<
                 break;
             }
             count++;
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if(!ok){
+                BfInfo("getTickFromTo : stream closed!");
+                break;
+            }
         } else {
             break;
         }
@@ -401,7 +413,7 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0
         || request->period() == PERIOD_UNKNOWN) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("getBar:invalid parm,ignore");
         return;
     }
 
@@ -466,7 +478,10 @@ void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<B
     delete it;
 
     for (int i = bars.length() - 1; i >= 0; i--) {
-        writer->Write(bars.at(i));
+        bool ok = writer->Write(bars.at(i));
+        if(!ok){
+            BfInfo("getBarCountTo : stream closed!");
+        }
     }
 }
 
@@ -509,7 +524,11 @@ void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter
                 break;
             }
             count++;
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if(!ok){
+                BfInfo("getBarFromCount : stream closed!");
+                break;
+            }
         }
     }
     delete it;
@@ -543,7 +562,7 @@ void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<Bf
 
     int count = 0;
     it->Seek(leveldb::Slice(fromKey));
-    for (; it->Valid() && count < request->count(); it->Next()) {
+    for (; it->Valid(); it->Next()) {
         itKey = it->key().ToString();
         if (itKey == firstKey) {
             continue;
@@ -558,7 +577,11 @@ void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<Bf
                 break;
             }
             count++;
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if(!ok){
+                BfInfo("getBarFromTo : stream closed!");
+                break;
+            }
         } else {
             break;
         }
@@ -571,7 +594,7 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
     //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("getContract:invalid parm,ignore");
         return;
     }
 
@@ -607,7 +630,11 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
                 break;
             }
 
-            writer->Write(bfContract);
+            bool ok = writer->Write(bfContract);
+            if(!ok){
+                BfInfo("getContract : stream closed!");
+                break;
+            }
         }
         delete it;
 
@@ -626,7 +653,10 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
             if (bfItem.symbol().length() == 0) {
                 return;
             }
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if(!ok){
+                BfInfo("getContract : stream closed!");
+            }
         }
     }
 }
@@ -640,7 +670,7 @@ void DbService::deleteTick(const BfDeleteTickReq& request)
     if (request.symbol().length() == 0 || request.exchange().length() == 0
         || request.todate().length() == 0 || request.totime().length() == 0
         || request.fromdate().length() == 0 || request.fromtime().length() == 0) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("deleteTick:invalid parm,ignore");
         return;
     }
 
@@ -692,7 +722,7 @@ void DbService::deleteBar(const BfDeleteBarReq& request)
         || request.todate().length() == 0 || request.totime().length() == 0
         || request.fromdate().length() == 0 || request.fromtime().length() == 0
         || request.period() == PERIOD_UNKNOWN) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("deleteBar:invalid parm,ignore");
         return;
     }
 
@@ -750,7 +780,7 @@ void DbService::deleteContract(const BfDeleteContractReq& request)
     //BfDebug(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
     if (request.symbol().length() == 0 || request.exchange().length() == 0) {
-        BfDebug("invalid parm,ignore");
+        BfDebug("deleteContract:invalid parm,ignore");
         return;
     }
 

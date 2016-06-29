@@ -32,8 +32,12 @@ public:
         }
         return false;
     }
-    QString clientId() { return clientId_; }
-
+    QString clientId() {
+        return clientId_;
+    }
+    bool isPushTickStopped(){
+        return stopPushTick_;
+    }
     void stopPushTick()
     {
         stopPushTick_ = true;
@@ -149,26 +153,36 @@ public:
 
     void PushTick(const BfGetTickReq& req)
     {
-        stopPushTick_ = false;
+        this->stopPushTick_ = false;
         reader_thread_ = new QThread();
         std::function<void(void)> fn = [=]() {
             grpc::ClientContext ctx;
             ctx.AddMetadata("clientid", clientId_.toStdString());
             std::unique_ptr< ::grpc::ClientReader<BfTickData> > reader = stub_->GetTick(&ctx, req);
+            BfInfo("PushTick begin...");
+            int count = 0;
             for (;;) {
                 BfTickData resp;
                 bool ok = reader->Read(&resp);
-                if (!stopPushTick_ && ok) {
+                if (!this->isPushTickStopped() && ok) {
+                    BfInfo("gotTick");
+                    count++;
                     emit g_sm->dbService()->gotTick(resp);
                     Sleep(500);
                 } else {
-                    grpc::Status status = reader->Finish();
-                    if (!status.ok()) {
-                        BfError("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    if(!ok){
+                        grpc::Status status = reader->Finish();
+                        if (!status.ok()) {
+                            BfError("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                        }
+                    }else{
+                        //TODO(hege):怎么取消一个服务端stream=
+                        BfInfo("!!!PushTick cancel, NOT call (reader->Finish), and (writer->Write) will hang!!!");
                     }
                     break;
                 }
             }
+            BfInfo("PushTick end,total (%d) ticks...",count);
         };
         QObject::connect(reader_thread_, &QThread::started, fn);
         reader_thread_->start();

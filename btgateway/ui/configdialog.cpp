@@ -34,7 +34,7 @@ void ConfigDialog::load()
     Profile* profile = g_sm->profile();
     ui->symbol->setText(profile->get("symbol", "SR609").toString());
     ui->exchange->setText(profile->get("exchange", "CZCE").toString());
-    ui->fromDate->setText(profile->get("fromDate", "20160629").toString());
+    ui->fromDate->setText(profile->get("fromDate", "20160626").toString());
     ui->fromTime->setText(profile->get("fromTime", "09:00:00.000").toString());
     ui->toDate->setText(profile->get("toDate", "20160629").toString());
     ui->toTime->setText(profile->get("toTime", "23:30:00.000").toString());
