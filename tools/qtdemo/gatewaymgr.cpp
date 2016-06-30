@@ -3,7 +3,7 @@
 #include "ThostFtdcTraderApi.h"
 #include "logger.h"
 #include "servicemgr.h"
-
+#include "ztalib.h"
 GatewayMgr::GatewayMgr(QObject* parent)
     : QObject(parent)
 {
@@ -12,11 +12,17 @@ GatewayMgr::GatewayMgr(QObject* parent)
 void GatewayMgr::init()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    //talib
+    Z_Initialize();
 }
 
 void GatewayMgr::shutdown()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+
+    //talib
+    Z_Shutdown();
 }
 
 void GatewayMgr::showVersion()

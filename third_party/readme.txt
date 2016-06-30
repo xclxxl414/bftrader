@@ -12,7 +12,7 @@ windbg x86/32位
 1. ctp 期货内盘交易接口
 2. grpc 协议定义&消息序列化&网络通信框架
 3. qtbase 界面和应用开发框架 （可直接使用qt官网版本，这里提供手动编译步骤，体积小很多）
-4. breakpad leveldb mhook qcustomplot nezip等知名小库
+4. breakpad leveldb mhook qcustomplot nezip talib等知名小库
 
 目录结构：请将bin目录加入系统PATH
 ======
