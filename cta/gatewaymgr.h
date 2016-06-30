@@ -43,7 +43,7 @@ signals:
     void gotOrder(QString gatewayId, const BfOrderData& data);
     void gotTrade(QString gatewayId, const BfTradeData& data);
     void gotPosition(QString gatewayId, const BfPositionData& data);
-    void gotError(QString gatewayId, const BfLogData& data);
+    void gotError(QString gatewayId, const BfErrorData& data);
     void gotLog(QString gatewayId, const BfLogData& data);
     void gotNotification(QString gatewayId, const BfNotificationData& data);
 

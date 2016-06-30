@@ -223,8 +223,8 @@ private:
             BfOrderData data;
             any.UnpackTo(&data);
             emit g_sm->gatewayMgr()->gotOrder(gatewayId_, data);
-        } else if (any.Is<BfLogData>()) {
-            BfLogData data;
+        } else if (any.Is<BfErrorData>()) {
+            BfErrorData data;
             any.UnpackTo(&data);
             emit g_sm->gatewayMgr()->gotError(gatewayId_, data);
         } else if (any.Is<BfLogData>()) {
@@ -270,7 +270,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfNotificationData>("BfNotificationData");
     qRegisterMetaType<BfContractData>("BfContractData");
-    qRegisterMetaType<BfLogData>("BfLogData");
+    qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
