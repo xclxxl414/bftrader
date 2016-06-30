@@ -23,6 +23,6 @@ void GatewayMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    BfInfo(QString("mdapi version: ") + CThostFtdcMdApi::GetApiVersion());
-    BfInfo(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());
+    BfLog(QString("mdapi version: ") + CThostFtdcMdApi::GetApiVersion());
+    BfLog(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());
 }

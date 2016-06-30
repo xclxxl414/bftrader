@@ -20,11 +20,11 @@ public:
         , clientId_(clientId)
         , channel_(channel.get())
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
     ~DatafeedClient()
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
 
     bool ready()
@@ -48,12 +48,12 @@ public:
         BfPingData resp;
         grpc::Status status = stub_->Ping(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
         if (req.message() != resp.message()) {
-            BfError("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
+            BfLog("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
             return false;
         }
 
@@ -70,7 +70,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertTick(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -87,7 +87,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertBar(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -104,7 +104,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertContract(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -127,7 +127,7 @@ public:
             } else {
                 grpc::Status status = reader->Finish();
                 if (!status.ok()) {
-                    BfError("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    BfLog("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                     return false;
                 }
                 break;
@@ -147,7 +147,7 @@ public:
         BfVoid req, resp;
         grpc::Status status = stub_->CleanAll(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -169,7 +169,7 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // gatewaymgr
@@ -185,7 +185,7 @@ void PushService::init()
 
 void PushService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // close timer
@@ -202,7 +202,7 @@ void PushService::shutdown()
 
 void PushService::connectDatafeed(QString endpoint, QString clientId)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // datafeed client
@@ -220,7 +220,7 @@ void PushService::connectDatafeed(QString endpoint, QString clientId)
 
 void PushService::disconnectDatafeed()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (client_) {
@@ -231,7 +231,7 @@ void PushService::disconnectDatafeed()
 
 void PushService::onPing()
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (client_) {
@@ -248,7 +248,7 @@ void PushService::onPing()
 
 void PushService::onGotTick(QString gatewayId, const BfTickData& data)
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (client_) {
@@ -258,7 +258,7 @@ void PushService::onGotTick(QString gatewayId, const BfTickData& data)
 
 void PushService::onGotNotification(QString gatewayId, const BfNotificationData& data)
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (client_ && data.type() == NOTIFICATION_GOTCONTRACTS) {

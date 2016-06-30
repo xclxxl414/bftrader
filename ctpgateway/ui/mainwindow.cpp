@@ -4,10 +4,8 @@
 #include "contractform.h"
 #include "debug_utils.h"
 #include "debugform.h"
-#include "errorform.h"
 #include "finishedorderform.h"
 #include "gatewaymgr.h"
-#include "infoform.h"
 #include "logger.h"
 #include "logindialog.h"
 #include "positionform.h"
@@ -46,8 +44,6 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionNetStop->setEnabled(false);
 
     // tabs
-    infoForm_ = new InfoForm(this);
-    errorForm_ = new ErrorForm(this);
     debugForm_ = new DebugForm(this);
     contractForm_ = new ContractForm(this);
     positionForm_ = new PositionForm(this);
@@ -58,8 +54,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(infoForm_, "info");
-    ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
@@ -81,8 +75,6 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     // tabs
-    infoForm_->init();
-    errorForm_->init();
     debugForm_->init();
     contractForm_->init();
     tickForm_->init();
@@ -99,8 +91,6 @@ void MainWindow::init()
 void MainWindow::shutdown()
 {
     // tabs
-    infoForm_->shutdown();
-    errorForm_->shutdown();
     debugForm_->shutdown();
     contractForm_->shutdown();
     tickForm_->shutdown();
@@ -113,21 +103,19 @@ void MainWindow::shutdown()
 
 void MainWindow::onTradeWillBegin()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 }
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfInfo(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfInfo(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()
 {
     if (g_sm->gatewayMgr()->running()) {
         this->showNormal();
-        BfInfo("please stop ctp first");
+        BfLog("please stop ctp first");
         return;
     }
 

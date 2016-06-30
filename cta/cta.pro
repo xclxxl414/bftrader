@@ -21,8 +21,6 @@ SOURCES += main.cpp\
     gatewaymgr.cpp \
     ui/tablewidget_helper.cpp \
     ui/debugform.cpp \
-    ui/errorform.cpp \
-    ui/infoform.cpp \
     ui/positionform.cpp \
     ui/workingorderform.cpp \
     ui/tradeform.cpp
@@ -36,16 +34,12 @@ HEADERS  += ui/mainwindow.h \
     gatewaymgr.h \
     ui/tablewidget_helper.h \
     ui/debugform.h \
-    ui/errorform.h \
-    ui/infoform.h \
     ui/positionform.h \
     ui/workingorderform.h \ 
     ui/tradeform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \
-    ui/errorform.ui \
-    ui/infoform.ui \
     ui/positionform.ui \
     ui/workingorderform.ui \ 
     ui/tradeform.ui

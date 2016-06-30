@@ -17,11 +17,11 @@ public:
         , gatewayId_(gatewayId)
         , req_(req)
     {
-        BfDebug("(%s)->GatewayClient", qPrintable(clientId()));
+        BfLog("(%s)->GatewayClient", qPrintable(clientId()));
     }
     ~GatewayClient()
     {
-        BfDebug("(%s)->~GatewayClient", qPrintable(clientId()));
+        BfLog("(%s)->~GatewayClient", qPrintable(clientId()));
         // NOTE(hege):关闭队列=
         shutdown();
     }
@@ -137,7 +137,7 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // start timer
@@ -159,13 +159,12 @@ void PushService::init()
     QObject::connect(g_sm->dbService(), &DbService::gotTick, this, &PushService::onGotTick);
 
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotError, this, &PushService::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &PushService::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotLog, this, &PushService::onLog);
 }
 
 void PushService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // close timer
@@ -185,7 +184,7 @@ void PushService::connectClient(QString gatewayId, const BfConnectPushReq& req, 
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString clientId = req.clientid().c_str();
 
-    BfDebug("(%s)->connectClient", qPrintable(clientId));
+    BfLog("(%s)->connectClient", qPrintable(clientId));
     auto client = new GatewayClient((SafeQueue<google::protobuf::Any>*)queue, gatewayId, req);
     if (clients_.contains(clientId)) {
         auto it = clients_[clientId];
@@ -200,7 +199,7 @@ void PushService::disconnectClient(QString clientId)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (clients_.contains(clientId)) {
-        BfDebug("(%s)->disconnectClient", qPrintable(clientId));
+        BfLog("(%s)->disconnectClient", qPrintable(clientId));
         auto client = clients_[clientId];
         delete client;
         clients_.remove(clientId);
@@ -209,7 +208,7 @@ void PushService::disconnectClient(QString clientId)
 
 void PushService::onGatewayClosed()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto client : clients_) {
@@ -347,6 +346,6 @@ void PushService::onGotNotification(const BfNotificationData& note)
             }
         }
     } else {
-        BfInfo("invalid notification type");
+        BfLog("invalid notification type");
     }
 }

@@ -14,7 +14,7 @@ NeZipDrv::~NeZipDrv(void)
 
 bool NeZipDrv::load(const char *dllfile)
 {
-    //BfInfo("load nezip:(%s)",dllfile);
+    //BfLog("load nezip:(%s)",dllfile);
     if( m_initialized ){
         return false;
     }
@@ -22,14 +22,14 @@ bool NeZipDrv::load(const char *dllfile)
     m_stockdrvDll = ::LoadLibraryA(dllfile);		//导入动态库（该动态库可以放在其他目录，推荐放置默认位置，以便以后自动升级）
 	if (!m_stockdrvDll)
 	{
-        //BfInfo("load fail");
+        //BfLog("load fail");
 		return false;
 	}
 	InitStockDrv_ = (_InitStockDrv)GetProcAddress(m_stockdrvDll, "InitStockDrv");
 	AskData_ = (_AskData)GetProcAddress(m_stockdrvDll, "AskData");
 	if (!InitStockDrv_ || !AskData_)
 	{
-        //BfInfo("GetProcAddress fail");
+        //BfLog("GetProcAddress fail");
         ::FreeLibrary(m_stockdrvDll);
         this->m_stockdrvDll = nullptr;
 		return false;
@@ -41,7 +41,7 @@ bool NeZipDrv::load(const char *dllfile)
 	{
 		return OnCallBack((TCP_DATA_HEAD *)pdata);
 	});
-    //BfInfo("load ok");
+    //BfLog("load ok");
     m_initialized = TRUE;
 	return true;
 }
@@ -172,7 +172,7 @@ inline dec::decimal4 multifloat(float value, int multiint = 1000)
 
 void NeZipDrv::handle_daydata(TCP_DATA_HEAD *pTcpHead)
 {
-    //BfInfo("recv d01-bar: %d",pTcpHead->count);
+    //BfLog("recv d01-bar: %d",pTcpHead->count);
 
     int count = pTcpHead->count;
 	RCV_KLINE* pKline = (RCV_KLINE *)pTcpHead->pData;
@@ -231,10 +231,10 @@ void NeZipDrv::handle_daydata(TCP_DATA_HEAD *pTcpHead)
 void NeZipDrv::handle_mindata(TCP_DATA_HEAD *pTcpHead, bool ismin1)
 {
     if (ismin1){
-        //BfInfo("recv m01-bar: %d",pTcpHead->count);
+        //BfLog("recv m01-bar: %d",pTcpHead->count);
     }
     else{
-        //BfInfo("recv m05-bar: %d",pTcpHead->count);
+        //BfLog("recv m05-bar: %d",pTcpHead->count);
     }
 
     int count = pTcpHead->count;
@@ -310,7 +310,7 @@ void NeZipDrv::handle_reportdata(TCP_DATA_HEAD *pTcpHead)
 
 void NeZipDrv::handle_tick(TCP_DATA_HEAD *pTcpHead)
 {
-    //BfInfo("recv tick: %d",pTcpHead->count);
+    //BfLog("recv tick: %d",pTcpHead->count);
     int count = pTcpHead->count;
 	RCV_TRACEV50* pTrace = (RCV_TRACEV50 *)pTcpHead->pData;
 

@@ -11,7 +11,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // qRegisterMetaType
@@ -21,7 +21,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfNotificationData>("BfNotificationData");
     qRegisterMetaType<BfContractData>("BfContractData");
-    qRegisterMetaType<BfErrorData>("BfErrorData");
+    qRegisterMetaType<BfLogData>("BfLogData");
     qRegisterMetaType<BfLogData>("BfLogData");
     qRegisterMetaType<BfTickData>("BfTickData");
 
@@ -37,7 +37,7 @@ void GatewayMgr::init()
 
 void GatewayMgr::shutdown()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 }
 
@@ -55,7 +55,7 @@ int GatewayMgr::getTradeId()
 
 QString GatewayMgr::genTradeId()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     int tradeId = getTradeId();
@@ -101,7 +101,7 @@ void GatewayMgr::resetData()
 
 QString GatewayMgr::genOrderId()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     int orderId = getOrderId();
@@ -111,9 +111,9 @@ QString GatewayMgr::genOrderId()
 
 void GatewayMgr::start(const BfGetTickReq& req)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-    BfInfo("tradeWillBegin:(%s.%s:%s %s-%s %s)",
+    BfLog("tradeWillBegin:(%s.%s:%s %s-%s %s)",
            req.symbol().c_str(),req.exchange().c_str(),
            req.fromdate().c_str(),req.fromtime().c_str(),
            req.todate().c_str(),req.totime().c_str());
@@ -150,7 +150,7 @@ void GatewayMgr::start(const BfGetTickReq& req)
 
 void GatewayMgr::stop()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     resetData();
@@ -159,7 +159,7 @@ void GatewayMgr::stop()
 
 void GatewayMgr::queryAccount()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     emit this->gotAccount(account_);
@@ -167,7 +167,7 @@ void GatewayMgr::queryAccount()
 
 void GatewayMgr::queryPosition()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     BfNotificationData note;
@@ -184,7 +184,7 @@ void GatewayMgr::queryPosition()
 
 void GatewayMgr::queryOrders()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     BfNotificationData note;
@@ -201,7 +201,7 @@ void GatewayMgr::queryOrders()
 
 void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     QString bfOrderId = genOrderId();
@@ -210,7 +210,7 @@ void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 
 void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     BfOrderData* order = new BfOrderData();
@@ -237,7 +237,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
         if (1) {
             QString longKey = QString().sprintf("%s-%s-long", order->symbol().c_str(), order->exchange().c_str());
             if (!positions_.contains(longKey)) {
-                BfInfo("only support the symbol");
+                BfLog("only support the symbol");
                 order->set_status(STATUS_CANCELLED); //状态=
                 order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
                 break;
@@ -245,21 +245,21 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
         }
         //只支持限价单=
         if (req.pricetype() != PRICETYPE_LIMITPRICE) {
-            BfInfo("only support limitprice");
+            BfLog("only support limitprice");
             order->set_status(STATUS_CANCELLED); //状态=
             order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
             break;
         }
         //只支持1-500手=
         if (req.volume() < 1 || req.volume() > 500) {
-            BfInfo("only support volume: (1-500)");
+            BfLog("only support volume: (1-500)");
             order->set_status(STATUS_CANCELLED); //状态=
             order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
             break;
         }
         //只支持平今=
         if (req.offset() != OFFSET_OPEN && req.offset() != OFFSET_CLOSE) {
-            BfInfo("only support open close");
+            BfLog("only support open close");
             order->set_status(STATUS_CANCELLED); //状态=
             order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
             break;
@@ -269,7 +269,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
             QString longKey = QString().sprintf("%s-%s-long", order->symbol().c_str(), order->exchange().c_str());
             BfPositionData* longPos = positions_.value(longKey);
             if (longPos->position() < order->totalvolume()) {
-                BfInfo("no enough position for short+close");
+                BfLog("no enough position for short+close");
                 order->set_status(STATUS_CANCELLED); //状态=
                 order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
                 break;
@@ -280,7 +280,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
             QString shortKey = QString().sprintf("%s-%s-short", order->symbol().c_str(), order->exchange().c_str());
             BfPositionData* shortPos = positions_.value(shortKey);
             if (shortPos->position() < order->totalvolume()) {
-                BfInfo("no enough position for long+close");
+                BfLog("no enough position for long+close");
                 order->set_status(STATUS_CANCELLED); //状态=
                 order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
                 break;
@@ -308,19 +308,19 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 
 void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     QString bfOrderId = req.bforderid().c_str();
 
     if (!orders_.contains(bfOrderId)) {
-        BfInfo("no order: (%s)", qPrintable(bfOrderId));
+        BfLog("no order: (%s)", qPrintable(bfOrderId));
         return;
     }
 
     BfOrderData* order = orders_.value(bfOrderId);
     if (order->status() == STATUS_ALLTRADED || order->status() == STATUS_CANCELLED) {
-        BfInfo("order complete yet:(%s)", qPrintable(bfOrderId));
+        BfLog("order complete yet:(%s)", qPrintable(bfOrderId));
         return;
     }
 
@@ -347,7 +347,7 @@ void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 
 void GatewayMgr::onGotTick(const BfTickData& tick)
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     for (auto order : orders_) {
@@ -395,7 +395,7 @@ void GatewayMgr::onGotTick(const BfTickData& tick)
 
 void GatewayMgr::onLongOpen(BfOrderData* order, const BfTickData& tick)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // ==order==
@@ -437,7 +437,7 @@ void GatewayMgr::onLongOpen(BfOrderData* order, const BfTickData& tick)
 
 void GatewayMgr::onShortOpen(BfOrderData* order, const BfTickData& tick)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // ==order==
@@ -480,14 +480,14 @@ void GatewayMgr::onShortOpen(BfOrderData* order, const BfTickData& tick)
 // 需要检查仓位是否足够平仓=
 void GatewayMgr::onLongClose(BfOrderData* order, const BfTickData& tick)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // ==pos==
     QString shortKey = QString().sprintf("%s-%s-short", order->symbol().c_str(), order->exchange().c_str());
     BfPositionData* shortPos = positions_.value(shortKey);
     if (shortPos->position() < order->totalvolume()) {
-        BfInfo("no enough position for long+close");
+        BfLog("no enough position for long+close");
         order->set_status(STATUS_CANCELLED); //状态=
         order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
         emit this->gotOrder(*order);
@@ -534,14 +534,14 @@ void GatewayMgr::onLongClose(BfOrderData* order, const BfTickData& tick)
 // 需要检查仓位是否足够平仓=
 void GatewayMgr::onShortClose(BfOrderData* order, const BfTickData& tick)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // ==pos==
     QString longKey = QString().sprintf("%s-%s-long", order->symbol().c_str(), order->exchange().c_str());
     BfPositionData* longPos = positions_.value(longKey);
     if (longPos->position() < order->totalvolume()) {
-        BfInfo("no enough position for short+close");
+        BfLog("no enough position for short+close");
         order->set_status(STATUS_CANCELLED); //状态=
         order->set_canceltime(QDateTime::currentDateTime().toString("hh:mm:ss").toStdString());
         emit this->gotOrder(*order);

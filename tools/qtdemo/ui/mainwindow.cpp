@@ -46,9 +46,7 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotError, this, &MainWindow::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &MainWindow::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &MainWindow::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotLog, this, &MainWindow::onLog);
 }
 
 void MainWindow::shutdown()
@@ -73,9 +71,7 @@ void MainWindow::onLog(QString when, QString msg)
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfError(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfDebug(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()
@@ -213,13 +209,13 @@ void MainWindow::on_actionThreadExternal_triggered()
 void MainWindow::runOnExternal()
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
 }
 
 void MainWindow::runOnExternalEx(QFutureInterface<void>& future)
 {
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     future.reportFinished();
 }

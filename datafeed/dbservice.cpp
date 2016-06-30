@@ -18,7 +18,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // init env
@@ -36,7 +36,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // dbClose
@@ -49,7 +49,7 @@ void DbService::shutdown()
 
 leveldb::DB* DbService::getDb()
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
 
     if (!db_) {
         qFatal("db not open yet");
@@ -61,11 +61,11 @@ leveldb::DB* DbService::getDb()
 
 void DbService::dbOpen()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_) {
-        BfInfo("db opened already");
+        BfLog("db opened already");
         return;
     }
 
@@ -89,11 +89,11 @@ void DbService::dbOpen()
 
 void DbService::dbClose()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        BfInfo("db not open yet");
+        BfLog("db not open yet");
         return;
     }
     delete db_;
@@ -102,7 +102,7 @@ void DbService::dbClose()
 
 void DbService::dbInit()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
     if (db_ == nullptr) {
         qFatal("db not open yet");
@@ -127,7 +127,7 @@ void DbService::dbInit()
 
 void DbService::dbReset()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
     if (db_ != nullptr) {
         qFatal("db open yet");
@@ -145,11 +145,11 @@ void DbService::dbReset()
 
 void DbService::insertTick(const BfTickData& bfItem)
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.ticktime().length() == 0) {
-        BfDebug("invalid tick,ignore");
+        BfLog("invalid tick,ignore");
         return;
     }
 
@@ -172,11 +172,11 @@ void DbService::insertTick(const BfTickData& bfItem)
 
 void DbService::insertBar(const BfBarData& bfItem)
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period() == PERIOD_UNKNOWN) {
-        BfDebug("insertBar:invalid bar,ignore");
+        BfLog("insertBar:invalid bar,ignore");
         return;
     }
 
@@ -199,11 +199,11 @@ void DbService::insertBar(const BfBarData& bfItem)
 
 void DbService::insertContract(const BfContractData& bfItem)
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.name().length() == 0) {
-        BfDebug("insertContract:invalid contract,ignore");
+        BfLog("insertContract:invalid contract,ignore");
         return;
     }
 
@@ -249,11 +249,11 @@ void DbService::insertContract(const BfContractData& bfItem)
 
 void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
-        BfDebug("getTick:invalid parm,ignore");
+        BfLog("getTick:invalid parm,ignore");
         return;
     }
 
@@ -267,16 +267,16 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     } else if (fromDate.length() != 0) {
         this->getTickFromCount(request, writer);
     } else {
-        BfDebug("invalid parm,ignore");
+        BfLog("invalid parm,ignore");
         return;
     }
 
-    BfDebug("get tick ok");
+    BfLog("get tick ok");
 }
 
 void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -318,7 +318,7 @@ void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter
     for (int i = ticks.length() - 1; i >= 0; i--) {
         bool ok = writer->Write(ticks.at(i));
         if(!ok){
-            BfInfo("getTickCountTo : stream closed!");
+            BfLog("getTickCountTo : stream closed!");
             break;
         }
     }
@@ -326,7 +326,7 @@ void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter
 
 void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -361,7 +361,7 @@ void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWrit
             count++;
             bool ok = writer->Write(bfItem);
             if(!ok){
-                BfInfo("getTickFromCount : stream closed!");
+                BfLog("getTickFromCount : stream closed!");
                 break;
             }
         }
@@ -371,7 +371,7 @@ void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWrit
 
 void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -407,7 +407,7 @@ void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<
             count++;
             bool ok = writer->Write(bfItem);
             if(!ok){
-                BfInfo("getTickFromTo : stream closed!");
+                BfLog("getTickFromTo : stream closed!");
                 break;
             }
             Sleep(500);
@@ -420,12 +420,12 @@ void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<
 
 void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0
         || request->period() == PERIOD_UNKNOWN) {
-        BfDebug("getBar:invalid parm,ignore");
+        BfLog("getBar:invalid parm,ignore");
         return;
     }
 
@@ -439,16 +439,16 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     } else if (fromDate.length() != 0) {
         this->getBarFromCount(request, writer);
     } else {
-        BfDebug("invalid parm,ignore");
+        BfLog("invalid parm,ignore");
         return;
     }
 
-    BfDebug("get bar ok");
+    BfLog("get bar ok");
 }
 
 void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -497,14 +497,14 @@ void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<B
     for (int i = bars.length() - 1; i >= 0; i--) {
         bool ok = writer->Write(bars.at(i));
         if(!ok){
-            BfInfo("getBarCountTo : stream closed!");
+            BfLog("getBarCountTo : stream closed!");
         }
     }
 }
 
 void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -546,7 +546,7 @@ void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter
             count++;
             bool ok = writer->Write(bfItem);
             if(!ok){
-                BfInfo("getBarFromCount : stream closed!");
+                BfLog("getBarFromCount : stream closed!");
                 break;
             }
         }
@@ -556,7 +556,7 @@ void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter
 
 void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
@@ -602,7 +602,7 @@ void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<Bf
             count++;
             bool ok = writer->Write(bfItem);
             if(!ok){
-                BfInfo("getBarFromTo : stream closed!");
+                BfLog("getBarFromTo : stream closed!");
                 break;
             }
         } else {
@@ -614,11 +614,11 @@ void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<Bf
 
 void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
-        BfDebug("getContract:invalid parm,ignore");
+        BfLog("getContract:invalid parm,ignore");
         return;
     }
 
@@ -656,7 +656,7 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
 
             bool ok = writer->Write(bfContract);
             if(!ok){
-                BfInfo("getContract : stream closed!");
+                BfLog("getContract : stream closed!");
                 break;
             }
         }
@@ -679,24 +679,24 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
             }
             bool ok = writer->Write(bfItem);
             if(!ok){
-                BfInfo("getContract : stream closed!");
+                BfLog("getContract : stream closed!");
             }
         }
     }
 
-    BfDebug("get contract ok");
+    BfLog("get contract ok");
 }
 
 // 遍历构建batch，然后执行batch
 void DbService::deleteTick(const BfDeleteTickReq& request)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (request.symbol().length() == 0 || request.exchange().length() == 0
         || request.todate().length() == 0 || request.totime().length() == 0
         || request.fromdate().length() == 0 || request.fromtime().length() == 0) {
-        BfDebug("deleteTick:invalid parm,ignore");
+        BfLog("deleteTick:invalid parm,ignore");
         return;
     }
 
@@ -742,14 +742,14 @@ void DbService::deleteTick(const BfDeleteTickReq& request)
 // 遍历构建batch，然后执行batch
 void DbService::deleteBar(const BfDeleteBarReq& request)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (request.symbol().length() == 0 || request.exchange().length() == 0
         || request.todate().length() == 0 || request.totime().length() == 0
         || request.fromdate().length() == 0 || request.fromtime().length() == 0
         || request.period() == PERIOD_UNKNOWN) {
-        BfDebug("deleteBar:invalid parm,ignore");
+        BfLog("deleteBar:invalid parm,ignore");
         return;
     }
 
@@ -804,11 +804,11 @@ void DbService::deleteBar(const BfDeleteBarReq& request)
 
 void DbService::deleteContract(const BfDeleteContractReq& request)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (request.symbol().length() == 0 || request.exchange().length() == 0) {
-        BfDebug("deleteContract:invalid parm,ignore");
+        BfLog("deleteContract:invalid parm,ignore");
         return;
     }
 
@@ -854,7 +854,7 @@ void DbService::deleteContract(const BfDeleteContractReq& request)
 
 void DbService::cleanAll()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // dbClose
@@ -874,7 +874,7 @@ void DbService::cleanAll()
 
 void DbService::dbCompact()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     db_->CompactRange(nullptr, nullptr);

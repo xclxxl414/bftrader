@@ -282,7 +282,7 @@ void TickForm::on_seekButton_clicked()
     QString msg("not found,input format:\ntick-IF1511-CFFEX-\ntick-IF1511-CFFEX-20151023-1304\ntick-IF1511-CFFEX-20151023-13:04:00.000");
     it->Seek(leveldb::Slice(key.toStdString()));
     if (!it->Valid()) {
-        BfError(msg);
+        BfLog(msg);
     }
     int count = 0;
     x_.clear();
@@ -320,10 +320,10 @@ void TickForm::on_delButton_clicked()
     }
 
     if (status.ok()) {
-        BfInfo("del,ok");
+        BfLog("del,ok");
     } else {
         QString errStr = QString::fromStdString(status.ToString());
-        BfError(errStr);
+        BfLog(errStr);
     }
 }
 

@@ -14,11 +14,11 @@ public:
         , req_(req)
         , channel_(channel.get())
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
     ~GatewayClient()
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
         freeReaderThread();
     }
     bool ready()
@@ -63,12 +63,12 @@ public:
 
         grpc::Status status = stub_->Ping(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->Ping fail,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->Ping fail,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
             return;
         }
 
         if (req.message() != resp.message()) {
-            BfError("(%s)->Ping fail,ping:%s,pong:%s", qPrintable(gatewayId_), req.message().c_str(), resp.message().c_str());
+            BfLog("(%s)->Ping fail,ping:%s,pong:%s", qPrintable(gatewayId_), req.message().c_str(), resp.message().c_str());
             return;
         }
     }
@@ -76,7 +76,7 @@ public:
     // NOTE(hege):要么正常的disconnect让服务端关闭，要么网络异常导致read失败=
     void Connect()
     {
-        BfInfo("(%s)->Connect now!", qPrintable(gatewayId_));
+        BfLog("(%s)->Connect now!", qPrintable(gatewayId_));
         BfConnectPushReq req = req_;
         reader_thread_ = new QThread();
         std::function<void(void)> fn = [=]() {
@@ -89,10 +89,10 @@ public:
                     dispatchPush(any);
                 } else {
                     // shutdown
-                    BfDebug("stream shutdown");
+                    BfLog("stream shutdown");
                     grpc::Status status = reader->Finish();
                     if (!status.ok()) {
-                        BfError("(%s)->Connect,code:%d,msg:%s", qPrintable(this->gatewayId_), status.error_code(), status.error_message().c_str());
+                        BfLog("(%s)->Connect,code:%d,msg:%s", qPrintable(this->gatewayId_), status.error_code(), status.error_message().c_str());
                     }
                     // freeReaderThread
                     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "onGatewayDisconnected", Qt::QueuedConnection, Q_ARG(QString, this->gatewayId_));
@@ -113,7 +113,7 @@ public:
 
         grpc::Status status = stub_->DisconnectPush(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->Disconnect,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->Disconnect,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -133,7 +133,7 @@ public:
             } else {
                 grpc::Status status = reader->Finish();
                 if (!status.ok()) {
-                    BfError("gateway->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    BfLog("gateway->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                     return false;
                 }
                 break;
@@ -152,7 +152,7 @@ public:
 
         grpc::Status status = stub_->SendOrder(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->SendOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->SendOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -165,7 +165,7 @@ public:
 
         grpc::Status status = stub_->CancelOrder(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->CancelOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->CancelOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -178,7 +178,7 @@ public:
 
         grpc::Status status = stub_->QueryAccount(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->QueryAccount,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->QueryAccount,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -191,7 +191,7 @@ public:
 
         grpc::Status status = stub_->QueryPosition(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("(%s)->QueryPosition,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            BfLog("(%s)->QueryPosition,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
 
@@ -205,7 +205,7 @@ private:
         } else if (any.Is<BfPingData>()) {
             BfPingData data;
             any.UnpackTo(&data);
-            //BfInfo("(%s)->dispatchPush,gotPing:%s", qPrintable(this->gatewayId_), data.message().c_str());
+            //BfLog("(%s)->dispatchPush,gotPing:%s", qPrintable(this->gatewayId_), data.message().c_str());
             emit g_sm->gatewayMgr()->gotPing(gatewayId_, data);
         } else if (any.Is<BfOrderData>()) {
             BfOrderData data;
@@ -223,8 +223,8 @@ private:
             BfOrderData data;
             any.UnpackTo(&data);
             emit g_sm->gatewayMgr()->gotOrder(gatewayId_, data);
-        } else if (any.Is<BfErrorData>()) {
-            BfErrorData data;
+        } else if (any.Is<BfLogData>()) {
+            BfLogData data;
             any.UnpackTo(&data);
             emit g_sm->gatewayMgr()->gotError(gatewayId_, data);
         } else if (any.Is<BfLogData>()) {
@@ -260,7 +260,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // qRegisterMetaType
@@ -270,7 +270,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfNotificationData>("BfNotificationData");
     qRegisterMetaType<BfContractData>("BfContractData");
-    qRegisterMetaType<BfErrorData>("BfErrorData");
+    qRegisterMetaType<BfLogData>("BfLogData");
     qRegisterMetaType<BfLogData>("BfLogData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
@@ -287,7 +287,7 @@ void GatewayMgr::init()
 
 void GatewayMgr::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     // close timer
@@ -307,7 +307,7 @@ void GatewayMgr::shutdown()
 
 void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfConnectPushReq& req)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
@@ -326,12 +326,12 @@ void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfCon
 
 void GatewayMgr::disconnectGateway(QString gatewayId)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     if (clients_.contains(gatewayId)) {
-        BfDebug("delete gatewayclient:%s", qPrintable(gatewayId));
+        BfLog("delete gatewayclient:%s", qPrintable(gatewayId));
         GatewayClient* client = clients_[gatewayId];
 
         delete client;
@@ -341,12 +341,12 @@ void GatewayMgr::disconnectGateway(QString gatewayId)
 
 void GatewayMgr::onGatewayDisconnected(QString gatewayId)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     if (clients_.contains(gatewayId)) {
-        BfDebug("free readerthread:%s", qPrintable(gatewayId));
+        BfLog("free readerthread:%s", qPrintable(gatewayId));
         GatewayClient* client = clients_[gatewayId];
         client->freeReaderThread();
     }

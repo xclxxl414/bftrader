@@ -17,7 +17,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // init env
@@ -33,7 +33,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // dbClose
@@ -46,7 +46,7 @@ void DbService::shutdown()
 
 leveldb::DB* DbService::getDb()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     if (!db_) {
         qFatal("db not open yet");
@@ -58,11 +58,11 @@ leveldb::DB* DbService::getDb()
 
 void DbService::dbOpen()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_) {
-        BfDebug("opened already");
+        BfLog("opened already");
         return;
     }
 
@@ -86,11 +86,11 @@ void DbService::dbOpen()
 
 void DbService::dbClose()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        BfDebug("not open yet");
+        BfLog("not open yet");
         return;
     }
     delete db_;

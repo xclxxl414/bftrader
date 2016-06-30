@@ -29,32 +29,32 @@ void GatewayMgr::shutdown()
 
 void GatewayMgr::loadDrv()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     QString drvPath = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("Nezip/System/Stockdrv.dll"));
     bool ok = nezip_->load(qPrintable(drvPath));
     if (ok) {
-        BfInfo("load nezipdrv ok: (%s)", qPrintable(drvPath));
+        BfLog("load nezipdrv ok: (%s)", qPrintable(drvPath));
     } else {
-        BfInfo("load nezipdrv fail: (%s)", qPrintable(drvPath));
+        BfLog("load nezipdrv fail: (%s)", qPrintable(drvPath));
     }
 }
 
 void GatewayMgr::askData(const AskDataTag& tag)
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (!nezip_->inited()) {
-        BfInfo("please loaddrv first");
+        BfLog("please loaddrv first");
         return;
     }
 
-    BfInfo("askdata:(%s)-->(%s.%s)", qPrintable(tag.nezipCode), qPrintable(tag.ctpSymbol), qPrintable(tag.ctpExchange));
+    BfLog("askdata:(%s)-->(%s.%s)", qPrintable(tag.nezipCode), qPrintable(tag.ctpSymbol), qPrintable(tag.ctpExchange));
     QMutexLocker locker(&mu_);
     if (tags_.contains(tag.nezipCode)) {
-        BfInfo("ask already:(%s)", qPrintable(tag.nezipCode));
+        BfLog("ask already:(%s)", qPrintable(tag.nezipCode));
         return;
     }
     tags_.insert(tag.nezipCode, tag);

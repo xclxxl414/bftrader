@@ -22,8 +22,6 @@ SOURCES += main.cpp\
     ui/mainwindow.cpp \
     ui/configdialog.cpp \
     ui/logindialog.cpp \
-    ui/infoform.cpp \
-    ui/errorform.cpp \
     ui/debugform.cpp \
     ui/positionform.cpp \
     ui/contractform.cpp \
@@ -47,8 +45,6 @@ HEADERS  += ui/mainwindow.h \
     tdsm.h \
     ui/configdialog.h \
     ui/logindialog.h \
-    ui/infoform.h \
-    ui/errorform.h \
     ui/debugform.h \
     ui/positionform.h \
     ui/contractform.h \
@@ -65,8 +61,6 @@ HEADERS  += ui/mainwindow.h \
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
     ui/logindialog.ui \
-    ui/infoform.ui \
-    ui/errorform.ui \
     ui/debugform.ui \
     ui/positionform.ui \
     ui/contractform.ui \

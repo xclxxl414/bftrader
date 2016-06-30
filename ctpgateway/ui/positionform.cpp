@@ -122,14 +122,14 @@ void PositionForm::on_pushButtonCloseAll_clicked()
 
         // 没有订阅的pass
         if (!symbols_my_.contains(symbol)) {
-            BfInfo(symbol + " not subscrible,please close byhand");
+            BfLog(symbol + " not subscrible,please close byhand");
             continue;
         }
 
         // 取不到tick的pass，比如晚上if不开盘=
         void* tick = g_sm->gatewayMgr()->getLatestTick(symbol);
         if (!tick) {
-            BfInfo(symbol + " has no tick,please close byhand");
+            BfLog(symbol + " has no tick,please close byhand");
             continue;
         }
         BfTickData bfTick;
@@ -199,11 +199,11 @@ void PositionForm::on_pushButtonCloseAll_clicked()
 void PositionForm::onGotNotification(const BfNotificationData& note)
 {
     if (note.type() == NOTIFICATION_BEGINQUERYPOSITION) {
-        BfDebug("NOTIFICATION_BEGINQUERYPOSITION");
+        BfLog("NOTIFICATION_BEGINQUERYPOSITION");
         positions_.clear();
         querying_ = true;
     } else if (note.type() == NOTIFICATION_ENDQUERYPOSITION) {
-        BfDebug("NOTIFICATION_ENDQUERYPOSITION");
+        BfLog("NOTIFICATION_ENDQUERYPOSITION");
         querying_ = false;
 
         updateUI();

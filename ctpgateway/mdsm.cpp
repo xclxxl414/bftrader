@@ -18,7 +18,7 @@ public:
 private:
     void OnFrontConnected() override
     {
-        BfInfo(__FUNCTION__);
+        BfLog(__FUNCTION__);
         emit sm()->statusChanged(MDSM_CONNECTED);
     }
 
@@ -26,7 +26,7 @@ private:
     // 网络错误当再次恢复时候，会自动重连重新走OnFrontConnected
     void OnFrontDisconnected(int nReason) override
     {
-        BfInfo("MdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
+        BfLog("MdSmSpi::OnFrontDisconnected,nReason=0x%x", nReason);
 
         emit sm()->statusChanged(MDSM_DISCONNECTED);
     }
@@ -37,7 +37,7 @@ private:
         int nRequestID,
         bool bIsLast) override
     {
-        BfInfo(__FUNCTION__);
+        BfLog(__FUNCTION__);
         if (bIsLast) {
             if (isErrorRsp(pRspInfo, nRequestID)) {
                 emit sm()->statusChanged(MDSM_LOGINFAIL);
@@ -58,7 +58,7 @@ private:
         bool bIsLast) override
     {
         if (bIsLast) {
-            BfError(__FUNCTION__);
+            BfLog(__FUNCTION__);
             isErrorRsp(pRspInfo, nRequestID);
         }
     }
@@ -80,7 +80,7 @@ private:
             for (auto symbol : got_symbols_) {
                 symbols = symbols + symbol + ";";
             }
-            BfInfo("total subscribled symbols:%d,reqId=%d,(%s)", got_symbols_.length(), nRequestID, qPrintable(symbols));
+            BfLog("total subscribled symbols:%d,reqId=%d,(%s)", got_symbols_.length(), nRequestID, qPrintable(symbols));
         }
     }
 
@@ -107,7 +107,7 @@ private:
     bool isErrorRsp(CThostFtdcRspInfoField* pRspInfo, int reqId)
     {
         if (pRspInfo && pRspInfo->ErrorID != 0) {
-            BfError("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
+            BfLog("reqid=%d,errorId=%d，msg=%s", reqId, pRspInfo->ErrorID,
                 gbk2utf16(pRspInfo->ErrorMsg).toUtf8().constData());
             emit g_sm->gatewayMgr()->gotGatewayError(pRspInfo->ErrorID, gbk2utf16(pRspInfo->ErrorMsg), QString().sprintf("reqId=%d", reqId));
             return true;
@@ -191,7 +191,7 @@ bool MdSm::init(QString userId,
 
 void MdSm::start()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     if (mdapi_ != nullptr) {
         qFatal("mdapi_!=nullptr");
@@ -209,7 +209,7 @@ void MdSm::start()
 
 void MdSm::stop()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     if (mdapi_ == nullptr) {
         qFatal("mdapi_==nullptr");
@@ -237,7 +237,7 @@ void MdSm::resetData()
 
 void MdSm::login(unsigned int delayTick)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     std::function<int(int)> fn = [=](int reqId) -> int {
         CThostFtdcReqUserLoginField req;
@@ -246,7 +246,7 @@ void MdSm::login(unsigned int delayTick)
         strncpy(req.UserID, userId_.toStdString().c_str(), sizeof(req.UserID) - 1);
         strncpy(req.Password, password_.toStdString().c_str(), sizeof(req.Password) - 1);
         int result = mdapi_->ReqUserLogin(&req, reqId);
-        BfDebug("CmdMdLogin,reqId=%d,result=%d", reqId, result);
+        BfLog("CmdMdLogin,reqId=%d,result=%d", reqId, result);
         if (result == 0) {
             emit g_sm->gatewayMgr()->requestSent(reqId);
         }
@@ -261,7 +261,7 @@ void MdSm::login(unsigned int delayTick)
 
 void MdSm::subscrible(QStringList symbols, unsigned int delayTick)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     std::function<int(int)> fn = [=](int reqId) -> int {
         (void)reqId;
@@ -273,7 +273,7 @@ void MdSm::subscrible(QStringList symbols, unsigned int delayTick)
         }
         int result = mdapi_->SubscribeMarketData(c_symbols, symbols.length());
         delete[] c_symbols;
-        BfDebug("CmdMdSubscrible,result=%d", result);
+        BfLog("CmdMdSubscrible,result=%d", result);
         return result;
     };
 

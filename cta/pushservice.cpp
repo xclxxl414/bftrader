@@ -15,11 +15,11 @@ public:
         : queue_(queue)
         , req_(req)
     {
-        BfDebug("(%s)->CtaClient", qPrintable(clientId()));
+        BfLog("(%s)->CtaClient", qPrintable(clientId()));
     }
     ~CtaClient()
     {
-        BfDebug("(%s)->~CtaClient", qPrintable(clientId()));
+        BfLog("(%s)->~CtaClient", qPrintable(clientId()));
         // NOTE(hege):关闭队列=
         shutdown();
     }
@@ -88,7 +88,7 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // start timer
@@ -104,7 +104,7 @@ void PushService::init()
 
 void PushService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // close timer
@@ -123,7 +123,7 @@ void PushService::connectClient(const BfConnectPushReq& req, void* queue)
 {
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
     QString clientId = req.clientid().c_str();
-    BfDebug("(%s)->connectClient", qPrintable(clientId));
+    BfLog("(%s)->connectClient", qPrintable(clientId));
 
     auto client = new CtaClient((SafeQueue<google::protobuf::Any>*)queue, req);
     if (clients_.contains(clientId)) {
@@ -139,7 +139,7 @@ void PushService::disconnectClient(QString clientId)
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (clients_.contains(clientId)) {
-        BfDebug("(%s)->disconnectClient", qPrintable(clientId));
+        BfLog("(%s)->disconnectClient", qPrintable(clientId));
         auto client = clients_[clientId];
         delete client;
         clients_.remove(clientId);
@@ -148,7 +148,7 @@ void PushService::disconnectClient(QString clientId)
 
 void PushService::onCtaClosed()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     for (auto client : clients_) {

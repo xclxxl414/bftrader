@@ -16,11 +16,11 @@ public:
         , clientId_(clientId)
         , channel_(channel.get())
     {
-        BfInfo(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
     ~DatafeedClient()
     {
-        BfInfo(__FUNCTION__);
+        BfLog(__FUNCTION__);
 
         stopPushTick();
     }
@@ -62,12 +62,12 @@ public:
         BfPingData resp;
         grpc::Status status = stub_->Ping(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
         if (req.message() != resp.message()) {
-            BfError("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
+            BfLog("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
             return false;
         }
 
@@ -84,7 +84,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertTick(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -101,7 +101,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertBar(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -118,7 +118,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertContract(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -141,7 +141,7 @@ public:
             } else {
                 grpc::Status status = reader->Finish();
                 if (!status.ok()) {
-                    BfError("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    BfLog("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                     return false;
                 }
                 break;
@@ -159,13 +159,13 @@ public:
             grpc::ClientContext ctx;
             ctx.AddMetadata("clientid", clientId_.toStdString());
             std::unique_ptr< ::grpc::ClientReader<BfTickData> > reader = stub_->GetTick(&ctx, req);
-            BfInfo("PushTick begin...");
+            BfLog("PushTick begin...");
             int count = 0;
             for (;;) {
                 BfTickData resp;
                 bool ok = reader->Read(&resp);
                 if (!this->isPushTickStopped() && ok) {
-                    //BfInfo("gotTick");
+                    //BfLog("gotTick");
                     count++;
                     emit g_sm->dbService()->gotTick(resp);
                     Sleep(500);
@@ -173,15 +173,15 @@ public:
                     if(!ok){
                         grpc::Status status = reader->Finish();
                         if (!status.ok()) {
-                            BfError("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                            BfLog("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                         }
                     }else{
-                        BfInfo("!!!PushTick cancel, NOT call (reader->Finish), and (writer->Write) will hang!!!");
+                        BfLog("!!!PushTick cancel, NOT call (reader->Finish), and (writer->Write) will hang!!!");
                     }
                     break;
                 }
             }
-            BfInfo("PushTick end,total (%d) ticks...",count);
+            BfLog("PushTick end,total (%d) ticks...",count);
         };
         QObject::connect(reader_thread_, &QThread::started, fn);
         reader_thread_->start();
@@ -197,7 +197,7 @@ public:
         BfVoid req, resp;
         grpc::Status status = stub_->CleanAll(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -221,7 +221,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // gatewaymgr...
@@ -237,7 +237,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // close timer
@@ -254,7 +254,7 @@ void DbService::shutdown()
 
 void DbService::connectDatafeed(QString endpoint, QString clientId)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // datafeed client
@@ -272,7 +272,7 @@ void DbService::connectDatafeed(QString endpoint, QString clientId)
 
 void DbService::disconnectDatafeed()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (client_) {
@@ -283,7 +283,7 @@ void DbService::disconnectDatafeed()
 
 void DbService::onPing()
 {
-    //BfInfo(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (client_) {
@@ -300,7 +300,7 @@ void DbService::onPing()
 
 void DbService::onTradeWillBegin(const BfGetTickReq& reqTick)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // wait 1 second,同ctpgateway设计，让策略有时间做一些破事情=
@@ -320,13 +320,13 @@ void DbService::onTradeWillBegin(const BfGetTickReq& reqTick)
             client_->PushTick(reqTick);
         }
     } else {
-        BfError("connectDatafeed firstly,plz");
+        BfLog("connectDatafeed firstly,plz");
     }
 }
 
 void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     if (client_) {
@@ -335,13 +335,13 @@ void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& 
             ;
         }
     } else {
-        BfError("connectDatafeed firstly,plz");
+        BfLog("connectDatafeed firstly,plz");
     }
 }
 
 void DbService::onTradeStopped()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (client_) {

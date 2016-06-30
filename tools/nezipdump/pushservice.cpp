@@ -21,11 +21,11 @@ public:
         , clientId_(clientId)
         , channel_(channel.get())
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
     ~DatafeedClient()
     {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
     }
 
     bool ready()
@@ -48,12 +48,12 @@ public:
         BfPingData resp;
         grpc::Status status = stub_->Ping(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->Ping fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
         if (req.message() != resp.message()) {
-            BfError("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
+            BfLog("Datafeed->Ping fail,ping:%s,pong:%s", req.message().c_str(), resp.message().c_str());
             return false;
         }
 
@@ -70,7 +70,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertTick(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -87,7 +87,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertBar(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertBar fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -104,7 +104,7 @@ public:
         BfVoid resp;
         grpc::Status status = stub_->InsertContract(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->InsertContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -127,7 +127,7 @@ public:
             } else {
                 grpc::Status status = reader->Finish();
                 if (!status.ok()) {
-                    BfError("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+                    BfLog("Datafeed->GetContract fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                     return false;
                 }
                 break;
@@ -147,7 +147,7 @@ public:
         BfVoid req, resp;
         grpc::Status status = stub_->CleanAll(&ctx, req, &resp);
         if (!status.ok()) {
-            BfError("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
+            BfLog("Datafeed->CleanAll fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
             return false;
         }
 
@@ -169,7 +169,7 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // datafeed client
@@ -184,7 +184,7 @@ void PushService::init()
 
 void PushService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     // close timer
@@ -229,7 +229,7 @@ bool PushService::checkRecvFinished()
     gDataWriteQueue.getdatasize(daysize, min1size, min5size, ticksize);
 
     if (daysize != daysize_ || min1size != min1size_ || min5size != min5size_ || ticksize != ticksize_) {
-        BfInfo("recv: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
+        BfLog("recv: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
         daysize_ = daysize;
         min1size_ = min1size;
         min5size_ = min5size;
@@ -237,7 +237,7 @@ bool PushService::checkRecvFinished()
     } else {
         //5秒内无新数据接收到，认为接收完毕
         if (daysize_ != 0 || min1size_ != 0 || min5size_ != 0 || ticksize_ != 0) {
-            BfInfo("recv finished!");
+            BfLog("recv finished!");
             return true;
         }
     }
@@ -247,7 +247,7 @@ bool PushService::checkRecvFinished()
 
 void PushService::pushToDatafeed()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     if (!pushIndexFinished_) {
@@ -265,11 +265,11 @@ void PushService::pushToDatafeed()
         gDataWriteQueue.getdatasize(daysize, min1size, min5size, ticksize);
 
         if (daysize == 0 && min1size == 0 && min5size == 0 && ticksize == 0) {
-            BfInfo("push finished,please exit app!");
+            BfLog("push finished,please exit app!");
             this->pingTimer_->stop();
             break;
         }
-        BfInfo("rest: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
+        BfLog("rest: tick(%d),m01(%d),m05(%d),day(%d)", ticksize, min1size, min5size, daysize);
 
         if (daysize) {
             pushDayData();
@@ -288,7 +288,7 @@ void PushService::pushToDatafeed()
 
 bool PushService::pushIndexData()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     QMap<QString, AskDataTag> tags = g_sm->gatewayMgr()->tags();
@@ -300,11 +300,11 @@ bool PushService::pushIndexData()
             req.set_exchange(tag.ctpExchange.toStdString());
             bool ok = client_->GetContract(req, resps);
             if (!ok) {
-                BfError("GetContract error");
+                BfLog("GetContract error");
                 return false;
             }
             if (resps.length() == 0) {
-                BfError("GetContract return item:0");
+                BfLog("GetContract return item:0");
                 return false;
             }
             BfContractData resp = resps.at(0);
@@ -312,7 +312,7 @@ bool PushService::pushIndexData()
             resp.set_name("index");
             ok = client_->InsertContract(resp);
             if (!ok) {
-                BfError("InsertContract error");
+                BfLog("InsertContract error");
                 return false;
             }
         }
@@ -323,7 +323,7 @@ bool PushService::pushIndexData()
 
 void PushService::pushDayData()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     std::list<KLineData> dayData;
@@ -358,7 +358,7 @@ void PushService::pushDayData()
 
             bool ok = client_->InsertBar(req);
             if (!ok) {
-                BfError("InsertBar error");
+                BfLog("InsertBar error");
                 return;
             }
         }
@@ -367,7 +367,7 @@ void PushService::pushDayData()
 
 void PushService::pushMin1Data()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     std::list<KLineData> m1Data;
@@ -402,7 +402,7 @@ void PushService::pushMin1Data()
 
             bool ok = client_->InsertBar(req);
             if (!ok) {
-                BfError("InsertBar error");
+                BfLog("InsertBar error");
                 return;
             }
         }
@@ -411,7 +411,7 @@ void PushService::pushMin1Data()
 
 void PushService::pushMin5Data()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     std::list<KLineData> m5Data;
@@ -446,7 +446,7 @@ void PushService::pushMin5Data()
 
             bool ok = client_->InsertBar(req);
             if (!ok) {
-                BfError("InsertBar error");
+                BfLog("InsertBar error");
                 return;
             }
         }
@@ -455,7 +455,7 @@ void PushService::pushMin5Data()
 
 void PushService::pushTickData()
 {
-    BfInfo(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 
     std::list<TickData> tickData;
@@ -496,7 +496,7 @@ void PushService::pushTickData()
             /*
             bool ok = client_->InsertTick(req);
             if (!ok) {
-                BfError("InsertTick error");
+                BfLog("InsertTick error");
                 return;
             }
 */

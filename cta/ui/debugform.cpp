@@ -30,9 +30,7 @@ DebugForm::~DebugForm()
 void DebugForm::init()
 {
     // logger
-    QObject::connect(g_sm->logger(), &Logger::gotError, this, &DebugForm::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotInfo, this, &DebugForm::onLog);
-    QObject::connect(g_sm->logger(), &Logger::gotDebug, this, &DebugForm::onLog);
+    QObject::connect(g_sm->logger(), &Logger::gotLog, this, &DebugForm::onLog);
 }
 
 void DebugForm::shutdown()

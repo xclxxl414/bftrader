@@ -3,8 +3,6 @@
 #include "dbservice.h"
 #include "debug_utils.h"
 #include "debugform.h"
-#include "errorform.h"
-#include "infoform.h"
 #include "logger.h"
 #include "profile.h"
 #include "rpcservice.h"
@@ -34,16 +32,12 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionNetStop->setEnabled(false);
 
     // tabs
-    infoForm_ = new InfoForm(this);
-    errorForm_ = new ErrorForm(this);
     debugForm_ = new DebugForm(this);
     contractForm_ = new ContractForm(this);
     statForm_ = new StatForm(this);
 
     ui->tabWidgetData->addTab(statForm_, "data");
     ui->tabWidgetData->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(infoForm_, "info");
-    ui->tabWidgetLog->addTab(errorForm_, "error");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
 }
 
@@ -54,8 +48,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    infoForm_->init();
-    errorForm_->init();
     debugForm_->init();
     contractForm_->init();
     statForm_->init();
@@ -63,8 +55,6 @@ void MainWindow::init()
 
 void MainWindow::shutdown()
 {
-    infoForm_->shutdown();
-    errorForm_->shutdown();
     debugForm_->shutdown();
     contractForm_->shutdown();
     statForm_->shutdown();
@@ -72,9 +62,7 @@ void MainWindow::shutdown()
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfError(QString("application's buildtime<error>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfInfo(QString("application's buildtime<info>: ") + QString(__DATE__) + " " + QString(__TIME__));
-    BfDebug(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()

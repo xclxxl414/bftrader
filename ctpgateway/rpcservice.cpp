@@ -19,11 +19,11 @@ public:
     explicit Gateway(QString gatewayId)
         : gatewayId_(gatewayId)
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
     virtual ~Gateway()
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
     {
@@ -33,9 +33,9 @@ public:
     }
     virtual ::grpc::Status ConnectPush(::grpc::ServerContext* context, const BfConnectPushReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         QString clientId = request->clientid().c_str();
-        BfDebug("(%s)->Connect", qPrintable(clientId));
+        BfLog("(%s)->Connect", qPrintable(clientId));
 
         auto queue = new SafeQueue<google::protobuf::Any>;
         QMetaObject::invokeMethod(g_sm->pushService(), "connectClient", Qt::QueuedConnection, Q_ARG(QString, gatewayId_), Q_ARG(BfConnectPushReq, *request), Q_ARG(void*, (void*)queue));
@@ -44,21 +44,21 @@ public:
             bool ok = writer->Write(*data);
             delete data;
             if (!ok) {
-                BfDebug("(%s)-->stream closed!", qPrintable(clientId));
+                BfLog("(%s)-->stream closed!", qPrintable(clientId));
                 QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
                 break;
             }
         }
 
-        BfDebug("(%s)->Connect exit!", qPrintable(clientId));
+        BfLog("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status DisconnectPush(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("(%s)->Disconnect", qPrintable(clientId));
+        BfLog("(%s)->Disconnect", qPrintable(clientId));
 
         // NOTE(hege):关闭stream
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
@@ -66,10 +66,10 @@ public:
     }
     virtual ::grpc::Status GetContract(::grpc::ServerContext* context, const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         if (request->symbol() == "*" && request->exchange() == "*") {
             QStringList ids = g_sm->gatewayMgr()->getIds(); //g_sm->gatewayMgr()->getIdsAll();
@@ -92,10 +92,10 @@ public:
     }
     virtual ::grpc::Status SendOrder(::grpc::ServerContext* context, const BfSendOrderReq* request, BfSendOrderResp* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         QString bfOrderId = g_sm->gatewayMgr()->genOrderId();
         response->set_bforderid(bfOrderId.toStdString());
@@ -105,40 +105,40 @@ public:
     }
     virtual ::grpc::Status CancelOrder(::grpc::ServerContext* context, const BfCancelOrderReq* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, *request));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryAccount(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryAccount", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryPosition(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryPosition", Qt::QueuedConnection);
         return grpc::Status::OK;
     }
     virtual ::grpc::Status QueryOrders(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("clientId=%s", qPrintable(clientId));
+        BfLog("clientId=%s", qPrintable(clientId));
 
         QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection);
         return grpc::Status::OK;
@@ -153,7 +153,7 @@ private:
             auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
             clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
+            //BfLog("metadata: clientid=%s", clientId.toStdString().c_str());
         }
         return clientId;
     }
@@ -173,13 +173,13 @@ RpcService::RpcService(QObject* parent)
 
 void RpcService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 }
 
 void RpcService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
     stop();
@@ -187,7 +187,7 @@ void RpcService::shutdown()
 
 void RpcService::start()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
     if (gatewayThread_ == nullptr) {
@@ -199,7 +199,7 @@ void RpcService::start()
 
 void RpcService::stop()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
     if (gatewayThread_ != nullptr) {
@@ -219,7 +219,7 @@ void RpcService::stop()
 
 void RpcService::onGatewayThreadStarted()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     std::string server_address("0.0.0.0:50051");
@@ -229,9 +229,9 @@ void RpcService::onGatewayThreadStarted()
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&gateway);
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    BfInfo(QString("gateway listening on ") + server_address.c_str());
+    BfLog(QString("gateway listening on ") + server_address.c_str());
     grpcServer_ = server.get();
 
     server->Wait();
-    BfInfo(QString("gateway shutdown"));
+    BfLog(QString("gateway shutdown"));
 }

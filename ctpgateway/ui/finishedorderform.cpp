@@ -65,12 +65,12 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
 void FinishedOrderForm::onGotNotification(const BfNotificationData& note)
 {
     if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
-        BfDebug("NOTIFICATION_BEGINQUERYORDERS");
+        BfLog("NOTIFICATION_BEGINQUERYORDERS");
         orders_.clear();
         querying_ = true;
 
     } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
-        BfDebug("NOTIFICATION_ENDQUERYORDERS");
+        BfLog("NOTIFICATION_ENDQUERYORDERS");
         querying_ = false;
 
         updateUI();

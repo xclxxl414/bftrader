@@ -8,12 +8,12 @@ PushService::PushService(QObject* parent)
 
 void PushService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 }
 
 void PushService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::PUSH);
 }

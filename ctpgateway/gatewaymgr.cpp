@@ -27,7 +27,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfTradeData>("BfTradeData");
     qRegisterMetaType<BfNotificationData>("BfNotificationData");
     qRegisterMetaType<BfContractData>("BfContractData");
-    qRegisterMetaType<BfErrorData>("BfErrorData");
+    qRegisterMetaType<BfLogData>("BfLogData");
     qRegisterMetaType<BfLogData>("BfLogData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
@@ -55,8 +55,8 @@ void GatewayMgr::showVersion()
 {
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
-    BfInfo(QString("mdapi version: ") + MdSm::version());
-    BfInfo(QString("tdapi version: ") + TdSm::version());
+    BfLog(QString("mdapi version: ") + MdSm::version());
+    BfLog(QString("tdapi version: ") + TdSm::version());
 }
 
 void GatewayMgr::onMdSmStateChanged(int state)
@@ -64,7 +64,7 @@ void GatewayMgr::onMdSmStateChanged(int state)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (!mdsm_) {
-        BfDebug("mdsm freed,ingore onMdSmStateChanged:%d", state);
+        BfLog("mdsm freed,ingore onMdSmStateChanged:%d", state);
         return;
     }
 
@@ -81,7 +81,7 @@ void GatewayMgr::onMdSmStateChanged(int state)
         if (!autoLoginMd_) {
             mdsm_->stop();
         } else {
-            BfInfo("waiting for mdapi auto-reconnect......");
+            BfLog("waiting for mdapi auto-reconnect......");
         }
     }
     if (state == MDSM_LOGINED) {
@@ -90,7 +90,7 @@ void GatewayMgr::onMdSmStateChanged(int state)
     }
     if (state == MDSM_LOGINFAIL) {
         if (autoLoginMd_) {
-            BfInfo("mdsm login fail,try again 1 minute later");
+            BfLog("mdsm login fail,try again 1 minute later");
             mdsm_->login(60 * 1000);
         } else {
             mdsm_->stop();
@@ -109,7 +109,7 @@ void GatewayMgr::onTdSmStateChanged(int state)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (!tdsm_) {
-        BfDebug("tdsm freed,ingore onTdSmStateChanged:%d", state);
+        BfLog("tdsm freed,ingore onTdSmStateChanged:%d", state);
         return;
     }
 
@@ -127,7 +127,7 @@ void GatewayMgr::onTdSmStateChanged(int state)
         if (!autoLoginTd_) {
             tdsm_->stop();
         } else {
-            BfInfo("waiting for tdapi auto-reconnect......");
+            BfLog("waiting for tdapi auto-reconnect......");
         }
     }
     if (state == TDSM_LOGINED) {
@@ -136,7 +136,7 @@ void GatewayMgr::onTdSmStateChanged(int state)
     }
     if (state == TDSM_LOGINFAIL) {
         if (autoLoginTd_) {
-            BfInfo("tdsm login fail,try again 1 minute later");
+            BfLog("tdsm login fail,try again 1 minute later");
             tdsm_->login(60 * 1000);
         } else {
             tdsm_->stop();
@@ -165,7 +165,7 @@ void GatewayMgr::start(QString password)
 
     // check
     if (mdsm_ != nullptr || tdsm_ != nullptr) {
-        BfDebug("mdsm_!= nullptr || tdsm_ != nullptr");
+        BfLog("mdsm_!= nullptr || tdsm_ != nullptr");
         return;
     }
 
@@ -201,7 +201,7 @@ bool GatewayMgr::initMdSm()
     if (!res) {
         delete mdsm_;
         mdsm_ = nullptr;
-        BfInfo("invalid parameter,check please");
+        BfLog("invalid parameter,check please");
         return false;
     }
     return true;
@@ -232,7 +232,7 @@ bool GatewayMgr::initTdSm()
     if (!res) {
         delete tdsm_;
         tdsm_ = nullptr;
-        BfInfo("invalid parameter,check please");
+        BfLog("invalid parameter,check please");
         return false;
     }
     return true;
@@ -272,7 +272,7 @@ void GatewayMgr::stop()
 
     // check
     if (mdsm_ == nullptr && tdsm_ == nullptr) {
-        BfDebug("mdsm_ == nullptr && tdsm_ == nullptr");
+        BfLog("mdsm_ == nullptr && tdsm_ == nullptr");
         return;
     }
     if (mdsm_) {
@@ -293,7 +293,7 @@ void GatewayMgr::stop()
 
 void GatewayMgr::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
 
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
@@ -347,7 +347,7 @@ void GatewayMgr::resetData()
 QString GatewayMgr::genOrderId()
 {
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::genOrderId,please login first");
+        BfLog("GatewayMgr::genOrderId,please login first");
         return "888.888.888";
     }
 
@@ -369,7 +369,7 @@ void GatewayMgr::queryAccount()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::queryAccount,please login first");
+        BfLog("GatewayMgr::queryAccount,please login first");
         return;
     }
     tdsm_->queryAccount(0);
@@ -380,7 +380,7 @@ void GatewayMgr::queryPosition()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::queryPosition,please login first");
+        BfLog("GatewayMgr::queryPosition,please login first");
         return;
     }
     tdsm_->queryPosition(0);
@@ -478,7 +478,7 @@ void GatewayMgr::onRunCmdInterval()
     // 流控了就一秒后重试=
     if (cmd->fn(++reqId_) == -3) {
         cmd->expires = curTick + 1000;
-        BfError("sendcmd toofast,reqId=%d", reqId_);
+        BfLog("sendcmd toofast,reqId=%d", reqId_);
         emit gotGatewayError(-3, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
         return;
     }
@@ -495,7 +495,7 @@ void GatewayMgr::runCmd(CtpCmd* cmd)
     if (cmd->delayTick == 0) {
         int result = cmd->fn(++reqId_);
         if (result == -3 || result == -2) {
-            BfError("sendcmd toofast,reqId=%d", reqId_);
+            BfLog("sendcmd toofast,reqId=%d", reqId_);
             emit gotGatewayError(result, "sendmsg too fast", QString().sprintf("reqId=%d", reqId_));
             cmd->expires = ::GetTickCount() + 1000;
             cmds_.append(cmd);
@@ -512,7 +512,7 @@ void GatewayMgr::resetCmds()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (cmds_.length()) {
-        BfDebug(__FUNCTION__);
+        BfLog(__FUNCTION__);
 
         for (auto cmd : cmds_) {
             delete cmd;
@@ -526,7 +526,7 @@ void GatewayMgr::sendOrder(const BfSendOrderReq& req)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::sendOrder,please login first");
+        BfLog("GatewayMgr::sendOrder,please login first");
         return;
     }
 
@@ -538,7 +538,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::sendOrder,please login first");
+        BfLog("GatewayMgr::sendOrder,please login first");
         return;
     }
 
@@ -550,7 +550,7 @@ void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::cancelOrder,please login first");
+        BfLog("GatewayMgr::cancelOrder,please login first");
         return;
     }
 
@@ -562,7 +562,7 @@ void GatewayMgr::queryOrders()
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
 
     if (tdsm_ == nullptr) {
-        BfInfo("GatewayMgr::queryOrders,please login first");
+        BfLog("GatewayMgr::queryOrders,please login first");
         return;
     }
     tdsm_->queryOrders(0);

@@ -13,9 +13,7 @@ class Profile;
 class PositionForm;
 class WorkingOrderForm;
 class TradeForm;
-class InfoForm;
 class DebugForm;
-class ErrorForm;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -74,9 +72,7 @@ private:
     PositionForm* positionForm_;
     WorkingOrderForm* workingOrderForm_;
     TradeForm* tradeForm_;
-    InfoForm* infoForm_;
     DebugForm* debugForm_;
-    ErrorForm* errorForm_;
 };
 
 #endif // MAINWINDOW_H

@@ -11,16 +11,12 @@ public:
     explicit Logger(QObject* parent = 0);
     void init();
     void shutdown();
-    Q_INVOKABLE void error(QString msg);
-    Q_INVOKABLE void info(QString msg);
-    Q_INVOKABLE void debug(QString msg);
+    Q_INVOKABLE void log(QString msg);
     static void startExitMonitor();
     static void stopExitMonitor();
 
 signals:
-    void gotError(QString when, QString msg);
-    void gotInfo(QString when, QString msg);
-    void gotDebug(QString when, QString msg);
+    void gotLog(QString when, QString msg);
 
 private:
     QFile log_;

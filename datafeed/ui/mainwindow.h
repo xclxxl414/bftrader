@@ -12,8 +12,6 @@ class MainWindow;
 class Profile;
 class ContractForm;
 class StatForm;
-class InfoForm;
-class ErrorForm;
 class DebugForm;
 
 class MainWindow : public QMainWindow {
@@ -66,8 +64,6 @@ private:
     // tabs
     ContractForm* contractForm_;
     StatForm* statForm_;
-    InfoForm* infoForm_;
-    ErrorForm* errorForm_;
     DebugForm* debugForm_;
 };
 

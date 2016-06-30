@@ -15,17 +15,17 @@ class Cta final : public BfCtaService::Service {
 public:
     explicit Cta()
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
     virtual ~Cta()
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
     }
     virtual ::grpc::Status ConnectPush(::grpc::ServerContext* context, const BfConnectPushReq* request, ::grpc::ServerWriter< ::google::protobuf::Any>* writer) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         QString clientId = request->clientid().c_str();
-        BfDebug("(%s)->Connect", qPrintable(clientId));
+        BfLog("(%s)->Connect", qPrintable(clientId));
 
         // push now
         auto queue = new SafeQueue<google::protobuf::Any>;
@@ -35,27 +35,27 @@ public:
             bool ok = writer->Write(*data);
             delete data;
             if (!ok) {
-                BfDebug("(%s)-->stream closed!", qPrintable(clientId));
+                BfLog("(%s)-->stream closed!", qPrintable(clientId));
                 QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
                 break;
             }
         }
 
-        BfDebug("(%s)->Connect exit!", qPrintable(clientId));
+        BfLog("(%s)->Connect exit!", qPrintable(clientId));
         return grpc::Status::OK;
     }
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const BfPingData* request, BfPingData* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         response->set_message(request->message());
         return grpc::Status::OK;
     }
     virtual ::grpc::Status DisconnectPush(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
 
         QString clientId = getClientId(context);
-        BfDebug("(%s)->Disconnect", qPrintable(clientId));
+        BfLog("(%s)->Disconnect", qPrintable(clientId));
 
         // NOTE(hege):关闭stream
         QMetaObject::invokeMethod(g_sm->pushService(), "disconnectClient", Qt::QueuedConnection, Q_ARG(QString, clientId));
@@ -64,13 +64,13 @@ public:
     //TODO(hege):do it
     virtual ::grpc::Status Start(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         return grpc::Status::OK;
     }
     //TODO(hege):do it
     virtual ::grpc::Status Stop(::grpc::ServerContext* context, const BfVoid* request, BfVoid* response) override
     {
-        BfDebug("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
+        BfLog("%s on thread:%d", __FUNCTION__, ::GetCurrentThreadId());
         return grpc::Status::OK;
     }
 
@@ -83,7 +83,7 @@ private:
             auto its = context->client_metadata().equal_range("clientid");
             auto it = its.first;
             clientId = grpc::string(it->second.begin(), it->second.end()).c_str();
-            //BfDebug("metadata: clientid=%s", clientId.toStdString().c_str());
+            //BfLog("metadata: clientid=%s", clientId.toStdString().c_str());
         }
         return clientId;
     }
@@ -99,19 +99,19 @@ RpcService::RpcService(QObject* parent)
 
 void RpcService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 }
 
 void RpcService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 }
 
 void RpcService::start()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
     if (ctaThread_ == nullptr) {
@@ -123,7 +123,7 @@ void RpcService::start()
 
 void RpcService::stop()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::RPC);
 
     if (ctaThread_ != nullptr) {
@@ -141,7 +141,7 @@ void RpcService::stop()
 
 void RpcService::onCtaThreadStarted()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     std::string server_address("0.0.0.0:50053");
@@ -151,9 +151,9 @@ void RpcService::onCtaThreadStarted()
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&cta);
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    BfInfo(QString("cta listening on ") + server_address.c_str());
+    BfLog(QString("cta listening on ") + server_address.c_str());
     grpcServer_ = server.get();
 
     server->Wait();
-    BfInfo(QString("cta shutdown"));
+    BfLog(QString("cta shutdown"));
 }
