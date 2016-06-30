@@ -8,7 +8,13 @@ class DB;
 }
 
 //
-// DB
+// TODO(hege):
+// 1.ringbuffer实现最近tick
+// 2.map实现contracts
+// 3.接入datafeed，实现dataframe
+
+//
+// DB：order trade datafeed dataframe ringbuffer contracts
 //
 class DbService : public QObject {
     Q_OBJECT
