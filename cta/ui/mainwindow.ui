@@ -45,8 +45,8 @@
        <property name="handleWidth">
         <number>2</number>
        </property>
-       <widget class="QTabWidget" name="tabWidgetPosition"/>
-       <widget class="QTabWidget" name="tabWidgetOrder"/>
+       <widget class="QTabWidget" name="tabWidgetWorking"/>
+       <widget class="QTabWidget" name="tabWidgetFinished"/>
       </widget>
       <widget class="QSplitter" name="splitterBottom">
        <property name="orientation">

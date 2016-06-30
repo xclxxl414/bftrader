@@ -1,6 +1,7 @@
 #ifndef TRADEFORM_H
 #define TRADEFORM_H
 
+#include "gatewaymgr.h"
 #include <QWidget>
 
 namespace Ui {
@@ -17,6 +18,7 @@ public:
     void shutdown();
 
 private slots:
+    void onGotTrade(QString gatewayId,const BfTradeData& trade);
 
 private:
     Ui::TradeForm* ui;

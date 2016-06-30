@@ -1,4 +1,5 @@
 #include "tradeform.h"
+#include "protoutils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_tradeform.h"
@@ -39,8 +40,41 @@ TradeForm::~TradeForm()
 
 void TradeForm::init()
 {
+    // gatewaymgr
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotTrade, this, &TradeForm::onGotTrade);
 }
 
 void TradeForm::shutdown()
 {
+}
+
+void TradeForm::onGotTrade(QString gatewayId,const BfTradeData& trade)
+{
+    QVariantMap vItem;
+    vItem.insert("symbol", trade.symbol().c_str());
+    vItem.insert("exchange", trade.exchange().c_str());
+
+    vItem.insert("direction", ProtoUtils::formatDirection(trade.direction()));
+    vItem.insert("offset", ProtoUtils::formatOffset(trade.offset()));
+    vItem.insert("price", trade.price());
+    vItem.insert("volume", trade.volume());
+    vItem.insert("tradeDate", trade.tradedate().c_str());
+    vItem.insert("tradeTime", trade.tradetime().c_str());
+
+    vItem.insert("tradeId", trade.tradeid().c_str());
+    vItem.insert("bfOrderId", trade.bforderid().c_str());
+
+    //根据id找到对应的行，然后用列的text来在map里面取值设置到item里面=
+    int row = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(row);
+    for (int i = 0; i < table_col_.count(); i++) {
+        QVariant raw_val = vItem.value(table_col_.at(i));
+        QString str_val = raw_val.toString();
+        if (raw_val.type() == QMetaType::Double || raw_val.type() == QMetaType::Float) {
+            str_val = QString().sprintf("%6.3f", raw_val.toDouble());
+        }
+
+        QTableWidgetItem* item = new QTableWidgetItem(str_val);
+        ui->tableWidget->setItem(row, i, item);
+    }
 }

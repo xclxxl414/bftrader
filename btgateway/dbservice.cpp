@@ -329,7 +329,9 @@ void DbService::onTradeWillBegin(const BfGetTickReq& reqTick)
 void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
+        qFatal("cannt call in mainthread");
+    }
 
     if (client_) {
         bool ok = client_->GetContract(req, resp);

@@ -100,6 +100,7 @@ public:
                     break;
                 }
             }
+            BfLog("(%s)->Connect exit!", qPrintable(gatewayId_));
         };
         QObject::connect(reader_thread_, &QThread::started, fn);
         reader_thread_->start();
@@ -196,6 +197,18 @@ public:
         }
     }
 
+    void QueryOrders(const BfVoid& req, BfVoid& resp)
+    {
+        grpc::ClientContext ctx;
+        std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
+        ctx.set_deadline(deadline);
+        ctx.AddMetadata("clientid", req_.clientid());
+
+        grpc::Status status = stub_->QueryOrders(&ctx, req, &resp);
+        if (!status.ok()) {
+            BfLog("(%s)->QueryOrders,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+        }
+    }
 private:
     void dispatchPush(google::protobuf::Any& any)
     {
@@ -221,9 +234,9 @@ private:
             any.UnpackTo(&data);
             emit g_sm->gatewayMgr()->gotPosition(gatewayId_, data);
         } else if (any.Is<BfTradeData>()) {
-            BfOrderData data;
+            BfTradeData data;
             any.UnpackTo(&data);
-            emit g_sm->gatewayMgr()->gotOrder(gatewayId_, data);
+            emit g_sm->gatewayMgr()->gotTrade(gatewayId_, data);
         } else if (any.Is<BfErrorData>()) {
             BfErrorData data;
             any.UnpackTo(&data);
@@ -370,11 +383,10 @@ void GatewayMgr::onPing()
     }
 }
 
-//界面上直接调用可能卡死=
 void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
+        qFatal("cannt call in mainthread");
     }
     QMutexLocker lock(&clients_mutex_);
 
@@ -384,11 +396,10 @@ void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QLi
     }
 }
 
-//界面上直接调用可能卡死=
 void GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp)
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
+        qFatal("cannt call in mainthread");
     }
     QMutexLocker lock(&clients_mutex_);
 
@@ -434,13 +445,27 @@ void GatewayMgr::queryPosition(QString gatewayId)
     }
 }
 
+void GatewayMgr::queryOrders(QString gatewayId)
+{
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    QMutexLocker lock(&clients_mutex_);
+
+    BfVoid req, resp;
+    auto client = clients_.value(gatewayId, nullptr);
+    if (client != nullptr) {
+        client->QueryOrders(req, resp);
+    }
+}
+
 QString GatewayMgr::defaultGateway()
 {
     QMutexLocker lock(&clients_mutex_);
 
     QString gatewayId;
-    if (clients_.first()) {
+    if (clients_.count()>0) {
         gatewayId = clients_.first()->gatewayId();
+    }else{
+        BfLog("connect gateway firstly,plz");
     }
 
     return gatewayId;

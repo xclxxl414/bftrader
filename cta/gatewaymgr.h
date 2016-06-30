@@ -36,6 +36,7 @@ public slots:
     void cancelOrder(QString gatewayId, const BfCancelOrderReq& req);
     void queryAccount(QString gatewayId);
     void queryPosition(QString gatewayId);
+    void queryOrders(QString gatewayId);
 
 signals:
     void gotPing(QString gatewayId, const BfPingData& data);

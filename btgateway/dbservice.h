@@ -27,7 +27,6 @@ public slots:
 
     void onTradeStopped();
     void onTradeWillBegin(const BfGetTickReq& req);
-    // 外部线程调用=
     void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
 
 signals:

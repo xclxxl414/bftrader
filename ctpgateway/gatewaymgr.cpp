@@ -346,8 +346,8 @@ void GatewayMgr::resetData()
 
 QString GatewayMgr::genOrderId()
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
+        qFatal("cannt call in mainthread");
     }
 
     if (tdsm_ == nullptr) {

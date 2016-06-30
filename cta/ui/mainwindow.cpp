@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget* parent)
     tradeForm_ = new TradeForm(this);
 
     ui->tabWidgetTrade->addTab(tradeForm_, "trade");
-    ui->tabWidgetPosition->addTab(finishedOrderForm_, "finishedOrder");
-    ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
+    ui->tabWidgetFinished->addTab(finishedOrderForm_, "finishedOrder");
+    ui->tabWidgetWorking->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
 }
 
