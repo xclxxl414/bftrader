@@ -217,6 +217,11 @@ void MainWindow::on_actionBtStart_triggered()
     req.set_todate(g_sm->profile()->get("toDate").toString().toStdString());
     req.set_totime(g_sm->profile()->get("toTime").toString().toStdString());
 
+    if (req.symbol().length() == 0) {
+        BfLog("invalid param,please: backtest-->btConfig first");
+        return;
+    }
+
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "start", Qt::QueuedConnection, Q_ARG(BfGetTickReq, req));
 }
 

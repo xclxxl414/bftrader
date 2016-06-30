@@ -328,4 +328,3 @@ void BfLog(QString msg)
 {
     g_sm->logger()->log(msg);
 }
-

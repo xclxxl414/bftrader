@@ -10,8 +10,8 @@ class MainWindow;
 }
 
 class Profile;
-class PositionForm;
 class WorkingOrderForm;
+class FinishedOrderForm;
 class TradeForm;
 class DebugForm;
 
@@ -69,8 +69,8 @@ private:
     QIcon icon_;
 
     //tabs
-    PositionForm* positionForm_;
     WorkingOrderForm* workingOrderForm_;
+    FinishedOrderForm* finishedOrderForm_;
     TradeForm* tradeForm_;
     DebugForm* debugForm_;
 };

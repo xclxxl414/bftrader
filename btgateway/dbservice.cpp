@@ -32,10 +32,12 @@ public:
         }
         return false;
     }
-    QString clientId() {
+    QString clientId()
+    {
         return clientId_;
     }
-    bool isPushTickStopped(){
+    bool isPushTickStopped()
+    {
         return stopPushTick_;
     }
     void stopPushTick()
@@ -170,18 +172,18 @@ public:
                     emit g_sm->dbService()->gotTick(resp);
                     Sleep(500);
                 } else {
-                    if(!ok){
+                    if (!ok) {
                         grpc::Status status = reader->Finish();
                         if (!status.ok()) {
                             BfLog("Datafeed->GetTick fail,code:%d,msg:%s", status.error_code(), status.error_message().c_str());
                         }
-                    }else{
+                    } else {
                         BfLog("!!!PushTick cancel, NOT call (reader->Finish), and (writer->Write) will hang!!!");
                     }
                     break;
                 }
             }
-            BfLog("PushTick end,total (%d) ticks...",count);
+            BfLog("PushTick end,total (%d) ticks...", count);
         };
         QObject::connect(reader_thread_, &QThread::started, fn);
         reader_thread_->start();

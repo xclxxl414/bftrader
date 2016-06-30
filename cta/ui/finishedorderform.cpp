@@ -1,12 +1,12 @@
-#include "workingorderform.h"
+#include "finishedorderform.h"
 #include "protoutils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
-#include "ui_workingorderform.h"
+#include "ui_finishedorderform.h"
 
-WorkingOrderForm::WorkingOrderForm(QWidget* parent)
+FinishedOrderForm::FinishedOrderForm(QWidget* parent)
     : QWidget(parent)
-    , ui(new Ui::WorkingOrderForm)
+    , ui(new Ui::FinishedOrderForm)
 {
     ui->setupUi(this);
 
@@ -35,64 +35,40 @@ WorkingOrderForm::WorkingOrderForm(QWidget* parent)
     bfAdjustTableWidget(ui->tableWidget);
 }
 
-WorkingOrderForm::~WorkingOrderForm()
+FinishedOrderForm::~FinishedOrderForm()
 {
     delete ui;
 }
 
-void WorkingOrderForm::init()
+void FinishedOrderForm::init()
 {
     // gatewaymgr
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &WorkingOrderForm::onGotOrder);
-    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &WorkingOrderForm::onGotNotification);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &FinishedOrderForm::onGotOrder);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &FinishedOrderForm::onGotNotification);
 }
 
-void WorkingOrderForm::shutdown()
+void FinishedOrderForm::shutdown()
 {
 }
 
-void WorkingOrderForm::onGotOrder(QString gatewayId, const BfOrderData& newOrder)
+void FinishedOrderForm::onGotOrder(QString gatewayId, const BfOrderData& newOrder)
 {
-    // 全部成交或者撤销的，剔除=
+    // 全部成交或者撤销的=
     QString newKey = newOrder.bforderid().c_str();
     if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
-        if (orders_.contains(newKey)) {
-            orders_.remove(newKey);
-        }
-    } else {
         orders_[newKey] = newOrder;
     }
 
     updateUI();
 }
 
-void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
-{
-    QString gatewayId = g_sm->gatewayMgr()->defaultGateway();
-
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
-}
-
-void WorkingOrderForm::on_pushButtonCancelAll_clicked()
-{
-    for (auto order : orders_) {
-        QString gatewayId = g_sm->gatewayMgr()->defaultGateway();
-
-        BfCancelOrderReq req;
-        req.set_symbol(order.symbol());
-        req.set_exchange(order.exchange());
-        req.set_bforderid(order.bforderid());
-
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(BfCancelOrderReq, req));
-    }
-}
-
-void WorkingOrderForm::onGotNotification(QString gatewayId, const BfNotificationData& note)
+void FinishedOrderForm::onGotNotification(QString gatewayId, const BfNotificationData& note)
 {
     if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
         BfLog("NOTIFICATION_BEGINQUERYORDERS");
         orders_.clear();
         querying_ = true;
+
     } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
         BfLog("NOTIFICATION_ENDQUERYORDERS");
         querying_ = false;
@@ -101,7 +77,7 @@ void WorkingOrderForm::onGotNotification(QString gatewayId, const BfNotification
     }
 }
 
-void WorkingOrderForm::updateUI()
+void FinishedOrderForm::updateUI()
 {
     if (querying_) {
         return;
@@ -109,8 +85,8 @@ void WorkingOrderForm::updateUI()
 
     // 更新界面=
     table_row_.clear();
-    ui->tableWidget->clearContents();
-    ui->tableWidget->setRowCount(orders_.size());
+    this->ui->tableWidget->clearContents();
+    this->ui->tableWidget->setRowCount(orders_.size());
     QStringList keys = orders_.keys();
     keys.sort();
     for (int i = 0; i < keys.length(); i++) {

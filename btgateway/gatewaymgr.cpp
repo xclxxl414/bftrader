@@ -102,7 +102,9 @@ void GatewayMgr::resetData()
 QString GatewayMgr::genOrderId()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
 
     int orderId = getOrderId();
     QString bfOrderId = QString().sprintf("%d", orderId);
@@ -114,9 +116,9 @@ void GatewayMgr::start(const BfGetTickReq& req)
     BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     BfLog("tradeWillBegin:(%s.%s:%s %s-%s %s)",
-           req.symbol().c_str(),req.exchange().c_str(),
-           req.fromdate().c_str(),req.fromtime().c_str(),
-           req.todate().c_str(),req.totime().c_str());
+        req.symbol().c_str(), req.exchange().c_str(),
+        req.fromdate().c_str(), req.fromtime().c_str(),
+        req.todate().c_str(), req.totime().c_str());
 
     resetData();
     emit this->tradeWillBegin(req);

@@ -21,9 +21,10 @@ SOURCES += main.cpp\
     gatewaymgr.cpp \
     ui/tablewidget_helper.cpp \
     ui/debugform.cpp \
-    ui/positionform.cpp \
     ui/workingorderform.cpp \
-    ui/tradeform.cpp
+    ui/tradeform.cpp \
+    protoutils.cpp \
+    ui/finishedorderform.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -34,15 +35,16 @@ HEADERS  += ui/mainwindow.h \
     gatewaymgr.h \
     ui/tablewidget_helper.h \
     ui/debugform.h \
-    ui/positionform.h \
     ui/workingorderform.h \ 
-    ui/tradeform.h
+    ui/tradeform.h \
+    protoutils.h \
+    ui/finishedorderform.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \
-    ui/positionform.ui \
     ui/workingorderform.ui \ 
-    ui/tradeform.ui
+    ui/tradeform.ui \
+    ui/finishedorderform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

@@ -51,6 +51,7 @@ public:
             reader_thread_ = nullptr;
         }
     }
+    QString gatewayId() { return gatewayId_; }
 
 public:
     // ref: grpc\test\cpp\interop\interop_client.cc
@@ -369,9 +370,12 @@ void GatewayMgr::onPing()
     }
 }
 
+//界面上直接调用可能卡死=
 void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
 {
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
     QMutexLocker lock(&clients_mutex_);
 
     auto client = clients_.value(gatewayId, nullptr);
@@ -380,9 +384,12 @@ void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QLi
     }
 }
 
+//界面上直接调用可能卡死=
 void GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp)
 {
-    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
     QMutexLocker lock(&clients_mutex_);
 
     auto client = clients_.value(gatewayId, nullptr);
@@ -393,9 +400,7 @@ void GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendO
 
 void GatewayMgr::cancelOrder(QString gatewayId, const BfCancelOrderReq& req)
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    }
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid resp;
@@ -407,9 +412,7 @@ void GatewayMgr::cancelOrder(QString gatewayId, const BfCancelOrderReq& req)
 
 void GatewayMgr::queryAccount(QString gatewayId)
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    }
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid req, resp;
@@ -421,9 +424,7 @@ void GatewayMgr::queryAccount(QString gatewayId)
 
 void GatewayMgr::queryPosition(QString gatewayId)
 {
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
-        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    }
+    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid req, resp;
@@ -431,4 +432,16 @@ void GatewayMgr::queryPosition(QString gatewayId)
     if (client != nullptr) {
         client->QueryPosition(req, resp);
     }
+}
+
+QString GatewayMgr::defaultGateway()
+{
+    QMutexLocker lock(&clients_mutex_);
+
+    QString gatewayId;
+    if (clients_.first()) {
+        gatewayId = clients_.first()->gatewayId();
+    }
+
+    return gatewayId;
 }

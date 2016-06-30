@@ -20,6 +20,7 @@ public:
     explicit GatewayMgr(QObject* parent = 0);
     void init();
     void shutdown();
+    QString defaultGateway();
 
     // ui
 public slots:

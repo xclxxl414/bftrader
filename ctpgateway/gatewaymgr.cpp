@@ -346,6 +346,10 @@ void GatewayMgr::resetData()
 
 QString GatewayMgr::genOrderId()
 {
+    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+        g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+    }
+
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::genOrderId,please login first");
         return "888.888.888";

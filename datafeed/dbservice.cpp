@@ -317,7 +317,7 @@ void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter
 
     for (int i = ticks.length() - 1; i >= 0; i--) {
         bool ok = writer->Write(ticks.at(i));
-        if(!ok){
+        if (!ok) {
             BfLog("getTickCountTo : stream closed!");
             break;
         }
@@ -360,7 +360,7 @@ void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWrit
             }
             count++;
             bool ok = writer->Write(bfItem);
-            if(!ok){
+            if (!ok) {
                 BfLog("getTickFromCount : stream closed!");
                 break;
             }
@@ -406,7 +406,7 @@ void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<
             }
             count++;
             bool ok = writer->Write(bfItem);
-            if(!ok){
+            if (!ok) {
                 BfLog("getTickFromTo : stream closed!");
                 break;
             }
@@ -496,7 +496,7 @@ void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<B
 
     for (int i = bars.length() - 1; i >= 0; i--) {
         bool ok = writer->Write(bars.at(i));
-        if(!ok){
+        if (!ok) {
             BfLog("getBarCountTo : stream closed!");
         }
     }
@@ -545,7 +545,7 @@ void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter
             }
             count++;
             bool ok = writer->Write(bfItem);
-            if(!ok){
+            if (!ok) {
                 BfLog("getBarFromCount : stream closed!");
                 break;
             }
@@ -601,7 +601,7 @@ void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<Bf
             }
             count++;
             bool ok = writer->Write(bfItem);
-            if(!ok){
+            if (!ok) {
                 BfLog("getBarFromTo : stream closed!");
                 break;
             }
@@ -655,7 +655,7 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
             }
 
             bool ok = writer->Write(bfContract);
-            if(!ok){
+            if (!ok) {
                 BfLog("getContract : stream closed!");
                 break;
             }
@@ -678,7 +678,7 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
                 return;
             }
             bool ok = writer->Write(bfItem);
-            if(!ok){
+            if (!ok) {
                 BfLog("getContract : stream closed!");
             }
         }

@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "debug_utils.h"
 #include "debugform.h"
+#include "finishedorderform.h"
 #include "logger.h"
-#include "positionform.h"
 #include "profile.h"
 #include "rpcservice.h"
 #include "servicemgr.h"
@@ -31,14 +31,20 @@ MainWindow::MainWindow(QWidget* parent)
     ui->actionNetStart->setEnabled(true);
     ui->actionNetStop->setEnabled(false);
 
+    ui->actionGatewayConnect->setEnabled(true);
+    ui->actionGatewayDisconnect->setEnabled(false);
+
+    ui->actionDatafeedConnect->setEnabled(true);
+    ui->actionDatafeedDisconnect->setEnabled(false);
+
     // tabs
     debugForm_ = new DebugForm(this);
-    positionForm_ = new PositionForm(this);
     workingOrderForm_ = new WorkingOrderForm(this);
+    finishedOrderForm_ = new FinishedOrderForm(this);
     tradeForm_ = new TradeForm(this);
 
     ui->tabWidgetTrade->addTab(tradeForm_, "trade");
-    ui->tabWidgetPosition->addTab(positionForm_, "position");
+    ui->tabWidgetPosition->addTab(finishedOrderForm_, "finishedOrder");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetLog->addTab(debugForm_, "debug");
 }
@@ -51,7 +57,7 @@ MainWindow::~MainWindow()
 void MainWindow::init()
 {
     debugForm_->init();
-    positionForm_->init();
+    finishedOrderForm_->init();
     workingOrderForm_->init();
     tradeForm_->init();
 }
@@ -59,7 +65,7 @@ void MainWindow::init()
 void MainWindow::shutdown()
 {
     debugForm_->shutdown();
-    positionForm_->shutdown();
+    finishedOrderForm_->shutdown();
     workingOrderForm_->shutdown();
     tradeForm_->shutdown();
 }
@@ -221,12 +227,28 @@ void MainWindow::on_actionCtaStop_triggered()
 {
 }
 
-// TODO(hege): do it
 void MainWindow::on_actionGatewayConnect_triggered()
 {
+    ui->actionGatewayConnect->setEnabled(false);
+    ui->actionGatewayDisconnect->setEnabled(true);
+
+    QString gatewayId = "ctpgateway";
+    QString endpoint = "localhost:50051";
+    BfConnectPushReq req;
+    req.set_clientid("cta");
+    req.set_exchange("*");
+    req.set_symbol("*");
+    req.set_tradehandler(true);
+    req.set_tickhandler(true);
+    req.set_loghandler(true);
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "connectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId), Q_ARG(QString, endpoint), Q_ARG(BfConnectPushReq, req));
 }
 
-// TODO(hege): do it
 void MainWindow::on_actionGatewayDisconnect_triggered()
 {
+    ui->actionGatewayConnect->setEnabled(true);
+    ui->actionGatewayDisconnect->setEnabled(false);
+
+    QString gatewayId = "ctpgateway";
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
 }
