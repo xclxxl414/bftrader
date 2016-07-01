@@ -21,17 +21,16 @@ public:
     void init();
     void shutdown();
 
-    // ui
+    //线程安全=
+    void getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
+    void sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
+
 public slots:
     void connectGateway(QString gatewayId, QString endpoint, const BfConnectPushReq& req);
     void disconnectGateway(QString gatewayId);
     void onGatewayDisconnected(QString gatewayId);
     void onPing();
 
-    // channel&stub is threadsafe,sendorder/getcontract可以任意线程调用=
-public slots:
-    void getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
-    void sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
     void cancelOrder(QString gatewayId, const BfCancelOrderReq& req);
     void queryAccount(QString gatewayId);
     void queryPosition(QString gatewayId);

@@ -134,11 +134,14 @@ public:
         ctx.set_deadline(deadline);
         ctx.AddMetadata("clientid", clientId_.toStdString());
 
+        BfLog("GetContract now");
+        int count = 0;
         std::unique_ptr< ::grpc::ClientReader<BfContractData> > reader = stub_->GetContract(&ctx, req);
         for (;;) {
             BfContractData resp;
             bool ok = reader->Read(&resp);
             if (ok) {
+                count++;
                 resps.append(resp);
             } else {
                 grpc::Status status = reader->Finish();
@@ -149,6 +152,7 @@ public:
                 break;
             }
         }
+        BfLog("GetContract exit,count=(%d)",count);
 
         return true;
     }

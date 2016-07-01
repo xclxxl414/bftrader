@@ -15,6 +15,11 @@ public:
     void shutdown();
     leveldb::DB* getDb();
 
+    //线程安全=
+    void getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
+    void getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
+    void getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
+
 signals:
     void opened();
 
@@ -23,10 +28,6 @@ public slots:
     void insertTick(const BfTickData& bfItem);
     void insertBar(const BfBarData& bfItem);
     void insertContract(const BfContractData& bfItem);
-
-    void getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer);
-    void getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer);
-    void getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer);
 
     void deleteTick(const BfDeleteTickReq& bfReq);
     void deleteBar(const BfDeleteBarReq& bfReq);

@@ -286,6 +286,7 @@ void GatewayMgr::init()
     qRegisterMetaType<BfContractData>("BfContractData");
     qRegisterMetaType<BfErrorData>("BfErrorData");
     qRegisterMetaType<BfLogData>("BfLogData");
+    qRegisterMetaType<BfTickData>("BfTickData");
 
     qRegisterMetaType<BfConnectPushReq>("BfConnectPushReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");

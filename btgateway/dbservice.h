@@ -20,6 +20,9 @@ public:
     void init();
     void shutdown();
 
+    //线程安全=
+    void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
+
 public slots:
     void connectDatafeed(QString endpoint, QString clientId);
     void disconnectDatafeed();
@@ -27,7 +30,6 @@ public slots:
 
     void onTradeStopped();
     void onTradeWillBegin(const BfGetTickReq& req);
-    void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
 
 signals:
     void gotContracts();

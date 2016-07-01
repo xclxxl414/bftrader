@@ -6,6 +6,7 @@
 namespace leveldb {
 class DB;
 }
+class DatafeedClient;
 
 //
 // TODO(hege):
@@ -22,7 +23,17 @@ public:
     explicit DbService(QObject* parent = 0);
     void init();
     void shutdown();
+
+    //线程安全=
     leveldb::DB* getDb();
+    void getTick(const BfGetTickReq& req, QList<BfTickData>& resp);
+    void getBar(const BfGetBarReq& req, QList<BfBarData>& resp);
+    void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
+
+public slots:
+    void connectDatafeed(QString endpoint, QString clientId);
+    void disconnectDatafeed();
+    void onPing();
 
 signals:
 
@@ -33,4 +44,7 @@ private:
 
 private:
     leveldb::DB* db_ = nullptr;
+
+    QTimer* pingTimer_ = nullptr;
+    DatafeedClient* client_ = nullptr;
 };

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "dbservice.h"
 #include "debug_utils.h"
 #include "debugform.h"
 #include "finishedorderform.h"
@@ -36,6 +37,9 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->actionDatafeedConnect->setEnabled(true);
     ui->actionDatafeedDisconnect->setEnabled(false);
+
+    ui->actionCtaStart->setEnabled(true);
+    ui->actionCtaStop->setEnabled(false);
 
     // tabs
     debugForm_ = new DebugForm(this);
@@ -207,24 +211,22 @@ void MainWindow::on_actionNetStop_triggered()
     QMetaObject::invokeMethod(g_sm->rpcService(), "stop", Qt::QueuedConnection);
 }
 
-// TODO(hege): do it
 void MainWindow::on_actionDatafeedConnect_triggered()
 {
+    ui->actionDatafeedConnect->setEnabled(false);
+    ui->actionDatafeedDisconnect->setEnabled(true);
+
+    QString endpoint = "localhost:50052";
+    QString clientId = "cta";
+    QMetaObject::invokeMethod(g_sm->dbService(), "connectDatafeed", Qt::QueuedConnection, Q_ARG(QString, endpoint), Q_ARG(QString, clientId));
 }
 
-// TODO(hege): do it
 void MainWindow::on_actionDatafeedDisconnect_triggered()
 {
-}
+    ui->actionDatafeedConnect->setEnabled(true);
+    ui->actionDatafeedDisconnect->setEnabled(false);
 
-// TODO(hege): do it
-void MainWindow::on_actionCtaStart_triggered()
-{
-}
-
-// TODO(hege): do it
-void MainWindow::on_actionCtaStop_triggered()
-{
+    QMetaObject::invokeMethod(g_sm->dbService(), "disconnectDatafeed", Qt::QueuedConnection);
 }
 
 void MainWindow::on_actionGatewayConnect_triggered()
@@ -251,4 +253,18 @@ void MainWindow::on_actionGatewayDisconnect_triggered()
 
     QString gatewayId = "ctpgateway";
     QMetaObject::invokeMethod(g_sm->gatewayMgr(), "disconnectGateway", Qt::QueuedConnection, Q_ARG(QString, gatewayId));
+}
+
+// TODO(hege): do it
+void MainWindow::on_actionCtaStart_triggered()
+{
+    ui->actionCtaStart->setEnabled(false);
+    ui->actionCtaStop->setEnabled(true);
+}
+
+// TODO(hege): do it
+void MainWindow::on_actionCtaStop_triggered()
+{
+    ui->actionCtaStart->setEnabled(true);
+    ui->actionCtaStop->setEnabled(false);
 }
