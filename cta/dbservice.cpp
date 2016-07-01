@@ -407,7 +407,7 @@ void DbService::onPing()
     }
 }
 
-void DbService::getTick(const BfGetTickReq& req, QList<BfTickData>& resp)
+bool DbService::getTick(const BfGetTickReq& req, QList<BfTickData>& resp)
 {
     BfLog(__FUNCTION__);
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
@@ -417,14 +417,16 @@ void DbService::getTick(const BfGetTickReq& req, QList<BfTickData>& resp)
     if (client_) {
         bool ok = client_->GetTick(req, resp);
         if (ok) {
-            ;
+            return true;
         }
     } else {
         BfLog("connectDatafeed firstly,plz");
     }
+
+    return false;
 }
 
-void DbService::getBar(const BfGetBarReq& req, QList<BfBarData>& resp)
+bool DbService::getBar(const BfGetBarReq& req, QList<BfBarData>& resp)
 {
     BfLog(__FUNCTION__);
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
@@ -434,14 +436,16 @@ void DbService::getBar(const BfGetBarReq& req, QList<BfBarData>& resp)
     if (client_) {
         bool ok = client_->GetBar(req, resp);
         if (ok) {
-            ;
+            return true;
         }
     } else {
         BfLog("connectDatafeed firstly,plz");
     }
+
+    return false;
 }
 
-void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
+bool DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
 {
     BfLog(__FUNCTION__);
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
@@ -451,9 +455,11 @@ void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& 
     if (client_) {
         bool ok = client_->GetContract(req, resp);
         if (ok) {
-            ;
+            return true;
         }
     } else {
         BfLog("connectDatafeed firstly,plz");
     }
+
+    return false;
 }

@@ -9,7 +9,7 @@
 using namespace bfcta;
 
 //
-// cta的rpc可以直接调用gatewaymgr的slots以调用gateway，grpc是多线程安全的=
+// cta 多线程版本=
 //
 class Cta final : public BfCtaService::Service {
 public:

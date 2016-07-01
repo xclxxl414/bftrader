@@ -22,8 +22,8 @@ public:
     void shutdown();
 
     //线程安全=
-    void getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
-    void sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
+    bool getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
+    bool sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
 
 public slots:
     void connectGateway(QString gatewayId, QString endpoint, const BfConnectPushReq& req);

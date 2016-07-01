@@ -330,7 +330,7 @@ void DbService::onTradeWillBegin(const BfGetTickReq& reqTick)
     }
 }
 
-void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
+bool DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& resp)
 {
     BfLog(__FUNCTION__);
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
@@ -340,11 +340,13 @@ void DbService::getContract(const BfGetContractReq& req, QList<BfContractData>& 
     if (client_) {
         bool ok = client_->GetContract(req, resp);
         if (ok) {
-            ;
+            return true;
         }
     } else {
         BfLog("connectDatafeed firstly,plz");
     }
+
+    return false;
 }
 
 void DbService::onTradeStopped()

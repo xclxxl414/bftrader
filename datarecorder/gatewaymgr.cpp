@@ -144,7 +144,7 @@ public:
         return true;
     }
 
-    void SendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp)
+    bool SendOrder(const BfSendOrderReq& req, BfSendOrderResp& resp)
     {
         grpc::ClientContext ctx;
         std::chrono::system_clock::time_point deadline = std::chrono::system_clock::now() + std::chrono::milliseconds(deadline_);
@@ -154,7 +154,10 @@ public:
         grpc::Status status = stub_->SendOrder(&ctx, req, &resp);
         if (!status.ok()) {
             BfLog("(%s)->SendOrder,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
+            return false;
         }
+
+        return true;
     }
 
     void CancelOrder(const BfCancelOrderReq& req, BfVoid& resp)
@@ -383,7 +386,7 @@ void GatewayMgr::onPing()
     }
 }
 
-void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
+bool GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp)
 {
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
         qFatal("cannt call in mainthread");
@@ -392,11 +395,13 @@ void GatewayMgr::getContract(QString gatewayId, const BfGetContractReq& req, QLi
 
     auto client = clients_.value(gatewayId, nullptr);
     if (client != nullptr) {
-        client->GetContract(req, resp);
+        return client->GetContract(req, resp);
     }
+
+    return false;
 }
 
-void GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp)
+bool GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp)
 {
     if (g_sm->isCurrentOn(ServiceMgr::MAIN)) {
         qFatal("cannt call in mainthread");
@@ -405,8 +410,10 @@ void GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendO
 
     auto client = clients_.value(gatewayId, nullptr);
     if (client != nullptr) {
-        client->SendOrder(req, resp);
+        return client->SendOrder(req, resp);
     }
+
+    return false;
 }
 
 void GatewayMgr::cancelOrder(QString gatewayId, const BfCancelOrderReq& req)

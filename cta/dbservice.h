@@ -26,9 +26,9 @@ public:
 
     //线程安全=
     leveldb::DB* getDb();
-    void getTick(const BfGetTickReq& req, QList<BfTickData>& resp);
-    void getBar(const BfGetBarReq& req, QList<BfBarData>& resp);
-    void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
+    bool getTick(const BfGetTickReq& req, QList<BfTickData>& resp);
+    bool getBar(const BfGetBarReq& req, QList<BfBarData>& resp);
+    bool getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
 
 public slots:
     void connectDatafeed(QString endpoint, QString clientId);

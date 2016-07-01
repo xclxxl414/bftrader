@@ -21,7 +21,7 @@ public:
     void shutdown();
 
     //线程安全=
-    void getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
+    bool getContract(const BfGetContractReq& req, QList<BfContractData>& resp);
 
 public slots:
     void connectDatafeed(QString endpoint, QString clientId);
