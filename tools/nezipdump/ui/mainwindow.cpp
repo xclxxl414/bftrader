@@ -67,7 +67,7 @@ void MainWindow::onLog(QString when, QString msg)
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfLog(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()

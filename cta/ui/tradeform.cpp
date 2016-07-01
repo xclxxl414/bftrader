@@ -48,7 +48,7 @@ void TradeForm::shutdown()
 {
 }
 
-void TradeForm::onGotTrade(QString gatewayId,const BfTradeData& trade)
+void TradeForm::onGotTrade(QString gatewayId, const BfTradeData& trade)
 {
     QVariantMap vItem;
     vItem.insert("symbol", trade.symbol().c_str());

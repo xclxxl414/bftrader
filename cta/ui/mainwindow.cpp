@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->tabWidgetTrade->addTab(tradeForm_, "trade");
     ui->tabWidgetFinished->addTab(finishedOrderForm_, "finishedOrder");
     ui->tabWidgetWorking->addTab(workingOrderForm_, "workingOrder");
-    ui->tabWidgetLog->addTab(debugForm_, "debug");
+    ui->tabWidgetLog->addTab(debugForm_, "log");
 }
 
 MainWindow::~MainWindow()
@@ -76,7 +76,7 @@ void MainWindow::shutdown()
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfLog(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()

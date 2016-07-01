@@ -1,4 +1,5 @@
 #include "dbservice.h"
+#include "bfdatafeed.grpc.pb.h"
 #include "file_utils.h"
 #include "leveldb/comparator.h"
 #include "leveldb/db.h"
@@ -6,7 +7,6 @@
 #include "leveldb/write_batch.h"
 #include "profile.h"
 #include "servicemgr.h"
-#include "bfdatafeed.grpc.pb.h"
 #include <grpc++/grpc++.h>
 
 //======
@@ -136,7 +136,7 @@ public:
                 break;
             }
         }
-        BfLog("GetContract exit,count=(%d)",count);
+        BfLog("GetContract exit,count=(%d)", count);
 
         return true;
     }
@@ -166,7 +166,7 @@ public:
                 break;
             }
         }
-        BfLog("GetTick exit,count=(%d)",count);
+        BfLog("GetTick exit,count=(%d)", count);
 
         return true;
     }
@@ -196,7 +196,7 @@ public:
                 break;
             }
         }
-        BfLog("GetBar exit,count=(%d)",count);
+        BfLog("GetBar exit,count=(%d)", count);
 
         return true;
     }

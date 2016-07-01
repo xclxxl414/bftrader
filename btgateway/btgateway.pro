@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     dbservice.cpp \
     ui/tablewidget_helper.cpp \
     gatewaymgr.cpp \
-    ui/configdialog.cpp
+    ui/configdialog.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -30,7 +31,8 @@ HEADERS  += ui/mainwindow.h \
     dbservice.h \
     ui/tablewidget_helper.h \
     gatewaymgr.h \
-    ui/configdialog.h
+    ui/configdialog.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui

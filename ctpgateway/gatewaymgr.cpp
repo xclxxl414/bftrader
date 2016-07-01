@@ -12,7 +12,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // cmdRunnder
     cmdRunnerTimer_ = new QTimer;
@@ -41,7 +41,7 @@ void GatewayMgr::init()
 
 void GatewayMgr::shutdown()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     cmdRunnerTimer_->stop();
     delete cmdRunnerTimer_;
@@ -53,7 +53,7 @@ void GatewayMgr::shutdown()
 
 void GatewayMgr::showVersion()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     BfLog(QString("mdapi version: ") + MdSm::version());
     BfLog(QString("tdapi version: ") + TdSm::version());
@@ -61,7 +61,7 @@ void GatewayMgr::showVersion()
 
 void GatewayMgr::onMdSmStateChanged(int state)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (!mdsm_) {
         BfLog("mdsm freed,ingore onMdSmStateChanged:%d", state);
@@ -106,7 +106,7 @@ void GatewayMgr::onMdSmStateChanged(int state)
 
 void GatewayMgr::onTdSmStateChanged(int state)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (!tdsm_) {
         BfLog("tdsm freed,ingore onTdSmStateChanged:%d", state);
@@ -161,7 +161,7 @@ void GatewayMgr::onTdSmStateChanged(int state)
 
 void GatewayMgr::start(QString password)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // check
     if (mdsm_ != nullptr || tdsm_ != nullptr) {
@@ -189,7 +189,7 @@ void GatewayMgr::start(QString password)
 
 bool GatewayMgr::initMdSm()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     mdsm_ = new MdSm;
     bool res = mdsm_->init(profile()->get("userId").toString(),
@@ -209,7 +209,7 @@ bool GatewayMgr::initMdSm()
 
 void GatewayMgr::startMdSm()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // go...
     QObject::connect(mdsm_, &MdSm::statusChanged, this, &GatewayMgr::onMdSmStateChanged);
@@ -220,7 +220,7 @@ void GatewayMgr::startMdSm()
 
 bool GatewayMgr::initTdSm()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     tdsm_ = new TdSm;
     bool res = tdsm_->init(profile()->get("userId").toString(),
@@ -240,7 +240,7 @@ bool GatewayMgr::initTdSm()
 
 void GatewayMgr::startTdSm()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // go...
     QObject::connect(tdsm_, &TdSm::statusChanged, this, &GatewayMgr::onTdSmStateChanged);
@@ -251,7 +251,7 @@ void GatewayMgr::startTdSm()
 
 void GatewayMgr::tryStartSubscrible()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (mdsm_logined_ && tdsm_logined_) {
         emit tradeWillBegin();
@@ -268,7 +268,7 @@ void GatewayMgr::tryStartSubscrible()
 
 void GatewayMgr::stop()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // check
     if (mdsm_ == nullptr && tdsm_ == nullptr) {
@@ -295,7 +295,7 @@ void GatewayMgr::onGotContracts(QStringList symbolsMy, QStringList symbolsAll)
 {
     BfLog(__FUNCTION__);
 
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // 保存ids，便于枚举=
     symbols_my_ = symbolsMy;
@@ -336,7 +336,7 @@ void* GatewayMgr::getPreLatestTick(QString symbol)
 
 void GatewayMgr::resetData()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     symbols_my_.clear();
     symbols_all_.clear();
@@ -370,7 +370,7 @@ Profile* GatewayMgr::profile()
 
 void GatewayMgr::queryAccount()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::queryAccount,please login first");
@@ -381,7 +381,7 @@ void GatewayMgr::queryAccount()
 
 void GatewayMgr::queryPosition()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::queryPosition,please login first");
@@ -465,7 +465,7 @@ void GatewayMgr::freeRingBuffer()
 
 void GatewayMgr::onRunCmdInterval()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (cmds_.length() == 0) {
         return;
@@ -494,7 +494,7 @@ void GatewayMgr::onRunCmdInterval()
 
 void GatewayMgr::runCmd(CtpCmd* cmd)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (cmd->delayTick == 0) {
         int result = cmd->fn(++reqId_);
@@ -513,7 +513,7 @@ void GatewayMgr::runCmd(CtpCmd* cmd)
 }
 void GatewayMgr::resetCmds()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (cmds_.length()) {
         BfLog(__FUNCTION__);
@@ -527,7 +527,7 @@ void GatewayMgr::resetCmds()
 
 void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::sendOrder,please login first");
@@ -539,7 +539,7 @@ void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 
 void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::sendOrder,please login first");
@@ -551,7 +551,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 
 void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::cancelOrder,please login first");
@@ -563,7 +563,7 @@ void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 
 void GatewayMgr::queryOrders()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (tdsm_ == nullptr) {
         BfLog("GatewayMgr::queryOrders,please login first");

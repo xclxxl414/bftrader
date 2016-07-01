@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     ui/statform.cpp \
     ui/debugform.cpp \
     gatewaymgr.cpp \
-    protoutils.cpp
+    protoutils.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -40,7 +41,8 @@ HEADERS  += ui/mainwindow.h \
     ui/statform.h \
     ui/debugform.h \
     gatewaymgr.h \
-    protoutils.h
+    protoutils.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/contractform.ui \

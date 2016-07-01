@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     rpcservice.cpp \
     dbservice.cpp \
     gatewaymgr.cpp \
-    ui/tablewidget_helper.cpp
+    ui/tablewidget_helper.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -28,7 +29,8 @@ HEADERS  += ui/mainwindow.h \
     rpcservice.h \
     dbservice.h \
     ui/tablewidget_helper.h \
-    gatewaymgr.h
+    gatewaymgr.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui
 

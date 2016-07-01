@@ -1,9 +1,8 @@
 #include "gatewaymgr.h"
 #include "ThostFtdcMdApi.h"
 #include "ThostFtdcTraderApi.h"
-#include "logger.h"
 #include "servicemgr.h"
-#include "ztalib.h"
+
 GatewayMgr::GatewayMgr(QObject* parent)
     : QObject(parent)
 {
@@ -11,23 +10,20 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-
-    //talib
-    Z_Initialize();
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 }
 
 void GatewayMgr::shutdown()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
-
-    //talib
-    Z_Shutdown();
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 }
 
 void GatewayMgr::showVersion()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     BfLog(QString("mdapi version: ") + CThostFtdcMdApi::GetApiVersion());
     BfLog(QString("tdapi version: ") + CThostFtdcTraderApi::GetApiVersion());

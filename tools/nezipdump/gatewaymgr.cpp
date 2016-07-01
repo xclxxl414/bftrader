@@ -11,7 +11,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // qRegisterMetaType
     qRegisterMetaType<AskDataTag>("AskDataTag");
@@ -21,7 +21,7 @@ void GatewayMgr::init()
 
 void GatewayMgr::shutdown()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     delete nezip_;
     nezip_ = nullptr;
@@ -30,7 +30,7 @@ void GatewayMgr::shutdown()
 void GatewayMgr::loadDrv()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     QString drvPath = QDir(QCoreApplication::applicationDirPath()).absoluteFilePath(QStringLiteral("Nezip/System/Stockdrv.dll"));
     bool ok = nezip_->load(qPrintable(drvPath));
@@ -44,7 +44,7 @@ void GatewayMgr::loadDrv()
 void GatewayMgr::askData(const AskDataTag& tag)
 {
     //BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     if (!nezip_->inited()) {
         BfLog("please loaddrv first");

@@ -119,7 +119,7 @@ private:
 
     void resetData()
     {
-        g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+        g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
         got_symbols_.clear();
         g_sm->gatewayMgr()->freeRingBuffer();

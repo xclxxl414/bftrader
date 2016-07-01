@@ -12,7 +12,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 void GatewayMgr::init()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // qRegisterMetaType
     qRegisterMetaType<BfAccountData>("BfAccountData");
@@ -38,7 +38,7 @@ void GatewayMgr::init()
 void GatewayMgr::shutdown()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 }
 
 int GatewayMgr::getOrderId()
@@ -56,7 +56,7 @@ int GatewayMgr::getTradeId()
 QString GatewayMgr::genTradeId()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     int tradeId = getTradeId();
     QString bfTradeId = QString().sprintf("%d", tradeId);
@@ -102,7 +102,7 @@ void GatewayMgr::resetData()
 QString GatewayMgr::genOrderId()
 {
     BfLog(__FUNCTION__);
-    if (!g_sm->isCurrentOn(ServiceMgr::LOGIC)) {
+    if (!g_sm->isCurrentOn(ServiceMgr::BLOGIC)) {
         g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
     }
 
@@ -114,7 +114,7 @@ QString GatewayMgr::genOrderId()
 void GatewayMgr::start(const BfGetTickReq& req)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     BfLog("tradeWillBegin:(%s.%s:%s %s-%s %s)",
         req.symbol().c_str(), req.exchange().c_str(),
         req.fromdate().c_str(), req.fromtime().c_str(),
@@ -153,7 +153,7 @@ void GatewayMgr::start(const BfGetTickReq& req)
 void GatewayMgr::stop()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     resetData();
     emit this->tradeStopped();
@@ -162,7 +162,7 @@ void GatewayMgr::stop()
 void GatewayMgr::queryAccount()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     emit this->gotAccount(account_);
 }
@@ -170,7 +170,7 @@ void GatewayMgr::queryAccount()
 void GatewayMgr::queryPosition()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     BfNotificationData note;
     note.set_type(NOTIFICATION_BEGINQUERYPOSITION);
@@ -187,7 +187,7 @@ void GatewayMgr::queryPosition()
 void GatewayMgr::queryOrders()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     BfNotificationData note;
     note.set_type(NOTIFICATION_BEGINQUERYORDERS);
@@ -204,7 +204,7 @@ void GatewayMgr::queryOrders()
 void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     QString bfOrderId = genOrderId();
     sendOrderWithId(bfOrderId, req);
@@ -213,7 +213,7 @@ void GatewayMgr::sendOrder(const BfSendOrderReq& req)
 void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     BfOrderData* order = new BfOrderData();
     orders_.insert(bfOrderId, order);
@@ -311,7 +311,7 @@ void GatewayMgr::sendOrderWithId(QString bfOrderId, const BfSendOrderReq& req)
 void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     QString bfOrderId = req.bforderid().c_str();
 
@@ -350,7 +350,7 @@ void GatewayMgr::cancelOrder(const BfCancelOrderReq& req)
 void GatewayMgr::onGotTick(const BfTickData& tick)
 {
     //BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     for (auto order : orders_) {
         if (order->status() == STATUS_ALLTRADED || order->status() == STATUS_CANCELLED) {
@@ -398,7 +398,7 @@ void GatewayMgr::onGotTick(const BfTickData& tick)
 void GatewayMgr::onLongOpen(BfOrderData* order, const BfTickData& tick)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // ==order==
     order->set_tradedvolume(order->totalvolume());
@@ -440,7 +440,7 @@ void GatewayMgr::onLongOpen(BfOrderData* order, const BfTickData& tick)
 void GatewayMgr::onShortOpen(BfOrderData* order, const BfTickData& tick)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // ==order==
     order->set_tradedvolume(order->totalvolume());
@@ -483,7 +483,7 @@ void GatewayMgr::onShortOpen(BfOrderData* order, const BfTickData& tick)
 void GatewayMgr::onLongClose(BfOrderData* order, const BfTickData& tick)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // ==pos==
     QString shortKey = QString().sprintf("%s-%s-short", order->symbol().c_str(), order->exchange().c_str());
@@ -537,7 +537,7 @@ void GatewayMgr::onLongClose(BfOrderData* order, const BfTickData& tick)
 void GatewayMgr::onShortClose(BfOrderData* order, const BfTickData& tick)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // ==pos==
     QString longKey = QString().sprintf("%s-%s-long", order->symbol().c_str(), order->exchange().c_str());

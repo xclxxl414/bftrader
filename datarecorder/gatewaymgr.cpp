@@ -211,6 +211,7 @@ public:
             BfLog("(%s)->QueryOrders,code:%d,msg:%s", qPrintable(gatewayId_), status.error_code(), status.error_message().c_str());
         }
     }
+
 private:
     void dispatchPush(google::protobuf::Any& any)
     {
@@ -277,7 +278,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 void GatewayMgr::init()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // qRegisterMetaType
     qRegisterMetaType<BfAccountData>("BfAccountData");
@@ -305,7 +306,7 @@ void GatewayMgr::init()
 void GatewayMgr::shutdown()
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // close timer
     this->pingTimer_->stop();
@@ -325,7 +326,7 @@ void GatewayMgr::shutdown()
 void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfConnectPushReq& req)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     // gatewayclient
@@ -344,7 +345,7 @@ void GatewayMgr::connectGateway(QString gatewayId, QString endpoint, const BfCon
 void GatewayMgr::disconnectGateway(QString gatewayId)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     if (clients_.contains(gatewayId)) {
@@ -359,7 +360,7 @@ void GatewayMgr::disconnectGateway(QString gatewayId)
 void GatewayMgr::onGatewayDisconnected(QString gatewayId)
 {
     BfLog(__FUNCTION__);
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     if (clients_.contains(gatewayId)) {
@@ -371,7 +372,7 @@ void GatewayMgr::onGatewayDisconnected(QString gatewayId)
 
 void GatewayMgr::onPing()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfPingData req, resp;
@@ -418,7 +419,7 @@ bool GatewayMgr::sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendO
 
 void GatewayMgr::cancelOrder(QString gatewayId, const BfCancelOrderReq& req)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid resp;
@@ -430,7 +431,7 @@ void GatewayMgr::cancelOrder(QString gatewayId, const BfCancelOrderReq& req)
 
 void GatewayMgr::queryAccount(QString gatewayId)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid req, resp;
@@ -442,7 +443,7 @@ void GatewayMgr::queryAccount(QString gatewayId)
 
 void GatewayMgr::queryPosition(QString gatewayId)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid req, resp;
@@ -454,7 +455,7 @@ void GatewayMgr::queryPosition(QString gatewayId)
 
 void GatewayMgr::queryOrders(QString gatewayId)
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
     QMutexLocker lock(&clients_mutex_);
 
     BfVoid req, resp;

@@ -18,7 +18,7 @@ public:
     void shutdown();
 
 private slots:
-    void onGotTrade(QString gatewayId,const BfTradeData& trade);
+    void onGotTrade(QString gatewayId, const BfTradeData& trade);
 
 private:
     Ui::TradeForm* ui;

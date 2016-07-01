@@ -152,7 +152,7 @@ public:
                 break;
             }
         }
-        BfLog("GetContract exit,count=(%d)",count);
+        BfLog("GetContract exit,count=(%d)", count);
 
         return true;
     }

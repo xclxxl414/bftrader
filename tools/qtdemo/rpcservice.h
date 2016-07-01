@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-//IO
+//RPC
 class RpcService : public QObject {
     Q_OBJECT
 public:

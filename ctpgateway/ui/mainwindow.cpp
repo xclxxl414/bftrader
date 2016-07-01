@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->tabWidgetMarket->addTab(tickForm_, "tick");
     ui->tabWidgetMarket->addTab(contractForm_, "contract");
-    ui->tabWidgetLog->addTab(debugForm_, "debug");
+    ui->tabWidgetLog->addTab(debugForm_, "log");
     ui->tabWidgetPosition->addTab(positionForm_, "position");
     ui->tabWidgetOrder->addTab(workingOrderForm_, "workingOrder");
     ui->tabWidgetOrder->addTab(finishedOrderForm_, "finishedOrder");
@@ -108,7 +108,7 @@ void MainWindow::onTradeWillBegin()
 
 void MainWindow::on_actionAppVersion_triggered()
 {
-    BfLog(QString("application's buildtime<debug>: ") + QString(__DATE__) + " " + QString(__TIME__));
+    BfLog(QString("application's buildtime: ") + QString(__DATE__) + " " + QString(__TIME__));
 }
 
 void MainWindow::on_actionAppQuit_triggered()

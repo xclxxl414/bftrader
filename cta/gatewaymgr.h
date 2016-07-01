@@ -1,9 +1,9 @@
 #ifndef GATEWAYMGR_H
 #define GATEWAYMGR_H
 
-#include "bfgateway.pb.h"
 #include "bfcta.pb.h"
 #include "bfdatafeed.pb.h"
+#include "bfgateway.pb.h"
 #include <QMap>
 #include <QMutex>
 #include <QObject>
@@ -16,17 +16,18 @@ using namespace bfcta;
 class GatewayClient;
 
 //
-// 通过gatewaymgr来桥接ctpgateway
+// 通过gatewaymgr来桥接ctpgateway/btgateway/...
 //
+// LOGIC
 class GatewayMgr : public QObject {
     Q_OBJECT
 public:
     explicit GatewayMgr(QObject* parent = 0);
     void init();
     void shutdown();
-    QString defaultGateway();
 
     // 线程安全=
+    QString defaultGateway();
     bool getContract(QString gatewayId, const BfGetContractReq& req, QList<BfContractData>& resp);
     bool sendOrder(QString gatewayId, const BfSendOrderReq& req, BfSendOrderResp& resp);
 

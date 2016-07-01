@@ -430,7 +430,7 @@ private:
 
     void resetData()
     {
-        g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+        g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
         symbols_my_.clear();
         symbols_all_.clear();

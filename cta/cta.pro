@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     ui/workingorderform.cpp \
     ui/tradeform.cpp \
     protoutils.cpp \
-    ui/finishedorderform.cpp
+    ui/finishedorderform.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -38,7 +39,8 @@ HEADERS  += ui/mainwindow.h \
     ui/workingorderform.h \ 
     ui/tradeform.h \
     protoutils.h \
-    ui/finishedorderform.h
+    ui/finishedorderform.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/debugform.ui \

@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     ui/workingorderform.cpp \
     ui/ringbufferform.cpp \
     gatewaymgr.cpp \
-    ctputils.cpp
+    ctputils.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -56,7 +57,8 @@ HEADERS  += ui/mainwindow.h \
     ui/workingorderform.h \
     ui/ringbufferform.h \ 
     gatewaymgr.h \
-    ctputils.h
+    ctputils.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/configdialog.ui \
