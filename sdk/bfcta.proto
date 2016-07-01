@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package bfcta;
+option go_package = "github.com/sunwangme/bfgo/api/bfcta";
+
+import "bfgateway.proto";
+import "google/protobuf/any.proto";
+
+//============================
+
+//
+// Cta服务，给assist用=
+//
+service BfCtaService{    
+    // 请求push
+    rpc ConnectPush(bfgateway.BfConnectPushReq) returns (stream google.protobuf.Any) {}
+
+    // 断开push
+    rpc DisconnectPush(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
+    
+    // 活跃检测
+    rpc Ping(bfgateway.BfPingData) returns (bfgateway.BfPingData) {}
+            
+    // 开始cta
+    rpc Start(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
+    
+    // 停止cta
+    rpc Stop(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}           
+}

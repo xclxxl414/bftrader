@@ -13,10 +13,19 @@ enum BfDirection{
     DIRECTION_UNKNOWN = 0;  // 未知
     DIRECTION_LONG = 1;     // 多
     DIRECTION_SHORT = 2;    // 空
-    DIRECTION_NET = 3;      // 净
+    DIRECTION_NET = 3;      // 净，持仓方向等同DIRECTION_LONG
 }
 
 // 开平常量
+//
+// 如果不是上期所：
+//    平今仓可用close或closeToday
+//    平昨仓可用close或closeYesterday
+// 如果是上期所:
+//    平今仓只可用closeToday
+//    平昨仓可用close或closeYesterday
+// 综合：
+// 平仓先平昨，用close，然后平今用closeToday
 enum BfOffset{
     OFFSET_UNKNOWN = 0;         // 未知
     OFFSET_OPEN = 1;            // 开仓
@@ -49,11 +58,14 @@ enum BfPriceType{
 }
 
 // Notification
-enum BfNoticationType{
+enum BfNotificationType{
     NOTIFICATION_UNKNOWN = 0;           //未知
     NOTIFICATION_TRADEWILLBEGIN = 1;    //登录成功准备查询可交易合约列表
     NOTIFICATION_GOTCONTRACTS = 2;      //查询可交易合约列表成功
-    
+    NOTIFICATION_BEGINQUERYORDERS = 3;  //开始查询挂单
+    NOTIFICATION_ENDQUERYORDERS = 4;    //查询挂单结束
+    NOTIFICATION_BEGINQUERYPOSITION = 5;//开始查询持仓
+    NOTIFICATION_ENDQUERYPOSITION = 6;  //查询持仓结束
 }
 
 //============================
@@ -139,6 +151,8 @@ message BfOrderData{
 }
 
 // 持仓数据类
+// queryposition会返回多个positiondata
+// 需要对这些做累加合并，key=symbol+exchange+direction
 message BfPositionData{
 
     // 代码编号相关
@@ -147,10 +161,10 @@ message BfPositionData{
 
     // 持仓相关
     BfDirection direction = 3;  // 持仓方向
-    int32 position = 4;         // 持仓量
+    int32 position = 4;         // 总持仓
     int32 frozen = 5;           // 冻结数量
     double price = 6;           // 持仓均价
-    int32 ydPosition = 7;       // 昨持仓
+    int32 ydPosition = 7;       // 昨持仓，今持仓=总持仓-昨持仓
 }
 
 // 账户数据类
@@ -205,7 +219,7 @@ message BfContractData{
 
 // Notification
 message BfNotificationData{
-    BfNoticationType type = 1;  // 类别
+    BfNotificationType type = 1;// 类别
     int32 code = 2;             // 代码
     string message = 3;         // 信息
     string messageEx = 4;       // 补充信息
@@ -224,7 +238,7 @@ message BfKvData{
 
     //kv对
     string key = 1;                 // key
-    string value = 2;               // val，any？=
+    string value = 2;               // val
 }
 
 //============================
@@ -272,11 +286,10 @@ message BfConnectPushReq{
     // tickHandler相关
     string symbol = 5;          // 指定订阅的合约，都填*订阅所有
     string exchange = 6;        // 合约exchange
-/*
+
     // 可扩展参数
     int32 intParam = 7;         // 参数1
     string strParam = 8;        // 参数2
-*/    
 }
 
 // 获取合约信息传入的对象类
@@ -322,6 +335,9 @@ service BfGatewayService{
     
     // 查询持仓信息
     rpc QueryPosition(BfVoid) returns (BfVoid) {}
+    
+    // 查询挂单信息
+    rpc QueryOrders(BfVoid) returns (BfVoid) {}
 }
 
 //============================

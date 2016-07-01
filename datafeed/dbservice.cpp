@@ -18,7 +18,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // init env
@@ -36,7 +36,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     // dbClose
@@ -49,7 +49,7 @@ void DbService::shutdown()
 
 leveldb::DB* DbService::getDb()
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
 
     if (!db_) {
         qFatal("db not open yet");
@@ -61,11 +61,11 @@ leveldb::DB* DbService::getDb()
 
 void DbService::dbOpen()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_) {
-        BfInfo("db opened already");
+        BfLog("db opened already");
         return;
     }
 
@@ -89,11 +89,11 @@ void DbService::dbOpen()
 
 void DbService::dbClose()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        BfInfo("db not open yet");
+        BfLog("db not open yet");
         return;
     }
     delete db_;
@@ -102,6 +102,13 @@ void DbService::dbClose()
 
 void DbService::dbInit()
 {
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::DB);
+    if (db_ == nullptr) {
+        qFatal("db not open yet");
+        return;
+    }
+
     leveldb::WriteOptions options;
     leveldb::WriteBatch batch;
 
@@ -118,13 +125,31 @@ void DbService::dbInit()
     db_->Write(options, &batch);
 }
 
+void DbService::dbReset()
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::DB);
+    if (db_ != nullptr) {
+        qFatal("db open yet");
+        return;
+    }
+
+    QString path = Profile::dbPath();
+    mkDir(path);
+    leveldb::Options options;
+    leveldb::Status status = leveldb::DestroyDB(path.toStdString(), options);
+    if (!status.ok()) {
+        qFatal("leveldb::DestroyDB fail");
+    }
+}
+
 void DbService::insertTick(const BfTickData& bfItem)
 {
-    //BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.ticktime().length() == 0) {
-        BfDebug("invalid tick,ignore");
+        BfLog("invalid tick,ignore");
         return;
     }
 
@@ -147,11 +172,11 @@ void DbService::insertTick(const BfTickData& bfItem)
 
 void DbService::insertBar(const BfBarData& bfItem)
 {
-    BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.actiondate().length() == 0 || bfItem.bartime().length() == 0 || bfItem.period() == PERIOD_UNKNOWN) {
-        BfDebug("invalid bar,ignore");
+        BfLog("insertBar:invalid bar,ignore");
         return;
     }
 
@@ -174,11 +199,11 @@ void DbService::insertBar(const BfBarData& bfItem)
 
 void DbService::insertContract(const BfContractData& bfItem)
 {
-    BfDebug(__FUNCTION__);
+    //BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (bfItem.symbol().length() == 0 || bfItem.exchange().length() == 0 || bfItem.name().length() == 0) {
-        BfDebug("invalid contract,ignore");
+        BfLog("insertContract:invalid contract,ignore");
         return;
     }
 
@@ -224,12 +249,35 @@ void DbService::insertContract(const BfContractData& bfItem)
 
 void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0) {
-        BfDebug("invalid parm,ignore");
+    if (request->symbol().length() == 0 || request->exchange().length() == 0) {
+        BfLog("getTick:invalid parm,ignore");
         return;
     }
+
+    const std::string& toDate = request->todate();
+    const std::string& fromDate = request->fromdate();
+
+    if (toDate.length() != 0 && fromDate.length() != 0) {
+        this->getTickFromTo(request, writer);
+    } else if (toDate.length() != 0) {
+        this->getTickCountTo(request, writer);
+    } else if (fromDate.length() != 0) {
+        this->getTickFromCount(request, writer);
+    } else {
+        BfLog("invalid parm,ignore");
+        return;
+    }
+
+    BfLog("get tick ok");
+}
+
+void DbService::getTickCountTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
     options.fill_cache = false;
@@ -239,41 +287,169 @@ void DbService::getTick(const BfGetTickReq* request, ::grpc::ServerWriter<BfTick
     }
 
     // key: tick-symbol-exchange-actiondate-ticktime
-    std::string key = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
-    it->Seek(leveldb::Slice(key));
+    std::string toKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string itKey;
+
     int count = 0;
+    QList<BfTickData> ticks;
+    it->Seek(leveldb::Slice(toKey));
     for (; it->Valid() && count < request->count(); it->Prev()) {
-        //遇到了前后两个结束item
-        const char* buf = it->value().data();
-        int len = it->value().size();
-        BfTickData bfItem;
-        if (!bfItem.ParseFromArray(buf, len)) {
-            qFatal("ParseFromArray error");
+        itKey = it->key().ToString();
+        if (itKey == lastestKey) {
+            continue;
+        } else if (itKey == firstKey) {
+            break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            ticks.append(bfItem);
+        }
+    }
+    delete it;
+
+    for (int i = ticks.length() - 1; i >= 0; i--) {
+        bool ok = writer->Write(ticks.at(i));
+        if (!ok) {
+            BfLog("getTickCountTo : stream closed!");
             break;
         }
-        if (bfItem.symbol().length() == 0) {
-            std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
-            std::string itKey = it->key().ToString();
-            if (itKey == lastestKey) {
-                continue;
-            } else {
+    }
+}
+
+void DbService::getTickFromCount(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->fromdate().c_str(), request->fromtime().c_str()).toStdString();
+    std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            bool ok = writer->Write(bfItem);
+            if (!ok) {
+                BfLog("getTickFromCount : stream closed!");
                 break;
             }
         }
+    }
+    delete it;
+}
 
-        count++;
-        writer->Write(bfItem);
+void DbService::getTickFromTo(const BfGetTickReq* request, ::grpc::ServerWriter<BfTickData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->fromdate().c_str(), request->fromtime().c_str()).toStdString();
+    std::string toKey = QString().sprintf("tick-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), request->todate().c_str(), request->totime().c_str()).toStdString();
+    std::string lastestKey = QString().sprintf("tick-%s-%s=", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string firstKey = QString().sprintf("tick-%s-%s+", request->symbol().c_str(), request->exchange().c_str()).toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else if (itKey <= toKey) {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfTickData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            bool ok = writer->Write(bfItem);
+            if (!ok) {
+                BfLog("getTickFromTo : stream closed!");
+                break;
+            }
+            Sleep(500);
+        } else {
+            break;
+        }
     }
     delete it;
 }
 
 void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
-    if (request->symbol().length() == 0 || request->exchange().length() == 0 || request->todate().length() == 0 || request->totime().length() == 0 || request->period() == PERIOD_UNKNOWN) {
-        BfDebug("invalid parm,ignore");
+
+    if (request->symbol().length() == 0 || request->exchange().length() == 0
+        || request->period() == PERIOD_UNKNOWN) {
+        BfLog("getBar:invalid parm,ignore");
         return;
     }
+
+    const std::string& toDate = request->todate();
+    const std::string& fromDate = request->fromdate();
+
+    if (toDate.length() != 0 && fromDate.length() != 0) {
+        this->getBarFromTo(request, writer);
+    } else if (toDate.length() != 0) {
+        this->getBarCountTo(request, writer);
+    } else if (fromDate.length() != 0) {
+        this->getBarFromCount(request, writer);
+    } else {
+        BfLog("invalid parm,ignore");
+        return;
+    }
+
+    BfLog("get bar ok");
+}
+
+void DbService::getBarCountTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
 
     leveldb::ReadOptions options;
     options.fill_cache = false;
@@ -283,39 +459,166 @@ void DbService::getBar(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarDat
     }
 
     // key: bar-symbol-exchange-period-actiondate-bartime
-    std::string key = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period())), request->todate().c_str(), request->totime().c_str()).toStdString();
-    it->Seek(leveldb::Slice(key));
+    std::string toKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                     qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                     request->todate().c_str(), request->totime().c_str())
+                            .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
+    std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                          qPrintable(ProtoUtils::formatPeriod(request->period())))
+                                 .toStdString();
+    std::string itKey;
+
     int count = 0;
+    QList<BfBarData> bars;
+    it->Seek(leveldb::Slice(toKey));
     for (; it->Valid() && count < request->count(); it->Prev()) {
-        //遇到了前后两个结束item
-        const char* buf = it->value().data();
-        int len = it->value().size();
-        BfBarData bfItem;
-        if (!bfItem.ParseFromArray(buf, len)) {
-            qFatal("ParseFromArray error");
+        itKey = it->key().ToString();
+        if (itKey == lastestKey) {
+            continue;
+        } else if (itKey == firstKey) {
             break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            bars.append(bfItem);
         }
-        if (bfItem.symbol().length() == 0) {
-            std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(), qPrintable(ProtoUtils::formatPeriod(request->period()))).toStdString();
-            std::string itKey = it->key().ToString();
-            if (itKey == lastestKey) {
-                continue;
-            } else {
+    }
+    delete it;
+
+    for (int i = bars.length() - 1; i >= 0; i--) {
+        bool ok = writer->Write(bars.at(i));
+        if (!ok) {
+            BfLog("getBarCountTo : stream closed!");
+        }
+    }
+}
+
+void DbService::getBarFromCount(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                       qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                       request->fromdate().c_str(), request->fromtime().c_str())
+                              .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
+    std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                          qPrintable(ProtoUtils::formatPeriod(request->period())))
+                                 .toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid() && count < request->count(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            bool ok = writer->Write(bfItem);
+            if (!ok) {
+                BfLog("getBarFromCount : stream closed!");
                 break;
             }
         }
+    }
+    delete it;
+}
 
-        count++;
-        writer->Write(bfItem);
+void DbService::getBarFromTo(const BfGetBarReq* request, ::grpc::ServerWriter<BfBarData>* writer)
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
+    leveldb::ReadOptions options;
+    options.fill_cache = false;
+    leveldb::Iterator* it = db_->NewIterator(options);
+    if (!it) {
+        qFatal("NewIterator == nullptr");
+    }
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                       qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                       request->fromdate().c_str(), request->fromtime().c_str())
+                              .toStdString();
+    std::string toKey = QString().sprintf("bar-%s-%s-%s-%s-%s", request->symbol().c_str(), request->exchange().c_str(),
+                                     qPrintable(ProtoUtils::formatPeriod(request->period())),
+                                     request->todate().c_str(), request->totime().c_str())
+                            .toStdString();
+    std::string firstKey = QString().sprintf("bar-%s-%s-%s+", request->symbol().c_str(), request->exchange().c_str(),
+                                        qPrintable(ProtoUtils::formatPeriod(request->period())))
+                               .toStdString();
+    std::string lastestKey = QString().sprintf("bar-%s-%s-%s=", request->symbol().c_str(), request->exchange().c_str(),
+                                          qPrintable(ProtoUtils::formatPeriod(request->period())))
+                                 .toStdString();
+    std::string itKey;
+
+    int count = 0;
+    it->Seek(leveldb::Slice(fromKey));
+    for (; it->Valid(); it->Next()) {
+        itKey = it->key().ToString();
+        if (itKey == firstKey) {
+            continue;
+        } else if (itKey == lastestKey) {
+            break;
+        } else if (itKey <= toKey) {
+            const char* buf = it->value().data();
+            int len = it->value().size();
+            BfBarData bfItem;
+            if (!bfItem.ParseFromArray(buf, len)) {
+                qFatal("ParseFromArray error");
+                break;
+            }
+            count++;
+            bool ok = writer->Write(bfItem);
+            if (!ok) {
+                BfLog("getBarFromTo : stream closed!");
+                break;
+            }
+        } else {
+            break;
+        }
     }
     delete it;
 }
 
 void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWriter<BfContractData>* writer)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::EXTERNAL);
+
     if (request->symbol().length() == 0 || request->exchange().length() == 0) {
-        BfDebug("invalid parm,ignore");
+        BfLog("getContract:invalid parm,ignore");
         return;
     }
 
@@ -351,7 +654,11 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
                 break;
             }
 
-            writer->Write(bfContract);
+            bool ok = writer->Write(bfContract);
+            if (!ok) {
+                BfLog("getContract : stream closed!");
+                break;
+            }
         }
         delete it;
 
@@ -370,27 +677,205 @@ void DbService::getContract(const BfGetContractReq* request, ::grpc::ServerWrite
             if (bfItem.symbol().length() == 0) {
                 return;
             }
-            writer->Write(bfItem);
+            bool ok = writer->Write(bfItem);
+            if (!ok) {
+                BfLog("getContract : stream closed!");
+            }
         }
     }
+
+    BfLog("get contract ok");
 }
 
-/*
-// TODO(hege): do it
-void DbService::deleteTick(const BfDeleteTickReq& bfReq)
+// 遍历构建batch，然后执行batch
+void DbService::deleteTick(const BfDeleteTickReq& request)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (request.symbol().length() == 0 || request.exchange().length() == 0
+        || request.todate().length() == 0 || request.totime().length() == 0
+        || request.fromdate().length() == 0 || request.fromtime().length() == 0) {
+        BfLog("deleteTick:invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    // key: tick-symbol-exchange-actiondate-ticktime
+    std::string fromKey, endKey, firstKey, lastestKey, itKey;
+    fromKey = QString().sprintf("tick-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(), request.fromdate().c_str(), request.fromtime().c_str()).toStdString();
+    endKey = QString().sprintf("tick-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(), request.todate().c_str(), request.totime().c_str()).toStdString();
+    firstKey = QString().sprintf("tick-%s-%s+", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+    lastestKey = QString().sprintf("tick-%s-%s=", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+
+    if (1) {
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db_->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
+        }
+
+        it->Seek(leveldb::Slice(fromKey));
+        for (; it->Valid(); it->Next()) {
+            itKey = it->key().ToString();
+            if (itKey == firstKey) {
+                continue;
+            }
+            if (itKey == lastestKey) {
+                break;
+            }
+            if (itKey <= endKey) {
+                batch.Delete(itKey);
+            } else {
+                break;
+            }
+        }
+        delete it;
+    }
+
+    db_->Write(options, &batch);
 }
 
-// TODO(hege): do it
-void DbService::deleteBar(const BfDeleteBarReq& bfReq)
+// 遍历构建batch，然后执行batch
+void DbService::deleteBar(const BfDeleteBarReq& request)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (request.symbol().length() == 0 || request.exchange().length() == 0
+        || request.todate().length() == 0 || request.totime().length() == 0
+        || request.fromdate().length() == 0 || request.fromtime().length() == 0
+        || request.period() == PERIOD_UNKNOWN) {
+        BfLog("deleteBar:invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    // key: bar-symbol-exchange-period-actiondate-bartime
+    std::string fromKey, endKey, firstKey, lastestKey, itKey;
+    fromKey = QString().sprintf("tick-%s-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(),
+                           qPrintable(ProtoUtils::formatPeriod(request.period())),
+                           request.fromdate().c_str(), request.fromtime().c_str())
+                  .toStdString();
+    endKey = QString().sprintf("tick-%s-%s-%s-%s-%s", request.symbol().c_str(), request.exchange().c_str(),
+                          qPrintable(ProtoUtils::formatPeriod(request.period())),
+                          request.todate().c_str(), request.totime().c_str())
+                 .toStdString();
+    firstKey = QString().sprintf("tick-%s-%s-%s+", request.symbol().c_str(), request.exchange().c_str(),
+                            qPrintable(ProtoUtils::formatPeriod(request.period())))
+                   .toStdString();
+    lastestKey = QString().sprintf("tick-%s-%s-%s=", request.symbol().c_str(), request.exchange().c_str(),
+                              qPrintable(ProtoUtils::formatPeriod(request.period())))
+                     .toStdString();
+
+    if (1) {
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db_->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
+        }
+
+        it->Seek(leveldb::Slice(fromKey));
+        for (; it->Valid(); it->Next()) {
+            itKey = it->key().ToString();
+            if (itKey == firstKey) {
+                continue;
+            }
+            if (itKey == lastestKey) {
+                break;
+            }
+            if (itKey <= endKey) {
+                batch.Delete(itKey);
+            } else {
+                break;
+            }
+        }
+        delete it;
+    }
+
+    db_->Write(options, &batch);
 }
 
-// TODO(hege): do it
-void DbService::deleteContract(const BfDatafeedDeleteContractReq& bfReq)
+void DbService::deleteContract(const BfDeleteContractReq& request)
 {
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    if (request.symbol().length() == 0 || request.exchange().length() == 0) {
+        BfLog("deleteContract:invalid parm,ignore");
+        return;
+    }
+
+    leveldb::WriteOptions options;
+    leveldb::WriteBatch batch;
+
+    if (request.symbol() == "*" && request.exchange() == "*") {
+        leveldb::DB* db = db_;
+        leveldb::ReadOptions options;
+        options.fill_cache = false;
+        leveldb::Iterator* it = db->NewIterator(options);
+        if (!it) {
+            qFatal("NewIterator == nullptr");
+        }
+
+        //第一个是contract+
+        //最后一个是contract=
+        std::string firstKey = "contract+";
+        std::string lastestKey = "contract=";
+        std::string itKey;
+        it->Seek(firstKey);
+        if (it->Valid()) {
+            it->Next();
+        }
+        for (; it->Valid(); it->Next()) {
+            itKey = it->key().ToString();
+            if (itKey == firstKey) {
+                continue;
+            }
+            if (itKey == lastestKey) {
+                break;
+            }
+            batch.Delete(itKey);
+        }
+        delete it;
+    } else {
+        std::string key = QString().sprintf("contract-%s-%s", request.symbol().c_str(), request.exchange().c_str()).toStdString();
+        batch.Delete(key);
+    }
+
+    db_->Write(options, &batch);
 }
-*/
+
+void DbService::cleanAll()
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    // dbClose
+    dbClose();
+
+    // dbReset
+    dbReset();
+
+    // dbOpen
+    dbOpen();
+
+    // dbInit
+    dbInit();
+
+    emit this->opened();
+}
+
+void DbService::dbCompact()
+{
+    BfLog(__FUNCTION__);
+    g_sm->checkCurrentOn(ServiceMgr::DB);
+
+    db_->CompactRange(nullptr, nullptr);
+}

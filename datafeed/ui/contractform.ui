@@ -154,12 +154,32 @@
        </item>
        <item>
         <property name="text">
+         <string>h02</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>h03</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>h04</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>d01</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>w01</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>x01</string>
         </property>
        </item>
       </widget>

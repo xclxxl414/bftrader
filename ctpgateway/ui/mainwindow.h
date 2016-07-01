@@ -10,8 +10,6 @@ class MainWindow;
 }
 
 class Profile;
-class InfoForm;
-class ErrorForm;
 class DebugForm;
 class ContractForm;
 class FinishedOrderForm;
@@ -63,8 +61,6 @@ private:
 
 private:
     Ui::MainWindow* ui;
-    InfoForm* infoForm_;
-    ErrorForm* errorForm_;
     DebugForm* debugForm_;
     ContractForm* contractForm_;
     FinishedOrderForm* finishedOrderForm_;

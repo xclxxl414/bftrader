@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     rpcservice.cpp \
     dbservice.cpp \
     ui/tablewidget_helper.cpp \
-    gatewaymgr.cpp
+    gatewaymgr.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -28,7 +29,8 @@ HEADERS  += ui/mainwindow.h \
     rpcservice.h \
     dbservice.h \
     ui/tablewidget_helper.h \
-    gatewaymgr.h
+    gatewaymgr.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui
 
@@ -37,6 +39,7 @@ include(../../third_party/breakpad.pri)
 include(../../third_party/mhook.pri)
 include(../../third_party/ctp.pri)
 include(../../third_party/leveldb.pri)
+include(../../third_party/talib.pri)
 
 RESOURCES += \
     systray.qrc

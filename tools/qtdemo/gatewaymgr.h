@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+//BLOGC
 class GatewayMgr : public QObject {
     Q_OBJECT
 public:

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>799</width>
+    <height>581</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableWidget" name="tableWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>799</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuApp">
+    <property name="title">
+     <string>app</string>
+    </property>
+    <addaction name="actionAppQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>about</string>
+    </property>
+    <widget class="QMenu" name="menu_NO_MONEY">
+     <property name="title">
+      <string>!!!NO MONEY!!!</string>
+     </property>
+     <addaction name="actionCrashInvalidParamCrash"/>
+     <addaction name="actionCrashPureCallCrash"/>
+     <addaction name="actionCrashDerefZeroCrash"/>
+     <addaction name="actionCrashQFatal"/>
+     <addaction name="actionCrashdebugbreak"/>
+     <addaction name="actionCrashDebugBreak"/>
+     <addaction name="actionCrashExit"/>
+     <addaction name="actionCrashExitProcess"/>
+     <addaction name="actionCrashTerminateProcess"/>
+    </widget>
+    <addaction name="actionAppVersion"/>
+    <addaction name="menu_NO_MONEY"/>
+   </widget>
+   <widget class="QMenu" name="menuBacktest">
+    <property name="title">
+     <string>backtest</string>
+    </property>
+    <addaction name="actionBtStart"/>
+    <addaction name="actionBtStop"/>
+    <addaction name="separator"/>
+    <addaction name="actionBtConfig"/>
+   </widget>
+   <widget class="QMenu" name="menuNet">
+    <property name="title">
+     <string>net</string>
+    </property>
+    <addaction name="actionNetStart"/>
+    <addaction name="actionNetStop"/>
+   </widget>
+   <widget class="QMenu" name="menuDatafeed">
+    <property name="title">
+     <string>datafeed</string>
+    </property>
+    <addaction name="actionDfConnect"/>
+    <addaction name="actionDfDisconnect"/>
+   </widget>
+   <addaction name="menuApp"/>
+   <addaction name="menuBacktest"/>
+   <addaction name="menuNet"/>
+   <addaction name="menuDatafeed"/>
+   <addaction name="menuAbout"/>
+  </widget>
+  <action name="actionAppQuit">
+   <property name="text">
+    <string>appQuit</string>
+   </property>
+  </action>
+  <action name="actionAppVersion">
+   <property name="text">
+    <string>appVersion</string>
+   </property>
+  </action>
+  <action name="actionCrashPureCallCrash">
+   <property name="text">
+    <string>Crash_PureCallCrash</string>
+   </property>
+  </action>
+  <action name="actionCrashInvalidParamCrash">
+   <property name="text">
+    <string>Crash_InvalidParamCrash</string>
+   </property>
+  </action>
+  <action name="actionCrashDerefZeroCrash">
+   <property name="text">
+    <string>Crash_DerefZeroCrash</string>
+   </property>
+  </action>
+  <action name="actionCrashQFatal">
+   <property name="text">
+    <string>Crash_qFatal</string>
+   </property>
+  </action>
+  <action name="actionCrashdebugbreak">
+   <property name="text">
+    <string>Crash_debugbreak</string>
+   </property>
+  </action>
+  <action name="actionCrashDebugBreak">
+   <property name="text">
+    <string>Crash_DebugBreak</string>
+   </property>
+  </action>
+  <action name="actionCrashExit">
+   <property name="text">
+    <string>Crash_exit</string>
+   </property>
+  </action>
+  <action name="actionCrashExitProcess">
+   <property name="text">
+    <string>Crash_ExitProcess</string>
+   </property>
+  </action>
+  <action name="actionCrashTerminateProcess">
+   <property name="text">
+    <string>Crash_TerminateProcess</string>
+   </property>
+  </action>
+  <action name="actionBtStart">
+   <property name="text">
+    <string>btStart</string>
+   </property>
+  </action>
+  <action name="actionBtStop">
+   <property name="text">
+    <string>btStop</string>
+   </property>
+  </action>
+  <action name="actionNetStart">
+   <property name="text">
+    <string>netStart</string>
+   </property>
+  </action>
+  <action name="actionNetStop">
+   <property name="text">
+    <string>netStop</string>
+   </property>
+  </action>
+  <action name="actionBtConfig">
+   <property name="text">
+    <string>btConfig</string>
+   </property>
+  </action>
+  <action name="actionDfConnect">
+   <property name="text">
+    <string>dfConnect</string>
+   </property>
+  </action>
+  <action name="actionDfDisconnect">
+   <property name="text">
+    <string>dfDisconnect</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

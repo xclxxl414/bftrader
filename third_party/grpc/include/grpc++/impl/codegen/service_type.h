@@ -35,7 +35,6 @@
 #define GRPCXX_IMPL_CODEGEN_SERVICE_TYPE_H
 
 #include <grpc++/impl/codegen/config.h>
-#include <grpc++/impl/codegen/core_codegen_interface.h>
 #include <grpc++/impl/codegen/rpc_service_method.h>
 #include <grpc++/impl/codegen/serialization_traits.h>
 #include <grpc++/impl/codegen/server_interface.h>
@@ -132,18 +131,21 @@ class Service {
   void AddMethod(RpcServiceMethod* method) { methods_.emplace_back(method); }
 
   void MarkMethodAsync(int index) {
-    GPR_CODEGEN_ASSERT(
-        methods_[index].get() != nullptr &&
-        "Cannot mark the method as 'async' because it has already been "
-        "marked as 'generic'.");
+    if (methods_[index].get() == nullptr) {
+      gpr_log(GPR_ERROR,
+              "Cannot mark the method as 'async' because it has already been "
+              "marked as 'generic'.");
+      return;
+    }
     methods_[index]->ResetHandler();
   }
 
   void MarkMethodGeneric(int index) {
-    GPR_CODEGEN_ASSERT(
-        methods_[index]->handler() != nullptr &&
-        "Cannot mark the method as 'generic' because it has already been "
-        "marked as 'async'.");
+    if (methods_[index]->handler() == nullptr) {
+      gpr_log(GPR_ERROR,
+              "Cannot mark the method as 'generic' because it has already been "
+              "marked as 'async'.");
+    }
     methods_[index].reset();
   }
 

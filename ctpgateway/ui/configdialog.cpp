@@ -42,7 +42,7 @@ void ConfigDialog::save()
     profile->put("frontTd", frontTd);
 
     profile->put("symbolPrefixes", ui->symbolPrefixes->text());
-    profile->put("filterTick",ui->checkBoxFilterTick->isChecked());
+    profile->put("filterTick", ui->checkBoxFilterTick->isChecked());
     profile->commit();
 }
 
@@ -53,6 +53,6 @@ void ConfigDialog::load()
     ui->brokerId->setText(profile->get("brokerId", "9999").toString());
     ui->frontMd->setText(profile->get("frontMd", "tcp://180.168.146.187:10031").toString());
     ui->frontTd->setText(profile->get("frontTd", "tcp://180.168.146.187:10030").toString());
-    ui->symbolPrefixes->setText(profile->get("symbolPrefixes", "if;ih;ic;sr;rb;pp").toString());
-    ui->checkBoxFilterTick->setChecked(profile->get("filterTick",false).toBool());
+    ui->symbolPrefixes->setText(profile->get("symbolPrefixes", "ic;sr;rb;pp;m1").toString());
+    ui->checkBoxFilterTick->setChecked(profile->get("filterTick", false).toBool());
 }

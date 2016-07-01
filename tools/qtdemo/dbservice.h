@@ -5,6 +5,8 @@
 namespace leveldb {
 class DB;
 }
+
+//DB
 class DbService : public QObject {
     Q_OBJECT
 public:

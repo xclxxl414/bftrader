@@ -15,7 +15,7 @@ DbService::DbService(QObject* parent)
 
 void DbService::init()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     leveldb::Env::Default();
@@ -24,7 +24,7 @@ void DbService::init()
 
 void DbService::shutdown()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     delete leveldb::BytewiseComparator();
@@ -33,11 +33,11 @@ void DbService::shutdown()
 
 void DbService::dbOpen()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_) {
-        BfDebug("opened already");
+        BfLog("opened already");
         return;
     }
 
@@ -61,11 +61,11 @@ void DbService::dbOpen()
 
 void DbService::dbClose()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        BfDebug("not open yet");
+        BfLog("not open yet");
         return;
     }
     delete db_;
@@ -74,11 +74,11 @@ void DbService::dbClose()
 
 void DbService::dbInit()
 {
-    BfDebug(__FUNCTION__);
+    BfLog(__FUNCTION__);
     g_sm->checkCurrentOn(ServiceMgr::DB);
 
     if (db_ == nullptr) {
-        BfDebug("not open yet");
+        BfLog("not open yet");
         return;
     }
 

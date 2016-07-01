@@ -8,7 +8,7 @@ GatewayMgr::GatewayMgr(QObject* parent)
 
 void GatewayMgr::init()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 
     // qRegisterMetaType
     qRegisterMetaType<BfTickData>("BfTickData");
@@ -19,14 +19,12 @@ void GatewayMgr::init()
     qRegisterMetaType<BfGetBarReq>("BfGetBarReq");
     qRegisterMetaType<BfGetContractReq>("BfGetContractReq");
 
-    /*
     qRegisterMetaType<BfDeleteTickReq>("BfDeleteTickReq");
     qRegisterMetaType<BfDeleteBarReq>("BfDeleteBarReq");
     qRegisterMetaType<BfDeleteContractReq>("BfDeleteContractReq");
-*/
 }
 
 void GatewayMgr::shutdown()
 {
-    g_sm->checkCurrentOn(ServiceMgr::LOGIC);
+    g_sm->checkCurrentOn(ServiceMgr::BLOGIC);
 }

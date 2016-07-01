@@ -1,0 +1,141 @@
+﻿任务列表（发邮件给42489549@qq.com提交结果）
+======
+
+进行中
+======
+
+修身相关(标价：100，无人数限制，每周有效)
+===
+1. 完成 每周作业.doc 每周工作.doc 每周反省.doc
+
+回测相关(标价：1k，限定2人内AB制)
+===
+1. 回测网关 btgateway
+2. 当天的tick级别回放
+3. 可选提供回测统计报表
+
+方案：
+1.单独做一个服务btgateway，回放历史数据并模拟交易
+
+dataframe和基于order的task写简易震荡策略(标价：500，人数不限，golang python)
+===
+1. 提供模块化的指标库
+2. 方案
+df = newDataframe(period,timesection) //分配某周期的dataframe
+df.appendBar(bar)    //增加一行数据，同时计算macd ma15/30/60；初始补数据用
+df.appendTick(tick)  //增加一行数据，同时计算macd ma15/30/60；返回是否新bar产生；盘中推tick用
+df.count()        //bar个数
+df.bar(index):    //bar
+df.macd(priceType)      //获取最新macd,priceType是OHCL一种
+df.ma15(priceType)      //获取最新ma15
+df.ma30(priceType)      //获取最新ma30
+df.ma60(priceType)      //获取最新ma60
+df.max(priceType)       //最高价
+df.min(priceType)       //最低价
+...
+df.free()      //释放
+3. 策略例子 (状态：15分钟偏离60均线1%以上；交易：15分macd红/绿开仓，绿/红平1/3，10周期平1/3，60均线平1/3 )
+onstart
+   初始化各周期dataframe如dfs
+   
+   补最近60根k到dfs
+ontick
+   推tick到dfs
+   
+   捕捉行情任务运行一次，基于order的，order成交后，要明确定义止盈止损条件，形成止盈止损任务
+   OpenTaskRunOnce(dfs)
+   
+   止盈止损任务运行一次，基于order的，而不是基于pos
+   CloseTaskRunOnce(dfs)
+4. 说明：基于order的task设计
+ 4.1. 由于同时有多个task在运行，task都是基于技术指标驱动的，所以封装技术指标处理在一起，各个task用就行了，
+   那个东西就叫dataframe吧
+ 4.2. 流程:状态策略产生交易策略，交易策略产生开仓任务，开仓成交完成，产生平仓任务...
+statemodel:
+statemodel-->ontick-->trademodel.start/stop
+trademodel:
+opentask-->ontick/ontrade-->openorder
+-->closetask(s)-->ontick/ontrade-->closeorder(s)
+
+ie:
+OrderMgr
+    all:map<id,*BfOrderData>
+
+CloseOrderInfo
+   idSelf: bforderdata id
+   idOpener:BfOrderData id
+   
+OpenOrderInfo
+   idSelf: bforderdata id
+   idsCloser:list<BfOrderData id>
+
+TradeRound
+   CloseOrderList
+   OpenOrderList
+   
+交易数据库提供（标价：1000，限定2人内AB制）
+===
+1. tick - 当天 （用于btgateway做回测）
+2. m01 - 30日 （用于交易初始化）
+3. d01 - 全部（用于交易初始化）
+方案：
+1.每天下午5点作为datafeed数据库发布
+2.暂只做白糖，要求白糖所有合约的，或者tick m01是主力/全部合约，d01是加权指数
+
+已完成
+======
+
+文档相关(标价：100，限定2人内AB制)
+===
+1. 完善bftrader bfpy bfgo的readme
+2. markdown格式，配上插图
+
+python策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+golang策略范例（标价：500，无人数限制）
+===
+1. datarecorder收集tick组装bar插入datafeed
+2. 1分钟双均线策略 或者 动力策略（macd红绿10周期）
+
+交易相关 (标价：1k，限定2人内AB制)(调整为策略内置)
+===
+1. 保存通用数据的kv api
+2. 停止单/止盈止损stoporder api
+3. 条件单condorder api
+方案：
+单独做一个服务bfcloud，接受云条件单 云止盈止损单，类似文华财经的云条件单
+key按路径来，如果是/开头，就是绝对路径，不加上策略的名字
+
+网关相关(标价：1k，限定2人内AB制)
+===
+1. 完善queryposition，将一次query的结果合并好后再推送(就是要判断reqId)
+2. 完善queryorders，和onorder分开，并将一次query的结果合并好后再推送(就是要判断reqId)
+3. 完善queryinstruments，将一次query的结果合并好后在处理(就是要判断reqId)
+方案：增加notification子项目，表示某一类query的beginquery endquery，明确区分前后两次的结果
+前一个query没结束，后一个同类query直接忽略=
+
+数据相关(标价：1k，限定2人内AB制)
+===
+1. 提供删除数据的api
+方案：datafeed提供deletetick deletebar deletecontract
+
+策略相关(标价：1k，限定2人内AB制)
+===
+1. 自动生成多周期的datarecorder
+2. 自动生成加权指数的datarecorder
+方案：
+单独做一个策略datarecorder，负责收集数据
+
+主数据库(标价：1k+1.4k采购费，限定1人)
+===
+1. 基于网际风或者Wind或者传说中的xxx
+2. 每天下午5点提供服务，能导出如下几个csv：
+当天的tick 或者当天的1分钟k
+最近30天的5分钟k
+所有日线k
+所有周线k
+
+欢迎讨论！

@@ -1,4 +1,5 @@
 #include "servicemgr.h"
+#include "ctamgr.h"
 #include "dbservice.h"
 #include "gatewaymgr.h"
 #include "logger.h"
@@ -24,52 +25,44 @@ void ServiceMgr::init()
     init_ = true;
 
     main_thread_ = QThread::currentThread();
-    io_thread_ = new QThread;
     db_thread_ = new QThread;
     push_thread_ = new QThread;
     rpc_thread_ = new QThread;
-    logic_thread_ = new QThread;
+    blogic_thread_ = new QThread;
+    flogic_thread_ = new QThread;
 
     logger_ = new Logger;
     profile_ = new Profile;
-    gatewayMgr_ = new GatewayMgr;
-    gatewayMgr_->moveToThread(logic_thread_);
     dbService_ = new DbService;
     dbService_->moveToThread(db_thread_);
-    rpcService_ = new RpcService;
-    rpcService_->moveToThread(rpc_thread_);
     pushService_ = new PushService;
     pushService_->moveToThread(push_thread_);
+    rpcService_ = new RpcService;
+    rpcService_->moveToThread(rpc_thread_);
+    gatewayMgr_ = new GatewayMgr;
+    gatewayMgr_->moveToThread(blogic_thread_);
+    ctaMgr_ = new CtaMgr;
+    ctaMgr_->moveToThread(flogic_thread_);
 
     // ui objects
     logger_->init();
     profile_->init();
 
-    QObject::connect(io_thread_, &QThread::started, this, &ServiceMgr::ioThreadStarted, Qt::DirectConnection);
     QObject::connect(db_thread_, &QThread::started, this, &ServiceMgr::dbThreadStarted, Qt::DirectConnection);
     QObject::connect(push_thread_, &QThread::started, this, &ServiceMgr::pushThreadStarted, Qt::DirectConnection);
     QObject::connect(rpc_thread_, &QThread::started, this, &ServiceMgr::rpcThreadStarted, Qt::DirectConnection);
-    QObject::connect(logic_thread_, &QThread::started, this, &ServiceMgr::logicThreadStarted, Qt::DirectConnection);
-    QObject::connect(io_thread_, &QThread::finished, this, &ServiceMgr::ioThreadFinished, Qt::DirectConnection);
+    QObject::connect(blogic_thread_, &QThread::started, this, &ServiceMgr::blogicThreadStarted, Qt::DirectConnection);
+    QObject::connect(flogic_thread_, &QThread::started, this, &ServiceMgr::flogicThreadStarted, Qt::DirectConnection);
     QObject::connect(db_thread_, &QThread::finished, this, &ServiceMgr::dbThreadFinished, Qt::DirectConnection);
     QObject::connect(push_thread_, &QThread::finished, this, &ServiceMgr::pushThreadFinished, Qt::DirectConnection);
     QObject::connect(rpc_thread_, &QThread::finished, this, &ServiceMgr::rpcThreadFinished, Qt::DirectConnection);
-    QObject::connect(logic_thread_, &QThread::finished, this, &ServiceMgr::logicThreadFinished, Qt::DirectConnection);
-    logic_thread_->start();
-    io_thread_->start();
+    QObject::connect(blogic_thread_, &QThread::finished, this, &ServiceMgr::blogicThreadFinished, Qt::DirectConnection);
+    QObject::connect(flogic_thread_, &QThread::finished, this, &ServiceMgr::flogicThreadFinished, Qt::DirectConnection);
     db_thread_->start();
     push_thread_->start();
     rpc_thread_->start();
-}
-
-void ServiceMgr::ioThreadStarted()
-{
-    checkCurrentOn(IO);
-}
-
-void ServiceMgr::ioThreadFinished()
-{
-    checkCurrentOn(IO);
+    blogic_thread_->start();
+    flogic_thread_->start();
 }
 
 void ServiceMgr::dbThreadStarted()
@@ -117,26 +110,34 @@ void ServiceMgr::rpcThreadFinished()
     rpcService_->moveToThread(main_thread_);
 }
 
-void ServiceMgr::logicThreadStarted()
+void ServiceMgr::blogicThreadStarted()
 {
-    checkCurrentOn(LOGIC);
+    checkCurrentOn(BLOGIC);
 
     gatewayMgr_->init();
 }
 
-void ServiceMgr::logicThreadFinished()
+void ServiceMgr::blogicThreadFinished()
 {
-    checkCurrentOn(LOGIC);
+    checkCurrentOn(BLOGIC);
 
     gatewayMgr_->shutdown();
     gatewayMgr_->moveToThread(main_thread_);
 }
 
-GatewayMgr* ServiceMgr::gatewayMgr()
+void ServiceMgr::flogicThreadStarted()
 {
-    check();
+    checkCurrentOn(FLOGIC);
 
-    return this->gatewayMgr_;
+    ctaMgr_->init();
+}
+
+void ServiceMgr::flogicThreadFinished()
+{
+    checkCurrentOn(FLOGIC);
+
+    ctaMgr_->shutdown();
+    ctaMgr_->moveToThread(main_thread_);
 }
 
 DbService* ServiceMgr::dbService()
@@ -146,6 +147,13 @@ DbService* ServiceMgr::dbService()
     return this->dbService_;
 }
 
+PushService* ServiceMgr::pushService()
+{
+    check();
+
+    return this->pushService_;
+}
+
 RpcService* ServiceMgr::rpcService()
 {
     check();
@@ -153,11 +161,18 @@ RpcService* ServiceMgr::rpcService()
     return this->rpcService_;
 }
 
-PushService* ServiceMgr::pushService()
+GatewayMgr* ServiceMgr::gatewayMgr()
 {
     check();
 
-    return this->pushService_;
+    return this->gatewayMgr_;
+}
+
+CtaMgr* ServiceMgr::ctaMgr()
+{
+    check();
+
+    return this->ctaMgr_;
 }
 
 void ServiceMgr::shutdown()
@@ -166,6 +181,16 @@ void ServiceMgr::shutdown()
         qFatal("shutdown_ == true");
         return;
     }
+
+    flogic_thread_->quit();
+    flogic_thread_->wait();
+    delete flogic_thread_;
+    flogic_thread_ = nullptr;
+
+    blogic_thread_->quit();
+    blogic_thread_->wait();
+    delete blogic_thread_;
+    blogic_thread_ = nullptr;
 
     rpc_thread_->quit();
     rpc_thread_->wait();
@@ -182,18 +207,14 @@ void ServiceMgr::shutdown()
     delete db_thread_;
     db_thread_ = nullptr;
 
-    io_thread_->quit();
-    io_thread_->wait();
-    delete io_thread_;
-    io_thread_ = nullptr;
-
-    logic_thread_->quit();
-    logic_thread_->wait();
-    delete logic_thread_;
-    logic_thread_ = nullptr;
-
     profile_->shutdown();
     logger_->shutdown();
+
+    delete ctaMgr_;
+    ctaMgr_ = nullptr;
+
+    delete gatewayMgr_;
+    gatewayMgr_ = nullptr;
 
     delete rpcService_;
     rpcService_ = nullptr;
@@ -203,9 +224,6 @@ void ServiceMgr::shutdown()
 
     delete dbService_;
     dbService_ = nullptr;
-
-    delete gatewayMgr_;
-    gatewayMgr_ = nullptr;
 
     delete profile_;
     profile_ = nullptr;
@@ -245,9 +263,6 @@ QThread* ServiceMgr::getThread(ThreadType p)
     if (p == ServiceMgr::MAIN) {
         return this->main_thread_;
     }
-    if (p == ServiceMgr::IO) {
-        return this->io_thread_;
-    }
     if (p == ServiceMgr::DB) {
         return this->db_thread_;
     }
@@ -257,8 +272,11 @@ QThread* ServiceMgr::getThread(ThreadType p)
     if (p == ServiceMgr::RPC) {
         return this->rpc_thread_;
     }
-    if (p == ServiceMgr::LOGIC) {
-        return this->logic_thread_;
+    if (p == ServiceMgr::BLOGIC) {
+        return this->blogic_thread_;
+    }
+    if (p == ServiceMgr::FLOGIC) {
+        return this->flogic_thread_;
     }
 
     qFatal("getThread");
@@ -278,10 +296,6 @@ bool ServiceMgr::isCurrentOn(ServiceMgr::ThreadType p)
         return true;
     }
 
-    if (p == ServiceMgr::IO && cur == io_thread_) {
-        return true;
-    }
-
     if (p == ServiceMgr::PUSH && cur == push_thread_) {
         return true;
     }
@@ -290,14 +304,18 @@ bool ServiceMgr::isCurrentOn(ServiceMgr::ThreadType p)
         return true;
     }
 
-    if (p == ServiceMgr::LOGIC && cur == logic_thread_) {
+    if (p == ServiceMgr::BLOGIC && cur == blogic_thread_) {
+        return true;
+    }
+
+    if (p == ServiceMgr::FLOGIC && cur == flogic_thread_) {
         return true;
     }
 
     if (p == ServiceMgr::EXTERNAL) {
         if (cur != main_thread_ && cur != db_thread_
-            && cur != io_thread_ && cur != push_thread_
-            && cur != rpc_thread_ && cur != logic_thread_) {
+            && cur != push_thread_ && cur != rpc_thread_
+            && cur != blogic_thread_ && cur != flogic_thread_) {
             return true;
         }
     }
@@ -314,47 +332,17 @@ void ServiceMgr::checkCurrentOn(ThreadType p)
 
 //////////////////////
 
-void BfError(const char* msg, ...)
+void BfLog(const char* msg, ...)
 {
     va_list ap;
     va_start(ap, msg);
     QString buf = QString::vasprintf(msg, ap);
     va_end(ap);
 
-    g_sm->logger()->error(buf);
+    g_sm->logger()->log(buf);
 }
 
-void BfInfo(const char* msg, ...)
+void BfLog(QString msg)
 {
-    va_list ap;
-    va_start(ap, msg);
-    QString buf = QString::vasprintf(msg, ap);
-    va_end(ap);
-
-    g_sm->logger()->info(buf);
-}
-
-void BfDebug(const char* msg, ...)
-{
-    va_list ap;
-    va_start(ap, msg);
-    QString buf = QString::vasprintf(msg, ap);
-    va_end(ap);
-
-    g_sm->logger()->debug(buf);
-}
-
-void BfError(QString msg)
-{
-    g_sm->logger()->error(msg);
-}
-
-void BfInfo(QString msg)
-{
-    g_sm->logger()->info(msg);
-}
-
-void BfDebug(QString msg)
-{
-    g_sm->logger()->debug(msg);
+    g_sm->logger()->log(msg);
 }

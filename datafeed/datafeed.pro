@@ -24,10 +24,9 @@ SOURCES += main.cpp\
     ui/barform.cpp \
     ui/statform.cpp \
     ui/debugform.cpp \
-    ui/errorform.cpp \
-    ui/infoform.cpp \
     gatewaymgr.cpp \
-    protoutils.cpp
+    protoutils.cpp \
+    ctamgr.cpp
 
 HEADERS  += ui/mainwindow.h \
     profile.h \
@@ -41,19 +40,16 @@ HEADERS  += ui/mainwindow.h \
     ui/barform.h \
     ui/statform.h \
     ui/debugform.h \
-    ui/errorform.h \
-    ui/infoform.h \
     gatewaymgr.h \
-    protoutils.h
+    protoutils.h \
+    ctamgr.h
 
 FORMS    += ui/mainwindow.ui \
     ui/contractform.ui \
     ui/tickform.ui \
     ui/barform.ui \
     ui/statform.ui \
-    ui/debugform.ui \
-    ui/errorform.ui \
-    ui/infoform.ui
+    ui/debugform.ui
 
 include(../base/base.pri)
 include(../sdk/sdk.pri)

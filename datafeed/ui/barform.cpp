@@ -281,7 +281,7 @@ void BarForm::on_seekButton_clicked()
     QString msg("not found,input format:\nbar-IF1511-CFFEX-\nbar-IF1511-CFFEX-m01-20151023-1304\nbar-IF1511-CFFEX-m01-20151023-13:04:00");
     it->Seek(leveldb::Slice(key.toStdString()));
     if (!it->Valid()) {
-        BfError(msg);
+        BfLog(msg);
     }
     int count = 0;
     x_.clear();
@@ -319,10 +319,10 @@ void BarForm::on_delButton_clicked()
     }
 
     if (status.ok()) {
-        BfInfo("del,ok");
+        BfLog("del,ok");
     } else {
         QString errStr = QString::fromStdString(status.ToString());
-        BfError(errStr);
+        BfLog(errStr);
     }
 }
 

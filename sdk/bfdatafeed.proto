@@ -7,7 +7,7 @@ import "bfgateway.proto";
 
 //============================
 
-// Bar周期类型
+// Bar周期类型，和文华财经保持一致
 enum BfBarPeriod{
     PERIOD_UNKNOWN = 0;         // 未知
     PERIOD_S01 = 1;             // 1秒
@@ -16,15 +16,19 @@ enum BfBarPeriod{
     PERIOD_S10 = 4;             // 10秒
     PERIOD_S15 = 5;             // 15秒
     PERIOD_S30 = 6;             // 30秒
-    PERIOD_M01 = 7;             // 1分钟
-    PERIOD_M03 = 8;             // 3分钟
-    PERIOD_M05 = 9;             // 5分钟
-    PERIOD_M10 = 10;            // 10分钟
-    PERIOD_M15 = 11;            // 15分钟
-    PERIOD_M30 = 12;            // 30分钟
+    PERIOD_M01 = 7;             // 1分
+    PERIOD_M03 = 8;             // 3分
+    PERIOD_M05 = 9;             // 5分
+    PERIOD_M10 = 10;            // 10分
+    PERIOD_M15 = 11;            // 15分
+    PERIOD_M30 = 12;            // 30分
     PERIOD_H01 = 13;            // 1小时
-    PERIOD_D01 = 14;            // 1天
-    PERIOD_W01 = 15;            // 1周
+    PERIOD_H02 = 14;            // 2小时
+    PERIOD_H03 = 15;            // 3小时
+    PERIOD_H04 = 16;            // 4小时
+    PERIOD_D01 = 17;            // 1天
+    PERIOD_W01 = 18;            // 1周
+    PERIOD_X01 = 19;            // 1月
 }
 
 // Bar行情数据类
@@ -59,6 +63,9 @@ message BfGetTickReq{
     string toDate = 3;              // 截止日期
     string toTime = 4;              // 截止时间
     int32 count = 5;                // 获取条数
+ 
+    string fromDate = 6;            // 开始日期
+    string fromTime = 7;            // 开始时间
 }
 
 message BfGetBarReq{
@@ -71,9 +78,11 @@ message BfGetBarReq{
     string toDate = 4;              // 截止日期
     string toTime = 5;              // 截止时间
     int32 count = 6;                // 获取条数
+
+    string fromDate = 7;            // 开始日期
+    string fromTime = 8;            // 开始时间
 }
 
-/*
 message BfDeleteTickReq{
     // 代码编号相关
     string symbol = 1;              // 合约代码
@@ -81,6 +90,9 @@ message BfDeleteTickReq{
 
     string toDate = 3;              // 截止日期
     string toTime = 4;              // 截止时间
+    
+    string fromDate = 5;            // 开始日期
+    string fromTime = 6;            // 开始时间
 }
 
 message BfDeleteBarReq{
@@ -92,6 +104,9 @@ message BfDeleteBarReq{
     
     string toDate = 4;              // 截止日期
     string toTime = 5;              // 截止时间
+
+    string fromDate = 6;            // 开始日期
+    string fromTime = 7;            // 开始时间
 }
 
 message BfDeleteContractReq{
@@ -99,11 +114,10 @@ message BfDeleteContractReq{
     string symbol = 1;              // 合约代码，
     string exchange = 2;            // 交易所代码
 }
-*/
 
 //============================
 
-// 历史数据服务
+// 支撑交易的数据服务，交易前从主数据库导入初始化数据=
 service BfDatafeedService{
 
     // 活跃检测
@@ -116,20 +130,22 @@ service BfDatafeedService{
     // 保存contract
     rpc InsertContract(bfgateway.BfContractData) returns (bfgateway.BfVoid) {}
 
-    // 获取tick
+    // 获取tick,支持count+to，支持from+count，支持from+to三种模式，按时间顺序返回
     rpc GetTick(BfGetTickReq) returns (stream bfgateway.BfTickData){}
-    // 获取bar
-    rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}
-    // 获取contract, 支持*获取全部订阅合约
+    // 获取bar,,支持count+to，支持from+count，支持from+to三种模式，按时间顺序返回
+    rpc GetBar(BfGetBarReq) returns (stream BfBarData) {}    
+    // 获取contract, 支持* *获取全部订阅合约
     rpc GetContract(bfgateway.BfGetContractReq) returns (stream bfgateway.BfContractData) {}
-/*
-    // 删除tick
+
+    // 删除tick，支持from+to模式
     rpc DeleteTick(BfDeleteTickReq) returns (bfgateway.BfVoid) {}
-    // 删除bar
+    // 删除bar，支持from+to模式
     rpc DeleteBar(BfDeleteBarReq) returns (bfgateway.BfVoid) {}
-    // 删除contract
+    // 删除contract，支持* *删除全部合约
     rpc DeleteContract(BfDeleteContractReq) returns (bfgateway.BfVoid) {}
-*/    
+    
+    // 重置数据库
+    rpc CleanAll(bfgateway.BfVoid) returns (bfgateway.BfVoid) {}
 }
 
 //============================

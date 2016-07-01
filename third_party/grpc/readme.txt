@@ -7,13 +7,15 @@ by和哥 2015-2016
 1 下载grpc的代码
 https://github.com/grpc/grpc/blob/master/INSTALL.md
 git clone https://github.com/grpc/grpc.git
-修改gitmodule里面的borningssl到github.com/google/borningssl.git
+git checkout release-0_15
+//修改gitmodule里面的borningssl到github.com/google/borningssl.git
 cd grpc
 git submodule update --init
 
 2 编译x64 release
 https://github.com/grpc/grpc/blob/master/vsprojects/README.md
-用vs2015打开grpc.sln，修改为MD，编译x64+release
+//用vs2015打开grpc.sln，修改为MD，编译x64+release
+用vs2015打开grpc.sln，修改为MD，编译x32+release/debug (grpc++_unsecure.lib)
 
 3 安装cmake
 http://www.cmake.org/
@@ -24,14 +26,17 @@ git clone -b release-1.7.0 https://github.com/google/googlemock.git gmock
 cd gmock
 git clone -b release-1.7.0 https://github.com/google/googletest.git gtest
 cd ..\cmake
-cmake -G "Visual Studio 14 2015 Win64"
-用vs2015打开protobuf.sln，修改为MD，编译x64+release
+//cmake -G "Visual Studio 14 2015 Win64"
+//用vs2015打开protobuf.sln，修改为MD，编译x64+release
+在vs2015本机x86编译器Commnd窗口下
+cmake -G "Visual Studio 14 2015"
+用vs2015打开protobuf.sln，修改为MD，编译x32+release/debug(protoc.exe)
 
 5 编译grpc c++/plugin插件
-用vs2015打开protobuf.slnvsprojects\grpc_protoc_plugins.sln，修改为MD，编译x64+release
+//用vs2015打开vsprojects\grpc_protoc_plugins.sln，修改为MD，编译x64+release
+用vs2015打开vsprojects\grpc_protoc_plugins.sln，修改为MD，编译x32+release
 grpc_python_plugin.exe
 grpc_cpp_plugin.exe
-protoc.exe
 
 构造c++ sdk
 ======
@@ -41,8 +46,10 @@ protoc.exe
 4. 拷贝protobuf的lib+bin到C:\projects\bftrader\third_party\grpc\lib+bin
 5. 拷贝zlib的include+lib+bin到C:\projects\bftrader\third_party\grpc\include+lib+bin
 zlib所在的目录：
-vsprojects\packages\grpc.dependencies.zlib.1.2.8.10\build\native\lib\v140\x64\Release\dynamic\stdcall
-vsprojects\packages\grpc.dependencies.zlib.redist.1.2.8.10\build\native\bin\v140\x64\Release\dynamic\stdcall
+//vsprojects\packages\grpc.dependencies.zlib.1.2.8.10\build\native\lib\v140\x64\Release\dynamic\stdcall
+//vsprojects\packages\grpc.dependencies.zlib.redist.1.2.8.10\build\native\bin\v140\x64\Release\dynamic\stdcall
+vsprojects\packages\grpc.dependencies.zlib.1.2.8.10\build\native\lib\v140\win32\Release\dynamic\cdecl
+vsprojects\packages\grpc.dependencies.zlib.redist.1.2.8.10\build\native\bin\v140\win32\Release\dynamic\cdecl
 
 安装python sdk
 ======

@@ -6,10 +6,11 @@
 class QThread;
 class Logger;
 class Profile;
-class GatewayMgr;
 class DbService;
-class RpcService;
 class PushService;
+class RpcService;
+class GatewayMgr;
+class CtaMgr;
 
 class ServiceMgr : public QObject {
     Q_OBJECT
@@ -23,10 +24,10 @@ public:
         EXTERNAL, // threadpool
         MAIN, // main
         DB, // database
-        IO, // file
         PUSH, // network-->
         RPC, // network<--
-        LOGIC // logic,eg.gatewaymgr
+        BLOGIC, // backend logic,eg.gatewaymgr
+        FLOGIC, // frontend logic,eg.ctamgr
     };
     QThread* getThread(ThreadType p);
     bool isCurrentOn(ThreadType p);
@@ -34,23 +35,24 @@ public:
 
     Logger* logger();
     Profile* profile();
-    GatewayMgr* gatewayMgr();
     DbService* dbService();
-    RpcService* rpcService();
     PushService* pushService();
+    RpcService* rpcService();
+    GatewayMgr* gatewayMgr();
+    CtaMgr* ctaMgr();
 
 private slots:
     void dbThreadStarted();
-    void ioThreadStarted();
     void pushThreadStarted();
     void rpcThreadStarted();
-    void logicThreadStarted();
+    void blogicThreadStarted();
+    void flogicThreadStarted();
 
     void dbThreadFinished();
-    void ioThreadFinished();
     void pushThreadFinished();
     void rpcThreadFinished();
-    void logicThreadFinished();
+    void blogicThreadFinished();
+    void flogicThreadFinished();
 
 private:
     void check();
@@ -58,17 +60,18 @@ private:
 private:
     QThread* main_thread_ = nullptr;
     QThread* db_thread_ = nullptr;
-    QThread* io_thread_ = nullptr;
     QThread* push_thread_ = nullptr;
     QThread* rpc_thread_ = nullptr;
-    QThread* logic_thread_ = nullptr;
+    QThread* blogic_thread_ = nullptr;
+    QThread* flogic_thread_ = nullptr;
 
     Logger* logger_ = nullptr;
     Profile* profile_ = nullptr;
-    GatewayMgr* gatewayMgr_ = nullptr;
     DbService* dbService_ = nullptr;
-    RpcService* rpcService_ = nullptr;
     PushService* pushService_ = nullptr;
+    RpcService* rpcService_ = nullptr;
+    GatewayMgr* gatewayMgr_ = nullptr;
+    CtaMgr* ctaMgr_ = nullptr;
 
     bool shutdown_ = false;
     bool init_ = false;
@@ -76,12 +79,7 @@ private:
 
 extern ServiceMgr* g_sm;
 
-void BfError(const char* msg, ...);
-void BfInfo(const char* msg, ...);
-void BfDebug(const char* msg, ...);
-
-void BfError(QString msg);
-void BfInfo(QString msg);
-void BfDebug(QString msg);
+void BfLog(const char* msg, ...);
+void BfLog(QString msg);
 
 #endif // SERVICEMGR_H

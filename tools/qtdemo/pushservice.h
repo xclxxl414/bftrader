@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-//IO
+//PUSH
 class PushService : public QObject {
     Q_OBJECT
 public:

@@ -73,7 +73,7 @@ BfOffset translateOffset(char offset)
     case THOST_FTDC_OF_CloseYesterday:
         return OFFSET_CLOSEYESTERDAY;
     default:
-        BfDebug("invalid offset");
+        BfLog("invalid offset");
     }
     return OFFSET_UNKNOWN;
 }
@@ -87,7 +87,7 @@ BfDirection translateDirection(char direction)
     case THOST_FTDC_D_Sell:
         return DIRECTION_SHORT;
     default:
-        BfDebug("invalid direction");
+        BfLog("invalid direction");
     }
     return DIRECTION_UNKNOWN;
 }
@@ -103,7 +103,7 @@ BfDirection translatePosiDirection(char direction)
     case THOST_FTDC_PD_Short:
         return DIRECTION_SHORT;
     default:
-        BfDebug("invalid direction");
+        BfLog("invalid direction");
     }
     return DIRECTION_UNKNOWN;
 }
@@ -120,7 +120,7 @@ BfStatus translateStatus(char status)
     case THOST_FTDC_OST_Canceled:
         return STATUS_CANCELLED;
     default:
-        BfDebug("invalid status");
+        BfLog("invalid status");
     }
     return STATUS_UNKNOWN;
 }
@@ -131,7 +131,7 @@ BfProduct translateProduct(char product)
     case THOST_FTDC_PC_Futures:
         return PRODUCT_FUTURES;
     default:
-        BfDebug("invalid product");
+        BfLog("invalid product");
     }
 
     return PRODUCT_UNKNOWN;

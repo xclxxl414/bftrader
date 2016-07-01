@@ -44,6 +44,7 @@ void WorkingOrderForm::init()
 {
     // gatewaymgr
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &WorkingOrderForm::onGotOrder);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &WorkingOrderForm::onGotNotification);
 }
 
 void WorkingOrderForm::shutdown()
@@ -60,6 +61,46 @@ void WorkingOrderForm::onGotOrder(const BfOrderData& newOrder)
         }
     } else {
         orders_[newKey] = newOrder;
+    }
+
+    updateUI();
+}
+
+void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
+{
+    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection);
+}
+
+void WorkingOrderForm::on_pushButtonCancelAll_clicked()
+{
+    for (auto order : orders_) {
+        BfCancelOrderReq req;
+        req.set_symbol(order.symbol());
+        req.set_exchange(order.exchange());
+        req.set_bforderid(order.bforderid());
+
+        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
+    }
+}
+
+void WorkingOrderForm::onGotNotification(const BfNotificationData& note)
+{
+    if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
+        BfLog("NOTIFICATION_BEGINQUERYORDERS");
+        orders_.clear();
+        querying_ = true;
+    } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
+        BfLog("NOTIFICATION_ENDQUERYORDERS");
+        querying_ = false;
+
+        updateUI();
+    }
+}
+
+void WorkingOrderForm::updateUI()
+{
+    if (querying_) {
+        return;
     }
 
     // 更新界面=
@@ -106,22 +147,5 @@ void WorkingOrderForm::onGotOrder(const BfOrderData& newOrder)
             QTableWidgetItem* item = new QTableWidgetItem(str_val);
             ui->tableWidget->setItem(row, i, item);
         }
-    }
-}
-
-void WorkingOrderForm::on_pushButtonQueryOrders_clicked()
-{
-    QMetaObject::invokeMethod(g_sm->gatewayMgr(), "queryOrders", Qt::QueuedConnection);
-}
-
-void WorkingOrderForm::on_pushButtonCancelAll_clicked()
-{
-    for (auto order : orders_) {
-        BfCancelOrderReq req;
-        req.set_symbol(order.symbol());
-        req.set_exchange(order.exchange());
-        req.set_bforderid(order.bforderid());
-
-        QMetaObject::invokeMethod(g_sm->gatewayMgr(), "cancelOrder", Qt::QueuedConnection, Q_ARG(BfCancelOrderReq, req));
     }
 }

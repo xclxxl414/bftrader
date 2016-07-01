@@ -101,7 +101,7 @@ static void myMessageHandler(QtMsgType type, const QMessageLogContext& context, 
 {
 #ifndef _DEBUG
     if (type == QtFatalMsg && g_logger) {
-        g_logger->info(msg);
+        g_logger->log(msg);
         __debugbreak();
     }
 #endif
@@ -135,7 +135,7 @@ void Logger::init()
     mkDir(logFileName);
     log_.setFileName(logFileName);
     log_.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append | QIODevice::Unbuffered);
-    this->debug(__FUNCTION__);
+    this->log(__FUNCTION__);
     g_logger = this;
 
     preMessageHandler = qInstallMessageHandler(myMessageHandler);
@@ -143,16 +143,16 @@ void Logger::init()
 
 void Logger::shutdown()
 {
-    this->debug(__FUNCTION__);
+    this->log(__FUNCTION__);
     qInstallMessageHandler(nullptr);
     g_logger = nullptr;
     log_.close();
 }
 
-void Logger::error(QString msg)
+void Logger::log(QString msg)
 {
-    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
-    QString logToFile = when + QStringLiteral("<error>") + msg + QStringLiteral("\n");
+    QString when = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+    QString logToFile = when + QStringLiteral("<log>") + msg + QStringLiteral("\n");
 
     // write to file
     mutex_.lock();
@@ -161,35 +161,5 @@ void Logger::error(QString msg)
     mutex_.unlock();
 
     // dispatch...
-    emit gotError(when, msg);
-}
-
-void Logger::info(QString msg)
-{
-    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
-    QString logToFile = when + QStringLiteral("<info>") + msg + QStringLiteral("\n");
-
-    // write to file
-    mutex_.lock();
-    log_.write(logToFile.toUtf8().constData());
-    log_.flush();
-    mutex_.unlock();
-
-    // dispatch...
-    emit gotInfo(when, msg);
-}
-
-void Logger::debug(QString msg)
-{
-    QString when = QDateTime::currentDateTime().toString("yyyyMMdd hh:mm:ss.zzz");
-    QString logToFile = when + QStringLiteral("<debug>") + msg + QStringLiteral("\n");
-
-    // write to file
-    mutex_.lock();
-    log_.write(logToFile.toUtf8().constData());
-    log_.flush();
-    mutex_.unlock();
-
-    // dispatch...
-    emit gotDebug(when, msg);
+    emit gotLog(when, msg);
 }

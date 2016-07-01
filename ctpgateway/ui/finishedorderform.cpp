@@ -1,66 +1,8 @@
 #include "finishedorderform.h"
+#include "ctputils.h"
 #include "servicemgr.h"
 #include "tablewidget_helper.h"
 #include "ui_finishedorderform.h"
-
-namespace {
-
-QString formatDirection(BfDirection direction)
-{
-    switch (direction) {
-    case DIRECTION_LONG:
-        return "long";
-    case DIRECTION_SHORT:
-        return "short";
-    case DIRECTION_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid directioni");
-    }
-
-    return "unknown";
-}
-
-QString formatOffset(BfOffset offset)
-{
-    switch (offset) {
-    case OFFSET_CLOSE:
-        return "close";
-    case OFFSET_CLOSETODAY:
-        return "closetoday";
-    case OFFSET_CLOSEYESTERDAY:
-        return "closeyesterday";
-    case OFFSET_OPEN:
-        return "open";
-    case OFFSET_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid offset");
-    }
-
-    return "unknown";
-}
-
-QString formatStatus(BfStatus status)
-{
-    switch (status) {
-    case STATUS_ALLTRADED:
-        return "alltraded";
-    case STATUS_CANCELLED:
-        return "cancelled";
-    case STATUS_NOTTRADED:
-        return "nottraced";
-    case STATUS_PARTTRADED:
-        return "parttraded";
-    case STATUS_UNKNOWN:
-        return "unknown";
-    default:
-        qFatal("invalid status");
-    }
-
-    return "unknown";
-}
-}
 
 FinishedOrderForm::FinishedOrderForm(QWidget* parent)
     : QWidget(parent)
@@ -102,6 +44,7 @@ void FinishedOrderForm::init()
 {
     // gatewaymgr
     QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotOrder, this, &FinishedOrderForm::onGotOrder);
+    QObject::connect(g_sm->gatewayMgr(), &GatewayMgr::gotNotification, this, &FinishedOrderForm::onGotNotification);
 }
 
 void FinishedOrderForm::shutdown()
@@ -114,6 +57,30 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
     QString newKey = newOrder.bforderid().c_str();
     if (newOrder.status() == STATUS_ALLTRADED || newOrder.status() == STATUS_CANCELLED) {
         orders_[newKey] = newOrder;
+    }
+
+    updateUI();
+}
+
+void FinishedOrderForm::onGotNotification(const BfNotificationData& note)
+{
+    if (note.type() == NOTIFICATION_BEGINQUERYORDERS) {
+        BfLog("NOTIFICATION_BEGINQUERYORDERS");
+        orders_.clear();
+        querying_ = true;
+
+    } else if (note.type() == NOTIFICATION_ENDQUERYORDERS) {
+        BfLog("NOTIFICATION_ENDQUERYORDERS");
+        querying_ = false;
+
+        updateUI();
+    }
+}
+
+void FinishedOrderForm::updateUI()
+{
+    if (querying_) {
+        return;
     }
 
     // 更新界面=
@@ -134,12 +101,12 @@ void FinishedOrderForm::onGotOrder(const BfOrderData& newOrder)
         vItem.insert("symbol", order.symbol().c_str());
         vItem.insert("exchange", order.exchange().c_str());
 
-        vItem.insert("direction", formatDirection(order.direction()));
-        vItem.insert("offset", formatOffset(order.offset()));
+        vItem.insert("direction", CtpUtils::formatDirection(order.direction()));
+        vItem.insert("offset", CtpUtils::formatOffset(order.offset()));
         vItem.insert("price", order.price());
         vItem.insert("totalVolume", order.totalvolume());
         vItem.insert("tradedVolume", order.tradedvolume());
-        vItem.insert("status", formatStatus(order.status()));
+        vItem.insert("status", CtpUtils::formatStatus(order.status()));
 
         vItem.insert("insertDate", order.insertdate().c_str());
         vItem.insert("insertTime", order.inserttime().c_str());

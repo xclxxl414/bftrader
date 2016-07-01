@@ -21,8 +21,12 @@ public:
 private slots:
     void onGotContracts(QStringList symbolsMy, QStringList symbolsAll);
     void onGotPosition(const BfPositionData& pos);
+    void onGotNotification(const BfNotificationData& note);
     void on_pushButtonQueryPosition_clicked();
     void on_pushButtonCloseAll_clicked();
+
+private:
+    void updateUI();
 
 private:
     Ui::PositionForm* ui;
@@ -31,6 +35,7 @@ private:
 
     QMap<QString, BfPositionData> positions_;
     QStringList symbols_my_;
+    bool querying_ = false;
 };
 
 #endif // POSITIONFORM_H
